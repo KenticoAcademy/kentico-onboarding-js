@@ -4,11 +4,14 @@
   "private": true,
   "devDependencies": {
     "@types/node": "^7.0.0",
+    "@types/jest": "^18.1.1",
+    "@types/react": "^15.0.0",
+    "@types/react-dom": "^0.14.20",
     "autoprefixer": "6.5.1",
     "awesome-typescript-loader": "^3.0.0-beta.18",
     "babel-core": "6.17.0",
     "babel-eslint": "7.1.1",
-    "babel-jest": "17.0.2",
+    "babel-jest": "^19.0.0",
     "babel-loader": "6.2.7",
     "babel-preset-react-app": "^2.0.1",
     "case-sensitive-paths-webpack-plugin": "1.1.4",
@@ -31,7 +34,7 @@
     "gzip-size": "3.0.0",
     "html-webpack-plugin": "2.24.0",
     "http-proxy-middleware": "0.17.2",
-    "jest": "17.0.2",
+    "jest": "^19.0.2",
     "json-loader": "0.5.4",
     "object-assign": "4.1.0",
     "path-exists": "2.1.0",
@@ -51,8 +54,6 @@
     "whatwg-fetch": "1.0.0"
   },
   "dependencies": {
-    "@types/react": "^15.0.0",
-    "@types/react-dom": "^0.14.20",
     "bootstrap": "^3.3.7",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
@@ -71,7 +72,7 @@
       "<rootDir>\\config\\polyfills.js"
     ],
     "testPathIgnorePatterns": [
-      "<rootDir>[/\\\\](build|docs|node_modules)[/\\\\]"
+      "<rootDir>[/\\\\](build|docs|node_modules|dist)[/\\\\]"
     ],
     "testEnvironment": "node",
     "testURL": "http://localhost",
