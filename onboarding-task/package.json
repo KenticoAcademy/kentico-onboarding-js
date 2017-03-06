@@ -55,16 +55,17 @@
     "@types/react-dom": "^0.14.20",
     "bootstrap": "^3.3.7",
     "react": "^15.4.2",
-    "react-dom": "^15.4.2"
+    "react-dom": "^15.4.2",
+    "ts-jest": "^19.0.0"
   },
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "test": "node scripts/test.js --env=jsdom"
+    "test": "node scripts/test.js --env=jsdom --no-cache"
   },
   "jest": {
     "collectCoverageFrom": [
-      "src/**/*.{js,jsx}"
+      "src/**/*.{js,jsx,ts,tsx}"
     ],
     "setupFiles": [
       "<rootDir>\\config\\polyfills.js"
@@ -75,12 +76,20 @@
     "testEnvironment": "node",
     "testURL": "http://localhost",
     "transform": {
+      "^.+\\.(ts|tsx)$": "<rootDir>\\node_modules\\ts-jest\\preprocessor.js",
       "^.+\\.(js|jsx)$": "<rootDir>/node_modules/babel-jest",
       "^.+\\.css$": "<rootDir>\\config\\jest\\cssTransform.js",
       "^(?!.*\\.(js|jsx|css|json)$)": "<rootDir>\\config\\jest\\fileTransform.js"
     },
     "transformIgnorePatterns": [
       "[/\\\\]node_modules[/\\\\].+\\.(js|jsx)$"
+    ],
+    "testRegex": "\\.(test)\\.(ts|tsx|js)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx"
     ],
     "moduleNameMapper": {
       "^react-native$": "react-native-web"
