@@ -46,7 +46,6 @@ describe('ItemsFlagReducer', () => {
 
   it('toggle edit flag after edit', () => {
     const id = 'da5cbf5f-2d20-4945-b8d2-4cc3b6be1542';
-    const createItem = createItemFactory(() => id);
     const state = Immutable.Map().set(
       id,
       new ItemFlags({
@@ -58,5 +57,34 @@ describe('ItemsFlagReducer', () => {
     const actualState = itemsFlagReducer(state, editItem(id, "value"));
 
     expect(actualState.getIn([id, 'editMode'])).toBeFalsy();
+  });
+
+  it('unknown action passed to reducer returns previous state', () => {
+    const id = 'da5cbf5f-2d20-4945-b8d2-4cc3b6be1542';
+    const state = Immutable.Map().set(
+      id,
+      new ItemFlags({
+        id,
+        editMode: true
+      })
+    );
+
+    let action = editItem(id, "value");
+    action.type = 'unknown action';
+    const actualState = itemsFlagReducer(state, action);
+
+    expect(actualState.getIn([id, 'editMode'])).toBeTruthy();
+  });
+
+  it('send undefined state, initializes state correctly', () => {
+    const id = 'da5cbf5f-2d20-4945-b8d2-4cc3b6be1542';
+    const createItem = createItemFactory(() => id);
+    const value = 'value';
+    const expectedState = Immutable.Map().set(id, new ItemFlags({ editMode: false }));
+
+    const actualState = itemsFlagReducer(undefined, createItem(value));
+
+    expect(actualState).toEqual(expectedState);
+    expect(actualState.has(id)).toBeTruthy();
   });
 });

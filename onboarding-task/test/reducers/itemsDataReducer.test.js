@@ -47,15 +47,52 @@ describe('itemsDataReducer', () => {
       id,
       value,
     });
-    const state = Immutable.Map().set(
+    const state = Immutable.Map();
+    const expectedState = state.set(
       id,
       item
     );
-    const expectedState = state.set(id, item);
 
     const actualState = itemsDataReducer(state, createItem(value));
 
     expect(actualState).toEqual(expectedState);
   });
 
+  it('unknown action passed to reducer returns previous state', () => {
+    const id = 'da5cbf5f-2d20-4945-b8d2-4cc3b6be1542';
+    const value = 'text';
+    const item = new Item({
+      id,
+      value,
+    });
+    const expectedState = Immutable.Map().set(
+      id,
+      item
+    );
+
+    let action = deleteItem(id);
+    action.type = 'unknown action';
+    const actualState = itemsDataReducer(expectedState, action);
+
+    expect(actualState).toEqual(expectedState);
+  });
+
+  it('send undefined state, initializes state correctly', () => {
+    const id = 'da5cbf5f-2d20-4945-b8d2-4cc3b6be1542';
+    const createItem = createItemFactory(() => id);
+    const value = 'text';
+    const item = new Item({
+      id,
+      value,
+    });
+    const expectedState = Immutable.Map().set(
+      id,
+      item
+    );
+
+    const actualState = itemsDataReducer(undefined, createItem(value));
+
+    expect(actualState).toEqual(expectedState);
+    expect(actualState.has(id)).toBeTruthy();
+  });
 });
