@@ -44,4 +44,4 @@ function mapDispatchToProps(dispatch: Dispatch, ownProps: IListItemContainerProp
 
 const ListItemContainer: React.ComponentClass<IListItemContainerProps> = connect(mapStateToProps, mapDispatchToProps)(ListItem);
 
-export { ListItemContainer as ListItem }
+export { ListItemContainer as ListItem, constructViewModel }
