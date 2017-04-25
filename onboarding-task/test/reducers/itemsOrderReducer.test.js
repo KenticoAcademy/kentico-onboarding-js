@@ -9,19 +9,20 @@ describe('itemsOrderReducer', () => {
   const stateWithItem = Immutable.OrderedSet().add(id);
   const unknownAction = { type: 'unknown action' };
 
-  it('delete item for given id', () => {
+  it('delete item with given id', () => {
     const actualState = itemsOrderReducer(stateWithItem, deleteItem(id));
 
     expect(actualState !== stateWithItem).toBeTruthy();
     expect(actualState.has(id)).toBeFalsy();
   });
 
-  it('create item for given id', () => {
-    const createItem = createItemFactory(() => id);
+  it('create item in itemsOrder', () => {
+    const ueid = '2235d270-3918-48d9-95f7-a1b0ef008126';
+    const createItem = createItemFactory(() => ueid);
 
     const actualState = itemsOrderReducer(undefined, createItem('value'));
 
-    expect(actualState.has(id)).toBeTruthy();
+    expect(actualState.has(ueid)).toBeTruthy();
   });
 
   it('unknown action passed to reducer returns previous state', () => {

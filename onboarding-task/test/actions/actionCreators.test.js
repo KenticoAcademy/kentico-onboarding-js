@@ -3,11 +3,14 @@ import { CREATE_ITEM, DELETE_ITEM, EDIT_ITEM, TOGGLE_ITEM_VIEW_MODE } from '../.
 import { createItemFactory } from '../../src/actions/createItemFactory';
 
 describe('actionCreators', () => {
+  const id = 'da5cbf5f-2d20-4945-b8d2-4cc3b6be1542';
+  const ueid = '2235d270-3918-48d9-95f7-a1b0ef008126';
+  const value = 'value';
+
   it('deleteItem creates correct action', () => {
-    const id = 'da5cbf5f-2d20-4945-b8d2-4cc3b6be1542';
     const expectedAction = {
       type: DELETE_ITEM,
-      payload: { id: id },
+      payload: { id },
     };
 
     const actualAction = deleteItem(id);
@@ -16,12 +19,10 @@ describe('actionCreators', () => {
   });
 
   it('createItem creates correct action', () => {
-    const id = 'da5cbf5f-2d20-4945-b8d2-4cc3b6be1542';
-    const createItem = createItemFactory(() => id);
-    const value = 'value';
+    const createItem = createItemFactory(() => ueid);
     const expectedAction = {
       type: CREATE_ITEM,
-      payload: { id, value },
+      payload: { ueid, value },
     };
 
     const actualAction = createItem(value);
@@ -30,8 +31,6 @@ describe('actionCreators', () => {
   });
 
   it('editItem creates correct action', () => {
-    const id = 'da5cbf5f-2d20-4945-b8d2-4cc3b6be1542';
-    const value = 'value';
     const expectedAction = {
       type: EDIT_ITEM,
       payload: { id, value },
@@ -43,7 +42,6 @@ describe('actionCreators', () => {
   });
 
   it('toggleItemViewMode creates correct action', () => {
-    const id = 'da5cbf5f-2d20-4945-b8d2-4cc3b6be1542';
     const expectedAction = {
       type: TOGGLE_ITEM_VIEW_MODE,
       payload: { id },

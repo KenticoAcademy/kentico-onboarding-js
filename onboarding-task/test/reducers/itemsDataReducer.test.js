@@ -8,11 +8,13 @@ import { itemsDataReducer } from '../../src/reducers/itemsDataReducer';
 
 describe('itemsDataReducer', () => {
   const id = 'da5cbf5f-2d20-4945-b8d2-4cc3b6be1542';
+  const ueid = '2235d270-3918-48d9-95f7-a1b0ef008126';
   const value = 'text before';
   const stateWithItem = Immutable.Map().set(
     id,
     new Item({
       id,
+      ueid,
       value
     })
   );
@@ -34,11 +36,19 @@ describe('itemsDataReducer', () => {
   });
 
   it('create new item', () => {
-    const createItem = createItemFactory(() => id);
+    const createItem = createItemFactory(() => ueid);
+    const expectedState = Immutable.Map().set(
+      ueid,
+      new Item({
+        id: "",
+        ueid,
+        value
+      })
+    );
 
     const actualState = itemsDataReducer(undefined, createItem(value));
 
-    expect(actualState).toEqual(stateWithItem);
+    expect(actualState).toEqual(expectedState);
   });
 
   it('unknown action passed to reducer returns previous state', () => {

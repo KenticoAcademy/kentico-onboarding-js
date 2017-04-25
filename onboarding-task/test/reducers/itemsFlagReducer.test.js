@@ -31,11 +31,12 @@ describe('ItemsFlagReducer', () => {
   });
 
   it('create flag for given id', () => {
-    const createItem = createItemFactory(() => id);
+    const ueid = '2235d270-3918-48d9-95f7-a1b0ef008126';
+    const createItem = createItemFactory(() => ueid);
 
     const actualState = itemsFlagReducer(undefined, createItem("some value"));
 
-    expect(actualState.has(id)).toBeTruthy();
+    expect(actualState.has(ueid)).toBeTruthy();
   });
 
   it('toggle edit flag after edit', () => {
