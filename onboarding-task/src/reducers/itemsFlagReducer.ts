@@ -20,7 +20,7 @@ const itemsFlagReducer = (state = Map<string, ItemFlags>(),
       return state.set(action.payload.id, itemFlagsReducer(state.get(action.payload.id), action));
 
     case CREATE_ITEM:
-      return state.set(action.payload.id, itemFlagsReducer(new ItemFlags(), action));
+      return state.set(action.payload.ueid, itemFlagsReducer(new ItemFlags(), action));
 
     case DELETE_ITEM:
       return state.delete(action.payload.id);

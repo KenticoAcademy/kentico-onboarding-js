@@ -10,7 +10,7 @@ const itemsOrderReducer = (state = OrderedSet<string>(),
       return state.delete(action.payload.id);
 
     case CREATE_ITEM:
-      return state.add(action.payload.id);
+      return state.add(action.payload.ueid);
 
     case RECEIVE_ITEMS:
       return OrderedSet<string>(

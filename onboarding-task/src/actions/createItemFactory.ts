@@ -3,7 +3,7 @@ import { CREATE_ITEM } from './actionTypes';
 const createItem = (value: string, generateId: () => string) => ({
   type: CREATE_ITEM,
   payload: {
-    id: generateId(),
+    ueid: generateId(),
     value,
   }
 });

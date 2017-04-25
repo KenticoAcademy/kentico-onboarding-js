@@ -14,13 +14,13 @@ const itemsDataReducer = (state = Map<string, Item>(),
       return state.set(action.payload.id, itemReducer(state.get(action.payload.id), action));
 
     case CREATE_ITEM:
-      return state.set(action.payload.id, itemReducer(new Item(), action));
+      return state.set(action.payload.ueid, itemReducer(new Item(), action));
 
     case DELETE_ITEM:
       return state.delete(action.payload.id);
 
     case RECEIVE_ITEMS:
-      return  Map<string, Item>(
+      return Map<string, Item>(
         action.payload.items
         .map((item: any) => [item.id, itemReducer(new Item(), createReceivedItem(item))])
       );

@@ -8,8 +8,13 @@ const itemFlagsReducer = (state = new ItemFlags(),
     case EDIT_ITEM:
       return state.set('editMode', false) as ItemFlags;
 
-    case RECEIVE_ITEMS:
     case CREATE_ITEM:
+      return new ItemFlags({
+        ueid: action.payload.ueid,
+        editMode: false
+      });
+
+    case RECEIVE_ITEMS:
       return new ItemFlags({
         id: action.payload.id,
         editMode: false

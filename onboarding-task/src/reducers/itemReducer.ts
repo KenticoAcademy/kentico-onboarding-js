@@ -10,13 +10,14 @@ const itemReducer = (state = new Item(),
 
     case CREATE_ITEM:
       return new Item({
-        id: action.payload.id,
+        ueid: action.payload.ueid,
         value: action.payload.value,
       });
 
     case RECEIVE_ITEMS:
       const item = new Item({
         id: action.payload.item.id,
+        ueid: action.payload.item.ueid,
         value: action.payload.item.value,
       });
       return item;
