@@ -1,7 +1,12 @@
-import { TOGGLE_ITEM_VIEW_MODE, EDIT_ITEM, DELETE_ITEM } from './actionTypes';
+import 'isomorphic-fetch';
+import { TOGGLE_ITEM_VIEW_MODE, EDIT_ITEM, DELETE_ITEM, REQUEST_ITEMS, RECEIVE_ITEMS } from './actionTypes';
 import { generateGuid } from '../utils/generateGuid';
 import { createItemFactory } from './createItemFactory';
 import { IAction } from './IAction';
+import * as fetch from 'isomorphic-fetch';
+import { Item } from '../models/Item';
+
+const createItemWithDependencies = createItemFactory(generateGuid);
 
 const deleteItem = (id: string): IAction => ({
   type: DELETE_ITEM,
@@ -18,6 +23,40 @@ const toggleItemViewMode = (id: string): IAction => ({
   payload: { id },
 });
 
-const createItemWithDependencies = createItemFactory(generateGuid);
+const requestItems = () => ({
+  type: REQUEST_ITEMS,
+});
 
-export { createItemWithDependencies as createItem, deleteItem, editItem, toggleItemViewMode };
+const receiveItems = (json: any): IAction => ({
+  type: RECEIVE_ITEMS,
+  payload: {
+    items: json.map((item: Item) => item as Item),
+  },
+});
+
+const createReceivedItem = (item : Item) => ({
+  type: RECEIVE_ITEMS,
+  payload: {
+    item,
+  }
+});
+
+const fetchItems = () => {
+  return (dispatch: any) => {
+    dispatch(requestItems());
+    return fetch('api/v1/Items/')
+      .then((response: any) => response.json())
+      .then((json: any) => dispatch(receiveItems(json)))
+  }
+};
+
+export {
+  createItemWithDependencies as createItem,
+  deleteItem,
+  editItem,
+  toggleItemViewMode,
+  requestItems,
+  receiveItems,
+  fetchItems,
+  createReceivedItem
+};
