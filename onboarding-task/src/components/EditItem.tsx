@@ -28,7 +28,7 @@ class EditItem extends React.PureComponent<IEditItemProps, IEditItemState> {
     this.state = { inputValue: this.props.value };
   }
 
-  _inputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  _inputChange = (event: any) => {
     this.setState({ inputValue: event.target.value });
   };
 
