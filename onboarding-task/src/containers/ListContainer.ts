@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { IAppState } from '../stores/IAppState';
 import { IListCallbacksProps, IListDataProps, List } from '../components/List';
 import { Dispatch } from '../stores/Dispatch';
-import { createItem } from '../actions/actionCreators';
+import { postItem } from '../actions/actionCreators';
 
 function mapStateToProps(state: IAppState): IListDataProps {
   return {
@@ -14,7 +14,7 @@ function mapStateToProps(state: IAppState): IListDataProps {
 
 function mapDispatchToProps(dispatch: Dispatch): IListCallbacksProps {
   return {
-    onAddItem: (value: string) => dispatch(createItem(value)),
+    onAddItem: (value: string) => dispatch(postItem(value)),
   };
 }
 
