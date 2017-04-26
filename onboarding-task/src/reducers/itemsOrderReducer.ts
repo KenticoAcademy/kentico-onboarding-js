@@ -1,7 +1,7 @@
 import { OrderedSet } from 'immutable';
 
 import { IAction } from '../actions/IAction';
-import { CREATE_ITEM, DELETE_ITEM, RECEIVE_ITEMS } from '../actions/actionTypes';
+import { CREATE_ITEM, DELETE_ITEM, RECEIVE_ITEM_CREATED, RECEIVE_ITEMS } from '../actions/actionTypes';
 
 const itemsOrderReducer = (state = OrderedSet<string>(),
                            action: IAction,) => {
@@ -17,6 +17,11 @@ const itemsOrderReducer = (state = OrderedSet<string>(),
         action.payload.items
           .map((item: any) => item.id)
       );
+
+    case RECEIVE_ITEM_CREATED:
+      return state
+        .delete(action.payload.item.ueid)
+        .add(action.payload.item.id);
 
     default:
       return state;

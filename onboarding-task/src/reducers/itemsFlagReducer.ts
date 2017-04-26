@@ -4,7 +4,7 @@ import { IAction } from '../actions/IAction';
 import {
   CREATE_ITEM,
   DELETE_ITEM,
-  EDIT_ITEM,
+  EDIT_ITEM, RECEIVE_ITEM_CREATED,
   RECEIVE_ITEMS,
   TOGGLE_ITEM_VIEW_MODE
 } from '../actions/actionTypes';
@@ -30,6 +30,12 @@ const itemsFlagReducer = (state = Map<string, ItemFlags>(),
         action.payload.items
           .map((item: Item) => [item.id, itemFlagsReducer(new ItemFlags(), action) as ItemFlags])
       );
+
+    case RECEIVE_ITEM_CREATED:
+      const itemFlags = itemFlagsReducer(new ItemFlags(), action);
+      return state
+        .delete(action.payload.item.guid)
+        .set(action.payload.item.id, itemFlags);
 
     default:
       return state;

@@ -2,7 +2,7 @@ import { Map } from 'immutable';
 
 import { IAction } from '../actions/IAction';
 import { Item } from '../models/Item';
-import { CREATE_ITEM, DELETE_ITEM, EDIT_ITEM, RECEIVE_ITEMS } from '../actions/actionTypes';
+import { CREATE_ITEM, DELETE_ITEM, EDIT_ITEM, RECEIVE_ITEM_CREATED, RECEIVE_ITEMS } from '../actions/actionTypes';
 import { itemReducer } from './itemReducer';
 import { createReceivedItem } from '../actions/actionCreators';
 
@@ -24,6 +24,11 @@ const itemsDataReducer = (state = Map<string, Item>(),
         action.payload.items
         .map((item: any) => [item.id, itemReducer(new Item(), createReceivedItem(item))])
       );
+
+    case RECEIVE_ITEM_CREATED:
+      return state
+        .delete(action.payload.item.ueid)
+        .set(action.payload.item.id, itemReducer(new Item(), action));
 
     default:
       return state;

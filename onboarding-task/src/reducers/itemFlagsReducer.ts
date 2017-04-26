@@ -1,5 +1,11 @@
 import { IAction } from '../actions/IAction';
-import { CREATE_ITEM, EDIT_ITEM, RECEIVE_ITEMS, TOGGLE_ITEM_VIEW_MODE } from '../actions/actionTypes';
+import {
+  CREATE_ITEM,
+  EDIT_ITEM,
+  RECEIVE_ITEM_CREATED,
+  RECEIVE_ITEMS,
+  TOGGLE_ITEM_VIEW_MODE
+} from '../actions/actionTypes';
 import { ItemFlags } from '../models/ItemFlags';
 
 const itemFlagsReducer = (state = new ItemFlags(),
@@ -10,13 +16,12 @@ const itemFlagsReducer = (state = new ItemFlags(),
 
     case CREATE_ITEM:
       return new ItemFlags({
-        ueid: action.payload.ueid,
         editMode: false
       });
 
     case RECEIVE_ITEMS:
-      return new ItemFlags({
-        id: action.payload.id,
+    case RECEIVE_ITEM_CREATED:
+    return new ItemFlags({
         editMode: false
       });
 

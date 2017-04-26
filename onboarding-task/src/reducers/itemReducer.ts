@@ -1,6 +1,6 @@
 import { IAction } from '../actions/IAction';
 import { Item } from '../models/Item';
-import { CREATE_ITEM, EDIT_ITEM, RECEIVE_ITEMS } from '../actions/actionTypes';
+import { CREATE_ITEM, EDIT_ITEM, RECEIVE_ITEM_CREATED, RECEIVE_ITEMS } from '../actions/actionTypes';
 
 const itemReducer = (state = new Item(),
                      action: IAction,) => {
@@ -14,13 +14,13 @@ const itemReducer = (state = new Item(),
         value: action.payload.value,
       });
 
+    case RECEIVE_ITEM_CREATED:
     case RECEIVE_ITEMS:
-      const item = new Item({
+      return new Item({
         id: action.payload.item.id,
         ueid: action.payload.item.ueid,
         value: action.payload.item.value,
       });
-      return item;
 
     default:
       return state;
