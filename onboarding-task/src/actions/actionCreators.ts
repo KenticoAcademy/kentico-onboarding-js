@@ -11,9 +11,11 @@ import { IAction } from './IAction';
 import * as fetch from 'isomorphic-fetch';
 import { Item } from '../models/Item';
 import { postItemFactory } from './postItemFactory';
+import { receiveErrorFactory } from './receiveErrorFactory';
 
 const fetchItemsWithDependencies = fetchItemsFactory(fetch);
 const postItemWithDependencies = postItemFactory(fetch)(generateGuid);
+const receiveErrorWithDependencies = receiveErrorFactory(generateGuid);
 
 const deleteItem = (id: string): IAction => ({
   type: DELETE_ITEM,
@@ -32,16 +34,15 @@ const toggleItemViewMode = (id: string): IAction => ({
 
 const createReceivedItem = (item : Item) => ({
   type: RECEIVE_ITEMS,
-  payload: {
-    item,
-  }
+  payload: { item },
 });
 
 export {
   deleteItem,
   editItem,
   toggleItemViewMode,
+  createReceivedItem,
   fetchItemsWithDependencies as fetchItems,
   postItemWithDependencies as postItem,
-  createReceivedItem,
+  receiveErrorWithDependencies as receiveError,
 };

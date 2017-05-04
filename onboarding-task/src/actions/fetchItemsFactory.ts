@@ -3,6 +3,7 @@ import { Fetch } from './Fetch';
 import { Dispatch } from '../stores/Dispatch';
 import { IAction } from './IAction';
 import { Item } from '../models/Item';
+import { receiveError } from './actionCreators';
 
 const requestItems = () => ({
   type: REQUEST_ITEMS,
@@ -22,6 +23,7 @@ const fetchItems = (fetchData: Fetch) => {
     return fetchData('api/v1/Items/')
       .then((response: Response) => response.json())
       .then((json: JSON) => dispatch(receiveItems(json)))
+      .catch((error: Error) => receiveError(error))
   }
 };
 
