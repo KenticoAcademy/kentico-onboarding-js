@@ -2,21 +2,22 @@ import * as Immutable from 'immutable';
 
 import { Item } from '../../src/models/Item.ts';
 import { editItem, deleteItem } from '../../src/actions/actionCreators';
-import { createItemFactory } from '../../src/actions/createItemFactory';
 import { itemsDataReducer } from '../../src/reducers/itemsDataReducer';
+import { createItem } from '../../src/actions/postItemFactory';
 
 
 describe('itemsDataReducer', () => {
   const id = 'da5cbf5f-2d20-4945-b8d2-4cc3b6be1542';
   const ueid = '2235d270-3918-48d9-95f7-a1b0ef008126';
   const value = 'text before';
+  const item = new Item({
+    id,
+    ueid,
+    value
+  });
   const stateWithItem = Immutable.Map().set(
     id,
-    new Item({
-      id,
-      ueid,
-      value
-    })
+    item
   );
   const unknownAction = { type: 'unknown action' };
 
@@ -35,8 +36,7 @@ describe('itemsDataReducer', () => {
     expect(actualState.has(id)).toBeFalsy();
   });
 
-  it('create new item', () => {
-    const createItem = createItemFactory(() => ueid);
+  it('create new item after createItem action', () => {
     const expectedState = Immutable.Map().set(
       ueid,
       new Item({
@@ -46,7 +46,7 @@ describe('itemsDataReducer', () => {
       })
     );
 
-    const actualState = itemsDataReducer(undefined, createItem(value));
+    const actualState = itemsDataReducer(undefined, createItem(item));
 
     expect(actualState).toEqual(expectedState);
   });
