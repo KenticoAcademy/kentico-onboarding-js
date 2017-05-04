@@ -4,11 +4,11 @@ import { Dispatch } from '../stores/Dispatch';
 import { CREATE_ITEM, RECEIVE_ITEM_CREATED } from './actionTypes';
 import { Item } from '../models/Item';
 
-const postItem = (value: string, fetchData: Fetch, generateId: () => string) => {
+const postItem = (value: string, fetch: Fetch, generateId: () => string) => {
   return (dispatch: Dispatch): Promise<IAction> => {
     const item = new Item({ ueid: generateId(), value });
     dispatch(createItem(item));
-    return fetchData('api/v1/Items/',
+    return fetch('api/v1/Items/',
       {
         method: "POST",
         headers: {
@@ -17,8 +17,8 @@ const postItem = (value: string, fetchData: Fetch, generateId: () => string) => 
         },
         body: JSON.stringify({ ueid: item.ueid, value: item.value })
       })
-      .then((response: any) => response.json())
-      .then((json: any) => dispatch(receiveItemCreated(json)))
+      .then((response: Response) => response.json())
+      .then((json: Item) => dispatch(receiveItemCreated(json)))
   }
 };
 
@@ -30,7 +30,7 @@ const createItem = (item: Item) => ({
   }
 });
 
-const receiveItemCreated = (json: any): IAction => ({
+const receiveItemCreated = (json: Item): IAction => ({
   type: RECEIVE_ITEM_CREATED,
   payload: {
     item: json as Item,
@@ -41,4 +41,4 @@ const postItemFactory = (fetchData: Fetch) =>
   (generateId: () => string) =>
   (value: string) => postItem(value, fetchData, generateId);
 
-export { postItemFactory };
+export { postItemFactory, createItem };
