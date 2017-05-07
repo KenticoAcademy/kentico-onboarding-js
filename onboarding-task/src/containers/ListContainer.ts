@@ -18,6 +18,6 @@ function mapDispatchToProps(dispatch: Dispatch): IListCallbacksProps {
   };
 }
 
-const ListContainer: React.ComponentClass<{}> = connect(mapStateToProps, mapDispatchToProps)(List);
+const ListContainer: React.ComponentClass<any> = connect(mapStateToProps, mapDispatchToProps)(List);
 
 export { ListContainer as List };
