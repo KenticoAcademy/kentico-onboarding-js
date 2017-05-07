@@ -4,22 +4,22 @@ import { connect } from 'react-redux';
 import { fetchItems } from '../actions/actionCreators';
 import { IAppState } from '../stores/IAppState';
 import { Dispatch } from '../stores/Dispatch';
-import { ILoaderCallbacksProps, ILoaderDataProps, loader } from '../components/Loader';
+import { IListLoaderCallbacksProps, IListLoaderDataProps, loader } from '../components/Loader';
 import { List } from './ListContainer';
 
-function mapStateToProps(state: IAppState): ILoaderDataProps {
+function mapStateToProps(state: IAppState): IListLoaderDataProps {
   return {
     isLoading: state.isFetching,
   };
 }
 
-function mapDispatchToProps(dispatch: Dispatch): ILoaderCallbacksProps {
+function mapDispatchToProps(dispatch: Dispatch): IListLoaderCallbacksProps {
   return {
     load: () => dispatch(fetchItems()),
   };
 }
 
-const LoaderContainer: React.ComponentClass<ILoaderDataProps & ILoaderCallbacksProps>
+const ListLoaderContainer: React.ComponentClass<any>
   = connect(mapStateToProps, mapDispatchToProps)(loader(List));
 
-export { LoaderContainer };
+export { ListLoaderContainer };

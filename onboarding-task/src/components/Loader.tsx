@@ -19,7 +19,7 @@ const loader = (LoadingComponent: React.ComponentClass<IListLoaderDataProps & IL
 
     render() {
       if (this.props.isLoading) {
-        return (<div className="loader"/>);
+        return (<div><div className="loader" type="text/css" rel="stylesheet" href="../loader.css" />Loading... </div>);
       } else {
         return <LoadingComponent {...this.props} />;
       }
