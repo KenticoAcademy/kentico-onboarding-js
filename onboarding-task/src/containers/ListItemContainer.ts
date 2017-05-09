@@ -18,6 +18,7 @@ function constructViewModel(item: Item, flags: ItemFlags, index: number): IItemV
     id: item.id,
     value: item.value,
     isInEditMode: flags.editMode,
+    isSavedInDatabase: flags.isSavedInDatabase,
     index,
   }
 }

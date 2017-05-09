@@ -30,6 +30,7 @@ const ListItem: React.StatelessComponent<IListItemDataProps & IListItemCallbacks
     <ViewItem
       value={viewModel.value}
       index={viewModel.index}
+      isSavedInDatabase={viewModel.isSavedInDatabase}
       onClick={props.onViewChange}
     />
   );
