@@ -22,7 +22,8 @@ const itemFlagsReducer = (state = new ItemFlags(),
     case RECEIVE_ITEMS:
     case RECEIVE_ITEM_CREATED:
     return new ItemFlags({
-        editMode: false
+        editMode: false,
+        isSavedInDatabase: true,
       });
 
     case TOGGLE_ITEM_VIEW_MODE:

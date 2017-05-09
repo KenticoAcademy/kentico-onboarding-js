@@ -7,7 +7,7 @@ interface IItemFlags {
 
 const defaultValues: IItemFlags = {
   editMode: false,
-  isSavedInDatabase: true,
+  isSavedInDatabase: false,
 };
 
 class ItemFlags extends Record(defaultValues) implements IItemFlags {
