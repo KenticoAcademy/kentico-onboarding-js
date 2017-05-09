@@ -7,7 +7,7 @@ import { ErrorMessage } from '../models/ErrorMessage';
 interface IAppState {
   items: Immutable.Map<string, Item>;
   itemsOrder: Immutable.OrderedSet<string>;
-  itemsDisplayFlags: Immutable.Map<string, ItemFlags>;
+  itemsFlags: Immutable.Map<string, ItemFlags>;
   isFetching: boolean;
   errors: Immutable.OrderedMap<string, ErrorMessage>;
 };

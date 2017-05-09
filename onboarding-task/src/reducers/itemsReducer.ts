@@ -9,7 +9,7 @@ import { itemsErrorReducer } from './itemsErrorReducer';
 const itemsReducer = combineReducers({
   items: itemsDataReducer,
   itemsOrder: itemsOrderReducer,
-  itemsDisplayFlags: itemsFlagReducer,
+  itemsFlags: itemsFlagReducer,
   isFetching: itemsFetchReducer,
   errors: itemsErrorReducer,
 });
