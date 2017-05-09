@@ -4,11 +4,19 @@ interface IViewItemValidationProps {
   isSavedInDatabase: boolean;
 }
 
-const ViewItemValidation: React.StatelessComponent<IViewItemValidationProps> = (props) => (
-  <div className="text-center">
-  <span className="glyphicon glyphicon-floppy-saved"/>
-    </div>
-);
+const ViewItemValidation: React.StatelessComponent<IViewItemValidationProps> = (props) => {
+  if (props.isSavedInDatabase) {
+    return (
+      <span className="glyphicon glyphicon-floppy-saved"/>
+    );
+  }
+  else {
+    return (
+      <span className="glyphicon glyphicon-floppy-remove"/>
+    );
+  }
+
+};
 
 ViewItemValidation.displayName = 'ViewItemValidation';
 
