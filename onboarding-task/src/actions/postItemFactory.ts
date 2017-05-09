@@ -3,6 +3,7 @@ import { IAction } from './IAction';
 import { Dispatch } from '../stores/Dispatch';
 import { CREATE_ITEM, RECEIVE_ITEM_CREATED } from './actionTypes';
 import { Item } from '../models/Item';
+import { receivePostItemError } from './actionCreators';
 
 const postItem = (value: string, fetch: Fetch, generateId: () => string) => {
   return (dispatch: Dispatch): Promise<IAction> => {
@@ -19,6 +20,7 @@ const postItem = (value: string, fetch: Fetch, generateId: () => string) => {
       })
       .then((response: Response) => response.json())
       .then((json: Item) => dispatch(receiveItemCreated(json)))
+      .catch((error: Error) => receivePostItemError(error, item.ueid))
   }
 };
 
