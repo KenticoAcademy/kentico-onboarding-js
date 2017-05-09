@@ -21,13 +21,15 @@ const List: React.StatelessComponent<IListDataProps & IListCallbacksProps> = (pr
   );
 
   return (
-    <div className="col-sm-12 col-md-offset-2 col-md-8">
-      <ul className="list-group">
-        {itemsList}
-        <li className="list-group-item">
-          <AddItem onAdd={props.onAddItem}/>
-        </li>
-      </ul>
+    <div className="row">
+      <div className="col-sm-12 col-md-offset-2 col-md-8">
+        <ul className="list-group">
+          {itemsList}
+          <li className="list-group-item">
+            <AddItem onAdd={props.onAddItem}/>
+          </li>
+        </ul>
+      </div>
     </div>
   );
 };
