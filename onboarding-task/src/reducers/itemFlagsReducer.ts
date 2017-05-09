@@ -1,7 +1,7 @@
 import { IAction } from '../actions/IAction';
 import {
   CREATE_ITEM,
-  EDIT_ITEM,
+  EDIT_ITEM, ITEM_POST_FAILED,
   RECEIVE_ITEM_CREATED,
   RECEIVE_ITEMS,
   TOGGLE_ITEM_VIEW_MODE
@@ -27,6 +27,9 @@ const itemFlagsReducer = (state = new ItemFlags(),
 
     case TOGGLE_ITEM_VIEW_MODE:
       return state.updateIn(['editMode'], (actualValue => !actualValue)) as ItemFlags;
+
+    case ITEM_POST_FAILED:
+      return state.set('isSavedInDatabase', false) as ItemFlags;
 
     default:
       return state;

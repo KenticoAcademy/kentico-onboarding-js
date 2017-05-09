@@ -1,5 +1,5 @@
 import { IAction } from '../actions/IAction';
-import { RECEIVE_ITEMS, REQUEST_ITEMS } from '../actions/actionTypes';
+import { ITEMS_FETCHING_FAILED, RECEIVE_ITEMS, REQUEST_ITEMS } from '../actions/actionTypes';
 
 const itemsFetchReducer = (state = false,
                            action: IAction,) => {
@@ -7,6 +7,7 @@ const itemsFetchReducer = (state = false,
     case REQUEST_ITEMS:
       return true;
 
+    case ITEMS_FETCHING_FAILED:
     case RECEIVE_ITEMS:
       return false;
 
