@@ -1,5 +1,7 @@
 import * as React from 'react';
 import { IAction } from '../actions/IAction';
+import '../loader.css';
+
 
 interface IListLoaderDataProps {
   isLoading: boolean;
@@ -19,7 +21,21 @@ const loader = (LoadingComponent: React.ComponentClass<IListLoaderDataProps & IL
 
     render() {
       if (this.props.isLoading) {
-        return (<div><div className="loader" type="text/css" rel="stylesheet" href="../loader.css" />Loading... </div>);
+        return (
+          <div>
+            <div className="rainbow">
+              <span/>
+            </div>
+            <div className="nyan-cat">
+              <div className="feet"/>
+              <div className="tail">
+                <span/>
+              </div>
+              <div className="body"/>
+              <div className="head"/>
+            </div>
+          </div>
+        )
       } else {
         return <LoadingComponent {...this.props} />;
       }
