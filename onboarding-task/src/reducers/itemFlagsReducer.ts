@@ -2,14 +2,13 @@ import { IAction } from '../actions/IAction';
 import {
   CREATE_ITEM,
   EDIT_ITEM, ITEM_POST_FAILED,
-  RECEIVE_ITEM_CREATED,
-  RECEIVE_ITEMS,
+  ITEM_POST_SUCCESS,
+  ITEMS_FETCHING_SUCCESS,
   TOGGLE_ITEM_VIEW_MODE
 } from '../actions/actionTypes';
 import { ItemFlags } from '../models/ItemFlags';
 
-const itemFlagsReducer = (state = new ItemFlags(),
-                          action: IAction,) => {
+export const itemFlagsReducer = (state = new ItemFlags(), action: IAction): ItemFlags => {
   switch (action.type) {
     case EDIT_ITEM:
       return state.set('editMode', false) as ItemFlags;
@@ -19,8 +18,8 @@ const itemFlagsReducer = (state = new ItemFlags(),
         editMode: false
       });
 
-    case RECEIVE_ITEMS:
-    case RECEIVE_ITEM_CREATED:
+    case ITEMS_FETCHING_SUCCESS:
+    case ITEM_POST_SUCCESS:
     return new ItemFlags({
         editMode: false,
         isSavedInDatabase: true,
@@ -36,5 +35,3 @@ const itemFlagsReducer = (state = new ItemFlags(),
       return state;
   }
 };
-
-export { itemFlagsReducer };

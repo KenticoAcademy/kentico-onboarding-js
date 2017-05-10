@@ -3,7 +3,8 @@ import {
   TOGGLE_ITEM_VIEW_MODE,
   EDIT_ITEM,
   DELETE_ITEM,
-  RECEIVE_ITEMS, ITEM_POST_FAILED,
+  ITEMS_FETCHING_SUCCESS,
+  ITEM_POST_FAILED,
 } from './actionTypes';
 import { generateGuid } from '../utils/generateGuid';
 import { fetchItemsFactory } from './fetchItemsFactory';
@@ -32,18 +33,21 @@ const toggleItemViewMode = (id: string): IAction => ({
   payload: { id },
 });
 
-const createReceivedItem = (item : Item) => ({
-  type: RECEIVE_ITEMS,
+const createReceivedItem = (item: Item) => ({
+  type: ITEMS_FETCHING_SUCCESS,
   payload: { item },
 });
 
-const receivePostItemError = (error: Error, ueid: string): IAction => ({
+const receivePostItemErrorFactory = (generateId: () => string) => (error: Error, itemUeid: string): IAction => ({
   type: ITEM_POST_FAILED,
   payload: {
-    ueid: ueid,
+    id: generateId(),
+    itemUeid,
     message: error.message,
   },
 });
+
+const receivePostItemError = receivePostItemErrorFactory(generateGuid);
 
 export {
   deleteItem,

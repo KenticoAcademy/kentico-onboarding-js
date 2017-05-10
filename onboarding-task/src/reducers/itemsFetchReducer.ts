@@ -1,14 +1,17 @@
 import { IAction } from '../actions/IAction';
-import { ITEMS_FETCHING_FAILED, RECEIVE_ITEMS, REQUEST_ITEMS } from '../actions/actionTypes';
+import {
+  ITEMS_FETCHING_FAILED,
+  ITEMS_FETCHING_SUCCESS,
+  ITEMS_FETCHING_STARTED
+} from '../actions/actionTypes';
 
-const itemsFetchReducer = (state = false,
-                           action: IAction,) => {
+const itemsIsFetchingReducer = (state = false, action: IAction,) => {
   switch (action.type) {
-    case REQUEST_ITEMS:
+    case ITEMS_FETCHING_STARTED:
       return true;
 
     case ITEMS_FETCHING_FAILED:
-    case RECEIVE_ITEMS:
+    case ITEMS_FETCHING_SUCCESS:
       return false;
 
     default:
@@ -16,4 +19,4 @@ const itemsFetchReducer = (state = false,
   }
 };
 
-export { itemsFetchReducer };
+export { itemsIsFetchingReducer };
