@@ -1,6 +1,6 @@
 import { editItem, toggleItemViewMode, deleteItem } from '../../src/actions/actionCreators';
 import { CREATE_ITEM, DELETE_ITEM, EDIT_ITEM, TOGGLE_ITEM_VIEW_MODE, REQUEST_ITEMS, RECEIVE_ITEMS } from '../../src/actions/actionTypes';
-import { postItemFactory } from '../../src/actions/postItemFactory';
+import { postItemFactory, createItem } from '../../src/actions/postItemFactory';
 import { fetchItemsFactory } from '../../src/actions/fetchItemsFactory';
 
 import { Item } from '../../src/models/Item.ts';
@@ -27,14 +27,13 @@ describe('actionCreators', () => {
     expect(actualAction).toEqual(expectedAction);
   });
 
-  xit('createItem creates correct action', () => {
-    const createItem = createItemFactory(() => ueid);
+  it('createItem creates correct action', () => {
     const expectedAction = {
       type: CREATE_ITEM,
       payload: { ueid, value },
     };
 
-    const actualAction = createItem(value);
+    const actualAction = createItem(item);
 
     expect(actualAction).toEqual(expectedAction);
   });
@@ -61,11 +60,6 @@ describe('actionCreators', () => {
     expect(actualAction).toEqual(expectedAction);
   });
 
-  xit('fetchItems dispatches requestItems and receiveItems correctly, returns json', () =>{
-    const expected = fetchMock()
-      .then(response => response.json())
-  });
-
   // postItem tests
   it('postItem correctly creates item with given value and passes it to dispatch in first call',() => {
     const fetch = () => Promise.resolve(getItem);
@@ -80,7 +74,10 @@ describe('actionCreators', () => {
   });
 
   it('postItem correctly calls action with given item as a second call in dispatch', () => {
-    const fetch = () => Promise.resolve(getItem);
+    const fetch = () => ({
+      response: { ok: true },
+      then: () => Promise.resolve(item),
+    });
     const dispatch = jest.fn(action => action);
     const postItem = postItemFactory(fetch)(() => ueid);
 
@@ -129,7 +126,10 @@ describe('actionCreators', () => {
   });
 
   it('fetchItem dispatches receiveItems with correct argument', () => {
-    const fetch = () => Promise.resolve(getItem);
+    const fetch = () => ({
+      response: { ok: true },
+      then: () => Promise.resolve(item),
+    });
     const dispatch = jest.fn(action => action);
     const fetchItem = fetchItemsFactory(fetch)(() => ueid);
 

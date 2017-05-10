@@ -2,7 +2,8 @@ import * as Immutable from 'immutable';
 
 import { deleteItem } from '../../src/actions/actionCreators';
 import { itemsOrderReducer } from '../../src/reducers/itemsOrderReducer';
-import { createItemFactory } from '../../src/actions/createItemFactory';
+import { createItem } from '../../src/actions/postItemFactory';
+import { Item } from '../../src/models/Item';
 
 describe('itemsOrderReducer', () => {
   const id = 'da5cbf5f-2d20-4945-b8d2-4cc3b6be1542';
@@ -17,12 +18,11 @@ describe('itemsOrderReducer', () => {
   });
 
   it('create item in itemsOrder', () => {
-    const ueid = '2235d270-3918-48d9-95f7-a1b0ef008126';
-    const createItem = createItemFactory(() => ueid);
+    const item = new Item({ ueid: id, value: 'value' });
 
-    const actualState = itemsOrderReducer(undefined, createItem('value'));
+    const actualState = itemsOrderReducer(undefined, createItem(item));
 
-    expect(actualState.has(ueid)).toBeTruthy();
+    expect(actualState.has(id)).toBeTruthy();
   });
 
   it('unknown action passed to reducer returns previous state', () => {

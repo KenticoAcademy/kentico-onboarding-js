@@ -2,8 +2,9 @@ import * as Immutable from 'immutable';
 
 import { ItemFlags } from '../../src/models/ItemFlags.ts';
 import { toggleItemViewMode, deleteItem, editItem } from '../../src/actions/actionCreators';
-import { createItemFactory } from '../../src/actions/createItemFactory';
 import { itemsFlagReducer } from '../../src/reducers/itemsFlagReducer';
+import { createItem } from '../../src/actions/postItemFactory';
+import { Item } from '../../src/models/Item';
 
 describe('ItemsFlagReducer', () => {
   const id = 'da5cbf5f-2d20-4945-b8d2-4cc3b6be1542';
@@ -32,9 +33,8 @@ describe('ItemsFlagReducer', () => {
 
   it('create flag for given id', () => {
     const ueid = '2235d270-3918-48d9-95f7-a1b0ef008126';
-    const createItem = createItemFactory(() => ueid);
 
-    const actualState = itemsFlagReducer(undefined, createItem("some value"));
+    const actualState = itemsFlagReducer(undefined, createItem(new Item({ ueid })));
 
     expect(actualState.has(ueid)).toBeTruthy();
   });
