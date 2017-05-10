@@ -1,9 +1,19 @@
 import { editItem, toggleItemViewMode, deleteItem } from '../../src/actions/actionCreators';
-import { CREATE_ITEM, DELETE_ITEM, EDIT_ITEM, TOGGLE_ITEM_VIEW_MODE, REQUEST_ITEMS, RECEIVE_ITEMS } from '../../src/actions/actionTypes';
+import {
+  CREATE_ITEM,
+  DELETE_ITEM,
+  EDIT_ITEM,
+  TOGGLE_ITEM_VIEW_MODE,
+  ITEMS_FETCHING_STARTED,
+  ITEMS_FETCHING_SUCCESS,
+  ITEMS_FETCHING_FAILED
+} from '../../src/actions/actionTypes';
 import { postItemFactory, createItem } from '../../src/actions/postItemFactory';
 import { fetchItemsFactory } from '../../src/actions/fetchItemsFactory';
+import { receiveItemsFetchingErrorFactory } from '../../src/actions/receiveItemsFetchingErrorFactory';
 
 import { Item } from '../../src/models/Item.ts';
+import { ErrorMessage } from '../../src/models/ErrorMessage';
 
 describe('actionCreators', () => {
   const id = 'da5cbf5f-2d20-4945-b8d2-4cc3b6be1542';
@@ -61,7 +71,7 @@ describe('actionCreators', () => {
   });
 
   // postItem tests
-  it('postItem correctly creates item with given value and passes it to dispatch in first call',() => {
+  it('postItem correctly creates item with given value and passes it to dispatch in first call', () => {
     const fetch = () => Promise.resolve(getItem);
     const dispatch = jest.fn(action => action);
     const postItem = postItemFactory(fetch)(() => ueid);
@@ -121,7 +131,7 @@ describe('actionCreators', () => {
     const fetchItem = fetchItemsFactory(fetch)(() => ueid);
 
     return fetchItem(dispatch).then(() => {
-      return expect(dispatch.mock.calls[0][0].type).toEqual(REQUEST_ITEMS)
+      return expect(dispatch.mock.calls[0][0].type).toEqual(ITEMS_FETCHING_STARTED)
     });
   });
 
@@ -135,8 +145,23 @@ describe('actionCreators', () => {
 
     expect.assertions(2);
     return fetchItem(dispatch).then(() => {
-      return expect(dispatch.mock.calls[1][0].type).toEqual(RECEIVE_ITEMS)
+      return expect(dispatch.mock.calls[1][0].type).toEqual(ITEMS_FETCHING_SUCCESS)
         || expect(dispatch.mock.calls[1][0].payload.items).toEqual(item);
     });
   });
+
+  // receiveItemsFetchingError tests
+  it('receiveItemsFetchingErrorFactory creates correct action', () => {
+      const generateId = () => id;
+      const error = new ErrorMessage({ message: 'message' });
+
+      const receiveItemsFetchingError = receiveItemsFetchingErrorFactory(generateId)(error);
+
+      return expect(receiveItemsFetchingError.type).toEqual(ITEMS_FETCHING_FAILED)
+        || expect(receiveItemsFetchingError.payload).toEqual({
+          id: id,
+          message: 'message',
+        });
+    }
+  );
 });
