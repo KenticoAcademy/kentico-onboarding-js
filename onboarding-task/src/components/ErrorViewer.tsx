@@ -5,20 +5,16 @@ const ImmutablePropTypes = require('react-immutable-proptypes');
 import { ErrorMessage } from '../models/ErrorMessage';
 
 interface IErrorViewerDataProps {
-  errorList: Immutable.OrderedMap<string, ErrorMessage>,
+  errorList: Immutable.OrderedMap<string, ErrorMessage>;
 }
 
 const ErrorViewer: React.StatelessComponent<IErrorViewerDataProps> = (props) => {
-  const errors = props.errorList.map((error, id) => {
-    if(error) {
-      return (<div key={ id } className="alert alert-danger">
-        { error.message }
-      </div>)
-    }
-    return (<div className="alert alert-danger">
-      No error occurred?
-    </div>)
-  }).toIndexedSeq();
+  const errors = props.errorList.map((error: ErrorMessage, id) => (
+    <div key={ id } className="alert alert-danger">
+      { error.message }
+    </div>
+    )
+  ).toIndexedSeq();
 
   return (
     <div>
