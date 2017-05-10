@@ -5,6 +5,7 @@ import { ListLoaderContainer } from './containers/ListLoaderContainer';
 
 class App extends React.PureComponent<undefined, undefined> {
   render() {
+    //noinspection TsLint
     return (
       <div>
         <div className="container">
