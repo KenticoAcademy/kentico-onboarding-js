@@ -4,6 +4,7 @@ import { Dispatch } from '../stores/Dispatch';
 import { IAction } from './IAction';
 import { Item } from '../models/Item';
 import { receiveItemsFetchingError } from './actionCreators';
+import { parseResponse } from '../utils/parseResponse';
 
 const requestItems = () => ({
   type: ITEMS_FETCHING_STARTED,
@@ -21,13 +22,7 @@ const fetchItems = (fetch: Fetch) => {
   return (dispatch: Dispatch): Promise<IAction> => {
     dispatch(requestItems());
     return fetch('api/v1/Items/')
-      .then((response: Response) => {
-      if (response.ok) {
-        return response.json();
-      } else {
-        return Promise.reject(new Error(response.statusText + ': Loading the Item list did not go well'));
-      }
-      })
+      .then(parseResponse(': Loading the Item list did not go well'))
       .then((json: JSON) => dispatch(receiveItems(json)))
       .catch((error: Error) => dispatch(receiveItemsFetchingError(error)));
   };

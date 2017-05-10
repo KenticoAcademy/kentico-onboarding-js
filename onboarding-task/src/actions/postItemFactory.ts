@@ -4,6 +4,7 @@ import { Dispatch } from '../stores/Dispatch';
 import { CREATE_ITEM, ITEM_POST_SUCCESS } from './actionTypes';
 import { Item } from '../models/Item';
 import { receivePostItemError } from './actionCreators';
+import { parseResponse } from '../utils/parseResponse';
 
 const createItem = (item: Item) => ({
   type: CREATE_ITEM,
@@ -36,13 +37,7 @@ const postItemFactory = (fetch: Fetch) =>
             },
             body: JSON.stringify({ ueid: item.ueid, value: item.value }),
           })
-          .then((response: Response) => {
-            if (response.ok) {
-              return response.json();
-            } else {
-              return Promise.reject(new Error(response.statusText + ': Item was not correctly saved on the server'));
-            }
-          })
+          .then(parseResponse(': Item was not correctly saved on the server'))
           .then((json: Item) => dispatch(receiveItemCreated(json)))
           .catch((error: Error) => dispatch(receivePostItemError(error, item.ueid)));
       };
