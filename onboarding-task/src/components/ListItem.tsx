@@ -9,9 +9,9 @@ interface IListItemDataProps {
 }
 
 interface IListItemCallbacksProps {
-  onItemValueEdit: (value: string) => void;
-  onDelete: () => void;
-  onViewChange: () => void;
+  onItemValueEdit: (value: string) => void,
+  onDelete: () => void,
+  onViewChange: () => void,
 }
 
 const ListItem: React.StatelessComponent<IListItemDataProps & IListItemCallbacksProps> = (props) => {
