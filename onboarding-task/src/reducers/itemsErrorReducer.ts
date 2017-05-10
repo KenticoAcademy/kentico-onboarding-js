@@ -7,10 +7,10 @@ const itemsErrorReducer = (state = OrderedMap<string, ErrorMessage>(),
                           action: IAction,) => {
   switch (action.type) {
     case ITEM_POST_FAILED:
-      return state.set(action.payload.ueid, new ErrorMessage(action.payload.error));
+      return state.set(action.payload.ueid, new ErrorMessage({ message: action.payload.message }));
 
     case ITEMS_FETCHING_FAILED:
-      return state.set(action.payload.id, new ErrorMessage(action.payload.error));
+      return state.set(action.payload.id, new ErrorMessage({ message: action.payload.message }));
 
     default:
       return state;
