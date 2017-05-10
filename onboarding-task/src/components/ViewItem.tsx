@@ -9,11 +9,14 @@ interface IViewItemProps {
 }
 
 const ViewItem: React.StatelessComponent<IViewItemProps> = (props) => (
+
   <div onClick={props.onClick}>
-    {props.index}. {props.value}
-    <div className="text-center">
+    <span className="col-sm-6">
+      {props.index}. {props.value}
+    </span>
+    <span className="col-sm-6-push">
       <ViewItemValidation isSavedInDatabase={props.isSavedInDatabase}/>
-    </div>
+    </span>
   </div>
 );
 

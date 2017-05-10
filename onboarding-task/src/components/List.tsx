@@ -4,9 +4,10 @@ const ImmutablePropTypes = require('react-immutable-proptypes');
 
 import { ListItem } from '../containers/ListItemContainer';
 import { AddItem } from './AddItem';
+import { ErrorViewerContainer } from '../containers/ErrorViewerContainer';
 
 interface IListDataProps {
-  itemsOrder: Immutable.OrderedSet<string>;
+  itemsOrder: Immutable.OrderedSet<string>,
 }
 
 interface IListCallbacksProps {
@@ -15,21 +16,28 @@ interface IListCallbacksProps {
 
 const List: React.StatelessComponent<IListDataProps & IListCallbacksProps> = (props) => {
   const itemsList = props.itemsOrder.toIndexedSeq().map((id: string) => (
-    <li className="list-group-item" key={id}>
-      <ListItem id={id}/>
-    </li>)
+    <div className="row">
+      <div className="col-sm-12 col-sm-offset-2 col-sm-8">
+        <li className="list-group-item" key={id}>
+          <ListItem id={id}/>
+        </li>
+      </div>
+    </div>)
   );
 
   return (
-    <div className="row">
-      <div className="col-sm-12 col-md-offset-2 col-md-8">
-        <ul className="list-group">
-          {itemsList}
-          <li className="list-group-item">
-            <AddItem onAdd={props.onAddItem}/>
-          </li>
-        </ul>
-      </div>
+    <div>
+      <ErrorViewerContainer />
+      <ul className="list-group">
+        {itemsList}
+        <div className="row">
+          <span className="col-sm-12 col-sm-offset-2 col-sm-8">
+            <li className="list-group-item">
+              <AddItem onAdd={props.onAddItem}/>
+            </li>
+          </span>
+        </div>
+      </ul>
     </div>
   );
 };
