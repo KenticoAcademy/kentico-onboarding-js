@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ViewItemValidation } from './ViewItemValidation';
+import { ViewItemStatus } from './ViewItemValidation';
 
 interface IViewItemProps {
   onClick: () => void;
@@ -15,7 +15,7 @@ const ViewItem: React.StatelessComponent<IViewItemProps> = (props) => (
       {props.index}. {props.value}
     </span>
     <span className="col-sm-6-push">
-      <ViewItemValidation isSavedInDatabase={props.isSavedInDatabase}/>
+      <ViewItemStatus isSavedInDatabase={props.isSavedInDatabase}/>
     </span>
   </div>
 );
