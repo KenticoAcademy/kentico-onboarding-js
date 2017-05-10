@@ -26,7 +26,7 @@ const fetchItems = (fetchData: Fetch) => {
         return response.json();
       }
       else {
-        return Promise.reject(new Error(response.statusText))
+        return Promise.reject(new Error(response.statusText + ': Loading the Item list did not go well'))
       }
       })
       .then((json: JSON) => dispatch(receiveItems(json)),

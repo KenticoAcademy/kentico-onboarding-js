@@ -23,11 +23,11 @@ const postItem = (value: string, fetch: Fetch, generateId: () => string) => {
           return response.json();
         }
         else {
-          return Promise.reject(new Error(response.statusText))
+          return Promise.reject(new Error(response.statusText + ': Item was not correctly saved on the server'))
         }
       })
       .then((json: Item) => dispatch(receiveItemCreated(json)))
-      .catch((error: Error) => receivePostItemError(error, item.ueid))
+      .catch((error: Error) => dispatch(receivePostItemError(error, item.ueid)))
   }
 };
 
