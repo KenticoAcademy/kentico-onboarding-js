@@ -13,14 +13,16 @@ describe('ListItemContainer', () => {
     const itemFlags = new ItemFlags({
       id,
       editMode: false,
+      isSavedInDatabase: false,
     });
     const expectedItemViewModel = {
       id: item.id,
       value: item.value,
       isInEditMode: itemFlags.editMode,
+      isSavedInDatabase: itemFlags.editMode,
       index,
     };
-    
+
     const actualItemViewModel = constructViewModel(item, itemFlags, index);
 
     expect(actualItemViewModel).toEqual(expectedItemViewModel);
