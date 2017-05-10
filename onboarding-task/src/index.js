@@ -9,12 +9,10 @@ import 'bootstrap/dist/css/bootstrap.css';
 import './index.css';
 import App from './App.tsx';
 import { itemsReducer } from './reducers/itemsReducer.ts';
-import { fetchItems } from './actions/actionCreators.ts';
 
 const logger = createLogger();
 const store = createStore(itemsReducer, applyMiddleware(logger, thunk));
 
-store.dispatch(fetchItems());
 
 ReactDOM.render(
   <Provider store={store}>
