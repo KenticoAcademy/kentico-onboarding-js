@@ -13,7 +13,7 @@ interface IListLoaderCallbacksProps {
 
 const loader = (LoadingComponent: React.ComponentClass<IListLoaderDataProps & IListLoaderCallbacksProps>) => {
   return class extends React.PureComponent<IListLoaderDataProps & IListLoaderCallbacksProps, undefined> {
-    static displayName = `Loader(${LoadingComponent.displayName})`;
+    static displayName = `loader(${LoadingComponent.displayName})`;
 
     componentDidMount() {
       this.props.load();

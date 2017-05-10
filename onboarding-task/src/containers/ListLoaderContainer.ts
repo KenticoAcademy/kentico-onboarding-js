@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { fetchItems } from '../actions/actionCreators';
 import { IAppState } from '../stores/IAppState';
 import { Dispatch } from '../stores/Dispatch';
-import { IListLoaderCallbacksProps, IListLoaderDataProps, loader } from '../components/Loader';
+import { IListLoaderCallbacksProps, IListLoaderDataProps, loader } from '../components/loader';
 import { List } from './ListContainer';
 
 function mapStateToProps(state: IAppState): IListLoaderDataProps {
@@ -19,7 +19,7 @@ function mapDispatchToProps(dispatch: Dispatch): IListLoaderCallbacksProps {
   };
 }
 
-const ListLoaderContainer: React.ComponentClass<any>
+const ListLoaderContainer: React.ComponentClass<{}>
   = connect(mapStateToProps, mapDispatchToProps)(loader(List));
 
 export { ListLoaderContainer };
