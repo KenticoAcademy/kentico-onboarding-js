@@ -41,7 +41,7 @@ const receivePostItemError = (error: Error, ueid: string): IAction => ({
   type: ITEM_POST_FAILED,
   payload: {
     ueid: ueid,
-    message: error,
+    message: error.message,
   },
 });
 

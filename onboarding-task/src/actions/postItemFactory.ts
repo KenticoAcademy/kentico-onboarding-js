@@ -18,7 +18,14 @@ const postItem = (value: string, fetch: Fetch, generateId: () => string) => {
         },
         body: JSON.stringify({ ueid: item.ueid, value: item.value })
       })
-      .then((response: Response) => response.json())
+      .then((response: Response) => {
+        if(response.ok){
+          return response.json();
+        }
+        else {
+          return Promise.reject(new Error(response.statusText))
+        }
+      })
       .then((json: Item) => dispatch(receiveItemCreated(json)))
       .catch((error: Error) => receivePostItemError(error, item.ueid))
   }

@@ -6,7 +6,7 @@ const receiveItemsFetchingError = (generateId: () => string, error: Error): IAct
   type: ITEMS_FETCHING_FAILED,
   payload: {
     id: generateId(),
-    message: error,
+    message: error.message,
   },
 });
 

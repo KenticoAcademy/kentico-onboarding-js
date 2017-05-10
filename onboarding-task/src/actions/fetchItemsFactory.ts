@@ -21,9 +21,17 @@ const fetchItems = (fetchData: Fetch) => {
   return (dispatch: Dispatch): Promise<IAction> => {
     dispatch(requestItems());
     return fetchData('api/v1/Items/')
-      .then((response: Response) => response.json())
-      .then((json: JSON) => dispatch(receiveItems(json)))
-      .catch((error: Error) => receiveItemsFetchingError(error))
+      .then((response: Response) => {
+      if(response.ok){
+        return response.json();
+      }
+      else {
+        return Promise.reject(new Error(response.statusText))
+      }
+      })
+      .then((json: JSON) => dispatch(receiveItems(json)),
+        (error: Error) => dispatch(receiveItemsFetchingError(error)))
+      .catch((error: Error) => dispatch(receiveItemsFetchingError(error)))
   }
 };
 
