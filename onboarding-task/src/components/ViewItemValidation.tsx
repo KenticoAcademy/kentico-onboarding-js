@@ -7,12 +7,16 @@ interface IViewItemValidationProps {
 const ViewItemValidation: React.StatelessComponent<IViewItemValidationProps> = (props) => {
   if (props.isSavedInDatabase) {
     return (
-      <span className="glyphicon glyphicon-saved"/>
+      <span title="Item is saved on the server">
+        <span className="glyphicon glyphicon-saved"/>
+      </span>
     );
   }
   else {
     return (
-      <span className="glyphicon glyphicon-exclamation-sign">Item is not saved on the server yet</span>
+      <span title="Item is not saved on the server yet">
+        <span className="glyphicon glyphicon-exclamation-sign"/>
+      </span>
     );
   }
 
