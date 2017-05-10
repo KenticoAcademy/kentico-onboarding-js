@@ -8,7 +8,7 @@ import createLogger from 'redux-logger';
 import { itemsReducer } from '../src/reducers/itemsReducer.ts';
 
 
-it('renders without crashing', () => {
+xit('renders without crashing', () => {
   const div = document.createElement('div');
   const logger = createLogger();
   const store = createStore(itemsReducer, applyMiddleware(logger));
