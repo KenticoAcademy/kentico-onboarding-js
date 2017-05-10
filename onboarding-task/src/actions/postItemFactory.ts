@@ -20,33 +20,32 @@ const receiveItemCreated = (json: Item): IAction => ({
   }
 });
 
-const postItem = (value: string, fetch: Fetch, generateId: () => string) => {
-  return (dispatch: Dispatch): Promise<IAction> => {
-    const item = new Item({ ueid: generateId(), value });
-    dispatch(createItem(item));
-    return fetch('api/v1/Items/',
-      {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ ueid: item.ueid, value: item.value })
-      })
-      .then((response: Response) => {
-        if (response.ok) {
-          return response.json();
-        } else {
-          return Promise.reject(new Error(response.statusText + ': Item was not correctly saved on the server'));
-        }
-      })
-      .then((json: Item) => dispatch(receiveItemCreated(json)))
-      .catch((error: Error) => dispatch(receivePostItemError(error, item.ueid)));
-  };
-};
 
-const postItemFactory = (fetchData: Fetch) =>
+const postItemFactory = (fetch: Fetch) =>
   (generateId: () => string) =>
-    (value: string) => postItem(value, fetchData, generateId);
+    (value: string) => {
+      return (dispatch: Dispatch): Promise<IAction> => {
+        const item = new Item({ ueid: generateId(), value });
+        dispatch(createItem(item));
+        return fetch('api/v1/Items/',
+          {
+            method: 'POST',
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ ueid: item.ueid, value: item.value }),
+          })
+          .then((response: Response) => {
+            if (response.ok) {
+              return response.json();
+            } else {
+              return Promise.reject(new Error(response.statusText + ': Item was not correctly saved on the server'));
+            }
+          })
+          .then((json: Item) => dispatch(receiveItemCreated(json)))
+          .catch((error: Error) => dispatch(receivePostItemError(error, item.ueid)));
+      };
+    };
 
 export { postItemFactory, createItem };
