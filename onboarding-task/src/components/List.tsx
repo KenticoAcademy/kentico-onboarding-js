@@ -7,11 +7,11 @@ import { AddItem } from './AddItem';
 import { ErrorViewerContainer } from '../containers/ErrorViewerContainer';
 
 interface IListDataProps {
-  itemsOrder: Immutable.OrderedSet<string>,
+  itemsOrder: Immutable.OrderedSet<string>;
 }
 
 interface IListCallbacksProps {
-  onAddItem: (value: string) => void,
+  onAddItem: (value: string) => void;
 }
 
 const List: React.StatelessComponent<IListDataProps & IListCallbacksProps> = (props) => {

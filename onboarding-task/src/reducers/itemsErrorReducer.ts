@@ -3,8 +3,8 @@ import { IAction } from '../actions/IAction';
 import { ITEM_POST_FAILED, ITEMS_FETCHING_FAILED } from '../actions/actionTypes';
 import { ErrorMessage } from '../models/ErrorMessage';
 
-const itemsErrorReducer = (state = OrderedMap<string, ErrorMessage>(),
-                          action: IAction,) => {
+export const itemsErrorReducer = (state = OrderedMap<string, ErrorMessage>(),
+                                  action: IAction): OrderedMap<string, ErrorMessage> => {
   switch (action.type) {
     case ITEM_POST_FAILED:
       return state.set(action.payload.ueid, new ErrorMessage({ message: action.payload.message }));
@@ -17,4 +17,3 @@ const itemsErrorReducer = (state = OrderedMap<string, ErrorMessage>(),
   }
 };
 
-export { itemsErrorReducer };

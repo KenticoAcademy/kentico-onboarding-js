@@ -20,7 +20,7 @@ function constructViewModel(item: Item, flags: ItemFlags, index: number): IItemV
     isInEditMode: flags.editMode,
     isSavedInDatabase: flags.isSavedInDatabase,
     index,
-  }
+  };
 }
 
 const constructViewModelMemoized = memoizee(constructViewModel);

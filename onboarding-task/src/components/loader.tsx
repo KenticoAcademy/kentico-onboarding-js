@@ -8,7 +8,7 @@ interface IListLoaderDataProps {
 }
 
 interface IListLoaderCallbacksProps {
-  load: () => Promise<IAction>,
+  load: () => Promise<IAction>;
 }
 
 const loader = (LoadingComponent: React.ComponentClass<IListLoaderDataProps & IListLoaderCallbacksProps>) => {
@@ -35,12 +35,12 @@ const loader = (LoadingComponent: React.ComponentClass<IListLoaderDataProps & IL
               <div className="head"/>
             </div>
           </div>
-        )
+        );
       } else {
         return <LoadingComponent {...this.props} />;
       }
     }
-  }
+  };
 
 };
 

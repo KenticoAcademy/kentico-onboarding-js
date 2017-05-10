@@ -5,13 +5,13 @@ import { ViewItem } from './ViewItem';
 import { IItemViewModel } from '../models/IItemViewModel';
 
 interface IListItemDataProps {
-  itemViewModel: IItemViewModel,
+  itemViewModel: IItemViewModel;
 }
 
 interface IListItemCallbacksProps {
-  onItemValueEdit: (value: string) => void,
-  onDelete: () => void,
-  onViewChange: () => void,
+  onItemValueEdit: (value: string) => void;
+  onDelete: () => void;
+  onViewChange: () => void;
 }
 
 const ListItem: React.StatelessComponent<IListItemDataProps & IListItemCallbacksProps> = (props) => {
