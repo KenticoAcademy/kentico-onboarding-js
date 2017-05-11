@@ -11,14 +11,16 @@ import {
   TOGGLE_ITEM_VIEW_MODE,
   ITEMS_FETCHING_STARTED,
   ITEMS_FETCHING_SUCCEED,
-  ITEMS_FETCHING_FAILED
+  ITEMS_FETCHING_FAILED,
+  ITEM_POST_FAILED,
 } from '../../src/actions/actionTypes';
 import { postItemFactory } from '../../src/actions/postItemFactory';
 import { fetchItemsFactory } from '../../src/actions/fetchItemsFactory';
 import { receiveItemsFetchingErrorFactory } from '../../src/actions/receiveItemsFetchingErrorFactory';
-
+import { receivePostItemErrorFactory } from '../../src/actions/receivePostItemErrorFactory';
 import { Item } from '../../src/models/Item.ts';
 import { ErrorMessage } from '../../src/models/ErrorMessage';
+import { API_VERSION_1, ITEMS } from '../../src/constants/urls';
 
 describe('actionCreators', () => {
   const id = 'da5cbf5f-2d20-4945-b8d2-4cc3b6be1542';
@@ -76,6 +78,24 @@ describe('actionCreators', () => {
   });
 
   // postItem tests
+  it('postItem calls fetch with correct arguments', () => {
+    const fetch = jest.fn(() => Promise.resolve(getItem));
+    const dispatch = (action) => action;
+    const fetchItem = postItemFactory(fetch)(() => ueid);
+
+    return fetchItem(value)(dispatch).then(() => {
+      return expect(fetch.mock.calls[0][0]).toEqual(API_VERSION_1 + ITEMS)
+        || expect(fetch.mock.calls[0][1]).toEqual({
+          method: "POST",
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ ueid: item.ueid, value: item.value })
+        });
+    });
+  });
+
   it('postItem correctly creates item with given value and passes it to dispatch in first call', () => {
     const fetch = () => Promise.resolve(getItem);
     const dispatch = jest.fn(action => action);
@@ -101,36 +121,18 @@ describe('actionCreators', () => {
     });
   });
 
-  it('postItem calls fetch with correct arguments', () => {
-    const fetch = jest.fn(() => Promise.resolve(getItem));
-    const dispatch = (action) => action;
-    const fetchItem = postItemFactory(fetch)(() => ueid);
-
-    return fetchItem(value)(dispatch).then(() => {
-      return expect(fetch.mock.calls[0][0]).toEqual('api/v1/Items/')
-        || expect(fetch.mock.calls[0][1]).toEqual({
-          method: "POST",
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ ueid: item.ueid, value: item.value })
-        });
-    });
-  });
-
   // fetchItem tests
-  it('fetchItem calls fetch with correct arguments', () => {
+  it('fetchItems calls fetch with correct arguments', () => {
     const fetch = jest.fn(() => Promise.resolve(getItem));
     const dispatch = (action => action);
     const fetchItem = fetchItemsFactory(fetch);
 
     return fetchItem(dispatch).then(() => {
-      return expect(fetch.mock.calls[0][0]).toEqual('api/v1/Items/')
+      return expect(fetch.mock.calls[0][0]).toEqual(API_VERSION_1 + ITEMS)
     });
   });
 
-  it('fetchItem correctly dispatches requestItems', () => {
+  it('fetchItems correctly dispatches requestItems', () => {
     const fetch = () => Promise.resolve(getItem);
     const dispatch = jest.fn(action => action);
     const fetchItem = fetchItemsFactory(fetch);
@@ -140,7 +142,7 @@ describe('actionCreators', () => {
     });
   });
 
-  it('fetchItem dispatches receiveItems with correct argument', () => {
+  it('fetchItems dispatches receiveItems with correct argument', () => {
     const fetch = () => ({
       response: { ok: true },
       then: () => Promise.resolve(item),
@@ -165,6 +167,22 @@ describe('actionCreators', () => {
       return expect(receiveItemsFetchingError.type).toEqual(ITEMS_FETCHING_FAILED)
         || expect(receiveItemsFetchingError.payload).toEqual({
           id: id,
+          message: 'message',
+        });
+    }
+  );
+
+  // receivePostItemFetchingErrorFactory tests
+  it('receivePostItemFetchingErrorFactory creates correct action', () => {
+      const generateId = () => id;
+      const error = new Error('message');
+
+      const receiveItemsFetchingError = receivePostItemErrorFactory(generateId)(error, ueid);
+
+      return expect(receiveItemsFetchingError.type).toEqual(ITEM_POST_FAILED)
+        || expect(receiveItemsFetchingError.payload).toEqual({
+          id,
+          itemUeid: ueid,
           message: 'message',
         });
     }

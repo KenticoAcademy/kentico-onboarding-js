@@ -14,7 +14,7 @@ export const itemsErrorReducer = (state = OrderedMap<string, ErrorMessage>(),
         action.payload.ueid,
         new ErrorMessage({
           id: action.payload.message,
-          ueid: action.payload.message,
+          itemUeid: action.payload.message,
           message: action.payload.message
         }));
 
