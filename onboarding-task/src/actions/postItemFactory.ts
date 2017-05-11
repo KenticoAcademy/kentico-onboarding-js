@@ -4,6 +4,7 @@ import { Dispatch } from '../stores/Dispatch';
 import { Item } from '../models/Item';
 import { receivePostItemError, createItem, receiveItemCreated } from './actionCreators';
 import { parseResponse } from '../utils/parseResponse';
+import { API_VERSION_1, ITEMS } from '../constants/urls';
 
 
 
@@ -13,7 +14,7 @@ const postItemFactory = (fetch: Fetch) =>
       return (dispatch: Dispatch): Promise<IAction> => {
         const item = new Item({ ueid: generateId(), value });
         dispatch(createItem(item));
-        return fetch('api/v1/Items/',
+        return fetch(API_VERSION_1 + ITEMS,
           {
             method: 'POST',
             headers: {
