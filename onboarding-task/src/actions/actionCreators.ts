@@ -4,7 +4,9 @@ import {
   EDIT_ITEM,
   DELETE_ITEM,
   ITEMS_FETCHING_SUCCESS,
-  ITEM_POST_FAILED, CREATE_ITEM, ITEM_POST_SUCCESS, ITEMS_FETCHING_STARTED,
+  CREATE_ITEM,
+  ITEM_POST_SUCCESS,
+  ITEMS_FETCHING_STARTED,
 } from './actionTypes';
 import { generateGuid } from '../utils/generateGuid';
 import { fetchItemsFactory } from './fetchItemsFactory';
@@ -13,10 +15,12 @@ import * as fetch from 'isomorphic-fetch';
 import { Item } from '../models/Item';
 import { postItemFactory } from './postItemFactory';
 import { receiveItemsFetchingErrorFactory } from './receiveItemsFetchingErrorFactory';
+import { receivePostItemErrorFactory } from './receivePostItemErrorFactory';
 
 const fetchItemsWithDependencies = fetchItemsFactory(fetch);
 const postItemWithDependencies = postItemFactory(fetch)(generateGuid);
 const receiveItemsFetchingErrorWithDependencies = receiveItemsFetchingErrorFactory(generateGuid);
+const receivePostItemErrorWithDependencies = receivePostItemErrorFactory(generateGuid);
 
 const deleteItem = (id: string): IAction => ({
   type: DELETE_ITEM,
@@ -36,15 +40,6 @@ const toggleItemViewMode = (id: string): IAction => ({
 const createReceivedItem = (item: Item) => ({
   type: ITEMS_FETCHING_SUCCESS,
   payload: { item },
-});
-
-const receivePostItemErrorFactory = (generateId: () => string) => (error: Error, itemUeid: string): IAction => ({
-  type: ITEM_POST_FAILED,
-  payload: {
-    id: generateId(),
-    itemUeid,
-    message: error.message,
-  },
 });
 
 const createItem = (item: Item) => ({
@@ -74,8 +69,6 @@ const receiveItems = (json: any): IAction => ({
   },
 });
 
-const receivePostItemError = receivePostItemErrorFactory(generateGuid);
-
 export {
   deleteItem,
   editItem,
@@ -84,7 +77,7 @@ export {
   fetchItemsWithDependencies as fetchItems,
   postItemWithDependencies as postItem,
   receiveItemsFetchingErrorWithDependencies as receiveItemsFetchingError,
-  receivePostItemError,
+  receivePostItemErrorWithDependencies as receivePostItemError,
   createItem,
   receiveItemCreated,
   receiveItems,
