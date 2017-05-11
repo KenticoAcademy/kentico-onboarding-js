@@ -10,6 +10,6 @@ interface IAppState {
   itemsFlags: Immutable.Map<string, ItemFlags>;
   isFetching: boolean;
   errors: Immutable.OrderedMap<string, ErrorMessage>;
-};
+}
 
 export { IAppState };
