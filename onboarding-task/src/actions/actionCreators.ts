@@ -37,11 +37,6 @@ const toggleItemViewMode = (id: string): IAction => ({
   payload: { id },
 });
 
-const createReceivedItem = (item: Item) => ({
-  type: ITEMS_FETCHING_SUCCEED,
-  payload: { item },
-});
-
 const positivelyCreateItemLocally = (item: Item) => ({
   type: POSITIVELY_CREATE_ITEM_LOCALLY,
   payload: {
@@ -73,7 +68,6 @@ export {
   deleteItem,
   editItem,
   toggleItemViewMode,
-  createReceivedItem,
   fetchItemsWithDependencies as fetchItems,
   postItemWithDependencies as postItem,
   receiveItemsFetchingErrorWithDependencies as receiveItemsFetchingError,
