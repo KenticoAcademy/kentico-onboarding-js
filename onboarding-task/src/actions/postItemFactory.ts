@@ -2,7 +2,7 @@ import { Fetch } from './Fetch';
 import { IAction } from './IAction';
 import { Dispatch } from '../stores/Dispatch';
 import { Item } from '../models/Item';
-import { receivePostItemError, createItem, receiveItemCreated } from './actionCreators';
+import { receivePostItemError, positivelyCreateItemLocally, receiveItemCreated } from './actionCreators';
 import { parseResponse } from '../utils/parseResponse';
 import { API_VERSION_1, ITEMS } from '../constants/urls';
 
@@ -13,7 +13,7 @@ const postItemFactory = (fetch: Fetch) =>
     (value: string) => {
       return (dispatch: Dispatch): Promise<IAction> => {
         const item = new Item({ ueid: generateId(), value });
-        dispatch(createItem(item));
+        dispatch(positivelyCreateItemLocally(item));
         return fetch(API_VERSION_1 + ITEMS,
           {
             method: 'POST',

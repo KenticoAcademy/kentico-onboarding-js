@@ -1,6 +1,6 @@
 import { IAction } from '../actions/IAction';
 import {
-  CREATE_ITEM,
+  POSITIVELY_CREATE_ITEM_LOCALLY,
   EDIT_ITEM, ITEM_POST_FAILED,
   ITEM_POST_SUCCESS,
   ITEMS_FETCHING_SUCCESS,
@@ -13,7 +13,7 @@ export const itemFlagsReducer = (state = new ItemFlags(), action: IAction): Item
     case EDIT_ITEM:
       return state.set('editMode', false) as ItemFlags;
 
-    case CREATE_ITEM:
+    case POSITIVELY_CREATE_ITEM_LOCALLY:
       return new ItemFlags({
         editMode: false
       });

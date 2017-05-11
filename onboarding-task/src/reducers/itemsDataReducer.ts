@@ -3,7 +3,7 @@ import { Map } from 'immutable';
 import { IAction } from '../actions/IAction';
 import { Item } from '../models/Item';
 import {
-  CREATE_ITEM,
+  POSITIVELY_CREATE_ITEM_LOCALLY,
   DELETE_ITEM,
   EDIT_ITEM,
   ITEM_POST_SUCCESS,
@@ -17,7 +17,7 @@ export const itemsDataReducer = (state = Map<string, Item>(),
     case EDIT_ITEM:
       return state.set(action.payload.id, itemReducer(state.get(action.payload.id), action));
 
-    case CREATE_ITEM:
+    case POSITIVELY_CREATE_ITEM_LOCALLY:
       return state.set(action.payload.ueid, itemReducer(undefined, action));
 
     case DELETE_ITEM:

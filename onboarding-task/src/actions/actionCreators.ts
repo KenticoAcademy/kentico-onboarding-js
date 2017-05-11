@@ -4,7 +4,7 @@ import {
   EDIT_ITEM,
   DELETE_ITEM,
   ITEMS_FETCHING_SUCCESS,
-  CREATE_ITEM,
+  POSITIVELY_CREATE_ITEM_LOCALLY,
   ITEM_POST_SUCCESS,
   ITEMS_FETCHING_STARTED,
 } from './actionTypes';
@@ -42,8 +42,8 @@ const createReceivedItem = (item: Item) => ({
   payload: { item },
 });
 
-const createItem = (item: Item) => ({
-  type: CREATE_ITEM,
+const positivelyCreateItemLocally = (item: Item) => ({
+  type: POSITIVELY_CREATE_ITEM_LOCALLY,
   payload: {
     ueid: item.ueid,
     value: item.value,
@@ -78,7 +78,7 @@ export {
   postItemWithDependencies as postItem,
   receiveItemsFetchingErrorWithDependencies as receiveItemsFetchingError,
   receivePostItemErrorWithDependencies as receivePostItemError,
-  createItem,
+  positivelyCreateItemLocally,
   receiveItemCreated,
   receiveItems,
   requestItems,

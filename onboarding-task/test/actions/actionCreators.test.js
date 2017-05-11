@@ -2,10 +2,10 @@ import {
   editItem,
   toggleItemViewMode,
   deleteItem,
-  createItem,
+  positivelyCreateItemLocally,
 } from '../../src/actions/actionCreators';
 import {
-  CREATE_ITEM,
+  POSITIVELY_CREATE_ITEM_LOCALLY,
   DELETE_ITEM,
   EDIT_ITEM,
   TOGGLE_ITEM_VIEW_MODE,
@@ -42,13 +42,13 @@ describe('actionCreators', () => {
     expect(actualAction).toEqual(expectedAction);
   });
 
-  it('createItem creates correct action', () => {
+  it('positivelyCreateItemLocally creates correct action', () => {
     const expectedAction = {
-      type: CREATE_ITEM,
+      type: POSITIVELY_CREATE_ITEM_LOCALLY,
       payload: { ueid, value },
     };
 
-    const actualAction = createItem(item);
+    const actualAction = positivelyCreateItemLocally(item);
 
     expect(actualAction).toEqual(expectedAction);
   });

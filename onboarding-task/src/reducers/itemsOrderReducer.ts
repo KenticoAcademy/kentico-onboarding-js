@@ -2,7 +2,7 @@ import { OrderedSet } from 'immutable';
 
 import { IAction } from '../actions/IAction';
 import {
-  CREATE_ITEM,
+  POSITIVELY_CREATE_ITEM_LOCALLY,
   DELETE_ITEM,
   ITEM_POST_SUCCESS,
   ITEMS_FETCHING_SUCCESS
@@ -14,7 +14,7 @@ export const itemsOrderReducer = (state = OrderedSet<string>(), action: IAction)
     case DELETE_ITEM:
       return state.delete(action.payload.id);
 
-    case CREATE_ITEM:
+    case POSITIVELY_CREATE_ITEM_LOCALLY:
       return state.add(action.payload.ueid);
 
     case ITEMS_FETCHING_SUCCESS:

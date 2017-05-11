@@ -2,7 +2,7 @@ import { Map } from 'immutable';
 
 import { IAction } from '../actions/IAction';
 import {
-  CREATE_ITEM,
+  POSITIVELY_CREATE_ITEM_LOCALLY,
   DELETE_ITEM,
   EDIT_ITEM, ITEM_POST_FAILED,
   ITEM_POST_SUCCESS,
@@ -19,7 +19,7 @@ export const itemsFlagReducer = (state = Map<string, ItemFlags>(), action: IActi
     case TOGGLE_ITEM_VIEW_MODE:
       return state.set(action.payload.id, itemFlagsReducer(state.get(action.payload.id), action));
 
-    case CREATE_ITEM:
+    case POSITIVELY_CREATE_ITEM_LOCALLY:
       return state.set(action.payload.ueid, itemFlagsReducer(undefined, action));
 
     case DELETE_ITEM:

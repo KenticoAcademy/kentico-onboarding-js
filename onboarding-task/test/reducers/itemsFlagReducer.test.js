@@ -3,7 +3,7 @@ import * as Immutable from 'immutable';
 import { ItemFlags } from '../../src/models/ItemFlags.ts';
 import { toggleItemViewMode, deleteItem, editItem } from '../../src/actions/actionCreators';
 import { itemsFlagReducer } from '../../src/reducers/itemsFlagReducer';
-import { createItem } from '../../src/actions/actionCreators';
+import { positivelyCreateItemLocally } from '../../src/actions/actionCreators';
 import { Item } from '../../src/models/Item';
 
 describe('ItemsFlagReducer', () => {
@@ -34,7 +34,7 @@ describe('ItemsFlagReducer', () => {
   it('create flag for given id', () => {
     const ueid = '2235d270-3918-48d9-95f7-a1b0ef008126';
 
-    const actualState = itemsFlagReducer(undefined, createItem(new Item({ ueid })));
+    const actualState = itemsFlagReducer(undefined, positivelyCreateItemLocally(new Item({ ueid })));
 
     expect(actualState.has(ueid)).toBeTruthy();
   });

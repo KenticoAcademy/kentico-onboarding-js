@@ -3,7 +3,7 @@ import * as Immutable from 'immutable';
 import { Item } from '../../src/models/Item.ts';
 import { editItem, deleteItem } from '../../src/actions/actionCreators';
 import { itemsDataReducer } from '../../src/reducers/itemsDataReducer';
-import { createItem } from '../../src/actions/actionCreators';
+import { positivelyCreateItemLocally } from '../../src/actions/actionCreators';
 
 
 describe('itemsDataReducer', () => {
@@ -36,7 +36,7 @@ describe('itemsDataReducer', () => {
     expect(actualState.has(id)).toBeFalsy();
   });
 
-  it('create new item after createItem action', () => {
+  it('create new item after positivelyCreateItemLocally action', () => {
     const expectedState = Immutable.Map().set(
       ueid,
       new Item({
@@ -46,7 +46,7 @@ describe('itemsDataReducer', () => {
       })
     );
 
-    const actualState = itemsDataReducer(undefined, createItem(item));
+    const actualState = itemsDataReducer(undefined, positivelyCreateItemLocally(item));
 
     expect(actualState).toEqual(expectedState);
   });
