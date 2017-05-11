@@ -11,10 +11,10 @@ export const itemsErrorReducer = (state = OrderedMap<string, ErrorMessage>(),
   switch (action.type) {
     case ITEM_POST_FAILED:
       return state.set(
-        action.payload.ueid,
+        action.payload.id,
         new ErrorMessage({
-          id: action.payload.message,
-          itemUeid: action.payload.message,
+          id: action.payload.id,
+          itemUeid: action.payload.itemUeid,
           message: action.payload.message
         }));
 
@@ -22,7 +22,7 @@ export const itemsErrorReducer = (state = OrderedMap<string, ErrorMessage>(),
       return state.set(
         action.payload.id,
         new ErrorMessage({
-          id: action.payload.message,
+          id: action.payload.id,
           message: action.payload.message
         }));
 
