@@ -4,7 +4,7 @@ import {
   EDIT_ITEM,
   DELETE_ITEM,
   ITEMS_FETCHING_SUCCESS,
-  ITEM_POST_FAILED,
+  ITEM_POST_FAILED, CREATE_ITEM, ITEM_POST_SUCCESS, ITEMS_FETCHING_STARTED,
 } from './actionTypes';
 import { generateGuid } from '../utils/generateGuid';
 import { fetchItemsFactory } from './fetchItemsFactory';
@@ -47,6 +47,33 @@ const receivePostItemErrorFactory = (generateId: () => string) => (error: Error,
   },
 });
 
+const createItem = (item: Item) => ({
+  type: CREATE_ITEM,
+  payload: {
+    ueid: item.ueid,
+    value: item.value,
+  }
+});
+
+const receiveItemCreated = (json: Item): IAction => ({
+  type: ITEM_POST_SUCCESS,
+  payload: {
+    item: json as Item,
+  }
+});
+
+const requestItems = () => ({
+  type: ITEMS_FETCHING_STARTED,
+  payload: {},
+});
+
+const receiveItems = (json: any): IAction => ({
+  type: ITEMS_FETCHING_SUCCESS,
+  payload: {
+    items: json.map((item: Item) => item as Item),
+  },
+});
+
 const receivePostItemError = receivePostItemErrorFactory(generateGuid);
 
 export {
@@ -58,4 +85,8 @@ export {
   postItemWithDependencies as postItem,
   receiveItemsFetchingErrorWithDependencies as receiveItemsFetchingError,
   receivePostItemError,
+  createItem,
+  receiveItemCreated,
+  receiveItems,
+  requestItems,
 };

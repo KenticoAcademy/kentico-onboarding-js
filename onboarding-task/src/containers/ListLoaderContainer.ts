@@ -15,7 +15,7 @@ function mapStateToProps(state: IAppState): IListLoaderDataProps {
 
 function mapDispatchToProps(dispatch: Dispatch): IListLoaderCallbacksProps {
   return {
-    load: () => dispatch(fetchItems()),
+    load: () => dispatch(fetchItems),
   };
 }
 

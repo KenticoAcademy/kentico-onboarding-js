@@ -1,25 +1,10 @@
 import { Fetch } from './Fetch';
 import { IAction } from './IAction';
 import { Dispatch } from '../stores/Dispatch';
-import { CREATE_ITEM, ITEM_POST_SUCCESS } from './actionTypes';
 import { Item } from '../models/Item';
-import { receivePostItemError } from './actionCreators';
+import { receivePostItemError, createItem, receiveItemCreated } from './actionCreators';
 import { parseResponse } from '../utils/parseResponse';
 
-const createItem = (item: Item) => ({
-  type: CREATE_ITEM,
-  payload: {
-    ueid: item.ueid,
-    value: item.value,
-  }
-});
-
-const receiveItemCreated = (json: Item): IAction => ({
-  type: ITEM_POST_SUCCESS,
-  payload: {
-    item: json as Item,
-  }
-});
 
 
 const postItemFactory = (fetch: Fetch) =>
@@ -43,4 +28,4 @@ const postItemFactory = (fetch: Fetch) =>
       };
     };
 
-export { postItemFactory, createItem };
+export { postItemFactory };
