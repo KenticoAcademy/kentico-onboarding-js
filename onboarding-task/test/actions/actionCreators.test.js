@@ -10,7 +10,7 @@ import {
   EDIT_ITEM,
   TOGGLE_ITEM_VIEW_MODE,
   ITEMS_FETCHING_STARTED,
-  ITEMS_FETCHING_SUCCESS,
+  ITEMS_FETCHING_SUCCEED,
   ITEMS_FETCHING_FAILED
 } from '../../src/actions/actionTypes';
 import { postItemFactory } from '../../src/actions/postItemFactory';
@@ -150,7 +150,7 @@ describe('actionCreators', () => {
 
     expect.assertions(2);
     return fetchItem(dispatch).then(() => {
-      return expect(dispatch.mock.calls[1][0].type).toEqual(ITEMS_FETCHING_SUCCESS)
+      return expect(dispatch.mock.calls[1][0].type).toEqual(ITEMS_FETCHING_SUCCEED)
         || expect(dispatch.mock.calls[1][0].payload.items).toEqual(item);
     });
   });

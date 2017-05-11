@@ -5,8 +5,8 @@ import {
   POSITIVELY_CREATE_ITEM_LOCALLY,
   DELETE_ITEM,
   EDIT_ITEM, ITEM_POST_FAILED,
-  ITEM_POST_SUCCESS,
-  ITEMS_FETCHING_SUCCESS,
+  ITEM_POST_SUCCEED,
+  ITEMS_FETCHING_SUCCEED,
   TOGGLE_ITEM_VIEW_MODE
 } from '../actions/actionTypes';
 import { ItemFlags } from '../models/ItemFlags';
@@ -25,13 +25,13 @@ export const itemsFlagReducer = (state = Map<string, ItemFlags>(), action: IActi
     case DELETE_ITEM:
       return state.delete(action.payload.id);
 
-    case ITEMS_FETCHING_SUCCESS:
+    case ITEMS_FETCHING_SUCCEED:
       return Map<string, ItemFlags>(
         action.payload.items
           .map((item: Item) => [item.id, itemFlagsReducer(undefined, action)])
       );
 
-    case ITEM_POST_SUCCESS:
+    case ITEM_POST_SUCCEED:
       const itemFlags = itemFlagsReducer(undefined, action);
       return state
         .delete(action.payload.item.guid)

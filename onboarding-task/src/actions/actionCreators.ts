@@ -3,9 +3,9 @@ import {
   TOGGLE_ITEM_VIEW_MODE,
   EDIT_ITEM,
   DELETE_ITEM,
-  ITEMS_FETCHING_SUCCESS,
+  ITEMS_FETCHING_SUCCEED,
   POSITIVELY_CREATE_ITEM_LOCALLY,
-  ITEM_POST_SUCCESS,
+  ITEM_POST_SUCCEED,
   ITEMS_FETCHING_STARTED,
 } from './actionTypes';
 import { generateGuid } from '../utils/generateGuid';
@@ -38,7 +38,7 @@ const toggleItemViewMode = (id: string): IAction => ({
 });
 
 const createReceivedItem = (item: Item) => ({
-  type: ITEMS_FETCHING_SUCCESS,
+  type: ITEMS_FETCHING_SUCCEED,
   payload: { item },
 });
 
@@ -51,7 +51,7 @@ const positivelyCreateItemLocally = (item: Item) => ({
 });
 
 const receiveItemCreated = (json: Item): IAction => ({
-  type: ITEM_POST_SUCCESS,
+  type: ITEM_POST_SUCCEED,
   payload: {
     item: json as Item,
   }
@@ -63,7 +63,7 @@ const requestItems = () => ({
 });
 
 const receiveItems = (json: any): IAction => ({
-  type: ITEMS_FETCHING_SUCCESS,
+  type: ITEMS_FETCHING_SUCCEED,
   payload: {
     items: json.map((item: Item) => item as Item),
   },

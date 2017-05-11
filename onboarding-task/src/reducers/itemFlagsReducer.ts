@@ -2,8 +2,8 @@ import { IAction } from '../actions/IAction';
 import {
   POSITIVELY_CREATE_ITEM_LOCALLY,
   EDIT_ITEM, ITEM_POST_FAILED,
-  ITEM_POST_SUCCESS,
-  ITEMS_FETCHING_SUCCESS,
+  ITEM_POST_SUCCEED,
+  ITEMS_FETCHING_SUCCEED,
   TOGGLE_ITEM_VIEW_MODE
 } from '../actions/actionTypes';
 import { ItemFlags } from '../models/ItemFlags';
@@ -18,8 +18,8 @@ export const itemFlagsReducer = (state = new ItemFlags(), action: IAction): Item
         editMode: false
       });
 
-    case ITEMS_FETCHING_SUCCESS:
-    case ITEM_POST_SUCCESS:
+    case ITEMS_FETCHING_SUCCEED:
+    case ITEM_POST_SUCCEED:
     return new ItemFlags({
         editMode: false,
         isSavedInDatabase: true,

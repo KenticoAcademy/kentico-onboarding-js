@@ -6,8 +6,8 @@ import {
   POSITIVELY_CREATE_ITEM_LOCALLY,
   DELETE_ITEM,
   EDIT_ITEM,
-  ITEM_POST_SUCCESS,
-  ITEMS_FETCHING_SUCCESS
+  ITEM_POST_SUCCEED,
+  ITEMS_FETCHING_SUCCEED
 } from '../actions/actionTypes';
 import { itemReducer } from './itemReducer';
 
@@ -23,13 +23,13 @@ export const itemsDataReducer = (state = Map<string, Item>(),
     case DELETE_ITEM:
       return state.delete(action.payload.id);
 
-    case ITEMS_FETCHING_SUCCESS:
+    case ITEMS_FETCHING_SUCCEED:
       return Map<string, Item>(
         action.payload.items
           .map((item: any) => [item.id, new Item(item)])
       );
 
-    case ITEM_POST_SUCCESS:
+    case ITEM_POST_SUCCEED:
       return state
         .delete(action.payload.item.ueid)
         .set(action.payload.item.id, itemReducer(undefined, action));

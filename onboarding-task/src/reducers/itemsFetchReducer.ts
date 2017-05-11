@@ -1,7 +1,7 @@
 import { IAction } from '../actions/IAction';
 import {
   ITEMS_FETCHING_FAILED,
-  ITEMS_FETCHING_SUCCESS,
+  ITEMS_FETCHING_SUCCEED,
   ITEMS_FETCHING_STARTED
 } from '../actions/actionTypes';
 
@@ -11,7 +11,7 @@ const itemsIsFetchingReducer = (state = false, action: IAction,) => {
       return true;
 
     case ITEMS_FETCHING_FAILED:
-    case ITEMS_FETCHING_SUCCESS:
+    case ITEMS_FETCHING_SUCCEED:
       return false;
 
     default:

@@ -4,8 +4,8 @@ import { IAction } from '../actions/IAction';
 import {
   POSITIVELY_CREATE_ITEM_LOCALLY,
   DELETE_ITEM,
-  ITEM_POST_SUCCESS,
-  ITEMS_FETCHING_SUCCESS
+  ITEM_POST_SUCCEED,
+  ITEMS_FETCHING_SUCCEED
 } from '../actions/actionTypes';
 import { Item } from '../models/Item';
 
@@ -17,13 +17,13 @@ export const itemsOrderReducer = (state = OrderedSet<string>(), action: IAction)
     case POSITIVELY_CREATE_ITEM_LOCALLY:
       return state.add(action.payload.ueid);
 
-    case ITEMS_FETCHING_SUCCESS:
+    case ITEMS_FETCHING_SUCCEED:
       return OrderedSet<string>(
         action.payload.items
           .map((item: Item) => item.id)
       );
 
-    case ITEM_POST_SUCCESS:
+    case ITEM_POST_SUCCEED:
       return state
         .delete(action.payload.item.ueid)
         .add(action.payload.item.id);
