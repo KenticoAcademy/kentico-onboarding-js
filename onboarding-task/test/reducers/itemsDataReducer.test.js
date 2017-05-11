@@ -3,7 +3,7 @@ import * as Immutable from 'immutable';
 import { Item } from '../../src/models/Item.ts';
 import { editItem, deleteItem } from '../../src/actions/actionCreators';
 import { itemsDataReducer } from '../../src/reducers/itemsDataReducer';
-import { createItem } from '../../src/actions/postItemFactory';
+import { createItem } from '../../src/actions/actionCreators';
 
 
 describe('itemsDataReducer', () => {

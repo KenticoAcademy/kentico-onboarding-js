@@ -1,8 +1,5 @@
 import * as Immutable from 'immutable';
-
-import { deleteItem } from '../../src/actions/actionCreators';
 import { itemsErrorReducer } from '../../src/reducers/itemsErrorReducer';
-import { ErrorMessage } from '../../src/models/ErrorMessage';
 
 describe('itemsErrorReducer', () => {
   const id = 'da5cbf5f-2d20-4945-b8d2-4cc3b6be1542';

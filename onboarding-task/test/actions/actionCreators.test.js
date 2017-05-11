@@ -1,4 +1,9 @@
-import { editItem, toggleItemViewMode, deleteItem } from '../../src/actions/actionCreators';
+import {
+  editItem,
+  toggleItemViewMode,
+  deleteItem,
+  createItem,
+} from '../../src/actions/actionCreators';
 import {
   CREATE_ITEM,
   DELETE_ITEM,
@@ -8,7 +13,7 @@ import {
   ITEMS_FETCHING_SUCCESS,
   ITEMS_FETCHING_FAILED
 } from '../../src/actions/actionTypes';
-import { postItemFactory, createItem } from '../../src/actions/postItemFactory';
+import { postItemFactory } from '../../src/actions/postItemFactory';
 import { fetchItemsFactory } from '../../src/actions/fetchItemsFactory';
 import { receiveItemsFetchingErrorFactory } from '../../src/actions/receiveItemsFetchingErrorFactory';
 
@@ -118,7 +123,7 @@ describe('actionCreators', () => {
   it('fetchItem calls fetch with correct arguments', () => {
     const fetch = jest.fn(() => Promise.resolve(getItem));
     const dispatch = (action => action);
-    const fetchItem = fetchItemsFactory(fetch)(() => ueid);
+    const fetchItem = fetchItemsFactory(fetch);
 
     return fetchItem(dispatch).then(() => {
       return expect(fetch.mock.calls[0][0]).toEqual('api/v1/Items/')
@@ -128,7 +133,7 @@ describe('actionCreators', () => {
   it('fetchItem correctly dispatches requestItems', () => {
     const fetch = () => Promise.resolve(getItem);
     const dispatch = jest.fn(action => action);
-    const fetchItem = fetchItemsFactory(fetch)(() => ueid);
+    const fetchItem = fetchItemsFactory(fetch);
 
     return fetchItem(dispatch).then(() => {
       return expect(dispatch.mock.calls[0][0].type).toEqual(ITEMS_FETCHING_STARTED)
@@ -141,7 +146,7 @@ describe('actionCreators', () => {
       then: () => Promise.resolve(item),
     });
     const dispatch = jest.fn(action => action);
-    const fetchItem = fetchItemsFactory(fetch)(() => ueid);
+    const fetchItem = fetchItemsFactory(fetch);
 
     expect.assertions(2);
     return fetchItem(dispatch).then(() => {
