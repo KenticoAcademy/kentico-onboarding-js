@@ -11,9 +11,24 @@ interface IListLoaderCallbacksProps {
   load: () => Promise<IAction>;
 }
 
-const loader = (LoadingComponent: React.ComponentClass<IListLoaderDataProps & IListLoaderCallbacksProps>) => {
-  return class extends React.PureComponent<IListLoaderDataProps & IListLoaderCallbacksProps, undefined> {
-    static displayName = `loader(${LoadingComponent.displayName})`;
+const loaderComponent =
+  <div>
+    <div className="rainbow">
+      <span/>
+    </div>
+    <div className="nyan-cat">
+      <div className="feet"/>
+      <div className="tail">
+        <span/>
+      </div>
+      <div className="body"/>
+      <div className="head"/>
+    </div>
+  </div>;
+
+const loader = (LoadedComponent: React.ComponentClass<{}>) =>
+  class extends React.PureComponent<IListLoaderDataProps & IListLoaderCallbacksProps, undefined> {
+    static displayName = `loader(${LoadedComponent.displayName})`;
 
     componentDidMount() {
       this.props.load();
@@ -22,26 +37,13 @@ const loader = (LoadingComponent: React.ComponentClass<IListLoaderDataProps & IL
     render() {
       if (this.props.isLoading) {
         return (
-          <div>
-            <div className="rainbow">
-              <span/>
-            </div>
-            <div className="nyan-cat">
-              <div className="feet"/>
-              <div className="tail">
-                <span/>
-              </div>
-              <div className="body"/>
-              <div className="head"/>
-            </div>
-          </div>
+          loaderComponent
         );
       } else {
-        return <LoadingComponent {...this.props} />;
+        return <LoadedComponent/>;
       }
     }
   };
 
-};
 
 export { loader, IListLoaderDataProps, IListLoaderCallbacksProps };
