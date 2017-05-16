@@ -6,17 +6,15 @@ import { IListCallbacksProps, IListDataProps, List } from '../components/List';
 import { Dispatch } from '../stores/Dispatch';
 import { postItem } from '../actions/actionCreators';
 
-function mapStateToProps(state: IAppState): IListDataProps {
-  return {
-    itemsOrder: state.itemsOrder,
-  };
-}
+const mapStateToProps = (state: IAppState): IListDataProps => ({
+  itemsOrder: state.itemsOrder,
+});
 
-function mapDispatchToProps(dispatch: Dispatch): IListCallbacksProps {
-  return {
-    onAddItem: (value: string) => dispatch(postItem(value)),
-  };
-}
+
+const mapDispatchToProps = (dispatch: Dispatch): IListCallbacksProps => ({
+  onAddItem: (value: string) => dispatch(postItem(value)),
+});
+
 
 const ListContainer: React.ComponentClass<{}> = connect(mapStateToProps, mapDispatchToProps)(List);
 

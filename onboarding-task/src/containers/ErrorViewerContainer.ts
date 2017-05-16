@@ -6,6 +6,6 @@ const mapStateToProps = (state: IAppState): IErrorViewerDataProps => ({
   errorList: state.errors,
 });
 
-const ErrorViewerContainer: React.ComponentClass<any> = connect(mapStateToProps)(ErrorViewer);
+const ErrorViewerContainer: React.ComponentClass<{}> = connect(mapStateToProps)(ErrorViewer);
 
 export { ErrorViewerContainer }

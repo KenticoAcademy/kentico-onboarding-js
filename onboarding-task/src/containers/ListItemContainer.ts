@@ -24,23 +24,19 @@ const constructViewModel = (item: Item, flags: ItemFlags, index: number): IItemV
 
 const constructMemoizedViewModel = memoizee(constructViewModel);
 
-function mapStateToProps(state: IAppState, ownProps: IListItemContainerProps): IListItemDataProps {
-  const item = state.items.get(ownProps.id);
-  const index = state.itemsOrder.toIndexedSeq().indexOf(ownProps.id) + 1;
-  const flags = state.itemsFlags.get(ownProps.id);
+const mapStateToProps = (state: IAppState, ownProps: IListItemContainerProps): IListItemDataProps => ({
+  itemViewModel: constructMemoizedViewModel(
+    state.items.get(ownProps.id),
+    state.itemsFlags.get(ownProps.id),
+    state.itemsOrder.toIndexedSeq().indexOf(ownProps.id) + 1,
+  ),
+});
 
-  return {
-    itemViewModel: constructMemoizedViewModel(item, flags, index),
-  };
-}
-
-function mapDispatchToProps(dispatch: Dispatch, ownProps: IListItemContainerProps): IListItemCallbacksProps {
-  return {
-    onItemValueEdit: (value: string) => dispatch(editItem(ownProps.id, value)),
-    onDelete: () => dispatch(deleteItem(ownProps.id)),
-    onViewChange: () => dispatch(toggleItemViewMode(ownProps.id)),
-  };
-}
+const mapDispatchToProps = (dispatch: Dispatch, ownProps: IListItemContainerProps): IListItemCallbacksProps => ({
+  onItemValueEdit: (value: string) => dispatch(editItem(ownProps.id, value)),
+  onDelete: () => dispatch(deleteItem(ownProps.id)),
+  onViewChange: () => dispatch(toggleItemViewMode(ownProps.id)),
+});
 
 const ListItemContainer: React.ComponentClass<IListItemContainerProps> = connect(mapStateToProps, mapDispatchToProps)(ListItem);
 
