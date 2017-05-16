@@ -13,17 +13,16 @@ interface IListItemContainerProps {
   id: string;
 }
 
-function constructViewModel(item: Item, flags: ItemFlags, index: number): IItemViewModel {
-  return {
-    id: item.id,
-    value: item.value,
-    isInEditMode: flags.editMode,
-    isSavedInDatabase: flags.isSavedInDatabase,
-    index,
-  };
-}
+const constructViewModel = (item: Item, flags: ItemFlags, index: number): IItemViewModel => ({
+  id: item.id,
+  value: item.value,
+  isInEditMode: flags.editMode,
+  isSavedInDatabase: flags.isSavedInDatabase,
+  index,
+});
 
-const constructViewModelMemoized = memoizee(constructViewModel);
+
+const constructMemoizedViewModel = memoizee(constructViewModel);
 
 function mapStateToProps(state: IAppState, ownProps: IListItemContainerProps): IListItemDataProps {
   const item = state.items.get(ownProps.id);
@@ -31,7 +30,7 @@ function mapStateToProps(state: IAppState, ownProps: IListItemContainerProps): I
   const flags = state.itemsFlags.get(ownProps.id);
 
   return {
-    itemViewModel: constructViewModelMemoized(item, flags, index),
+    itemViewModel: constructMemoizedViewModel(item, flags, index),
   };
 }
 
