@@ -2,7 +2,7 @@ import * as Immutable from 'immutable';
 
 import { ItemFlags } from '../../src/models/ItemFlags.ts';
 import { toggleItemViewMode, deleteItem, editItem } from '../../src/actions/actionCreators';
-import { itemsFlagReducer } from '../../src/reducers/itemsFlagReducer';
+import { itemFlagsMapReducer } from '../../src/reducers/itemFlagsMapReducer';
 import { positivelyCreateItemLocally } from '../../src/actions/actionCreators';
 import { Item } from '../../src/models/Item';
 
@@ -20,13 +20,13 @@ describe('ItemsFlagReducer', () => {
   it('toggle view mode: switch to edit mode(editMode=true)', () => {
     const state = Immutable.Map().setIn([id, 'editMode'], false);
 
-    const actualState = itemsFlagReducer(state, toggleItemViewMode(id));
+    const actualState = itemFlagsMapReducer(state, toggleItemViewMode(id));
 
     expect(actualState.getIn([id, 'editMode'])).toBeTruthy();
   });
 
   it('delete flag for given id', () => {
-    const actualState = itemsFlagReducer(stateWithItemFlags, deleteItem(id));
+    const actualState = itemFlagsMapReducer(stateWithItemFlags, deleteItem(id));
 
     expect(actualState.has(id)).toBeFalsy();
   });
@@ -34,25 +34,25 @@ describe('ItemsFlagReducer', () => {
   it('create flag for given id', () => {
     const ueid = '2235d270-3918-48d9-95f7-a1b0ef008126';
 
-    const actualState = itemsFlagReducer(undefined, positivelyCreateItemLocally(new Item({ ueid })));
+    const actualState = itemFlagsMapReducer(undefined, positivelyCreateItemLocally(new Item({ ueid })));
 
     expect(actualState.has(ueid)).toBeTruthy();
   });
 
   it('toggle edit flag after edit', () => {
-    const actualState = itemsFlagReducer(stateWithItemFlags, editItem(id, "value"));
+    const actualState = itemFlagsMapReducer(stateWithItemFlags, editItem(id, "value"));
 
     expect(actualState.getIn([id, 'editMode'])).toBeFalsy();
   });
 
   it('unknown action passed to reducer returns previous state', () => {
-    const actualState = itemsFlagReducer(stateWithItemFlags, unknownAction);
+    const actualState = itemFlagsMapReducer(stateWithItemFlags, unknownAction);
 
     expect(actualState).toEqual(stateWithItemFlags);
   });
 
   it('send undefined state, initializes default state correctly', () => {
-    const actualState = itemsFlagReducer(undefined, unknownAction);
+    const actualState = itemFlagsMapReducer(undefined, unknownAction);
 
     expect(actualState).toEqual(Immutable.Map());
   });

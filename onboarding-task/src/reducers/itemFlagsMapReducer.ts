@@ -13,7 +13,7 @@ import { ItemFlags } from '../models/ItemFlags';
 import { itemFlagsReducer } from './itemFlagsReducer';
 import { Item } from '../models/Item';
 
-export const itemsFlagReducer = (state = Map<string, ItemFlags>(), action: IAction): Map<string, ItemFlags> => {
+export const itemFlagsMapReducer = (state = Map<string, ItemFlags>(), action: IAction): Map<string, ItemFlags> => {
   switch (action.type) {
     case EDIT_ITEM:
     case TOGGLE_ITEM_VIEW_MODE:

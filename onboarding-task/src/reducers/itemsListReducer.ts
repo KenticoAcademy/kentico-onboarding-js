@@ -1,5 +1,5 @@
 import { itemsReducer } from './itemsReducer';
-import { itemsFlagReducer } from './itemsFlagReducer';
+import { itemFlagsMapReducer } from './itemFlagsMapReducer';
 import { itemsOrderReducer } from './itemsOrderReducer';
 import { itemsIsFetchingReducer } from './itemsFetchReducer';
 import { itemsErrorReducer } from './itemsErrorsReducer';
@@ -10,7 +10,7 @@ export function itemsListReducer(prevState: IAppState = {} as IAppState, action:
   return {
     items: itemsReducer(prevState.items, action),
     itemsOrder: itemsOrderReducer(prevState.itemsOrder, action),
-    itemsFlags: itemsFlagReducer(prevState.itemsFlags, action),
+    itemsFlags: itemFlagsMapReducer(prevState.itemsFlags, action),
     isFetching: itemsIsFetchingReducer(prevState.isFetching, action),
     errors: itemsErrorReducer(prevState.errors, action),
   };
