@@ -2,11 +2,13 @@ import { Fetch } from './Fetch';
 import { IAction } from './IAction';
 import { Dispatch } from '../stores/Dispatch';
 import { Item } from '../models/Item';
-import { receivePostItemError, positivelyCreateItemLocally, receiveItemCreated } from './actionCreators';
+import {
+  receivePostItemError,
+  positivelyCreateItemLocally,
+  receiveItemCreated
+} from './actionCreators';
 import { parseResponse } from '../utils/parseResponse';
 import { API_VERSION_1, ITEMS } from '../constants/urls';
-
-
 
 const postItemFactory = (fetch: Fetch) =>
   (generateId: () => string) =>
