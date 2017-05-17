@@ -2,7 +2,7 @@ import { itemsReducer } from './itemsReducer';
 import { itemsFlagReducer } from './itemsFlagReducer';
 import { itemsOrderReducer } from './itemsOrderReducer';
 import { itemsIsFetchingReducer } from './itemsFetchReducer';
-import { itemsErrorReducer } from './itemsErrorReducer';
+import { itemsErrorReducer } from './itemsErrorsReducer';
 import { IAppState } from '../stores/IAppState';
 import { IAction } from '../actions/IAction';
 
