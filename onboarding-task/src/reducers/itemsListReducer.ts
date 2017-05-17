@@ -6,7 +6,7 @@ import { itemsErrorReducer } from './itemsErrorReducer';
 import { IAppState } from '../stores/IAppState';
 import { IAction } from '../actions/IAction';
 
-export function itemsReducer(prevState: IAppState = {} as IAppState, action: IAction): IAppState {
+export function itemsListReducer(prevState: IAppState = {} as IAppState, action: IAction): IAppState {
   return {
     items: itemsDataReducer(prevState.items, action),
     itemsOrder: itemsOrderReducer(prevState.itemsOrder, action),
