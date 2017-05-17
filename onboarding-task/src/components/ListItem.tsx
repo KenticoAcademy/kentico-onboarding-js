@@ -28,9 +28,7 @@ const ListItem: React.StatelessComponent<IListItemDataProps & IListItemCallbacks
   }
   return (
     <ViewItem
-      value={viewModel.value}
-      index={viewModel.index}
-      isSavedInDatabase={viewModel.isSavedInDatabase}
+      item={viewModel}
       onClick={props.onViewChange}
     />
   );
@@ -43,6 +41,7 @@ ListItem.propTypes = {
     value: React.PropTypes.string,
     index: React.PropTypes.number.isRequired,
     isInEditMode: React.PropTypes.bool.isRequired,
+    isSavedInDatabase: React.PropTypes.bool,
   }).isRequired,
   onItemValueEdit: React.PropTypes.func.isRequired,
   onDelete: React.PropTypes.func.isRequired,
