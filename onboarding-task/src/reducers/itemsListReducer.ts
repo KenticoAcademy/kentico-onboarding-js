@@ -1,4 +1,4 @@
-import { itemsDataReducer } from './itemsDataReducer';
+import { itemsReducer } from './itemsReducer';
 import { itemsFlagReducer } from './itemsFlagReducer';
 import { itemsOrderReducer } from './itemsOrderReducer';
 import { itemsIsFetchingReducer } from './itemsFetchReducer';
@@ -8,7 +8,7 @@ import { IAction } from '../actions/IAction';
 
 export function itemsListReducer(prevState: IAppState = {} as IAppState, action: IAction): IAppState {
   return {
-    items: itemsDataReducer(prevState.items, action),
+    items: itemsReducer(prevState.items, action),
     itemsOrder: itemsOrderReducer(prevState.itemsOrder, action),
     itemsFlags: itemsFlagReducer(prevState.itemsFlags, action),
     isFetching: itemsIsFetchingReducer(prevState.isFetching, action),

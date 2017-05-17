@@ -11,8 +11,8 @@ import {
 } from '../actions/actionTypes';
 import { itemReducer } from './itemReducer';
 
-export const itemsDataReducer = (state = Map<string, Item>(),
-                                 action: IAction,): Map<string, Item> => {
+export const itemsReducer = (state = Map<string, Item>(),
+                             action: IAction,): Map<string, Item> => {
   switch (action.type) {
     case EDIT_ITEM:
       return state.set(action.payload.id, itemReducer(state.get(action.payload.id), action));
