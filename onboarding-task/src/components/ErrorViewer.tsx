@@ -8,28 +8,39 @@ interface IErrorViewerDataProps {
   errorList: Immutable.OrderedMap<string, ErrorMessage>;
 }
 
-const ErrorViewer: React.StatelessComponent<IErrorViewerDataProps> = (props) => {
-  const errors = props.errorList.map((error: ErrorMessage, id) => (
-    <div key={ id } className="alert alert-danger">
-      { error.message }
-    </div>
-    )
-  ).toIndexedSeq();
+const errorMessage = (error: ErrorMessage, id: string): JSX.Element =>
+  <div key={ id } className="alert alert-danger">
+    { error.message }
+  </div>;
 
-  return (
-    <div>
-      { errors }
-    </div>
-  );
-};
+// React.StatelessComponent cannot be used with return type 'JSX.Element | null' yet
+// see issue https://github.com/Microsoft/TypeScript/issues/11955
+class ErrorViewer extends React.Component<IErrorViewerDataProps, undefined> {
+  static displayName = 'ErrorViewer';
 
-ErrorViewer.displayName = 'ErrorViewer';
-ErrorViewer.propTypes = {
-  errorList: ImmutablePropTypes.orderedMapOf(
-    React.PropTypes.shape({
-      message: React.PropTypes.string.isRequired,
-    }).isRequired
-  ).isRequired,
-};
+  static propTypes = {
+    errorList: ImmutablePropTypes.orderedMapOf(
+      React.PropTypes.shape({
+        message: React.PropTypes.string.isRequired,
+      }).isRequired
+    ).isRequired,
+  };
+
+  render() {
+    if (!this.props.errorList) {
+      return null;
+    }
+
+    const errors = this.props.errorList
+      .map((error: ErrorMessage, id: string) => errorMessage(error, id))
+      .toIndexedSeq();
+
+    return (
+      <div>
+        {errors}
+      </div>);
+  }
+}
+
 
 export { ErrorViewer, IErrorViewerDataProps };
