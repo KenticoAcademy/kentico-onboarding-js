@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ViewItemStatus } from './ViewItemValidation';
+import { ViewItemStatus } from './ViewItemStatus';
 
 interface IViewItemProps {
   onClick: () => void;
@@ -9,7 +9,6 @@ interface IViewItemProps {
 }
 
 const ViewItem: React.StatelessComponent<IViewItemProps> = (props) => (
-
   <div onClick={props.onClick}>
     <span className="col-sm-6">
       {props.index}. {props.value}
