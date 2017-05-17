@@ -1,4 +1,5 @@
 import { OrderedMap } from 'immutable';
+
 import { IAction } from '../actions/IAction';
 import {
   ITEM_POST_FAILED,
