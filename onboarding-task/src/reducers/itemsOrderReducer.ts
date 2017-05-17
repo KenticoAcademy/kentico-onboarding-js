@@ -24,9 +24,7 @@ export const itemsOrderReducer = (state = OrderedSet<string>(), action: IAction)
       );
 
     case ITEM_POST_SUCCEED:
-      return state
-        .delete(action.payload.item.ueid)
-        .add(action.payload.item.id);
+      return state.map(id => id === action.payload.item.ueid ? action.payload.item.id : id).toOrderedSet();
 
     default:
       return state;
