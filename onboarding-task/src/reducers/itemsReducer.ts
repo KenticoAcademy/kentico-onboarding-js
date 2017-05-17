@@ -10,9 +10,10 @@ import {
   ITEMS_FETCHING_SUCCEED
 } from '../actions/actionTypes';
 import { itemReducer } from './itemReducer';
+import { IItemServerModel } from '../models/IItemServerModel';
 
 export const itemsReducer = (state = Map<string, Item>(),
-                             action: IAction,): Map<string, Item> => {
+                             action: IAction): Map<string, Item> => {
   switch (action.type) {
     case EDIT_ITEM:
       return state.set(action.payload.id, itemReducer(state.get(action.payload.id), action));
@@ -26,7 +27,7 @@ export const itemsReducer = (state = Map<string, Item>(),
     case ITEMS_FETCHING_SUCCEED:
       return Map<string, Item>(
         action.payload.items
-          .map((item: any) => [item.id, new Item(item)])
+          .map((item: IItemServerModel) => [item.id, new Item(item)])
       );
 
     case ITEM_POST_SUCCEED:
