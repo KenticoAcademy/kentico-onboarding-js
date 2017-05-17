@@ -11,7 +11,7 @@ interface IListLoaderCallbacksProps {
   load: () => Promise<IAction>;
 }
 
-const loaderComponent =
+const loaderComponent: JSX.Element =
   <div>
     <div className="rainbow">
       <span/>
