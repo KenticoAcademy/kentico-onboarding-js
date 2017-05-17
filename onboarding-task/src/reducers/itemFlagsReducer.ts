@@ -18,9 +18,11 @@ export const itemFlagsReducer = (state = new ItemFlags(), action: IAction): Item
         editMode: false
       });
 
-    case ITEMS_FETCHING_SUCCEED:
     case ITEM_POST_SUCCEED:
-    return new ItemFlags({
+      return state.set('isSavedInDatabase', true) as ItemFlags;
+
+    case ITEMS_FETCHING_SUCCEED:
+      return new ItemFlags({
         editMode: false,
         isSavedInDatabase: true,
       });

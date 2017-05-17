@@ -19,9 +19,6 @@ export const itemsFlagReducer = (state = Map<string, ItemFlags>(), action: IActi
     case TOGGLE_ITEM_VIEW_MODE:
       return state.set(action.payload.id, itemFlagsReducer(state.get(action.payload.id), action));
 
-    case POSITIVELY_CREATE_ITEM_LOCALLY:
-      return state.set(action.payload.ueid, itemFlagsReducer(undefined, action));
-
     case DELETE_ITEM:
       return state.delete(action.payload.id);
 
@@ -31,10 +28,13 @@ export const itemsFlagReducer = (state = Map<string, ItemFlags>(), action: IActi
           .map((item: Item) => [item.id, itemFlagsReducer(undefined, action)])
       );
 
+    case POSITIVELY_CREATE_ITEM_LOCALLY:
+      return state.set(action.payload.ueid, itemFlagsReducer(undefined, action));
+
     case ITEM_POST_SUCCEED:
-      const itemFlags = itemFlagsReducer(undefined, action);
+      const itemFlags = itemFlagsReducer(state.get(action.payload.ueid), action);
       return state
-        .delete(action.payload.item.guid)
+        .delete(action.payload.item.ueid)
         .set(action.payload.item.id, itemFlags);
 
     case ITEM_POST_FAILED:
