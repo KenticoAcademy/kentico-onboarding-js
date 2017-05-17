@@ -1,9 +1,9 @@
 import { Fetch } from './Fetch';
-import { Dispatch } from '../stores/Dispatch';
 import { IAction } from './IAction';
 import { receiveItemsFetchingError, requestItems, receiveItems } from './actionCreators';
 import { parseResponse } from '../utils/parseResponse';
 import { API_VERSION_1, ITEMS } from '../constants/urls';
+import { Dispatch } from '../@types/global';
 
 const fetchItemsFactory = (fetch: Fetch) => {
   return (dispatch: Dispatch): Promise<IAction> => {

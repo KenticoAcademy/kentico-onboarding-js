@@ -3,11 +3,11 @@ import { connect } from 'react-redux';
 import * as memoizee from 'memoizee';
 
 import { IListItemCallbacksProps, IListItemDataProps, ListItem } from '../components/ListItem';
-import { Dispatch } from '../stores/Dispatch';
 import { deleteItem, editItem, toggleItemViewMode } from '../actions/actionCreators';
 import { IItemViewModel } from '../models/IItemViewModel';
 import { Item } from '../models/Item';
 import { ItemFlags } from '../models/ItemFlags';
+import { Dispatch } from '../@types/global';
 
 interface IListItemContainerProps {
   id: string;
