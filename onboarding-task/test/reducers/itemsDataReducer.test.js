@@ -15,10 +15,7 @@ describe('itemsReducer', () => {
     ueid,
     value
   });
-  const stateWithItem = Immutable.Map().set(
-    id,
-    item
-  );
+  const stateWithItem = Immutable.Map([ [ id, item ] ]);
   const unknownAction = { type: 'unknown action' };
 
   it('set new value for existing item', () => {
