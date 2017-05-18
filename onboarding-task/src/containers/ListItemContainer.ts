@@ -25,9 +25,9 @@ const constructMemoizedViewModel = memoizee(constructViewModel);
 
 const mapStateToProps = (state: IAppState, ownProps: IListItemContainerProps): IListItemDataProps => ({
   itemViewModel: constructMemoizedViewModel(
-    state.items.get(ownProps.id),
-    state.itemsFlags.get(ownProps.id),
-    state.itemsOrder.toIndexedSeq().indexOf(ownProps.id) + 1,
+    state.itemsList.items.get(ownProps.id),
+    state.itemsList.flags.get(ownProps.id),
+    state.itemsList.order.toIndexedSeq().indexOf(ownProps.id) + 1,
   ),
 });
 

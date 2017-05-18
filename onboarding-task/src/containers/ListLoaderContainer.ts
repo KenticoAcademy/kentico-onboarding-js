@@ -7,7 +7,7 @@ import { IListLoaderCallbacksProps, IListLoaderDataProps, loader } from '../comp
 import { List } from './ListContainer';
 
 const mapStateToProps = (state: IAppState): IListLoaderDataProps => ({
-  isLoading: state.isFetching,
+  isLoading: state.itemsList.isFetching,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): IListLoaderCallbacksProps => ({

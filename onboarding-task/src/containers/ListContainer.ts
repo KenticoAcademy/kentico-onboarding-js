@@ -6,7 +6,7 @@ import { IListCallbacksProps, IListDataProps, List } from '../components/List';
 import { postItem } from '../actions/actionCreators';
 
 const mapStateToProps = (state: IAppState): IListDataProps => ({
-  itemsOrder: state.itemsOrder,
+  itemsOrder: state.itemsList.order,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): IListCallbacksProps => ({

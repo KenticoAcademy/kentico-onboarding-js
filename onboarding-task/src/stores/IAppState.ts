@@ -1,15 +1,5 @@
-import * as Immutable from 'immutable';
+import { IItemsState } from './IItemsState';
 
-import { Item } from '../models/Item';
-import { ItemFlags } from '../models/ItemFlags';
-import { ErrorMessage } from '../models/ErrorMessage';
-
-interface IAppState {
-  items: Immutable.Map<string, Item>;
-  itemsOrder: Immutable.OrderedSet<string>;
-  itemsFlags: Immutable.Map<string, ItemFlags>;
-  isFetching: boolean;
-  errors: Immutable.OrderedMap<string, ErrorMessage>;
+export interface IAppState {
+  readonly itemsList: IItemsState;
 }
-
-export { IAppState };

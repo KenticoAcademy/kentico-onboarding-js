@@ -8,10 +8,10 @@ import 'bootstrap/dist/css/bootstrap.css';
 
 import './index.css';
 import App from './App.tsx';
-import { itemsListReducer } from './reducers/itemsListReducer.ts';
+import { rootReducer } from './reducers/rootReducer.ts';
 
 const logger = createLogger();
-const store = createStore(itemsListReducer, applyMiddleware(logger, thunk));
+const store = createStore(rootReducer, applyMiddleware(logger, thunk));
 
 
 ReactDOM.render(
