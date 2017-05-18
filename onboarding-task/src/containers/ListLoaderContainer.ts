@@ -5,7 +5,6 @@ import { fetchItems } from '../actions/actionCreators';
 import { IAppState } from '../stores/IAppState';
 import { IListLoaderCallbacksProps, IListLoaderDataProps, loader } from '../components/loader';
 import { List } from './ListContainer';
-import { Dispatch } from '../@types/global';
 
 const mapStateToProps = (state: IAppState): IListLoaderDataProps => ({
   isLoading: state.isFetching,

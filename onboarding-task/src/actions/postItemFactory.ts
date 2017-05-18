@@ -8,7 +8,6 @@ import {
 } from './actionCreators';
 import { parseResponse } from '../utils/parseResponse';
 import { API_VERSION_1, ITEMS } from '../constants/urls';
-import { Dispatch } from '../@types/global';
 
 const postItemFactory = (fetch: Fetch) =>
   (generateId: () => string) =>

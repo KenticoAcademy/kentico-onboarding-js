@@ -7,7 +7,6 @@ import { deleteItem, editItem, toggleItemViewMode } from '../actions/actionCreat
 import { IItemViewModel } from '../models/IItemViewModel';
 import { Item } from '../models/Item';
 import { ItemFlags } from '../models/ItemFlags';
-import { Dispatch } from '../@types/global';
 
 interface IListItemContainerProps {
   id: string;
