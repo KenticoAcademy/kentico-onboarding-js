@@ -2,7 +2,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 
 import { fetchItems } from '../actions/actionCreators';
-import { IAppState } from '../stores/IAppState';
+import { IAppState } from '../reducers/IAppState';
 import { IListLoaderCallbacksProps, IListLoaderDataProps, loader } from '../components/loader';
 import { List } from './ListContainer';
 

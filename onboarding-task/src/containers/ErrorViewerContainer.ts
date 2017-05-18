@@ -1,4 +1,4 @@
-import { IAppState } from '../stores/IAppState';
+import { IAppState } from '../reducers/IAppState';
 import { connect } from 'react-redux';
 import { ErrorViewer, IErrorViewerDataProps } from '../components/ErrorViewer';
 
