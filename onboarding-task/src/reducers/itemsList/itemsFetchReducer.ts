@@ -1,9 +1,9 @@
-import { IAction } from '../actions/IAction';
+import { IAction } from '../../actions/IAction';
 import {
   ITEMS_FETCHING_FAILED,
   ITEMS_FETCHING_SUCCEED,
   ITEMS_FETCHING_STARTED
-} from '../actions/actionTypes';
+} from '../../actions/actionTypes';
 
 const itemsIsFetchingReducer = (state = false, action: IAction,) => {
   switch (action.type) {

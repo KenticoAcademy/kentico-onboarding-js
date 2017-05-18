@@ -1,16 +1,16 @@
 import { Map } from 'immutable';
 
-import { IAction } from '../actions/IAction';
-import { Item } from '../models/Item';
+import { IAction } from '../../actions/IAction';
+import { Item } from '../../models/Item';
 import {
   POSITIVELY_CREATE_ITEM_LOCALLY,
   DELETE_ITEM,
   EDIT_ITEM,
   ITEM_POST_SUCCEED,
   ITEMS_FETCHING_SUCCEED
-} from '../actions/actionTypes';
+} from '../../actions/actionTypes';
 import { itemReducer } from './itemReducer';
-import { IItemServerModel } from '../models/IItemServerModel';
+import { IItemServerModel } from '../../models/IItemServerModel';
 
 export const itemsReducer = (state = Map<string, Item>(),
                              action: IAction): Map<string, Item> => {

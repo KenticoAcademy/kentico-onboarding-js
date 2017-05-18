@@ -1,6 +1,6 @@
 import { Map } from 'immutable';
 
-import { IAction } from '../actions/IAction';
+import { IAction } from '../../actions/IAction';
 import {
   POSITIVELY_CREATE_ITEM_LOCALLY,
   DELETE_ITEM,
@@ -8,10 +8,10 @@ import {
   ITEM_POST_SUCCEED,
   ITEMS_FETCHING_SUCCEED,
   TOGGLE_ITEM_VIEW_MODE
-} from '../actions/actionTypes';
-import { ItemFlags } from '../models/ItemFlags';
+} from '../../actions/actionTypes';
+import { ItemFlags } from '../../models/ItemFlags';
 import { itemFlagsReducer } from './itemFlagsReducer';
-import { Item } from '../models/Item';
+import { Item } from '../../models/Item';
 
 export const itemFlagsMapReducer = (state = Map<string, ItemFlags>(), action: IAction): Map<string, ItemFlags> => {
   switch (action.type) {

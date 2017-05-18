@@ -1,10 +1,10 @@
-import { IAction } from '../actions/IAction';
-import { Item } from '../models/Item';
+import { IAction } from '../../actions/IAction';
+import { Item } from '../../models/Item';
 import {
   POSITIVELY_CREATE_ITEM_LOCALLY,
   EDIT_ITEM,
   ITEM_POST_SUCCEED
-} from '../actions/actionTypes';
+} from '../../actions/actionTypes';
 
 export const itemReducer = (state = new Item(), action: IAction): Item => {
   switch (action.type) {

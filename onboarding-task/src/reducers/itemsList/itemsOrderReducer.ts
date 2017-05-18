@@ -1,13 +1,13 @@
 import { OrderedSet } from 'immutable';
 
-import { IAction } from '../actions/IAction';
+import { IAction } from '../../actions/IAction';
 import {
   POSITIVELY_CREATE_ITEM_LOCALLY,
   DELETE_ITEM,
   ITEM_POST_SUCCEED,
   ITEMS_FETCHING_SUCCEED
-} from '../actions/actionTypes';
-import { Item } from '../models/Item';
+} from '../../actions/actionTypes';
+import { Item } from '../../models/Item';
 
 export const itemsOrderReducer = (state = OrderedSet<string>(), action: IAction): OrderedSet<string> => {
   switch (action.type) {

@@ -1,5 +1,5 @@
 import * as Immutable from 'immutable';
-import { itemsErrorReducer } from '../../src/reducers/itemsErrorsReducer';
+import { itemsErrorReducer } from '../../src/reducers/itemsList/itemsErrorsReducer';
 import { receivePostItemErrorFactory } from '../../src/actions/receivePostItemErrorFactory';
 import { receiveItemsFetchingErrorFactory } from '../../src/actions/receiveItemsFetchingErrorFactory';
 import { ErrorMessage } from '../../src/models/ErrorMessage'

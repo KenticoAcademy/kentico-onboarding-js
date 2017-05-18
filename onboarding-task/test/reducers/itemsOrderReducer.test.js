@@ -1,7 +1,7 @@
 import * as Immutable from 'immutable';
 
 import { deleteItem } from '../../src/actions/actionCreators';
-import { itemsOrderReducer } from '../../src/reducers/itemsOrderReducer';
+import { itemsOrderReducer } from '../../src/reducers/itemsList/itemsOrderReducer';
 import { positivelyCreateItemLocally } from '../../src/actions/actionCreators';
 import { Item } from '../../src/models/Item';
 

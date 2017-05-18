@@ -1,11 +1,11 @@
 import { OrderedMap } from 'immutable';
 
-import { IAction } from '../actions/IAction';
+import { IAction } from '../../actions/IAction';
 import {
   ITEM_POST_FAILED,
   ITEMS_FETCHING_FAILED
-} from '../actions/actionTypes';
-import { ErrorMessage } from '../models/ErrorMessage';
+} from '../../actions/actionTypes';
+import { ErrorMessage } from '../../models/ErrorMessage';
 
 export const itemsErrorReducer = (state = OrderedMap<string, ErrorMessage>(),
                                   action: IAction): OrderedMap<string, ErrorMessage> => {

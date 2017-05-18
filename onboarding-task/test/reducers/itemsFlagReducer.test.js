@@ -2,7 +2,7 @@ import * as Immutable from 'immutable';
 
 import { ItemFlags } from '../../src/models/ItemFlags.ts';
 import { toggleItemViewMode, deleteItem, editItem } from '../../src/actions/actionCreators';
-import { itemFlagsMapReducer } from '../../src/reducers/itemFlagsMapReducer';
+import { itemFlagsMapReducer } from '../../src/reducers/itemsList/itemFlagsMapReducer';
 import { positivelyCreateItemLocally } from '../../src/actions/actionCreators';
 import { Item } from '../../src/models/Item';
 
