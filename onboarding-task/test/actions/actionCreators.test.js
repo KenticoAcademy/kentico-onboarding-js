@@ -81,9 +81,9 @@ describe('actionCreators', () => {
   it('postItem calls fetch with correct arguments', () => {
     const fetch = jest.fn(() => Promise.resolve(getItem));
     const dispatch = (action) => action;
-    const fetchItem = postItemFactory(fetch)(() => ueid);
+    const postItem = postItemFactory(fetch, () => ueid);
 
-    return fetchItem(value)(dispatch).then(() => {
+    return postItem(value)(dispatch).then(() => {
       return expect(fetch.mock.calls[0][0]).toEqual(API_VERSION_1 + ITEMS)
         || expect(fetch.mock.calls[0][1]).toEqual({
           method: "POST",
@@ -99,7 +99,7 @@ describe('actionCreators', () => {
   it('postItem correctly creates item with given value and passes it to dispatch in first call', () => {
     const fetch = () => Promise.resolve(getItem);
     const dispatch = jest.fn(action => action);
-    const postItem = postItemFactory(fetch)(() => ueid);
+    const postItem = postItemFactory(fetch, () => ueid);
 
     expect.assertions(2);
     return postItem(value)(dispatch).then(() => {
@@ -114,7 +114,7 @@ describe('actionCreators', () => {
       then: () => Promise.resolve(item),
     });
     const dispatch = jest.fn(action => action);
-    const postItem = postItemFactory(fetch)(() => ueid);
+    const postItem = postItemFactory(fetch, () => ueid);
 
     return postItem(value)(dispatch).then(() => {
       return expect(dispatch.mock.calls[1][0].payload.item).toEqual(item);

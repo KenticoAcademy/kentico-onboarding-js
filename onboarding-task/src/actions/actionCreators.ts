@@ -18,7 +18,7 @@ import { receiveItemsFetchingErrorFactory } from './receiveItemsFetchingErrorFac
 import { receivePostItemErrorFactory } from './receivePostItemErrorFactory';
 
 const fetchItemsWithDependencies = fetchItemsFactory(fetch);
-const postItemWithDependencies = postItemFactory(fetch)(generateGuid);
+const postItemWithDependencies = postItemFactory(fetch, generateGuid);
 const receiveItemsFetchingErrorWithDependencies = receiveItemsFetchingErrorFactory(generateGuid);
 const receivePostItemErrorWithDependencies = receivePostItemErrorFactory(generateGuid);
 
