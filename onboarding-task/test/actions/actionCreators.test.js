@@ -12,7 +12,7 @@ import {
   ITEMS_FETCHING_STARTED,
   ITEMS_FETCHING_SUCCEED,
   ITEMS_FETCHING_FAILED,
-  ITEM_POST_FAILED,
+  ITEM_SAVE_FAILED,
 } from '../../src/actions/actionTypes';
 import { postItemFactory } from '../../src/actions/postItemFactory';
 import { fetchItemsFactory } from '../../src/actions/fetchItemsFactory';
@@ -179,7 +179,7 @@ describe('actionCreators', () => {
 
       const receiveItemsFetchingError = receivePostItemErrorFactory(generateId)(error, ueid);
 
-      return expect(receiveItemsFetchingError.type).toEqual(ITEM_POST_FAILED)
+      return expect(receiveItemsFetchingError.type).toEqual(ITEM_SAVE_FAILED)
         || expect(receiveItemsFetchingError.payload).toEqual({
           id,
           itemUeid: ueid,

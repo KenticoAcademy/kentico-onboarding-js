@@ -4,8 +4,8 @@ import { IAction } from '../../actions/IAction';
 import {
   POSITIVELY_CREATE_ITEM_LOCALLY,
   DELETE_ITEM,
-  EDIT_ITEM, ITEM_POST_FAILED,
-  ITEM_POST_SUCCEED,
+  EDIT_ITEM, ITEM_SAVE_FAILED,
+  ITEM_SAVE_SUCCEED,
   ITEMS_FETCHING_SUCCEED,
   TOGGLE_ITEM_VIEW_MODE
 } from '../../actions/actionTypes';
@@ -31,13 +31,13 @@ export const itemFlagsMapReducer = (state = Map<string, ItemFlags>(), action: IA
     case POSITIVELY_CREATE_ITEM_LOCALLY:
       return state.set(action.payload.ueid, itemFlagsReducer(undefined, action));
 
-    case ITEM_POST_SUCCEED:
+    case ITEM_SAVE_SUCCEED:
       const itemFlags = itemFlagsReducer(state.get(action.payload.ueid), action);
       return state
         .delete(action.payload.item.ueid)
         .set(action.payload.item.id, itemFlags);
 
-    case ITEM_POST_FAILED:
+    case ITEM_SAVE_FAILED:
       const ueid = action.payload.ueid;
       return state
         .set(ueid, itemFlagsReducer(state.get(ueid), action));

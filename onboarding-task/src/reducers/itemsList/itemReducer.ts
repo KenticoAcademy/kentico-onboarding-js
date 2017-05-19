@@ -3,7 +3,7 @@ import { Item } from '../../models/Item';
 import {
   POSITIVELY_CREATE_ITEM_LOCALLY,
   EDIT_ITEM,
-  ITEM_POST_SUCCEED
+  ITEM_SAVE_SUCCEED
 } from '../../actions/actionTypes';
 
 export const itemReducer = (state = new Item(), action: IAction): Item => {
@@ -17,7 +17,7 @@ export const itemReducer = (state = new Item(), action: IAction): Item => {
         value: action.payload.value,
       });
 
-    case ITEM_POST_SUCCEED:
+    case ITEM_SAVE_SUCCEED:
       return new Item(action.payload.item);
 
     default:

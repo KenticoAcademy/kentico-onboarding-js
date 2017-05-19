@@ -5,7 +5,7 @@ import {
   DELETE_ITEM,
   ITEMS_FETCHING_SUCCEED,
   POSITIVELY_CREATE_ITEM_LOCALLY,
-  ITEM_POST_SUCCEED,
+  ITEM_SAVE_SUCCEED,
   ITEMS_FETCHING_STARTED,
 } from './actionTypes';
 import { generateGuid } from '../utils/generateGuid';
@@ -46,7 +46,7 @@ const positivelyCreateItemLocally = (item: Item) => ({
 });
 
 const receiveItemCreated = (json: Item): IAction => ({
-  type: ITEM_POST_SUCCEED,
+  type: ITEM_SAVE_SUCCEED,
   payload: {
     item: json as Item,
   }

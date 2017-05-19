@@ -4,7 +4,7 @@ import { IAction } from '../../actions/IAction';
 import {
   POSITIVELY_CREATE_ITEM_LOCALLY,
   DELETE_ITEM,
-  ITEM_POST_SUCCEED,
+  ITEM_SAVE_SUCCEED,
   ITEMS_FETCHING_SUCCEED
 } from '../../actions/actionTypes';
 import { Item } from '../../models/Item';
@@ -23,7 +23,7 @@ export const itemsOrderReducer = (state = OrderedSet<string>(), action: IAction)
           .map((item: Item) => item.id)
       );
 
-    case ITEM_POST_SUCCEED:
+    case ITEM_SAVE_SUCCEED:
       return state.map(id => id === action.payload.item.ueid ? action.payload.item.id : id).toOrderedSet();
 
     default:
