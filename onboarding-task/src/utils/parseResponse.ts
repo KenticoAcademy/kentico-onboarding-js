@@ -1,4 +1,4 @@
-export const parseResponse = (errorMessage: string) => (response: Response) => {
+export const parseResponse = (errorMessage: string) => (response: Response): Promise<any> => {
   if (response.ok) {
     return response.json();
   }

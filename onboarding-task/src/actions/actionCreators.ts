@@ -1,4 +1,5 @@
 import 'isomorphic-fetch';
+
 import {
   TOGGLE_ITEM_VIEW_MODE,
   EDIT_ITEM,
@@ -16,11 +17,7 @@ import { Item } from '../models/Item';
 import { postItemFactory } from './postItemFactory';
 import { receiveItemsFetchingErrorFactory } from './receiveItemsFetchingErrorFactory';
 import { receivePostItemErrorFactory } from './receivePostItemErrorFactory';
-
-const fetchItemsWithDependencies = fetchItemsFactory(fetch);
-const postItemWithDependencies = postItemFactory(fetch, generateGuid);
-const receiveItemsFetchingErrorWithDependencies = receiveItemsFetchingErrorFactory(generateGuid);
-const receivePostItemErrorWithDependencies = receivePostItemErrorFactory(generateGuid);
+import { parseResponse } from '../utils/parseResponse';
 
 const deleteItem = (id: string): IAction => ({
   type: DELETE_ITEM,
@@ -63,6 +60,11 @@ const receiveItems = (json: any): IAction => ({
     items: json.map((item: Item) => item as Item),
   },
 });
+
+const fetchItemsWithDependencies = fetchItemsFactory(fetch);
+const receiveItemsFetchingErrorWithDependencies = receiveItemsFetchingErrorFactory(generateGuid);
+const receivePostItemErrorWithDependencies = receivePostItemErrorFactory(generateGuid);
+const postItemWithDependencies = postItemFactory(fetch, generateGuid, receivePostItemErrorWithDependencies, receiveItemCreated, parseResponse);
 
 export {
   deleteItem,

@@ -2,14 +2,15 @@ import { Fetch } from './Fetch';
 import { IAction } from './IAction';
 import { Item } from '../models/Item';
 import {
-  receivePostItemError,
-  positivelyCreateItemLocally,
-  receiveItemCreated
+  positivelyCreateItemLocally
 } from './actionCreators';
-import { parseResponse } from '../utils/parseResponse';
 import { API_VERSION_1, ITEMS } from '../constants/urls';
 
-const postItemFactory = (fetch: Fetch, generateId: () => string) =>
+const postItemFactory = (fetch: Fetch,
+                         generateId: () => string,
+                         receivePostItemError: (error: Error, itemUeid: string) => IAction,
+                         receiveItemCreated: (json: Item) => IAction,
+                         parseResponse: (errorMessage: string) => (response: Response) => Promise<any>) =>
   (value: string) => {
     return (dispatch: Dispatch): Promise<IAction> => {
       const item = new Item({ ueid: generateId(), value });
