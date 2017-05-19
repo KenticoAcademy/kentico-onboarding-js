@@ -14,6 +14,16 @@ const postItemFactory = (fetch: Fetch, generateId: () => string) =>
     return (dispatch: Dispatch): Promise<IAction> => {
       const item = new Item({ ueid: generateId(), value });
       dispatch(positivelyCreateItemLocally(item));
+
+      if (!navigator.onLine) {
+        return new Promise(() =>
+          dispatch(receivePostItemError(
+            new Error('A good chance we are offline. Item was not saved on the server.'),
+            item.ueid
+            )
+          )
+        );
+      }
       return fetch(
         API_VERSION_1 + ITEMS,
         {
@@ -24,7 +34,7 @@ const postItemFactory = (fetch: Fetch, generateId: () => string) =>
           },
           body: JSON.stringify({ ueid: item.ueid, value: item.value }),
         })
-        .then(parseResponse(': Item was not correctly saved on the server'))
+        .then(parseResponse('Item was not correctly saved on the server'))
         .then((json: Item) => dispatch(receiveItemCreated(json)))
         .catch((error: Error) => dispatch(receivePostItemError(error, item.ueid)));
     };

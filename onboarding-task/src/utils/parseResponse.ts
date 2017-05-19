@@ -2,5 +2,10 @@ export const parseResponse = (errorMessage: string) => (response: Response) => {
   if (response.ok) {
     return response.json();
   }
-  return Promise.reject(new Error(response.statusText + errorMessage));
+
+  return response.json().catch(() =>
+    Promise.reject(new Error(response.statusText + ': ' + errorMessage))
+  ).then((data: any) =>
+    Promise.reject(new Error(response.statusText + ': ' + data.modelState.value.toString()))
+  );
 };
