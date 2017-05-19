@@ -18,8 +18,8 @@ class AddItem extends React.PureComponent<IAddItemProps, IAddItemState> {
     this.state = { inputValue: '' };
   }
 
-  _inputChange = (event: any) => {
-    this.setState({ inputValue: event.target.value });
+  _inputChange = (event: React.FormEvent<HTMLInputElement>) => {
+    this.setState({ inputValue: event.currentTarget.value });
   };
 
   _addItem = () => {
