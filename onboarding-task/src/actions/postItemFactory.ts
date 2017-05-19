@@ -1,4 +1,3 @@
-import { Fetch } from './Fetch';
 import { IAction } from './IAction';
 import { Item } from '../models/Item';
 import {

@@ -5,4 +5,5 @@ type dispatchThunk = (thunkAction: ((dispatch: dispatchAction) => Promise<IActio
 
 declare global {
   type Dispatch = dispatchThunk & dispatchAction;
+  type Fetch = (input: Request | string, init?: RequestInit) => Promise<Response>;
 }

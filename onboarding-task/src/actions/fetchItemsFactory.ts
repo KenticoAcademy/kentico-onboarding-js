@@ -1,4 +1,3 @@
-import { Fetch } from './Fetch';
 import { IAction } from './IAction';
 import { receiveItemsFetchingError, requestItems, receiveItems } from './actionCreators';
 import { parseResponse } from '../utils/parseResponse';
