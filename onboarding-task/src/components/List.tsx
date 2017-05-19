@@ -1,6 +1,6 @@
+const ImmutablePropTypes = require('react-immutable-proptypes');
 import * as React from 'react';
 import * as Immutable from 'immutable';
-const ImmutablePropTypes = require('react-immutable-proptypes');
 
 import { ListItem } from '../containers/ListItemContainer';
 import { AddItem } from './AddItem';
@@ -18,7 +18,7 @@ const List: React.StatelessComponent<IListDataProps & IListCallbacksProps> = (pr
   const itemsList = props.itemsOrder.toIndexedSeq().map((id: string) => (
     <div className="row" key={id}>
       <div className="col-sm-12 col-sm-offset-2 col-sm-8">
-        <li className="list-group-item" key={id}>
+        <li className="list-group-item">
           <ListItem id={id}/>
         </li>
       </div>
