@@ -2,7 +2,6 @@ export const parseResponse = (errorMessage: string) => (response: Response): Pro
   if (response.ok) {
     return response.json();
   }
-
   return response.json().catch(() =>
     Promise.reject(new Error(response.statusText + ': ' + errorMessage))
   ).then((data: any) =>
