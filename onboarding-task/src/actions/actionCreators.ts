@@ -7,7 +7,7 @@ import {
   ITEMS_FETCHING_SUCCEED,
   POSITIVELY_CREATE_ITEM_LOCALLY,
   ITEM_SAVE_SUCCEED,
-  ITEMS_FETCHING_STARTED,
+  ITEMS_FETCHING_STARTED, DELETE_ERROR,
 } from './actionTypes';
 import { generateGuid } from '../utils/generateGuid';
 import { fetchItemsFactory } from './fetchItemsFactory';
@@ -61,6 +61,11 @@ const receiveItems = (json: any): IAction => ({
   },
 });
 
+const deleteError = (id: string): IAction => ({
+  type: DELETE_ERROR,
+  payload: { id },
+});
+
 const receiveItemsFetchingErrorWithDependencies = receiveItemsFetchingErrorFactory(generateGuid);
 const receivePostItemErrorWithDependencies = receivePostItemErrorFactory(generateGuid);
 const fetchItemsWithDependencies = fetchItemsFactory(fetch, parseResponse, receiveItems, receiveItemsFetchingErrorWithDependencies);
@@ -78,4 +83,5 @@ export {
   receiveItemCreated,
   receiveItems,
   requestItems,
+  deleteError,
 };

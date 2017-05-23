@@ -2,6 +2,7 @@ import { OrderedMap } from 'immutable';
 
 import { IAction } from '../../actions/IAction';
 import {
+  DELETE_ERROR,
   ITEM_SAVE_FAILED,
   ITEMS_FETCHING_FAILED
 } from '../../actions/actionTypes';
@@ -26,6 +27,9 @@ export const itemsErrorReducer = (state = OrderedMap<string, ErrorMessage>(),
           id: action.payload.id,
           message: action.payload.message
         }));
+
+    case DELETE_ERROR:
+      return state.delete(action.payload.id);
 
     default:
       return state;

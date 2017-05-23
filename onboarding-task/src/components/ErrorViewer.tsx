@@ -8,14 +8,21 @@ interface IErrorViewerDataProps {
   errorList: Immutable.OrderedMap<string, ErrorMessage>;
 }
 
-const ErrorMessageNotification: React.StatelessComponent<{ error: IErrorMessage }> = (props) => (
-  <div className="alert alert-danger">
+interface IErrorViewerCallbacksProps {
+  onErrorClose: (id: string) => void;
+}
+
+const ErrorMessageNotification: React.StatelessComponent<{ error: IErrorMessage, onErrorClose: () => void }> = (props) => {
+
+  return (<div className="alert alert-danger">
     { props.error.message }
+    <div className="glyphicon glyphicon-remove pull-right" onClick={props.onErrorClose} />
   </div>);
+};
 
 // React.StatelessComponent cannot be used with return type 'JSX.Element | null' yet
 // see issue https://github.com/Microsoft/TypeScript/issues/11955
-class ErrorViewer extends React.Component<IErrorViewerDataProps, undefined> {
+class ErrorViewer extends React.Component<IErrorViewerDataProps & IErrorViewerCallbacksProps, undefined> {
   static displayName = 'ErrorViewer';
 
   static propTypes = {
@@ -24,7 +31,10 @@ class ErrorViewer extends React.Component<IErrorViewerDataProps, undefined> {
         message: React.PropTypes.string.isRequired,
       }).isRequired
     ).isRequired,
+    onErrorClose: React.PropTypes.func.isRequired,
   };
+
+  _closeError = (id: string) => () => this.props.onErrorClose(id);
 
   render() {
     if (!this.props.errorList) {
@@ -32,7 +42,9 @@ class ErrorViewer extends React.Component<IErrorViewerDataProps, undefined> {
     }
 
     const errors = this.props.errorList
-      .map((error: ErrorMessage, id: string) => <ErrorMessageNotification error={error} key={id}/>)
+      .map((error: ErrorMessage) =>
+        <ErrorMessageNotification error={error} onErrorClose={this._closeError(error.id)} key={error.id}/>
+      )
       .toIndexedSeq();
 
     return (
@@ -43,4 +55,4 @@ class ErrorViewer extends React.Component<IErrorViewerDataProps, undefined> {
 }
 
 
-export { ErrorViewer, IErrorViewerDataProps };
+export { ErrorViewer, IErrorViewerDataProps, IErrorViewerCallbacksProps };
