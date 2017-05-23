@@ -4,7 +4,7 @@ import { Item } from '../models/Item';
 import { ItemFlags } from '../models/ItemFlags';
 import { ErrorMessage } from '../models/ErrorMessage';
 
-interface IItemsState {
+interface IItemsListState {
   items: Immutable.Map<string, Item>;
   order: Immutable.OrderedSet<string>;
   flags: Immutable.Map<string, ItemFlags>;
@@ -12,4 +12,4 @@ interface IItemsState {
   errors: Immutable.OrderedMap<string, ErrorMessage>;
 }
 
-export { IItemsState };
+export { IItemsListState };

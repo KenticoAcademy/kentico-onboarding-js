@@ -1,5 +1,5 @@
-import { IItemsState } from './IItemsState';
+import { IItemsListState } from './IItemsListState';
 
 export interface IAppState {
-  readonly itemsList: IItemsState;
+  readonly itemsList: IItemsListState;
 }
