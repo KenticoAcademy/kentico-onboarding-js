@@ -7,7 +7,8 @@ import {
   DELETE_ITEM,
   EDIT_ITEM,
   ITEM_SAVE_SUCCEED,
-  ITEMS_FETCHING_SUCCEED
+  ITEMS_FETCHING_SUCCEED,
+  ITEM_SAVE_FAILED,
 } from '../../actions/actionTypes';
 import { itemReducer } from './itemReducer';
 import { IItemServerModel } from '../../models/IItemServerModel';
@@ -34,6 +35,9 @@ export const itemsReducer = (state = Map<string, Item>(),
       return state
         .delete(action.payload.item.ueid)
         .set(action.payload.item.id, itemReducer(undefined, action));
+
+    case ITEM_SAVE_FAILED:
+      return state.delete(action.payload.itemUeid);
 
     default:
       return state;

@@ -5,7 +5,8 @@ import {
   POSITIVELY_CREATE_ITEM_LOCALLY,
   DELETE_ITEM,
   ITEM_SAVE_SUCCEED,
-  ITEMS_FETCHING_SUCCEED
+  ITEMS_FETCHING_SUCCEED,
+  ITEM_SAVE_FAILED,
 } from '../../actions/actionTypes';
 import { Item } from '../../models/Item';
 
@@ -25,6 +26,9 @@ export const itemsOrderReducer = (state = OrderedSet<string>(), action: IAction)
 
     case ITEM_SAVE_SUCCEED:
       return state.map(id => id === action.payload.item.ueid ? action.payload.item.id : id).toOrderedSet();
+
+    case ITEM_SAVE_FAILED:
+      return state.delete(action.payload.itemUeid);
 
     default:
       return state;

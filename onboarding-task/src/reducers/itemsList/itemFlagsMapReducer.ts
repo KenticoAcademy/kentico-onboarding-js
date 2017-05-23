@@ -38,9 +38,7 @@ export const itemFlagsMapReducer = (state = Map<string, ItemFlags>(), action: IA
         .set(action.payload.item.id, itemFlags);
 
     case ITEM_SAVE_FAILED:
-      const ueid = action.payload.ueid;
-      return state
-        .set(ueid, itemFlagsReducer(state.get(ueid), action));
+      return state.delete(action.payload.itemUeid);
 
     default:
       return state;
