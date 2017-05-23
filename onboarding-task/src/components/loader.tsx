@@ -11,7 +11,7 @@ interface IListLoaderCallbacksProps {
   load: () => Promise<IAction>;
 }
 
-const loaderComponent: JSX.Element =
+const LoaderComponent: React.StatelessComponent<{}> = () => (
   <div>
     <div className="rainbow">
       <span/>
@@ -24,7 +24,7 @@ const loaderComponent: JSX.Element =
       <div className="body"/>
       <div className="head"/>
     </div>
-  </div>;
+  </div>);
 
 const loader = (LoadedComponent: React.ComponentClass<{}>) =>
   class extends React.PureComponent<IListLoaderDataProps & IListLoaderCallbacksProps, undefined> {
@@ -37,7 +37,7 @@ const loader = (LoadedComponent: React.ComponentClass<{}>) =>
     render() {
       if (this.props.isLoading) {
         return (
-          loaderComponent
+          <LoaderComponent/>
         );
       } else {
         return <LoadedComponent/>;
