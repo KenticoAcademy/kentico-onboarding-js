@@ -35,6 +35,8 @@ describe('actionCreators', () => {
   const getItem = { json: () => item };
 
   // Set up for postItemFactory tests
+  const identityFunc = jest.fn(id => id);
+  const generateId = () => ueid;
   const receivePostItemErrorAction = (error, itemUeid) => ({
     type: ITEM_SAVE_FAILED,
     payload: {
@@ -43,15 +45,13 @@ describe('actionCreators', () => {
       message: error.message,
     },
   });
-  // const receivePostItemErrorMock = (error, itemUeid) => receivePostItemErrorAction(error, itemUeid);
-  const receivePostItemErrorMock = jest.fn((error, ueid) => receivePostItemErrorAction(error, ueid));
+  const receivePostItemErrorMock = jest.fn((error, ueid) => ([error, ueid]));
   const receiveItemCreatedMock = json => ({
     type: ITEM_SAVE_SUCCEED,
     payload: {
       item: json,
     }
   });
-  const parseResponseMock = (errorMessage) => (response) => new Promise();
 
   it('deleteItem creates correct action', () => {
     const expectedAction = {
@@ -101,7 +101,9 @@ describe('actionCreators', () => {
   it('postItem calls fetch with correct arguments', () => {
     const fetch = jest.fn(() => Promise.resolve(getItem));
     const dispatch = (action) => action;
-    const postItem = postItemFactory(fetch, () => ueid, receivePostItemErrorMock, receiveItemCreatedMock, parseResponseMock);
+    const parseResponseMock = (errorMessage) => (response) => new Promise();
+
+    const postItem = postItemFactory(fetch, generateId, receivePostItemErrorMock, receiveItemCreatedMock, parseResponseMock);
 
     expect.assertions(2);
     return postItem(value)(dispatch).then(() => {
@@ -120,7 +122,8 @@ describe('actionCreators', () => {
   it('postItem correctly creates item with given value and passes it to dispatch in first call', () => {
     const fetch = () => Promise.resolve(getItem);
     const dispatch = jest.fn(action => action);
-    const postItem = postItemFactory(fetch, () => ueid, receivePostItemErrorMock, receiveItemCreatedMock, parseResponseMock);
+    const parseResponseMock = (errorMessage) => (response) => new Promise();
+    const postItem = postItemFactory(fetch, generateId, receivePostItemErrorMock, receiveItemCreatedMock, parseResponseMock);
 
     expect.assertions(2);
     return postItem(value)(dispatch).then(() => {
@@ -129,38 +132,25 @@ describe('actionCreators', () => {
     });
   });
 
-  it('postItem correctly calls action with given item as a second call in dispatch, with network connection set as online', () => {
-    const fetch = () => ({
-      response: { ok: true },
-      then: () => Promise.resolve(item),
-    });
+  it('postItem correctly calls action with given item as a second call in dispatch', () => {
+    const fetch = () => Promise.resolve(item);
     const dispatch = jest.fn(action => action);
-    // customized network connection info
-    navigator.__defineGetter__('onLine', function () {
-      return true
-    });
 
-    const postItem = postItemFactory(fetch, () => ueid, receivePostItemErrorMock, receiveItemCreatedMock, parseResponseMock);
+    const postItem = postItemFactory(fetch, generateId, receivePostItemErrorMock, receiveItemCreatedMock, identityFunc);
 
     return postItem(value)(dispatch).then(() => {
       expect(dispatch.mock.calls[1][0].payload.item).toEqual(item);
     });
   });
 
-  // This test will be fixed soon
-  xit('postItem correctly calls receivePostItemError as a second call in dispatch, with network connection set as offline', () => {
-    const fetch = () => Promise.resolve(getItem);
-    const dispatch = jest.fn(action => action);
-    // customized network connection info
-    navigator.__defineGetter__('onLine', function () {
-      return true
-    });
+  it('postItem correctly calls receivePostItemError as a third call in dispatch after fetch fails', () => {
+    const fetch = () => Promise.reject('message');
+    const dispatch = jest.fn((er, ueid) => (er));
 
-    const postItem = postItemFactory(fetch, () => ueid, receivePostItemErrorMock, receiveItemCreatedMock, parseResponseMock);
+    const postItem = postItemFactory(fetch, generateId, receivePostItemErrorMock, identityFunc, identityFunc);
 
     return postItem(value)(dispatch).then(() => {
-      return expect(dispatch.mock.calls[1][0]).toEqual(new Error('A good chance we are offline. Item was not saved on the server.'))
-      || expect(dispatch.mock.calls[1][1]).toBe(ueid);
+      expect(dispatch.mock.calls[1][0]).toEqual([new Error('A good chance we are offline. Item was not saved on the server.'), ueid])
     });
   });
 
