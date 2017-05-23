@@ -61,9 +61,9 @@ const receiveItems = (json: any): IAction => ({
   },
 });
 
-const fetchItemsWithDependencies = fetchItemsFactory(fetch);
 const receiveItemsFetchingErrorWithDependencies = receiveItemsFetchingErrorFactory(generateGuid);
 const receivePostItemErrorWithDependencies = receivePostItemErrorFactory(generateGuid);
+const fetchItemsWithDependencies = fetchItemsFactory(fetch, parseResponse, receiveItems, receiveItemsFetchingErrorWithDependencies);
 const postItemWithDependencies = postItemFactory(fetch, generateGuid, receivePostItemErrorWithDependencies, receiveItemCreated, parseResponse);
 
 export {

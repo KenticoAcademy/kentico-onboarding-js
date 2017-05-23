@@ -1,9 +1,11 @@
 import { IAction } from './IAction';
-import { receiveItemsFetchingError, requestItems, receiveItems } from './actionCreators';
-import { parseResponse } from '../utils/parseResponse';
+import { requestItems } from './actionCreators';
 import { API_VERSION_1, ITEMS } from '../constants/urls';
 
-const fetchItemsFactory = (fetch: Fetch) => {
+const fetchItemsFactory = (fetch: Fetch,
+                           parseResponse: (errorMessage: string) => (response: Response) => Promise<any>,
+                           receiveItems: (json: any) => IAction,
+                           receiveItemsFetchingError: (error: Error) => IAction) => {
   return (dispatch: Dispatch): Promise<IAction> => {
     dispatch(requestItems());
     return fetch(API_VERSION_1 + ITEMS)
