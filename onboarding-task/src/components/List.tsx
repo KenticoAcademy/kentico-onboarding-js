@@ -14,29 +14,24 @@ interface IListCallbacksProps {
   onAddItem: (value: string) => void;
 }
 
+const listItemWrapper = <TProps extends { id?: string }>(Component: React.ComponentClass<TProps>, props?: TProps) => (
+  <div className="row col-sm-12 col-sm-offset-2 col-sm-8" key={props && props.id}>
+    <li className="list-group-item">
+      <Component {...props} />
+    </li>
+  </div>);
+
 const List: React.StatelessComponent<IListDataProps & IListCallbacksProps> = (props) => {
   const itemsList = props.itemsOrder.toIndexedSeq().map((id: string) => (
-    <div className="row" key={id}>
-      <div className="col-sm-12 col-sm-offset-2 col-sm-8">
-        <li className="list-group-item">
-          <ListItem id={id}/>
-        </li>
-      </div>
-    </div>)
-  );
+    listItemWrapper(ListItem, { ...props, id })
+  ));
 
   return (
     <div>
       <ErrorViewerContainer />
       <ul className="list-group">
         {itemsList}
-        <div className="row">
-          <span className="col-sm-12 col-sm-offset-2 col-sm-8">
-            <li className="list-group-item">
-              <AddItem onAdd={props.onAddItem}/>
-            </li>
-          </span>
-        </div>
+        {listItemWrapper(AddItem, props)}
       </ul>
     </div>
   );

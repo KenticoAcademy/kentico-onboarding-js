@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 interface IAddItemProps {
-  onAdd: (value: string) => void;
+  onAddItem: (value: string) => void;
 }
 
 interface IAddItemState {
@@ -11,7 +11,7 @@ interface IAddItemState {
 class AddItem extends React.PureComponent<IAddItemProps, IAddItemState> {
   static displayName = 'AddItem';
 
-  static propTypes = { onAdd: React.PropTypes.func.isRequired };
+  static propTypes = { onAddItem: React.PropTypes.func.isRequired };
 
   constructor(props: IAddItemProps) {
     super(props);
@@ -23,7 +23,7 @@ class AddItem extends React.PureComponent<IAddItemProps, IAddItemState> {
   };
 
   _addItem = () => {
-    this.props.onAdd(this.state.inputValue);
+    this.props.onAddItem(this.state.inputValue);
     this.setState({ inputValue: '' });
   };
 
