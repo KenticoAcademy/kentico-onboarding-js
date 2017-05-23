@@ -18,4 +18,4 @@ class ErrorMessage extends Record(defaultValues) implements IErrorMessage {
   readonly message: string;
 }
 
-export { ErrorMessage };
+export { ErrorMessage, IErrorMessage };
