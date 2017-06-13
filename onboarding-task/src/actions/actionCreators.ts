@@ -7,7 +7,8 @@ import {
   ITEMS_FETCHING_SUCCEED,
   POSITIVELY_CREATE_ITEM_LOCALLY,
   ITEM_SAVE_SUCCEED,
-  ITEMS_FETCHING_STARTED, DELETE_ERROR,
+  ITEMS_FETCHING_STARTED,
+  DELETE_ERROR,
 } from './actionTypes';
 import { generateGuid } from '../utils/generateGuid';
 import { fetchItemsFactory } from './fetchItemsFactory';
