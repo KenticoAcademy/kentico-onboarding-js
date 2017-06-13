@@ -2,10 +2,10 @@ import * as React from 'react';
 import * as Immutable from 'immutable';
 const ImmutablePropTypes = require('react-immutable-proptypes');
 
-import { ErrorMessage, IErrorMessage } from '../models/ErrorMessage';
+import { IErrorMessage } from '../models/ErrorMessage';
 
 interface IErrorViewerDataProps {
-  errorList: Immutable.OrderedMap<string, ErrorMessage>;
+  errorList: Immutable.OrderedMap<string, IErrorMessage>;
 }
 
 interface IErrorViewerCallbacksProps {
@@ -42,7 +42,7 @@ class ErrorViewer extends React.Component<IErrorViewerDataProps & IErrorViewerCa
     }
 
     const errors = this.props.errorList
-      .map((error: ErrorMessage) =>
+      .map((error: IErrorMessage) =>
         <ErrorMessageNotification error={error} onErrorClose={this._closeError(error.id)} key={error.id}/>
       )
       .toIndexedSeq();
