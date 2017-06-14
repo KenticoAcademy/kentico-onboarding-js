@@ -37,7 +37,7 @@ describe('actionCreators', () => {
   // Set up for postItemFactory tests
   const identityFunc = jest.fn(id => id);
   const generateId = () => ueid;
-  const receivePostItemErrorMock = jest.fn((error, ueid) => ({error, ueid}));
+  const receivePostItemErrorMock = jest.fn((error, ueid) => ({ error, ueid }));
   const receiveItemCreatedMock = json => ({
     type: ITEM_SAVE_SUCCEED,
     payload: {
@@ -95,7 +95,13 @@ describe('actionCreators', () => {
     const dispatch = (action) => action;
     const parseResponseMock = (errorMessage) => (response) => new Promise();
 
-    const postItem = postItemFactory(fetch, generateId, receivePostItemErrorMock, receiveItemCreatedMock, parseResponseMock);
+    const postItem = postItemFactory({
+      fetch: fetch,
+      generateId: generateId,
+      receivePostItemError: receivePostItemErrorMock,
+      receiveItemCreated: receiveItemCreatedMock,
+      parseResponse: parseResponseMock
+    });
 
     expect.assertions(2);
     return postItem(value)(dispatch).then(() => {
@@ -115,7 +121,13 @@ describe('actionCreators', () => {
     const fetch = () => Promise.resolve(getItem);
     const dispatch = jest.fn(action => action);
     const parseResponseMock = (errorMessage) => (response) => new Promise();
-    const postItem = postItemFactory(fetch, generateId, receivePostItemErrorMock, receiveItemCreatedMock, parseResponseMock);
+    const postItem = postItemFactory({
+      fetch,
+      generateId,
+      receivePostItemError: receivePostItemErrorMock,
+      receiveItemCreated: receiveItemCreatedMock,
+      parseResponse: parseResponseMock
+    });
 
     expect.assertions(2);
     return postItem(value)(dispatch).then(() => {
@@ -128,7 +140,14 @@ describe('actionCreators', () => {
     const fetch = () => Promise.resolve(item);
     const dispatch = jest.fn(action => action);
 
-    const postItem = postItemFactory(fetch, generateId, receivePostItemErrorMock, receiveItemCreatedMock, identityFunc);
+    //const postItem = postItemFactory(fetch, generateId, receivePostItemErrorMock, receiveItemCreatedMock, identityFunc);
+    const postItem = postItemFactory({
+      fetch,
+      generateId,
+      receivePostItemError: receivePostItemErrorMock,
+      receiveItemCreated: receiveItemCreatedMock,
+      parseResponse: identityFunc
+    });
 
     return postItem(value)(dispatch).then(() => {
       expect(dispatch.mock.calls[1][0].payload.item).toEqual(item);
@@ -139,7 +158,13 @@ describe('actionCreators', () => {
     const fetch = () => Promise.reject('message');
     const dispatch = jest.fn((er, ueid) => (er));
 
-    const postItem = postItemFactory(fetch, generateId, receivePostItemErrorMock, identityFunc, identityFunc);
+    const postItem = postItemFactory({
+      fetch,
+      generateId,
+      receivePostItemError: receivePostItemErrorMock,
+      receiveItemCreated: receiveItemCreatedMock,
+      parseResponse: identityFunc
+    });
 
     return postItem(value)(dispatch).then(() => {
       expect(dispatch.mock.calls[1][0].error).toEqual(new Error('A good chance we are offline. Item was not saved on the server.'))
@@ -151,7 +176,12 @@ describe('actionCreators', () => {
   it('fetchItems calls fetch with correct arguments', () => {
     const fetch = jest.fn(() => Promise.resolve(getItem));
     const dispatch = (action => action);
-    const fetchItem = fetchItemsFactory(fetch, identityFunc, identityFunc, identityFunc);
+    const fetchItem = fetchItemsFactory({
+      fetch,
+      receiveItems: identityFunc,
+      parseResponse: identityFunc,
+      receiveItemsFetchingError: identityFunc
+    });
 
     return fetchItem(dispatch).then(() => {
       return expect(fetch.mock.calls[0][0]).toEqual(API_VERSION_1 + ITEMS)
@@ -161,7 +191,12 @@ describe('actionCreators', () => {
   it('fetchItems correctly dispatches requestItems', () => {
     const fetch = () => Promise.resolve(getItem);
     const dispatch = jest.fn(action => action);
-    const fetchItem = fetchItemsFactory(fetch, identityFunc, identityFunc, identityFunc);
+    const fetchItem = fetchItemsFactory({
+      fetch,
+      receiveItems: identityFunc,
+      parseResponse: identityFunc,
+      receiveItemsFetchingError: identityFunc
+    });
 
     return fetchItem(dispatch).then(() => {
       return expect(dispatch.mock.calls[0][0].type).toEqual(ITEMS_FETCHING_STARTED)
@@ -174,9 +209,15 @@ describe('actionCreators', () => {
       then: () => Promise.resolve(item),
     });
     const dispatch = jest.fn(action => action);
-    const receiveItems = items => ({type: ITEMS_FETCHING_SUCCEED, payload: {items: items}});
+    const receiveItems = items => ({ type: ITEMS_FETCHING_SUCCEED, payload: { items: items } });
 
-    const fetchItem = fetchItemsFactory(fetch, identityFunc, receiveItems, identityFunc);
+    //const fetchItem = fetchItemsFactory(fetch, identityFunc, receiveItems, identityFunc);
+    const fetchItem = fetchItemsFactory({
+      fetch,
+      parseResponse: identityFunc,
+      receiveItems: receiveItems,
+      receiveItemsFetchingError: identityFunc
+    });
 
     expect.assertions(2);
     return fetchItem(dispatch).then(() => {

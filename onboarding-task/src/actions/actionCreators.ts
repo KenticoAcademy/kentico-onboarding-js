@@ -69,8 +69,19 @@ const deleteError = (id: string): IAction => ({
 
 const receiveItemsFetchingErrorWithDependencies = receiveItemsFetchingErrorFactory(generateGuid);
 const receivePostItemErrorWithDependencies = receivePostItemErrorFactory(generateGuid);
-const fetchItemsWithDependencies = fetchItemsFactory(fetch, parseResponse, receiveItems, receiveItemsFetchingErrorWithDependencies);
-const postItemWithDependencies = postItemFactory(fetch, generateGuid, receivePostItemErrorWithDependencies, receiveItemCreated, parseResponse);
+const fetchItemsWithDependencies = fetchItemsFactory({
+  fetch,
+  parseResponse,
+  receiveItems,
+  receiveItemsFetchingError: receiveItemsFetchingErrorWithDependencies,
+});
+const postItemWithDependencies = postItemFactory({
+  fetch,
+  generateId: generateGuid,
+  receivePostItemError: receivePostItemErrorWithDependencies,
+  receiveItemCreated,
+  parseResponse,
+});
 
 export {
   deleteItem,
