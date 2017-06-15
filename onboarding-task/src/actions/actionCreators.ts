@@ -35,7 +35,7 @@ const toggleItemViewMode = (id: string): IAction => ({
   payload: { id },
 });
 
-const positivelyCreateItemLocally = (item: Item) => ({
+const positivelyCreateItemLocally = (item: Item): IAction => ({
   type: POSITIVELY_CREATE_ITEM_LOCALLY,
   payload: {
     ueid: item.ueid,
@@ -50,7 +50,7 @@ const receiveItemCreated = (json: Item): IAction => ({
   }
 });
 
-const requestItems = () => ({
+const requestItems = (): IAction => ({
   type: ITEMS_FETCHING_STARTED,
   payload: {},
 });
@@ -67,16 +67,21 @@ const deleteError = (id: string): IAction => ({
   payload: { id },
 });
 
+const catchedFetch = (input: Request | string, init?: RequestInit): Promise<Response> => fetch(input, init)
+  .catch(() => Promise.reject(new Error('A good chance we are offline.')));
+
 const receiveItemsFetchingErrorWithDependencies = receiveItemsFetchingErrorFactory(generateGuid);
 const receivePostItemErrorWithDependencies = receivePostItemErrorFactory(generateGuid);
 const fetchItemsWithDependencies = fetchItemsFactory({
-  fetch,
+  requestItems,
+  fetch: catchedFetch,
   parseResponse,
   receiveItems,
   receiveItemsFetchingError: receiveItemsFetchingErrorWithDependencies,
 });
 const postItemWithDependencies = postItemFactory({
-  fetch,
+  positivelyCreateItemLocally,
+  fetch: catchedFetch,
   generateId: generateGuid,
   receivePostItemError: receivePostItemErrorWithDependencies,
   receiveItemCreated,

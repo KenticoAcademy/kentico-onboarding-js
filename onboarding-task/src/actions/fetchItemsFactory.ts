@@ -1,15 +1,20 @@
 import { IAction } from './IAction';
-import { requestItems } from './actionCreators';
-import { API_VERSION_1, ITEMS } from '../constants/urls';
+import {
+  API_VERSION_1,
+  ITEMS
+} from '../constants/urls';
 
-const fetchItemsFactory = (dependencies: {
-  fetch: Fetch,
-  parseResponse: (errorMessage: string) => (response: Response) => Promise<any>,
-  receiveItems: (json: any) => IAction,
-  receiveItemsFetchingError: (error: Error) => IAction
-}) => {
+interface FetchItemsDependencies {
+  requestItems: () => IAction;
+  fetch: Fetch;
+  parseResponse: (errorMessage: string) => (response: Response) => Promise<any>;
+  receiveItems: (json: any) => IAction;
+  receiveItemsFetchingError: (error: Error) => IAction;
+}
+
+const fetchItemsFactory = (dependencies: FetchItemsDependencies) => {
   return (dispatch: Dispatch): Promise<IAction> => {
-    dispatch(requestItems());
+    dispatch(dependencies.requestItems());
     return dependencies.fetch(API_VERSION_1 + ITEMS)
       .then(dependencies.parseResponse('Loading the Item list did not go well'))
       .then((json: JSON) => dispatch(dependencies.receiveItems(json)))

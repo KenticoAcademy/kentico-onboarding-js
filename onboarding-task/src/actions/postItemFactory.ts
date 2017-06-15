@@ -1,21 +1,24 @@
 import { IAction } from './IAction';
 import { Item } from '../models/Item';
 import {
-  positivelyCreateItemLocally
-} from './actionCreators';
-import { API_VERSION_1, ITEMS } from '../constants/urls';
+  API_VERSION_1,
+  ITEMS
+} from '../constants/urls';
 
-const postItemFactory = (dependencies: {
-  fetch: Fetch,
-  generateId: () => string,
-  receivePostItemError: (error: Error, itemUeid: string) => IAction,
-  receiveItemCreated: (json: Item) => IAction,
-  parseResponse: (errorMessage: string) => (response: Response) => Promise<any>
-}) =>
+interface PostItemDependencies {
+  positivelyCreateItemLocally: (item: Item) => IAction;
+  fetch: Fetch;
+  generateId: () => string;
+  receivePostItemError: (error: Error, itemUeid: string) => IAction;
+  receiveItemCreated: (json: Item) => IAction;
+  parseResponse: (errorMessage: string) => (response: Response) => Promise<any>;
+}
+
+const postItemFactory = (dependencies: PostItemDependencies) =>
   (value: string) => {
     return (dispatch: Dispatch): Promise<IAction> => {
       const item = new Item({ ueid: dependencies.generateId(), value });
-      dispatch(positivelyCreateItemLocally(item));
+      dispatch(dependencies.positivelyCreateItemLocally(item));
 
       return dependencies.fetch(
         API_VERSION_1 + ITEMS,
@@ -27,7 +30,6 @@ const postItemFactory = (dependencies: {
           },
           body: JSON.stringify({ ueid: item.ueid, value: item.value }),
         })
-        .catch(() => Promise.reject(new Error('A good chance we are offline. Item was not saved on the server.')))
         .then(dependencies.parseResponse('Item was not correctly saved on the server'))
         .then((json: Item) => dispatch(dependencies.receiveItemCreated(json)))
         .catch((error: Error) => dispatch(dependencies.receivePostItemError(error, item.ueid)));
