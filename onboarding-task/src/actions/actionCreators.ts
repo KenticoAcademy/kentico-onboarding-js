@@ -94,11 +94,7 @@ export {
   toggleItemViewMode,
   fetchItemsWithDependencies as fetchItems,
   postItemWithDependencies as postItem,
-  receiveItemsFetchingErrorWithDependencies as receiveItemsFetchingError,
-  receivePostItemErrorWithDependencies as receivePostItemError,
   positivelyCreateItemLocally,
-  receiveItemCreated,
-  receiveItems,
   requestItems,
   deleteError,
 };
