@@ -3,4 +3,4 @@ export const parseResponse = (errorMessage: string) => (response: Response): Pro
   .catch(() => Promise.reject(new Error(response.statusText + ': ' + errorMessage)))
   .then((data: any) => response.ok
     ? data
-    : Promise.reject(new Error(response.statusText + ': ' + data.modelState.value.toString())));
+    : Promise.reject(new Error(response.statusText + ': ' + data.modelState.value)));
