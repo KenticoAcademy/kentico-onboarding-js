@@ -29,7 +29,7 @@ export class App extends PureComponent {
           </section>
         </div>
         <footer className="footer">
-          <p>&copy; 2016 Kentico Software</p>
+          <p>&copy; 2017 Kentico software, s.r.o</p>
         </footer>
       </div>
     );
