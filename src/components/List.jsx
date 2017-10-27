@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import assignment from './../../assignment.gif';
 
 import { TsComponent } from './TsComponent.tsx';
+import { ListOfKenticoWisdom } from './ListOfKenticoWisdom';
 
 export class List extends PureComponent {
   render() {
@@ -24,12 +25,9 @@ export class List extends PureComponent {
         </div>
 
         <div className="row">
-          <div className="col-sm-12 col-md-offset-2 col-md-8">
-            <pre>
-              // TODO: implement the list here :)
-            </pre>
-          </div>
+          <ListOfKenticoWisdom />
         </div>
+        <br />
       </div>
     );
   }
