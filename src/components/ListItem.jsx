@@ -6,34 +6,29 @@ export class ListItem extends React.Component {
   static propTypes = {
     item: PropTypes.shape({
       value: PropTypes.string.isRequired,
-      id: PropTypes.number.isRequired,
+      id: PropTypes.string.isRequired,
+      isBeingEdited: PropTypes.bool.isRequired,
     }).isRequired,
-    isEdited: PropTypes.bool.isRequired,
-    makeEditing: PropTypes.func.isRequired,
-    cancelEditing: PropTypes.func.isRequired,
-    deleteItem: PropTypes.func.isRequired,
+    onToggleEditing: PropTypes.func.isRequired,
+    onItemDeletion: PropTypes.func.isRequired,
   };
 
   constructor(props) {
     super(props);
+
     this.state = {
       updatedValue: this.props.item.value,
     };
   }
 
-  makeTextEditable = () => {
+  toggleTextEditing = () => {
     const { item } = this.props;
-    this.props.makeEditing(item);
-  };
-
-  cancelUpdating = () => {
-    const { item } = this.props;
-    this.props.cancelEditing(item);
+    this.props.onToggleEditing(item);
   };
 
   deleteItem = () => {
     const { item } = this.props;
-    this.props.deleteItem(item);
+    this.props.onItemDeletion(item);
   };
 
   modifyText = (e) => {
@@ -42,13 +37,14 @@ export class ListItem extends React.Component {
 
   saveNewText = () => {
     this.props.item.value = this.state.updatedValue;
-    this.cancelUpdating();
+    this.toggleTextEditing();
   };
 
   render() {
     const { item } = this.props;
-    if (this.props.isEdited) {
+    if (this.props.item.isBeingEdited) {
       return (
+
         <div className="list-group-item" id="to-be-counted">
           <div className="form-group">
             <input
@@ -70,7 +66,7 @@ export class ListItem extends React.Component {
             <button
               className="btn btn-default"
               type="button"
-              onClick={this.cancelUpdating}
+              onClick={this.toggleTextEditing}
             >Cancel
             </button>
           </div>
@@ -89,7 +85,7 @@ export class ListItem extends React.Component {
       <div
         className="list-group-item"
         id="to-be-counted"
-        onClick={this.makeTextEditable}
+        onClick={this.toggleTextEditing}
       >{item.value}</div>
     );
   }
