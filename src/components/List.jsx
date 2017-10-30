@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import assignment from './../../assignment.gif';
 import { ListItem } from './ListItem';
 
-import { TsComponent } from './TsComponent.tsx';
-
 export class List extends Component {
 
   constructor(props) {
@@ -84,15 +82,28 @@ export class List extends Component {
     });
   };
 
+  renderAddField = () => {
+    return (
+      <div className="list-group-item">
+        <input
+          className="form-control"
+          type="text"
+          value={this.state.newItemText}
+          onChange={this.newItemTextChange}
+        />
+        <input
+          className="btn btn-default"
+          type="button"
+          value="Add"
+          onBlur={""}
+          onClick={this.addNewItem}
+        />
+      </div>);
+  };
+
   render() {
     return (
       <div className="row">
-        {/* TODO: You can delete the assignment part once you do not need it */}
-        <div className="row">
-          <div className="col-sm-12 text-center">
-            <TsComponent name="𝕱𝖆𝖓𝖈𝖞" />
-          </div>
-        </div>
 
         <div className="row">
           <div className="col-sm-12">
@@ -113,24 +124,9 @@ export class List extends Component {
                 onItemDeletion={this.deleteItem}
               />
             )}
-            <div className="list-group-item">
-              <input
-                className="form-control"
-                type="text"
-                value={this.state.newItemText}
-                onChange={this.newItemTextChange}
-              />
-              <input
-                className="btn btn-default"
-                type="button"
-                value="Add"
-                onBlur={""}
-                onClick={this.addNewItem}
-              />
-            </div>
+            <this.renderAddField />
           </div>
         </div>
-
         <br />
       </div>
     );

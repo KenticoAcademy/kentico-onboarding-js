@@ -40,53 +40,59 @@ export class ListItem extends React.Component {
     this.toggleTextEditing();
   };
 
-  render() {
+  renderEditedItem = () => {
     const { item } = this.props;
-    if (this.props.item.isBeingEdited) {
-      return (
-
-        <div className="list-group-item" id="to-be-counted">
-          <div className="form-group">
-            <input
-              type="text"
-              className="form-control"
-              defaultValue={item.value}
-              onChange={this.modifyText}
-            />
-          </div>
-          <div className="form-group">
-            <button
-              className="btn btn-primary"
-              type="button"
-              onClick={this.saveNewText}
-            >Save
-            </button>
-          </div>
-          <div className="form-group">
-            <button
-              className="btn btn-default"
-              type="button"
-              onClick={this.toggleTextEditing}
-            >Cancel
-            </button>
-          </div>
-          <div className="form-group">
-            <button
-              className="btn btn-danger"
-              type="button"
-              onClick={this.deleteItem}
-            >Delete
-            </button>
-          </div>
+    return (
+      <div className="list-group-item" id="to-be-counted">
+        <div className="form-group">
+          <input
+            className="form-control"
+            type="text"
+            defaultValue={item.value}
+            onChange={this.modifyText}
+          />
         </div>
-      );
-    }
+        <div className="form-group">
+          <button
+            className="btn btn-primary"
+            type="button"
+            onClick={this.saveNewText}
+          >Save
+          </button>
+        </div>
+        <div className="form-group">
+          <button
+            className="btn btn-default"
+            type="button"
+            onClick={this.toggleTextEditing}
+          >Cancel
+          </button>
+        </div>
+        <div className="form-group">
+          <button
+            className="btn btn-danger"
+            type="button"
+            onClick={this.deleteItem}
+          >Delete
+          </button>
+        </div>
+      </div>);
+  };
+
+  renderNotEditedItem = () => {
+    const { item } = this.props;
     return (
       <div
         className="list-group-item"
         id="to-be-counted"
         onClick={this.toggleTextEditing}
       >{item.value}</div>
+    );
+  };
+
+  render() {
+    return (
+      this.props.item.isBeingEdited ? <this.renderEditedItem /> : <this.renderNotEditedItem />
     );
   }
 }
