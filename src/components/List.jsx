@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import assignment from './../../assignment.gif';
 import { ListItem } from './ListItem';
+import { AddNewItemComponent } from './AddNewItemComponent';
+import { EditedListItem } from './EditedListItem';
+import { defaultItemList } from './defaultItemList';
+
+const uuid4 = require('uuid/v4');
 
 export class List extends Component {
 
@@ -8,54 +13,29 @@ export class List extends Component {
     super(props);
 
     this.state = {
-      listItems: [
-        {
-          value: 'Make a coffee',
-          id: this.generateId(),
-          isBeingEdited: false,
-        },
-        {
-          value: 'Master React',
-          id: this.generateId(),
-          isBeingEdited: false,
-        },
-        {
-          value: 'Learn Redux',
-          id: this.generateId(),
-          isBeingEdited: false,
-        },
-        {
-          value: 'Help making Draft awesome',
-          id: this.generateId(),
-          isBeingEdited: false,
-        },
-      ],
+      listItems: defaultItemList,
       newItemText: '',
     };
   }
-
-  generateId = () => {
-    return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c =>
-      (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
-    );
-  };
 
   newItemTextChange = (e) => {
     this.setState({ newItemText: e.target.value });
   };
 
   addNewItem = () => {
-    this.setState((prevState) => {
-      const newItem = {
-        value: prevState.newItemText,
-        id: this.generateId(),
-        isBeingEdited: false,
-      };
-      return {
-        listItems: [...prevState.listItems, newItem],
-        newItemText: '',
-      };
-    });
+    if (this.state.newItemText !== '') {
+      this.setState((prevState) => {
+        const newItem = {
+          value: prevState.newItemText,
+          id: uuid4(),
+          isBeingEdited: false,
+        };
+        return {
+          listItems: [...prevState.listItems, newItem],
+          newItemText: '',
+        };
+      });
+    }
   };
 
   toggleEditing = (item) => {
@@ -74,7 +54,7 @@ export class List extends Component {
     this.setState((prevState) => {
       const listWithoutItem = prevState.listItems;
       if (prevState.listItems.includes(item)) {
-        listWithoutItem.splice(listWithoutItem.indexOf(item), 1);
+        listWithoutItem.splice(prevState.listItems.indexOf(item), 1);
       }
       return {
         listItems: listWithoutItem,
@@ -82,29 +62,21 @@ export class List extends Component {
     });
   };
 
-  renderAddField = () => {
-    return (
-      <div className="list-group-item">
-        <input
-          className="form-control"
-          type="text"
-          value={this.state.newItemText}
-          onChange={this.newItemTextChange}
-        />
-        <input
-          className="btn btn-default"
-          type="button"
-          value="Add"
-          onBlur={""}
-          onClick={this.addNewItem}
-        />
-      </div>);
+  updateItemText = (item, newText) => {
+    this.setState((prevState) => {
+      const updatedList = prevState.listItems;
+      const index = updatedList.indexOf(item);
+      updatedList[index].value = newText;
+
+      return {
+        listItems: updatedList,
+      };
+    });
   };
 
   render() {
     return (
       <div className="row">
-
         <div className="row">
           <div className="col-sm-12">
             <p className="lead text-center">Desired functionality is captured in the gif image. </p>
@@ -114,18 +86,27 @@ export class List extends Component {
           </div>
         </div>
 
-        <div className="row">
-          <div className="form-inline">{
-            this.state.listItems.map((item) =>
-              <ListItem
-                key={item.id}
-                item={item}
-                onToggleEditing={this.toggleEditing}
-                onItemDeletion={this.deleteItem}
-              />
-            )}
-            <this.renderAddField />
-          </div>
+        <div className="row interactive-list">{
+          this.state.listItems.map((item, index) => (
+            <div
+              className="list-group-item"
+              key={item.id}
+            >{index + 1}{'. '}
+              {item.isBeingEdited ?
+                <EditedListItem
+                  key={item.id}
+                  item={item}
+                  onToggleEditing={this.toggleEditing}
+                  onItemDeletion={this.deleteItem}
+                  onNewItemTextSaved={this.updateItemText}
+                /> : <ListItem
+                  key={item.id}
+                  item={item}
+                  onToggleEditing={this.toggleEditing}
+                />}
+            </div>
+          ))}
+          <AddNewItemComponent newItemText={this.state.newItemText} onAddItem={this.addNewItem} onTextChange={this.newItemTextChange} />
         </div>
         <br />
       </div>

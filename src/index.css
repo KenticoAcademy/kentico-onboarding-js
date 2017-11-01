@@ -9,13 +9,11 @@ body {
   display: flex;
 
 }
-
-#to-be-counted{
-  list-style: decimal inside;
-  display: list-item;
-}
-
 .form-inline{
   display:inline-block;
+  width: 65%;
+}
+
+.interactive-list{
   width: 65%;
 }

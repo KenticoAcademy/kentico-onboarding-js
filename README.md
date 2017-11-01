@@ -70,7 +70,7 @@ When your pull request gets merged into `upstream/solutions/<your-login>`, fetch
 You can then delete the `feature/task-0` branch and create a new one for the following task (`feature/task-1`).
 
 ## Task 1
-**Prerequisite: ** JS & React sections on [wiki](https://kentico.atlassian.net/wiki/display/KA/04+-+JS-related+tutorials).
+**Prerequisite:** JS & React sections on [wiki](https://kentico.atlassian.net/wiki/display/KA/04+-+JS-related+tutorials).
 
 According to `assignment.gif` implement all the required functionality (keep in mind we want to be able to edit multiple list items at once). Store some pseudo-random identifier (id) for each item (use some util function for its generation, e.g: http://stackoverflow.com/questions/105034/create-guid-uuid-in-javascript)
 All the boilerplate is already there so you can dive into coding straight away. Feel free to use [Bootstrap](http://getbootstrap.com/) CSS classes. Get familiar with project structure. The entry file is `index.js`. Page layout can be found in `App.jsx`. It renders `List.jsx` in its body, where you are supposed to implement the rest of the functionality. 
@@ -81,7 +81,7 @@ Install [ImmutableJS](http://facebook.github.io/immutable-js) to your project: `
 Refactor your application; make sure that all data required for the application (apart from reasonable exceptions, e.g. current text of input fields) is stored as an `Immutable.OrderedMap` of `Immutable.Record`s within the top level component (e.g. `List.jsx`). Use IDs of the items as keys for the Map.
 
 ## Task 3
-**Prerequisite: ** Go through Flux & Redux section on [wiki](https://kentico.atlassian.net/wiki/display/KA/04+-+JS-related+tutorials).
+**Prerequisite:** Go through Flux & Redux section on [wiki](https://kentico.atlassian.net/wiki/display/KA/04+-+JS-related+tutorials).
 
 Install [ReduxJS](http://redux.js.org/), [react-redux](http://redux.js.org/docs/basics/UsageWithReact.html) and [redux-logger](https://github.com/evgenyrodionov/redux-logger) to your project: 
 ```
@@ -134,4 +134,4 @@ Do not forget to tell the client app to [proxy your requests to the server](http
 **Note**
 You might experience a dependency hell due to different versions of promises, fetch and their respective typings. The solution is to install `isomorphic-fetch` and `es6-promise` libraries plus their typings (see Task 4). Also make sure to *uninstall* all other packages for promises and fetch (plus their typings) otherwise you will get many wierd error messages. 
 
-In order to wirte tests properly, you will surely need to use some [mocking functionality provided by Jest testing framework](https://facebook.github.io/jest/docs/mock-functions.html#content). In case your linter starts to complain about it follow [this SO answer](http://stackoverflow.com/a/40265356).
+In order to write tests properly, you will surely need to use some [mocking functionality provided by Jest testing framework](https://facebook.github.io/jest/docs/mock-functions.html#content). In case your linter starts to complain about it follow [this SO answer](http://stackoverflow.com/a/40265356).

@@ -10,89 +10,21 @@ export class ListItem extends React.Component {
       isBeingEdited: PropTypes.bool.isRequired,
     }).isRequired,
     onToggleEditing: PropTypes.func.isRequired,
-    onItemDeletion: PropTypes.func.isRequired,
   };
-
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      updatedValue: this.props.item.value,
-    };
-  }
 
   toggleTextEditing = () => {
-    const { item } = this.props;
-    this.props.onToggleEditing(item);
-  };
-
-  deleteItem = () => {
-    const { item } = this.props;
-    this.props.onItemDeletion(item);
-  };
-
-  modifyText = (e) => {
-    this.state.updatedValue = e.target.value;
-  };
-
-  saveNewText = () => {
-    this.props.item.value = this.state.updatedValue;
-    this.toggleTextEditing();
-  };
-
-  renderEditedItem = () => {
-    const { item } = this.props;
-    return (
-      <div className="list-group-item" id="to-be-counted">
-        <div className="form-group">
-          <input
-            className="form-control"
-            type="text"
-            defaultValue={item.value}
-            onChange={this.modifyText}
-          />
-        </div>
-        <div className="form-group">
-          <button
-            className="btn btn-primary"
-            type="button"
-            onClick={this.saveNewText}
-          >Save
-          </button>
-        </div>
-        <div className="form-group">
-          <button
-            className="btn btn-default"
-            type="button"
-            onClick={this.toggleTextEditing}
-          >Cancel
-          </button>
-        </div>
-        <div className="form-group">
-          <button
-            className="btn btn-danger"
-            type="button"
-            onClick={this.deleteItem}
-          >Delete
-          </button>
-        </div>
-      </div>);
-  };
-
-  renderNotEditedItem = () => {
-    const { item } = this.props;
-    return (
-      <div
-        className="list-group-item"
-        id="to-be-counted"
-        onClick={this.toggleTextEditing}
-      >{item.value}</div>
-    );
+    const { item, onToggleEditing } = this.props;
+    onToggleEditing(item);
   };
 
   render() {
+    const { item } = this.props;
     return (
-      this.props.item.isBeingEdited ? <this.renderEditedItem /> : <this.renderNotEditedItem />
+      <div
+        className="form-inline"
+        onClick={this.toggleTextEditing}
+      >{item.value}
+      </div>
     );
   }
 }
