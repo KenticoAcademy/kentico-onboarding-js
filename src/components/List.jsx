@@ -73,7 +73,7 @@ export class List extends Component {
           </div>
         </div>
 
-        <div className="row interactive-list">{
+        <div className="row col-sm-8">{
           this.state.listItems.map((item, index) => (
             <div
               className="list-group-item"
