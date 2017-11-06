@@ -1,6 +1,6 @@
-import { generateId } from './generateId';
+import { generateId } from '../components/generateId';
 
-export const defaultItemList = [
+export const defaultListItems = [
   {
     value: 'Make a coffee',
     id: generateId(),

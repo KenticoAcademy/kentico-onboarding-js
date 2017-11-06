@@ -3,7 +3,7 @@ import assignment from './../../assignment.gif';
 import { ListItem } from './ListItem';
 import { NewItemForm } from './NewItemForm';
 import { EditedListItem } from './EditedListItem';
-import { defaultItemList } from './defaultItemList';
+import { defaultListItems } from '../constants/defaultListItems';
 import { generateId } from './generateId';
 
 export class List extends Component {
@@ -12,7 +12,7 @@ export class List extends Component {
     super(props);
 
     this.state = {
-      listItems: defaultItemList,
+      listItems: defaultListItems,
       newItemText: '',
     };
   }
