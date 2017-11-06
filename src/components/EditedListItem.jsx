@@ -23,7 +23,9 @@ export class EditedListItem extends React.Component {
   }
 
   onTextChanged = (e) => {
-    this.state.updatedValue = e.target.value;
+    this.setState(
+      { updatedValue: e.target.value }
+    );
   };
 
   toggleTextEditing = () => {
