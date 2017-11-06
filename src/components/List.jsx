@@ -4,8 +4,7 @@ import { ListItem } from './ListItem';
 import { NewItemForm } from './NewItemForm';
 import { EditedListItem } from './EditedListItem';
 import { defaultItemList } from './defaultItemList';
-
-const uuid4 = require('uuid/v4');
+import { generateId } from './generateId';
 
 export class List extends Component {
 
@@ -27,7 +26,7 @@ export class List extends Component {
       this.setState((prevState) => {
         const newItem = {
           value: prevState.newItemText,
-          id: uuid4(),
+          id: generateId(),
           isBeingEdited: false,
         };
         return {
