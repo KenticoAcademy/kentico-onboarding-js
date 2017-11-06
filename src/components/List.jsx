@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import assignment from './../../assignment.gif';
 import { ListItem } from './ListItem';
-import { NewItemForm } from './newItemForm';
+import { NewItemForm } from './NewItemForm';
 import { EditedListItem } from './EditedListItem';
 import { defaultItemList } from './defaultItemList';
 import { generateId } from './generateId';
@@ -57,15 +57,8 @@ export class List extends Component {
   };
 
   updateItemText = (item, newText) => {
-    this.setState((prevState) => {
-      const updatedList = prevState.listItems;
-      const index = updatedList.indexOf(item);
-      updatedList[index].value = newText;
-
-      return {
-        listItems: updatedList,
-      };
-    });
+    const updatedItem = item;
+    updatedItem.value = newText;
   };
 
   render() {
