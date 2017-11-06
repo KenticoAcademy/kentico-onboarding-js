@@ -98,7 +98,7 @@ export class List extends Component {
                   item={item}
                   onToggleEditing={this.toggleEditing}
                   onItemDeletion={this.deleteItem}
-                  onNewItemTextSaved={this.updateItemText}
+                  onItemSaved={this.updateItemText}
                 /> : <ListItem
                   key={item.id}
                   item={item}

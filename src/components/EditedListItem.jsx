@@ -11,7 +11,7 @@ export class EditedListItem extends React.Component {
     }).isRequired,
     onToggleEditing: PropTypes.func.isRequired,
     onItemDeletion: PropTypes.func.isRequired,
-    onNewItemTextSaved: PropTypes.func.isRequired,
+    onItemSaved: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -37,8 +37,8 @@ export class EditedListItem extends React.Component {
   };
 
   saveNewText = () => {
-    const { item, onNewItemTextSaved } = this.props;
-    onNewItemTextSaved(item, this.state.updatedValue);
+    const { item, onItemSaved } = this.props;
+    onItemSaved(item, this.state.updatedValue);
     this.toggleTextEditing();
   };
 
