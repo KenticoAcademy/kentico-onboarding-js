@@ -93,7 +93,11 @@ export class List extends Component {
                 />}
             </div>
           ))}
-          <NewItemForm newItemText={this.state.newItemText} onAddItem={this.addNewItem} onTextChange={this.newItemTextChange} />
+          <NewItemForm
+            newItemText={this.state.newItemText}
+            onAddItem={this.addNewItem}
+            onTextChange={this.newItemTextChange}
+          />
         </div>
         <br />
       </div>
