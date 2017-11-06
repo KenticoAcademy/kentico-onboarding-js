@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import assignment from './../../assignment.gif';
 import { ListItem } from './ListItem';
-import { AddNewItemComponent } from './AddNewItemComponent';
+import { NewItemForm } from './NewItemForm';
 import { EditedListItem } from './EditedListItem';
 import { defaultItemList } from './defaultItemList';
 
@@ -106,7 +106,7 @@ export class List extends Component {
                 />}
             </div>
           ))}
-          <AddNewItemComponent newItemText={this.state.newItemText} onAddItem={this.addNewItem} onTextChange={this.newItemTextChange} />
+          <NewItemForm newItemText={this.state.newItemText} onAddItem={this.addNewItem} onTextChange={this.newItemTextChange} />
         </div>
         <br />
       </div>
