@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { DisabledButton } from './DisabledButton';
 
 export class EditedListItem extends React.Component {
 
@@ -54,12 +55,17 @@ export class EditedListItem extends React.Component {
           onChange={this.onTextChanged}
         />
         <div className="input-group-btn">
-          <button
-            className="btn btn-primary"
-            onClick={this.saveNewText}
-          >
-            Save
-          </button>
+          {this.state.updatedValue === '' ?
+            <DisabledButton
+              buttonLabel="Save"
+              buttonType="btn btn-primary"
+            /> : <button
+              className="btn btn-primary"
+              onClick={this.saveNewText}
+            >
+              Save
+            </button>
+          }
           <button
             className="btn btn-default"
             onClick={this.toggleTextEditing}

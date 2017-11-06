@@ -1,5 +1,6 @@
 import React from 'react';
 import propTypes from 'prop-types';
+import { DisabledButton } from './DisabledButton';
 
 export const NewItemForm = (props) => {
   NewItemForm.propTypes = {
@@ -18,12 +19,17 @@ export const NewItemForm = (props) => {
           onChange={props.onTextChange}
         />
         <div className="input-group-btn">
-          <button
-            className="btn btn-default"
-            onClick={props.onAddItem}
-          >
-            Add
-          </button>
+          {props.newItemText === '' ?
+            <DisabledButton
+              buttonLabel="Add"
+              buttonType="btn btn-default"
+            /> : <button
+              className="btn btn-default"
+              onClick={props.onAddItem}
+            >
+              Add
+            </button>
+          }
         </div>
       </div>
     </div>);
