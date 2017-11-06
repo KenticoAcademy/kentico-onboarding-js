@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import assignment from './../../assignment.gif';
 import { ListItem } from './ListItem';
-import { NewItemForm } from './NewItemForm';
+import { NewItemForm } from './newItemForm';
 import { EditedListItem } from './EditedListItem';
 import { defaultItemList } from './defaultItemList';
 import { generateId } from './generateId';
@@ -22,19 +22,17 @@ export class List extends Component {
   };
 
   addNewItem = () => {
-    if (this.state.newItemText !== '') {
-      this.setState((prevState) => {
-        const newItem = {
-          value: prevState.newItemText,
-          id: generateId(),
-          isBeingEdited: false,
-        };
-        return {
-          listItems: [...prevState.listItems, newItem],
-          newItemText: '',
-        };
-      });
-    }
+    this.setState((prevState) => {
+      const newItem = {
+        value: prevState.newItemText,
+        id: generateId(),
+        isBeingEdited: false,
+      };
+      return {
+        listItems: [...prevState.listItems, newItem],
+        newItemText: '',
+      };
+    });
   };
 
   toggleEditing = (item) => {
@@ -51,10 +49,7 @@ export class List extends Component {
 
   deleteItem = (item) => {
     this.setState((prevState) => {
-      const listWithoutItem = prevState.listItems;
-      if (prevState.listItems.includes(item)) {
-        listWithoutItem.splice(prevState.listItems.indexOf(item), 1);
-      }
+      const listWithoutItem = prevState.listItems.filter(arrayItem => arrayItem !== item);
       return {
         listItems: listWithoutItem,
       };
