@@ -78,7 +78,8 @@ export class List extends Component {
             <div
               className="list-group-item form-inline"
               key={item.id}
-            >{index + 1}{'. '}
+            >
+              {index + 1}{'. '}
               {item.isBeingEdited ?
                 <EditedListItem
                   key={item.id}

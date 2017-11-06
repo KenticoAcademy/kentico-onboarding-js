@@ -21,7 +21,8 @@ export const NewItemForm = (props) => {
           <button
             className="btn btn-default"
             onClick={props.onAddItem}
-          >Add
+          >
+            Add
           </button>
         </div>
       </div>

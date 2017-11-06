@@ -23,7 +23,8 @@ export class ListItem extends React.Component {
       <div
         className="input-group"
         onClick={this.toggleTextEditing}
-      >{item.value}
+      >
+        {item.value}
       </div>
     );
   }

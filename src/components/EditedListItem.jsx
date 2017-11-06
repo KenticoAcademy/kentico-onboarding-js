@@ -57,17 +57,20 @@ export class EditedListItem extends React.Component {
           <button
             className="btn btn-primary"
             onClick={this.saveNewText}
-          >Save
+          >
+            Save
           </button>
           <button
             className="btn btn-default"
             onClick={this.toggleTextEditing}
-          >Cancel
+          >
+            Cancel
           </button>
           <button
             className="btn btn-danger"
             onClick={this.deleteItem}
-          >Delete
+          >
+            Delete
           </button>
         </div>
       </div>);
