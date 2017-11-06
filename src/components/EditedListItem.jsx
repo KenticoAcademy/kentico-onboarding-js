@@ -47,30 +47,28 @@ export class EditedListItem extends React.Component {
   render() {
     const { item } = this.props;
     return (
-      <div className="form-inline">
-        <div className="input-group">
-          <input
-            className="form-control"
-            defaultValue={item.value}
-            onChange={this.onTextChanged}
-          />
-          <div className="input-group-btn">
-            <button
-              className="btn btn-primary"
-              onClick={this.saveNewText}
-            >Save
-            </button>
-            <button
-              className="btn btn-default"
-              onClick={this.toggleTextEditing}
-            >Cancel
-            </button>
-            <button
-              className="btn btn-danger"
-              onClick={this.deleteItem}
-            >Delete
-            </button>
-          </div>
+      <div className="input-group">
+        <input
+          className="form-control"
+          defaultValue={item.value}
+          onChange={this.onTextChanged}
+        />
+        <div className="input-group-btn">
+          <button
+            className="btn btn-primary"
+            onClick={this.saveNewText}
+          >Save
+          </button>
+          <button
+            className="btn btn-default"
+            onClick={this.toggleTextEditing}
+          >Cancel
+          </button>
+          <button
+            className="btn btn-danger"
+            onClick={this.deleteItem}
+          >Delete
+          </button>
         </div>
       </div>);
   }

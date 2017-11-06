@@ -73,10 +73,10 @@ export class List extends Component {
           </div>
         </div>
 
-        <div className="row col-sm-8">{
+        <div className="col-sm-8">{
           this.state.listItems.map((item, index) => (
             <div
-              className="list-group-item"
+              className="list-group-item form-inline"
               key={item.id}
             >{index + 1}{'. '}
               {item.isBeingEdited ?
@@ -98,8 +98,8 @@ export class List extends Component {
             onAddItem={this.addNewItem}
             onTextChange={this.newItemTextChange}
           />
+          <br />
         </div>
-        <br />
       </div>
     );
   }

@@ -7,21 +7,23 @@ export const NewItemForm = (props) => {
     onTextChange: propTypes.func.required,
     onAddItem: propTypes.func.required,
   };
+
   return (
-    <div className="list-group-item">
-      <div className="form-inline">
+    <div className="list-group-item form-inline">
+      <div className="input-group">
         <input
           className="form-control"
           type="text"
           value={props.newItemText}
           onChange={props.onTextChange}
         />
-        <button
-          className="btn btn-default"
-          title="Add"
-          onClick={props.onAddItem}
-        >Add
-        </button>
+        <div className="input-group-btn">
+          <button
+            className="btn btn-default"
+            onClick={props.onAddItem}
+          >Add
+          </button>
+        </div>
       </div>
     </div>);
 };

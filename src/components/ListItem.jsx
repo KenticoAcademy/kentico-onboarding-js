@@ -21,7 +21,7 @@ export class ListItem extends React.Component {
     const { item } = this.props;
     return (
       <div
-        className="form-inline"
+        className="input-group"
         onClick={this.toggleTextEditing}
       >{item.value}
       </div>
