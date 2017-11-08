@@ -4,7 +4,7 @@ import { ListItem } from './ListItem';
 import { NewItemForm } from './NewItemForm';
 import { EditedListItem } from './EditedListItem';
 import { defaultListItems } from '../constants/defaultListItems';
-import { generateId } from './generateId';
+import { generateId } from '../utils/generateId';
 
 export class List extends Component {
 

@@ -1,4 +1,4 @@
-import { generateId } from '../components/generateId';
+import { generateId } from '../utils/generateId';
 
 export const defaultListItems = [
   {
