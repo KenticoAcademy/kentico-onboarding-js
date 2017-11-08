@@ -13,6 +13,7 @@ export class EditedListItem extends React.Component {
     onToggleEditing: PropTypes.func.isRequired,
     onItemDeletion: PropTypes.func.isRequired,
     onItemSaved: PropTypes.func.isRequired,
+    position: PropTypes.number.isRequired,
   };
 
   constructor(props) {
@@ -48,37 +49,41 @@ export class EditedListItem extends React.Component {
   render() {
     const { item } = this.props;
     return (
-      <div className="input-group">
-        <input
-          className="form-control"
-          defaultValue={item.value}
-          onChange={this.onTextChanged}
-        />
-        <div className="input-group-btn">
-          {this.state.updatedValue === '' ?
-            <DisabledButton
-              buttonLabel="Save"
-              buttonType="btn btn-primary"
-            /> : <button
-              className="btn btn-primary"
-              onClick={this.saveNewText}
+      <span>
+        {this.props.position}
+        {". "}
+        <div className="input-group">
+          <input
+            className="form-control"
+            defaultValue={item.value}
+            onChange={this.onTextChanged}
+          />
+          <div className="input-group-btn">
+            {this.state.updatedValue === '' ?
+              <DisabledButton
+                buttonLabel="Save"
+                buttonType="btn btn-primary"
+              /> : <button
+                className="btn btn-primary"
+                onClick={this.saveNewText}
+              >
+                Save
+              </button>
+            }
+            <button
+              className="btn btn-default"
+              onClick={this.toggleTextEditing}
             >
-              Save
+              Cancel
             </button>
-          }
-          <button
-            className="btn btn-default"
-            onClick={this.toggleTextEditing}
-          >
-            Cancel
-          </button>
-          <button
-            className="btn btn-danger"
-            onClick={this.deleteItem}
-          >
-            Delete
-          </button>
+            <button
+              className="btn btn-danger"
+              onClick={this.deleteItem}
+            >
+              Delete
+            </button>
+          </div>
         </div>
-      </div>);
+      </span>);
   }
 }

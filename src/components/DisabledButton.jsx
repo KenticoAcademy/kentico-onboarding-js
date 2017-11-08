@@ -2,12 +2,7 @@ import React from 'react';
 import propTypes from 'prop-types';
 import ReactTooltip from 'react-tooltip';
 
-export const DisabledButton = (props) => {
-  DisabledButton.propTypes = {
-    buttonLabel: propTypes.string.required,
-    buttonType: propTypes.string.required,
-  };
-
+const DisabledButton = (props) => {
   return (
     <span>
       <a data-tip="React-tooltip">
@@ -26,3 +21,10 @@ export const DisabledButton = (props) => {
     </span>
   );
 };
+
+DisabledButton.propTypes = {
+  buttonLabel: propTypes.string.isRequired,
+  buttonType: propTypes.string.isRequired,
+};
+
+export { DisabledButton };

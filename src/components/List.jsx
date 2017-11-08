@@ -79,7 +79,6 @@ export class List extends Component {
               className="list-group-item form-inline"
               key={item.id}
             >
-              {index + 1}{'. '}
               {item.isBeingEdited ?
                 <EditedListItem
                   key={item.id}
@@ -87,10 +86,12 @@ export class List extends Component {
                   onToggleEditing={this.toggleEditing}
                   onItemDeletion={this.deleteItem}
                   onItemSaved={this.updateItemText}
+                  position={index + 1}
                 /> : <ListItem
                   key={item.id}
                   item={item}
                   onToggleEditing={this.toggleEditing}
+                  position={index + 1}
                 />}
             </div>
           ))}

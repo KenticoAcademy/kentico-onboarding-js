@@ -2,13 +2,7 @@ import React from 'react';
 import propTypes from 'prop-types';
 import { DisabledButton } from './DisabledButton';
 
-export const NewItemForm = (props) => {
-  NewItemForm.propTypes = {
-    newItemText: propTypes.string.required,
-    onTextChange: propTypes.func.required,
-    onAddItem: propTypes.func.required,
-  };
-
+const NewItemForm = (props) => {
   return (
     <div className="list-group-item form-inline">
       <div className="input-group">
@@ -34,3 +28,11 @@ export const NewItemForm = (props) => {
       </div>
     </div>);
 };
+
+NewItemForm.propTypes = {
+  newItemText: propTypes.string.isRequired,
+  onTextChange: propTypes.func.isRequired,
+  onAddItem: propTypes.func.isRequired,
+};
+
+export { NewItemForm };
