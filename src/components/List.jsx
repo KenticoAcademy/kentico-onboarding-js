@@ -17,8 +17,8 @@ export class List extends Component {
     };
   }
 
-  newItemTextChange = (e) => {
-    this.setState({ newItemText: e.target.value });
+  newItemTextChange = (text) => {
+    this.setState({ newItemText: text });
   };
 
   addNewItem = () => {
