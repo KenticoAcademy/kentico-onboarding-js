@@ -43,7 +43,6 @@ export class EditedListItem extends React.Component {
   saveNewText = () => {
     const { item, onItemSaved } = this.props;
     onItemSaved(item, this.state.updatedValue);
-    this.toggleTextEditing();
   };
 
   render() {

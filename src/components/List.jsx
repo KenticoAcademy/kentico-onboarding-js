@@ -57,8 +57,16 @@ export class List extends Component {
   };
 
   updateItemText = (item, newText) => {
-    const updatedItem = item;
-    updatedItem.value = newText;
+    this.setState((prevState) => {
+      return {
+        listItems: prevState.listItems
+        .map(listItem => (listItem.id === item.id
+          ? {
+            value: newText,
+            id: listItem.id,
+            isBeingEdited: false,
+          } : listItem)),
+      }; });
   };
 
   render() {
