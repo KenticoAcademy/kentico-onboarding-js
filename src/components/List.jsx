@@ -13,18 +13,13 @@ export class List extends Component {
 
     this.state = {
       listItems: defaultListItems,
-      newItemText: '',
     };
   }
 
-  newItemTextChange = (text) => {
-    this.setState({ newItemText: text });
-  };
-
-  addNewItem = () => {
+  addNewItem = (text) => {
     this.setState((prevState) => {
       const newItem = {
-        value: prevState.newItemText,
+        value: text,
         id: generateId(),
         isBeingEdited: false,
       };
@@ -104,9 +99,7 @@ export class List extends Component {
             </div>
           ))}
           <NewItemForm
-            newItemText={this.state.newItemText}
             onAddItem={this.addNewItem}
-            onTextChange={this.newItemTextChange}
           />
           <br />
         </div>

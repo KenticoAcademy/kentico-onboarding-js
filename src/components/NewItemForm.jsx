@@ -2,10 +2,8 @@ import React from 'react';
 import propTypes from 'prop-types';
 import { DisabledButton } from './DisabledButton';
 
-class NewItemForm extends React.Component {
+export class NewItemForm extends React.Component {
   static propTypes = {
-    newItemText: propTypes.string.isRequired,
-    onTextChange: propTypes.func.isRequired,
     onAddItem: propTypes.func.isRequired,
   };
 
@@ -17,9 +15,13 @@ class NewItemForm extends React.Component {
     };
   }
 
+  onAddNewItem = () => {
+    this.props.onAddItem(this.state.newItemText);
+    this.setState({ newItemText: '' });
+  }
+
   newItemTextChange = (e) => {
     this.setState({ newItemText: e.target.value });
-    this.props.onTextChange(this.state.newItemText);
   };
 
   render() {
@@ -29,17 +31,17 @@ class NewItemForm extends React.Component {
           <input
             className="form-control"
             type="text"
-            value={this.props.newItemText}
+            value={this.state.newItemText}
             onChange={this.newItemTextChange}
           />
           <div className="input-group-btn">
-            {this.props.newItemText === '' ?
+            {this.state.newItemText === '' ?
               <DisabledButton
                 buttonLabel="Add"
                 buttonType="btn btn-default"
               /> : <button
                 className="btn btn-default"
-                onClick={this.props.onAddItem}
+                onClick={this.onAddNewItem}
               >
                 Add
               </button>
