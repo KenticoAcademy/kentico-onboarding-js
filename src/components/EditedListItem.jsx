@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { DisabledButton } from './DisabledButton';
+import { checkEmptiness } from '../utils/checkEmptiness';
 
 export class EditedListItem extends React.Component {
 
@@ -58,17 +58,15 @@ export class EditedListItem extends React.Component {
             onChange={this.onTextChanged}
           />
           <div className="input-group-btn">
-            {this.state.updatedValue === '' ?
-              <DisabledButton
-                buttonLabel="Save"
-                buttonType="btn btn-primary"
-              /> : <button
-                className="btn btn-primary"
-                onClick={this.saveNewText}
-              >
-                Save
-              </button>
-            }
+            <button
+              data-balloon={checkEmptiness(this.state.updatedValue) ? "Item name mustn't be empty" : null}
+              data-balloon-pos="up"
+              className="btn btn-primary"
+              disabled={checkEmptiness(this.state.updatedValue)}
+              onClick={this.saveNewText}
+            >
+              Save
+            </button>
             <button
               className="btn btn-default"
               onClick={this.toggleTextEditing}

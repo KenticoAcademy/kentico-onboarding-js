@@ -1,6 +1,6 @@
 import React from 'react';
 import propTypes from 'prop-types';
-import { DisabledButton } from './DisabledButton';
+import { checkEmptiness } from '../utils/checkEmptiness';
 
 export class NewItemForm extends React.Component {
   static propTypes = {
@@ -35,17 +35,15 @@ export class NewItemForm extends React.Component {
             onChange={this.newItemTextChange}
           />
           <div className="input-group-btn">
-            {this.state.newItemText === '' ?
-              <DisabledButton
-                buttonLabel="Add"
-                buttonType="btn btn-default"
-              /> : <button
-                className="btn btn-default"
-                onClick={this.onAddNewItem}
-              >
-                Add
-              </button>
-            }
+            <button
+              data-balloon={checkEmptiness(this.state.newItemText) ? "Item name mustn't be empty" : null}
+              data-balloon-pos="up"
+              className="btn btn-default"
+              disabled={checkEmptiness(this.state.newItemText)}
+              onClick={this.onAddNewItem}
+            >
+              Add
+            </button>
           </div>
         </div>
       </div>);
