@@ -4,6 +4,9 @@ body {
   font-family: sans-serif;
 }
 
+.list-group-item {
+    display: list-item;
+}
 
 .img--assignment {
   display: flex;

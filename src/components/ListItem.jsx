@@ -37,25 +37,22 @@ export class ListItem extends Component {
 
   render() {
     const inEditMode = this.state.isBeingEdited;
-    const blueStyle = { background: 'blue', color: 'white' };
-    const redStyle = { background: 'red', color: 'white' };
-
     let listItemContent;
     if (inEditMode) {
       listItemContent = (
-        <div className="ListItem">
+        <li className="list-group-item">
           <input type="text" value={this.state.text} onChange={this.handleInputChange} />
-          <button style={blueStyle} onClick={this.handleSaveButton}>Save</button>
-          <button onClick={this.handleCancelButton}>Cancel</button>
-          <button style={redStyle} onClick={this.props.deleteClick}>Delete</button>
-        </div>
+          <button className="btn btn-primary" onClick={this.handleSaveButton}>Save</button>
+          <button className="btn btn-secondary" onClick={this.handleCancelButton}>Cancel</button>
+          <button className="btn btn-danger" onClick={this.props.deleteClick}>Delete</button>
+        </li>
       );
     }
     else {
       listItemContent = (
-        <div className="ListItem" onClick={this.handleItemClick}>
-          <h2>{this.state.text}</h2>
-        </div>
+        <li className="list-group-item" onClick={this.handleItemClick}>
+          {this.state.text}
+        </li>
       );
     }
 

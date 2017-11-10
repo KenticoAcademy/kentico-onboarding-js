@@ -70,19 +70,14 @@ export class List extends PureComponent {
         </div>
 
         <div className="row">
-          <div className="col-sm-12 col-md-offset-2 col-md-8">
-            <pre>
-              // TODO: implement the list here :)
-            </pre>
-          </div>
-        </div>
+          <ol className="list-group">
+            {listItems}
 
-        <div>
-          {listItems}
-          <form className="Form" onSubmit={this.handleSubmit}>
-            <input type="text" value={this.state.newItemText} onChange={this.handleInputChange} />
-            <input type="submit" value="Add" />
-          </form>
+            <li className="list-group-item">
+              <input type="text" value={this.state.newItemText} onChange={this.handleInputChange} />
+              <button className="btn btn-secondary" onClick={this.handleSubmit} >Add</button>
+            </li>
+          </ol>
         </div>
       </div>
     );
