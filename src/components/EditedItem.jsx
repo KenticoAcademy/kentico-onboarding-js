@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 import { validateText } from '../utils/textValidation';
 import { Input } from './Input';
 
@@ -9,7 +10,7 @@ export class EditedItem extends PureComponent {
     onCancel: PropTypes.func.isRequired,
     onDelete: PropTypes.func.isRequired,
     index: PropTypes.number.isRequired,
-    item: PropTypes.shape({
+    item: ImmutablePropTypes.contains({
       id: PropTypes.string.isRequired,
       text: PropTypes.string.isRequired,
     }).isRequired,
@@ -38,7 +39,7 @@ export class EditedItem extends PureComponent {
   render() {
     const invalidTextTitle = (this.state.isInputValid)
       ? undefined
-      : 'Empty item cannot be stored. \n ' +
+      : 'Empty item cannot be stored. \n' +
         'Tip: Use delete button to remove an item';
 
     return (

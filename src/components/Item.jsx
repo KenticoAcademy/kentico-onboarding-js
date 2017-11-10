@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { PlainItem } from './PlainItem';
 import { EditedItem } from './EditedItem';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 
 export class Item extends PureComponent {
   static propTypes = {
@@ -10,9 +11,8 @@ export class Item extends PureComponent {
     onCancel: PropTypes.func.isRequired,
     onTextClick: PropTypes.func.isRequired,
     index: PropTypes.number.isRequired,
-    item: PropTypes.shape({
+    item: ImmutablePropTypes.contains({
       id: PropTypes.string.isRequired,
-      text: PropTypes.string.isRequired,
       isEdited: PropTypes.bool.isRequired,
     }).isRequired,
   };
