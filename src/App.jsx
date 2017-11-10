@@ -1,8 +1,8 @@
 import './sticky-footer.css';
-import React, { Component } from 'react';
-import List from './components/List';
+import React, { PureComponent } from 'react';
+import { List } from './components/List';
 
-class App extends Component {
+export class App extends PureComponent {
   render() {
     return (
       <div>
@@ -14,7 +14,9 @@ class App extends Component {
           <div className="jumbotron">
             <h1>JS onboarding</h1>
             <p className="lead">
-              We will implement simple task using <a href="https://facebook.github.io/react/docs/hello-world.html">ReactJS</a> and later move on to refactor our app to use <a href="https://facebook.github.io/immutable-js/">Immutable</a> and <a href="http://redux.js.org/">Redux</a>.
+              We will implement simple task using
+              <a href="https://facebook.github.io/react/docs/hello-world.html">ReactJS</a> and later move on to refactor our app to use
+              <a href="https://facebook.github.io/immutable-js/">Immutable</a> and <a href="http://redux.js.org/">Redux</a>.
             </p>
             <p>You can find all the relevant info in git repository.</p>
             <p>
@@ -27,11 +29,9 @@ class App extends Component {
           </section>
         </div>
         <footer className="footer">
-          <p>&copy; 2016 Kentico Software</p>
+          <p>&copy; 2017 Kentico software, s.r.o</p>
         </footer>
       </div>
     );
   }
 }
-
-export default App;

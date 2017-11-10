@@ -27,7 +27,7 @@ describe('Promise resolving', () => {
 
     return myPromise.then(result => {
       expect(result).toBeLessThan(666);
-      expect(result).toBeGreaterThanOrEqual(-1/12);
+      expect(result).toBeGreaterThanOrEqual(-1 / 12);
       expect(result).toBe(42);
     });
   });
