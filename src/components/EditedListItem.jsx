@@ -56,6 +56,7 @@ export class EditedListItem extends React.Component {
             className="form-control"
             defaultValue={item.value}
             onChange={this.onTextChanged}
+            placeholder="Type new item name..."
           />
           <div className="input-group-btn">
             <button

@@ -33,6 +33,7 @@ export class NewItemForm extends React.Component {
             type="text"
             value={this.state.newItemText}
             onChange={this.newItemTextChange}
+            placeholder="Type new item name..."
           />
           <div className="input-group-btn">
             <button
