@@ -1,10 +1,6 @@
 import React, { PureComponent } from 'react';
 import { ListItem } from './ListItem.jsx';
 
-import assignment from './../../assignment.gif';
-
-import { TsComponent } from './TsComponent.tsx';
-
 export class List extends PureComponent {
   constructor(props) {
     super(props);
@@ -62,33 +58,15 @@ export class List extends PureComponent {
     nonNumberedListItem['list-style-type'] = 'none';
     return (
       <div className="row">
-        {/* TODO: You can delete the assignment part once you do not need it */}
-        <div className="row">
-          <div className="col-sm-12 text-center">
-            <TsComponent name="𝕱𝖆𝖓𝖈𝖞" />
-          </div>
-        </div>
-
-        <div className="row">
-          <div className="col-sm-12">
-            <p className="lead text-center">Desired functionality is captured in the gif image. </p>
-            <p className="lead text-center"><b>Note: </b>Try to make solution easily extensible (e.g. more displayed fields per item like
-              <code>dateCreated</code>).</p>
-            <img src={assignment} alt="assignment" className="img--assignment" />
-          </div>
-        </div>
-
-        <div className="row">
-          <ol className="list-group">
-            {listItems}
-            <li style={nonNumberedListItem} className="list-group-item">
-              <div className="input-group">
-                <input className="form-control" type="text" value={this.state.newItemText} onChange={this.handleInputChange} />
-                <button className="btn btn-secondary" onClick={this.handleSubmit} >Add</button>
-              </div>
-            </li>
-          </ol>
-        </div>
+        <ol className="list-group">
+          {listItems}
+          <li style={nonNumberedListItem} className="list-group-item">
+            <div className="input-group">
+              <input className="form-control" type="text" value={this.state.newItemText} onChange={this.handleInputChange} />
+              <button className="btn btn-secondary" onClick={this.handleSubmit} >Add</button>
+            </div>
+          </li>
+        </ol>
       </div>
     );
   }
