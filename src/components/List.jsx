@@ -14,6 +14,7 @@ export class List extends PureComponent {
     this.deleteClick = this.deleteClick.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.renumberItems = this.renumberItems.bind(this);
   }
 
   guid() {
@@ -27,8 +28,35 @@ export class List extends PureComponent {
       s4() + '-' + s4() + s4() + s4();
   }
 
+  renumberItems(items, deletedNumber) {
+    const changedItems = items.map(item => {
+      if (item.number > deletedNumber) {
+        const changedItem = Object.assign({}, item);
+        changedItem.number = item.number - 1;
+        return changedItem;
+      }
+      return item;
+    });
+
+    return changedItems;
+  }
+
   deleteClick(guid) {
-    const newItems = this.state.items.filter(item => item.guid !== guid);
+    let deletedNumber;
+    let newItems = this.state.items.filter(
+      (item) => {
+        if (item.guid === guid) {
+          deletedNumber = item.number;
+        }
+
+        return item.guid !== guid;
+      }
+    );
+
+    if (deletedNumber) {
+      newItems = this.renumberItems(newItems, deletedNumber);
+    }
+
     this.setState({ items: newItems });
   }
 
@@ -39,9 +67,10 @@ export class List extends PureComponent {
       return;
     }
 
-    const newItems = this.state.items.slice();
-    const item = { guid: this.guid(), text };
-    newItems.push(item);
+    const counter = this.state.items.length + 1;
+    const guid = this.guid();
+    const item = { number: counter, text, guid };
+    const newItems = this.state.items.concat(item);
     this.setState({ items: newItems, newItemText: '' });
     e.preventDefault();
   }
@@ -51,11 +80,8 @@ export class List extends PureComponent {
   }
 
   render() {
-    const listItems = this.state.items.map(item =>
-      <ListItem key={item.guid} item={item} deleteClick={() => this.deleteClick(item.guid)} />
-    );
-    const nonNumberedListItem = {};
-    nonNumberedListItem['list-style-type'] = 'none';
+    const listItems = this.state.items.map(item => <ListItem key={item.guid} item={item} deleteClick={() => this.deleteClick(item.guid)} />);
+    const nonNumberedListItem = { listStyleType: 'none' };
     return (
       <div className="row">
         <ol className="list-group">

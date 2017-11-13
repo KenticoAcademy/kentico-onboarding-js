@@ -14,14 +14,6 @@ ol li {
   display: table-cell;
 }
 
-.list-group {
-  list-style: decimal inside;
-}
-
-.list-group-item {
-    display: list-item;
-}
-
 .img--assignment {
   display: flex;
 }

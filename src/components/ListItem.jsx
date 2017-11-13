@@ -42,11 +42,13 @@ export class ListItem extends Component {
 
   render() {
     const inEditMode = this.state.isBeingEdited;
+    const number = this.props.item.number;
     let listItemContent;
     if (inEditMode) {
       listItemContent = (
         <li className="list-group-item">
-          <div className="input-group">
+          <div className="form-inline">
+            <label>{number}{'. '}</label>
             <input className="form-control" type="text" value={this.state.text} onChange={this.handleInputChange} />
             <button className="btn btn-primary" onClick={this.handleSaveButton}>Save</button>
             <button className="btn btn-secondary" onClick={this.handleCancelButton}>Cancel</button>
@@ -58,7 +60,7 @@ export class ListItem extends Component {
     else {
       listItemContent = (
         <li className="list-group-item" onClick={this.handleItemClick}>
-          {this.state.text}
+          {number}. {this.state.text}
         </li>
       );
     }
@@ -68,6 +70,6 @@ export class ListItem extends Component {
 }
 
 ListItem.propTypes = {
-  item: PropTypes.object,
+  item: PropTypes.object.isRequired,
   deleteClick: PropTypes.func.isRequired,
 };
