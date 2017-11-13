@@ -4,8 +4,24 @@ body {
   font-family: sans-serif;
 }
 
+ol {
+  width: 800px;
+  display: table;
+  table-layout: fixed;
+}
+
+ol li {
+  display: table-cell;
+}
+
+.list-group {
+  list-style: decimal inside;
+}
+
+.list-group-item {
+    display: list-item;
+}
 
 .img--assignment {
   display: flex;
-
 }
