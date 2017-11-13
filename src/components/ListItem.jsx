@@ -23,6 +23,11 @@ export class ListItem extends Component {
 
   handleSaveButton() {
     const text = this.state.text;
+
+    if (text === '') {
+      return;
+    }
+
     this.setState({ isBeingEdited: false, text, originalText: text });
   }
 
@@ -41,10 +46,12 @@ export class ListItem extends Component {
     if (inEditMode) {
       listItemContent = (
         <li className="list-group-item">
-          <input type="text" value={this.state.text} onChange={this.handleInputChange} />
-          <button className="btn btn-primary" onClick={this.handleSaveButton}>Save</button>
-          <button className="btn btn-secondary" onClick={this.handleCancelButton}>Cancel</button>
-          <button className="btn btn-danger" onClick={this.props.deleteClick}>Delete</button>
+          <div className="input-group">
+            <input className="form-control" type="text" value={this.state.text} onChange={this.handleInputChange} />
+            <button className="btn btn-primary" onClick={this.handleSaveButton}>Save</button>
+            <button className="btn btn-secondary" onClick={this.handleCancelButton}>Cancel</button>
+            <button className="btn btn-danger" onClick={this.props.deleteClick}>Delete</button>
+          </div>
         </li>
       );
     }
