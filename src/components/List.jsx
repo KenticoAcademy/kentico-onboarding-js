@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import { ListItem } from './ListItem.jsx';
+
 import assignment from './../../assignment.gif';
 
 import { TsComponent } from './TsComponent.tsx';
@@ -36,8 +37,13 @@ export class List extends PureComponent {
   }
 
   handleSubmit(e) {
-    const newItems = this.state.items.slice();
     const text = this.state.newItemText;
+
+    if (text === '') {
+      return;
+    }
+
+    const newItems = this.state.items.slice();
     const item = { guid: this.guid(), text };
     newItems.push(item);
     this.setState({ items: newItems, newItemText: '' });
@@ -49,8 +55,11 @@ export class List extends PureComponent {
   }
 
   render() {
-    const listItems = this.state.items.map(item => <ListItem key={item.guid} item={item} deleteClick={() => this.deleteClick(item.guid)} />);
-
+    const listItems = this.state.items.map(item =>
+      <ListItem key={item.guid} item={item} deleteClick={() => this.deleteClick(item.guid)} />
+    );
+    const nonNumberedListItem = {};
+    nonNumberedListItem['list-style-type'] = 'none';
     return (
       <div className="row">
         {/* TODO: You can delete the assignment part once you do not need it */}
@@ -72,10 +81,11 @@ export class List extends PureComponent {
         <div className="row">
           <ol className="list-group">
             {listItems}
-
-            <li className="list-group-item">
-              <input type="text" value={this.state.newItemText} onChange={this.handleInputChange} />
-              <button className="btn btn-secondary" onClick={this.handleSubmit} >Add</button>
+            <li style={nonNumberedListItem} className="list-group-item">
+              <div className="input-group">
+                <input className="form-control" type="text" value={this.state.newItemText} onChange={this.handleInputChange} />
+                <button className="btn btn-secondary" onClick={this.handleSubmit} >Add</button>
+              </div>
             </li>
           </ol>
         </div>
