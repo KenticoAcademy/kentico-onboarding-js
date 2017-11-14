@@ -36,7 +36,7 @@ export class EditedListItem extends React.Component {
 
   deleteItem = () => {
     const { item, onItemDeletion } = this.props;
-    onItemDeletion(item);
+    onItemDeletion(item.id);
   };
 
   saveNewText = () => {

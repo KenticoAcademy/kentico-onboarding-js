@@ -43,11 +43,10 @@ export class List extends Component {
     });
   };
 
-  deleteItem = (item) => {
+  deleteItem = (itemId) => {
     this.setState((prevState) => {
-      const listWithoutItem = prevState.listItems.filter(arrayItem => arrayItem !== item);
       return {
-        listItems: listWithoutItem,
+        listItems: prevState.listItems.filter(listItem => (listItem.id !== itemId)),
       };
     });
   };
