@@ -21,7 +21,7 @@ export class ListItem extends React.Component {
     const { value } = this.props.item;
     return (
       <div
-        className="form-group"
+        className="form-control-static"
         onClick={this.toggleTextEditing}
       >
         {value}
