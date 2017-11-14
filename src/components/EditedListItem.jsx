@@ -45,13 +45,13 @@ export class EditedListItem extends React.Component {
   };
 
   render() {
-    const { item } = this.props;
+    const { value } = this.props.item;
     const isEmpty = checkEmptiness(this.state.updatedValue);
     return (
       <div className="input-group">
         <input
           className="form-control"
-          defaultValue={item.value}
+          defaultValue={value}
           onChange={this.onTextChanged}
           placeholder="Type new item name..."
         />
