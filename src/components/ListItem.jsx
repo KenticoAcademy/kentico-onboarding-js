@@ -6,7 +6,6 @@ export class ListItem extends React.Component {
   static propTypes = {
     item: PropTypes.shape({
       value: PropTypes.string.isRequired,
-      id: PropTypes.string.isRequired,
       isBeingEdited: PropTypes.bool.isRequired,
     }).isRequired,
     onToggleEditing: PropTypes.func.isRequired,

@@ -5,63 +5,37 @@ import { NewItemForm } from './NewItemForm';
 import { EditedListItem } from './EditedListItem';
 import { defaultListItems } from '../constants/defaultListItems';
 import { generateId } from '../utils/generateId';
+import Immutable from 'immutable';
+
+const listItems = Immutable.OrderedMap(defaultListItems);
 
 export class List extends Component {
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      listItems: defaultListItems,
-    };
-  }
-
   addNewItem = (text) => {
-    this.setState((prevState) => {
-      const newItem = {
-        value: text,
-        id: generateId(),
-        isBeingEdited: false,
-      };
-      return {
-        listItems: [...prevState.listItems, newItem],
-        newItemText: '',
-      };
+    const newItem = Immutable.Record({
+      value: text,
+      isBeingEdited: false,
     });
+    listItems.set(generateId(), newItem);
   };
 
-  toggleEditing = (item) => {
-    this.setState((prevState) => {
-      const updatedList = prevState.listItems;
-      const index = updatedList.indexOf(item);
-      updatedList[index].isBeingEdited = !item.isBeingEdited;
-
-      return {
-        listItems: updatedList,
-      };
-    });
+  toggleEditing = (key) => {
+    listItems.update(key, record => Immutable.Record({
+      value: record.value,
+      isBeingEdited: !record.isBeingEdited,
+    }));
   };
 
   deleteItem = (item) => {
-    this.setState((prevState) => {
-      const listWithoutItem = prevState.listItems.filter(arrayItem => arrayItem !== item);
-      return {
-        listItems: listWithoutItem,
-      };
-    });
+    listItems.delete(item.get('id'));
   };
 
   updateItemText = (item, newText) => {
-    this.setState((prevState) => {
-      return {
-        listItems: prevState.listItems
-        .map(listItem => (listItem.id === item.id
-          ? {
-            value: newText,
-            id: listItem.id,
-            isBeingEdited: false,
-          } : listItem)),
-      }; });
+    listItems.map(listItem => (listItem.id === item.id
+      ? {
+        value: newText,
+        isBeingEdited: false,
+      } : listItem));
   };
 
   render() {
@@ -77,22 +51,22 @@ export class List extends Component {
         </div>
 
         <div className="col-sm-8">{
-          this.state.listItems.map((item, index) => (
+          listItems.map((item, index) => (
             <div
               className="list-group-item form-inline"
-              key={item.id}
+              key={item.key}
             >
-              {item.isBeingEdited ?
+              {item.value.isBeingEdited ?
                 <EditedListItem
-                  key={item.id}
-                  item={item}
+                  key={item.key}
+                  item={item.value}
                   onToggleEditing={this.toggleEditing}
                   onItemDeletion={this.deleteItem}
                   onItemSaved={this.updateItemText}
                   position={index + 1}
                 /> : <ListItem
-                  key={item.id}
-                  item={item}
+                  key={item.key}
+                  item={item.value}
                   onToggleEditing={this.toggleEditing}
                   position={index + 1}
                 />}
