@@ -30,11 +30,11 @@ export class List extends Component {
     });
   };
 
-  toggleEditing = (item) => {
+  toggleEditing = (itemId) => {
     this.setState((prevState) => {
       const updatedList = prevState.listItems;
-      const index = updatedList.indexOf(item);
-      updatedList[index].isBeingEdited = !item.isBeingEdited;
+      const index = updatedList.indexOf(itemId);
+      updatedList[index].isBeingEdited = !updatedList[index].isBeingEdited;
 
       return {
         listItems: updatedList,
