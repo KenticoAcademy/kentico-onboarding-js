@@ -25,7 +25,7 @@ export class NewItemForm extends React.Component {
   };
 
   render() {
-    const isEmpty = checkEmptiness(this.state.updatedValue);
+    const isEmpty = checkEmptiness(this.state.newItemText);
     return (
       <div className="list-group-item form-inline">
         <div className="input-group">
