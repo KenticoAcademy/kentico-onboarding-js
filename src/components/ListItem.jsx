@@ -10,7 +10,6 @@ export class ListItem extends React.Component {
       isBeingEdited: PropTypes.bool.isRequired,
     }).isRequired,
     onToggleEditing: PropTypes.func.isRequired,
-    position: PropTypes.number.isRequired,
   };
 
   toggleTextEditing = () => {
@@ -22,10 +21,9 @@ export class ListItem extends React.Component {
     const { item } = this.props;
     return (
       <div
+        className="form-group"
         onClick={this.toggleTextEditing}
       >
-        {this.props.position}
-        {'. '}
         {item.value}
       </div>
     );
