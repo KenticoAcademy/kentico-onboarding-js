@@ -37,7 +37,7 @@ export class List extends Component {
           .map(listItem => (listItem.id === itemId
             ? {
               value: listItem.value,
-              id: listItem.id,
+              id: itemId,
               isBeingEdited: !listItem.isBeingEdited,
             } : listItem)),
       };
@@ -53,14 +53,14 @@ export class List extends Component {
     });
   };
 
-  updateItemText = (item, newText) => {
+  updateItemText = (itemId, newText) => {
     this.setState((prevState) => {
       return {
         listItems: prevState.listItems
-          .map(listItem => (listItem.id === item.id
+          .map(listItem => (listItem.id === itemId
             ? {
               value: newText,
-              id: listItem.id,
+              id: itemId,
               isBeingEdited: false,
             } : listItem)),
       };
