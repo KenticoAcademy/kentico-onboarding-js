@@ -32,12 +32,14 @@ export class List extends Component {
 
   toggleEditing = (itemId) => {
     this.setState((prevState) => {
-      const updatedList = prevState.listItems;
-      const index = updatedList.indexOf(itemId);
-      updatedList[index].isBeingEdited = !updatedList[index].isBeingEdited;
-
       return {
-        listItems: updatedList,
+        listItems: prevState.listItems
+          .map(listItem => (listItem.id === itemId
+            ? {
+              value: listItem.value,
+              id: listItem.id,
+              isBeingEdited: !listItem.isBeingEdited,
+            } : listItem)),
       };
     });
   };
@@ -55,13 +57,14 @@ export class List extends Component {
     this.setState((prevState) => {
       return {
         listItems: prevState.listItems
-        .map(listItem => (listItem.id === item.id
-          ? {
-            value: newText,
-            id: listItem.id,
-            isBeingEdited: false,
-          } : listItem)),
-      }; });
+          .map(listItem => (listItem.id === item.id
+            ? {
+              value: newText,
+              id: listItem.id,
+              isBeingEdited: false,
+            } : listItem)),
+      };
+    });
   };
 
   render() {
