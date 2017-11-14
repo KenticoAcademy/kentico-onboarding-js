@@ -1,4 +1,3 @@
 
-export const checkEmptiness = (text) => {
-  return (text === '');
-};
+export const checkEmptiness = (text) => text === '';
+

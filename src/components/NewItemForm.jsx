@@ -25,6 +25,7 @@ export class NewItemForm extends React.Component {
   };
 
   render() {
+    const isEmpty = checkEmptiness(this.state.newItemText);
     return (
       <div className="list-group-item form-inline">
         <div className="input-group">
@@ -37,10 +38,10 @@ export class NewItemForm extends React.Component {
           />
           <div className="input-group-btn">
             <button
-              data-balloon={checkEmptiness(this.state.newItemText) ? "Item name mustn't be empty" : null}
+              data-balloon={isEmpty ? "Item name mustn't be empty" : null}
               data-balloon-pos="up"
               className="btn btn-default"
-              disabled={checkEmptiness(this.state.newItemText)}
+              disabled={isEmpty}
               onClick={this.onAddNewItem}
             >
               Add

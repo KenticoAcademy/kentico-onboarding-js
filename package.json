@@ -10,7 +10,7 @@
     "autoprefixer": "^6.5.1",
     "awesome-typescript-loader": "^3.2.2",
     "babel-core": "^6.17.0",
-    "babel-eslint": "^7.1.1",
+    "babel-eslint": "^7.2.3",
     "babel-jest": "^19.0.0",
     "babel-loader": "^6.2.7",
     "babel-preset-react-app": "^2.2.0",

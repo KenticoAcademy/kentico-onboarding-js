@@ -6,14 +6,13 @@ export class EditedListItem extends React.Component {
 
   static propTypes = {
     item: PropTypes.shape({
-      value: PropTypes.string.isRequired,
       id: PropTypes.string.isRequired,
+      value: PropTypes.string.isRequired,
       isBeingEdited: PropTypes.bool.isRequired,
     }).isRequired,
     onToggleEditing: PropTypes.func.isRequired,
     onItemDeletion: PropTypes.func.isRequired,
     onItemSaved: PropTypes.func.isRequired,
-    position: PropTypes.number.isRequired,
   };
 
   constructor(props) {
@@ -49,8 +48,6 @@ export class EditedListItem extends React.Component {
     const { item } = this.props;
     return (
       <span>
-        {this.props.position}
-        {". "}
         <div className="input-group">
           <input
             className="form-control"

@@ -51,24 +51,22 @@ export class List extends Component {
         </div>
 
         <div className="col-sm-8">{
-          listItems.map((item, index) => (
+          listItems.valueSeq().map((item, index) => (
             <div
               className="list-group-item form-inline"
-              key={item.key}
-            >
-              {item.value.isBeingEdited ?
+              key={index}
+            > {index + 1}
+              {'. '}
+              {item.get('value')}
+              {item.get('isBeingEdited') ?
                 <EditedListItem
-                  key={item.key}
-                  item={item.value}
+                  item={item.get('value')}
                   onToggleEditing={this.toggleEditing}
                   onItemDeletion={this.deleteItem}
                   onItemSaved={this.updateItemText}
-                  position={index + 1}
                 /> : <ListItem
-                  key={item.key}
-                  item={item.value}
+                  item={item.get('value')}
                   onToggleEditing={this.toggleEditing}
-                  position={index + 1}
                 />}
             </div>
           ))}

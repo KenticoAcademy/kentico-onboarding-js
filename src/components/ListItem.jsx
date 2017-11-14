@@ -5,11 +5,11 @@ export class ListItem extends React.Component {
 
   static propTypes = {
     item: PropTypes.shape({
+      id: PropTypes.string.isRequired,
       value: PropTypes.string.isRequired,
       isBeingEdited: PropTypes.bool.isRequired,
     }).isRequired,
     onToggleEditing: PropTypes.func.isRequired,
-    position: PropTypes.number.isRequired,
   };
 
   toggleTextEditing = () => {
@@ -22,10 +22,7 @@ export class ListItem extends React.Component {
     return (
       <div
         onClick={this.toggleTextEditing}
-      >
-        {this.props.position}
-        {'. '}
-        {item.value}
+      >tadyda
       </div>
     );
   }
