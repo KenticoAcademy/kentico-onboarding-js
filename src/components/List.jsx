@@ -25,7 +25,6 @@ export class List extends Component {
       };
       return {
         listItems: [...prevState.listItems, newItem],
-        newItemText: '',
       };
     });
   };
