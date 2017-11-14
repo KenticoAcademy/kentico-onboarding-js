@@ -47,6 +47,7 @@ export class EditedListItem extends React.Component {
 
   render() {
     const { item } = this.props;
+    const isEmpty = checkEmptiness(this.state.updatedValue);
     return (
       <span>
         {this.props.position}
@@ -60,10 +61,10 @@ export class EditedListItem extends React.Component {
           />
           <div className="input-group-btn">
             <button
-              data-balloon={checkEmptiness(this.state.updatedValue) ? "Item name mustn't be empty" : null}
+              data-balloon={isEmpty ? "Item name mustn't be empty" : null}
               data-balloon-pos="up"
               className="btn btn-primary"
-              disabled={checkEmptiness(this.state.updatedValue)}
+              disabled={isEmpty}
               onClick={this.saveNewText}
             >
               Save
