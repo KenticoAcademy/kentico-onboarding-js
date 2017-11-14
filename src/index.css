@@ -4,16 +4,6 @@ body {
   font-family: sans-serif;
 }
 
-ol {
-  width: 800px;
-  display: table;
-  table-layout: fixed;
-}
-
-ol li {
-  display: table-cell;
-}
-
 .img--assignment {
   display: flex;
 }

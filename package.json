@@ -54,7 +54,7 @@
     "whatwg-fetch": "^1.0.0"
   },
   "dependencies": {
-    "bootstrap": "^4.0.0-alpha.6",
+    "bootstrap": "^4.0.0-beta.2",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "ts-jest": "^19.0.14"

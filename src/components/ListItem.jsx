@@ -1,67 +1,67 @@
 import React, { Component } from 'react';
 import { PropTypes } from 'prop-types';
+import { ListItemEditMode } from './ListItemEditMode';
+import { inputIsNotEmpty } from '../utils/validation.js';
 
 export class ListItem extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      originalText: props.item.text,
-      text: props.item.text,
       isBeingEdited: false,
     };
-
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleItemClick = this.handleItemClick.bind(this);
-    this.handleSaveButton = this.handleSaveButton.bind(this);
-    this.handleCancelButton = this.handleCancelButton.bind(this);
   }
 
-  handleInputChange(e) {
-    this.setState({ text: e.target.value });
-  }
+  onSave = (text) => {
+    const { id } = this.props.item;
 
-  handleSaveButton() {
-    const text = this.state.text;
-
-    if (text === '') {
-      return;
+    if (inputIsNotEmpty(text)) {
+      this.setState({ isBeingEdited: false });
+      this.props.onSave(id, text);
     }
-
-    this.setState({ isBeingEdited: false, text, originalText: text });
   }
 
-  handleCancelButton() {
-    const text = this.state.originalText;
-    this.setState({ isBeingEdited: false, text });
+  onCancel = () => {
+    const { text } = this.props.item;
+    this.setState({
+      isBeingEdited: false,
+      text,
+    });
   }
 
-  handleItemClick() {
+  onDelete = () => {
+    const { id } = this.props.item;
+    this.props.onDelete(id);
+  }
+
+  onItemClick = () => {
     this.setState({ isBeingEdited: true });
   }
 
   render() {
-    const inEditMode = this.state.isBeingEdited;
-    const number = this.props.item.number;
+    const { isBeingEdited } = this.state;
+    const { number } = this.props;
+    const { text } = this.props.item;
+
     let listItemContent;
-    if (inEditMode) {
+
+    if (isBeingEdited) {
       listItemContent = (
-        <li className="list-group-item">
-          <div className="form-inline">
-            <label>{number}{'. '}</label>
-            <input className="form-control" type="text" value={this.state.text} onChange={this.handleInputChange} />
-            <button className="btn btn-primary" onClick={this.handleSaveButton}>Save</button>
-            <button className="btn btn-secondary" onClick={this.handleCancelButton}>Cancel</button>
-            <button className="btn btn-danger" onClick={this.props.deleteClick}>Delete</button>
-          </div>
-        </li>
+        <ListItemEditMode
+          text={text}
+          number={number}
+          onSave={this.onSave}
+          onCancel={this.onCancel}
+          onDelete={this.onDelete}
+        />
       );
     }
     else {
+      const textContent = number + '. ' + text;
       listItemContent = (
-        <li className="list-group-item" onClick={this.handleItemClick}>
-          {number}. {this.state.text}
-        </li>
+        <div onClick={this.onItemClick}>
+          {textContent}
+        </div>
       );
     }
 
@@ -71,5 +71,7 @@ export class ListItem extends Component {
 
 ListItem.propTypes = {
   item: PropTypes.object.isRequired,
-  deleteClick: PropTypes.func.isRequired,
+  number: PropTypes.number.isRequired,
+  onSave: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired,
 };
