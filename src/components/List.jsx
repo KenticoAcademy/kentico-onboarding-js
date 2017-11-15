@@ -67,8 +67,8 @@ export class List extends Component {
           this.state.listItems.valueSeq().map((item, index) => (
             <div
               className="list-group-item form-inline"
-              key={index}
-            > {index + 1}
+              key={item.id}
+            >{index + 1}
               {'. '}
               {item.isBeingEdited ?
                 <EditedListItem
