@@ -14,7 +14,7 @@ export class ListItem extends React.Component {
 
   toggleTextEditing = () => {
     const { item, onToggleEditing } = this.props;
-    onToggleEditing(item);
+    onToggleEditing(item.id);
   };
 
   render() {

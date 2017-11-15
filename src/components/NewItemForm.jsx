@@ -18,7 +18,7 @@ export class NewItemForm extends React.Component {
   onAddNewItem = () => {
     this.props.onAddItem(this.state.newItemText);
     this.setState({ newItemText: '' });
-  }
+  };
 
   newItemTextChange = (e) => {
     this.setState({ newItemText: e.target.value });

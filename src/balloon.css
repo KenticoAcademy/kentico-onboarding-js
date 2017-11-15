@@ -1,3 +1,7 @@
+/*
+  based on https://github.com/kazzkiq/balloon.css/blob/master/balloon.css
+ */
+
 button[data-balloon] {
   overflow: visible; }
 

@@ -27,25 +27,25 @@ export class List extends Component {
     });
   };
 
-  toggleEditing = (item) => {
+  toggleEditing = (itemId) => {
     this.setState({
-      listItems: this.state.listItems.update(item.id, record => new ItemPattern({
-        id: item.id,
+      listItems: this.state.listItems.update(itemId, record => new ItemPattern({
+        id: itemId,
         value: record.value,
         isBeingEdited: !record.isBeingEdited,
       })),
     });
   };
 
-  deleteItem = (item) => {
+  deleteItem = (itemId) => {
     this.setState({
-      listItems: this.state.listItems.delete(item.id),
+      listItems: this.state.listItems.delete(itemId),
     });
   };
 
   updateItemText = (itemId, newText) => {
     this.setState({
-      listItems: this.state.listItems.update(itemId, record => new ItemPattern({
+      listItems: this.state.listItems.update(itemId, () => new ItemPattern({
         id: itemId,
         value: newText,
         isBeingEdited: false,
