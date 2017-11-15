@@ -43,12 +43,14 @@ export class List extends Component {
     });
   };
 
-  updateItemText = (item, newText) => {
-    /* listItems.map(listItem => (listItem.id === item.id
-      ? {
+  updateItemText = (itemId, newText) => {
+    this.setState({
+      listItems: this.state.listItems.update(itemId, record => new ItemPattern({
+        id: itemId,
         value: newText,
         isBeingEdited: false,
-      } : listItem)); */
+      })),
+    });
   };
 
   render() {
