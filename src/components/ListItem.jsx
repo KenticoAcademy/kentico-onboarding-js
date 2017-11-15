@@ -18,7 +18,7 @@ export class ListItem extends React.Component {
   };
 
   render() {
-    const { item } = this.props;
+    const { value } = this.props.item;
     return (
       <div
         className="form-control-static"

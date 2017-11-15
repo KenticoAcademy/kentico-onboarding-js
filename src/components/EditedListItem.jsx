@@ -45,40 +45,39 @@ export class EditedListItem extends React.Component {
   };
 
   render() {
-    const { item } = this.props;
+    const { value } = this.props.item;
+    const isEmpty = checkEmptiness(this.state.updatedValue);
     return (
-      <span>
-        <div className="input-group">
-          <input
-            className="form-control"
-            defaultValue={item.value}
-            onChange={this.onTextChanged}
-            placeholder="Type new item name..."
-          />
-          <div className="input-group-btn">
-            <button
-              data-balloon={checkEmptiness(this.state.updatedValue) ? "Item name mustn't be empty" : null}
-              data-balloon-pos="up"
-              className="btn btn-primary"
-              disabled={checkEmptiness(this.state.updatedValue)}
-              onClick={this.saveNewText}
-            >
-              Save
-            </button>
-            <button
-              className="btn btn-default"
-              onClick={this.toggleTextEditing}
-            >
-              Cancel
-            </button>
-            <button
-              className="btn btn-danger"
-              onClick={this.deleteItem}
-            >
-              Delete
-            </button>
-          </div>
+      <div className="input-group">
+        <input
+          className="form-control"
+          defaultValue={value}
+          onChange={this.onTextChanged}
+          placeholder="Type new item name..."
+        />
+        <div className="input-group-btn">
+          <button
+            data-balloon={isEmpty ? "Item name mustn't be empty" : null}
+            data-balloon-pos="up"
+            className="btn btn-primary"
+            disabled={isEmpty}
+            onClick={this.saveNewText}
+          >
+            Save
+          </button>
+          <button
+            className="btn btn-default"
+            onClick={this.toggleTextEditing}
+          >
+            Cancel
+          </button>
+          <button
+            className="btn btn-danger"
+            onClick={this.deleteItem}
+          >
+            Delete
+          </button>
         </div>
-      </span>);
+      </div>);
   }
 }
