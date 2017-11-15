@@ -38,7 +38,9 @@ export class List extends Component {
   };
 
   deleteItem = (item) => {
-    // listItems.delete(item.get('id'));
+    this.setState({
+      listItems: this.state.listItems.delete(item.id),
+    });
   };
 
   updateItemText = (item, newText) => {
