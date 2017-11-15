@@ -5,7 +5,7 @@ import { NewItemForm } from './NewItemForm';
 import { EditedListItem } from './EditedListItem';
 import { defaultListItems } from '../constants/defaultListItems';
 import { generateId } from '../utils/generateId';
-import Immutable from 'immutable';
+import { ItemPattern } from '../models/ItemPattern';
 
 export class List extends Component {
 
@@ -18,19 +18,23 @@ export class List extends Component {
   }
 
   addNewItem = (text) => {
-    const newItem = Immutable.Record({
+    const newItem = new ItemPattern({
       id: generateId(),
       value: text,
-      isBeingEdited: false,
     });
-    // listItems.set(generateId(), newItem);
+    this.setState({
+      listItems: this.state.listItems.set(newItem.id, newItem),
+    });
   };
 
-  toggleEditing = (key) => {
-    /* listItems.update(key, record => Immutable.Record({
-      value: record.value,
-      isBeingEdited: !record.isBeingEdited,
-    })); */
+  toggleEditing = (item) => {
+    this.setState({
+      listItems: this.state.listItems.update(item.id, record => new ItemPattern({
+        id: item.id,
+        value: record.value,
+        isBeingEdited: !record.isBeingEdited,
+      })),
+    });
   };
 
   deleteItem = (item) => {
@@ -64,15 +68,14 @@ export class List extends Component {
               key={index}
             > {index + 1}
               {'. '}
-              {item.value}
               {item.isBeingEdited ?
                 <EditedListItem
-                  item={item.value}
+                  item={item}
                   onToggleEditing={this.toggleEditing}
                   onItemDeletion={this.deleteItem}
                   onItemSaved={this.updateItemText}
                 /> : <ListItem
-                  item={item.value}
+                  item={item}
                   onToggleEditing={this.toggleEditing}
                 />}
             </div>
