@@ -7,35 +7,42 @@ import { defaultListItems } from '../constants/defaultListItems';
 import { generateId } from '../utils/generateId';
 import Immutable from 'immutable';
 
-const listItems = Immutable.OrderedMap(defaultListItems);
-
 export class List extends Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      listItems: defaultListItems,
+    };
+  }
 
   addNewItem = (text) => {
     const newItem = Immutable.Record({
+      id: generateId(),
       value: text,
       isBeingEdited: false,
     });
-    listItems.set(generateId(), newItem);
+    // listItems.set(generateId(), newItem);
   };
 
   toggleEditing = (key) => {
-    listItems.update(key, record => Immutable.Record({
+    /* listItems.update(key, record => Immutable.Record({
       value: record.value,
       isBeingEdited: !record.isBeingEdited,
-    }));
+    })); */
   };
 
   deleteItem = (item) => {
-    listItems.delete(item.get('id'));
+    // listItems.delete(item.get('id'));
   };
 
   updateItemText = (item, newText) => {
-    listItems.map(listItem => (listItem.id === item.id
+    /* listItems.map(listItem => (listItem.id === item.id
       ? {
         value: newText,
         isBeingEdited: false,
-      } : listItem));
+      } : listItem)); */
   };
 
   render() {
@@ -51,21 +58,21 @@ export class List extends Component {
         </div>
 
         <div className="col-sm-8">{
-          listItems.valueSeq().map((item, index) => (
+          this.state.listItems.valueSeq().map((item, index) => (
             <div
               className="list-group-item form-inline"
               key={index}
             > {index + 1}
               {'. '}
-              {item.get('value')}
-              {item.get('isBeingEdited') ?
+              {item.value}
+              {item.isBeingEdited ?
                 <EditedListItem
-                  item={item.get('value')}
+                  item={item.value}
                   onToggleEditing={this.toggleEditing}
                   onItemDeletion={this.deleteItem}
                   onItemSaved={this.updateItemText}
                 /> : <ListItem
-                  item={item.get('value')}
+                  item={item.value}
                   onToggleEditing={this.toggleEditing}
                 />}
             </div>

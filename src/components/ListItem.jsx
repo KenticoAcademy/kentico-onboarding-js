@@ -22,7 +22,8 @@ export class ListItem extends React.Component {
     return (
       <div
         onClick={this.toggleTextEditing}
-      >tadyda
+      >
+        {item.value}
       </div>
     );
   }
