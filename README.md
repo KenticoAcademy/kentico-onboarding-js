@@ -114,7 +114,7 @@ npm install --save-dev @types/immutable
 ```
 Read about how it works here: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-## Taks 5
+## Task 5
 **Prerequisite:** Make sure you understand Promises & IoC (DI) - last two sections of JS sources on [wiki](https://kentico.atlassian.net/wiki/display/KA/04+-+JS-related+tutorials).
 
 What kind of app it would be without the server side, right? Customer hitting F5 and then getting mad about loosing all his items is not a happy customer. Have a look at [06 - CS Onboarding task](https://kentico.atlassian.net/wiki/display/KA/06+-+CS+Onboarding+task) and implement at least Tasks 0 and 1 before you move on to connect your frontend to new your brand new shiny REST API.
@@ -131,7 +131,7 @@ Do not forget to tell the client app to [proxy your requests to the server](http
 - do not forget about dependency injection and tests (see sample tests for inspiration)
 - [optional] if you have time left in the sprint, you can implement delete + update functionality (DELETE and PUT requests to server) as well
 
-**Note**
-You might experience a dependency hell due to different versions of promises, fetch and their respective typings. The solution is to install `isomorphic-fetch` and `es6-promise` libraries plus their typings (see Task 4). Also make sure to *uninstall* all other packages for promises and fetch (plus their typings) otherwise you will get many wierd error messages. 
-
-In order to write tests properly, you will surely need to use some [mocking functionality provided by Jest testing framework](https://facebook.github.io/jest/docs/mock-functions.html#content). In case your linter starts to complain about it follow [this SO answer](http://stackoverflow.com/a/40265356).
+**Notes:**
+- You might experience a dependency hell due to different versions of promises, fetch and their respective typings. The solution is to install `isomorphic-fetch` and `es6-promise` libraries plus their typings (see Task 4). Also make sure to *uninstall* all other packages for promises and fetch (plus their typings) otherwise you will get many wierd error messages. 
+- To get at least a rough idea of how to write tests for thunk actions, try reading [this article](https://medium.com/@ferrannp/unit-testing-with-jest-redux-async-actions-fetch-9054ca28cdcd) and then try to write your tests without `redux-mock-store`, using your own mock of dispatch according to [this article](https://www.ximedes.com/test-redux-action-creators-with-jest/)
+- In order to write tests properly, you will surely need to use some [mocking functionality provided by Jest testing framework](https://facebook.github.io/jest/docs/mock-functions.html#content). In case your linter starts to complain about it follow [this SO answer](http://stackoverflow.com/a/40265356).
