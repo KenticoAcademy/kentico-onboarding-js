@@ -1,12 +1,13 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import assignment from './../../assignment.gif';
 import { ListItem } from './ListItem';
 import { NewItemForm } from './NewItemForm';
 import { EditedListItem } from './EditedListItem';
 import { defaultListItems } from '../constants/defaultListItems';
 import { generateId } from '../utils/generateId';
+import { Item } from '../models/Item';
 
-export class List extends Component {
+export class List extends PureComponent {
 
   constructor(props) {
     super(props);
@@ -17,14 +18,13 @@ export class List extends Component {
   }
 
   addNewItem = (text) => {
+    const newItem = new Item({
+      id: generateId(),
+      value: text,
+    });
     this.setState((prevState) => {
-      const newItem = {
-        value: text,
-        id: generateId(),
-        isBeingEdited: false,
-      };
       return {
-        listItems: [...prevState.listItems, newItem],
+        listItems: prevState.listItems.set(newItem.id, newItem),
       };
     });
   };
@@ -32,13 +32,10 @@ export class List extends Component {
   toggleEditing = (itemId) => {
     this.setState((prevState) => {
       return {
-        listItems: prevState.listItems
-          .map(listItem => (listItem.id === itemId
-            ? {
-              value: listItem.value,
-              id: itemId,
-              isBeingEdited: !listItem.isBeingEdited,
-            } : listItem)),
+        listItems: prevState.listItems.update(
+          itemId, record => record.merge({
+            isBeingEdited: !record.isBeingEdited,
+          })),
       };
     });
   };
@@ -46,7 +43,7 @@ export class List extends Component {
   deleteItem = (itemId) => {
     this.setState((prevState) => {
       return {
-        listItems: prevState.listItems.filter(listItem => (listItem.id !== itemId)),
+        listItems: prevState.listItems.delete(itemId),
       };
     });
   };
@@ -54,13 +51,11 @@ export class List extends Component {
   updateItemText = (itemId, newText) => {
     this.setState((prevState) => {
       return {
-        listItems: prevState.listItems
-          .map(listItem => (listItem.id === itemId
-            ? {
-              value: newText,
-              id: itemId,
-              isBeingEdited: false,
-            } : listItem)),
+        listItems: prevState.listItems.update(
+          itemId, record => record.merge({
+            value: newText,
+            isBeingEdited: !record.isBeingEdited,
+          })),
       };
     });
   };
@@ -78,7 +73,7 @@ export class List extends Component {
         </div>
 
         <div className="col-sm-8">{
-          this.state.listItems.map((item, index) => (
+          this.state.listItems.valueSeq().map((item, index) => (
             <div
               className="list-group-item form-inline"
               key={item.id}
@@ -86,13 +81,11 @@ export class List extends Component {
               {'. '}
               {item.isBeingEdited ?
                 <EditedListItem
-                  key={item.id}
                   item={item}
                   onToggleEditing={this.toggleEditing}
                   onItemDeletion={this.deleteItem}
                   onItemSaved={this.updateItemText}
                 /> : <ListItem
-                  key={item.id}
                   item={item}
                   onToggleEditing={this.toggleEditing}
                 />}

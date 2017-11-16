@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
-export class ListItem extends React.Component {
+export class ListItem extends PureComponent {
 
   static propTypes = {
     item: PropTypes.shape({
-      value: PropTypes.string.isRequired,
       id: PropTypes.string.isRequired,
+      value: PropTypes.string.isRequired,
       isBeingEdited: PropTypes.bool.isRequired,
     }).isRequired,
     onToggleEditing: PropTypes.func.isRequired,

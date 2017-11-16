@@ -1,13 +1,13 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { checkEmptiness } from '../utils/checkEmptiness';
 
-export class EditedListItem extends React.Component {
+export class EditedListItem extends PureComponent {
 
   static propTypes = {
     item: PropTypes.shape({
-      value: PropTypes.string.isRequired,
       id: PropTypes.string.isRequired,
+      value: PropTypes.string.isRequired,
       isBeingEdited: PropTypes.bool.isRequired,
     }).isRequired,
     onToggleEditing: PropTypes.func.isRequired,
