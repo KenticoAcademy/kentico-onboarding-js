@@ -31,7 +31,8 @@ export class ListItemEditMode extends Component {
 
         <input
           className="form-control"
-          type="text" value={text}
+          type="text"
+          value={text}
           onChange={this.onInputChange}
         />
 

@@ -47,16 +47,16 @@ export class List extends PureComponent {
         key={item.id}
         className="row"
       >
-        <div className="col-sm">
-          <li className="list-group-item">
+        <li className="list-group-item">
+          <div className="col-sm">
             <ListItem
               item={item}
               number={index + 1}
               onSave={this.changeItemText}
               onDelete={this.onDelete}
             />
-          </li>
-        </div>
+          </div>
+        </li>
       </div>
     );
 
@@ -65,13 +65,13 @@ export class List extends PureComponent {
         <ol className="list-group">
           {listItems}
 
-          <div className="row">
-            <div className="col-sm">
-              <li className="list-group-item">
+          <li className="list-group-item">
+            <div className="row">
+              <div className="col-sm">
                 <NewItemForm onAdd={this.addNewItem} />
-              </li>
+              </div>
             </div>
-          </div>
+          </li>
         </ol>
       </div>
     );
