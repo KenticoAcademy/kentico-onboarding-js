@@ -43,10 +43,8 @@ class ListItem extends PureComponent {
     const { number } = this.props;
     const { text } = this.props.item;
 
-    let listItemContent;
-
     if (isBeingEdited) {
-      listItemContent = (
+      return (
         <ListItemEditMode
           text={text}
           number={number}
@@ -56,16 +54,14 @@ class ListItem extends PureComponent {
         />
       );
     }
-    else {
-      const textContent = number + '. ' + text;
-      listItemContent = (
-        <div onClick={this.onItemClick}>
-          {textContent}
-        </div>
-      );
-    }
 
-    return listItemContent;
+    const textContent = number + '. ' + text;
+
+    return (
+      <div onClick={this.onItemClick}>
+        {textContent}
+      </div>
+    );
   }
 }
 
