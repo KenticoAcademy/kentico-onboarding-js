@@ -20,6 +20,16 @@ class ListItemEditMode extends PureComponent {
     this.props.onSave(text);
   };
 
+  onKeyPress = (target) => {
+    if (target.charCode === 13) {
+      const { text } = this.state;
+
+      if (!textIsEmpty(text)) {
+        this.onSave();
+      }
+    }
+  };
+
   render() {
     const { text } = this.state;
     const { number } = this.props;
@@ -37,6 +47,7 @@ class ListItemEditMode extends PureComponent {
           value={text}
           placeholder={NEW_ITEM_TEXT_PLACEHOLDER}
           onChange={this.onInputChange}
+          onKeyPress={this.onKeyPress}
         />
 
         <button

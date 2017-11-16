@@ -21,6 +21,16 @@ class NewItemForm extends PureComponent {
     this.setState({ newItemText: '' });
   };
 
+  onKeyPress = (target) => {
+    if (target.charCode === 13) {
+      const { newItemText } = this.state;
+
+      if (!textIsEmpty(newItemText)) {
+        this.onAdd();
+      }
+    }
+  };
+
   render() {
     const { newItemText } = this.state;
     const enableAddButton = !textIsEmpty(newItemText);
@@ -33,6 +43,7 @@ class NewItemForm extends PureComponent {
           placeholder={NEW_ITEM_TEXT_PLACEHOLDER}
           value={newItemText}
           onChange={this.onInputChange}
+          onKeyPress={this.onKeyPress}
         />
 
         <button
