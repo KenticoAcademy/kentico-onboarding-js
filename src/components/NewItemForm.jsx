@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import { textIsEmpty, NEW_ITEM_TEXT_PLACEHOLDER } from '../utils/validation';
 
 class NewItemForm extends PureComponent {
   constructor(props) {
@@ -21,19 +22,23 @@ class NewItemForm extends PureComponent {
   };
 
   render() {
+    const { newItemText } = this.state;
+    const enableAddButton = !textIsEmpty(newItemText);
+
     return (
       <div className="input-group">
         <input
           className="form-control"
           type="text"
-          placeholder="Item name cannot be empty"
-          value={this.state.newItemText}
+          placeholder={NEW_ITEM_TEXT_PLACEHOLDER}
+          value={newItemText}
           onChange={this.onInputChange}
         />
 
         <button
-          className="btn btn-secondary"
+          className="btn btn-primary"
           onClick={this.onAdd}
+          disabled={!enableAddButton}
         >
           Add
         </button>

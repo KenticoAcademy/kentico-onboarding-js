@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import { textIsEmpty, NEW_ITEM_TEXT_PLACEHOLDER } from '../utils/validation';
 
 class ListItemEditMode extends PureComponent {
   constructor(props) {
@@ -22,6 +23,7 @@ class ListItemEditMode extends PureComponent {
   render() {
     const { text } = this.state;
     const { number } = this.props;
+    const enableSaveButton = !textIsEmpty(text);
 
     return (
       <div className="form-inline">
@@ -33,12 +35,14 @@ class ListItemEditMode extends PureComponent {
           className="form-control"
           type="text"
           value={text}
+          placeholder={NEW_ITEM_TEXT_PLACEHOLDER}
           onChange={this.onInputChange}
         />
 
         <button
           className="btn btn-primary"
           onClick={this.onSave}
+          disabled={!enableSaveButton}
         >
           Save
         </button>
