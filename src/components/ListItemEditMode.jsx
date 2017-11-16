@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
-export class ListItemEditMode extends PureComponent {
+class ListItemEditMode extends PureComponent {
   constructor(props) {
     super(props);
 
@@ -68,3 +68,5 @@ ListItemEditMode.propTypes = {
   onCancel: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
 };
+
+export { ListItemEditMode };

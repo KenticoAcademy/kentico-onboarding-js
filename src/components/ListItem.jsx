@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { ListItemEditMode } from './ListItemEditMode';
 import { textIsEmpty } from '../utils/validation.js';
 
-export class ListItem extends PureComponent {
+class ListItem extends PureComponent {
   constructor(props) {
     super(props);
 
@@ -75,3 +75,5 @@ ListItem.propTypes = {
   onSave: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
 };
+
+export { ListItem };

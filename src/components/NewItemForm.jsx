@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
-export class NewItemForm extends PureComponent {
+class NewItemForm extends PureComponent {
   constructor(props) {
     super(props);
 
@@ -45,3 +45,5 @@ export class NewItemForm extends PureComponent {
 NewItemForm.propTypes = {
   onAdd: PropTypes.func.isRequired,
 };
+
+export { NewItemForm };
