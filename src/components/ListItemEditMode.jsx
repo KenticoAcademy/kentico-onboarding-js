@@ -5,11 +5,10 @@ class ListItemEditMode extends PureComponent {
   constructor(props) {
     super(props);
 
-    const { text, number } = this.props;
+    const { text } = this.props;
 
     this.state = {
       text,
-      number,
     };
   }
 
@@ -21,7 +20,8 @@ class ListItemEditMode extends PureComponent {
   };
 
   render() {
-    const { text, number } = this.state;
+    const { text } = this.state;
+    const { number } = this.props;
 
     return (
       <div className="form-inline">
