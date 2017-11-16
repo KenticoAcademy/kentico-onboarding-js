@@ -5,7 +5,7 @@ import { NewItemForm } from './NewItemForm';
 import { EditedListItem } from './EditedListItem';
 import { defaultListItems } from '../constants/defaultListItems';
 import { generateId } from '../utils/generateId';
-import { ItemPattern } from '../models/ItemPattern';
+import { Item } from '../models/Item';
 
 export class List extends PureComponent {
 
@@ -18,7 +18,7 @@ export class List extends PureComponent {
   }
 
   addNewItem = (text) => {
-    const newItem = new ItemPattern({
+    const newItem = new Item({
       id: generateId(),
       value: text,
     });

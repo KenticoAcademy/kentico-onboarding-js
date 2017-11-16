@@ -1,20 +1,20 @@
 import { generateId } from '../utils/generateId';
-import { ItemPattern } from '../models/ItemPattern';
+import { Item } from '../models/Item';
 import Immutable from 'immutable';
 
-const item1 = new ItemPattern({
+const item1 = new Item({
   id: generateId(),
   value: 'Make a coffee',
 });
-const item2 = new ItemPattern({
+const item2 = new Item({
   id: generateId(),
   value: 'Master React',
 });
-const item3 = new ItemPattern({
+const item3 = new Item({
   id: generateId(),
   value: 'Learn Redux',
 });
-const item4 = new ItemPattern({
+const item4 = new Item({
   id: generateId(),
   value: 'Help making Draft awesome',
 });
