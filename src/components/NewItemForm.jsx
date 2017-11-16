@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import propTypes from 'prop-types';
 import { checkEmptiness } from '../utils/checkEmptiness';
 
-export class NewItemForm extends React.Component {
+export class NewItemForm extends PureComponent {
   static propTypes = {
     onAddItem: propTypes.func.isRequired,
   };

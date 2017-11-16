@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { checkEmptiness } from '../utils/checkEmptiness';
 
-export class EditedListItem extends React.Component {
+export class EditedListItem extends PureComponent {
 
   static propTypes = {
     item: PropTypes.shape({

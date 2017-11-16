@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
-export class ListItem extends React.Component {
+export class ListItem extends PureComponent {
 
   static propTypes = {
     item: PropTypes.shape({
