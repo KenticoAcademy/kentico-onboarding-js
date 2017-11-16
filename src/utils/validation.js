@@ -1,5 +1,3 @@
-function inputIsNotEmpty(input) {
-  return input !== '';
+export function textIsEmpty(input) {
+  return input === '';
 }
-
-export { inputIsNotEmpty };

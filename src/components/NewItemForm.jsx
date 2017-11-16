@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { PropTypes } from 'prop-types';
+import PropTypes from 'prop-types';
 
 export class NewItemForm extends PureComponent {
   constructor(props) {

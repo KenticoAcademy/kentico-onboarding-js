@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { PropTypes } from 'prop-types';
+import PropTypes from 'prop-types';
 import { ListItemEditMode } from './ListItemEditMode';
-import { inputIsNotEmpty } from '../utils/validation.js';
+import { textIsEmpty } from '../utils/validation.js';
 
 export class ListItem extends Component {
   constructor(props) {
@@ -15,7 +15,7 @@ export class ListItem extends Component {
   onSave = (text) => {
     const { id } = this.props.item;
 
-    if (inputIsNotEmpty(text)) {
+    if (!textIsEmpty(text)) {
       this.setState({ isBeingEdited: false });
       this.props.onSave(id, text);
     }
