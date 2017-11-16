@@ -22,34 +22,42 @@ export class List extends PureComponent {
       id: generateId(),
       value: text,
     });
-    this.setState({
-      listItems: this.state.listItems.set(newItem.id, newItem),
+    this.setState((prevState) => {
+      return {
+        listItems: prevState.listItems.set(newItem.id, newItem),
+      };
     });
   };
 
   toggleEditing = (itemId) => {
-    this.setState({
-      listItems: this.state.listItems.update(itemId, record => new ItemPattern({
-        id: itemId,
-        value: record.value,
-        isBeingEdited: !record.isBeingEdited,
-      })),
+    this.setState((prevState) => {
+      return {
+        listItems: prevState.listItems.update(itemId, record => new ItemPattern({
+          id: itemId,
+          value: record.value,
+          isBeingEdited: !record.isBeingEdited,
+        })),
+      };
     });
   };
 
   deleteItem = (itemId) => {
-    this.setState({
-      listItems: this.state.listItems.delete(itemId),
+    this.setState((prevState) => {
+      return {
+        listItems: prevState.listItems.delete(itemId),
+      };
     });
   };
 
   updateItemText = (itemId, newText) => {
-    this.setState({
-      listItems: this.state.listItems.update(itemId, () => new ItemPattern({
-        id: itemId,
-        value: newText,
-        isBeingEdited: false,
-      })),
+    this.setState((prevState) => {
+      return {
+        listItems: prevState.listItems.update(itemId, () => new ItemPattern({
+          id: itemId,
+          value: newText,
+          isBeingEdited: false,
+        })),
+      };
     });
   };
 
