@@ -32,11 +32,10 @@ export class List extends PureComponent {
   toggleEditing = (itemId) => {
     this.setState((prevState) => {
       return {
-        listItems: prevState.listItems.update(itemId, record => new ItemPattern({
-          id: itemId,
-          value: record.value,
-          isBeingEdited: !record.isBeingEdited,
-        })),
+        listItems: prevState.listItems.update(
+          itemId, record => record.merge({
+            isBeingEdited: !record.isBeingEdited,
+          })),
       };
     });
   };
@@ -52,11 +51,11 @@ export class List extends PureComponent {
   updateItemText = (itemId, newText) => {
     this.setState((prevState) => {
       return {
-        listItems: prevState.listItems.update(itemId, () => new ItemPattern({
-          id: itemId,
-          value: newText,
-          isBeingEdited: false,
-        })),
+        listItems: prevState.listItems.update(
+          itemId, record => record.merge({
+            value: newText,
+            isBeingEdited: !record.isBeingEdited,
+          })),
       };
     });
   };
