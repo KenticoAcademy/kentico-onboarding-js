@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import assignment from './../../assignment.gif';
 import { ListItem } from './ListItem';
 import { NewItemForm } from './NewItemForm';
@@ -7,7 +7,7 @@ import { defaultListItems } from '../constants/defaultListItems';
 import { generateId } from '../utils/generateId';
 import { ItemPattern } from '../models/ItemPattern';
 
-export class List extends Component {
+export class List extends PureComponent {
 
   constructor(props) {
     super(props);
