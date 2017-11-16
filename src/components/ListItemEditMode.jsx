@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
-export class ListItemEditMode extends Component {
+export class ListItemEditMode extends PureComponent {
   constructor(props) {
     super(props);
 

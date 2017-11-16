@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { ListItemEditMode } from './ListItemEditMode';
 import { textIsEmpty } from '../utils/validation.js';
 
-export class ListItem extends Component {
+export class ListItem extends PureComponent {
   constructor(props) {
     super(props);
 
