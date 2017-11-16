@@ -16,7 +16,7 @@ export class List extends PureComponent {
   onDelete = (itemId) => {
     const newItems = this.state.items.filter(item => item.id !== itemId);
     this.setState({ items: newItems });
-  }
+  };
 
   addNewItem = (text) => {
     if (textIsEmpty(text)) {
@@ -28,7 +28,7 @@ export class List extends PureComponent {
     const newItems = this.state.items.concat(item);
 
     this.setState({ items: newItems });
-  }
+  };
 
   changeItemText = (id, newText) => {
     const newItems = this.state.items.map(item => {
@@ -39,7 +39,7 @@ export class List extends PureComponent {
     });
 
     this.setState({ items: newItems });
-  }
+  };
 
   render() {
     const listItems = this.state.items.map((item, index) =>

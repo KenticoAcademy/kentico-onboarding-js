@@ -18,7 +18,7 @@ export class ListItemEditMode extends PureComponent {
   onSave = () => {
     const { text } = this.state;
     this.props.onSave(text);
-  }
+  };
 
   render() {
     const { text, number } = this.state;

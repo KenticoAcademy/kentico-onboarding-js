@@ -12,13 +12,13 @@ export class NewItemForm extends PureComponent {
 
   onInputChange = (e) => {
     this.setState({ newItemText: e.target.value });
-  }
+  };
 
   onAdd = () => {
     const { newItemText } = this.state;
     this.props.onAdd(newItemText);
     this.setState({ newItemText: '' });
-  }
+  };
 
   render() {
     return (

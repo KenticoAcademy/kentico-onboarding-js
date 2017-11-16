@@ -19,7 +19,7 @@ export class ListItem extends PureComponent {
       this.setState({ isBeingEdited: false });
       this.props.onSave(id, text);
     }
-  }
+  };
 
   onCancel = () => {
     const { text } = this.props.item;
@@ -27,16 +27,16 @@ export class ListItem extends PureComponent {
       isBeingEdited: false,
       text,
     });
-  }
+  };
 
   onDelete = () => {
     const { id } = this.props.item;
     this.props.onDelete(id);
-  }
+  };
 
   onItemClick = () => {
     this.setState({ isBeingEdited: true });
-  }
+  };
 
   render() {
     const { isBeingEdited } = this.state;
