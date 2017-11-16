@@ -27,12 +27,12 @@ class ListItemEditMode extends PureComponent {
 
     return (
       <div className="form-inline">
-        <label>
+        <label className="col-form-label">
           {number}{'. '}
         </label>
 
         <input
-          className="form-control"
+          className="form-control col-md-5"
           type="text"
           value={text}
           placeholder={NEW_ITEM_TEXT_PLACEHOLDER}

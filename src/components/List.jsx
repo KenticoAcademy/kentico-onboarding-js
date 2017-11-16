@@ -43,12 +43,12 @@ export class List extends PureComponent {
 
   render() {
     const listItems = this.state.items.map((item, index) =>
-      <div
+      <li
+        className="list-group-item"
         key={item.id}
-        className="row"
       >
-        <li className="list-group-item">
-          <div className="col-sm">
+        <div className="row">
+          <div className="col">
             <ListItem
               item={item}
               number={index + 1}
@@ -56,8 +56,8 @@ export class List extends PureComponent {
               onDelete={this.onDelete}
             />
           </div>
-        </li>
-      </div>
+        </div>
+      </li>
     );
 
     return (
@@ -67,7 +67,7 @@ export class List extends PureComponent {
 
           <li className="list-group-item">
             <div className="row">
-              <div className="col-sm">
+              <div className="col">
                 <NewItemForm onAdd={this.addNewItem} />
               </div>
             </div>

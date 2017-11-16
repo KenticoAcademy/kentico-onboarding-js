@@ -26,9 +26,9 @@ class NewItemForm extends PureComponent {
     const enableAddButton = !textIsEmpty(newItemText);
 
     return (
-      <div className="input-group">
+      <div className="form-inline">
         <input
-          className="form-control"
+          className="form-control col-md-5"
           type="text"
           placeholder={NEW_ITEM_TEXT_PLACEHOLDER}
           value={newItemText}
