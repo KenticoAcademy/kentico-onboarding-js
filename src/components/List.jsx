@@ -6,6 +6,7 @@ import { EditedListItem } from './EditedListItem';
 import { defaultListItems } from '../constants/defaultListItems';
 import { generateId } from '../utils/generateId';
 import { Item } from '../models/Item';
+import { createStore } from 'redux';
 
 export class List extends PureComponent {
 
