@@ -13,6 +13,17 @@ class ListItemEditMode extends PureComponent {
     };
   }
 
+  putFocusAtTheEndOfText = () => {
+    const { input } = this.refs;
+    const { value } = input;
+    input.value = '';
+    input.value = value;
+  };
+
+  componentDidMount() {
+    this.putFocusAtTheEndOfText();
+  }
+
   onInputChange = (e) => this.setState({ text: e.target.value });
 
   onSave = () => {
@@ -48,6 +59,8 @@ class ListItemEditMode extends PureComponent {
           placeholder={NEW_ITEM_TEXT_PLACEHOLDER}
           onChange={this.onInputChange}
           onKeyPress={this.onKeyPress}
+          ref="input"
+          autoFocus={true}
         />
 
         <button

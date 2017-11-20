@@ -44,6 +44,7 @@ class NewItemForm extends PureComponent {
           value={newItemText}
           onChange={this.onInputChange}
           onKeyPress={this.onKeyPress}
+          autoFocus={true}
         />
 
         <button
