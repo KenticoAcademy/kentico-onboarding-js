@@ -4,23 +4,14 @@ import { addItem } from '../utils/actionCreators';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-const AddNewItem = ({ dispatch }) => {
+// eslint-disable-next-line react/prop-types,import/no-mutable-exports
+export let AddNewItem = ({ dispatch }) => {
   let input = '';
   const isEmpty = checkEmptiness(input);
 
   return (
     <div className="list-group-item form-inline">
-      <div
-        className="input-group"
-        onSubmit={e => {
-          e.preventDefault();
-          if (!input.value.trim()) {
-            return;
-          }
-          dispatch(addItem(input.value));
-          input.value = '';
-        }}
-      >
+      <div className="input-group">
         <input
           className="form-control"
           type="text"
@@ -35,6 +26,14 @@ const AddNewItem = ({ dispatch }) => {
             data-balloon-pos="up"
             className="btn btn-default"
             disabled={isEmpty}
+            onClick={e => {
+              e.preventDefault();
+              if (!input.value.trim()) {
+                return;
+              }
+              dispatch(addItem(input.value));
+              input.value = '';
+            }}
           >
             Add
           </button>
@@ -44,8 +43,5 @@ const AddNewItem = ({ dispatch }) => {
   );
 };
 
-AddNewItem.propTypes = {
-  dispatch: PropTypes.func.isRequired,
-};
+AddNewItem = connect()(AddNewItem);
 
-export default AddNewItem;
