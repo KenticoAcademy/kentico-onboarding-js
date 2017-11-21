@@ -2,7 +2,7 @@ import './sticky-footer.css';
 import './balloon.css';
 import React, { PureComponent } from 'react';
 import { List } from './components/List';
-import { NewItemForm } from './components/NewItemForm';
+import { AddNewItem } from './components/AddNewItem';
 
 export class App extends PureComponent {
   render() {
@@ -30,7 +30,7 @@ export class App extends PureComponent {
             <div className="row">
               <div className="col-sm-8">
                 <List />
-                <NewItemForm />
+                <AddNewItem />
               </div>
             </div>
           </section>
