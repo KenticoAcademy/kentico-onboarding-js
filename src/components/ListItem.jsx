@@ -15,18 +15,12 @@ class ListItem extends PureComponent {
   onSave = (text) => {
     const { id } = this.props.item;
 
-    if (!textIsEmpty(text)) {
-      this.setState({ isBeingEdited: false });
-      this.props.onSave(id, text);
-    }
+    this.setState({ isBeingEdited: false });
+    this.props.onSave(id, text);
   };
 
   onCancel = () => {
-    const { text } = this.props.item;
-    this.setState({
-      isBeingEdited: false,
-      text,
-    });
+    this.setState({ isBeingEdited: false });
   };
 
   onDelete = () => {

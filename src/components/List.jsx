@@ -19,10 +19,6 @@ export class List extends PureComponent {
   };
 
   addNewItem = (text) => {
-    if (textIsEmpty(text)) {
-      return;
-    }
-
     const id = createNewId();
     const item = { text, id };
     const newItems = this.state.items.concat(item);
