@@ -6,7 +6,7 @@ import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 
 import { App } from './App.jsx';
-import items from './utils/reducer';
+import items from './utils/reducers';
 
 let store = createStore(items);
 
