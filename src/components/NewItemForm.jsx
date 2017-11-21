@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { textIsEmpty, NEW_ITEM_TEXT_PLACEHOLDER } from '../utils/validation';
+import { textIsEmpty } from '../utils/validation';
 
 class NewItemForm extends PureComponent {
   constructor(props) {
@@ -40,7 +40,7 @@ class NewItemForm extends PureComponent {
         <input
           className="form-control col-md-5"
           type="text"
-          placeholder={NEW_ITEM_TEXT_PLACEHOLDER}
+          placeholder="Item name cannot be empty"
           value={newItemText}
           onChange={this.onInputChange}
           onKeyPress={this.onKeyPress}

@@ -2,7 +2,6 @@ import React, { PureComponent } from 'react';
 import { ListItem } from './ListItem.jsx';
 import { NewItemForm } from './NewItemForm';
 import { createNewId } from '../utils/createNewId';
-import { textIsEmpty } from '../utils/validation';
 
 export class List extends PureComponent {
   constructor(props) {

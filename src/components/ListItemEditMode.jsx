@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { textIsEmpty, NEW_ITEM_TEXT_PLACEHOLDER } from '../utils/validation';
+import { textIsEmpty } from '../utils/validation';
 
 class ListItemEditMode extends PureComponent {
   constructor(props) {
@@ -52,7 +52,7 @@ class ListItemEditMode extends PureComponent {
           className="form-control col-md-5"
           type="text"
           value={text}
-          placeholder={NEW_ITEM_TEXT_PLACEHOLDER}
+          placeholder="Item name cannot be empty"
           onChange={this.onInputChange}
           onKeyPress={this.onKeyPress}
           autoFocus={true}

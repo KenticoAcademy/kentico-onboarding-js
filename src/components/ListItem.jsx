@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { ListItemEditMode } from './ListItemEditMode';
-import { textIsEmpty } from '../utils/validation.js';
 
 class ListItem extends PureComponent {
   constructor(props) {
