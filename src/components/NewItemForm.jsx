@@ -1,6 +1,12 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import { HotKeys } from 'react-hotkeys';
 import { textIsEmpty } from '../utils/validation';
+import '../css/WideInput.css';
+
+const keyMap = {
+  'submitInput': 'enter',
+};
 
 class NewItemForm extends PureComponent {
   constructor(props) {
@@ -21,13 +27,11 @@ class NewItemForm extends PureComponent {
     this.setState({ newItemText: '' });
   };
 
-  onKeyPress = (target) => {
-    if (target.charCode === 13) {
-      const { newItemText } = this.state;
+  onEnterPress = () => {
+    const { newItemText } = this.state;
 
-      if (!textIsEmpty(newItemText)) {
-        this.onAdd();
-      }
+    if (!textIsEmpty(newItemText)) {
+      this.onAdd();
     }
   };
 
@@ -35,17 +39,25 @@ class NewItemForm extends PureComponent {
     const { newItemText } = this.state;
     const enableAddButton = !textIsEmpty(newItemText);
 
+    const handlers = {
+      'submitInput': this.onEnterPress,
+    };
+
     return (
       <div className="form-inline">
-        <input
-          className="form-control col-md-5"
-          type="text"
-          placeholder="Item name cannot be empty"
-          value={newItemText}
-          onChange={this.onInputChange}
-          onKeyPress={this.onKeyPress}
-          autoFocus={true}
-        />
+        <HotKeys
+          handlers={handlers}
+          keyMap={keyMap}
+        >
+          <input
+            className="form-control WideInput"
+            type="text"
+            placeholder="Item name cannot be empty"
+            value={newItemText}
+            onChange={this.onInputChange}
+            autoFocus={true}
+          />
+        </HotKeys>
 
         <button
           className="btn btn-primary"

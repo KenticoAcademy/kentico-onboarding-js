@@ -1,6 +1,13 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import { HotKeys } from 'react-hotkeys';
 import { textIsEmpty } from '../utils/validation';
+import '../css/WideInput.css';
+
+const keyMap = {
+  'submitInput': 'enter',
+  'cancelChanges': 'esc',
+};
 
 class ListItemEditMode extends PureComponent {
   constructor(props) {
@@ -27,37 +34,44 @@ class ListItemEditMode extends PureComponent {
     this.props.onSave(text);
   };
 
-  onKeyPress = (target) => {
-    if (target.charCode === 13) {
-      const { text } = this.state;
+  onEnterPress = () => {
+    const { text } = this.state;
 
-      if (!textIsEmpty(text)) {
-        this.onSave();
-      }
+    if (!textIsEmpty(text)) {
+      this.onSave();
     }
   };
 
   render() {
     const { text } = this.state;
-    const { number } = this.props;
+    const { number, onCancel } = this.props;
     const enableSaveButton = !textIsEmpty(text);
+
+    const handlers = {
+      'submitInput': this.onEnterPress,
+      'cancelChanges': onCancel,
+    };
 
     return (
       <div className="form-inline">
         <label className="col-form-label">
-          {number}{'. '}
+          {`${number}. `}
         </label>
 
-        <input
-          className="form-control col-md-5"
-          type="text"
-          value={text}
-          placeholder="Item name cannot be empty"
-          onChange={this.onInputChange}
-          onKeyPress={this.onKeyPress}
-          autoFocus={true}
-          onFocus={this.putFocusAtTheEndOfText}
-        />
+        <HotKeys
+          keyMap={keyMap}
+          handlers={handlers}
+        >
+          <input
+            className="form-control WideInput"
+            type="text"
+            value={text}
+            placeholder="Item name cannot be empty"
+            onChange={this.onInputChange}
+            autoFocus={true}
+            onFocus={this.putFocusAtTheEndOfText}
+          />
+        </HotKeys>
 
         <button
           className="btn btn-primary"

@@ -58,6 +58,7 @@
     "prop-types": "^15.6.0",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
+    "react-hotkeys": "^0.10.0",
     "ts-jest": "^19.0.14"
   },
   "scripts": {
