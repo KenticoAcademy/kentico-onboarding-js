@@ -2,13 +2,14 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { HotKeys } from 'react-hotkeys';
 import { keyActions } from '../constants/keys';
+import { createNewId } from '../utils/createNewId';
 import { isTextEmpty } from '../utils/validation';
 
 export class NewItemForm extends PureComponent {
   static displayName = 'NewItemForm';
 
   static propTypes = {
-    onAdd: PropTypes.func.isRequired,
+    onSubmit: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -24,10 +25,11 @@ export class NewItemForm extends PureComponent {
   });
 
   submitItemText = () => {
-    const { onAdd } = this.props;
+    const id = createNewId();
+    const { onSubmit } = this.props;
     const { newItemText } = this.state;
 
-    onAdd(newItemText);
+    onSubmit(id, newItemText);
 
     this.setState({
       newItemText: '',

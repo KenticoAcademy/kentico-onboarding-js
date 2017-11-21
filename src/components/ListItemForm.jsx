@@ -4,15 +4,15 @@ import { HotKeys } from 'react-hotkeys';
 import { keyActions } from '../constants/keys';
 import { isTextEmpty } from '../utils/validation';
 
-export class OpenedListItem extends PureComponent {
-  static displayName = 'OpenedListItem';
+export class ListItemForm extends PureComponent {
+  static displayName = 'ListItemForm';
 
   static propTypes = {
     number: PropTypes.number.isRequired,
-    selectionRangeStarts: PropTypes.number.isRequired,
-    selectionRangeEnds: PropTypes.number.isRequired,
     item: PropTypes.shape({
       text: PropTypes.string.isRequired,
+      selectionRangeStarts: PropTypes.number.isRequired,
+      selectionRangeEnds: PropTypes.number.isRequired,
     }),
     onSave: PropTypes.func.isRequired,
     onCancel: PropTypes.func.isRequired,
@@ -31,7 +31,7 @@ export class OpenedListItem extends PureComponent {
     const {
       selectionRangeStarts,
       selectionRangeEnds,
-    } = this.props;
+    } = this.props.item;
 
     this.input.setSelectionRange(selectionRangeStarts, selectionRangeEnds);
   }
@@ -41,8 +41,8 @@ export class OpenedListItem extends PureComponent {
   });
 
   submitNewItemText = () => {
-    const { onSave } = this.props;
     const { text } = this.state;
+    const { onSave } = this.props;
 
     onSave(text);
   };

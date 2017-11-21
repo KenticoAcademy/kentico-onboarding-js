@@ -1,26 +1,26 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
-export class ClosedListItem extends PureComponent {
-  static displayName = 'ClosedListItem';
+export class ListItemStatic extends PureComponent {
+  static displayName = 'ListItemStatic';
 
   static propTypes = {
     number: PropTypes.number.isRequired,
     item: PropTypes.shape({
       text: PropTypes.string.isRequired,
     }),
-    onClick: PropTypes.func.isRequired,
+    onTextSelection: PropTypes.func.isRequired,
   };
 
-  onItemClick = () => {
+  onTextSelection = () => {
     const selection = window
       .getSelection()
       .getRangeAt(0);
 
     const { startOffset, endOffset } = selection;
-    const { onClick } = this.props;
+    const { onTextSelection } = this.props;
 
-    onClick(startOffset, endOffset);
+    onTextSelection(startOffset, endOffset);
   };
 
   render() {
@@ -30,7 +30,7 @@ export class ClosedListItem extends PureComponent {
     } = this.props;
 
     return (
-      <div onMouseUp={this.onItemClick}>
+      <div onMouseUp={this.onTextSelection}>
         {number + '. '}
         {text}
       </div>

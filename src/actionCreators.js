@@ -1,12 +1,12 @@
 import {
-  ITEM_CHANGE_CANCELED,
   ITEM_CHANGE_SAVED,
-  ITEM_CLICKED,
+  ITEM_CHANGES_CANCELED,
   ITEM_CREATED,
   ITEM_DELETED,
+  ITEM_TEXT_SELECTED,
 } from './actionTypes';
 
-export function createItem({ itemId, text }) {
+export function addNewItem({ itemId, text }) {
   return {
     type: ITEM_CREATED,
     itemId,
@@ -14,21 +14,23 @@ export function createItem({ itemId, text }) {
   };
 }
 
-export function clickItem(itemId) {
+export function selectItemText({ itemId, selectionRangeStarts, selectionRangeEnds }) {
   return {
-    type: ITEM_CLICKED,
+    type: ITEM_TEXT_SELECTED,
     itemId,
+    selectionRangeStarts,
+    selectionRangeEnds,
   };
 }
 
-export function deleteItem(itemId) {
+export function deleteItem({ itemId }) {
   return {
     type: ITEM_DELETED,
     itemId,
   };
 }
 
-export function changeItem({ itemId, newText }) {
+export function changeItemText({ itemId, newText }) {
   return {
     type: ITEM_CHANGE_SAVED,
     itemId,
@@ -36,9 +38,9 @@ export function changeItem({ itemId, newText }) {
   };
 }
 
-export function cancelItemChange(itemId) {
+export function cancelItemChanges({ itemId }) {
   return {
-    type: ITEM_CHANGE_CANCELED,
+    type: ITEM_CHANGES_CANCELED,
     itemId,
   };
 }

@@ -1,79 +1,80 @@
-import { OrderedMap, Record } from 'immutable';
+import { OrderedMap } from 'immutable';
+import { ListItem } from './models/ListItem';
 import { createNewId } from './utils/createNewId';
 import {
   ITEM_CREATED,
-  ITEM_CLICKED,
+  ITEM_TEXT_SELECTED,
   ITEM_DELETED,
-  ITEM_CHANGE_CANCELED,
+  ITEM_CHANGES_CANCELED,
   ITEM_CHANGE_SAVED,
 } from './actionTypes';
 
-const ListItemRecord = Record({ id: '', text: '' });
-
-function addNewItem(
-  state = { items: OrderedMap() },
-  action
-) {
+const addNewItem = (state, action) => {
   const id = createNewId();
-  const item = new ListItemRecord({ id, text: action.newText });
-  const newItems = state.items.set(id, item);
+  const { text } = action;
 
-  return { items: newItems };
-}
-
-function deleteItem(
-  state = { items: OrderedMap() },
-  action
-) {
-  const { itemId } = action;
-  const item = state.items.get(itemId);
-
-  if (item !== undefined) {
-    const newItems = state.items.delete(itemId);
-    return { ...state, items: newItems };
-  }
-
-  return { ...state };
-}
-
-function changeItemText(
-  state = { items: OrderedMap() },
-  action
-) {
-  const { itemId, newText } = action;
-  const newItems = state.items.map((item, id) => {
-    if (id === itemId) {
-      return item.set('text', newText);
-    }
-    return item;
+  const newItem = new ListItem({
+    id,
+    text,
   });
 
-  this.setState({ items: newItems });
-}
+  return state.set(id, newItem);
+};
 
-function itemClicked() {
-  return { isBeingEdited: true };
-}
+const deleteItem = (state, action) => {
+  const { itemId } = action;
 
-function cancelChanges() {
-  return { isBeingEdited: false };
-}
+  return state.delete(itemId);
+};
 
-export function reducers(state, action) {
+const changeItemText = (state, action) => {
+  const { itemId, newText } = action;
+
+  return state.update(itemId, item => item.merge({
+    text: newText,
+    isBeingEdited: false,
+  }));
+};
+
+const selectItemText = (state, action) => {
+  const {
+    itemId,
+    selectionRangeStarts,
+    selectionRangeEnds,
+  } = action;
+
+  return state.update(itemId, item =>
+    item.merge({
+      isBeingEdited: true,
+      selectionRangeStarts,
+      selectionRangeEnds,
+    }));
+};
+
+const cancelItemChanges = (state, action) => {
+  const { itemId } = action;
+
+  return state.update(itemId, item =>
+    item.merge({
+      isBeingEdited: false,
+    }));
+};
+
+export const reducers = (state = OrderedMap(), action) => {
   const { type } = action;
 
   switch (type) {
     case ITEM_CREATED:
       return addNewItem(state, action);
-    case ITEM_CLICKED:
-      return itemClicked(state, action);
     case ITEM_DELETED:
       return deleteItem(state, action);
-    case ITEM_CHANGE_CANCELED:
-      return cancelChanges(state, action);
     case ITEM_CHANGE_SAVED:
       return changeItemText(state, action);
+    case ITEM_TEXT_SELECTED:
+      return selectItemText(state, action);
+    case ITEM_CHANGES_CANCELED:
+      return cancelItemChanges(state, action);
     default:
       return state;
   }
-}
+};
