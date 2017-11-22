@@ -2,7 +2,6 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { HotKeys } from 'react-hotkeys';
 import { textIsEmpty } from '../utils/validation';
-import '../css/WideInput.css';
 
 const keyMap = {
   'submitInput': 'enter',
@@ -55,17 +54,17 @@ class ListItemEditMode extends PureComponent {
     };
 
     return (
-      <div className="form-inline">
-        <label className="col-form-label">
+      <HotKeys
+        keyMap={keyMap}
+        handlers={handlers}
+        className="row"
+      >
+        <label className="col-form-label pl-3">
           {`${number}. `}
         </label>
-
-        <HotKeys
-          keyMap={keyMap}
-          handlers={handlers}
-        >
+        <div className="input-group col">
           <input
-            className="form-control WideInput"
+            className="form-control col-md-6"
             type="text"
             value={text}
             placeholder="Item name cannot be empty"
@@ -73,30 +72,30 @@ class ListItemEditMode extends PureComponent {
             autoFocus={true}
             ref={this.setInputRef}
           />
-        </HotKeys>
 
-        <button
-          className="btn btn-primary"
-          onClick={this.onSave}
-          disabled={!enableSaveButton}
-        >
-          Save
-        </button>
+          <button
+            className="btn btn-primary"
+            onClick={this.onSave}
+            disabled={!enableSaveButton}
+          >
+            Save
+          </button>
 
-        <button
-          className="btn btn-secondary"
-          onClick={this.props.onCancel}
-        >
-          Cancel
-        </button>
+          <button
+            className="btn btn-secondary"
+            onClick={this.props.onCancel}
+          >
+            Cancel
+          </button>
 
-        <button
-          className="btn btn-danger"
-          onClick={this.props.onDelete}
-        >
-          Delete
-        </button>
-      </div>
+          <button
+            className="btn btn-danger"
+            onClick={this.props.onDelete}
+          >
+            Delete
+          </button>
+        </div>
+      </HotKeys>
     );
   }
 }
