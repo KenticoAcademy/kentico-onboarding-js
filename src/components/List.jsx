@@ -3,7 +3,7 @@ import { ListItem } from './ListItem';
 import { EditedListItem } from './EditedListItem';
 import { defaultListItems } from '../constants/defaultListItems';
 import { generateId } from '../utils/generateId';
-import { Item } from '../models/Item';
+import Immutable from 'immutable';
 
 export class List extends PureComponent {
 
@@ -11,7 +11,11 @@ export class List extends PureComponent {
     super(props);
 
     this.state = {
-      listItems: defaultListItems,
+      listItems: new Immutable.OrderedMap({
+        id: 'xxx',
+        text: 'erarni item',
+        isBeingEdited: false,
+      }),
     };
   }
 

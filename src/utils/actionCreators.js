@@ -4,13 +4,12 @@ import {
   UPDATE_ITEM_TEXT,
   TOGGLE_EDITING,
 } from '../constants/actionTypes';
-import { generateId } from './generateId';
 
-export const addItem = text => {
+export const addItem = (text, id) => {
   return {
     type: ADD_ITEM,
     text,
-    id: generateId(),
+    id,
   };
 };
 
