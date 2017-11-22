@@ -1,7 +1,11 @@
 import React, { PureComponent } from 'react';
 import { ListItem } from './ListItem';
 import { EditedListItem } from './EditedListItem';
-import { toggleEditing } from '../utils/actionCreators';
+import {
+  deleteItem,
+  toggleEditing,
+  updateItemText,
+} from '../utils/actionCreators';
 
 export class List extends PureComponent {
 
@@ -27,10 +31,13 @@ export class List extends PureComponent {
             {'. '}
             {item.isBeingEdited ?
               <EditedListItem
-                item={item}
+                text={item.text}
+                onSave={(newText) => store.dispatch(updateItemText(item.id, newText))}
+                onDelete={() => store.dispatch(deleteItem(item.id))}
+                onCancel={() => store.dispatch(toggleEditing(item.id, false))}
               /> : <ListItem
                 text={item.text}
-                onClick={() => store.dispatch(toggleEditing(item.id, item.isBeingEdited))}
+                onClick={() => store.dispatch(toggleEditing(item.id, true))}
               />}
           </div>
         ))

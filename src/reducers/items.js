@@ -36,7 +36,7 @@ const items = (state = [], action) => {
         {
           id: action.id,
           text: state[index].text,
-          isBeingEdited: !action.isBeingEdited,
+          isBeingEdited: action.isBeingEdited,
         },
         ...state.slice(index + 1),
       ];

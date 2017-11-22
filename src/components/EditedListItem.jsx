@@ -1,27 +1,21 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { checkEmptiness } from '../utils/checkEmptiness';
-import {
-  deleteItem,
-  toggleEditing,
-  updateItemText,
-} from '../utils/actionCreators';
 
 export class EditedListItem extends PureComponent {
 
   static propTypes = {
-    item: PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      text: PropTypes.string.isRequired,
-      isBeingEdited: PropTypes.bool.isRequired,
-    }).isRequired,
+    text: PropTypes.string.isRequired,
+    onSave: PropTypes.func.isRequired,
+    onDelete: PropTypes.func.isRequired,
+    onCancel: PropTypes.func.isRequired,
   };
 
   constructor(props) {
     super(props);
 
     this.state = {
-      updatedValue: this.props.item.value,
+      updatedValue: this.props.text,
     };
   }
 
@@ -31,31 +25,16 @@ export class EditedListItem extends PureComponent {
     );
   };
 
-  toggleTextEditing = () => {
-    const { item, onToggleEditing } = this.props;
-    onToggleEditing(item.id);
-  };
-
-  deleteItem = () => {
-    const { item, onItemDeletion } = this.props;
-    onItemDeletion(item.id);
-  };
-
-  saveNewText = () => {
-    const { item, onItemSaved } = this.props;
-    onItemSaved(item.id, this.state.updatedValue);
-  };
-
   render() {
-    const { value } = this.props.item;
+    const { text } = this.props;
+    const { onSave, onDelete, onCancel } = this.props;
     const isEmpty = checkEmptiness(this.state.updatedValue);
-    const { store } = this.context;
 
     return (
       <div className="input-group">
         <input
           className="form-control"
-          defaultValue={value}
+          defaultValue={text}
           onChange={this.onTextChanged}
           placeholder="Type new item name..."
         />
@@ -65,19 +44,19 @@ export class EditedListItem extends PureComponent {
             data-balloon-pos="up"
             className="btn btn-primary"
             disabled={isEmpty}
-            onClick={() => store.dispatch(updateItemText(this.props.item.id, value))}
+            onClick={onSave}
           >
             Save
           </button>
           <button
             className="btn btn-default"
-            onClick={() => store.dispatch(toggleEditing(this.props.item.id, true))}
+            onClick={onCancel}
           >
             Cancel
           </button>
           <button
             className="btn btn-danger"
-            onClick={() => store.dispatch(deleteItem(this.props.item.id, value))}
+            onClick={onDelete}
           >
             Delete
           </button>
