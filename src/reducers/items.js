@@ -26,13 +26,16 @@ const items = (state = [], action) => {
         }, ...state.slice(action.index + 1),
       ];
     case DELETE_ITEM: {
-      state.splice(0, 1);
-      return state;
+      const index = state.indexOf(state.find(item => item.id === action.id));
+      return [
+        ...state.slice(0, index),
+        ...state.slice(index + 1),
+      ];
     }
     case TOGGLE_EDITING: {
-      console.log(state);
       const index = state.indexOf(state.find(item => item.id === action.id));
-      return [...state.slice(0, index),
+      return [
+        ...state.slice(0, index),
         {
           id: action.id,
           text: state[index].text,
