@@ -28,11 +28,18 @@ class ListItem extends PureComponent {
   };
 
   onItemClick = () => {
-    this.setState({ isBeingEdited: true });
+    const selection = window.getSelection().getRangeAt(0);
+    const { startOffset, endOffset } = selection;
+
+    this.setState({
+      isBeingEdited: true,
+      startOffset,
+      endOffset,
+    });
   };
 
   render() {
-    const { isBeingEdited } = this.state;
+    const { isBeingEdited, startOffset, endOffset } = this.state;
     const { number } = this.props;
     const { text } = this.props.item;
 
@@ -41,6 +48,8 @@ class ListItem extends PureComponent {
         <ListItemEditMode
           text={text}
           number={number}
+          startOffset={startOffset}
+          endOffset={endOffset}
           onSave={this.onSave}
           onCancel={this.onCancel}
           onDelete={this.onDelete}
@@ -48,11 +57,14 @@ class ListItem extends PureComponent {
       );
     }
 
-    const textContent = number + '. ' + text;
-
     return (
-      <div onClick={this.onItemClick}>
-        {textContent}
+      <div onMouseUp={this.onItemClick}>
+        <span>
+          {number + '. '}
+        </span>
+        <span>
+          {text}
+        </span>
       </div>
     );
   }

@@ -20,12 +20,10 @@ class ListItemEditMode extends PureComponent {
     };
   }
 
-  putFocusAtTheEndOfText = (e) => {
-    const { text } = this.state;
-    const length = text.length;
-
-    e.target.setSelectionRange(length, length);
-  };
+  componentDidMount() {
+    const { startOffset, endOffset } = this.props;
+    this.input.setSelectionRange(startOffset, endOffset);
+  }
 
   onInputChange = (e) => this.setState({ text: e.target.value });
 
@@ -40,6 +38,10 @@ class ListItemEditMode extends PureComponent {
     if (!textIsEmpty(text)) {
       this.onSave();
     }
+  };
+
+  setInputRef = (input) => {
+    this.input = input;
   };
 
   render() {
@@ -69,7 +71,7 @@ class ListItemEditMode extends PureComponent {
             placeholder="Item name cannot be empty"
             onChange={this.onInputChange}
             autoFocus={true}
-            onFocus={this.putFocusAtTheEndOfText}
+            ref={this.setInputRef}
           />
         </HotKeys>
 
@@ -101,6 +103,8 @@ class ListItemEditMode extends PureComponent {
 
 ListItemEditMode.propTypes = {
   number: PropTypes.number.isRequired,
+  startOffset: PropTypes.number.isRequired,
+  endOffset: PropTypes.number.isRequired,
   text: PropTypes.string.isRequired,
   onSave: PropTypes.func.isRequired,
   onCancel: PropTypes.func.isRequired,
