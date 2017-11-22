@@ -14,7 +14,7 @@ import {
 } from './utils/actionCreators';
 
 let store = createStore(items);
-
+/*
 const stateBefore = [];
 const stateAfterAddOrBeforeRemove = [
   {
@@ -25,9 +25,8 @@ const stateAfterAddOrBeforeRemove = [
 ];
 expect(items(stateBefore, addItem('Item1', '000'))).toEqual(stateAfterAddOrBeforeRemove);
 expect(items(stateAfterAddOrBeforeRemove, deleteItem('000'))).toEqual(stateBefore);
-
+*/
 defaultListItems(store);
-
 console.log(store.getState());
 
 ReactDOM.render(

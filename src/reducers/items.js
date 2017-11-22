@@ -9,11 +9,11 @@ const items = (state = [], action) => {
   switch (action.type) {
     case ADD_ITEM:
       return [
-        ... state,
+        ...state,
         {
           id: action.id,
           text: action.text,
-          isBeingEdited: false,
+          isBeingEdited: true,
         },
       ];
     case UPDATE_ITEM_TEXT:
@@ -29,14 +29,18 @@ const items = (state = [], action) => {
       state.splice(0, 1);
       return state;
     }
-    case TOGGLE_EDITING:
-      return [
-        ... state.slice(0, action.index - 1),
+    case TOGGLE_EDITING: {
+      console.log(state);
+      const index = state.indexOf(state.find(item => item.id === action.id));
+      return [...state.slice(0, index),
         {
-          ...action,
+          id: action.id,
+          text: state[index].text,
           isBeingEdited: !action.isBeingEdited,
-        }, ...state.slice(action.index + 1),
+        },
+        ...state.slice(index + 1),
       ];
+    }
     default:
       return state;
   }

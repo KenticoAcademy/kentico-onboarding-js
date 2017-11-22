@@ -1,18 +1,20 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { checkEmptiness } from '../utils/checkEmptiness';
+import {
+  deleteItem,
+  toggleEditing,
+  updateItemText,
+} from '../utils/actionCreators';
 
 export class EditedListItem extends PureComponent {
 
   static propTypes = {
     item: PropTypes.shape({
       id: PropTypes.string.isRequired,
-      value: PropTypes.string.isRequired,
+      text: PropTypes.string.isRequired,
       isBeingEdited: PropTypes.bool.isRequired,
     }).isRequired,
-    onToggleEditing: PropTypes.func.isRequired,
-    onItemDeletion: PropTypes.func.isRequired,
-    onItemSaved: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -47,6 +49,8 @@ export class EditedListItem extends PureComponent {
   render() {
     const { value } = this.props.item;
     const isEmpty = checkEmptiness(this.state.updatedValue);
+    const { store } = this.context;
+
     return (
       <div className="input-group">
         <input
@@ -61,19 +65,19 @@ export class EditedListItem extends PureComponent {
             data-balloon-pos="up"
             className="btn btn-primary"
             disabled={isEmpty}
-            onClick={this.saveNewText}
+            onClick={() => store.dispatch(updateItemText(this.props.item.id, value))}
           >
             Save
           </button>
           <button
             className="btn btn-default"
-            onClick={this.toggleTextEditing}
+            onClick={() => store.dispatch(toggleEditing(this.props.item.id, true))}
           >
             Cancel
           </button>
           <button
             className="btn btn-danger"
-            onClick={this.deleteItem}
+            onClick={() => store.dispatch(deleteItem(this.props.item.id, value))}
           >
             Delete
           </button>

@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react';
 import { ListItem } from './ListItem';
 import { EditedListItem } from './EditedListItem';
-import Immutable from 'immutable';
 
 export class List extends PureComponent {
 
@@ -19,12 +18,8 @@ export class List extends PureComponent {
             {item.isBeingEdited ?
               <EditedListItem
                 item={item}
-                onToggleEditing={this.toggleEditing}
-                onItemDeletion={this.deleteItem}
-                onItemSaved={this.updateItemText}
               /> : <ListItem
                 item={item}
-                onToggleEditing={this.toggleEditing}
               />}
           </div>
         ))
