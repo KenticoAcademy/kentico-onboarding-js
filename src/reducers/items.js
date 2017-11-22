@@ -13,7 +13,7 @@ const items = (state = [], action) => {
         {
           id: action.id,
           text: action.text,
-          isBeingEdited: true,
+          isBeingEdited: false,
         },
       ];
     case UPDATE_ITEM_TEXT:
