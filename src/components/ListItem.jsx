@@ -1,30 +1,18 @@
-import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { toggleEditing } from '../utils/actionCreators';
+import React from 'react';
 
-export class ListItem extends PureComponent {
+const ListItem = ({ onClick, text }) => (
+  <div
+    className="form-control-static"
+    onClick={onClick}
+  >
+    {text}
+  </div>
+);
 
-  static propTypes = {
-    id: PropTypes.string.isRequired,
-    text: PropTypes.string.isRequired,
-    isBeingEdited: PropTypes.bool.isRequired,
-  };
-
-  render() {
-    const { store } = this.context;
-    const { id, text, isBeingEdited } = this.props;
-    return (
-      <div
-        className="form-control-static"
-        onClick={() => store.dispatch(toggleEditing(id, isBeingEdited))
-        }
-      >
-        {text}
-      </div>
-    );
-  }
-}
-
-ListItem.contextTypes = {
-  store: React.PropTypes.object,
+ListItem.propTypes = {
+  text: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired,
 };
+
+export default ListItem;
