@@ -40,11 +40,7 @@ export class List extends PureComponent {
   };
 
   render() {
-    let counter = 0;
-
-    const listItems = this.state.items.map((item, id) => {
-      counter++;
-
+    const listItems = this.state.items.entrySeq().map(([id, item], index) => {
       return (
         <li
           className="list-group-item"
@@ -52,7 +48,7 @@ export class List extends PureComponent {
         >
           <ListItem
             item={item}
-            number={counter}
+            number={index + 1}
             onSave={this.changeItemText}
             onDelete={this.onDelete}
           />
