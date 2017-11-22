@@ -9,7 +9,7 @@ const items = (state = [], action) => {
   switch (action.type) {
     case ADD_ITEM:
       return [
-        ...state,
+        ... state,
         {
           id: action.id,
           text: action.text,
@@ -18,21 +18,20 @@ const items = (state = [], action) => {
       ];
     case UPDATE_ITEM_TEXT:
       return [
-        ...state.slice(0, action.index - 1),
+        ... state.slice(0, action.index - 1),
         {
           id: action.id,
           text: action.text,
           isBeingEdited: false,
         }, ...state.slice(action.index + 1),
       ];
-    case DELETE_ITEM:
-      return [
-        ...state.slice(0, action.index - 1),
-        ...state.slice(action.index + 1),
-      ];
+    case DELETE_ITEM: {
+      state.splice(0, 1);
+      return state;
+    }
     case TOGGLE_EDITING:
       return [
-        ...state.slice(0, action.index - 1),
+        ... state.slice(0, action.index - 1),
         {
           ...action,
           isBeingEdited: !action.isBeingEdited,
