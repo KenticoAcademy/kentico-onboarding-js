@@ -1,8 +1,8 @@
 import './sticky-footer.css';
 import './balloon.css';
 import React, { PureComponent } from 'react';
-import AddNewItemContainer from './containers/AddNewItemContainer';
 import List from './containers/ListContainer';
+import AddNewItem from './containers/AddNewItemContainer';
 
 export const App = () => (
   <div>
@@ -28,7 +28,7 @@ export const App = () => (
         <div className="row">
           <div className="col-sm-8">
             <List />
-            <AddNewItemContainer />
+            <AddNewItem />
           </div>
         </div>
       </section>

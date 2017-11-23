@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react';
 import { checkEmptiness } from '../utils/checkEmptiness';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 export class AddNewItem extends PureComponent {
@@ -24,6 +23,18 @@ export class AddNewItem extends PureComponent {
     });
   };
 
+  onClick = (e) => {
+    const input = this.state.input;
+    e.preventDefault();
+    if (!input.trim()) {
+      return;
+    }
+    this.props.onAdd(input);
+    this.setState({
+      input: '',
+    });
+  };
+
   render() {
     const input = this.state.input;
     const isEmpty = checkEmptiness(input);
@@ -35,6 +46,7 @@ export class AddNewItem extends PureComponent {
             className="form-control"
             type="text"
             onChange={this.onChange}
+            value={input}
             placeholder="Type new item name..."
           />
           <div className="input-group-btn">
@@ -43,16 +55,7 @@ export class AddNewItem extends PureComponent {
               data-balloon-pos="up"
               className="btn btn-default"
               disabled={isEmpty}
-              onClick={e => {
-                e.preventDefault();
-                if (!input.trim()) {
-                  return;
-                }
-                this.props.onAdd(input);
-                this.setState({
-                  input: '',
-                });
-              }}
+              onClick={this.onClick}
             >
               Add
             </button>
