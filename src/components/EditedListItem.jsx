@@ -44,7 +44,7 @@ export class EditedListItem extends PureComponent {
             data-balloon-pos="up"
             className="btn btn-primary"
             disabled={isEmpty}
-            onClick={onSave}
+            onClick={() => onSave(this.state.updatedValue)}
           >
             Save
           </button>
