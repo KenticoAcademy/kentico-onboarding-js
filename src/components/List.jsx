@@ -1,26 +1,10 @@
 import React, { PureComponent } from 'react';
 import { ListItem } from './ListItem';
 import { EditedListItem } from './EditedListItem';
-import {
-  deleteItem,
-  toggleEditing,
-  updateItemText,
-} from '../utils/actionCreators';
 
 export class List extends PureComponent {
-
-  componentDidMount() {
-    const { store } = this.context;
-    this.unsubscribe = store.subscribe(() => this.forceUpdate());
-  }
-
-  componentWillUnmount() {
-    this.unsubscribe();
-  }
-
   render() {
-    const { store } = this.context;
-    const state = store.getState();
+    const { state, deleteItem, updateItemText, toggleEditing } = this.props;
 
     return (<div>{
         state.map((item, index) => (
@@ -32,12 +16,12 @@ export class List extends PureComponent {
             {item.isBeingEdited ?
               <EditedListItem
                 text={item.text}
-                onSave={(newText) => store.dispatch(updateItemText(item.id, newText))}
-                onDelete={() => store.dispatch(deleteItem(item.id))}
-                onCancel={() => store.dispatch(toggleEditing(item.id, false))}
+                onSave={(newText) => updateItemText(item.id, newText)}
+                onDelete={() => deleteItem(item.id)}
+                onCancel={() => toggleEditing(item.id, false)}
               /> : <ListItem
                 text={item.text}
-                onClick={() => store.dispatch(toggleEditing(item.id, true))}
+                onClick={() => toggleEditing(item.id, true)}
               />}
           </div>
         ))
@@ -45,7 +29,3 @@ export class List extends PureComponent {
     );
   }
 }
-
-List.contextTypes = {
-  store: React.PropTypes.object,
-};

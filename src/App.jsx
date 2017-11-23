@@ -1,8 +1,8 @@
 import './sticky-footer.css';
 import './balloon.css';
 import React, { PureComponent } from 'react';
-import { List } from './components/List';
 import AddNewItemContainer from './containers/AddNewItemContainer';
+import List from './containers/ListContainer';
 
 export const App = () => (
   <div>
@@ -32,6 +32,7 @@ export const App = () => (
           </div>
         </div>
       </section>
+
     </div>
     <footer className="footer">
       <p>&copy; 2017 Kentico software, s.r.o</p>
