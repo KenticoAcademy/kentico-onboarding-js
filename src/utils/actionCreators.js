@@ -5,7 +5,7 @@ import {
   TOGGLE_EDITING,
 } from '../constants/actionTypes';
 
-export const addItem = (text, id) => {
+export const addItem = (id, text) => {
   return {
     type: ADD_ITEM,
     text,

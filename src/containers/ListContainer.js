@@ -1,6 +1,4 @@
-import React, { PureComponent } from 'react';
 import {
-  actionCreators,
   deleteItem,
   toggleEditing,
   updateItemText,
@@ -9,7 +7,6 @@ import { connect } from 'react-redux';
 import { List } from '../components/List';
 
 function mapStateToProps(state) {
-  console.log(state);
   return {
     state,
   };

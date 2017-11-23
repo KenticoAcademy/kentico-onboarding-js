@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { AddNewItem } from '../components/AddNewItem';
 
 const mapDispatchToProps = (dispatch) => ({
-  onAdd: (value) => dispatch(addItem(value, generateId())),
+  onAdd: (value) => dispatch(addItem(generateId(), value)),
 });
 
 export default connect(null, mapDispatchToProps)(AddNewItem);
