@@ -6,7 +6,9 @@ import {
 } from '../constants/actionTypes';
 
 const items = (state = [], action) => {
+  const index = state.indexOf(state.find(item => item.id === action.id));
   switch (action.type) {
+
     case ADD_ITEM:
       return [
         ...state,
@@ -16,24 +18,25 @@ const items = (state = [], action) => {
           isBeingEdited: false,
         },
       ];
+
     case UPDATE_ITEM_TEXT:
       return [
-        ... state.slice(0, action.index - 1),
+        ... state.slice(0, index),
         {
           id: action.id,
           text: action.text,
           isBeingEdited: false,
-        }, ...state.slice(action.index + 1),
+        }, ...state.slice(index + 1),
       ];
+
     case DELETE_ITEM: {
-      const index = state.indexOf(state.find(item => item.id === action.id));
       return [
         ...state.slice(0, index),
         ...state.slice(index + 1),
       ];
     }
+
     case TOGGLE_EDITING: {
-      const index = state.indexOf(state.find(item => item.id === action.id));
       return [
         ...state.slice(0, index),
         {
@@ -44,6 +47,7 @@ const items = (state = [], action) => {
         ...state.slice(index + 1),
       ];
     }
+
     default:
       return state;
   }

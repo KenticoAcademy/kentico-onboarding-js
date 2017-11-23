@@ -7,6 +7,7 @@ import { Provider } from 'react-redux';
 import { App } from './App.jsx';
 import items from './reducers/items';
 import { defaultListItems } from './constants/defaultListItems';
+
 let store = createStore(items);
 
 defaultListItems(store);
