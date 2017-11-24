@@ -27,15 +27,15 @@ describe('actions', () => {
     const expectedAction = {
       type: types.ITEM_CLICKED,
       itemId: expectedId,
-      startOffset: expectedStartOffset,
-      endOffset: expectedEndOffset,
+      selectionRangeStarts: expectedStartOffset,
+      selectionRangeEnds: expectedEndOffset,
     };
 
     expect(
       actions.clickItem({
         itemId: expectedId,
-        startOffset: expectedStartOffset,
-        endOffset: expectedEndOffset,
+        selectionRangeStarts: expectedStartOffset,
+        selectionRangeEnds: expectedEndOffset,
       }))
       .toEqual(expectedAction);
   });
