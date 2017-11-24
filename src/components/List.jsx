@@ -1,36 +1,64 @@
 import React, { PureComponent } from 'react';
-import assignment from './../../assignment.gif';
-
-import { TsComponent } from './TsComponent.tsx';
+import { ListItem } from './ListItem.jsx';
+import { NewItemForm } from './NewItemForm';
+import { createNewId } from '../utils/createNewId';
 
 export class List extends PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      items: [],
+    };
+  }
+
+  onDelete = (itemId) => {
+    const newItems = this.state.items.filter(item => item.id !== itemId);
+    this.setState({ items: newItems });
+  };
+
+  addNewItem = (text) => {
+    const id = createNewId();
+    const item = { text, id };
+    const newItems = this.state.items.concat(item);
+
+    this.setState({ items: newItems });
+  };
+
+  changeItemText = (id, newText) => {
+    const newItems = this.state.items.map(item => {
+      if (item.id === id) {
+        return { ...item, text: newText };
+      }
+      return item;
+    });
+
+    this.setState({ items: newItems });
+  };
+
   render() {
+    const listItems = this.state.items.map((item, index) =>
+      <li
+        className="list-group-item"
+        key={item.id}
+      >
+        <ListItem
+          item={item}
+          number={index + 1}
+          onSave={this.changeItemText}
+          onDelete={this.onDelete}
+        />
+      </li>
+    );
+
     return (
-      <div className="row">
-        {/* TODO: You can delete the assignment part once you do not need it */}
-        <div className="row">
-          <div className="col-sm-12 text-center">
-            <TsComponent name="𝕱𝖆𝖓𝖈𝖞" />
-          </div>
-        </div>
+      <ol className="list-group">
+        {listItems}
 
-        <div className="row">
-          <div className="col-sm-12">
-            <p className="lead text-center">Desired functionality is captured in the gif image. </p>
-            <p className="lead text-center"><b>Note: </b>Try to make solution easily extensible (e.g. more displayed fields per item like
-              <code>dateCreated</code>).</p>
-            <img src={assignment} alt="assignment" className="img--assignment" />
-          </div>
-        </div>
-
-        <div className="row">
-          <div className="col-sm-12 col-md-offset-2 col-md-8">
-            <pre>
-              // TODO: implement the list here :)
-            </pre>
-          </div>
-        </div>
-      </div>
+        <li className="list-group-item">
+          <NewItemForm onAdd={this.addNewItem} />
+        </li>
+      </ol>
     );
   }
 }
