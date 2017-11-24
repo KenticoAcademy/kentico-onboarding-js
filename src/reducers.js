@@ -1,6 +1,6 @@
 import { OrderedMap } from 'immutable';
 import { ListItem } from './models/ListItem';
-import { createNewId } from './utils/createNewId';
+
 import {
   ITEM_CREATED,
   ITEM_TEXT_SELECTED,
@@ -10,8 +10,7 @@ import {
 } from './actionTypes';
 
 const addNewItem = (state, action) => {
-  const id = createNewId();
-  const { text } = action;
+  const { itemId: id, text } = action;
 
   const newItem = new ListItem({
     id,
