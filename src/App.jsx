@@ -1,6 +1,6 @@
 import './sticky-footer.css';
 import React, { PureComponent } from 'react';
-import { ListContainer } from './components/ListContainer.jsx';
+import { ListContainer } from './containers/ListContainer.jsx';
 
 export class App extends PureComponent {
   render() {
