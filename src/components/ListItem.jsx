@@ -40,13 +40,13 @@ export class ListItem extends PureComponent {
 
     this.setState({
       isBeingEdited: true,
-      startOffset,
-      endOffset,
+      selectionRangeStarts: startOffset,
+      selectionRangeEnds: endOffset,
     });
   };
 
   render() {
-    const { isBeingEdited, startOffset, endOffset } = this.state;
+    const { isBeingEdited, selectionRangeStarts, selectionRangeEnds } = this.state;
     const { number } = this.props;
     const { text } = this.props.item;
 
@@ -55,8 +55,8 @@ export class ListItem extends PureComponent {
         <ListItemEditMode
           text={text}
           number={number}
-          startOffset={startOffset}
-          endOffset={endOffset}
+          selectionRangeStarts={selectionRangeStarts}
+          selectionRangeEnds={selectionRangeEnds}
           onSave={this.onSave}
           onCancel={this.onCancel}
           onDelete={this.onDelete}

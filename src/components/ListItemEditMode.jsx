@@ -11,8 +11,8 @@ const keyMap = {
 export class ListItemEditMode extends PureComponent {
   static propTypes = {
     number: PropTypes.number.isRequired,
-    startOffset: PropTypes.number.isRequired,
-    endOffset: PropTypes.number.isRequired,
+    selectionRangeStarts: PropTypes.number.isRequired,
+    selectionRangeEnds: PropTypes.number.isRequired,
     text: PropTypes.string.isRequired,
     onSave: PropTypes.func.isRequired,
     onCancel: PropTypes.func.isRequired,
@@ -30,8 +30,8 @@ export class ListItemEditMode extends PureComponent {
   }
 
   componentDidMount() {
-    const { startOffset, endOffset } = this.props;
-    this.input.setSelectionRange(startOffset, endOffset);
+    const { selectionRangeStarts, selectionRangeEnds } = this.props;
+    this.input.setSelectionRange(selectionRangeStarts, selectionRangeEnds);
   }
 
   onInputChange = (e) => this.setState({ text: e.target.value });
