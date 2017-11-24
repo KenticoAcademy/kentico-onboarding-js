@@ -29,11 +29,8 @@ export class List extends PureComponent {
   };
 
   changeItemText = (changedItemId, newText) => {
-    const newItems = this.state.items.map((item, id) => {
-      if (id === changedItemId) {
-        return item.set('text', newText);
-      }
-      return item;
+    const newItems = this.state.items.update(changedItemId, (item) => {
+      return item.merge({ text: newText });
     });
 
     this.setState({ items: newItems });
