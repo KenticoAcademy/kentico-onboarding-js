@@ -1,10 +1,9 @@
 import React, { PureComponent } from 'react';
-import { Record, OrderedMap } from 'immutable';
+import { OrderedMap } from 'immutable';
+import { ListItemRecord } from '../models/ListItemRecord';
 import { ListItem } from './ListItem.jsx';
 import { NewItemForm } from './NewItemForm';
 import { createNewId } from '../utils/createNewId';
-
-const ListItemRecord = Record({ id: '', text: '' });
 
 export class List extends PureComponent {
   constructor(props) {
