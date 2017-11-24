@@ -66,12 +66,8 @@ export class ListItem extends PureComponent {
 
     return (
       <div onMouseUp={this.onItemClick}>
-        <span>
-          {number + '. '}
-        </span>
-        <span>
-          {text}
-        </span>
+        {number + '. '}
+        {text}
       </div>
     );
   }
