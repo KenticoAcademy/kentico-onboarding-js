@@ -7,7 +7,11 @@ const keyMap = {
   'submitInput': 'enter',
 };
 
-class NewItemForm extends PureComponent {
+export class NewItemForm extends PureComponent {
+  static propTypes = {
+    onAdd: PropTypes.func.isRequired,
+  };
+
   constructor(props) {
     super(props);
 
@@ -69,9 +73,3 @@ class NewItemForm extends PureComponent {
     );
   }
 }
-
-NewItemForm.propTypes = {
-  onAdd: PropTypes.func.isRequired,
-};
-
-export { NewItemForm };

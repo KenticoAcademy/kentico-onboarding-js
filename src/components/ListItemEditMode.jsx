@@ -8,7 +8,17 @@ const keyMap = {
   'cancelChanges': 'esc',
 };
 
-class ListItemEditMode extends PureComponent {
+export class ListItemEditMode extends PureComponent {
+  static propTypes = {
+    number: PropTypes.number.isRequired,
+    startOffset: PropTypes.number.isRequired,
+    endOffset: PropTypes.number.isRequired,
+    text: PropTypes.string.isRequired,
+    onSave: PropTypes.func.isRequired,
+    onCancel: PropTypes.func.isRequired,
+    onDelete: PropTypes.func.isRequired,
+  };
+
   constructor(props) {
     super(props);
 
@@ -99,15 +109,3 @@ class ListItemEditMode extends PureComponent {
     );
   }
 }
-
-ListItemEditMode.propTypes = {
-  number: PropTypes.number.isRequired,
-  startOffset: PropTypes.number.isRequired,
-  endOffset: PropTypes.number.isRequired,
-  text: PropTypes.string.isRequired,
-  onSave: PropTypes.func.isRequired,
-  onCancel: PropTypes.func.isRequired,
-  onDelete: PropTypes.func.isRequired,
-};
-
-export { ListItemEditMode };

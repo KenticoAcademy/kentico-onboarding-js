@@ -2,7 +2,14 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { ListItemEditMode } from './ListItemEditMode';
 
-class ListItem extends PureComponent {
+export class ListItem extends PureComponent {
+  static propTypes = {
+    item: PropTypes.object.isRequired,
+    number: PropTypes.number.isRequired,
+    onSave: PropTypes.func.isRequired,
+    onDelete: PropTypes.func.isRequired,
+  };
+
   constructor(props) {
     super(props);
 
@@ -69,12 +76,3 @@ class ListItem extends PureComponent {
     );
   }
 }
-
-ListItem.propTypes = {
-  item: PropTypes.object.isRequired,
-  number: PropTypes.number.isRequired,
-  onSave: PropTypes.func.isRequired,
-  onDelete: PropTypes.func.isRequired,
-};
-
-export { ListItem };
