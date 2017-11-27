@@ -1,4 +1,4 @@
-import { addItem } from '../utils/actionCreators';
+import { addItem } from '../actions/actionCreators';
 import { generateId } from '../utils/generateId';
 
 const defaultListItems = (store) => {
