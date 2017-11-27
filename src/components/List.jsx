@@ -7,7 +7,7 @@ export class List extends PureComponent {
     const { state, deleteItem, updateItemText, toggleEditing } = this.props;
 
     return (<div>{
-        state.map((item, index) => (
+        state.valueSeq().map((item, index) => (
           <div
             className="list-group-item form-inline"
             key={item.id}
