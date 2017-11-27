@@ -2,13 +2,18 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 import './index.css';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
+import logger from 'redux-logger';
 import { Provider } from 'react-redux';
 import { App } from './App.jsx';
-import items from './reducers/items';
 import { defaultListItems } from './constants/defaultListItems';
+import { combinedReducers } from './reducers/combineReducers';
 
-let store = createStore(items);
+const store = createStore(
+  combinedReducers,
+  applyMiddleware(logger)
+);
+
 defaultListItems(store);
 
 ReactDOM.render(
