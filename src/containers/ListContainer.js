@@ -2,7 +2,7 @@ import {
   deleteItem,
   toggleEditing,
   updateItemText,
-} from '../utils/actionCreators';
+} from '../actions/actionCreators';
 import { connect } from 'react-redux';
 import { List } from '../components/List';
 
