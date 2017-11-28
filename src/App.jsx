@@ -1,8 +1,8 @@
 import './sticky-footer.css';
 import './balloon.css';
 import React from 'react';
-import List from './containers/ListContainer';
-import AddNewItem from './containers/AddNewItemContainer';
+import { List } from './containers/ListContainer';
+import { AddNewItem } from './containers/AddNewItemContainer';
 
 export const App = () => (
   <div>

@@ -4,10 +4,10 @@ import { EditedListItem } from './EditedListItem';
 
 export class List extends PureComponent {
   render() {
-    const { state, deleteItem, updateItemText, toggleEditing } = this.props;
+    const { itemsMap, deleteItem, updateItemText, toggleEditing } = this.props;
 
     return (<div>{
-        state.valueSeq().map((item, index) => (
+        itemsMap.valueSeq().map((item, index) => (
           <div
             className="list-group-item form-inline"
             key={item.id}

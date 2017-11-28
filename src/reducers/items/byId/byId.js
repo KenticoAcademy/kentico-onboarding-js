@@ -3,36 +3,37 @@ import {
   UPDATE_ITEM_TEXT,
   DELETE_ITEM,
   TOGGLE_EDITING,
-} from '../../../../constants/actionTypes';
+} from '../../../constants/actionTypes';
 import { OrderedMap } from 'immutable';
+import { Item } from '../../../models/Item';
 
-const items = (state = new OrderedMap(), action) => {
+const byId = (state = new OrderedMap(), action) => {
   switch (action.type) {
 
     case ADD_ITEM:
-      return state.set(action.id, {
+      return state.set(action.id, new Item({
         id: action.id,
         text: action.text,
         isBeingEdited: false,
-      });
+      }));
 
     case UPDATE_ITEM_TEXT:
-      return state.set(action.id, {
+      return state.set(action.id, new Item({
         id: action.id,
         text: action.newText,
         isBeingEdited: false,
-      });
+      }));
 
     case DELETE_ITEM: {
       return state.delete(action.id);
     }
 
     case TOGGLE_EDITING: {
-      return state.set(action.id, {
+      return state.set(action.id, new Item({
         id: action.id,
         text: state.get(action.id).text,
         isBeingEdited: action.isBeingEdited,
-      });
+      }));
     }
 
     default:
@@ -40,4 +41,4 @@ const items = (state = new OrderedMap(), action) => {
   }
 };
 
-export default items;
+export { byId };

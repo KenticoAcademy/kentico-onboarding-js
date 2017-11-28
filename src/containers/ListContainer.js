@@ -4,11 +4,11 @@ import {
   updateItemText,
 } from '../actions/actionCreators';
 import { connect } from 'react-redux';
-import { List } from '../components/List';
+import { List as ListComponent } from '../components/List';
 
 function mapStateToProps(state) {
   return {
-    state,
+    itemsMap: state.items.byId,
   };
 }
 
@@ -18,5 +18,5 @@ const mapDispatchToProps = (dispatch) => ({
   updateItemText: (id, newText) => dispatch(updateItemText(id, newText)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(List);
+export const List = connect(mapStateToProps, mapDispatchToProps)(ListComponent);
 

@@ -23,12 +23,8 @@ export class AddNewItem extends PureComponent {
     });
   };
 
-  onClick = (e) => {
+  onClick = () => {
     const input = this.state.input;
-    e.preventDefault();
-    if (!input.trim()) {
-      return;
-    }
     this.props.onAdd(input);
     this.setState({
       input: '',

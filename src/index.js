@@ -7,10 +7,10 @@ import logger from 'redux-logger';
 import { Provider } from 'react-redux';
 import { App } from './App.jsx';
 import { defaultListItems } from './constants/defaultListItems';
-import { combinedReducers } from './reducers/combineReducers';
+import { root } from './reducers/root';
 
 const store = createStore(
-  combinedReducers,
+  root,
   applyMiddleware(logger)
 );
 
