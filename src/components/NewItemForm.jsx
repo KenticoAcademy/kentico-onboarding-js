@@ -73,6 +73,7 @@ export class NewItemForm extends PureComponent {
             className="btn btn-primary ml-3"
             onClick={this.onAdd}
             disabled={!enableAddButton}
+            title="Adds new item to list. Text cannot be empty"
           >
             Add
           </button>

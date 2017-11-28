@@ -90,6 +90,7 @@ export class OpenedListItem extends PureComponent {
             className="btn btn-primary ml-3"
             onClick={this.onSave}
             disabled={!enableSaveButton}
+            title="Saves new text which cannot be empty"
           >
             Save
           </button>
@@ -97,6 +98,7 @@ export class OpenedListItem extends PureComponent {
           <button
             className="btn btn-secondary ml-2"
             onClick={onCancel}
+            title="Drops unsaved changes"
           >
             Cancel
           </button>
@@ -104,6 +106,7 @@ export class OpenedListItem extends PureComponent {
           <button
             className="btn btn-danger ml-2"
             onClick={onDelete}
+            title="Removes item from list"
           >
             Delete
           </button>
