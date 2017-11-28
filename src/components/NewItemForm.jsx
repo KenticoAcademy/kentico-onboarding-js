@@ -59,7 +59,7 @@ export class NewItemForm extends PureComponent {
       >
         <div className="input-group col">
           <input
-            className="form-control col-md-6"
+            className="form-control col-md-6 rounded"
             type="text"
             placeholder="Item name cannot be empty"
             value={newItemText}
@@ -67,7 +67,7 @@ export class NewItemForm extends PureComponent {
             autoFocus={true}
           />
           <button
-            className="btn btn-primary"
+            className="btn btn-primary ml-3"
             onClick={this.onAdd}
             disabled={!enableAddButton}
           >

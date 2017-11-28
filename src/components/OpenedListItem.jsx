@@ -82,7 +82,7 @@ export class OpenedListItem extends PureComponent {
         </label>
         <div className="input-group col">
           <input
-            className="form-control col-md-6"
+            className="form-control col-md-6 rounded"
             type="text"
             value={text}
             placeholder="Item name cannot be empty"
@@ -92,7 +92,7 @@ export class OpenedListItem extends PureComponent {
           />
 
           <button
-            className="btn btn-primary"
+            className="btn btn-primary ml-3"
             onClick={this.onSave}
             disabled={!enableSaveButton}
           >
@@ -100,14 +100,14 @@ export class OpenedListItem extends PureComponent {
           </button>
 
           <button
-            className="btn btn-secondary"
+            className="btn btn-secondary ml-2"
             onClick={onCancel}
           >
             Cancel
           </button>
 
           <button
-            className="btn btn-danger"
+            className="btn btn-danger ml-2"
             onClick={onDelete}
           >
             Delete
