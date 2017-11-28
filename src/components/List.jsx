@@ -15,25 +15,37 @@ export class List extends PureComponent {
   }
 
   onDelete = (itemId) => {
-    this.setState(prevState => ({ items: prevState.items.delete(itemId) }));
+    this.setState(prevState => ({
+      items: prevState.items.delete(itemId),
+    }));
   };
 
   addNewItem = (text) => {
     const id = createNewId();
-    const item = new ListItemRecord({ id, text });
+    const item = new ListItemRecord({
+      id,
+      text,
+    });
 
-    this.setState(prevState => ({ items: prevState.items.set(id, item) }));
+    this.setState(prevState => ({
+      items: prevState.items.set(id, item),
+    }));
   };
 
   changeItemText = (changedItemId, newText) => {
-    this.setState((prevState) => {
-      return { items: prevState.items.update(changedItemId, item => item.merge({ text: newText })) };
-    });
+    this.setState(prevState => ({
+      items: prevState.items.update(changedItemId, item =>
+        item.merge({
+          text: newText,
+        })),
+    }));
   };
 
   render() {
-    const listItems = this.state.items.entrySeq().map(([id, item], index) => {
-      return (
+    const { items } = this.state;
+    const listItems = items
+      .entrySeq()
+      .map(([id, item], index) => (
         <li
           className="list-group-item"
           key={id}
@@ -45,8 +57,7 @@ export class List extends PureComponent {
             onDelete={this.onDelete}
           />
         </li>
-      );
-    });
+      ));
 
     return (
       <ol className="list-group">

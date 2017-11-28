@@ -1,2 +1,6 @@
 import { Record } from 'immutable';
-export const ListItemRecord = Record({ id: '', text: '' });
+
+export const ListItemRecord = Record({
+  id: '',
+  text: '',
+});

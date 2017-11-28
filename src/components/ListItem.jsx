@@ -19,23 +19,32 @@ export class ListItem extends PureComponent {
   }
 
   onSave = (text) => {
-    const { id } = this.props.item;
+    const { item, onSave } = this.props;
+    const { id } = item;
 
-    this.setState({ isBeingEdited: false });
-    this.props.onSave(id, text);
+    onSave(id, text);
+
+    this.setState({
+      isBeingEdited: false,
+    });
   };
 
-  onCancel = () => {
-    this.setState({ isBeingEdited: false });
-  };
+  onCancel = () => this.setState({
+    isBeingEdited: false,
+  });
 
   onDelete = () => {
-    const { id } = this.props.item;
-    this.props.onDelete(id);
+    const { item, onDelete } = this.props;
+    const { id } = item;
+
+    onDelete(id);
   };
 
   onItemClick = () => {
-    const selection = window.getSelection().getRangeAt(0);
+    const selection = window
+      .getSelection()
+      .getRangeAt(0);
+
     const { startOffset, endOffset } = selection;
 
     this.setState({
@@ -46,9 +55,14 @@ export class ListItem extends PureComponent {
   };
 
   render() {
-    const { isBeingEdited, selectionRangeStarts, selectionRangeEnds } = this.state;
-    const { number } = this.props;
-    const { text } = this.props.item;
+    const { number, item } = this.props;
+    const { text } = item;
+
+    const {
+      isBeingEdited,
+      selectionRangeStarts,
+      selectionRangeEnds,
+    } = this.state;
 
     if (isBeingEdited) {
       return (

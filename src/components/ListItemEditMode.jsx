@@ -30,15 +30,23 @@ export class ListItemEditMode extends PureComponent {
   }
 
   componentDidMount() {
-    const { selectionRangeStarts, selectionRangeEnds } = this.props;
+    const {
+      selectionRangeStarts,
+      selectionRangeEnds,
+    } = this.props;
+
     this.input.setSelectionRange(selectionRangeStarts, selectionRangeEnds);
   }
 
-  onInputChange = (e) => this.setState({ text: e.target.value });
+  onInputChange = e => this.setState({
+    text: e.target.value,
+  });
 
   onSave = () => {
+    const { onSave } = this.props;
     const { text } = this.state;
-    this.props.onSave(text);
+
+    onSave(text);
   };
 
   onEnterPress = () => {
@@ -49,13 +57,13 @@ export class ListItemEditMode extends PureComponent {
     }
   };
 
-  setInputRef = (input) => {
+  setInputRef = input => {
     this.input = input;
   };
 
   render() {
     const { text } = this.state;
-    const { number, onCancel } = this.props;
+    const { number, onCancel, onDelete } = this.props;
     const enableSaveButton = !textIsEmpty(text);
 
     const handlers = {
@@ -93,14 +101,14 @@ export class ListItemEditMode extends PureComponent {
 
           <button
             className="btn btn-secondary"
-            onClick={this.props.onCancel}
+            onClick={onCancel}
           >
             Cancel
           </button>
 
           <button
             className="btn btn-danger"
-            onClick={this.props.onDelete}
+            onClick={onDelete}
           >
             Delete
           </button>
