@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { ListItemEditMode } from './ListItemEditMode';
+import { OpenedListItem } from './OpenedListItem';
+import { ClosedListItem } from './ClosedListItem';
 
 export class ListItem extends PureComponent {
   static propTypes = {
@@ -14,7 +15,7 @@ export class ListItem extends PureComponent {
     super(props);
 
     this.state = {
-      isBeingEdited: false,
+      isOpened: false,
     };
   }
 
@@ -25,12 +26,12 @@ export class ListItem extends PureComponent {
     onSave(id, text);
 
     this.setState({
-      isBeingEdited: false,
+      isOpened: false,
     });
   };
 
   onCancel = () => this.setState({
-    isBeingEdited: false,
+    isOpened: false,
   });
 
   onDelete = () => {
@@ -40,17 +41,11 @@ export class ListItem extends PureComponent {
     onDelete(id);
   };
 
-  onItemClick = () => {
-    const selection = window
-      .getSelection()
-      .getRangeAt(0);
-
-    const { startOffset, endOffset } = selection;
-
+  onItemClick = (selectionRangeStarts, selectionRangeEnds) => {
     this.setState({
-      isBeingEdited: true,
-      selectionRangeStarts: startOffset,
-      selectionRangeEnds: endOffset,
+      isOpened: true,
+      selectionRangeStarts,
+      selectionRangeEnds,
     });
   };
 
@@ -59,14 +54,14 @@ export class ListItem extends PureComponent {
     const { text } = item;
 
     const {
-      isBeingEdited,
+      isOpened,
       selectionRangeStarts,
       selectionRangeEnds,
     } = this.state;
 
-    if (isBeingEdited) {
+    if (isOpened) {
       return (
-        <ListItemEditMode
+        <OpenedListItem
           text={text}
           number={number}
           selectionRangeStarts={selectionRangeStarts}
@@ -79,10 +74,11 @@ export class ListItem extends PureComponent {
     }
 
     return (
-      <div onMouseUp={this.onItemClick}>
-        {number + '. '}
-        {text}
-      </div>
+      <ClosedListItem
+        text={text}
+        number={number}
+        onItemClick={this.onItemClick}
+      />
     );
   }
 }

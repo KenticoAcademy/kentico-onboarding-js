@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { HotKeys } from 'react-hotkeys';
-import { textIsEmpty } from '../utils/validation';
+import { isTextEmpty } from '../utils/validation';
 
 const keyMap = {
   'submitInput': 'enter',
@@ -38,14 +38,14 @@ export class NewItemForm extends PureComponent {
   onEnterPress = () => {
     const { newItemText } = this.state;
 
-    if (!textIsEmpty(newItemText)) {
+    if (!isTextEmpty(newItemText)) {
       this.onAdd();
     }
   };
 
   render() {
     const { newItemText } = this.state;
-    const enableAddButton = !textIsEmpty(newItemText);
+    const enableAddButton = !isTextEmpty(newItemText);
 
     const handlers = {
       'submitInput': this.onEnterPress,

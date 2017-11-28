@@ -1,14 +1,14 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { HotKeys } from 'react-hotkeys';
-import { textIsEmpty } from '../utils/validation';
+import { isTextEmpty } from '../utils/validation';
 
 const keyMap = {
   'submitInput': 'enter',
   'cancelChanges': 'esc',
 };
 
-export class ListItemEditMode extends PureComponent {
+export class OpenedListItem extends PureComponent {
   static propTypes = {
     number: PropTypes.number.isRequired,
     selectionRangeStarts: PropTypes.number.isRequired,
@@ -52,7 +52,7 @@ export class ListItemEditMode extends PureComponent {
   onEnterPress = () => {
     const { text } = this.state;
 
-    if (!textIsEmpty(text)) {
+    if (!isTextEmpty(text)) {
       this.onSave();
     }
   };
@@ -64,7 +64,7 @@ export class ListItemEditMode extends PureComponent {
   render() {
     const { text } = this.state;
     const { number, onCancel, onDelete } = this.props;
-    const enableSaveButton = !textIsEmpty(text);
+    const enableSaveButton = !isTextEmpty(text);
 
     const handlers = {
       'submitInput': this.onEnterPress,
