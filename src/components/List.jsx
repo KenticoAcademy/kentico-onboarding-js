@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import { OrderedMap } from 'immutable';
 import { HotKeys } from 'react-hotkeys';
 import { keyMap } from '../constants/keys';
-import { ListItemRecord } from '../models/ListItemRecord';
+import { ListItemModel } from '../models/ListItemModel';
 import { ListItem } from './ListItem.jsx';
 import { NewItemForm } from './NewItemForm';
 import { createNewId } from '../utils/createNewId';
@@ -24,7 +24,7 @@ export class List extends PureComponent {
 
   addNewItem = (text) => {
     const id = createNewId();
-    const item = new ListItemRecord({
+    const item = new ListItemModel({
       id,
       text,
     });
