@@ -1,12 +1,8 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { HotKeys } from 'react-hotkeys';
+import { keyActions } from '../constants/keys';
 import { isTextEmpty } from '../utils/validation';
-
-const keyMap = {
-  'submitInput': 'enter',
-  'clearInput': 'esc',
-};
 
 export class NewItemForm extends PureComponent {
   static propTypes = {
@@ -55,14 +51,13 @@ export class NewItemForm extends PureComponent {
     const enableAddButton = !isTextEmpty(newItemText);
 
     const handlers = {
-      'submitInput': this.onEnterPress,
-      'clearInput': this.onEscPress,
+      [keyActions.OnEnter]: this.onEnterPress,
+      [keyActions.OnEsc]: this.onEscPress,
     };
 
     return (
       <HotKeys
         handlers={handlers}
-        keyMap={keyMap}
         className="row"
       >
         <div className="input-group col">

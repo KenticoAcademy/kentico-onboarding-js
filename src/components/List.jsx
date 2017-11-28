@@ -1,5 +1,7 @@
 import React, { PureComponent } from 'react';
 import { OrderedMap } from 'immutable';
+import { HotKeys } from 'react-hotkeys';
+import { keyMap } from '../constants/keys';
 import { ListItemRecord } from '../models/ListItemRecord';
 import { ListItem } from './ListItem.jsx';
 import { NewItemForm } from './NewItemForm';
@@ -60,13 +62,15 @@ export class List extends PureComponent {
       ));
 
     return (
-      <ol className="list-group">
-        {listItems}
+      <HotKeys keyMap={keyMap}>
+        <ol className="list-group">
+          {listItems}
 
-        <li className="list-group-item">
-          <NewItemForm onAdd={this.addNewItem} />
-        </li>
-      </ol>
+          <li className="list-group-item">
+            <NewItemForm onAdd={this.addNewItem} />
+          </li>
+        </ol>
+      </HotKeys>
     );
   }
 }

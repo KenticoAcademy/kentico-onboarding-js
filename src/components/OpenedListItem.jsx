@@ -1,12 +1,8 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { HotKeys } from 'react-hotkeys';
+import { keyActions } from '../constants/keys';
 import { isTextEmpty } from '../utils/validation';
-
-const keyMap = {
-  'submitInput': 'enter',
-  'cancelChanges': 'esc',
-};
 
 export class OpenedListItem extends PureComponent {
   static propTypes = {
@@ -67,13 +63,12 @@ export class OpenedListItem extends PureComponent {
     const enableSaveButton = !isTextEmpty(text);
 
     const handlers = {
-      'submitInput': this.onEnterPress,
-      'cancelChanges': onCancel,
+      [keyActions.OnEnter]: this.onEnterPress,
+      [keyActions.OnEsc]: onCancel,
     };
 
     return (
       <HotKeys
-        keyMap={keyMap}
         handlers={handlers}
         className="row"
       >
