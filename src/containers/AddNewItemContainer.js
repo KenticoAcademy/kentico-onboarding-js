@@ -1,10 +1,18 @@
-import { addItem } from '../actions/actionCreators';
+import {
+  addItem,
+  updateNewItemText,
+} from '../actions/actionCreators';
 import { generateId } from '../utils/generateId';
 import { connect } from 'react-redux';
 import { AddNewItem as AddNewItemComponent } from '../components/AddNewItem';
 
-const mapDispatchToProps = (dispatch) => ({
-  onAdd: (value) => dispatch(addItem(generateId(), value)),
+const mapStateToProps = ({ newItemText }) => ({
+  newItemText,
 });
 
-export const AddNewItem = connect(null, mapDispatchToProps)(AddNewItemComponent);
+const mapDispatchToProps = (dispatch) => ({
+  onAdd: (value) => dispatch(addItem(generateId(), value)),
+  onNewTextChange: (newText) => dispatch(updateNewItemText(newText)),
+});
+
+export const AddNewItem = connect(mapStateToProps, mapDispatchToProps)(AddNewItemComponent);

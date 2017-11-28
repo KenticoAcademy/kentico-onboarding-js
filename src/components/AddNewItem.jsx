@@ -4,35 +4,24 @@ import PropTypes from 'prop-types';
 
 export class AddNewItem extends PureComponent {
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      input: '',
-    };
-  }
-
   static propTypes = {
+    newItemText: PropTypes.string.isRequired,
     onAdd: PropTypes.func.isRequired,
+    onNewTextChange: PropTypes.func.isRequired,
   };
 
   onChange = (e) => {
     const newText = e.target.value;
-    this.setState({
-      input: newText,
-    });
+    this.props.onNewTextChange(newText);
   };
 
   onClick = () => {
-    const input = this.state.input;
+    const input = this.props.newItemText;
     this.props.onAdd(input);
-    this.setState({
-      input: '',
-    });
   };
 
   render() {
-    const input = this.state.input;
+    const input = this.props.newItemText;
     const isEmpty = checkEmptiness(input);
 
     return (
