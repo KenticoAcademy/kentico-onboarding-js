@@ -15,24 +15,20 @@ export class List extends PureComponent {
   }
 
   onDelete = (itemId) => {
-    const newItems = this.state.items.delete(itemId);
-    this.setState({ items: newItems });
+    this.setState(prevState => ({ items: prevState.items.delete(itemId) }));
   };
 
   addNewItem = (text) => {
     const id = createNewId();
     const item = new ListItemRecord({ id, text });
-    const newItems = this.state.items.set(id, item);
 
-    this.setState({ items: newItems });
+    this.setState(prevState => ({ items: prevState.items.set(id, item) }));
   };
 
   changeItemText = (changedItemId, newText) => {
-    const newItems = this.state.items.update(changedItemId, (item) => {
-      return item.merge({ text: newText });
+    this.setState((prevState) => {
+      return { items: prevState.items.update(changedItemId, item => item.merge({ text: newText })) };
     });
-
-    this.setState({ items: newItems });
   };
 
   render() {
