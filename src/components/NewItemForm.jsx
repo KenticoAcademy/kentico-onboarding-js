@@ -5,6 +5,7 @@ import { isTextEmpty } from '../utils/validation';
 
 const keyMap = {
   'submitInput': 'enter',
+  'clearInput': 'esc',
 };
 
 export class NewItemForm extends PureComponent {
@@ -43,12 +44,19 @@ export class NewItemForm extends PureComponent {
     }
   };
 
+  onEscPress = () => {
+    this.setState({
+      newItemText: '',
+    });
+  };
+
   render() {
     const { newItemText } = this.state;
     const enableAddButton = !isTextEmpty(newItemText);
 
     const handlers = {
       'submitInput': this.onEnterPress,
+      'clearInput': this.onEscPress,
     };
 
     return (
