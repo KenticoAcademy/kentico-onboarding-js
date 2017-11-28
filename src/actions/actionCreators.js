@@ -9,30 +9,34 @@ import {
 export const addItem = (id, text) => {
   return {
     type: ADD_ITEM,
-    text,
-    id,
+    payload: {
+      text,
+      id,
+    },
   };
 };
 
 export const deleteItem = id => {
   return {
     type: DELETE_ITEM,
-    id,
+    payload: { id },
   };
 };
 
 export const toggleEditing = (id) => {
   return {
     type: TOGGLE_EDITING,
-    id,
+    payload: { id },
   };
 };
 
 export const updateItemText = (id, newText) => {
   return {
     type: UPDATE_ITEM_TEXT,
-    newText,
-    id,
+    payload: {
+      newText,
+      id,
+    },
   };
 };
 

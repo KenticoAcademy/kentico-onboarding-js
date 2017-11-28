@@ -11,24 +11,23 @@ export const byId = (state = new OrderedMap(), action) => {
   switch (action.type) {
 
     case ADD_ITEM:
-      return state.set(action.id, new Item({
-        id: action.id,
-        text: action.text,
-        isBeingEdited: false,
+      return state.set(action.payload.id, new Item({
+        id: action.payload.id,
+        text: action.payload.text,
       }));
 
     case UPDATE_ITEM_TEXT:
-      return state.update(action.id, (item) => item.merge({
-        text: action.newText,
+      return state.update(action.payload.id, (item) => item.merge({
+        text: action.payload.newText,
         isBeingEdited: false,
       }));
 
     case DELETE_ITEM: {
-      return state.delete(action.id);
+      return state.delete(action.payload.id);
     }
 
     case TOGGLE_EDITING: {
-      return state.update(action.id, (item) => item.merge({
+      return state.update(action.payload.id, (item) => item.merge({
         isBeingEdited: !item.isBeingEdited,
       }));
     }
