@@ -14,7 +14,7 @@ function mapStateToProps(state) {
 
 const mapDispatchToProps = (dispatch) => ({
   deleteItem: (id) => dispatch(deleteItem(id)),
-  toggleEditing: (id, isBeingEdited) => dispatch(toggleEditing(id, isBeingEdited)),
+  toggleEditing: (id) => dispatch(toggleEditing(id)),
   updateItemText: (id, newText) => dispatch(updateItemText(id, newText)),
 });
 

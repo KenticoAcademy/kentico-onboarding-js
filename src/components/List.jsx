@@ -18,10 +18,10 @@ export class List extends PureComponent {
                 text={item.text}
                 onSave={(newText) => updateItemText(item.id, newText)}
                 onDelete={() => deleteItem(item.id)}
-                onCancel={() => toggleEditing(item.id, false)}
+                onCancel={() => toggleEditing(item.id)}
               /> : <ListItem
                 text={item.text}
-                onClick={() => toggleEditing(item.id, true)}
+                onClick={() => toggleEditing(item.id)}
               />}
           </div>
         ))

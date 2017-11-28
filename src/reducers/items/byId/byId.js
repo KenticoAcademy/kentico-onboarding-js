@@ -7,7 +7,7 @@ import {
 import { OrderedMap } from 'immutable';
 import { Item } from '../../../models/Item';
 
-const byId = (state = new OrderedMap(), action) => {
+export const byId = (state = new OrderedMap(), action) => {
   switch (action.type) {
 
     case ADD_ITEM:
@@ -18,8 +18,7 @@ const byId = (state = new OrderedMap(), action) => {
       }));
 
     case UPDATE_ITEM_TEXT:
-      return state.set(action.id, new Item({
-        id: action.id,
+      return state.update(action.id, (item) => item.merge({
         text: action.newText,
         isBeingEdited: false,
       }));
@@ -29,10 +28,8 @@ const byId = (state = new OrderedMap(), action) => {
     }
 
     case TOGGLE_EDITING: {
-      return state.set(action.id, new Item({
-        id: action.id,
-        text: state.get(action.id).text,
-        isBeingEdited: action.isBeingEdited,
+      return state.update(action.id, (item) => item.merge({
+        isBeingEdited: !item.isBeingEdited,
       }));
     }
 
@@ -40,5 +37,3 @@ const byId = (state = new OrderedMap(), action) => {
       return state;
   }
 };
-
-export { byId };

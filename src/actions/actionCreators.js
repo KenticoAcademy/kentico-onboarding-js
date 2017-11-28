@@ -21,11 +21,10 @@ export const deleteItem = id => {
   };
 };
 
-export const toggleEditing = (id, isBeingEdited) => {
+export const toggleEditing = (id) => {
   return {
     type: TOGGLE_EDITING,
     id,
-    isBeingEdited,
   };
 };
 
