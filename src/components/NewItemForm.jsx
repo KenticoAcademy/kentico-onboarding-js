@@ -9,6 +9,8 @@ export class NewItemForm extends PureComponent {
     onAdd: PropTypes.func.isRequired,
   };
 
+  static displayName = 'NewItemForm';
+
   constructor(props) {
     super(props);
 

@@ -15,6 +15,8 @@ export class OpenedListItem extends PureComponent {
     onDelete: PropTypes.func.isRequired,
   };
 
+  static displayName = 'OpenedListItem';
+
   constructor(props) {
     super(props);
 

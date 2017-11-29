@@ -11,6 +11,8 @@ export class ListItem extends PureComponent {
     onDelete: PropTypes.func.isRequired,
   };
 
+  static displayName = 'ListItem';
+
   constructor(props) {
     super(props);
 

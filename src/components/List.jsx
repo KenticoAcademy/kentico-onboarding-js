@@ -8,6 +8,8 @@ import { NewItemForm } from './NewItemForm';
 import { createNewId } from '../utils/createNewId';
 
 export class List extends PureComponent {
+  static displayName = 'List';
+
   constructor(props) {
     super(props);
 

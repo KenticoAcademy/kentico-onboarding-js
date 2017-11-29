@@ -8,6 +8,8 @@ export class ClosedListItem extends PureComponent {
     onItemClick: PropTypes.func.isRequired,
   };
 
+  static displayName = 'ClosedListItem';
+
   onItemClick = () => {
     const selection = window
       .getSelection()
