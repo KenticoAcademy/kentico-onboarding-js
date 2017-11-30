@@ -22,8 +22,7 @@ export class ListItem extends PureComponent {
   }
 
   onSave = (text) => {
-    const { item, onSave } = this.props;
-    const { id } = item;
+    const { item: { id }, onSave } = this.props;
 
     onSave(id, text);
 
@@ -37,8 +36,7 @@ export class ListItem extends PureComponent {
   });
 
   onDelete = () => {
-    const { item, onDelete } = this.props;
-    const { id } = item;
+    const { item: { id }, onDelete } = this.props;
 
     onDelete(id);
   };
@@ -52,8 +50,7 @@ export class ListItem extends PureComponent {
   };
 
   render() {
-    const { number, item } = this.props;
-    const { text } = item;
+    const { number, item: { text } } = this.props;
 
     const {
       isOpened,
