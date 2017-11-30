@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
-import { checkEmptiness } from '../utils/checkEmptiness';
 import PropTypes from 'prop-types';
+import { checkEmptiness } from '../utils/checkEmptiness';
 
 export class AddNewItem extends PureComponent {
 

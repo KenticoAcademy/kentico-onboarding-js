@@ -1,10 +1,10 @@
+import { connect } from 'react-redux';
+import { List as ListComponent } from '../components/List';
 import {
   deleteItem,
   toggleEditing,
   updateItemText,
 } from '../actions/actionCreators';
-import { connect } from 'react-redux';
-import { List as ListComponent } from '../components/List';
 
 function mapStateToProps(state) {
   return {
