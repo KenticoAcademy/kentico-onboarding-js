@@ -4,12 +4,14 @@ import { ListItem } from './ListItem';
 import { EditedListItem } from './EditedListItem';
 
 export const List = ({ itemsMap, deleteItem, updateItemText, toggleEditing }) => {
-  return (<div>{
-      itemsMap.valueSeq().map((item, index) => (
+  return (
+    <div>
+      {itemsMap.valueSeq().map((item, index) =>
         <div
           className="list-group-item form-inline"
           key={item.id}
-        >{index + 1}
+        >
+          {index + 1}
           {'. '}
           {item.isBeingEdited ?
             <EditedListItem
@@ -22,8 +24,8 @@ export const List = ({ itemsMap, deleteItem, updateItemText, toggleEditing }) =>
               onClick={() => toggleEditing(item.id)}
             />}
         </div>
-      ))
-    }</div>
+      )}
+    </div>
   );
 };
 
