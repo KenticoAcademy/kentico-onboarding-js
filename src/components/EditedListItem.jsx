@@ -4,6 +4,8 @@ import { checkEmptiness } from '../utils/checkEmptiness';
 
 export class EditedListItem extends PureComponent {
 
+  static displayName = 'EditedListItem';
+
   static propTypes = {
     text: PropTypes.string.isRequired,
     onSave: PropTypes.func.isRequired,
@@ -26,8 +28,12 @@ export class EditedListItem extends PureComponent {
   };
 
   render() {
-    const { text } = this.props;
-    const { onSave, onDelete, onCancel } = this.props;
+    const {
+      text,
+      onSave,
+      onDelete,
+      onCancel,
+    } = this.props;
     const isEmpty = checkEmptiness(this.state.updatedValue);
 
     return (
