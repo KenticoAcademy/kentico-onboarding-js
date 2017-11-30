@@ -1,17 +1,17 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-export const ListItem = ({ onClick, text }) => (
+export const ListItem = ({ toggleEditing, itemText }) => (
   <div
     className="form-control-static"
-    onClick={onClick}
+    onClick={toggleEditing}
   >
-    {text}
+    {itemText}
   </div>
 );
 
 ListItem.propTypes = {
-  text: PropTypes.string.isRequired,
-  onClick: PropTypes.func.isRequired,
+  itemText: PropTypes.string.isRequired,
+  toggleEditing: PropTypes.func.isRequired,
 };
 

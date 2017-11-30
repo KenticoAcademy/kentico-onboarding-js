@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ListItem } from './ListItem';
-import { EditedListItem } from './EditedListItem';
+import { EditedListItem } from '../containers/EditedListItemContainer';
+import { ListItem } from '../containers/ListItemContainer';
 
-export const List = ({ itemsMap, deleteItem, updateItemText, toggleEditing }) => {
+export const List = ({ itemsMap }) => {
   return (
     <div>
       {itemsMap.valueSeq().map((item, index) =>
@@ -12,16 +12,15 @@ export const List = ({ itemsMap, deleteItem, updateItemText, toggleEditing }) =>
           key={item.id}
         >
           {index + 1}
-          {'. '}
+          .
           {item.isBeingEdited ?
             <EditedListItem
               text={item.text}
-              onSave={(newText) => updateItemText(item.id, newText)}
-              onDelete={() => deleteItem(item.id)}
-              onCancel={() => toggleEditing(item.id)}
-            /> : <ListItem
-              text={item.text}
-              onClick={() => toggleEditing(item.id)}
+              itemId={item.id}
+            /> :
+            <ListItem
+              itemText={item.text}
+              itemId={item.id}
             />}
         </div>
       )}

@@ -7,10 +7,11 @@ export class EditedListItem extends PureComponent {
   static displayName = 'EditedListItem';
 
   static propTypes = {
+    itemId: PropTypes.string.isRequired,
     text: PropTypes.string.isRequired,
-    onSave: PropTypes.func.isRequired,
-    onDelete: PropTypes.func.isRequired,
-    onCancel: PropTypes.func.isRequired,
+    updateItemText: PropTypes.func.isRequired,
+    deleteItem: PropTypes.func.isRequired,
+    toggleEditing: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -27,17 +28,23 @@ export class EditedListItem extends PureComponent {
     );
   };
 
-  onClick = () => {
-    const { onSave } = this.props;
-    onSave(this.state.updatedValue);
+  onSaveClick = () => {
+    const { updateItemText } = this.props;
+    updateItemText(this.props.itemId, this.state.updatedValue);
+  };
+
+  onDeleteClick = () => {
+    const { deleteItem } = this.props;
+    deleteItem(this.props.itemId);
+  };
+
+  onCancelClick = () => {
+    const { toggleEditing } = this.props;
+    toggleEditing(this.props.itemId);
   };
 
   render() {
-    const {
-      text,
-      onDelete,
-      onCancel,
-    } = this.props;
+    const { text } = this.props;
     const isEmpty = checkEmptiness(this.state.updatedValue);
 
     return (
@@ -54,19 +61,19 @@ export class EditedListItem extends PureComponent {
             data-balloon-pos="up"
             className="btn btn-primary"
             disabled={isEmpty}
-            onClick={this.onClick}
+            onClick={this.onSaveClick}
           >
             Save
           </button>
           <button
             className="btn btn-default"
-            onClick={onCancel}
+            onClick={this.onCancelClick}
           >
             Cancel
           </button>
           <button
             className="btn btn-danger"
-            onClick={onDelete}
+            onClick={this.onDeleteClick}
           >
             Delete
           </button>
