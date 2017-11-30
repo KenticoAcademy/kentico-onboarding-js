@@ -27,10 +27,14 @@ export class EditedListItem extends PureComponent {
     );
   };
 
+  onClick = () => {
+    const { onSave } = this.props;
+    onSave(this.state.updatedValue);
+  };
+
   render() {
     const {
       text,
-      onSave,
       onDelete,
       onCancel,
     } = this.props;
@@ -50,7 +54,7 @@ export class EditedListItem extends PureComponent {
             data-balloon-pos="up"
             className="btn btn-primary"
             disabled={isEmpty}
-            onClick={() => onSave(this.state.updatedValue)}
+            onClick={this.onClick}
           >
             Save
           </button>
