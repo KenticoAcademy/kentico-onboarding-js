@@ -1,10 +1,11 @@
 import { Record } from 'immutable';
 import { defaultId } from '../utils/generateId';
 
-const emptyItem = {
+const emptyIndexedItem = {
+  index: null,
   id: defaultId,
   text: '',
   isEdited: false,
 };
 
-export const ListItem = Record(emptyItem);
+export const IndexedItem = Record(emptyIndexedItem);

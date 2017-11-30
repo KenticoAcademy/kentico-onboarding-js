@@ -1,4 +1,4 @@
-import { generateId } from '../../src/utils/generateId';
+import { generateId } from './generateId';
 
 describe('Generate id', () => {
   it('generates unique id', () => {

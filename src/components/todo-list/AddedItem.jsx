@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { validateText } from '../utils/textValidation';
+import { validateText } from '../../utils/validateText';
 import { Input } from './Input';
 
 export class AddedItem extends PureComponent {
@@ -17,10 +17,10 @@ export class AddedItem extends PureComponent {
     });
   }
 
-  changeOfInput = (event) => {
+  changeItemText = ({ currentTarget: { value } }) => {
     this.setState({
-      inputText: event.currentTarget.value,
-      isInputValid: validateText(event.currentTarget.value),
+      inputText: value,
+      isInputValid: validateText(value),
     });
   };
 
@@ -43,7 +43,7 @@ export class AddedItem extends PureComponent {
           <Input
             value={this.state.inputText}
             isValid={this.state.isInputValid}
-            onChange={this.changeOfInput}
+            onChange={this.changeItemText}
             title={invalidTextTitle}
           />
         </div>

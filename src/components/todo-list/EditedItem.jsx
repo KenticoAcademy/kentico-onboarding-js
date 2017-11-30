@@ -1,19 +1,18 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import { validateText } from '../utils/textValidation';
+import { validateText } from '../../utils/validateText';
 import { Input } from './Input';
 
 export class EditedItem extends PureComponent {
   static propTypes = {
-    onSaveItem: PropTypes.func.isRequired,
-    onCancel: PropTypes.func.isRequired,
-    onDelete: PropTypes.func.isRequired,
-    index: PropTypes.number.isRequired,
     item: ImmutablePropTypes.contains({
-      id: PropTypes.string.isRequired,
+      index: PropTypes.number.isRequired,
       text: PropTypes.string.isRequired,
     }).isRequired,
+    onUpdateItem: PropTypes.func.isRequired,
+    onDeleteItem: PropTypes.func.isRequired,
+    onEditStop: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -25,34 +24,35 @@ export class EditedItem extends PureComponent {
     };
   }
 
-  changeOfInput = (event) => {
+  changeItemText = ({ currentTarget: { value } }) => {
     this.setState({
-      editedText: event.currentTarget.value,
-      isInputValid: validateText(event.currentTarget.value),
+      editedText: value,
+      isInputValid: validateText(value),
     });
   };
 
   saveItem = () => {
-    this.props.onSaveItem(this.state.editedText);
+    this.props.onUpdateItem(
+      this.state.editedText,
+    );
   };
 
   render() {
     const invalidTextTitle = (this.state.isInputValid)
       ? undefined
-      : 'Empty item cannot be stored. \n' +
-        'Tip: Use delete button to remove an item';
+      : 'Empty item cannot be stored.\nTip: Use delete button to remove an item';
 
     return (
       <div className="row">
         <div className="col-xs-4">
           <div className="input-group">
             <span className="input-group-addon">
-              {this.props.index}.
+              {this.props.item.index}.
             </span>
             <Input
               value={this.state.editedText}
               isValid={this.state.isInputValid}
-              onChange={this.changeOfInput}
+              onChange={this.changeItemText}
               title={invalidTextTitle}
             />
           </div>
@@ -69,14 +69,14 @@ export class EditedItem extends PureComponent {
         <button
           type="button"
           className="btn btn-light"
-          onClick={this.props.onCancel}
+          onClick={this.props.onEditStop}
         >
           Cancel
         </button>
         <button
           type="button"
           className="btn btn-danger"
-          onClick={this.props.onDelete}
+          onClick={this.props.onDeleteItem}
         >
           Delete
         </button>
