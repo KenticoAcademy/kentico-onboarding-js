@@ -5,7 +5,10 @@ import { ClosedListItem } from './ClosedListItem';
 
 export class ListItem extends PureComponent {
   static propTypes = {
-    item: PropTypes.object.isRequired,
+    item: PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      text: PropTypes.string.isRequired,
+    }),
     number: PropTypes.number.isRequired,
     onSave: PropTypes.func.isRequired,
     onDelete: PropTypes.func.isRequired,
