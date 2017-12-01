@@ -1,13 +1,10 @@
 import { Record } from 'immutable';
 
-const record = Record({
-  id: '',
-  text: '',
-});
+const defaultUUID = '00000000-0000-0000-0000-000000000000';
 
-export const ListItemModel = ({ id, text }) => {
-  return record({
-    id,
-    text,
-  });
+const defaultRecord = {
+  id: defaultUUID,
+  text: '',
 };
+
+export const ListItemModel = Record(defaultRecord);
