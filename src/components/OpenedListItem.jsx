@@ -5,6 +5,8 @@ import { keyActions } from '../constants/keys';
 import { isTextEmpty } from '../utils/validation';
 
 export class OpenedListItem extends PureComponent {
+  static displayName = 'OpenedListItem';
+
   static propTypes = {
     number: PropTypes.number.isRequired,
     selectionRangeStarts: PropTypes.number.isRequired,
@@ -14,8 +16,6 @@ export class OpenedListItem extends PureComponent {
     onCancel: PropTypes.func.isRequired,
     onDelete: PropTypes.func.isRequired,
   };
-
-  static displayName = 'OpenedListItem';
 
   constructor(props) {
     super(props);

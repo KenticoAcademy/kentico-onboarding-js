@@ -2,13 +2,13 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
 export class ClosedListItem extends PureComponent {
+  static displayName = 'ClosedListItem';
+
   static propTypes = {
     number: PropTypes.number.isRequired,
     text: PropTypes.string.isRequired,
     onItemClick: PropTypes.func.isRequired,
   };
-
-  static displayName = 'ClosedListItem';
 
   onItemClick = () => {
     const selection = window

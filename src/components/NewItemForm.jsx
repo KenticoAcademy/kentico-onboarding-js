@@ -5,11 +5,11 @@ import { keyActions } from '../constants/keys';
 import { isTextEmpty } from '../utils/validation';
 
 export class NewItemForm extends PureComponent {
+  static displayName = 'NewItemForm';
+
   static propTypes = {
     onAdd: PropTypes.func.isRequired,
   };
-
-  static displayName = 'NewItemForm';
 
   constructor(props) {
     super(props);

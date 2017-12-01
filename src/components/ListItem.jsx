@@ -4,6 +4,8 @@ import { OpenedListItem } from './OpenedListItem';
 import { ClosedListItem } from './ClosedListItem';
 
 export class ListItem extends PureComponent {
+  static displayName = 'ListItem';
+
   static propTypes = {
     item: PropTypes.shape({
       id: PropTypes.string.isRequired,
@@ -13,8 +15,6 @@ export class ListItem extends PureComponent {
     onSave: PropTypes.func.isRequired,
     onDelete: PropTypes.func.isRequired,
   };
-
-  static displayName = 'ListItem';
 
   constructor(props) {
     super(props);
