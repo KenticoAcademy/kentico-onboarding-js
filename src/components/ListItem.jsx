@@ -58,26 +58,20 @@ export class ListItem extends PureComponent {
       selectionRangeEnds,
     } = this.state;
 
-    if (isOpened) {
-      return (
-        <OpenedListItem
-          text={text}
-          number={number}
-          selectionRangeStarts={selectionRangeStarts}
-          selectionRangeEnds={selectionRangeEnds}
-          onSave={this.onSave}
-          onCancel={this.onCancel}
-          onDelete={this.onDelete}
-        />
-      );
-    }
-
-    return (
+    return isOpened ?
+      <OpenedListItem
+        text={text}
+        number={number}
+        selectionRangeStarts={selectionRangeStarts}
+        selectionRangeEnds={selectionRangeEnds}
+        onSave={this.onSave}
+        onCancel={this.onCancel}
+        onDelete={this.onDelete}
+      /> :
       <ClosedListItem
         text={text}
         number={number}
         onItemClick={this.onItemClick}
-      />
-    );
+      />;
   }
 }

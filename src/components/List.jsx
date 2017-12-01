@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import { OrderedMap } from 'immutable';
 import { HotKeys } from 'react-hotkeys';
 import { keyMap } from '../constants/keys';
-import { ListItemModel } from '../models/ListItemModel';
+import { ListItem as ListItemModel } from '../models/ListItem';
 import { ListItem } from './ListItem.jsx';
 import { NewItemForm } from './NewItemForm';
 import { createNewId } from '../utils/createNewId';
