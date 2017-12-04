@@ -6,7 +6,9 @@ export class ClosedListItem extends PureComponent {
 
   static propTypes = {
     number: PropTypes.number.isRequired,
-    text: PropTypes.string.isRequired,
+    item: PropTypes.shape({
+      text: PropTypes.string.isRequired,
+    }),
     onItemClick: PropTypes.func.isRequired,
   };
 
@@ -22,7 +24,10 @@ export class ClosedListItem extends PureComponent {
   };
 
   render() {
-    const { number, text } = this.props;
+    const {
+      number,
+      item: { text },
+    } = this.props;
 
     return (
       <div onMouseUp={this.onItemClick}>

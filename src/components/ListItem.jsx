@@ -63,8 +63,8 @@ export class ListItem extends PureComponent {
   render() {
     const {
       number,
+      item,
       item: {
-        text,
         isBeingEdited,
       },
     } = this.props;
@@ -76,7 +76,7 @@ export class ListItem extends PureComponent {
 
     return isBeingEdited ?
       <OpenedListItem
-        text={text}
+        item={item}
         number={number}
         selectionRangeStarts={selectionRangeStarts}
         selectionRangeEnds={selectionRangeEnds}
@@ -85,7 +85,7 @@ export class ListItem extends PureComponent {
         onDelete={this.onDelete}
       /> :
       <ClosedListItem
-        text={text}
+        item={item}
         number={number}
         onItemClick={this.onItemClick}
       />;

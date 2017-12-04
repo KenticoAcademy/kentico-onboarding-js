@@ -11,7 +11,9 @@ export class OpenedListItem extends PureComponent {
     number: PropTypes.number.isRequired,
     selectionRangeStarts: PropTypes.number.isRequired,
     selectionRangeEnds: PropTypes.number.isRequired,
-    text: PropTypes.string.isRequired,
+    item: PropTypes.shape({
+      text: PropTypes.string.isRequired,
+    }),
     onSave: PropTypes.func.isRequired,
     onCancel: PropTypes.func.isRequired,
     onDelete: PropTypes.func.isRequired,
@@ -20,10 +22,8 @@ export class OpenedListItem extends PureComponent {
   constructor(props) {
     super(props);
 
-    const { text } = this.props;
-
     this.state = {
-      text,
+      text: this.props.item.text,
     };
   }
 
