@@ -24,6 +24,22 @@ export class List extends PureComponent {
     }));
   };
 
+  onCancel = (itemId) => {
+    this.setState(prevState => ({
+      items: prevState.items.update(itemId, item => item.merge({
+        isBeingEdited: false,
+      })),
+    }));
+  };
+
+  onClick = (itemId) => {
+    this.setState(prevState => ({
+      items: prevState.items.update(itemId, item => item.merge({
+        isBeingEdited: true,
+      })),
+    }));
+  };
+
   addNewItem = (text) => {
     const id = createNewId();
     const item = new ListItemModel({
@@ -41,6 +57,7 @@ export class List extends PureComponent {
       items: prevState.items.update(changedItemId, item =>
         item.merge({
           text: newText,
+          isBeingEdited: false,
         })),
     }));
   };
@@ -59,6 +76,8 @@ export class List extends PureComponent {
             number={index + 1}
             onSave={this.changeItemText}
             onDelete={this.onDelete}
+            onClick={this.onClick}
+            onCancel={this.onCancel}
           />
         </li>
       ));

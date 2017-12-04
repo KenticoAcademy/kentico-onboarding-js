@@ -10,17 +10,21 @@ export class ListItem extends PureComponent {
     item: PropTypes.shape({
       id: PropTypes.string.isRequired,
       text: PropTypes.string.isRequired,
+      isBeingEdited: PropTypes.bool.isRequired,
     }),
     number: PropTypes.number.isRequired,
     onSave: PropTypes.func.isRequired,
     onDelete: PropTypes.func.isRequired,
+    onClick: PropTypes.func.isRequired,
+    onCancel: PropTypes.func.isRequired,
   };
 
   constructor(props) {
     super(props);
 
     this.state = {
-      isOpened: false,
+      selectionRangeStarts: 0,
+      selectionRangeEnds: 0,
     };
   }
 
@@ -28,15 +32,7 @@ export class ListItem extends PureComponent {
     const { item: { id }, onSave } = this.props;
 
     onSave(id, text);
-
-    this.setState({
-      isOpened: false,
-    });
   };
-
-  onCancel = () => this.setState({
-    isOpened: false,
-  });
 
   onDelete = () => {
     const { item: { id }, onDelete } = this.props;
@@ -44,24 +40,41 @@ export class ListItem extends PureComponent {
     onDelete(id);
   };
 
+  onCancel = () => {
+    const { item: { id }, onCancel } = this.props;
+
+    onCancel(id);
+  };
+
   onItemClick = (selectionRangeStarts, selectionRangeEnds) => {
+    const {
+      item: { id },
+      onClick,
+    } = this.props;
+
+    onClick(id);
+
     this.setState({
-      isOpened: true,
       selectionRangeStarts,
       selectionRangeEnds,
     });
   };
 
   render() {
-    const { number, item: { text } } = this.props;
+    const {
+      number,
+      item: {
+        text,
+        isBeingEdited,
+      },
+    } = this.props;
 
     const {
-      isOpened,
       selectionRangeStarts,
       selectionRangeEnds,
     } = this.state;
 
-    return isOpened ?
+    return isBeingEdited ?
       <OpenedListItem
         text={text}
         number={number}
