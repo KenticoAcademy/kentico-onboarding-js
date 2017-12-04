@@ -9,7 +9,7 @@ export class ClosedListItem extends PureComponent {
     item: PropTypes.shape({
       text: PropTypes.string.isRequired,
     }),
-    onItemClick: PropTypes.func.isRequired,
+    onClick: PropTypes.func.isRequired,
   };
 
   onItemClick = () => {
@@ -18,9 +18,9 @@ export class ClosedListItem extends PureComponent {
       .getRangeAt(0);
 
     const { startOffset, endOffset } = selection;
-    const { onItemClick } = this.props;
+    const { onClick } = this.props;
 
-    onItemClick(startOffset, endOffset);
+    onClick(startOffset, endOffset);
   };
 
   render() {

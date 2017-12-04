@@ -23,7 +23,7 @@ export class NewItemForm extends PureComponent {
     newItemText: e.target.value,
   });
 
-  onAdd = () => {
+  submitItemText = () => {
     const { onAdd } = this.props;
     const { newItemText } = this.state;
 
@@ -38,7 +38,7 @@ export class NewItemForm extends PureComponent {
     const { newItemText } = this.state;
 
     if (!isTextEmpty(newItemText)) {
-      this.onAdd();
+      this.submitItemText();
     }
   };
 
@@ -73,7 +73,7 @@ export class NewItemForm extends PureComponent {
           />
           <button
             className="btn btn-primary ml-3"
-            onClick={this.onAdd}
+            onClick={this.submitItemText}
             disabled={!enableAddButton}
             title="Adds new item to list. Text cannot be empty"
           >

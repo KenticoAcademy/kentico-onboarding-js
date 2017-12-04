@@ -18,13 +18,13 @@ export class List extends PureComponent {
     };
   }
 
-  onDelete = (itemId) => {
+  deleteItem = (itemId) => {
     this.setState(prevState => ({
       items: prevState.items.delete(itemId),
     }));
   };
 
-  onCancel = (itemId) => {
+  cancelUnsavedChanges = (itemId) => {
     this.setState(prevState => ({
       items: prevState.items.update(itemId, item => item.merge({
         isBeingEdited: false,
@@ -32,7 +32,7 @@ export class List extends PureComponent {
     }));
   };
 
-  onClick = (itemId) => {
+  openItemForEditing = (itemId) => {
     this.setState(prevState => ({
       items: prevState.items.update(itemId, item => item.merge({
         isBeingEdited: true,
@@ -75,9 +75,9 @@ export class List extends PureComponent {
             item={item}
             number={index + 1}
             onSave={this.changeItemText}
-            onDelete={this.onDelete}
-            onClick={this.onClick}
-            onCancel={this.onCancel}
+            onDelete={this.deleteItem}
+            onClick={this.openItemForEditing}
+            onCancel={this.cancelUnsavedChanges}
           />
         </li>
       ));

@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { OpenedListItem } from './OpenedListItem';
+import { OpenedListItem } from './ListItemForm';
 import { ClosedListItem } from './ClosedListItem';
 
 export class ListItem extends PureComponent {
@@ -28,25 +28,25 @@ export class ListItem extends PureComponent {
     };
   }
 
-  onSave = (text) => {
+  changeItemText = (text) => {
     const { item: { id }, onSave } = this.props;
 
     onSave(id, text);
   };
 
-  onDelete = () => {
+  deleteItem = () => {
     const { item: { id }, onDelete } = this.props;
 
     onDelete(id);
   };
 
-  onCancel = () => {
+  cancelUnsavedChanges = () => {
     const { item: { id }, onCancel } = this.props;
 
     onCancel(id);
   };
 
-  onItemClick = (selectionRangeStarts, selectionRangeEnds) => {
+  openItemForEditing = (selectionRangeStarts, selectionRangeEnds) => {
     const {
       item: { id },
       onClick,
@@ -80,14 +80,14 @@ export class ListItem extends PureComponent {
         number={number}
         selectionRangeStarts={selectionRangeStarts}
         selectionRangeEnds={selectionRangeEnds}
-        onSave={this.onSave}
-        onCancel={this.onCancel}
-        onDelete={this.onDelete}
+        onSave={this.changeItemText}
+        onCancel={this.cancelUnsavedChanges}
+        onDelete={this.deleteItem}
       /> :
       <ClosedListItem
         item={item}
         number={number}
-        onItemClick={this.onItemClick}
+        onClick={this.openItemForEditing}
       />;
   }
 }

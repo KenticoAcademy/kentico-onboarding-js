@@ -40,7 +40,7 @@ export class OpenedListItem extends PureComponent {
     text: e.target.value,
   });
 
-  onSave = () => {
+  submitNewItemText = () => {
     const { onSave } = this.props;
     const { text } = this.state;
 
@@ -51,7 +51,7 @@ export class OpenedListItem extends PureComponent {
     const { text } = this.state;
 
     if (!isTextEmpty(text)) {
-      this.onSave();
+      this.submitNewItemText();
     }
   };
 
@@ -90,7 +90,7 @@ export class OpenedListItem extends PureComponent {
 
           <button
             className="btn btn-primary ml-3"
-            onClick={this.onSave}
+            onClick={this.submitNewItemText}
             disabled={!enableSaveButton}
             title="Saves new text which cannot be empty"
           >

@@ -1,5 +1,5 @@
 import { Record } from 'immutable';
-import { defaultUuid } from '../constants/defaultUUID';
+import { defaultUuid } from '../constants/defaultUuid';
 
 const defaultItem = {
   id: defaultUuid,
