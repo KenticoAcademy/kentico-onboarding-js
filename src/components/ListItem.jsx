@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { EditedListItem } from '../containers/EditedListItem';
 import { UneditedListItem } from '../containers/UneditedListItem';
 
-export const ListItem = ({ itemId, isBeingEdited }) => {
+const ListItem = ({ itemId, isBeingEdited }) => {
   return (
     isBeingEdited ?
       <EditedListItem
@@ -20,3 +20,5 @@ ListItem.propTypes = {
   itemId: PropTypes.string.isRequired,
   isBeingEdited: PropTypes.bool.isRequired,
 };
+
+export { ListItem };
