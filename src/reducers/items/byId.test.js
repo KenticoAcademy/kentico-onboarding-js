@@ -1,6 +1,6 @@
 import { OrderedMap } from 'immutable';
 import { generateId } from '../../utils/generateId';
-import { itemsById } from './itemsById';
+import { byId } from './byId';
 import { Item } from '../../models/Item';
 import {
   addItem,
@@ -9,7 +9,7 @@ import {
   updateItemText,
 } from '../../actions/actionCreators';
 
-describe('itemsById', () => {
+describe('byId', () => {
   it('addItem returns map filled with new item with correct text and id', () => {
     const newId = generateId();
     const expectedState = new OrderedMap({
@@ -19,7 +19,7 @@ describe('itemsById', () => {
         isBeingEdited: false,
       }),
     });
-    const stateAfter = itemsById(undefined, addItem(newId, 'tested item'));
+    const stateAfter = byId(undefined, addItem(newId, 'tested item'));
 
     expect(stateAfter).toEqual(expectedState);
   });
@@ -41,7 +41,7 @@ describe('itemsById', () => {
       }),
     });
 
-    const stateAfter = itemsById(stateBefore, updateItemText(itemId, 'This item is already edited'));
+    const stateAfter = byId(stateBefore, updateItemText(itemId, 'This item is already edited'));
 
     expect(stateAfter).toEqual(expectedState);
   });
@@ -57,7 +57,7 @@ describe('itemsById', () => {
     });
     const expectedState = new OrderedMap();
 
-    const stateAfter = itemsById(stateBefore, deleteItem(itemId));
+    const stateAfter = byId(stateBefore, deleteItem(itemId));
 
     expect(stateAfter).toEqual(expectedState);
   });
@@ -80,10 +80,8 @@ describe('itemsById', () => {
       }),
     });
 
-    const stateAfter = itemsById(stateBefore, toggleEditing(itemId, false));
+    const stateAfter = byId(stateBefore, toggleEditing(itemId, false));
 
     expect(stateAfter).toEqual(expectedState);
   });
-})
-;
-
+});

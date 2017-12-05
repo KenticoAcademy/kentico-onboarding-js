@@ -8,7 +8,7 @@ import {
   TEXT_UPDATE_CHANGE,
 } from '../../constants/actionTypes';
 
-export const itemsById = (state = new OrderedMap(), action) => {
+export const byId = (state = new OrderedMap(), action) => {
   switch (action.type) {
 
     case ADD_ITEM:

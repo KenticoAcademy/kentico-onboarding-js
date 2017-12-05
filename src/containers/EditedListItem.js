@@ -8,9 +8,10 @@ import {
 } from '../actions/actionCreators';
 
 function mapStateToProps(state, { itemId }) {
+  const item = state.items.byId.get(itemId);
   return {
-    itemText: state.itemsById.get(itemId).text,
-    textUpdate: state.itemsById.get(itemId).textUpdate,
+    itemText: item.text,
+    textUpdate: item.textUpdate,
   };
 }
 

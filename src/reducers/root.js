@@ -1,8 +1,6 @@
 import { combineReducers } from 'redux';
-import { newItemText } from './items/newItemText';
-import { itemsById } from './items/itemsById';
+import { items } from './items/items';
 
 export const root = combineReducers({
-  itemsById,
-  newItemText,
+  items,
 });

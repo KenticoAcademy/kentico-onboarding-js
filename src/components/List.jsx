@@ -11,7 +11,7 @@ const List = ({ itemsMap }) => {
           key={itemKey}
         >
           {index + 1}
-          .
+          .&nbsp;
           <ListItem
             itemId={itemKey}
           />

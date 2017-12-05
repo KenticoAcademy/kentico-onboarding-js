@@ -6,7 +6,7 @@ import { generateId } from '../utils/generateId';
 import { connect } from 'react-redux';
 import { AddNewItem as AddNewItemComponent } from '../components/AddNewItem';
 
-const mapStateToProps = ({ newItemText }) => ({
+const mapStateToProps = ({ items: { newItemText } }) => ({
   newItemText,
 });
 
