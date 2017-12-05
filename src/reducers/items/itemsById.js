@@ -1,14 +1,14 @@
 import { OrderedMap } from 'immutable';
-import { Item } from '../../../models/Item';
+import { Item } from '../../models/Item';
 import {
   ADD_ITEM,
   UPDATE_ITEM_TEXT,
   DELETE_ITEM,
   TOGGLE_EDITING,
   TEXT_UPDATE_CHANGE,
-} from '../../../constants/actionTypes';
+} from '../../constants/actionTypes';
 
-export const byId = (state = new OrderedMap(), action) => {
+export const itemsById = (state = new OrderedMap(), action) => {
   switch (action.type) {
 
     case ADD_ITEM:

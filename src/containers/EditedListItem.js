@@ -9,8 +9,8 @@ import {
 
 function mapStateToProps(state, { itemId }) {
   return {
-    itemText: state.items.byId.get(itemId).text,
-    textUpdate: state.items.byId.get(itemId).textUpdate,
+    itemText: state.itemsById.get(itemId).text,
+    textUpdate: state.itemsById.get(itemId).textUpdate,
   };
 }
 

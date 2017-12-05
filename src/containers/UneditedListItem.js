@@ -5,7 +5,7 @@ import {
 } from '../actions/actionCreators';
 
 const mapStateToProps = (state, { itemId }) => ({
-  itemText: state.items.byId.get(itemId).text,
+  itemText: state.itemsById.get(itemId).text,
 });
 
 const mapDispatchToProps = (dispatch, { itemId }) => ({

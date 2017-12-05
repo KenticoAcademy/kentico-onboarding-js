@@ -38,6 +38,6 @@ const defaultListItems = [
   ],
 ];
 
-const defaultStateValues = { items: { byId: new OrderedMap(defaultListItems) }, newItemText: '' };
+const defaultStateValues = { itemsById: new OrderedMap(defaultListItems), newItemText: '' };
 
 export { defaultStateValues };
