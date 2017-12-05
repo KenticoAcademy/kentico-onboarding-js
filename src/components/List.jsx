@@ -1,64 +1,97 @@
 import React, { PureComponent } from 'react';
+import { OrderedMap } from 'immutable';
+import { HotKeys } from 'react-hotkeys';
+import { keyMap } from '../constants/keys';
+import { ListItem as ListItemModel } from '../models/ListItem';
 import { ListItem } from './ListItem.jsx';
 import { NewItemForm } from './NewItemForm';
 import { createNewId } from '../utils/createNewId';
 
 export class List extends PureComponent {
+  static displayName = 'List';
+
   constructor(props) {
     super(props);
 
     this.state = {
-      items: [],
+      items: OrderedMap(),
     };
   }
 
-  onDelete = (itemId) => {
-    const newItems = this.state.items.filter(item => item.id !== itemId);
-    this.setState({ items: newItems });
+  deleteItem = (itemId) => {
+    this.setState(prevState => ({
+      items: prevState.items.delete(itemId),
+    }));
+  };
+
+  cancelUnsavedChanges = (itemId) => {
+    this.setState(prevState => ({
+      items: prevState.items.update(itemId, item => item.merge({
+        isBeingEdited: false,
+      })),
+    }));
+  };
+
+  openItemForEditing = (itemId) => {
+    this.setState(prevState => ({
+      items: prevState.items.update(itemId, item => item.merge({
+        isBeingEdited: true,
+      })),
+    }));
   };
 
   addNewItem = (text) => {
     const id = createNewId();
-    const item = { text, id };
-    const newItems = this.state.items.concat(item);
-
-    this.setState({ items: newItems });
-  };
-
-  changeItemText = (id, newText) => {
-    const newItems = this.state.items.map(item => {
-      if (item.id === id) {
-        return { ...item, text: newText };
-      }
-      return item;
+    const item = new ListItemModel({
+      id,
+      text,
     });
 
-    this.setState({ items: newItems });
+    this.setState(prevState => ({
+      items: prevState.items.set(id, item),
+    }));
+  };
+
+  changeItemText = (changedItemId, newText) => {
+    this.setState(prevState => ({
+      items: prevState.items.update(changedItemId, item =>
+        item.merge({
+          text: newText,
+          isBeingEdited: false,
+        })),
+    }));
   };
 
   render() {
-    const listItems = this.state.items.map((item, index) =>
-      <li
-        className="list-group-item"
-        key={item.id}
-      >
-        <ListItem
-          item={item}
-          number={index + 1}
-          onSave={this.changeItemText}
-          onDelete={this.onDelete}
-        />
-      </li>
-    );
+    const { items } = this.state;
+    const listItems = items
+      .entrySeq()
+      .map(([id, item], index) => (
+        <li
+          className="list-group-item"
+          key={id}
+        >
+          <ListItem
+            item={item}
+            number={index + 1}
+            onSave={this.changeItemText}
+            onDelete={this.deleteItem}
+            onClick={this.openItemForEditing}
+            onCancel={this.cancelUnsavedChanges}
+          />
+        </li>
+      ));
 
     return (
-      <ol className="list-group">
-        {listItems}
+      <HotKeys keyMap={keyMap}>
+        <ol className="list-group">
+          {listItems}
 
-        <li className="list-group-item">
-          <NewItemForm onAdd={this.addNewItem} />
-        </li>
-      </ol>
+          <li className="list-group-item">
+            <NewItemForm onAdd={this.addNewItem} />
+          </li>
+        </ol>
+      </HotKeys>
     );
   }
 }

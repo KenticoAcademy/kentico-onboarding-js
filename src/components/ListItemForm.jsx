@@ -1,19 +1,19 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { HotKeys } from 'react-hotkeys';
-import { textIsEmpty } from '../utils/validation';
+import { keyActions } from '../constants/keys';
+import { isTextEmpty } from '../utils/validation';
 
-const keyMap = {
-  'submitInput': 'enter',
-  'cancelChanges': 'esc',
-};
+export class OpenedListItem extends PureComponent {
+  static displayName = 'OpenedListItem';
 
-export class ListItemEditMode extends PureComponent {
   static propTypes = {
     number: PropTypes.number.isRequired,
     selectionRangeStarts: PropTypes.number.isRequired,
     selectionRangeEnds: PropTypes.number.isRequired,
-    text: PropTypes.string.isRequired,
+    item: PropTypes.shape({
+      text: PropTypes.string.isRequired,
+    }),
     onSave: PropTypes.func.isRequired,
     onCancel: PropTypes.func.isRequired,
     onDelete: PropTypes.func.isRequired,
@@ -22,50 +22,55 @@ export class ListItemEditMode extends PureComponent {
   constructor(props) {
     super(props);
 
-    const { text } = this.props;
-
     this.state = {
-      text,
+      text: this.props.item.text,
     };
   }
 
   componentDidMount() {
-    const { selectionRangeStarts, selectionRangeEnds } = this.props;
+    const {
+      selectionRangeStarts,
+      selectionRangeEnds,
+    } = this.props;
+
     this.input.setSelectionRange(selectionRangeStarts, selectionRangeEnds);
   }
 
-  onInputChange = (e) => this.setState({ text: e.target.value });
+  onInputChange = e => this.setState({
+    text: e.target.value,
+  });
 
-  onSave = () => {
+  submitNewItemText = () => {
+    const { onSave } = this.props;
     const { text } = this.state;
-    this.props.onSave(text);
+
+    onSave(text);
   };
 
   onEnterPress = () => {
     const { text } = this.state;
 
-    if (!textIsEmpty(text)) {
-      this.onSave();
+    if (!isTextEmpty(text)) {
+      this.submitNewItemText();
     }
   };
 
-  setInputRef = (input) => {
+  setInputRef = input => {
     this.input = input;
   };
 
   render() {
     const { text } = this.state;
-    const { number, onCancel } = this.props;
-    const enableSaveButton = !textIsEmpty(text);
+    const { number, onCancel, onDelete } = this.props;
+    const enableSaveButton = !isTextEmpty(text);
 
     const handlers = {
-      'submitInput': this.onEnterPress,
-      'cancelChanges': onCancel,
+      [keyActions.OnEnter]: this.onEnterPress,
+      [keyActions.OnEsc]: onCancel,
     };
 
     return (
       <HotKeys
-        keyMap={keyMap}
         handlers={handlers}
         className="row"
       >
@@ -74,7 +79,7 @@ export class ListItemEditMode extends PureComponent {
         </label>
         <div className="input-group col">
           <input
-            className="form-control col-md-6"
+            className="form-control col-md-6 rounded"
             type="text"
             value={text}
             placeholder="Item name cannot be empty"
@@ -84,23 +89,26 @@ export class ListItemEditMode extends PureComponent {
           />
 
           <button
-            className="btn btn-primary"
-            onClick={this.onSave}
+            className="btn btn-primary ml-3"
+            onClick={this.submitNewItemText}
             disabled={!enableSaveButton}
+            title="Saves new text which cannot be empty"
           >
             Save
           </button>
 
           <button
-            className="btn btn-secondary"
-            onClick={this.props.onCancel}
+            className="btn btn-secondary ml-2"
+            onClick={onCancel}
+            title="Drops unsaved changes"
           >
             Cancel
           </button>
 
           <button
-            className="btn btn-danger"
-            onClick={this.props.onDelete}
+            className="btn btn-danger ml-2"
+            onClick={onDelete}
+            title="Removes item from list"
           >
             Delete
           </button>

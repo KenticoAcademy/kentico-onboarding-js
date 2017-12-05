@@ -1,13 +1,12 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { HotKeys } from 'react-hotkeys';
-import { textIsEmpty } from '../utils/validation';
-
-const keyMap = {
-  'submitInput': 'enter',
-};
+import { keyActions } from '../constants/keys';
+import { isTextEmpty } from '../utils/validation';
 
 export class NewItemForm extends PureComponent {
+  static displayName = 'NewItemForm';
+
   static propTypes = {
     onAdd: PropTypes.func.isRequired,
   };
@@ -20,41 +19,52 @@ export class NewItemForm extends PureComponent {
     };
   }
 
-  onInputChange = (e) => {
-    this.setState({ newItemText: e.target.value });
-  };
+  onInputChange = e => this.setState({
+    newItemText: e.target.value,
+  });
 
-  onAdd = () => {
+  submitItemText = () => {
+    const { onAdd } = this.props;
     const { newItemText } = this.state;
-    this.props.onAdd(newItemText);
-    this.setState({ newItemText: '' });
+
+    onAdd(newItemText);
+
+    this.setState({
+      newItemText: '',
+    });
   };
 
   onEnterPress = () => {
     const { newItemText } = this.state;
 
-    if (!textIsEmpty(newItemText)) {
-      this.onAdd();
+    if (!isTextEmpty(newItemText)) {
+      this.submitItemText();
     }
+  };
+
+  onEscPress = () => {
+    this.setState({
+      newItemText: '',
+    });
   };
 
   render() {
     const { newItemText } = this.state;
-    const enableAddButton = !textIsEmpty(newItemText);
+    const enableAddButton = !isTextEmpty(newItemText);
 
     const handlers = {
-      'submitInput': this.onEnterPress,
+      [keyActions.OnEnter]: this.onEnterPress,
+      [keyActions.OnEsc]: this.onEscPress,
     };
 
     return (
       <HotKeys
         handlers={handlers}
-        keyMap={keyMap}
         className="row"
       >
         <div className="input-group col">
           <input
-            className="form-control col-md-6"
+            className="form-control col-md-6 rounded"
             type="text"
             placeholder="Item name cannot be empty"
             value={newItemText}
@@ -62,9 +72,10 @@ export class NewItemForm extends PureComponent {
             autoFocus={true}
           />
           <button
-            className="btn btn-primary"
-            onClick={this.onAdd}
+            className="btn btn-primary ml-3"
+            onClick={this.submitItemText}
             disabled={!enableAddButton}
+            title="Adds new item to list. Text cannot be empty"
           >
             Add
           </button>

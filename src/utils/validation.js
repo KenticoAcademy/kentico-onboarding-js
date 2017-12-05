@@ -1,3 +1,1 @@
-export function textIsEmpty(input) {
-  return input === '';
-}
+export const isTextEmpty = input => !input;

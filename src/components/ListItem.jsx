@@ -1,74 +1,93 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { ListItemEditMode } from './ListItemEditMode';
+import { OpenedListItem } from './ListItemForm';
+import { ClosedListItem } from './ClosedListItem';
 
 export class ListItem extends PureComponent {
+  static displayName = 'ListItem';
+
   static propTypes = {
-    item: PropTypes.object.isRequired,
+    item: PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      text: PropTypes.string.isRequired,
+      isBeingEdited: PropTypes.bool.isRequired,
+    }),
     number: PropTypes.number.isRequired,
     onSave: PropTypes.func.isRequired,
     onDelete: PropTypes.func.isRequired,
+    onClick: PropTypes.func.isRequired,
+    onCancel: PropTypes.func.isRequired,
   };
 
   constructor(props) {
     super(props);
 
     this.state = {
-      isBeingEdited: false,
+      selectionRangeStarts: 0,
+      selectionRangeEnds: 0,
     };
   }
 
-  onSave = (text) => {
-    const { id } = this.props.item;
+  changeItemText = (text) => {
+    const { item: { id }, onSave } = this.props;
 
-    this.setState({ isBeingEdited: false });
-    this.props.onSave(id, text);
+    onSave(id, text);
   };
 
-  onCancel = () => {
-    this.setState({ isBeingEdited: false });
+  deleteItem = () => {
+    const { item: { id }, onDelete } = this.props;
+
+    onDelete(id);
   };
 
-  onDelete = () => {
-    const { id } = this.props.item;
-    this.props.onDelete(id);
+  cancelUnsavedChanges = () => {
+    const { item: { id }, onCancel } = this.props;
+
+    onCancel(id);
   };
 
-  onItemClick = () => {
-    const selection = window.getSelection().getRangeAt(0);
-    const { startOffset, endOffset } = selection;
+  openItemForEditing = (selectionRangeStarts, selectionRangeEnds) => {
+    const {
+      item: { id },
+      onClick,
+    } = this.props;
+
+    onClick(id);
 
     this.setState({
-      isBeingEdited: true,
-      selectionRangeStarts: startOffset,
-      selectionRangeEnds: endOffset,
+      selectionRangeStarts,
+      selectionRangeEnds,
     });
   };
 
   render() {
-    const { isBeingEdited, selectionRangeStarts, selectionRangeEnds } = this.state;
-    const { number } = this.props;
-    const { text } = this.props.item;
+    const {
+      number,
+      item,
+      item: {
+        isBeingEdited,
+      },
+    } = this.props;
 
-    if (isBeingEdited) {
-      return (
-        <ListItemEditMode
-          text={text}
-          number={number}
-          selectionRangeStarts={selectionRangeStarts}
-          selectionRangeEnds={selectionRangeEnds}
-          onSave={this.onSave}
-          onCancel={this.onCancel}
-          onDelete={this.onDelete}
-        />
-      );
-    }
+    const {
+      selectionRangeStarts,
+      selectionRangeEnds,
+    } = this.state;
 
-    return (
-      <div onMouseUp={this.onItemClick}>
-        {number + '. '}
-        {text}
-      </div>
-    );
+    return isBeingEdited ?
+      <OpenedListItem
+        item={item}
+        number={number}
+        selectionRangeStarts={selectionRangeStarts}
+        selectionRangeEnds={selectionRangeEnds}
+        onSave={this.changeItemText}
+        onCancel={this.cancelUnsavedChanges}
+        onDelete={this.deleteItem}
+      /> :
+      <ClosedListItem
+        item={item}
+        number={number}
+        onClick={this.openItemForEditing}
+      />;
   }
 }
