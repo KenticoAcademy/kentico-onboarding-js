@@ -10,6 +10,8 @@ export const UneditedListItem = ({ toggleEditing, itemText }) => (
   </div>
 );
 
+UneditedListItem.displayName = 'EditedListItem';
+
 UneditedListItem.propTypes = {
   itemText: PropTypes.string.isRequired,
   toggleEditing: PropTypes.func.isRequired,

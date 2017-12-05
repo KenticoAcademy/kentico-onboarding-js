@@ -4,6 +4,8 @@ import { checkEmptiness } from '../utils/checkEmptiness';
 
 export class AddNewItem extends PureComponent {
 
+  static displayName = 'AddNewItem';
+
   static propTypes = {
     newItemText: PropTypes.string.isRequired,
     onAdd: PropTypes.func.isRequired,

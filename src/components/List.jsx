@@ -21,6 +21,8 @@ export const List = ({ itemsMap }) => {
   );
 };
 
+List.displayName = 'List';
+
 List.propTypes = {
   itemsMap: PropTypes.object.isRequired,
 };

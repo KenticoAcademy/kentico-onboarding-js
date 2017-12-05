@@ -14,6 +14,8 @@ export const ListItem = ({ itemId, isBeingEdited }) => {
       />));
 };
 
+ListItem.displayName = 'ListItem';
+
 ListItem.propTypes = {
   itemId: PropTypes.string.isRequired,
   isBeingEdited: PropTypes.bool.isRequired,
