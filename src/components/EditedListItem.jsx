@@ -7,7 +7,6 @@ export class EditedListItem extends PureComponent {
   static displayName = 'EditedListItem';
 
   static propTypes = {
-    itemId: PropTypes.string.isRequired,
     itemText: PropTypes.string.isRequired,
     textUpdate: PropTypes.string.isRequired,
     updateItemText: PropTypes.func.isRequired,
