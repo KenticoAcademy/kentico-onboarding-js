@@ -1,11 +1,9 @@
-export const keyActions = {
+export const keyActions = Object.freeze({
   OnEnter: 'onEnter',
   OnEsc: 'onEsc',
-};
+});
 
-const defaultKeyMap = {
+export const keyMap = Object.freeze({
   [keyActions.OnEnter]: 'enter',
   [keyActions.OnEsc]: 'esc',
-};
-
-export const keyMap = Object.freeze(defaultKeyMap);
+});
