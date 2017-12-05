@@ -6,15 +6,14 @@ import { createStore, applyMiddleware } from 'redux';
 import logger from 'redux-logger';
 import { Provider } from 'react-redux';
 import { App } from './App.jsx';
-import { defaultListItems } from './constants/defaultListItems';
+import { defaultStateValues } from './constants/defaultListItems';
 import { root } from './reducers/root';
 
 const store = createStore(
   root,
-  applyMiddleware(logger)
+  defaultStateValues,
+  applyMiddleware(logger),
 );
-
-defaultListItems(store);
 
 ReactDOM.render(
   <Provider store={store}>
