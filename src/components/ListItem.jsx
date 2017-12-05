@@ -1,17 +1,20 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
+import { EditedListItem } from '../containers/EditedListItem';
+import { UneditedListItem } from '../containers/UneditedListItem';
 
-export const ListItem = ({ toggleEditing, itemText }) => (
-  <div
-    className="form-control-static"
-    onClick={toggleEditing}
-  >
-    {itemText}
-  </div>
-);
-
-ListItem.propTypes = {
-  itemText: PropTypes.string.isRequired,
-  toggleEditing: PropTypes.func.isRequired,
+export const ListItem = ({ itemId, isBeingEdited }) => {
+  return (
+    isBeingEdited ?
+      <EditedListItem
+        itemId={itemId}
+      /> :
+      (<UneditedListItem
+        itemId={itemId}
+      />));
 };
 
+ListItem.propTypes = {
+  itemId: PropTypes.string.isRequired,
+  isBeingEdited: PropTypes.bool.isRequired,
+};

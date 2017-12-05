@@ -8,7 +8,7 @@ export class EditedListItem extends PureComponent {
 
   static propTypes = {
     itemId: PropTypes.string.isRequired,
-    text: PropTypes.string.isRequired,
+    itemText: PropTypes.string.isRequired,
     updateItemText: PropTypes.func.isRequired,
     deleteItem: PropTypes.func.isRequired,
     toggleEditing: PropTypes.func.isRequired,
@@ -44,14 +44,14 @@ export class EditedListItem extends PureComponent {
   };
 
   render() {
-    const { text } = this.props;
+    const { itemText } = this.props;
     const isEmpty = checkEmptiness(this.state.updatedValue);
 
     return (
       <div className="input-group">
         <input
           className="form-control"
-          defaultValue={text}
+          defaultValue={itemText}
           onChange={this.onTextChanged}
           placeholder="Type new item name..."
         />

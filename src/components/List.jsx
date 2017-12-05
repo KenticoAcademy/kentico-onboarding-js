@@ -1,27 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { EditedListItem } from '../containers/EditedListItemContainer';
-import { ListItem } from '../containers/ListItemContainer';
+import { ListItem } from '../containers/ListItem';
 
 export const List = ({ itemsMap }) => {
   return (
     <div>
-      {itemsMap.valueSeq().map((item, index) =>
+      {itemsMap.keySeq().map((itemKey, index) =>
         <div
           className="list-group-item form-inline"
-          key={item.id}
+          key={itemKey}
         >
           {index + 1}
           .
-          {item.isBeingEdited ?
-            <EditedListItem
-              text={item.text}
-              itemId={item.id}
-            /> :
-            <ListItem
-              itemText={item.text}
-              itemId={item.id}
-            />}
+          <ListItem
+            itemId={itemKey}
+          />
         </div>
       )}
     </div>
@@ -30,7 +23,4 @@ export const List = ({ itemsMap }) => {
 
 List.propTypes = {
   itemsMap: PropTypes.object.isRequired,
-  deleteItem: PropTypes.func.isRequired,
-  updateItemText: PropTypes.func.isRequired,
-  toggleEditing: PropTypes.func.isRequired,
 };

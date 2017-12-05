@@ -6,9 +6,9 @@ import {
   updateItemText,
 } from '../actions/actionCreators';
 
-function mapStateToProps(state) {
+function mapStateToProps(state, { itemId }) {
   return {
-    itemsMap: state.items.byId,
+    itemText: state.items.byId.get(itemId).text,
   };
 }
 
