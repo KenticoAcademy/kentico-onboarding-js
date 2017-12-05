@@ -4,6 +4,7 @@ import {
   UPDATE_ITEM_TEXT,
   TOGGLE_EDITING,
   UPDATE_NEW_ITEM_TEXT,
+  TEXT_UPDATE_CHANGE,
 } from '../constants/actionTypes';
 
 export const addItem = (id, text) => {
@@ -16,7 +17,7 @@ export const addItem = (id, text) => {
   };
 };
 
-export const deleteItem = id => {
+export const deleteItem = (id) => {
   return {
     type: DELETE_ITEM,
     payload: { id },
@@ -34,8 +35,8 @@ export const updateItemText = (id, newText) => {
   return {
     type: UPDATE_ITEM_TEXT,
     payload: {
-      newText,
       id,
+      newText,
     },
   };
 };
@@ -44,5 +45,14 @@ export const updateNewItemText = (newItemText) => {
   return {
     type: UPDATE_NEW_ITEM_TEXT,
     payload: { newItemText },
+  };
+};
+
+export const textUpdateChange = (id, updatedText) => {
+  return {
+    type: TEXT_UPDATE_CHANGE,
+    payload: {
+      id,
+      updatedText },
   };
 };

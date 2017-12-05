@@ -5,6 +5,7 @@ import {
   UPDATE_ITEM_TEXT,
   DELETE_ITEM,
   TOGGLE_EDITING,
+  TEXT_UPDATE_CHANGE,
 } from '../../../constants/actionTypes';
 
 export const byId = (state = new OrderedMap(), action) => {
@@ -18,7 +19,7 @@ export const byId = (state = new OrderedMap(), action) => {
 
     case UPDATE_ITEM_TEXT:
       return state.update(action.payload.id, (item) => item.merge({
-        text: action.payload.newText,
+        text: item.textUpdate,
         isBeingEdited: false,
       }));
 
@@ -29,6 +30,13 @@ export const byId = (state = new OrderedMap(), action) => {
     case TOGGLE_EDITING: {
       return state.update(action.payload.id, (item) => item.merge({
         isBeingEdited: !item.isBeingEdited,
+        textUpdate: item.text,
+      }));
+    }
+
+    case TEXT_UPDATE_CHANGE: {
+      return state.update(action.payload.id, (item) => item.merge({
+        textUpdate: action.payload.updatedText,
       }));
     }
 

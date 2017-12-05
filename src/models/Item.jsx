@@ -6,5 +6,7 @@ const defaultItem = {
   id: emptyId,
   text: '',
   isBeingEdited: false,
+  textUpdate: '',
 };
+
 export const Item = Immutable.Record(defaultItem);
