@@ -1,10 +1,10 @@
-import { checkEmptiness } from './checkEmptiness';
+import { isNotText } from './isNotText';
 
-describe('checkEmptiness', () => {
+describe('isNotText', () => {
   it('returns true when the text is empty', () => {
     const emptyText = '';
 
-    const result = checkEmptiness(emptyText);
+    const result = isNotText(emptyText);
 
     expect(result).toBe(true);
   });
@@ -12,7 +12,7 @@ describe('checkEmptiness', () => {
   it('returns true when the text is null', () => {
     const emptyText = null;
 
-    const result = checkEmptiness(emptyText);
+    const result = isNotText(emptyText);
 
     expect(result).toBe(true);
   });
@@ -20,7 +20,7 @@ describe('checkEmptiness', () => {
   it('returns true when the text is undefined', () => {
     const emptyText = undefined;
 
-    const result = checkEmptiness(emptyText);
+    const result = isNotText(emptyText);
 
     expect(result).toBe(true);
   });
@@ -28,7 +28,7 @@ describe('checkEmptiness', () => {
   it('returns false when the text is not empty', () => {
     const text = 'something';
 
-    const result = checkEmptiness(text);
+    const result = isNotText(text);
 
     expect(result).toBe(false);
   });
@@ -36,7 +36,7 @@ describe('checkEmptiness', () => {
   it('returns true when the text is just a space', () => {
     const text = ' ';
 
-    const result = checkEmptiness(text);
+    const result = isNotText(text);
 
     expect(result).toBe(true);
   });

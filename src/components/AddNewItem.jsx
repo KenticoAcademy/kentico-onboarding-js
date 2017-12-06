@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { checkEmptiness } from '../utils/checkEmptiness';
+import { isNotText } from '../utils/isNotText';
 
 export class AddNewItem extends PureComponent {
 
@@ -24,7 +24,7 @@ export class AddNewItem extends PureComponent {
 
   render() {
     const input = this.props.newItemText;
-    const isEmpty = checkEmptiness(input);
+    const isEmpty = isNotText(input);
 
     return (
       <div className="list-group-item form-inline">
