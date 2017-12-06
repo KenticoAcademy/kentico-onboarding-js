@@ -6,39 +6,39 @@ import {
   ITEM_OPENED_FOR_EDITING,
 } from './actionTypes';
 
-export function addNewItem({ itemId, text }) {
+export const addNewItem = ({ itemId, text }) => {
   return {
     type: ITEM_CREATED,
     itemId,
     text,
   };
-}
+};
 
-export function openItemForEditing({ itemId }) {
+export const openItemForEditing = ({ itemId }) => {
   return {
     type: ITEM_OPENED_FOR_EDITING,
     itemId,
   };
-}
+};
 
-export function deleteItem({ itemId }) {
+export const deleteItem = ({ itemId }) => {
   return {
     type: ITEM_DELETED,
     itemId,
   };
-}
+};
 
-export function saveItemChanges({ itemId, newText }) {
+export const saveItemChanges = ({ itemId, newText }) => {
   return {
     type: ITEM_CHANGES_SAVED,
     itemId,
     newText,
   };
-}
+};
 
-export function cancelItemChanges({ itemId }) {
+export const cancelItemChanges = ({ itemId }) => {
   return {
     type: ITEM_CHANGES_CANCELED,
     itemId,
   };
-}
+};
