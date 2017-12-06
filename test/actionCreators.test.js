@@ -29,14 +29,10 @@ describe('actionCreators', () => {
     const expectedAction = {
       type: types.ITEM_TEXT_SELECTED,
       itemId: expectedId,
-      selectionRangeStarts: expectedStartOffset,
-      selectionRangeEnds: expectedEndOffset,
     };
 
     const actionParams = {
       itemId: expectedId,
-      selectionRangeStarts: expectedStartOffset,
-      selectionRangeEnds: expectedEndOffset,
     };
     const result = actions.selectItemText(actionParams);
 

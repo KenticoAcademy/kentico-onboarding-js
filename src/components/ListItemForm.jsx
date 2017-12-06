@@ -11,9 +11,9 @@ export class ListItemForm extends PureComponent {
     number: PropTypes.number.isRequired,
     item: PropTypes.shape({
       text: PropTypes.string.isRequired,
-      selectionRangeStarts: PropTypes.number.isRequired,
-      selectionRangeEnds: PropTypes.number.isRequired,
     }),
+    selectionRangeStarts: PropTypes.number.isRequired,
+    selectionRangeEnds: PropTypes.number.isRequired,
     onSave: PropTypes.func.isRequired,
     onCancel: PropTypes.func.isRequired,
     onDelete: PropTypes.func.isRequired,
@@ -31,7 +31,7 @@ export class ListItemForm extends PureComponent {
     const {
       selectionRangeStarts,
       selectionRangeEnds,
-    } = this.props.item;
+    } = this.props;
 
     this.input.setSelectionRange(selectionRangeStarts, selectionRangeEnds);
   }

@@ -14,12 +14,10 @@ export function addNewItem({ itemId, text }) {
   };
 }
 
-export function selectItemText({ itemId, selectionRangeStarts, selectionRangeEnds }) {
+export function selectItemText({ itemId }) {
   return {
     type: ITEM_TEXT_SELECTED,
     itemId,
-    selectionRangeStarts,
-    selectionRangeEnds,
   };
 }
 

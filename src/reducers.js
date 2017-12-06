@@ -38,15 +38,11 @@ const changeItemText = (state, action) => {
 const selectItemText = (state, action) => {
   const {
     itemId,
-    selectionRangeStarts,
-    selectionRangeEnds,
   } = action;
 
   return state.update(itemId, item =>
     item.merge({
       isBeingEdited: true,
-      selectionRangeStarts,
-      selectionRangeEnds,
     }));
 };
 
