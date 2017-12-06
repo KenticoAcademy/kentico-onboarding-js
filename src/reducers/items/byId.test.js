@@ -5,6 +5,7 @@ import { Item } from '../../models/Item';
 import {
   addItem,
   deleteItem,
+  textUpdateChange,
   toggleEditing,
   updateItemText,
 } from '../../actions/actionCreators';
@@ -31,6 +32,7 @@ describe('byId', () => {
         id: itemId,
         text: 'This item hasn\'t been updated yet',
         isBeingEdited: true,
+        textUpdate: 'This item is already edited',
       }),
     });
     const expectedState = new OrderedMap({
@@ -38,10 +40,11 @@ describe('byId', () => {
         id: itemId,
         text: 'This item is already edited',
         isBeingEdited: false,
+        textUpdate: 'This item is already edited',
       }),
     });
 
-    const stateAfter = byId(stateBefore, updateItemText(itemId, 'This item is already edited'));
+    const stateAfter = byId(stateBefore, updateItemText(itemId));
 
     expect(stateAfter).toEqual(expectedState);
   });
@@ -62,7 +65,7 @@ describe('byId', () => {
     expect(stateAfter).toEqual(expectedState);
   });
 
-  it('toggleEditing switches isBeingEdited to given value', () => {
+  it('toggleEditing switches isBeingEdited to opposite value than is set', () => {
     const itemId = generateId();
 
     const stateBefore = new OrderedMap({
@@ -77,10 +80,36 @@ describe('byId', () => {
         id: itemId,
         text: 'This item should obviously not be edited',
         isBeingEdited: false,
+        textUpdate: 'This item should obviously not be edited',
       }),
     });
 
-    const stateAfter = byId(stateBefore, toggleEditing(itemId, false));
+    const stateAfter = byId(stateBefore, toggleEditing(itemId));
+
+    expect(stateAfter).toEqual(expectedState);
+  });
+
+  it('textUpdateChange returns given text in textUpdate', () => {
+    const itemId = generateId();
+
+    const stateBefore = new OrderedMap({
+      [itemId]: new Item({
+        id: itemId,
+        text: 'Not important',
+        isBeingEdited: true,
+        textUpdate: 'Not this one',
+      }),
+    });
+    const expectedState = new OrderedMap({
+      [itemId]: new Item({
+        id: itemId,
+        text: 'Not important',
+        isBeingEdited: true,
+        textUpdate: 'This is correctly changed text',
+      }),
+    });
+
+    const stateAfter = byId(stateBefore, textUpdateChange(itemId, 'This is correctly changed text'));
 
     expect(stateAfter).toEqual(expectedState);
   });
