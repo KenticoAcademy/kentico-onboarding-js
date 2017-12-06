@@ -6,7 +6,9 @@ import {
   ITEM_OPENED_FOR_EDITING,
 } from './actionTypes';
 
-export const addNewItem = ({ itemId, text }) => {
+export const addNewItem = ({ text, createNewId }) => {
+  const itemId = createNewId();
+
   return {
     type: ITEM_CREATED,
     itemId,

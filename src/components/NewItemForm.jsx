@@ -2,7 +2,6 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { HotKeys } from 'react-hotkeys';
 import { keyActions } from '../constants/keys';
-import { createNewId } from '../utils/createNewId';
 import { isTextEmpty } from '../utils/validation';
 
 export class NewItemForm extends PureComponent {
@@ -25,11 +24,10 @@ export class NewItemForm extends PureComponent {
   });
 
   submitItemText = () => {
-    const id = createNewId();
     const { onSubmit } = this.props;
     const { newItemText } = this.state;
 
-    onSubmit(id, newItemText);
+    onSubmit(newItemText);
 
     this.setState({
       newItemText: '',

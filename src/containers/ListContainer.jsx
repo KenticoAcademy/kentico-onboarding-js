@@ -7,6 +7,7 @@ import {
   saveItemChanges,
   openItemForEditing,
 } from '../actionCreators';
+import { createNewId } from '../utils/createNewId';
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -17,10 +18,10 @@ const mapDispatchToProps = dispatch => {
     onDeleteItem: (itemId) => dispatch(deleteItem({
       itemId,
     })),
-    onAddNewItem: (itemId, text) => {
+    onAddNewItem: (text) => {
       dispatch(addNewItem({
-        itemId,
         text,
+        createNewId,
       }));
     },
     onCancelItemChanges: (itemId) => dispatch(cancelItemChanges({
