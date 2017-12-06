@@ -1,10 +1,10 @@
 import { OrderedMap } from 'immutable';
 import { ListItem } from '../src/models/ListItem';
 import deepFreeze from 'deep-freeze';
-import { reducers } from '../src/reducers';
+import { itemsReducer } from '../src/reducers/list/items/index';
 import * as actions from '../src/actions/actionCreators';
 
-describe('reducers', () => {
+describe('items', () => {
   it('will add ListItem model to state with specific text', () => {
     const initialState = { items: OrderedMap() };
     deepFreeze(initialState);
@@ -28,7 +28,7 @@ describe('reducers', () => {
     };
 
     const addNewItemAction = actions.addNewItem(actionParams);
-    const result = reducers(initialState, addNewItemAction);
+    const result = itemsReducer(initialState, addNewItemAction);
 
     expect(result)
       .toEqual(expectedState);
@@ -66,7 +66,7 @@ describe('reducers', () => {
     };
 
     const selectItemTextAction = actions.openItemForEditing(actionParams);
-    const result = reducers(initialState, selectItemTextAction);
+    const result = itemsReducer(initialState, selectItemTextAction);
 
     expect(result)
       .toEqual(expectedState);
@@ -106,7 +106,7 @@ describe('reducers', () => {
     };
 
     const changeItemTextAction = actions.saveItemChanges(actionParams);
-    const result = reducers(initialState, changeItemTextAction);
+    const result = itemsReducer(initialState, changeItemTextAction);
 
     expect(result)
       .toEqual(expectedState);
@@ -145,7 +145,7 @@ describe('reducers', () => {
     };
 
     const cancelItemChangesAction = actions.cancelItemChanges(actionParams)
-    const result = reducers(initialState, cancelItemChangesAction);
+    const result = itemsReducer(initialState, cancelItemChangesAction);
 
     expect(result)
       .toEqual(expectedState);
@@ -185,7 +185,7 @@ describe('reducers', () => {
     };
 
     const deleteItemAction = actions.deleteItem(actionParams);
-    const result = reducers(initialState, deleteItemAction);
+    const result = itemsReducer(initialState, deleteItemAction);
 
     expect(result)
       .toEqual(expectedState);
