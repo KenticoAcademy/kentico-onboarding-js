@@ -34,11 +34,9 @@ describe('reducers', () => {
       .toEqual(expectedState);
   });
 
-  it('will select ListItem at specified selection range', () => {
+  it('will open ListItem for editing', () => {
     const id = 'test';
     const text = 'text';
-    const expectedSelectionStarts = 2;
-    const expectedSelectionEnds = 6;
     const initialState = {
       items: OrderedMap(
         {
@@ -58,8 +56,6 @@ describe('reducers', () => {
             id,
             text,
             isBeingEdited: true,
-            selectionRangeStarts: expectedSelectionStarts,
-            selectionRangeEnds: expectedSelectionEnds,
           }),
         },
       ),
@@ -67,11 +63,9 @@ describe('reducers', () => {
 
     const actionParams = {
       itemId: id,
-      selectionRangeStarts: expectedSelectionStarts,
-      selectionRangeEnds: expectedSelectionEnds,
     };
 
-    const selectItemTextAction = actions.selectItemText(actionParams);
+    const selectItemTextAction = actions.openItemForEditing(actionParams);
     const result = reducers(initialState, selectItemTextAction);
 
     expect(result)
@@ -111,7 +105,7 @@ describe('reducers', () => {
       newText: expectedNewText,
     };
 
-    const changeItemTextAction = actions.changeItemText(actionParams);
+    const changeItemTextAction = actions.saveItemChanges(actionParams);
     const result = reducers(initialState, changeItemTextAction);
 
     expect(result)

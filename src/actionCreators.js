@@ -1,9 +1,9 @@
 import {
-  ITEM_CHANGE_SAVED,
+  ITEM_CHANGES_SAVED,
   ITEM_CHANGES_CANCELED,
   ITEM_CREATED,
   ITEM_DELETED,
-  ITEM_TEXT_SELECTED,
+  ITEM_OPENED_FOR_EDITING,
 } from './actionTypes';
 
 export function addNewItem({ itemId, text }) {
@@ -14,9 +14,9 @@ export function addNewItem({ itemId, text }) {
   };
 }
 
-export function selectItemText({ itemId }) {
+export function openItemForEditing({ itemId }) {
   return {
-    type: ITEM_TEXT_SELECTED,
+    type: ITEM_OPENED_FOR_EDITING,
     itemId,
   };
 }
@@ -28,9 +28,9 @@ export function deleteItem({ itemId }) {
   };
 }
 
-export function changeItemText({ itemId, newText }) {
+export function saveItemChanges({ itemId, newText }) {
   return {
-    type: ITEM_CHANGE_SAVED,
+    type: ITEM_CHANGES_SAVED,
     itemId,
     newText,
   };

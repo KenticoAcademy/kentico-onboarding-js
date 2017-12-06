@@ -3,10 +3,10 @@ import { ListItem } from './models/ListItem';
 
 import {
   ITEM_CREATED,
-  ITEM_TEXT_SELECTED,
+  ITEM_OPENED_FOR_EDITING,
   ITEM_DELETED,
   ITEM_CHANGES_CANCELED,
-  ITEM_CHANGE_SAVED,
+  ITEM_CHANGES_SAVED,
 } from './actionTypes';
 
 const addNewItem = (state, action) => {
@@ -26,7 +26,7 @@ const deleteItem = (state, action) => {
   return state.delete(itemId);
 };
 
-const changeItemText = (state, action) => {
+const saveItemChanges = (state, action) => {
   const { itemId, newText } = action;
 
   return state.update(itemId, item => item.merge({
@@ -35,7 +35,7 @@ const changeItemText = (state, action) => {
   }));
 };
 
-const selectItemText = (state, action) => {
+const openItemForEditing = (state, action) => {
   const {
     itemId,
   } = action;
@@ -63,10 +63,10 @@ export const reducers = (state = OrderedMap(), action) => {
       return addNewItem(state, action);
     case ITEM_DELETED:
       return deleteItem(state, action);
-    case ITEM_CHANGE_SAVED:
-      return changeItemText(state, action);
-    case ITEM_TEXT_SELECTED:
-      return selectItemText(state, action);
+    case ITEM_CHANGES_SAVED:
+      return saveItemChanges(state, action);
+    case ITEM_OPENED_FOR_EDITING:
+      return openItemForEditing(state, action);
     case ITEM_CHANGES_CANCELED:
       return cancelItemChanges(state, action);
     default:

@@ -15,7 +15,7 @@ export class ListItem extends PureComponent {
     number: PropTypes.number.isRequired,
     onSave: PropTypes.func.isRequired,
     onDelete: PropTypes.func.isRequired,
-    onTextSelected: PropTypes.func.isRequired,
+    onItemOpened: PropTypes.func.isRequired,
     onCancel: PropTypes.func.isRequired,
   };
 
@@ -28,7 +28,7 @@ export class ListItem extends PureComponent {
     };
   }
 
-  changeItemText = (text) => {
+  saveItemChanges = (text) => {
     const { item: { id }, onSave } = this.props;
 
     onSave(id, text);
@@ -40,16 +40,16 @@ export class ListItem extends PureComponent {
     onDelete(id);
   };
 
-  cancelUnsavedChanges = () => {
+  cancelItemChanges = () => {
     const { item: { id }, onCancel } = this.props;
 
     onCancel(id);
   };
 
   openItemForEditing = (selectionRangeStarts, selectionRangeEnds) => {
-    const { item: { id }, onTextSelected } = this.props;
+    const { item: { id }, onItemOpened } = this.props;
 
-    onTextSelected(id);
+    onItemOpened(id);
 
     this.setState({
       selectionRangeStarts,
@@ -69,8 +69,8 @@ export class ListItem extends PureComponent {
         number={number}
         selectionRangeStarts={this.state.selectionRangeStarts}
         selectionRangeEnds={this.state.selectionRangeEnds}
-        onSave={this.changeItemText}
-        onCancel={this.cancelUnsavedChanges}
+        onSave={this.saveItemChanges}
+        onCancel={this.cancelItemChanges}
         onDelete={this.deleteItem}
       /> :
       <ListItemStatic

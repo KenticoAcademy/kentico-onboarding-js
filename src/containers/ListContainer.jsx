@@ -2,15 +2,15 @@ import { connect } from 'react-redux';
 import { List } from '../components/List';
 import {
   addNewItem,
-  changeItemText,
   deleteItem,
-  selectItemText,
   cancelItemChanges,
+  saveItemChanges,
+  openItemForEditing,
 } from '../actionCreators';
 
 const mapDispatchToProps = dispatch => {
   return {
-    onChangeItemText: (itemId, newText) => dispatch(changeItemText({
+    onSaveItemChanges: (itemId, newText) => dispatch(saveItemChanges({
       itemId,
       newText,
     })),
@@ -23,10 +23,10 @@ const mapDispatchToProps = dispatch => {
         text,
       }));
     },
-    onCancelUnsavedChanges: (itemId) => dispatch(cancelItemChanges({
+    onCancelItemChanges: (itemId) => dispatch(cancelItemChanges({
       itemId,
     })),
-    onOpenItemForEditing: (itemId, selectionRangeStarts, selectionRangeEnds) => dispatch(selectItemText({
+    onOpenItemForEditing: (itemId, selectionRangeStarts, selectionRangeEnds) => dispatch(openItemForEditing({
       itemId,
       selectionRangeStarts,
       selectionRangeEnds,

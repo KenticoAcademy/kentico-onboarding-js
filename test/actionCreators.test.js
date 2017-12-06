@@ -21,31 +21,29 @@ describe('actionCreators', () => {
       .toEqual(expectedAction);
   });
 
-  it('will create valid selectItemText action object', () => {
+  it('will create valid openItemForEditing action object', () => {
     const expectedId = 'testGuid';
-    const expectedStartOffset = 2;
-    const expectedEndOffset = 3;
 
     const expectedAction = {
-      type: types.ITEM_TEXT_SELECTED,
+      type: types.ITEM_OPENED_FOR_EDITING,
       itemId: expectedId,
     };
 
     const actionParams = {
       itemId: expectedId,
     };
-    const result = actions.selectItemText(actionParams);
+    const result = actions.openItemForEditing(actionParams);
 
     expect(result)
       .toEqual(expectedAction);
   });
 
-  it('will create valid changeItemText action object', () => {
+  it('will create valid saveItemChanges action object', () => {
     const expectedId = 'testGuid';
     const expectedNewText = 'new text';
 
     const expectedAction = {
-      type: types.ITEM_CHANGE_SAVED,
+      type: types.ITEM_CHANGES_SAVED,
       newText: expectedNewText,
       itemId: expectedId,
     };
@@ -54,7 +52,7 @@ describe('actionCreators', () => {
       itemId: expectedId,
       newText: expectedNewText,
     };
-    const result = actions.changeItemText(actionParams);
+    const result = actions.saveItemChanges(actionParams);
 
     expect(result)
       .toEqual(expectedAction);
