@@ -1,2 +1,2 @@
 
-export const checkEmptiness = (text) => !text.trim();
+export const checkEmptiness = (text) => (!text || text.trim() === '');

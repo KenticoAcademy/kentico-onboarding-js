@@ -33,11 +33,11 @@ describe('checkEmptiness', () => {
     expect(result).toBe(false);
   });
 
-  it('returns false when the text is just a space', () => {
+  it('returns true when the text is just a space', () => {
     const text = ' ';
 
     const result = checkEmptiness(text);
 
-    expect(result).toBe(false);
+    expect(result).toBe(true);
   });
 });
