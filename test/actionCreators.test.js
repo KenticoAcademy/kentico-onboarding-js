@@ -1,5 +1,5 @@
 import * as types from '../src/actionTypes';
-import * as actions from '../src/actionCreators';
+import * as actions from '../src/actions/actionCreators';
 
 describe('actionCreators', () => {
   it('will create valid addNewItem action object', () => {

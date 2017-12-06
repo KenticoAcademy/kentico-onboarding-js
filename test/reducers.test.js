@@ -2,7 +2,7 @@ import { OrderedMap } from 'immutable';
 import { ListItem } from '../src/models/ListItem';
 import deepFreeze from 'deep-freeze';
 import { reducers } from '../src/reducers';
-import * as actions from '../src/actionCreators';
+import * as actions from '../src/actions/actionCreators';
 
 describe('reducers', () => {
   it('will add ListItem model to state with specific text', () => {
