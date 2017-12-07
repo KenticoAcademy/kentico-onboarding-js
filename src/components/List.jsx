@@ -2,18 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { ListItem } from '../containers/ListItem';
 
-const List = ({ itemsMap }) => {
+const List = ({ ids }) => {
   return (
     <div>
-      {itemsMap.keySeq().map((itemKey, index) =>
+      {ids.map((id, index) =>
         <div
           className="list-group-item form-inline"
-          key={itemKey}
+          key={id}
         >
           {index + 1}
           .&nbsp;
           <ListItem
-            itemId={itemKey}
+            itemId={id}
           />
         </div>
       )}
@@ -24,7 +24,7 @@ const List = ({ itemsMap }) => {
 List.displayName = 'List';
 
 List.propTypes = {
-  itemsMap: PropTypes.object.isRequired,
+  ids: PropTypes.object.isRequired,
 };
 
 export { List };
