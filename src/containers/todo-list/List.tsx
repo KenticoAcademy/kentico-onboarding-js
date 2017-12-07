@@ -1,8 +1,9 @@
 import { connect } from 'react-redux';
-import { List } from '../../components/todo-list/List';
+import { IListDataProps, List } from '../../components/todo-list/List';
+import { IAppState } from '../../models/IAppState';
 import { getItemIds } from '../../selectors/getItemIds';
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: IAppState): IListDataProps => ({
   ids: getItemIds(state),
 });
 

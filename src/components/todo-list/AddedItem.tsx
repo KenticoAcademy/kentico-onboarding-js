@@ -1,14 +1,23 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
 import { validateText } from '../../utils/validateText';
 import { Input } from './Input';
 
-export class AddedItem extends PureComponent {
+interface IState {
+  readonly inputText: string;
+  readonly isInputValid: boolean;
+}
+
+export interface IAddedItemCallbackProps {
+  readonly onAddItem: (text: string) => void;
+}
+
+export class AddedItem extends React.PureComponent<IAddedItemCallbackProps, IState> {
   static propTypes = {
     onAddItem: PropTypes.func.isRequired,
   };
 
-  constructor(props) {
+  constructor(props: IAddedItemCallbackProps) {
     super(props);
 
     this.state = ({
@@ -17,22 +26,7 @@ export class AddedItem extends PureComponent {
     });
   }
 
-  changeItemText = ({ currentTarget: { value } }) => {
-    this.setState({
-      inputText: value,
-      isInputValid: validateText(value),
-    });
-  };
-
-  addItem = () => {
-    this.props.onAddItem(this.state.inputText);
-    this.setState({
-      inputText: '',
-      isInputValid: false,
-    });
-  };
-
-  render() {
+  render(): JSX.Element {
     const invalidTextTitle = (this.state.isInputValid)
       ? undefined
       : 'New item must consist of non-empty text';
@@ -43,7 +37,7 @@ export class AddedItem extends PureComponent {
           <Input
             value={this.state.inputText}
             isValid={this.state.isInputValid}
-            onChange={this.changeItemText}
+            onChange={this._changeItemText}
             title={invalidTextTitle}
           />
         </div>
@@ -52,11 +46,26 @@ export class AddedItem extends PureComponent {
           title={invalidTextTitle}
           className="btn btn-primary"
           disabled={!this.state.isInputValid}
-          onClick={this.addItem}
+          onClick={this._addItem}
         >
           Add
         </button>
       </li>
     );
   }
+
+  private _changeItemText = ({currentTarget: {value}}: React.FormEvent<HTMLInputElement>): void => {
+    this.setState({
+      inputText: value,
+      isInputValid: validateText(value),
+    });
+  };
+
+  private _addItem = (): void => {
+    this.props.onAddItem(this.state.inputText);
+    this.setState({
+      inputText: '',
+      isInputValid: false,
+    });
+  };
 }

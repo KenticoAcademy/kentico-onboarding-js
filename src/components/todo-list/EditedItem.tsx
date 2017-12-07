@@ -1,12 +1,27 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
-import ImmutablePropTypes from 'react-immutable-proptypes';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
 import { validateText } from '../../utils/validateText';
 import { Input } from './Input';
+import { IndexedItem } from '../../models/IndexedItem';
 
-export class EditedItem extends PureComponent {
+export interface IEditedItemCallbackProps {
+  readonly onUpdateItem: (text: string) => void;
+  readonly onEditStop: () => void;
+  readonly onDeleteItem: () => void;
+}
+
+export interface IEditedItemDataProps {
+  readonly item: IndexedItem;
+}
+
+interface IState {
+  readonly editedText: string;
+  readonly isInputValid: boolean;
+}
+
+export class EditedItem extends React.PureComponent<IEditedItemCallbackProps & IEditedItemDataProps, IState> {
   static propTypes = {
-    item: ImmutablePropTypes.contains({
+    item: PropTypes.shape({
       index: PropTypes.number.isRequired,
       text: PropTypes.string.isRequired,
     }).isRequired,
@@ -15,7 +30,7 @@ export class EditedItem extends PureComponent {
     onEditStop: PropTypes.func.isRequired,
   };
 
-  constructor(props) {
+  constructor(props: IEditedItemCallbackProps & IEditedItemDataProps) {
     super(props);
 
     this.state = {
@@ -24,20 +39,7 @@ export class EditedItem extends PureComponent {
     };
   }
 
-  changeItemText = ({ currentTarget: { value } }) => {
-    this.setState({
-      editedText: value,
-      isInputValid: validateText(value),
-    });
-  };
-
-  saveItem = () => {
-    this.props.onUpdateItem(
-      this.state.editedText,
-    );
-  };
-
-  render() {
+  render(): JSX.Element {
     const invalidTextTitle = (this.state.isInputValid)
       ? undefined
       : 'Empty item cannot be stored.\nTip: Use delete button to remove an item';
@@ -52,7 +54,7 @@ export class EditedItem extends PureComponent {
             <Input
               value={this.state.editedText}
               isValid={this.state.isInputValid}
-              onChange={this.changeItemText}
+              onChange={this._changeItemText}
               title={invalidTextTitle}
             />
           </div>
@@ -60,7 +62,7 @@ export class EditedItem extends PureComponent {
         <button
           type="button"
           className="btn btn-primary"
-          onClick={this.saveItem}
+          onClick={this._saveItem}
           title={invalidTextTitle}
           disabled={!this.state.isInputValid}
         >
@@ -83,4 +85,17 @@ export class EditedItem extends PureComponent {
       </div>
     );
   }
+
+  private _changeItemText = ({currentTarget: {value}}: React.FormEvent<HTMLInputElement>): void => {
+    this.setState({
+      editedText: value,
+      isInputValid: validateText(value),
+    });
+  };
+
+  private _saveItem = (): void => {
+    this.props.onUpdateItem(
+      this.state.editedText,
+    );
+  };
 }

@@ -5,14 +5,17 @@ import {
   TODO_LIST_ITEM_CANCEL_EDIT,
 } from '../../../constants/actionTypes';
 import { ListItem } from '../../../models/ListItem';
+import { IAction } from '../../../actions/IAction';
 
-export const item = (previousState = ListItem(), action) => {
+export const item = (previousState: ListItem, action: IAction): ListItem => {
   switch (action.type) {
     case TODO_LIST_ITEM_EDIT:
     case TODO_LIST_ITEM_CANCEL_EDIT: {
-      return previousState.merge({
+      const updatedItem = {
         isEdited: !previousState.isEdited,
-      });
+      };
+
+      return previousState.with(updatedItem);
     }
 
     case TODO_LIST_ITEM_UPDATE: {
@@ -21,15 +24,14 @@ export const item = (previousState = ListItem(), action) => {
         isEdited: !previousState.isEdited,
       };
 
-      return previousState.merge(
-        updatedItem,
-      );
+      return previousState.with(updatedItem);
     }
 
     case TODO_LIST_ITEM_INSERT:
       return new ListItem({
         id: action.payload.id,
         text: action.payload.text,
+        isEdited: false,
       });
 
     default:

@@ -1,11 +1,16 @@
-import React from 'react';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
 import { AddedItem } from '../../containers/todo-list/AddedItem';
-import { TsComponent } from './TsComponent.tsx';
+import { TsComponent } from './TsComponent';
 import { Item } from '../../containers/todo-list/Item';
-import PropTypes from 'prop-types';
 import { Seq } from 'immutable';
+import { Uuid } from '../../utils/generateId';
 
-const List = props =>
+export interface IListDataProps {
+  readonly ids: Seq.Indexed<Uuid>;
+}
+
+const List: React.SFC<IListDataProps> = (props: IListDataProps): JSX.Element =>
   <div className="row">
     <div className="row">
       <div className="col-sm-12 text-center">
@@ -15,7 +20,7 @@ const List = props =>
     <div className="col-sm-12 col-md-offset-2 col-md-8">
       <ul className="list-group">
         {props.ids
-          .map((id, index) =>
+          .map((id: Uuid, index: number) =>
             <li
               className="list-group-item"
               key={id}
@@ -36,4 +41,4 @@ List.propTypes = {
   ids: PropTypes.instanceOf(Seq).isRequired,
 };
 
-export { List };
+export { List }

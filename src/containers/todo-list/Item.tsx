@@ -1,9 +1,16 @@
-import PropTypes from 'prop-types';
+import * as PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Item } from '../../components/todo-list/Item';
+import { IItemDataProps, Item } from '../../components/todo-list/Item';
+import { IAppState } from '../../models/IAppState';
 import { getIndexedItem } from '../../selectors/getIndexedItem';
+import { Uuid } from '../../utils/generateId';
 
-const mapStateToProps = (state, { id, index }) => ({
+interface IProps {
+  readonly id: Uuid;
+  readonly index: number;
+}
+
+const mapStateToProps = (state: IAppState, { id, index }: IProps): IItemDataProps => ({
   item: getIndexedItem(state, index, id),
 });
 
