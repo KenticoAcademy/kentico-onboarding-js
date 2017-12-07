@@ -5,31 +5,39 @@ import {
   ITEM_OPENED_FOR_EDITING,
 } from '../actionTypes';
 
-export const openItemForEditing = ({ itemId }) => {
+export const openItemForEditing = (itemId) => {
   return {
     type: ITEM_OPENED_FOR_EDITING,
-    itemId,
+    payload: {
+      itemId,
+    },
   };
 };
 
-export const deleteItem = ({ itemId }) => {
+export const deleteItem = (itemId) => {
   return {
     type: ITEM_DELETED,
-    itemId,
+    payload: {
+      itemId,
+    },
   };
 };
 
-export const saveItemChanges = ({ itemId, newText }) => {
+export const saveItemChanges = (itemId, newText) => {
   return {
     type: ITEM_CHANGES_SAVED,
-    itemId,
-    newText,
+    payload: {
+      itemId,
+      newText,
+    },
   };
 };
 
-export const cancelItemChanges = ({ itemId }) => {
+export const cancelItemChanges = (itemId) => {
   return {
     type: ITEM_CHANGES_CANCELED,
-    itemId,
+    payload: {
+      itemId,
+    },
   };
 };

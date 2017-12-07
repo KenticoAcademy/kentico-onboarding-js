@@ -10,26 +10,24 @@ import {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onSaveItemChanges: (itemId, newText) => dispatch(saveItemChanges({
+    onSaveItemChanges: (itemId, newText) => dispatch(saveItemChanges(
       itemId,
       newText,
-    })),
-    onDeleteItem: (itemId) => dispatch(deleteItem({
+    )),
+    onDeleteItem: (itemId) => dispatch(deleteItem(
       itemId,
-    })),
+    )),
     onAddNewItem: (text) => {
-      dispatch(addNewItem({
+      dispatch(addNewItem(
         text,
-      }));
+      ));
     },
-    onCancelItemChanges: (itemId) => dispatch(cancelItemChanges({
+    onCancelItemChanges: (itemId) => dispatch(cancelItemChanges(
       itemId,
-    })),
-    onOpenItemForEditing: (itemId, selectionRangeStarts, selectionRangeEnds) => dispatch(openItemForEditing({
+    )),
+    onOpenItemForEditing: (itemId) => dispatch(openItemForEditing(
       itemId,
-      selectionRangeStarts,
-      selectionRangeEnds,
-    })),
+    )),
   };
 };
 

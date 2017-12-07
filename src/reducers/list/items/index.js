@@ -11,7 +11,7 @@ import {
 import { createNewId } from '../../../utils/createNewId';
 
 const addNewItem = (state, action) => {
-  const { itemId: id, text } = action;
+  const { itemId: id, text } = action.payload;
 
   const newItem = new ListItem({
     id,
@@ -22,13 +22,13 @@ const addNewItem = (state, action) => {
 };
 
 const deleteItem = (state, action) => {
-  const { itemId } = action;
+  const { itemId } = action.payload;
 
   return state.delete(itemId);
 };
 
 const saveItemChanges = (state, action) => {
-  const { itemId, newText } = action;
+  const { itemId, newText } = action.payload;
 
   return state.update(itemId, item => item.merge({
     text: newText,
@@ -39,7 +39,7 @@ const saveItemChanges = (state, action) => {
 const openItemForEditing = (state, action) => {
   const {
     itemId,
-  } = action;
+  } = action.payload;
 
   return state.update(itemId, item =>
     item.merge({
@@ -48,7 +48,7 @@ const openItemForEditing = (state, action) => {
 };
 
 const cancelItemChanges = (state, action) => {
-  const { itemId } = action;
+  const { itemId } = action.payload;
 
   return state.update(itemId, item =>
     item.merge({
