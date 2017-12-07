@@ -12,7 +12,7 @@ describe('isTextEmpty', () => {
 
   ['', null, undefined]
     .map(text =>
-      it(`'will return true when text is ${text}`, () => {
+      it(`will return true when text is ${text}`, () => {
         const result = isTextEmpty(text);
 
         expect(result)

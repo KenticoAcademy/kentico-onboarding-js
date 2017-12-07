@@ -1,5 +1,6 @@
 import * as types from '../src/actionTypes';
 import * as actions from '../src/actions/actionCreators';
+import * as actionsExtended from '../src/actions/actionCreatorsWithDependency';
 
 describe('actionCreators', () => {
   it('will create valid addNewItem action object', () => {
@@ -7,15 +8,14 @@ describe('actionCreators', () => {
     const expectedId = 'testGuid';
     const expectedAction = {
       type: types.ITEM_CREATED,
-      itemId: expectedId,
-      text: expectedText,
+      payload: {
+        itemId: expectedId,
+        text: expectedText,
+      },
     };
 
-    const actionParams = {
-      itemId: expectedId,
-      text: expectedText,
-    };
-    const result = actions.addNewItem(actionParams);
+    const fakeActionCreator = () => expectedId;
+    const result = actionsExtended.addNewItem(fakeActionCreator, expectedText);
 
     expect(result)
       .toEqual(expectedAction);
@@ -26,13 +26,12 @@ describe('actionCreators', () => {
 
     const expectedAction = {
       type: types.ITEM_OPENED_FOR_EDITING,
-      itemId: expectedId,
+      payload: {
+        itemId: expectedId,
+      },
     };
 
-    const actionParams = {
-      itemId: expectedId,
-    };
-    const result = actions.openItemForEditing(actionParams);
+    const result = actions.openItemForEditing(expectedId);
 
     expect(result)
       .toEqual(expectedAction);
@@ -44,15 +43,13 @@ describe('actionCreators', () => {
 
     const expectedAction = {
       type: types.ITEM_CHANGES_SAVED,
-      newText: expectedNewText,
-      itemId: expectedId,
+      payload: {
+        newText: expectedNewText,
+        itemId: expectedId,
+      },
     };
 
-    const actionParams = {
-      itemId: expectedId,
-      newText: expectedNewText,
-    };
-    const result = actions.saveItemChanges(actionParams);
+    const result = actions.saveItemChanges(expectedId, expectedNewText);
 
     expect(result)
       .toEqual(expectedAction);
@@ -62,13 +59,12 @@ describe('actionCreators', () => {
     const expectedId = 'testGuid';
     const expectedAction = {
       type: types.ITEM_CHANGES_CANCELED,
-      itemId: expectedId,
+      payload: {
+        itemId: expectedId,
+      },
     };
 
-    const actionParams = {
-      itemId: expectedId,
-    };
-    const result = actions.cancelItemChanges(actionParams);
+    const result = actions.cancelItemChanges(expectedId);
 
     expect(result)
       .toEqual(expectedAction);
@@ -78,13 +74,12 @@ describe('actionCreators', () => {
     const expectedId = 'testGuid';
     const expectedAction = {
       type: types.ITEM_DELETED,
-      itemId: expectedId,
+      payload: {
+        itemId: expectedId,
+      },
     };
 
-    const actionParams = {
-      itemId: expectedId,
-    };
-    const result = actions.deleteItem(actionParams);
+    const result = actions.deleteItem(expectedId);
 
     expect(result)
       .toEqual(expectedAction);
