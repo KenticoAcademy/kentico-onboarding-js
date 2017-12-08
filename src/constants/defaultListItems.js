@@ -1,6 +1,6 @@
 import { OrderedMap } from 'immutable';
 import { generateId } from '../utils/generateId';
-import { Item } from '../models/Item';
+import { Item } from '../models/Item.ts';
 
 const id1 = generateId();
 const id2 = generateId();

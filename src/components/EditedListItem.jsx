@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { isNotText } from '../utils/isNotText';
+import { isNotText } from '../utils/isNotText.ts';
 
 export class EditedListItem extends PureComponent {
 
