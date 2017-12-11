@@ -1,7 +1,7 @@
 import {
   getSavedNotesFactory,
   saveNotesDataFactory,
-} from '../../src/utils/localStorage';
+} from '../../src/utils/localStorage.ts';
 import {
   mockNotesForApplication,
   mockNotesForStoring,

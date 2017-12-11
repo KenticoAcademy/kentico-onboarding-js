@@ -5,10 +5,9 @@ import {
 import {
   getAllIds,
   getNoteById,
-} from '../../../../src/selectors/notes/list/listOfNotes';
+} from '../../../../src/selectors/notes/list/listOfNotes.ts';
 
 describe('Selector listOfNotes tests', () => {
-
   it('getNoteById test', () => {
     const notes = prepareNotesInitialState();
     const expectedNote = prepareListItem('First test note', 1, false);

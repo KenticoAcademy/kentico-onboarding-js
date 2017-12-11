@@ -1,4 +1,4 @@
-import { listOfNotes } from '../../../../src/reducers/notes/list/listOfNotes';
+import { listOfNotes } from '../../../../src/reducers/notes/list/listOfNotes.ts';
 import {
   prepareNotesInitialState,
   prepareListItem,
@@ -9,7 +9,7 @@ import {
   startEditingNote,
   updateNote,
   cancelEditingNote,
-} from '../../../../src/actions/actionCreators';
+} from '../../../../src/actions/actionCreators.ts';
 import { OrderedMap } from 'immutable';
 
 describe('Reducer listOfNotes tests', () => {

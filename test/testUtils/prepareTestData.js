@@ -1,5 +1,5 @@
 import { OrderedMap } from 'immutable';
-import { Note } from '../../src/models/Note';
+import { Note } from '../../src/models/Note.ts';
 
 export const prepareListItem = (text, id, isEditActive) =>
   new Note({

@@ -1,7 +1,7 @@
 import {
   prepareNotesForStoring,
   prepareNotesForApplication,
-} from '../../src/utils/localStorageUtils';
+} from '../../src/utils/localStorageUtils.ts';
 import {
   mockNotesForStoring,
   mockNotesForApplication,
