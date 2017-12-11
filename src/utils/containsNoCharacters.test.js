@@ -1,10 +1,10 @@
-import { isNotText } from './isNotText';
+import { containsNoCharacters } from './containsNoCharacters';
 
-describe('isNotText', () => {
+describe('containsNoCharacters', () => {
   it('returns true when the text is empty', () => {
     const emptyText = '';
 
-    const result = isNotText(emptyText);
+    const result = containsNoCharacters(emptyText);
 
     expect(result).toBe(true);
   });
@@ -12,7 +12,7 @@ describe('isNotText', () => {
   it('returns true when the text is null', () => {
     const emptyText = null;
 
-    const result = isNotText(emptyText);
+    const result = containsNoCharacters(emptyText);
 
     expect(result).toBe(true);
   });
@@ -20,7 +20,7 @@ describe('isNotText', () => {
   it('returns true when the text is undefined', () => {
     const emptyText = undefined;
 
-    const result = isNotText(emptyText);
+    const result = containsNoCharacters(emptyText);
 
     expect(result).toBe(true);
   });
@@ -28,7 +28,7 @@ describe('isNotText', () => {
   it('returns false when the text is not empty', () => {
     const text = 'something';
 
-    const result = isNotText(text);
+    const result = containsNoCharacters(text);
 
     expect(result).toBe(false);
   });
@@ -36,7 +36,7 @@ describe('isNotText', () => {
   it('returns true when the text is just a space', () => {
     const text = ' ';
 
-    const result = isNotText(text);
+    const result = containsNoCharacters(text);
 
     expect(result).toBe(true);
   });
