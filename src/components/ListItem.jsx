@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { EditedListItem } from '../containers/EditedListItem';
-import { UneditedListItem } from '../containers/UneditedListItem';
+import { EditedListItem } from '../containers/EditedListItem.jsx';
+import { UneditedListItem } from '../containers/UneditedListItem.jsx';
 
 const ListItem = ({ itemId, isBeingEdited }) => {
   return (
