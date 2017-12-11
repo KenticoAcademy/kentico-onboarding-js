@@ -6,4 +6,4 @@ const mapStateToProps = (state, { itemId }) => ({
   isBeingEdited: state.items.byId.get(itemId).isBeingEdited,
 });
 
-export const ListItem = connect(mapStateToProps, null)(ListItemComponent);
+export const ListItem = connect(mapStateToProps)(ListItemComponent);
