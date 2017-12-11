@@ -9,9 +9,9 @@ const ListItem = ({ itemId, isBeingEdited }) => {
       <EditedListItem
         itemId={itemId}
       /> :
-      (<UneditedListItem
+      <UneditedListItem
         itemId={itemId}
-      />));
+      />);
 };
 
 ListItem.displayName = 'ListItem';
