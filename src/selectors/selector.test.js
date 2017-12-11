@@ -5,6 +5,6 @@ describe('memoized', () => {
     const firstArr = new Array([1, 2, 3]);
     const secondArr = new Array([1, 2, 3]);
 
-    expect(memoized(firstArr)).toEqual(memoized(secondArr));
+    expect(memoized(firstArr)).toBe(memoized(secondArr));
   });
 });
