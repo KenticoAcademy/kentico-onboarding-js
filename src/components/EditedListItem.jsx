@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { isNotText } from '../utils/isNotText.ts';
+import { isNotText } from '../utils/isNotText';
 
 export class EditedListItem extends PureComponent {
 
@@ -9,9 +9,9 @@ export class EditedListItem extends PureComponent {
   static propTypes = {
     itemText: PropTypes.string.isRequired,
     textUpdate: PropTypes.string.isRequired,
-    updateItemText: PropTypes.func.isRequired,
-    deleteItem: PropTypes.func.isRequired,
-    toggleEditing: PropTypes.func.isRequired,
+    onSave: PropTypes.func.isRequired,
+    onDelete: PropTypes.func.isRequired,
+    onCancel: PropTypes.func.isRequired,
     textUpdateChange: PropTypes.func.isRequired,
   };
 
@@ -21,7 +21,7 @@ export class EditedListItem extends PureComponent {
   };
 
   render() {
-    const { itemText, toggleEditing, deleteItem, textUpdate, updateItemText } = this.props;
+    const { itemText, onCancel, onDelete, textUpdate, onSave } = this.props;
     const isEmpty = isNotText(textUpdate);
 
     return (
@@ -38,19 +38,19 @@ export class EditedListItem extends PureComponent {
             data-balloon-pos="up"
             className="btn btn-primary"
             disabled={isEmpty}
-            onClick={updateItemText}
+            onClick={onSave}
           >
             Save
           </button>
           <button
             className="btn btn-default"
-            onClick={toggleEditing}
+            onClick={onCancel}
           >
             Cancel
           </button>
           <button
             className="btn btn-danger"
-            onClick={deleteItem}
+            onClick={onDelete}
           >
             Delete
           </button>

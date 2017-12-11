@@ -1,5 +1,5 @@
 import { OrderedMap } from 'immutable';
-import { Item } from '../../models/Item.ts';
+import { Item } from '../../models/Item';
 import {
   ADD_ITEM,
   UPDATE_ITEM_TEXT,

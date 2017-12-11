@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { isNotText } from '../utils/isNotText';
+import { containsNoCharacters } from '../utils/containsNoCharacters';
 import { ChangeEvent } from 'react';
 
 export interface IAddNewItemDataProps {
@@ -34,7 +34,7 @@ export class AddNewItem extends React.PureComponent<IAddNewItemDataProps & IAddN
 
   render() {
     const input = this.props.newItemText;
-    const isEmpty = isNotText(input);
+    const isEmpty = containsNoCharacters(input);
 
     return (
       <div className="list-group-item form-inline">
