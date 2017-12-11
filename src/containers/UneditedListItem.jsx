@@ -9,7 +9,7 @@ const mapStateToProps = (state, { itemId }) => ({
 });
 
 const mapDispatchToProps = (dispatch, { itemId }) => ({
-  toggleEditing: () => dispatch(toggleEditing(itemId)),
+  onTextClick: () => dispatch(toggleEditing(itemId)),
 });
 
 export const UneditedListItem = connect(mapStateToProps, mapDispatchToProps)(UneditedListItemComponent);
