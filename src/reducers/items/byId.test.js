@@ -49,7 +49,7 @@ describe('byId', () => {
     expect(stateAfter).toEqual(expectedState);
   });
 
-  it('deleteItem returns map without selected item', () => {
+  it('onDelete returns map without selected item', () => {
     const itemId = generateId();
     const stateBefore = new OrderedMap({
       [itemId]: new Item({
@@ -65,7 +65,7 @@ describe('byId', () => {
     expect(stateAfter).toEqual(expectedState);
   });
 
-  it('toggleEditing switches isBeingEdited to opposite value than is set', () => {
+  it('onCancel switches isBeingEdited to opposite value than is set', () => {
     const itemId = generateId();
 
     const stateBefore = new OrderedMap({

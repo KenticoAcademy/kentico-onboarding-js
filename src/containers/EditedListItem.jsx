@@ -16,9 +16,9 @@ function mapStateToProps(state, { itemId }) {
 }
 
 const mapDispatchToProps = (dispatch, { itemId, updatedText }) => ({
-  deleteItem: () => dispatch(deleteItem(itemId)),
-  toggleEditing: () => dispatch(toggleEditing(itemId)),
-  updateItemText: () => dispatch(updateItemText(itemId, updatedText)),
+  onDelete: () => dispatch(deleteItem(itemId)),
+  onCancel: () => dispatch(toggleEditing(itemId)),
+  onSave: () => dispatch(updateItemText(itemId, updatedText)),
   textUpdateChange: (text) => dispatch(textUpdateChange(itemId, text)),
 });
 
