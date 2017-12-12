@@ -36,9 +36,7 @@ const saveItemChanges = (state, action) => {
 };
 
 const openItemForEditing = (state, action) => {
-  const {
-    itemId,
-  } = action.payload;
+  const { itemId } = action.payload;
 
   return state.update(itemId, item =>
     item.merge({
