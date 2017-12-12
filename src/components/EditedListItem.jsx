@@ -12,12 +12,12 @@ export class EditedListItem extends PureComponent {
     onSave: PropTypes.func.isRequired,
     onDelete: PropTypes.func.isRequired,
     onCancel: PropTypes.func.isRequired,
-    textUpdateChange: PropTypes.func.isRequired,
+    onUpdateTextModification: PropTypes.func.isRequired,
   };
 
   updateTextModification = (e) => {
-    const { textUpdateChange } = this.props;
-    textUpdateChange(e.target.value);
+    const { onUpdateTextModification } = this.props;
+    onUpdateTextModification(e.target.value);
   };
 
   render() {

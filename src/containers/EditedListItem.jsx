@@ -19,7 +19,7 @@ const mapDispatchToProps = (dispatch, { itemId, updatedText }) => ({
   onDelete: () => dispatch(deleteItem(itemId)),
   onCancel: () => dispatch(toggleEditing(itemId)),
   onSave: () => dispatch(updateItemText(itemId, updatedText)),
-  textUpdateChange: (text) => dispatch(textUpdateChange(itemId, text)),
+  onUpdateTextModification: (text) => dispatch(textUpdateChange(itemId, text)),
 });
 
 export const EditedListItem = connect(mapStateToProps, mapDispatchToProps)(EditedListItemComponent);
