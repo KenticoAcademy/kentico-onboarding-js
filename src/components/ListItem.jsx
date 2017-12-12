@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { ListItemForm } from './ListItemForm';
+import { ListItemForm } from '../containers/ListItemForm';
 import { ListItemStatic } from './ListItemStatic';
 
 export class ListItem extends PureComponent {
@@ -10,11 +10,7 @@ export class ListItem extends PureComponent {
     item: PropTypes.shape({
       isBeingEdited: PropTypes.bool.isRequired,
     }),
-    number: PropTypes.number.isRequired,
-    onSave: PropTypes.func.isRequired,
-    onDelete: PropTypes.func.isRequired,
     onItemOpened: PropTypes.func.isRequired,
-    onCancel: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -25,12 +21,6 @@ export class ListItem extends PureComponent {
       selectionRangeEnds: 0,
     };
   }
-
-  saveItemChanges = (text) => {
-    const { onSave } = this.props;
-
-    onSave(text);
-  };
 
   openItemForEditing = (selectionRangeStarts, selectionRangeEnds) => {
     const { onItemOpened } = this.props;
@@ -47,8 +37,6 @@ export class ListItem extends PureComponent {
     const {
       number,
       item,
-      onCancel,
-      onDelete,
     } = this.props;
 
     return item.isBeingEdited ?
@@ -57,9 +45,6 @@ export class ListItem extends PureComponent {
         number={number}
         selectionRangeStarts={this.state.selectionRangeStarts}
         selectionRangeEnds={this.state.selectionRangeEnds}
-        onSave={this.saveItemChanges}
-        onCancel={onCancel}
-        onDelete={onDelete}
       /> :
       <ListItemStatic
         item={item}
