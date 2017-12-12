@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import { reducers } from './reducers';
+import { initialState } from './constants/initialState';
 import 'bootstrap/dist/css/bootstrap.css';
 import './index.css';
 
@@ -17,7 +18,7 @@ const logger = store => next => action => {
   return result;
 };
 
-const store = createStore(reducers, applyMiddleware(logger));
+const store = createStore(reducers, initialState, applyMiddleware(logger));
 
 ReactDOM.render(
   <Provider store={store} >
