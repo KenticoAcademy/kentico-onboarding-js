@@ -20,8 +20,28 @@ describe('items', () => {
     });
 
     const fakeCreateId = () => expectedId;
-    const addNewItemAction = actionsExtended.addNewItem(fakeCreateId, expectedTest);
+    const addNewItem = actionsExtended.addNewItemFactory(fakeCreateId);
+    const addNewItemAction = addNewItem(expectedTest);
     const result = items(initialState, addNewItemAction);
+
+    expect(result)
+      .toEqual(expectedState);
+  });
+
+  it('will add ListItem model to undefined state', () => {
+    const expectedId = 'test';
+    const expectedTest = 'text';
+    const expectedState = OrderedMap({
+      [expectedId]: new ListItem({
+        id: expectedId,
+        text: expectedTest,
+      }),
+    });
+
+    const fakeCreateId = () => expectedId;
+    const addNewItem = actionsExtended.addNewItemFactory(fakeCreateId);
+    const addNewItemAction = addNewItem(expectedTest);
+    const result = items(undefined, addNewItemAction);
 
     expect(result)
       .toEqual(expectedState);
@@ -105,6 +125,31 @@ describe('items', () => {
 
     expect(result)
       .toEqual(expectedState);
+  });
+
+  it('will execute undefined action', () => {
+    const initialState = OrderedMap({
+      '0': new ListItem({
+        id: '0',
+        text: 'text',
+        isBeingEdited: true,
+      }),
+      '1': new ListItem({
+        id: '1',
+        text: 'text2',
+        isBeingEdited: false,
+      }),
+    });
+    deepFreeze(initialState);
+
+    const undefinedAction = {
+      type: 'UNKNOWN',
+      payload: 'whatever',
+    };
+    const result = items(initialState, undefinedAction);
+
+    expect(result)
+      .toEqual(initialState);
   });
 
   it('will delete item with { id: test } from state', () => {
