@@ -1,12 +1,11 @@
 import { connect } from 'react-redux';
 import { List as ListComponent } from '../components/List';
-import memoize from 'fast-memoize';
+import { selectItemIdsMemoized } from '../selectors/selectItemIdsMemoized';
 
-const memoized = memoize((ids) => ids);
 
 const mapStateToProps = (state) => {
   return {
-    ids: memoized(state.items.byId.keySeq()),
+    ids: selectItemIdsMemoized(state.items.byId),
   };
 };
 
