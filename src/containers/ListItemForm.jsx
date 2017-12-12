@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { ListItemForm as ListItemFormComponent } from '../components/ListItemForm';
 import {
@@ -6,26 +7,35 @@ import {
   saveItemChanges,
 } from '../actions';
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
-  onSave: newText => dispatch(saveItemChanges(
-    ownProps.item.id,
-    newText,
-  )),
-  onDelete: () => dispatch(deleteItem(
-    ownProps.item.id,
-  )),
-  onCancel: () => dispatch(cancelItemChanges(
-    ownProps.item.id,
-  )),
-});
+const propTypes = {
+  number: PropTypes.number.isRequired,
+  item: PropTypes.shape({
+    text: PropTypes.string.isRequired,
+  }),
+  selectionRangeStarts: PropTypes.number.isRequired,
+  selectionRangeEnds: PropTypes.number.isRequired,
+};
 
-const mapStateToProps = (state, ownProps) => {
+const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    ...ownProps,
+    onSave: newText => dispatch(saveItemChanges(
+      ownProps.item.id,
+      newText,
+    )),
+    onDelete: () => dispatch(deleteItem(
+      ownProps.item.id,
+    )),
+    onCancel: () => dispatch(cancelItemChanges(
+      ownProps.item.id,
+    )),
   };
 };
 
-export const ListItemForm = connect(
-  mapStateToProps,
+const ListItemForm = connect(
+  null,
   mapDispatchToProps,
 )(ListItemFormComponent);
+
+ListItemForm.propTypes = propTypes;
+
+export { ListItemForm };

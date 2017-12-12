@@ -7,6 +7,7 @@ export class ListItem extends PureComponent {
   static displayName = 'ListItem';
 
   static propTypes = {
+    number: PropTypes.number.isRequired,
     item: PropTypes.shape({
       isBeingEdited: PropTypes.bool.isRequired,
     }),
