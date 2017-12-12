@@ -1,4 +1,4 @@
-import { ITEM_CREATED } from '../actionTypes';
+import { ITEM_CREATED } from '../constants/actionTypes';
 
 export const addNewItem = (createNewId, text) => {
   const itemId = createNewId();

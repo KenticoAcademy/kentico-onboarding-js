@@ -3,7 +3,7 @@ import {
   ITEM_CHANGES_CANCELED,
   ITEM_DELETED,
   ITEM_OPENED_FOR_EDITING,
-} from '../actionTypes';
+} from '../constants/actionTypes';
 
 export const openItemForEditing = (itemId) => {
   return {

@@ -7,7 +7,7 @@ import {
   ITEM_DELETED,
   ITEM_CHANGES_CANCELED,
   ITEM_CHANGES_SAVED,
-} from '../../../actionTypes';
+} from '../../../constants/actionTypes';
 import { createNewId } from '../../../utils/createNewId';
 
 const addNewItem = (state, action) => {
