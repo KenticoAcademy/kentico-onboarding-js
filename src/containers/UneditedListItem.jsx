@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { UneditedListItem as UneditedListItemComponent } from '../components/UneditedListItem';
 import {
   toggleEditing,
-} from '../actions/actionCreators';
+} from '../actions/actionCreators.ts';
 
 const mapStateToProps = (state, { itemId }) => ({
   itemText: state.items.byId.get(itemId).text,

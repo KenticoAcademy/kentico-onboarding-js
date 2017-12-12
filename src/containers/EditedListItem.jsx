@@ -5,7 +5,7 @@ import {
   toggleEditing,
   updateItemText,
   textUpdateChange,
-} from '../actions/actionCreators';
+} from '../actions/actionCreators.ts';
 
 function mapStateToProps(state, { itemId }) {
   const item = state.items.byId.get(itemId);

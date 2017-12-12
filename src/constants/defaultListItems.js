@@ -1,5 +1,5 @@
 import { OrderedMap } from 'immutable';
-import { generateId } from '../utils/generateId';
+import { generateId } from '../utils/generateId.ts';
 import { Item } from '../models/Item.ts';
 
 const defaultListItems = [

@@ -6,7 +6,7 @@ import {
   DELETE_ITEM,
   TOGGLE_EDITING,
   TEXT_UPDATE_CHANGE,
-} from '../../constants/actionTypes';
+} from '../../constants/actionTypes.ts';
 
 export const byId = (state = new OrderedMap(), action) => {
   switch (action.type) {
