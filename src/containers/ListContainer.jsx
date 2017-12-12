@@ -30,8 +30,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const mapStateToProps = state => {
-  const items = [];
-  state.list.items.forEach(item => items.push(item));
+  const items = state.list.items.valueSeq().toArray();
 
   return {
     items,
