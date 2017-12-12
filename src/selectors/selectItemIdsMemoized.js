@@ -1,3 +1,6 @@
 import memoize from 'fast-memoize';
 
-export const selectItemIdsMemoized = memoize((idsMap) => idsMap.keySeq());
+const memoizeIds = memoize(ids => ids);
+
+export const selectItemIdsMemoized = idsMap => memoizeIds(idsMap.keySeq());
+
