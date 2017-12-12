@@ -8,8 +8,6 @@ export class ListItem extends PureComponent {
 
   static propTypes = {
     item: PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      text: PropTypes.string.isRequired,
       isBeingEdited: PropTypes.bool.isRequired,
     }),
     number: PropTypes.number.isRequired,
@@ -29,27 +27,15 @@ export class ListItem extends PureComponent {
   }
 
   saveItemChanges = (text) => {
-    const { item: { id }, onSave } = this.props;
+    const { onSave } = this.props;
 
-    onSave(id, text);
-  };
-
-  deleteItem = () => {
-    const { item: { id }, onDelete } = this.props;
-
-    onDelete(id);
-  };
-
-  cancelItemChanges = () => {
-    const { item: { id }, onCancel } = this.props;
-
-    onCancel(id);
+    onSave(text);
   };
 
   openItemForEditing = (selectionRangeStarts, selectionRangeEnds) => {
-    const { item: { id }, onItemOpened } = this.props;
+    const { onItemOpened } = this.props;
 
-    onItemOpened(id);
+    onItemOpened();
 
     this.setState({
       selectionRangeStarts,
@@ -61,6 +47,8 @@ export class ListItem extends PureComponent {
     const {
       number,
       item,
+      onCancel,
+      onDelete,
     } = this.props;
 
     return item.isBeingEdited ?
@@ -70,8 +58,8 @@ export class ListItem extends PureComponent {
         selectionRangeStarts={this.state.selectionRangeStarts}
         selectionRangeEnds={this.state.selectionRangeEnds}
         onSave={this.saveItemChanges}
-        onCancel={this.cancelItemChanges}
-        onDelete={this.deleteItem}
+        onCancel={onCancel}
+        onDelete={onDelete}
       /> :
       <ListItemStatic
         item={item}
