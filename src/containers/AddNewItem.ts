@@ -1,11 +1,8 @@
-import {
-  addItem,
-  updateNewItemText,
-} from '../actions/actionCreators.js';
-import { generateId } from '../utils/generateId.js';
 import { connect } from 'react-redux';
 import { AddNewItem as AddNewItemComponent } from '../components/AddNewItem';
 import { IAppState } from '../stores/IAppState';
+import { generateId } from '../utils/generateId';
+import { addItem, updateNewItemText } from '../actions/actionCreators';
 
 const mapStateToProps = ({ items: { newItemText} }: IAppState) => ({
   newItemText,

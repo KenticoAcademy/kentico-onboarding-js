@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { isNotText } from '../utils/isNotText';
+import { containsNoCharacters } from '../utils/containsNoCharacters.ts';
 
 export class EditedListItem extends PureComponent {
 
@@ -22,7 +22,7 @@ export class EditedListItem extends PureComponent {
 
   render() {
     const { itemText, onCancel, onDelete, textUpdate, onSave } = this.props;
-    const isEmpty = isNotText(textUpdate);
+    const isEmpty = containsNoCharacters(textUpdate);
 
     return (
       <div className="input-group">

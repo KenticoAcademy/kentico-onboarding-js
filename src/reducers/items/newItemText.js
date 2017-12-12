@@ -1,7 +1,7 @@
 import {
   ADD_ITEM,
   UPDATE_NEW_ITEM_TEXT,
-} from '../../constants/actionTypes';
+} from '../../constants/actionTypes.ts';
 
 const DEFAULT_VALUE = '';
 
