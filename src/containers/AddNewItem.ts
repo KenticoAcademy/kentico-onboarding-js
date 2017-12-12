@@ -5,8 +5,9 @@ import {
 import { generateId } from '../utils/generateId.js';
 import { connect } from 'react-redux';
 import { AddNewItem as AddNewItemComponent } from '../components/AddNewItem';
+import { IAppState } from '../stores/IAppState';
 
-const mapStateToProps = ({ items: { newItemText: string }: Object }: Object) => ({
+const mapStateToProps = ({ items: { newItemText} }: IAppState) => ({
   newItemText,
 });
 
