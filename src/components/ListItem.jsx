@@ -1,31 +1,24 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
+import { EditedListItem } from '../containers/EditedListItem.jsx';
+import { UneditedListItem } from '../containers/UneditedListItem.jsx';
 
-export class ListItem extends PureComponent {
+const ListItem = ({ itemId, isBeingEdited }) => {
+  return (
+    isBeingEdited ?
+      <EditedListItem
+        itemId={itemId}
+      /> :
+      <UneditedListItem
+        itemId={itemId}
+      />);
+};
 
-  static propTypes = {
-    item: PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      value: PropTypes.string.isRequired,
-      isBeingEdited: PropTypes.bool.isRequired,
-    }).isRequired,
-    onToggleEditing: PropTypes.func.isRequired,
-  };
+ListItem.displayName = 'ListItem';
 
-  toggleTextEditing = () => {
-    const { item, onToggleEditing } = this.props;
-    onToggleEditing(item.id);
-  };
+ListItem.propTypes = {
+  itemId: PropTypes.string.isRequired,
+  isBeingEdited: PropTypes.bool.isRequired,
+};
 
-  render() {
-    const { value } = this.props.item;
-    return (
-      <div
-        className="form-control-static"
-        onClick={this.toggleTextEditing}
-      >
-        {value}
-      </div>
-    );
-  }
-}
+export { ListItem };

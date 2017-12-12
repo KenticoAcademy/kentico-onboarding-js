@@ -41,7 +41,7 @@ describe('Promise rejection', () => {
 
     return myPromise
       .then(result => {
-        fail('This should never happen. Catch block should be called immediately')
+        fail('This should never happen. Catch block should be called immediately');
       })
       .catch(error => {
         expect(error).toBe('Ooops...');
@@ -51,7 +51,7 @@ describe('Promise rejection', () => {
   it('rejects with error - shorthand syntax', () => {
     return Promise.reject('Ooops...')
       .then(result => {
-        fail('This should never happen. Catch block should be called immediately')
+        fail('This should never happen. Catch block should be called immediately');
       })
       .catch(error => {
         expect(error).toBe('Ooops...');

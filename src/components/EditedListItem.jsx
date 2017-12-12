@@ -1,58 +1,35 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { checkEmptiness } from '../utils/checkEmptiness';
+import { containsNoCharacters } from '../utils/containsNoCharacters';
 
 export class EditedListItem extends PureComponent {
 
+  static displayName = 'EditedListItem';
+
   static propTypes = {
-    item: PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      value: PropTypes.string.isRequired,
-      isBeingEdited: PropTypes.bool.isRequired,
-    }).isRequired,
-    onToggleEditing: PropTypes.func.isRequired,
-    onItemDeletion: PropTypes.func.isRequired,
-    onItemSaved: PropTypes.func.isRequired,
+    itemText: PropTypes.string.isRequired,
+    textUpdate: PropTypes.string.isRequired,
+    onSave: PropTypes.func.isRequired,
+    onDelete: PropTypes.func.isRequired,
+    onCancel: PropTypes.func.isRequired,
+    onUpdateTextModification: PropTypes.func.isRequired,
   };
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      updatedValue: this.props.item.value,
-    };
-  }
-
-  onTextChanged = (e) => {
-    this.setState(
-      { updatedValue: e.target.value }
-    );
-  };
-
-  toggleTextEditing = () => {
-    const { item, onToggleEditing } = this.props;
-    onToggleEditing(item.id);
-  };
-
-  deleteItem = () => {
-    const { item, onItemDeletion } = this.props;
-    onItemDeletion(item.id);
-  };
-
-  saveNewText = () => {
-    const { item, onItemSaved } = this.props;
-    onItemSaved(item.id, this.state.updatedValue);
+  updateTextModification = (e) => {
+    const { onUpdateTextModification } = this.props;
+    onUpdateTextModification(e.target.value);
   };
 
   render() {
-    const { value } = this.props.item;
-    const isEmpty = checkEmptiness(this.state.updatedValue);
+    const { itemText, onCancel, onDelete, textUpdate, onSave } = this.props;
+    const isEmpty = containsNoCharacters(textUpdate);
+
     return (
       <div className="input-group">
         <input
           className="form-control"
-          defaultValue={value}
-          onChange={this.onTextChanged}
+          defaultValue={itemText}
+          onChange={this.updateTextModification}
           placeholder="Type new item name..."
         />
         <div className="input-group-btn">
@@ -61,23 +38,24 @@ export class EditedListItem extends PureComponent {
             data-balloon-pos="up"
             className="btn btn-primary"
             disabled={isEmpty}
-            onClick={this.saveNewText}
+            onClick={onSave}
           >
             Save
           </button>
           <button
             className="btn btn-default"
-            onClick={this.toggleTextEditing}
+            onClick={onCancel}
           >
             Cancel
           </button>
           <button
             className="btn btn-danger"
-            onClick={this.deleteItem}
+            onClick={onDelete}
           >
             Delete
           </button>
         </div>
-      </div>);
+      </div>
+    );
   }
 }
