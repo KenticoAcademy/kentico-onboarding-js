@@ -1,4 +1,4 @@
-import { generateId } from './generateId';
+import { generateId } from './generateId.ts';
 
 describe('generateId', () => {
   it('generates ID in uuid format correctly', () => {
