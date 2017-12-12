@@ -13,18 +13,18 @@ const mapDispatchToProps = dispatch => ({
     itemId,
     newText,
   )),
-  onDeleteItem: (itemId) => dispatch(deleteItem(
+  onDeleteItem: itemId => dispatch(deleteItem(
     itemId,
   )),
-  onAddNewItem: (text) => {
+  onAddNewItem: text => {
     dispatch(addNewItem(
       text,
     ));
   },
-  onCancelItemChanges: (itemId) => dispatch(cancelItemChanges(
+  onCancelItemChanges: itemId => dispatch(cancelItemChanges(
     itemId,
   )),
-  onOpenItemForEditing: (itemId) => dispatch(openItemForEditing(
+  onOpenItemForEditing: itemId => dispatch(openItemForEditing(
     itemId,
   )),
 });
