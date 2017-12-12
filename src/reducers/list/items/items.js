@@ -57,7 +57,7 @@ const cancelItemChanges = (state, action) => {
 
 const initialState = OrderedMap();
 
-export const itemsReducer = (state = initialState, action) => {
+export const items = (state = initialState, action) => {
   const { type } = action;
 
   switch (type) {

@@ -1,11 +1,11 @@
 import { OrderedMap } from 'immutable';
 import { ListItem } from '../../../../src/models/ListItem';
 import deepFreeze from 'deep-freeze';
-import { itemsReducer } from '../../../../src/reducers/list/items/index';
+import { items } from '../../../../src/reducers/list/items/items';
 import * as actions from '../../../../src/actions/actionCreators';
 import * as actionsExtended from '../../../../src/actions/actionCreatorsWithDependency';
 
-describe('itemsReducer', () => {
+describe('items', () => {
   it('will add ListItem model to state with specific text', () => {
     const initialState = OrderedMap();
     deepFreeze(initialState);
@@ -21,7 +21,7 @@ describe('itemsReducer', () => {
 
     const fakeCreateId = () => expectedId;
     const addNewItemAction = actionsExtended.addNewItem(fakeCreateId, expectedTest);
-    const result = itemsReducer(initialState, addNewItemAction);
+    const result = items(initialState, addNewItemAction);
 
     expect(result)
       .toEqual(expectedState);
@@ -47,7 +47,7 @@ describe('itemsReducer', () => {
     });
 
     const selectItemTextAction = actions.openItemForEditing(expectedId);
-    const result = itemsReducer(initialState, selectItemTextAction);
+    const result = items(initialState, selectItemTextAction);
 
     expect(result)
       .toEqual(expectedState);
@@ -74,7 +74,7 @@ describe('itemsReducer', () => {
     });
 
     const changeItemTextAction = actions.saveItemChanges(expectedId, expectedNewText);
-    const result = itemsReducer(initialState, changeItemTextAction);
+    const result = items(initialState, changeItemTextAction);
 
     expect(result)
       .toEqual(expectedState);
@@ -101,7 +101,7 @@ describe('itemsReducer', () => {
     });
 
     const cancelItemChangesAction = actions.cancelItemChanges(expectedId);
-    const result = itemsReducer(initialState, cancelItemChangesAction);
+    const result = items(initialState, cancelItemChangesAction);
 
     expect(result)
       .toEqual(expectedState);
@@ -134,7 +134,7 @@ describe('itemsReducer', () => {
     });
 
     const deleteItemAction = actions.deleteItem(expectedId);
-    const result = itemsReducer(initialState, deleteItemAction);
+    const result = items(initialState, deleteItemAction);
 
     expect(result)
       .toEqual(expectedState);
