@@ -1,6 +1,6 @@
 import * as Immutable from 'immutable';
 
-interface IItem {
+export interface IItem {
   id: string;
   text: string;
   isBeingEdited: boolean;
