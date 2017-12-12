@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { Items } from '../components/Items';
+import { Items as ItemsComponent } from '../components/Items';
 import {
   deleteItem,
   cancelItemChanges,
@@ -31,7 +31,7 @@ const mapStateToProps = state => {
   };
 };
 
-export const ItemsContainer = connect(
+export const Items = connect(
   mapStateToProps,
   mapDispatchToProps,
-)(Items);
+)(ItemsComponent);

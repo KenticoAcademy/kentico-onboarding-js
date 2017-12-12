@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { HotKeys } from 'react-hotkeys';
 import { keyMap } from '../constants/keys';
-import { ItemsContainer } from '../containers/ItemsContainer';
+import { Items } from '../containers/Items';
 import { NewItemForm } from './NewItemForm';
 
 const propTypes = {
@@ -12,7 +12,7 @@ const propTypes = {
 const List = ({ onAddNewItem }) => (
   <HotKeys keyMap={keyMap}>
     <ol className="list-group">
-      <ItemsContainer />
+      <Items />
 
       <li className="list-group-item">
         <NewItemForm onSubmit={onAddNewItem} />
