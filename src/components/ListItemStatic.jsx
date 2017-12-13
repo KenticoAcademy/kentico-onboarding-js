@@ -10,6 +10,7 @@ export class ListItemStatic extends PureComponent {
       text: PropTypes.string.isRequired,
     }),
     onTextSelection: PropTypes.func.isRequired,
+    onItemOpened: PropTypes.func.isRequired,
   };
 
   onTextSelection = () => {
@@ -18,9 +19,10 @@ export class ListItemStatic extends PureComponent {
       .getRangeAt(0);
 
     const { startOffset, endOffset } = selection;
-    const { onTextSelection } = this.props;
+    const { onTextSelection, onItemOpened } = this.props;
 
     onTextSelection(startOffset, endOffset);
+    onItemOpened();
   };
 
   render() {

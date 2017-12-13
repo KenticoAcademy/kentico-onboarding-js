@@ -1,13 +1,15 @@
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { ListItem as ListItemComponent } from '../components/ListItem';
+import { ListItemStatic as ListItemStaticComponent } from '../components/ListItemStatic';
 import { openItemForEditing } from '../actions';
 
 const propTypes = {
   number: PropTypes.number.isRequired,
   item: PropTypes.shape({
-    isBeingEdited: PropTypes.bool.isRequired,
+    id: PropTypes.string.isRequired,
+    text: PropTypes.string.isRequired,
   }),
+  onTextSelection: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
@@ -16,11 +18,11 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   )),
 });
 
-const ListItem = connect(
+const ListItemStatic = connect(
   null,
   mapDispatchToProps,
-)(ListItemComponent);
+)(ListItemStaticComponent);
 
-ListItem.propTypes = propTypes;
+ListItemStatic.propTypes = propTypes;
 
-export { ListItem };
+export { ListItemStatic };

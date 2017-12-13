@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ListItem } from '../containers/ListItem';
+import { ListItem } from './ListItem';
 
 const propTypes = {
   items: PropTypes.arrayOf(PropTypes.shape({

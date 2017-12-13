@@ -10,26 +10,25 @@ import {
 const propTypes = {
   number: PropTypes.number.isRequired,
   item: PropTypes.shape({
+    id: PropTypes.string.isRequired,
     text: PropTypes.string.isRequired,
   }),
   selectionRangeStarts: PropTypes.number.isRequired,
   selectionRangeEnds: PropTypes.number.isRequired,
 };
 
-const mapDispatchToProps = (dispatch, ownProps) => {
-  return {
-    onSave: newText => dispatch(saveItemChanges(
-      ownProps.item.id,
-      newText,
-    )),
-    onDelete: () => dispatch(deleteItem(
-      ownProps.item.id,
-    )),
-    onCancel: () => dispatch(cancelItemChanges(
-      ownProps.item.id,
-    )),
-  };
-};
+const mapDispatchToProps = (dispatch, ownProps) => ({
+  onSave: newText => dispatch(saveItemChanges(
+    ownProps.item.id,
+    newText,
+  )),
+  onDelete: () => dispatch(deleteItem(
+    ownProps.item.id,
+  )),
+  onCancel: () => dispatch(cancelItemChanges(
+    ownProps.item.id,
+  )),
+});
 
 const ListItemForm = connect(
   null,

@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { ListItemForm } from '../containers/ListItemForm';
-import { ListItemStatic } from './ListItemStatic';
+import { ListItemStatic } from '../containers/ListItemStatic';
 
 export class ListItem extends PureComponent {
   static displayName = 'ListItem';
@@ -11,7 +11,6 @@ export class ListItem extends PureComponent {
     item: PropTypes.shape({
       isBeingEdited: PropTypes.bool.isRequired,
     }),
-    onItemOpened: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -23,11 +22,7 @@ export class ListItem extends PureComponent {
     };
   }
 
-  openItemForEditing = (selectionRangeStarts, selectionRangeEnds) => {
-    const { onItemOpened } = this.props;
-
-    onItemOpened();
-
+  selectText = (selectionRangeStarts, selectionRangeEnds) => {
     this.setState({
       selectionRangeStarts,
       selectionRangeEnds,
@@ -50,7 +45,7 @@ export class ListItem extends PureComponent {
       <ListItemStatic
         item={item}
         number={number}
-        onTextSelection={this.openItemForEditing}
+        onTextSelection={this.selectText}
       />;
   }
 }
