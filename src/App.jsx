@@ -2,7 +2,7 @@ import './sticky-footer.css';
 import './balloon.css';
 import React from 'react';
 import { List } from './containers/List';
-import { AddNewItem } from './containers/AddNewItem.ts';
+import { AddNewItem } from './containers/AddNewItem.tsx';
 
 export const App = () => (
   <div>
