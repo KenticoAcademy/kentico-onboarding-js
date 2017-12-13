@@ -1,5 +1,9 @@
 import * as Immutable from 'immutable';
 
+export interface IItemInterface {
+  new (id: string, text: string): IItem;
+}
+
 export interface IItem {
   id: string;
   text: string;
