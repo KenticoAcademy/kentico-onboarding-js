@@ -22,16 +22,9 @@ export class AddNewItem extends React.PureComponent<IAddNewItemDataProps & IAddN
     onNewTextChange: PropTypes.func.isRequired,
   };
 
-  constructor(props: IAddNewItemDataProps & IAddNewItemCallbackProps) {
-    super(props);
-
-    this._onChange = this._onChange.bind(this);
-    this._onClick = this._onClick.bind(this);
-  }
-
-  _onChange (e: ChangeEvent<HTMLInputElement>): void {
+  _onChange = (e: ChangeEvent<HTMLInputElement>): void => {
     const newText = e.target.value;
-    const { onNewTextChange } = this.props;
+    const {onNewTextChange} = this.props;
     onNewTextChange(newText);
   };
 
