@@ -1,1 +1,1 @@
-export const isTextEmpty = input => !input;
+export const isTextEmpty = input => !input || !input.trim();
