@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import moize from 'moize';
 import { Items as ItemsComponent } from '../components/Items';
 
 const mapStateToProps = state => {
@@ -9,6 +10,8 @@ const mapStateToProps = state => {
   };
 };
 
+const mapStateToPropsMoized = moize(mapStateToProps);
+
 export const Items = connect(
-  mapStateToProps,
+  mapStateToPropsMoized,
 )(ItemsComponent);
