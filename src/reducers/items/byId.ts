@@ -4,10 +4,11 @@ import {
   actionTypes
 } from '../../constants/actionTypes';
 import { IAction } from '../../actions/IAction';
+import { ItemId } from '../../models/ItemId';
 
-const DEFAULT_STATE = OrderedMap<string, Item>();
+const DEFAULT_STATE = OrderedMap<ItemId, Item>();
 
-export const byId = (state = DEFAULT_STATE, action: IAction): OrderedMap<string, Item> => {
+export const byId = (state = DEFAULT_STATE, action: IAction): OrderedMap<ItemId, Item> => {
 
   switch (action.type) {
 

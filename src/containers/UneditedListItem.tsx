@@ -5,9 +5,10 @@ import {
 } from '../actions/actionCreators';
 import { IAppState } from '../stores/IAppState';
 import { ComponentClass } from 'react';
+import { ItemId } from '../models/ItemId';
 
 interface IUneditedListItemContainerProps {
-  itemId: string;
+  itemId: ItemId;
 }
 
 const mapStateToProps = (state: IAppState, { itemId }: IUneditedListItemContainerProps): IUneditedListItemDataProps => ({

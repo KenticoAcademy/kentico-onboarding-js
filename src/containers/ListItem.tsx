@@ -2,9 +2,10 @@ import { connect } from 'react-redux';
 import { IListItemDataProps, ListItem as ListItemComponent } from '../components/ListItem';
 import { IAppState } from '../stores/IAppState';
 import { ComponentClass } from 'react';
+import { ItemId } from '../models/ItemId';
 
 export interface IListItemContainerProps {
-  id: string;
+  id: ItemId;
 }
 
 const mapStateToProps = (state: IAppState, { id }: IListItemContainerProps): IListItemDataProps => ({

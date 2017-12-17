@@ -1,7 +1,8 @@
 import { actionTypes } from '../constants/actionTypes';
 import { IAction } from './IAction';
+import { ItemId } from '../models/ItemId';
 
-export const addItem = (id: string, text: string): IAction => {
+export const addItem = (id: ItemId, text: string): IAction => {
   return {
     type: actionTypes.ADD_ITEM,
     payload: {
@@ -11,21 +12,21 @@ export const addItem = (id: string, text: string): IAction => {
   };
 };
 
-export const deleteItem = (id: string): IAction => {
+export const deleteItem = (id: ItemId): IAction => {
   return {
     type: actionTypes.DELETE_ITEM,
     payload: { id },
   };
 };
 
-export const toggleEditing = (id: string): IAction => {
+export const toggleEditing = (id: ItemId): IAction => {
   return {
     type: actionTypes.TOGGLE_EDITING,
     payload: { id },
   };
 };
 
-export const updateItemText = (id: string): IAction => {
+export const updateItemText = (id: ItemId): IAction => {
   return {
     type: actionTypes.UPDATE_ITEM_TEXT,
     payload: { id },
@@ -39,7 +40,7 @@ export const updateNewItemText = (newItemText: string): IAction => {
   };
 };
 
-export const textUpdateChange = (id: string, updatedText: string): IAction => {
+export const textUpdateChange = (id: ItemId, updatedText: string): IAction => {
   return {
     type: actionTypes.TEXT_UPDATE_CHANGE,
     payload: {
