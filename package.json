@@ -10,6 +10,7 @@
     "@types/react-dom": "^0.14.23",
     "@types/react-redux": "^5.0.14",
     "@types/redux": "^3.6.0",
+    "@types/redux-logger": "^3.0.5",
     "@types/uuid": "^3.4.3",
     "autoprefixer": "^6.5.1",
     "awesome-typescript-loader": "^3.2.2",
