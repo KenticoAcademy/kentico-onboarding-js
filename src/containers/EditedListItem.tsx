@@ -7,26 +7,27 @@ import {
   textUpdateChange,
 } from '../actions/actionCreators';
 import { IAppState } from '../stores/IAppState';
+import { ComponentClass } from 'react';
+import { IItem } from '../models/Item';
 
 interface IEditListItemContainerProps {
   itemId: string;
-  updatedText: string;
 }
 
 function mapStateToProps(state: IAppState, { itemId }: IEditListItemContainerProps): IEditedListItemDataProps {
-  const item = state.items.byId.get(itemId);
+  const item: IItem = state.items.byId.get(itemId);
   return {
     itemText: item.text,
     textUpdate: item.textUpdate,
   };
 }
 
-const mapDispatchToProps = (dispatch: Function, { itemId, updatedText }: IEditListItemContainerProps): IEditedListItemCallbackProps => ({
+const mapDispatchToProps = (dispatch: Function, { itemId }: IEditListItemContainerProps): IEditedListItemCallbackProps => ({
   onDelete: () => dispatch(deleteItem(itemId)),
   onCancel: () => dispatch(toggleEditing(itemId)),
-  onSave: () => dispatch(updateItemText(itemId, updatedText)),
+  onSave: () => dispatch(updateItemText(itemId)),
   textUpdateChange: (text: string) => dispatch(textUpdateChange(itemId, text)),
 });
 
-export const EditedListItem = connect(mapStateToProps, mapDispatchToProps)(EditedListItemComponent);
+export const EditedListItem: ComponentClass<IEditListItemContainerProps>  = connect(mapStateToProps, mapDispatchToProps)(EditedListItemComponent);
 

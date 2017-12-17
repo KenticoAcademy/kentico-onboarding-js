@@ -25,13 +25,10 @@ export const toggleEditing = (id: string): IAction => {
   };
 };
 
-export const updateItemText = (id: string, newText: string): IAction => {
+export const updateItemText = (id: string): IAction => {
   return {
     type: actionTypes.UPDATE_ITEM_TEXT,
-    payload: {
-      id,
-      newText,
-    },
+    payload: { id },
   };
 };
 
