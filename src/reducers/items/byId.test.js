@@ -1,14 +1,14 @@
 import { OrderedMap } from 'immutable';
-import { generateId } from '../../utils/generateId';
-import { byId } from './byId';
-import { Item } from '../../models/Item';
+import { generateId } from '../../utils/generateId.ts';
+import { byId } from './byId.ts';
+import { Item } from '../../models/Item.ts';
 import {
   addItem,
   deleteItem,
   textUpdateChange,
   toggleEditing,
   updateItemText,
-} from '../../actions/actionCreators';
+} from '../../actions/actionCreators.ts';
 
 describe('byId', () => {
   it('addItem returns map filled with new item with correct text and id', () => {
