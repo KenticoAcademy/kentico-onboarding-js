@@ -5,9 +5,9 @@ import './index.css';
 import { createStore, applyMiddleware } from 'redux';
 import logger from 'redux-logger';
 import { Provider } from 'react-redux';
-import { App } from './App.jsx';
-import { defaultStateValues } from './constants/defaultListItems';
-import { root } from './reducers/root';
+import { App } from './App.tsx';
+import { defaultStateValues } from './constants/defaultListItems.ts';
+import { root } from './reducers/root.ts';
 
 const store = createStore(
   root,

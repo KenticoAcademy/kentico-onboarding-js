@@ -1,6 +1,7 @@
 import { OrderedMap } from 'immutable';
-import { generateId } from '../utils/generateId.ts';
-import { Item } from '../models/Item.ts';
+import { generateId } from '../utils/generateId';
+import { Item } from '../models/Item';
+import { IAppState } from '../stores/IAppState';
 
 const defaultListItems = [
   'Make a coffee',
@@ -18,9 +19,9 @@ const defaultListItems = [
   ];
 });
 
-const defaultStateValues = {
+const defaultStateValues: IAppState = {
   items: {
-    byId: new OrderedMap(defaultListItems),
+    byId: OrderedMap(defaultListItems),
     newItemText: '',
   },
 };
