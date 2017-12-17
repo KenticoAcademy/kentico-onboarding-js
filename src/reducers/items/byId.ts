@@ -1,13 +1,13 @@
-import { OrderedMap, Map } from 'immutable';
+import { OrderedMap } from 'immutable';
 import { Item } from '../../models/Item';
 import {
   actionTypes
 } from '../../constants/actionTypes';
 import { IAction } from '../../actions/IAction';
 
-const DEFAULT_STATE: Map<string, Record<string, any>> = OrderedMap();
+const DEFAULT_STATE = OrderedMap<string, Item>();
 
-export const byId = (state = DEFAULT_STATE, action: IAction): OrderedMap<string, Record<string, any>> => {
+export const byId = (state = DEFAULT_STATE, action: IAction): OrderedMap<string, Item> => {
 
   switch (action.type) {
 
@@ -18,7 +18,7 @@ export const byId = (state = DEFAULT_STATE, action: IAction): OrderedMap<string,
       }));
 
     case actionTypes.UPDATE_ITEM_TEXT:
-      return state.update(action.payload.id, (item) => item.merge({
+      return state.update(action.payload.id, (item) => item.with({
         text: item.textUpdate,
         isBeingEdited: false,
       }));
@@ -28,14 +28,14 @@ export const byId = (state = DEFAULT_STATE, action: IAction): OrderedMap<string,
     }
 
     case actionTypes.TOGGLE_EDITING: {
-      return state.update(action.payload.id, (item) => item.merge({
+      return state.update(action.payload.id, (item) => item.with({
         isBeingEdited: !item.isBeingEdited,
         textUpdate: item.text,
       }));
     }
 
     case actionTypes.TEXT_UPDATE_CHANGE: {
-      return state.update(action.payload.id, (item) => item.merge({
+      return state.update(action.payload.id, (item) => item.with({
         textUpdate: action.payload.updatedText,
       }));
     }
