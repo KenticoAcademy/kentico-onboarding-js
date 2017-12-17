@@ -9,9 +9,10 @@ import {
 import { IAppState } from '../stores/IAppState';
 import { ComponentClass } from 'react';
 import { IItem } from '../models/Item';
+import { ItemId } from '../models/ItemId';
 
 interface IEditListItemContainerProps {
-  itemId: string;
+  itemId: ItemId;
 }
 
 function mapStateToProps(state: IAppState, { itemId }: IEditListItemContainerProps): IEditedListItemDataProps {

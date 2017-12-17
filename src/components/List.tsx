@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { Seq } from 'immutable';
 import { ListItem } from '../containers/ListItem';
+import { ItemId } from '../models/ItemId';
 
 interface  IListDataProps {
   ids: Seq.Indexed<string>;
@@ -10,7 +11,7 @@ interface  IListDataProps {
 const List: React.SFC<IListDataProps> = ({ ids }: IListDataProps): JSX.Element => {
   return (
     <div>
-      {ids.map((id: string, index: number) =>
+      {ids.map((id: ItemId, index: number) =>
         <div
           className="list-group-item form-inline"
           key={id}

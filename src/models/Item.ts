@@ -1,7 +1,8 @@
 import * as Immutable from 'immutable';
+import { ItemId } from './ItemId';
 
 export interface IItem {
-  readonly id: string;
+  readonly id: ItemId;
   readonly text: string;
   readonly isBeingEdited: boolean;
   readonly textUpdate: string;
@@ -18,7 +19,7 @@ const defaultItem: IItem = {
 
 export class Item extends Immutable.Record(defaultItem) implements IItem {
 
-  readonly id: string;
+  readonly id: ItemId;
   readonly text: string;
   readonly isBeingEdited: boolean;
   readonly textUpdate: string;
