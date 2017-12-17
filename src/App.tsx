@@ -4,7 +4,7 @@ import * as React from 'react';
 import { List } from './containers/List';
 import { AddNewItem } from './containers/AddNewItem';
 
-export const App = () => (
+export const App = (): JSX.Element => (
   <div>
     <div className="container">
       <div className="header clearfix">
