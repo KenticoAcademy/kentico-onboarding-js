@@ -12,10 +12,26 @@ describe('isTextEmpty', () => {
 
   ['', null, undefined]
     .map(text =>
-      it(`'will return true when text is ${text}`, () => {
+      it(`will return true when text is ${text}`, () => {
         const result = isTextEmpty(text);
 
         expect(result)
           .toBeTruthy();
       }));
+
+  it('will return true when text is only spaces...', () => {
+    const text = '   ';
+    const result = isTextEmpty(text);
+
+    expect(result)
+      .toBeTruthy();
+  });
+
+  it('will return true when text is only combination of white spaces...', () => {
+    const text = '\t\t \t';
+    const result = isTextEmpty(text);
+
+    expect(result)
+      .toBeTruthy();
+  });
 });

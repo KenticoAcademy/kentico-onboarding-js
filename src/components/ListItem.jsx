@@ -1,22 +1,16 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { OpenedListItem } from './ListItemForm';
-import { ClosedListItem } from './ClosedListItem';
+import { ListItemForm } from '../containers/ListItemForm';
+import { ListItemStatic } from '../containers/ListItemStatic';
 
 export class ListItem extends PureComponent {
   static displayName = 'ListItem';
 
   static propTypes = {
+    number: PropTypes.number.isRequired,
     item: PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      text: PropTypes.string.isRequired,
       isBeingEdited: PropTypes.bool.isRequired,
     }),
-    number: PropTypes.number.isRequired,
-    onSave: PropTypes.func.isRequired,
-    onDelete: PropTypes.func.isRequired,
-    onClick: PropTypes.func.isRequired,
-    onCancel: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -28,32 +22,7 @@ export class ListItem extends PureComponent {
     };
   }
 
-  changeItemText = (text) => {
-    const { item: { id }, onSave } = this.props;
-
-    onSave(id, text);
-  };
-
-  deleteItem = () => {
-    const { item: { id }, onDelete } = this.props;
-
-    onDelete(id);
-  };
-
-  cancelUnsavedChanges = () => {
-    const { item: { id }, onCancel } = this.props;
-
-    onCancel(id);
-  };
-
-  openItemForEditing = (selectionRangeStarts, selectionRangeEnds) => {
-    const {
-      item: { id },
-      onClick,
-    } = this.props;
-
-    onClick(id);
-
+  selectText = (selectionRangeStarts, selectionRangeEnds) => {
     this.setState({
       selectionRangeStarts,
       selectionRangeEnds,
@@ -64,30 +33,19 @@ export class ListItem extends PureComponent {
     const {
       number,
       item,
-      item: {
-        isBeingEdited,
-      },
     } = this.props;
 
-    const {
-      selectionRangeStarts,
-      selectionRangeEnds,
-    } = this.state;
-
-    return isBeingEdited ?
-      <OpenedListItem
+    return item.isBeingEdited ?
+      <ListItemForm
         item={item}
         number={number}
-        selectionRangeStarts={selectionRangeStarts}
-        selectionRangeEnds={selectionRangeEnds}
-        onSave={this.changeItemText}
-        onCancel={this.cancelUnsavedChanges}
-        onDelete={this.deleteItem}
+        selectionRangeStarts={this.state.selectionRangeStarts}
+        selectionRangeEnds={this.state.selectionRangeEnds}
       /> :
-      <ClosedListItem
+      <ListItemStatic
         item={item}
         number={number}
-        onClick={this.openItemForEditing}
+        onTextSelection={this.selectText}
       />;
   }
 }

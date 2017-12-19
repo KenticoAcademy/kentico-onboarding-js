@@ -1,97 +1,22 @@
-import React, { PureComponent } from 'react';
-import { OrderedMap } from 'immutable';
+import React from 'react';
 import { HotKeys } from 'react-hotkeys';
 import { keyMap } from '../constants/keys';
-import { ListItem as ListItemModel } from '../models/ListItem';
-import { ListItem } from './ListItem.jsx';
-import { NewItemForm } from './NewItemForm';
-import { createNewId } from '../utils/createNewId';
+import { Items } from '../containers/Items';
+import { NewItemForm } from '../containers/NewItemForm';
 
-export class List extends PureComponent {
-  static displayName = 'List';
+const List = () => (
+  <HotKeys keyMap={keyMap}>
+    <ol className="list-group">
+      <Items />
 
-  constructor(props) {
-    super(props);
+      <li className="list-group-item">
+        <NewItemForm />
+      </li>
+    </ol>
+  </HotKeys>
+);
 
-    this.state = {
-      items: OrderedMap(),
-    };
-  }
 
-  deleteItem = (itemId) => {
-    this.setState(prevState => ({
-      items: prevState.items.delete(itemId),
-    }));
-  };
+List.displayName = 'List';
 
-  cancelUnsavedChanges = (itemId) => {
-    this.setState(prevState => ({
-      items: prevState.items.update(itemId, item => item.merge({
-        isBeingEdited: false,
-      })),
-    }));
-  };
-
-  openItemForEditing = (itemId) => {
-    this.setState(prevState => ({
-      items: prevState.items.update(itemId, item => item.merge({
-        isBeingEdited: true,
-      })),
-    }));
-  };
-
-  addNewItem = (text) => {
-    const id = createNewId();
-    const item = new ListItemModel({
-      id,
-      text,
-    });
-
-    this.setState(prevState => ({
-      items: prevState.items.set(id, item),
-    }));
-  };
-
-  changeItemText = (changedItemId, newText) => {
-    this.setState(prevState => ({
-      items: prevState.items.update(changedItemId, item =>
-        item.merge({
-          text: newText,
-          isBeingEdited: false,
-        })),
-    }));
-  };
-
-  render() {
-    const { items } = this.state;
-    const listItems = items
-      .entrySeq()
-      .map(([id, item], index) => (
-        <li
-          className="list-group-item"
-          key={id}
-        >
-          <ListItem
-            item={item}
-            number={index + 1}
-            onSave={this.changeItemText}
-            onDelete={this.deleteItem}
-            onClick={this.openItemForEditing}
-            onCancel={this.cancelUnsavedChanges}
-          />
-        </li>
-      ));
-
-    return (
-      <HotKeys keyMap={keyMap}>
-        <ol className="list-group">
-          {listItems}
-
-          <li className="list-group-item">
-            <NewItemForm onAdd={this.addNewItem} />
-          </li>
-        </ol>
-      </HotKeys>
-    );
-  }
-}
+export { List };

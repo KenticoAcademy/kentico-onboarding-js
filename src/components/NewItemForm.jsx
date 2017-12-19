@@ -8,7 +8,7 @@ export class NewItemForm extends PureComponent {
   static displayName = 'NewItemForm';
 
   static propTypes = {
-    onAdd: PropTypes.func.isRequired,
+    onSubmit: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -24,10 +24,10 @@ export class NewItemForm extends PureComponent {
   });
 
   submitItemText = () => {
-    const { onAdd } = this.props;
+    const { onSubmit } = this.props;
     const { newItemText } = this.state;
 
-    onAdd(newItemText);
+    onSubmit(newItemText);
 
     this.setState({
       newItemText: '',
