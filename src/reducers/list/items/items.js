@@ -20,11 +20,7 @@ const addNewItem = (state, action) => {
   return state.set(id, newItem);
 };
 
-const deleteItem = (state, action) => {
-  const { itemId } = action.payload;
-
-  return state.delete(itemId);
-};
+const deleteItem = (state, action) => state.delete(action.payload.itemId);
 
 const saveItemChanges = (state, action) => {
   const { itemId, newText } = action.payload;
@@ -35,23 +31,17 @@ const saveItemChanges = (state, action) => {
   }));
 };
 
-const openItemForEditing = (state, action) => {
-  const { itemId } = action.payload;
-
-  return state.update(itemId, item =>
+const openItemForEditing = (state, action) =>
+  state.update(action.payload.itemId, item =>
     item.merge({
       isBeingEdited: true,
     }));
-};
 
-const cancelItemChanges = (state, action) => {
-  const { itemId } = action.payload;
-
-  return state.update(itemId, item =>
+const cancelItemChanges = (state, action) =>
+  state.update(action.payload.itemId, item =>
     item.merge({
       isBeingEdited: false,
     }));
-};
 
 const initialState = OrderedMap();
 
