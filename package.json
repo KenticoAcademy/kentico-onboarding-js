@@ -4,8 +4,8 @@
   "private": true,
   "devDependencies": {
     "@types/jest": "^18.1.1",
-    "@types/node": "^7.0.39",
-    "@types/react": "^15.6.0",
+    "@types/node": "^7.0.50",
+    "@types/react": "^15.6.10",
     "@types/react-dom": "^0.14.23",
     "autoprefixer": "^6.5.1",
     "awesome-typescript-loader": "^3.2.2",
@@ -41,6 +41,7 @@
     "path-exists": "2.1.0",
     "postcss-loader": "^1.0.0",
     "promise": "^7.1.1",
+    "raf-polyfill": "^1.0.0",
     "react-dev-utils": "^0.4.2",
     "recursive-readdir": "^2.1.0",
     "source-map-loader": "^0.1.6",
