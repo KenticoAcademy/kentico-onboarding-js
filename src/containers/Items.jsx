@@ -1,17 +1,10 @@
 import { connect } from 'react-redux';
-import moize from 'moize';
 import { Items as ItemsComponent } from '../components/Items';
 
-const mapStateToProps = state => {
-  const items = state.list.items.valueSeq().toArray();
-
-  return {
-    items,
-  };
-};
-
-const mapStateToPropsMoized = moize(mapStateToProps);
+const mapStateToProps = state => ({
+  itemIds: state.list.items.keySeq().toArray(),
+});
 
 export const Items = connect(
-  mapStateToPropsMoized,
+  mapStateToProps,
 )(ItemsComponent);

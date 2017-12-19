@@ -1,21 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ListItem } from './ListItem';
+import { ListItem } from '../containers/ListItem';
 
 const propTypes = {
-  items: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string.isRequired,
-  })),
+  itemIds: PropTypes.arrayOf(PropTypes.string),
 };
 
-const Items = ({ items }) =>
-  items.map((item, index) => (
+const Items = ({ itemIds }) =>
+  itemIds.map((itemId, index) => (
     <li
       className="list-group-item"
-      key={item.id}
+      key={itemId}
     >
       <ListItem
-        item={item}
+        itemId={itemId}
         number={index + 1}
       />
     </li>
