@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+import * as PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { ListItemForm as ListItemFormComponent } from '../components/ListItemForm';
 import {
@@ -6,9 +6,12 @@ import {
   cancelItemChanges,
   saveItemChanges,
 } from '../actions';
+import { Dispatch } from 'redux';
+import { IAction } from '../interfaces/IAction';
+import { IListItem } from '../models/IListItem';
 
 const propTypes = {
-  number: PropTypes.number.isRequired,
+  itemNumber: PropTypes.number.isRequired,
   item: PropTypes.shape({
     id: PropTypes.string.isRequired,
     text: PropTypes.string.isRequired,
@@ -17,8 +20,15 @@ const propTypes = {
   selectionRangeEnds: PropTypes.number.isRequired,
 };
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
-  onSave: newText => dispatch(saveItemChanges(
+interface IListItemFormContainerDataProps {
+  itemNumber: number;
+  item: IListItem;
+  selectionRangeStarts: number;
+  selectionRangeEnds: number;
+}
+
+const mapDispatchToProps = (dispatch: Dispatch<IAction>, ownProps: IListItemFormContainerDataProps) => ({
+  onSave: (newText: string) => dispatch(saveItemChanges(
     ownProps.item.id,
     newText,
   )),

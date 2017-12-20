@@ -1,3 +1,5 @@
+/* tslint:disable:no-bitwise */
+
 export const createNewId = () => {
   let id = '';
   let random;
@@ -11,10 +13,11 @@ export const createNewId = () => {
 
     if (i === 12) {
       id += 4;
-    }
-    else {
+    } else {
       id += (i === 16 ? (random & 3 | 8) : random).toString(16);
     }
   }
   return id;
 };
+
+/* tslint:enable:no-bitwise */

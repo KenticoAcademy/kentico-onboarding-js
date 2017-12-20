@@ -14,7 +14,7 @@ describe('keySeqToArray', () => {
 
   it('will call keySeqToArray 2 times on different arguments', () => {
     const arr1 = Seq.Indexed.of(1, 2, 3, 4);
-    const arr2 = arr1.take(3);
+    const arr2 = arr1.take(3).toIndexedSeq();
     const result1 = keySeqToArray(arr1);
     const result2 = keySeqToArray(arr2);
 

@@ -1,14 +1,21 @@
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import * as PropTypes from 'prop-types';
 import { ListItem as ListItemComponent } from '../components/ListItem';
+import { IAppState } from '../interfaces/IAppState';
+import { ListItemClass } from '../models/ListItem';
 
 const propTypes = {
-  number: PropTypes.number.isRequired,
+  itemNumber: PropTypes.number.isRequired,
   itemId: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = (state, { itemId }) => ({
-  item: state.list.items.get(itemId),
+interface IListItemContainerDataProps {
+  itemNumber: number;
+  itemId: string;
+}
+
+const mapStateToProps = (state: IAppState, ownProps: IListItemContainerDataProps) => ({
+  item: new ListItemClass(state.list.items.get(ownProps.itemId).toJS()),
 });
 
 const ListItem = connect(

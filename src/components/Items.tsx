@@ -1,23 +1,30 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
 import { ListItem } from '../containers/ListItem';
+import { SFC } from 'react';
 
 const propTypes = {
   itemIds: PropTypes.arrayOf(PropTypes.string),
 };
 
-const Items = ({ itemIds }) =>
-  itemIds.map((itemId, index) => (
-    <li
-      className="list-group-item"
-      key={itemId}
-    >
-      <ListItem
-        itemId={itemId}
-        number={index + 1}
-      />
-    </li>
-  ));
+export interface IListDataProps {
+  itemIds: string[];
+}
+
+const Items: SFC<IListDataProps> = ({ itemIds }) => (
+  <div>
+    {itemIds.map((itemId, index) => (
+      <li
+        className="list-group-item"
+        key={itemId}
+      >
+        <ListItem
+          itemId={itemId}
+          itemNumber={index + 1}
+        />
+      </li>))}
+  </div>
+);
 
 Items.displayName = 'Items';
 Items.propTypes = propTypes;

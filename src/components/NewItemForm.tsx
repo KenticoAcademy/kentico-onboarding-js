@@ -1,17 +1,27 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import { FormEvent, PureComponent } from 'react';
+import * as PropTypes from 'prop-types';
 import { HotKeys } from 'react-hotkeys';
 import { keyActions } from '../constants/keys';
 import { isTextEmpty } from '../utils/validation';
+import { IAction } from '../interfaces/IAction';
 
-export class NewItemForm extends PureComponent {
-  static displayName = 'NewItemForm';
+export interface INewItemFormCallbackProps {
+  onSubmit: (text: string) => IAction;
+}
+
+interface INewItemFormState {
+  newItemText: string;
+}
+
+export class NewItemForm extends PureComponent<INewItemFormCallbackProps, INewItemFormState> {
+  static displayName: string = 'NewItemForm';
 
   static propTypes = {
     onSubmit: PropTypes.func.isRequired,
   };
 
-  constructor(props) {
+  constructor(props: INewItemFormCallbackProps) {
     super(props);
 
     this.state = {
@@ -19,11 +29,11 @@ export class NewItemForm extends PureComponent {
     };
   }
 
-  onInputChange = e => this.setState({
-    newItemText: e.target.value,
+  _onInputChange = (e: FormEvent<HTMLInputElement>) => this.setState({
+    newItemText: e.currentTarget.value,
   });
 
-  submitItemText = () => {
+  _submitItemText = () => {
     const { onSubmit } = this.props;
     const { newItemText } = this.state;
 
@@ -34,15 +44,15 @@ export class NewItemForm extends PureComponent {
     });
   };
 
-  onEnterPress = () => {
+  _onEnterPress = () => {
     const { newItemText } = this.state;
 
     if (!isTextEmpty(newItemText)) {
-      this.submitItemText();
+      this._submitItemText();
     }
   };
 
-  onEscPress = () => {
+  _onEscPress = () => {
     this.setState({
       newItemText: '',
     });
@@ -53,14 +63,14 @@ export class NewItemForm extends PureComponent {
     const enableAddButton = !isTextEmpty(newItemText);
 
     const handlers = {
-      [keyActions.OnEnter]: this.onEnterPress,
-      [keyActions.OnEsc]: this.onEscPress,
+      [keyActions.OnEnter]: this._onEnterPress,
+      [keyActions.OnEsc]: this._onEscPress,
     };
 
     return (
       <HotKeys
+        {...{ className: 'row' }}
         handlers={handlers}
-        className="row"
       >
         <div className="input-group col">
           <input
@@ -68,12 +78,12 @@ export class NewItemForm extends PureComponent {
             type="text"
             placeholder="Item name cannot be empty"
             value={newItemText}
-            onChange={this.onInputChange}
+            onChange={this._onInputChange}
             autoFocus={true}
           />
           <button
             className="btn btn-primary ml-3"
-            onClick={this.submitItemText}
+            onClick={this._submitItemText}
             disabled={!enableAddButton}
             title="Adds new item to list. Text cannot be empty"
           >

@@ -1,15 +1,11 @@
-import { OrderedMap } from 'immutable';
+import { Map, OrderedMap } from 'immutable';
 import { ListItem } from '../../../models/ListItem';
+import * as ActionTypes from '../../../constants/actionTypes';
+import { IItemsState } from '../../../interfaces/IItemsState';
+import { IAction } from '../../../interfaces/IAction';
 
-import {
-  ITEM_CREATED,
-  ITEM_OPENED_FOR_EDITING,
-  ITEM_DELETED,
-  ITEM_CHANGES_CANCELED,
-  ITEM_CHANGES_SAVED,
-} from '../../../constants/actionTypes';
 
-const addNewItem = (state, action) => {
+const addNewItem = (state: IItemsState, action: IAction) => {
   const { itemId: id, text } = action.payload;
 
   const newItem = new ListItem({
@@ -20,9 +16,13 @@ const addNewItem = (state, action) => {
   return state.set(id, newItem);
 };
 
-const deleteItem = (state, action) => state.delete(action.payload.itemId);
+const deleteItem = (state: IItemsState, action: IAction) => {
+  const { itemId } = action.payload;
 
-const saveItemChanges = (state, action) => {
+  return state.delete(itemId);
+};
+
+const saveItemChanges = (state: IItemsState, action: IAction) => {
   const { itemId, newText } = action.payload;
 
   return state.update(itemId, item => item.merge({
@@ -31,33 +31,39 @@ const saveItemChanges = (state, action) => {
   }));
 };
 
-const openItemForEditing = (state, action) =>
-  state.update(action.payload.itemId, item =>
+const openItemForEditing = (state: IItemsState, action: IAction) => {
+  const { itemId } = action.payload;
+
+  return state.update(itemId, item =>
     item.merge({
       isBeingEdited: true,
     }));
+};
 
-const cancelItemChanges = (state, action) =>
-  state.update(action.payload.itemId, item =>
+const cancelItemChanges = (state: IItemsState, action: IAction) => {
+  const { itemId } = action.payload;
+
+  return state.update(itemId, item =>
     item.merge({
       isBeingEdited: false,
     }));
+};
 
-const initialState = OrderedMap();
+const initialState = OrderedMap<string, Map<string, any>>();
 
-export const items = (state = initialState, action) => {
+export const items = (state = initialState, action: IAction) => {
   const { type } = action;
 
   switch (type) {
-    case ITEM_CREATED:
+    case ActionTypes.ITEM_CREATED:
       return addNewItem(state, action);
-    case ITEM_DELETED:
+    case ActionTypes.ITEM_DELETED:
       return deleteItem(state, action);
-    case ITEM_CHANGES_SAVED:
+    case ActionTypes.ITEM_CHANGES_SAVED:
       return saveItemChanges(state, action);
-    case ITEM_OPENED_FOR_EDITING:
+    case ActionTypes.ITEM_OPENED_FOR_EDITING:
       return openItemForEditing(state, action);
-    case ITEM_CHANGES_CANCELED:
+    case ActionTypes.ITEM_CHANGES_CANCELED:
       return cancelItemChanges(state, action);
     default:
       return state;

@@ -1,18 +1,18 @@
 import { OrderedMap } from 'immutable';
 import { ListItem } from '../../../../src/models/ListItem';
-import deepFreeze from 'deep-freeze';
+import * as deepFreeze from 'deep-freeze';
 import { items } from '../../../../src/reducers/list/items/items';
 import * as actions from '../../../../src/actions/actionCreators';
 import * as actionsExtended from '../../../../src/actions/actionCreatorsWithDependency';
 
 describe('items', () => {
   it('will add ListItem model to state with specific text', () => {
-    const initialState = OrderedMap();
+    const initialState = OrderedMap<string, any>();
     deepFreeze(initialState);
 
     const expectedId = 'test';
     const expectedTest = 'text';
-    const expectedState = OrderedMap({
+    const expectedState = OrderedMap<string, any>({
       [expectedId]: new ListItem({
         id: expectedId,
         text: expectedTest,
@@ -47,10 +47,11 @@ describe('items', () => {
       .toEqual(expectedState);
   });
 
+
   it('will open ListItem for editing', () => {
     const expectedId = 'test';
     const expectedText = 'text';
-    const initialState = OrderedMap({
+    const initialState = OrderedMap<string, any>({
       [expectedId]: new ListItem({
         id: expectedId,
         text: expectedText,
@@ -58,7 +59,7 @@ describe('items', () => {
     });
     deepFreeze(initialState);
 
-    const expectedState = OrderedMap({
+    const expectedState = OrderedMap<string, any>({
       [expectedId]: new ListItem({
         id: expectedId,
         text: expectedText,
@@ -76,7 +77,7 @@ describe('items', () => {
   it('will change item text to \'something else\'', () => {
     const expectedId = 'test';
     const expectedNewText = 'something else';
-    const initialState = OrderedMap({
+    const initialState = OrderedMap<string, any>({
       [expectedId]: new ListItem({
         id: expectedId,
         text: 'something',
@@ -85,7 +86,7 @@ describe('items', () => {
     });
     deepFreeze(initialState);
 
-    const expectedState = OrderedMap({
+    const expectedState = OrderedMap<string, any>({
       [expectedId]: new ListItem({
         id: expectedId,
         text: expectedNewText,
@@ -103,7 +104,7 @@ describe('items', () => {
   it('will cancel changes and put ListItem in { isBeingEdited: false } state', () => {
     const expectedId = 'test';
     const expectedText = 'whatever';
-    const initialState = OrderedMap({
+    const initialState = OrderedMap<string, any>({
       [expectedId]: new ListItem({
         id: expectedId,
         text: expectedText,
@@ -112,7 +113,7 @@ describe('items', () => {
     });
     deepFreeze(initialState);
 
-    const expectedState = OrderedMap({
+    const expectedState = OrderedMap<string, any>({
       [expectedId]: new ListItem({
         id: expectedId,
         text: expectedText,
@@ -156,7 +157,7 @@ describe('items', () => {
     const expectedId = 'test';
     const expectedText = 'also whatever';
     const otherId = 'other-id';
-    const initialState = OrderedMap({
+    const initialState = OrderedMap<string, any>({
       [expectedId]: new ListItem({
         id: expectedId,
         text: 'whatever',
@@ -170,7 +171,7 @@ describe('items', () => {
     });
     deepFreeze(initialState);
 
-    const expectedState = OrderedMap({
+    const expectedState = OrderedMap<string, any>({
       [otherId]: new ListItem({
         id: otherId,
         text: expectedText,

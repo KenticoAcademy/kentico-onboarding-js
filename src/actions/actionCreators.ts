@@ -1,34 +1,30 @@
-import {
-  ITEM_CHANGES_SAVED,
-  ITEM_CHANGES_CANCELED,
-  ITEM_DELETED,
-  ITEM_OPENED_FOR_EDITING,
-} from '../constants/actionTypes';
+import { IAction } from '../interfaces/IAction';
+import * as ActionTypes from '../constants/actionTypes';
 
-export const openItemForEditing = itemId => ({
-  type: ITEM_OPENED_FOR_EDITING,
+export const openItemForEditing = (itemId: string): IAction => ({
+  type: ActionTypes.ITEM_OPENED_FOR_EDITING,
   payload: {
     itemId,
   },
 });
 
-export const deleteItem = itemId => ({
-  type: ITEM_DELETED,
+export const deleteItem = (itemId: string): IAction => ({
+  type: ActionTypes.ITEM_DELETED,
   payload: {
     itemId,
   },
 });
 
-export const saveItemChanges = (itemId, newText) => ({
-  type: ITEM_CHANGES_SAVED,
+export const saveItemChanges = (itemId: string, newText: string): IAction => ({
+  type: ActionTypes.ITEM_CHANGES_SAVED,
   payload: {
     itemId,
     newText,
   },
 });
 
-export const cancelItemChanges = itemId => ({
-  type: ITEM_CHANGES_CANCELED,
+export const cancelItemChanges = (itemId: string): IAction => ({
+  type: ActionTypes.ITEM_CHANGES_CANCELED,
   payload: {
     itemId,
   },

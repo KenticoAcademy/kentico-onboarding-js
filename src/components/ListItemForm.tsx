@@ -1,25 +1,49 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import { FormEvent, PureComponent } from 'react';
+import * as PropTypes from 'prop-types';
 import { HotKeys } from 'react-hotkeys';
 import { keyActions } from '../constants/keys';
 import { isTextEmpty } from '../utils/validation';
+import { IListItem } from '../models/IListItem';
+import { IAction } from '../interfaces/IAction';
 
-export class ListItemForm extends PureComponent {
+interface IListItemFormCallbackProps {
+  onSave: (text: string) => IAction;
+  onCancel: () => IAction;
+  onDelete: () => IAction;
+}
+
+interface IListItemFormDataProps {
+  itemNumber: number;
+  item: IListItem;
+  selectionRangeStarts: number;
+  selectionRangeEnds: number;
+}
+
+export interface IListItemFormProps extends IListItemFormCallbackProps, IListItemFormDataProps { }
+
+interface IOpenedListItemState {
+  text: string;
+}
+
+export class ListItemForm extends PureComponent<IListItemFormProps, IOpenedListItemState> {
   static displayName = 'ListItemForm';
 
   static propTypes = {
-    number: PropTypes.number.isRequired,
-    item: PropTypes.shape({
-      text: PropTypes.string.isRequired,
-    }),
-    selectionRangeStarts: PropTypes.number.isRequired,
-    selectionRangeEnds: PropTypes.number.isRequired,
     onSave: PropTypes.func.isRequired,
     onCancel: PropTypes.func.isRequired,
     onDelete: PropTypes.func.isRequired,
+    itemNumber: PropTypes.number.isRequired,
+    item: PropTypes.shape({
+      text: PropTypes.string.isRequired,
+    }).isRequired,
+    selectionRangeStarts: PropTypes.number.isRequired,
+    selectionRangeEnds: PropTypes.number.isRequired,
   };
 
-  constructor(props) {
+  private input: HTMLInputElement;
+
+  constructor(props: IListItemFormProps) {
     super(props);
 
     this.state = {
@@ -36,46 +60,46 @@ export class ListItemForm extends PureComponent {
     this.input.setSelectionRange(selectionRangeStarts, selectionRangeEnds);
   }
 
-  onInputChange = e => this.setState({
-    text: e.target.value,
+  _onInputChange = (e: FormEvent<HTMLInputElement>) => this.setState({
+    text: e.currentTarget.value,
   });
 
-  submitNewItemText = () => {
-    const { text } = this.state;
+  _submitNewItemText = () => {
     const { onSave } = this.props;
+    const { text } = this.state;
 
     onSave(text);
   };
 
-  onEnterPress = () => {
+  _onEnterPress = () => {
     const { text } = this.state;
 
     if (!isTextEmpty(text)) {
-      this.submitNewItemText();
+      this._submitNewItemText();
     }
   };
 
-  setInputRef = input => {
-    this.input = input;
+  _setInputRef = (ref: HTMLInputElement) => {
+    this.input = ref;
   };
 
   render() {
     const { text } = this.state;
-    const { number, onCancel, onDelete } = this.props;
+    const { itemNumber, onCancel, onDelete } = this.props;
     const enableSaveButton = !isTextEmpty(text);
 
     const handlers = {
-      [keyActions.OnEnter]: this.onEnterPress,
+      [keyActions.OnEnter]: this._onEnterPress,
       [keyActions.OnEsc]: onCancel,
     };
 
     return (
       <HotKeys
+        {...{className: 'row'}}
         handlers={handlers}
-        className="row"
       >
         <label className="col-form-label pl-3">
-          {`${number}. `}
+          {`${itemNumber}. `}
         </label>
         <div className="input-group col">
           <input
@@ -83,14 +107,14 @@ export class ListItemForm extends PureComponent {
             type="text"
             value={text}
             placeholder="Item name cannot be empty"
-            onChange={this.onInputChange}
+            onChange={this._onInputChange}
             autoFocus={true}
-            ref={this.setInputRef}
+            ref={this._setInputRef}
           />
 
           <button
             className="btn btn-primary ml-3"
-            onClick={this.submitNewItemText}
+            onClick={this._submitNewItemText}
             disabled={!enableSaveButton}
             title="Saves new text which cannot be empty"
           >
