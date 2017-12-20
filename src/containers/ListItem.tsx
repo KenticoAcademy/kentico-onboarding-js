@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import * as PropTypes from 'prop-types';
 import { IListItemDataProps, ListItem as ListItemComponent } from '../components/ListItem';
 import { IAppState } from '../models/IAppState';
+import { Guid } from '../models/Guid';
 
 const propTypes = {
   itemNumber: PropTypes.number.isRequired,
@@ -10,7 +11,7 @@ const propTypes = {
 
 interface IListItemContainerDataProps {
   itemNumber: number;
-  itemId: string;
+  itemId: Guid;
 }
 
 const mapStateToProps = (state: IAppState, ownProps: IListItemContainerDataProps): IListItemDataProps => ({

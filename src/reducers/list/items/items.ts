@@ -3,6 +3,7 @@ import { ListItem } from '../../../models/ListItem';
 import * as ActionTypes from '../../../constants/actionTypes';
 import { IItemsState } from '../../../models/IItemsState';
 import { IAction } from '../../../models/IAction';
+import { Guid } from '../../../models/Guid';
 
 
 const addNewItem = (state: IItemsState, action: IAction) => {
@@ -50,7 +51,7 @@ const cancelItemChanges = (state: IItemsState, action: IAction) => {
     }));
 };
 
-const initialState = OrderedMap<string, ListItem>();
+const initialState = OrderedMap<Guid, ListItem>();
 
 export const items = (state = initialState, action: IAction) => {
   const { type } = action;

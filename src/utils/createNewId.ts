@@ -1,6 +1,8 @@
 /* tslint:disable:no-bitwise */
 
-export const createNewId = (): string => {
+import { Guid } from '../models/Guid';
+
+export const createNewId = (): Guid => {
   let id = '';
   let random;
 

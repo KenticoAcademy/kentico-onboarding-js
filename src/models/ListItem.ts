@@ -1,6 +1,7 @@
 import { IListItem } from './IListItem';
 import { defaultUuid } from '../constants/defaultUuid';
 import { Record } from 'immutable';
+import { Guid } from './Guid';
 
 
 const defaultItem: IListItem = {
@@ -10,7 +11,7 @@ const defaultItem: IListItem = {
 };
 
 export class ListItem extends Record(defaultItem) implements IListItem {
-  readonly id: string;
+  readonly id: Guid;
   readonly text: string;
   readonly isBeingEdited: boolean;
 
