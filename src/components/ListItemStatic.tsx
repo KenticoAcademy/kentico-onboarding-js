@@ -2,19 +2,17 @@ import * as React from 'react';
 import { PureComponent } from 'react';
 import * as PropTypes from 'prop-types';
 import { IListItem } from '../models/IListItem';
-import { IAction } from '../interfaces/IAction';
+import { IAction } from '../models/IAction';
 
-interface IListItemStaticCallbackProps {
-  onTextSelection: (startOffset: number, endOffset: number) => void;
+export interface IListItemStaticCallbackProps {
   onItemOpened: () => IAction;
 }
 
-interface IListItemStaticDataProps {
-  itemNumber: number;
+interface IListItemStaticProps extends IListItemStaticCallbackProps {
   item: IListItem;
+  itemNumber: number;
+  onTextSelection: (startOffset: number, endOffset: number) => void;
 }
-
-export interface IListItemStaticProps extends IListItemStaticCallbackProps, IListItemStaticDataProps { }
 
 export class ListItemStatic extends PureComponent<IListItemStaticProps> {
   static displayName = 'ListItemStatic';
@@ -28,7 +26,7 @@ export class ListItemStatic extends PureComponent<IListItemStaticProps> {
     }).isRequired,
   };
 
-  _onTextSelection = () => {
+  _onTextSelection = (): void => {
     const selection = window
       .getSelection()
       .getRangeAt(0);

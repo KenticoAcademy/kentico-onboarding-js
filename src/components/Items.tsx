@@ -7,11 +7,11 @@ const propTypes = {
   itemIds: PropTypes.arrayOf(PropTypes.string),
 };
 
-export interface IListDataProps {
+export interface IItemsDataProps {
   itemIds: string[];
 }
 
-const Items: SFC<IListDataProps> = ({ itemIds }) => (
+const Items: SFC<IItemsDataProps> = ({ itemIds }) => (
   <div>
     {itemIds.map((itemId, index) => (
       <li

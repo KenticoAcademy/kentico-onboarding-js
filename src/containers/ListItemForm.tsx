@@ -1,13 +1,16 @@
 import * as PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { ListItemForm as ListItemFormComponent } from '../components/ListItemForm';
+import {
+  IListItemFormCallbackProps,
+  ListItemForm as ListItemFormComponent
+} from '../components/ListItemForm';
 import {
   deleteItem,
   cancelItemChanges,
   saveItemChanges,
 } from '../actions';
 import { Dispatch } from 'redux';
-import { IAction } from '../interfaces/IAction';
+import { IAction } from '../models/IAction';
 import { IListItem } from '../models/IListItem';
 
 const propTypes = {
@@ -27,7 +30,7 @@ interface IListItemFormContainerDataProps {
   selectionRangeEnds: number;
 }
 
-const mapDispatchToProps = (dispatch: Dispatch<IAction>, ownProps: IListItemFormContainerDataProps) => ({
+const mapDispatchToProps = (dispatch: Dispatch<IAction>, ownProps: IListItemFormContainerDataProps): IListItemFormCallbackProps => ({
   onSave: (newText: string) => dispatch(saveItemChanges(
     ownProps.item.id,
     newText,

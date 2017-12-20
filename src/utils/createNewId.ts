@@ -1,6 +1,6 @@
 /* tslint:disable:no-bitwise */
 
-export const createNewId = () => {
+export const createNewId = (): string => {
   let id = '';
   let random;
 

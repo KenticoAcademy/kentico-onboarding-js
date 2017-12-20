@@ -5,22 +5,20 @@ import { HotKeys } from 'react-hotkeys';
 import { keyActions } from '../constants/keys';
 import { isTextEmpty } from '../utils/validation';
 import { IListItem } from '../models/IListItem';
-import { IAction } from '../interfaces/IAction';
+import { IAction } from '../models/IAction';
 
-interface IListItemFormCallbackProps {
+export interface IListItemFormCallbackProps {
   onSave: (text: string) => IAction;
   onCancel: () => IAction;
   onDelete: () => IAction;
 }
 
-interface IListItemFormDataProps {
-  itemNumber: number;
+interface IListItemFormProps extends IListItemFormCallbackProps {
   item: IListItem;
+  itemNumber: number;
   selectionRangeStarts: number;
   selectionRangeEnds: number;
 }
-
-export interface IListItemFormProps extends IListItemFormCallbackProps, IListItemFormDataProps { }
 
 interface IOpenedListItemState {
   text: string;
@@ -60,18 +58,18 @@ export class ListItemForm extends PureComponent<IListItemFormProps, IOpenedListI
     this.input.setSelectionRange(selectionRangeStarts, selectionRangeEnds);
   }
 
-  _onInputChange = (e: FormEvent<HTMLInputElement>) => this.setState({
+  _onInputChange = (e: FormEvent<HTMLInputElement>): void => this.setState({
     text: e.currentTarget.value,
   });
 
-  _submitNewItemText = () => {
+  _submitNewItemText = (): void => {
     const { onSave } = this.props;
     const { text } = this.state;
 
     onSave(text);
   };
 
-  _onEnterPress = () => {
+  _onEnterPress = (): void => {
     const { text } = this.state;
 
     if (!isTextEmpty(text)) {
@@ -79,7 +77,7 @@ export class ListItemForm extends PureComponent<IListItemFormProps, IOpenedListI
     }
   };
 
-  _setInputRef = (ref: HTMLInputElement) => {
+  _setInputRef = (ref: HTMLInputElement): void => {
     this.input = ref;
   };
 

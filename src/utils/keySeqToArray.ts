@@ -1,5 +1,7 @@
 import moize from 'moize';
 import { Seq } from 'immutable';
 
-const _keySeqToArray = <T>(keySeq: Seq.Indexed<T>): Array<T> => keySeq.toArray();
-export const keySeqToArray = moize(_keySeqToArray);
+type IKeySeqToArray = <T>(keySeq: Seq.Indexed<T>) => T[];
+
+const _keySeqToArray: IKeySeqToArray = keySeq => keySeq.toArray();
+export const keySeqToArray = moize(_keySeqToArray) as IKeySeqToArray;

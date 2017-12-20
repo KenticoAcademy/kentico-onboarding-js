@@ -4,7 +4,7 @@ import * as PropTypes from 'prop-types';
 import { HotKeys } from 'react-hotkeys';
 import { keyActions } from '../constants/keys';
 import { isTextEmpty } from '../utils/validation';
-import { IAction } from '../interfaces/IAction';
+import { IAction } from '../models/IAction';
 
 export interface INewItemFormCallbackProps {
   onSubmit: (text: string) => IAction;
@@ -29,11 +29,11 @@ export class NewItemForm extends PureComponent<INewItemFormCallbackProps, INewIt
     };
   }
 
-  _onInputChange = (e: FormEvent<HTMLInputElement>) => this.setState({
+  _onInputChange = (e: FormEvent<HTMLInputElement>): void => this.setState({
     newItemText: e.currentTarget.value,
   });
 
-  _submitItemText = () => {
+  _submitItemText = (): void => {
     const { onSubmit } = this.props;
     const { newItemText } = this.state;
 
@@ -44,7 +44,7 @@ export class NewItemForm extends PureComponent<INewItemFormCallbackProps, INewIt
     });
   };
 
-  _onEnterPress = () => {
+  _onEnterPress = (): void => {
     const { newItemText } = this.state;
 
     if (!isTextEmpty(newItemText)) {
@@ -52,7 +52,7 @@ export class NewItemForm extends PureComponent<INewItemFormCallbackProps, INewIt
     }
   };
 
-  _onEscPress = () => {
+  _onEscPress = (): void => {
     this.setState({
       newItemText: '',
     });

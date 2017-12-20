@@ -1,9 +1,12 @@
 import * as PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { ListItemStatic as ListItemStaticComponent } from '../components/ListItemStatic';
+import {
+  IListItemStaticCallbackProps,
+  ListItemStatic as ListItemStaticComponent
+} from '../components/ListItemStatic';
 import { openItemForEditing } from '../actions';
 import { Dispatch } from 'redux';
-import { IAction } from '../interfaces/IAction';
+import { IAction } from '../models/IAction';
 import { IListItem } from '../models/IListItem';
 
 const propTypes = {
@@ -26,7 +29,7 @@ interface IListItemStaticContainerCallbackProps {
 
 interface IListItemStaticContainerProps extends IListItemStaticContainerCallbackProps, IListItemStaticContainerDataProps {}
 
-const mapDispatchToProps = (dispatch: Dispatch<IAction>, ownProps: IListItemStaticContainerProps) => ({
+const mapDispatchToProps = (dispatch: Dispatch<IAction>, ownProps: IListItemStaticContainerProps): IListItemStaticCallbackProps => ({
   onItemOpened: () => dispatch(openItemForEditing(
     ownProps.item.id,
   )),

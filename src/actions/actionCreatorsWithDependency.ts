@@ -1,5 +1,5 @@
 import * as ActionTypes from '../constants/actionTypes';
-import { IAction } from '../interfaces/IAction';
+import { IAction } from '../models/IAction';
 
 export const addNewItemFactory = (createNewId: () => string) => (text: string): IAction => ({
   type: ActionTypes.ITEM_CREATED,

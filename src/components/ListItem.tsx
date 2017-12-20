@@ -3,10 +3,14 @@ import { PureComponent } from 'react';
 import * as PropTypes from 'prop-types';
 import { ListItemForm } from '../containers/ListItemForm';
 import { ListItemStatic } from '../containers/ListItemStatic';
+import { IListItem } from '../models/IListItem';
 
 export interface IListItemDataProps {
+  item: IListItem;
+}
+
+interface IListItemProps extends IListItemDataProps {
   itemNumber: number;
-  item: any;
 }
 
 interface IListItemState {
@@ -14,7 +18,7 @@ interface IListItemState {
   selectionRangeEnds: number;
 }
 
-export class ListItem extends PureComponent<IListItemDataProps, IListItemState> {
+export class ListItem extends PureComponent<IListItemProps, IListItemState> {
   static displayName = 'ListItem';
 
   static propTypes = {
@@ -24,7 +28,7 @@ export class ListItem extends PureComponent<IListItemDataProps, IListItemState> 
     }),
   };
 
-  constructor(props: IListItemDataProps) {
+  constructor(props: IListItemProps) {
     super(props);
 
     this.state = {
@@ -33,7 +37,7 @@ export class ListItem extends PureComponent<IListItemDataProps, IListItemState> 
     };
   }
 
-  _selectText = (selectionRangeStarts: number, selectionRangeEnds: number) => {
+  _selectText = (selectionRangeStarts: number, selectionRangeEnds: number): void => {
     this.setState({
       selectionRangeStarts,
       selectionRangeEnds,

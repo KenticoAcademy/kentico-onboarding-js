@@ -1,8 +1,8 @@
 import { OrderedMap } from 'immutable';
 import { ListItem } from '../../../models/ListItem';
 import * as ActionTypes from '../../../constants/actionTypes';
-import { IItemsState } from '../../../interfaces/IItemsState';
-import { IAction } from '../../../interfaces/IAction';
+import { IItemsState } from '../../../models/IItemsState';
+import { IAction } from '../../../models/IAction';
 
 
 const addNewItem = (state: IItemsState, action: IAction) => {

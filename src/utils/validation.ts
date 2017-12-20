@@ -1,1 +1,1 @@
-export const isTextEmpty = (input: string | undefined | null) => !input || !input.trim();
+export const isTextEmpty = (input: string | undefined | null): boolean => !input || !input.trim();

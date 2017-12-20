@@ -1,4 +1,4 @@
-import { IAction } from '../interfaces/IAction';
+import { IAction } from '../models/IAction';
 import * as ActionTypes from '../constants/actionTypes';
 
 export const openItemForEditing = (itemId: string): IAction => ({
