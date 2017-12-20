@@ -9,25 +9,16 @@ const defaultItem: IListItem = {
   isBeingEdited: false,
 };
 
-export const ListItem = Record(defaultItem);
+export class ListItem extends Record(defaultItem) implements IListItem {
+  readonly id: string;
+  readonly text: string;
+  readonly isBeingEdited: boolean;
 
-export class ListItemClass {
-  id: string;
-  text: string;
-  isBeingEdited: boolean;
+  constructor(params: Partial<IListItem>) {
+    super(params);
+  }
 
-  constructor(
-    {
-      id,
-      text,
-      isBeingEdited,
-    }: {
-      id: string;
-      text: string;
-      isBeingEdited: boolean;
-    }) {
-    this.id = id;
-    this.text = text;
-    this.isBeingEdited = isBeingEdited;
+  with(params: Partial<IListItem>) {
+    return super.merge(params) as this;
   }
 }

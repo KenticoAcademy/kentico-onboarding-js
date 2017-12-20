@@ -1,3 +1,4 @@
-import { Map, OrderedMap } from 'immutable';
+import { OrderedMap } from 'immutable';
+import { ListItem } from '../models/ListItem';
 
-export type IItemsState = OrderedMap<string, Map<string, any>>;
+export type IItemsState = OrderedMap<string, ListItem>;

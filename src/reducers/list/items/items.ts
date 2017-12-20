@@ -1,4 +1,4 @@
-import { Map, OrderedMap } from 'immutable';
+import { OrderedMap } from 'immutable';
 import { ListItem } from '../../../models/ListItem';
 import * as ActionTypes from '../../../constants/actionTypes';
 import { IItemsState } from '../../../interfaces/IItemsState';
@@ -25,17 +25,18 @@ const deleteItem = (state: IItemsState, action: IAction) => {
 const saveItemChanges = (state: IItemsState, action: IAction) => {
   const { itemId, newText } = action.payload;
 
-  return state.update(itemId, item => item.merge({
-    text: newText,
-    isBeingEdited: false,
-  }));
+  return state.update(itemId, item =>
+    item.with({
+      text: newText,
+      isBeingEdited: false,
+    }));
 };
 
 const openItemForEditing = (state: IItemsState, action: IAction) => {
   const { itemId } = action.payload;
 
   return state.update(itemId, item =>
-    item.merge({
+    item.with({
       isBeingEdited: true,
     }));
 };
@@ -44,12 +45,12 @@ const cancelItemChanges = (state: IItemsState, action: IAction) => {
   const { itemId } = action.payload;
 
   return state.update(itemId, item =>
-    item.merge({
+    item.with({
       isBeingEdited: false,
     }));
 };
 
-const initialState = OrderedMap<string, Map<string, any>>();
+const initialState = OrderedMap<string, ListItem>();
 
 export const items = (state = initialState, action: IAction) => {
   const { type } = action;

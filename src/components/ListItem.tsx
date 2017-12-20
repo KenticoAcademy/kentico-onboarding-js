@@ -2,12 +2,11 @@ import * as React from 'react';
 import { PureComponent } from 'react';
 import * as PropTypes from 'prop-types';
 import { ListItemForm } from '../containers/ListItemForm';
-import { IListItem } from '../models/IListItem';
 import { ListItemStatic } from '../containers/ListItemStatic';
 
 export interface IListItemDataProps {
   itemNumber: number;
-  item: IListItem;
+  item: any;
 }
 
 interface IListItemState {
