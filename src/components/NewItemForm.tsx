@@ -6,7 +6,7 @@ import { isTextEmpty } from '../utils/validation';
 import { IAction } from '../models/IAction';
 
 export interface INewItemFormCallbackProps {
-  onSubmit: (text: string) => IAction;
+  readonly onSubmit: (text: string) => IAction;
 }
 
 interface INewItemFormState {

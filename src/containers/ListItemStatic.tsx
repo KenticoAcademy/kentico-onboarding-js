@@ -20,12 +20,12 @@ const propTypes = {
 };
 
 interface IListItemStaticContainerDataProps {
-  itemNumber: number;
-  item: IListItem;
+  readonly itemNumber: number;
+  readonly item: IListItem;
 }
 
 interface IListItemStaticContainerCallbackProps {
-  onTextSelection: (startOffset: number, endOffset: number) => void;
+  readonly onTextSelection: (startOffset: number, endOffset: number) => void;
 }
 
 interface IListItemStaticContainerProps extends IListItemStaticContainerCallbackProps, IListItemStaticContainerDataProps {}

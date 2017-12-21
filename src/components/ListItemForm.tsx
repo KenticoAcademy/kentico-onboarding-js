@@ -7,16 +7,16 @@ import { IListItem } from '../models/IListItem';
 import { IAction } from '../models/IAction';
 
 export interface IListItemFormCallbackProps {
-  onSave: (text: string) => IAction;
-  onCancel: () => IAction;
-  onDelete: () => IAction;
+  readonly onSave: (text: string) => IAction;
+  readonly onCancel: () => IAction;
+  readonly onDelete: () => IAction;
 }
 
 interface IListItemFormProps extends IListItemFormCallbackProps {
-  item: IListItem;
-  itemNumber: number;
-  selectionRangeStarts: number;
-  selectionRangeEnds: number;
+  readonly item: IListItem;
+  readonly itemNumber: number;
+  readonly selectionRangeStarts: number;
+  readonly selectionRangeEnds: number;
 }
 
 interface IOpenedListItemState {

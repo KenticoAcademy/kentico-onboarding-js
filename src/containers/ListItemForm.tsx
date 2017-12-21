@@ -25,10 +25,10 @@ const propTypes = {
 };
 
 interface IListItemFormContainerDataProps {
-  itemNumber: number;
-  item: IListItem;
-  selectionRangeStarts: number;
-  selectionRangeEnds: number;
+  readonly itemNumber: number;
+  readonly item: IListItem;
+  readonly selectionRangeStarts: number;
+  readonly selectionRangeEnds: number;
 }
 
 const mapDispatchToProps = (dispatch: Dispatch<IAction>, ownProps: IListItemFormContainerDataProps): IListItemFormCallbackProps => ({

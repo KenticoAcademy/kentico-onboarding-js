@@ -5,11 +5,11 @@ import { ListItemStatic } from '../containers/ListItemStatic';
 import { IListItem } from '../models/IListItem';
 
 export interface IListItemDataProps {
-  item: IListItem;
+  readonly item: IListItem;
 }
 
 interface IListItemProps extends IListItemDataProps {
-  itemNumber: number;
+  readonly itemNumber: number;
 }
 
 interface IListItemState {

@@ -8,7 +8,7 @@ const propTypes = {
 };
 
 export interface IItemsDataProps {
-  itemIds: Guid[];
+  readonly itemIds: Guid[];
 }
 
 const Items: React.SFC<IItemsDataProps> = ({ itemIds }) => (

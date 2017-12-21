@@ -4,13 +4,13 @@ import { IListItem } from '../models/IListItem';
 import { IAction } from '../models/IAction';
 
 export interface IListItemStaticCallbackProps {
-  onItemOpened: () => IAction;
+  readonly onItemOpened: () => IAction;
 }
 
 interface IListItemStaticProps extends IListItemStaticCallbackProps {
-  item: IListItem;
-  itemNumber: number;
-  onTextSelection: (startOffset: number, endOffset: number) => void;
+  readonly item: IListItem;
+  readonly itemNumber: number;
+  readonly onTextSelection: (startOffset: number, endOffset: number) => void;
 }
 
 export class ListItemStatic extends React.PureComponent<IListItemStaticProps> {

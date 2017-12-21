@@ -11,8 +11,8 @@ const propTypes = {
 };
 
 interface IListItemContainerDataProps {
-  itemNumber: number;
-  itemId: Guid;
+  readonly itemNumber: number;
+  readonly itemId: Guid;
 }
 
 const mapStateToProps = (state: IAppState, ownProps: IListItemContainerDataProps): IListItemDataProps => ({
