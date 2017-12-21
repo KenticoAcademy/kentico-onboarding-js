@@ -6,7 +6,7 @@ import { IAction } from '../../../models/IAction';
 import { Guid } from '../../../models/Guid';
 
 
-const addNewItem = (state: IItemsState, action: IAction) => {
+const addNewItem = (state: IItemsState, action: IAction): IItemsState => {
   const { itemId: id, text } = action.payload;
 
   const newItem = new ListItem({
@@ -17,13 +17,13 @@ const addNewItem = (state: IItemsState, action: IAction) => {
   return state.set(id, newItem);
 };
 
-const deleteItem = (state: IItemsState, action: IAction) => {
+const deleteItem = (state: IItemsState, action: IAction): IItemsState => {
   const { itemId } = action.payload;
 
   return state.delete(itemId);
 };
 
-const saveItemChanges = (state: IItemsState, action: IAction) => {
+const saveItemChanges = (state: IItemsState, action: IAction): IItemsState => {
   const { itemId, newText } = action.payload;
 
   return state.update(itemId, item =>
@@ -33,7 +33,7 @@ const saveItemChanges = (state: IItemsState, action: IAction) => {
     }));
 };
 
-const openItemForEditing = (state: IItemsState, action: IAction) => {
+const openItemForEditing = (state: IItemsState, action: IAction): IItemsState => {
   const { itemId } = action.payload;
 
   return state.update(itemId, item =>
@@ -42,7 +42,7 @@ const openItemForEditing = (state: IItemsState, action: IAction) => {
     }));
 };
 
-const cancelItemChanges = (state: IItemsState, action: IAction) => {
+const cancelItemChanges = (state: IItemsState, action: IAction): IItemsState => {
   const { itemId } = action.payload;
 
   return state.update(itemId, item =>
@@ -53,7 +53,7 @@ const cancelItemChanges = (state: IItemsState, action: IAction) => {
 
 const initialState = OrderedMap<Guid, ListItem>();
 
-export const items = (state = initialState, action: IAction) => {
+export const items = (state = initialState, action: IAction): IItemsState => {
   const { type } = action;
 
   switch (type) {
