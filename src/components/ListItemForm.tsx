@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { FormEvent, PureComponent } from 'react';
 import * as PropTypes from 'prop-types';
 import { HotKeys } from 'react-hotkeys';
 import { keyActions } from '../constants/keys';
@@ -24,7 +23,7 @@ interface IOpenedListItemState {
   text: string;
 }
 
-export class ListItemForm extends PureComponent<IListItemFormProps, IOpenedListItemState> {
+export class ListItemForm extends React.PureComponent<IListItemFormProps, IOpenedListItemState> {
   static displayName = 'ListItemForm';
 
   static propTypes = {
@@ -58,7 +57,7 @@ export class ListItemForm extends PureComponent<IListItemFormProps, IOpenedListI
     this.input.setSelectionRange(selectionRangeStarts, selectionRangeEnds);
   }
 
-  _onInputChange = (e: FormEvent<HTMLInputElement>): void => this.setState({
+  _onInputChange = (e: React.FormEvent<HTMLInputElement>): void => this.setState({
     text: e.currentTarget.value,
   });
 

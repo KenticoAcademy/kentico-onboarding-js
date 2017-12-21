@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { PureComponent } from 'react';
 import * as PropTypes from 'prop-types';
 import { ListItemForm } from '../containers/ListItemForm';
 import { ListItemStatic } from '../containers/ListItemStatic';
@@ -18,7 +17,7 @@ interface IListItemState {
   selectionRangeEnds: number;
 }
 
-export class ListItem extends PureComponent<IListItemProps, IListItemState> {
+export class ListItem extends React.PureComponent<IListItemProps, IListItemState> {
   static displayName = 'ListItem';
 
   static propTypes = {

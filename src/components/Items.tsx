@@ -1,7 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { ListItem } from '../containers/ListItem';
-import { SFC } from 'react';
 import { Guid } from '../models/Guid';
 
 const propTypes = {
@@ -12,7 +11,7 @@ export interface IItemsDataProps {
   itemIds: Guid[];
 }
 
-const Items: SFC<IItemsDataProps> = ({ itemIds }) => (
+const Items: React.SFC<IItemsDataProps> = ({ itemIds }) => (
   <div>
     {itemIds.map((itemId, index) => (
       <li

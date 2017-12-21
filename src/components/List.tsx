@@ -3,9 +3,8 @@ import { HotKeys } from 'react-hotkeys';
 import { keyMap } from '../constants/keys';
 import { Items } from '../containers/Items';
 import { NewItemForm } from '../containers/NewItemForm';
-import { SFC } from 'react';
 
-const List: SFC = () => (
+const List: React.SFC = () => (
   <HotKeys keyMap={keyMap}>
     <ol className="list-group">
       <Items />

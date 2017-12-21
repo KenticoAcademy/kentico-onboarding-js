@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { PureComponent } from 'react';
 import * as PropTypes from 'prop-types';
 import { IListItem } from '../models/IListItem';
 import { IAction } from '../models/IAction';
@@ -14,7 +13,7 @@ interface IListItemStaticProps extends IListItemStaticCallbackProps {
   onTextSelection: (startOffset: number, endOffset: number) => void;
 }
 
-export class ListItemStatic extends PureComponent<IListItemStaticProps> {
+export class ListItemStatic extends React.PureComponent<IListItemStaticProps> {
   static displayName = 'ListItemStatic';
 
   static propTypes = {

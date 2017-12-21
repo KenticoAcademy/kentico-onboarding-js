@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { FormEvent, PureComponent } from 'react';
 import * as PropTypes from 'prop-types';
 import { HotKeys } from 'react-hotkeys';
 import { keyActions } from '../constants/keys';
@@ -14,7 +13,7 @@ interface INewItemFormState {
   newItemText: string;
 }
 
-export class NewItemForm extends PureComponent<INewItemFormCallbackProps, INewItemFormState> {
+export class NewItemForm extends React.PureComponent<INewItemFormCallbackProps, INewItemFormState> {
   static displayName = 'NewItemForm';
 
   static propTypes = {
@@ -29,7 +28,7 @@ export class NewItemForm extends PureComponent<INewItemFormCallbackProps, INewIt
     };
   }
 
-  _onInputChange = (e: FormEvent<HTMLInputElement>): void => this.setState({
+  _onInputChange = (e: React.FormEvent<HTMLInputElement>): void => this.setState({
     newItemText: e.currentTarget.value,
   });
 
