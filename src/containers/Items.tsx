@@ -1,3 +1,4 @@
+import { ComponentClass } from 'react';
 import { connect } from 'react-redux';
 import { IItemsDataProps, Items as ItemsComponent } from '../components/Items';
 import { IAppState } from '../models/IAppState';
@@ -7,6 +8,6 @@ const mapStateToProps = (state: IAppState): IItemsDataProps => ({
   itemIds: keySeqToArray(state.list.items.keySeq()),
 });
 
-export const Items = connect(
+export const Items: ComponentClass = connect(
   mapStateToProps,
 )(ItemsComponent);

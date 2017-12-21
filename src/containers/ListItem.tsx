@@ -1,3 +1,4 @@
+import { ComponentClass } from 'react';
 import { connect } from 'react-redux';
 import * as PropTypes from 'prop-types';
 import { IListItemDataProps, ListItem as ListItemComponent } from '../components/ListItem';
@@ -18,7 +19,7 @@ const mapStateToProps = (state: IAppState, ownProps: IListItemContainerDataProps
   item: state.list.items.get(ownProps.itemId),
 });
 
-const ListItem = connect(
+const ListItem: ComponentClass<IListItemContainerDataProps> = connect(
   mapStateToProps,
 )(ListItemComponent);
 

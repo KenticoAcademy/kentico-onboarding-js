@@ -1,3 +1,4 @@
+import { ComponentClass } from 'react';
 import * as PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
@@ -35,7 +36,7 @@ const mapDispatchToProps = (dispatch: Dispatch<IAction>, ownProps: IListItemStat
   )),
 });
 
-const ListItemStatic = connect(
+const ListItemStatic: ComponentClass<IListItemStaticContainerProps> = connect(
   null,
   mapDispatchToProps,
 )(ListItemStaticComponent);

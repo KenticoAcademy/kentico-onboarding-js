@@ -1,3 +1,4 @@
+import { ComponentClass } from 'react';
 import * as PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
@@ -43,7 +44,7 @@ const mapDispatchToProps = (dispatch: Dispatch<IAction>, ownProps: IListItemForm
   )),
 });
 
-const ListItemForm = connect(
+const ListItemForm: ComponentClass<IListItemFormContainerDataProps> = connect(
   null,
   mapDispatchToProps,
 )(ListItemFormComponent);

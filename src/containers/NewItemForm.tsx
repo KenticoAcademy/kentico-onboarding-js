@@ -1,3 +1,4 @@
+import { ComponentClass } from 'react';
 import { connect } from 'react-redux';
 import {
   INewItemFormCallbackProps,
@@ -14,7 +15,7 @@ const mapDispatchToProps = (dispatch: Dispatch<IAction>): INewItemFormCallbackPr
     )),
 });
 
-export const NewItemForm = connect(
+export const NewItemForm: ComponentClass = connect(
   null,
   mapDispatchToProps,
 )(NewItemFormComponent);
