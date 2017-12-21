@@ -1,4 +1,8 @@
-export const createNewId = () => {
+/* tslint:disable:no-bitwise */
+
+import { Guid } from '../models/Guid';
+
+export const createNewId = (): Guid => {
   let id = '';
   let random;
 
@@ -11,10 +15,11 @@ export const createNewId = () => {
 
     if (i === 12) {
       id += 4;
-    }
-    else {
+    } else {
       id += (i === 16 ? (random & 3 | 8) : random).toString(16);
     }
   }
   return id;
 };
+
+/* tslint:enable:no-bitwise */

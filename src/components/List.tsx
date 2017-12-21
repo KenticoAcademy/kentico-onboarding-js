@@ -1,10 +1,10 @@
-import React from 'react';
+import * as React from 'react';
 import { HotKeys } from 'react-hotkeys';
 import { keyMap } from '../constants/keys';
 import { Items } from '../containers/Items';
 import { NewItemForm } from '../containers/NewItemForm';
 
-const List = () => (
+const List: React.SFC = () => (
   <HotKeys keyMap={keyMap}>
     <ol className="list-group">
       <Items />
@@ -15,7 +15,6 @@ const List = () => (
     </ol>
   </HotKeys>
 );
-
 
 List.displayName = 'List';
 
