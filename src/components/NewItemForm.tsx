@@ -15,7 +15,7 @@ interface INewItemFormState {
 }
 
 export class NewItemForm extends PureComponent<INewItemFormCallbackProps, INewItemFormState> {
-  static displayName: string = 'NewItemForm';
+  static displayName = 'NewItemForm';
 
   static propTypes = {
     onSubmit: PropTypes.func.isRequired,
