@@ -6,7 +6,7 @@ const itemId1 = createNewId();
 const itemId2 = createNewId();
 const itemId3 = createNewId();
 
-export const initialState = {
+export const initialState = Object.freeze({
   list: {
     items: OrderedMap(
       {
@@ -24,4 +24,4 @@ export const initialState = {
         }),
       }),
   },
-};
+});
