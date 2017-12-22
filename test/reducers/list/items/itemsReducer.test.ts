@@ -4,7 +4,9 @@ import * as deepFreeze from 'deep-freeze';
 import { items } from '../../../../src/reducers/list/items/items';
 import * as actions from '../../../../src/actions/actionCreators';
 import * as actionsExtended from '../../../../src/actions/actionCreatorsWithDependency';
+import * as thunkActions from '../../../../src/actions/thunk';
 import { Guid } from '../../../../src/models/Guid';
+import { IListItem } from '../../../../src/models/IListItem';
 
 describe('items', () => {
   it('will add ListItem model to state with specific text', () => {
@@ -194,4 +196,32 @@ describe('items', () => {
     expect(result)
       .toEqual(expectedState);
   });
+
+  it('will receive items and populate state', () => {
+    const initialState = undefined;
+
+    const listItem1 = new ListItem({
+      id: 'fakeId',
+      text: 'whatever',
+    });
+    const listItem2 = new ListItem({
+      id: 'fakeId2',
+      text: 'something else',
+    });
+    const fakeItems: IListItem[] = [
+      listItem1,
+      listItem2,
+    ];
+
+    const expectedState = OrderedMap<Guid, ListItem>({
+      [listItem1.id]: listItem1,
+      [listItem2.id]: listItem2,
+    });
+
+    const receiveItemsAction = thunkActions.receiveItems(fakeItems);
+    const result = items(initialState, receiveItemsAction);
+
+    expect(result)
+      .toEqual(expectedState);
+  })
 });

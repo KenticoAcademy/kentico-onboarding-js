@@ -4,7 +4,7 @@ import * as ActionTypes from '../../../constants/actionTypes';
 import { IItemsState } from '../../../models/IItemsState';
 import { IAction } from '../../../models/IAction';
 import { Guid } from '../../../models/Guid';
-
+import { listItemsArrayToOrderedMap } from '../../../utils/listItemsArrayToOrderedMap';
 
 const addNewItem = (state: IItemsState, action: IAction): IItemsState => {
   const { itemId: id, text } = action.payload;
@@ -51,6 +51,16 @@ const cancelItemChanges = (state: IItemsState, action: IAction): IItemsState => 
     }));
 };
 
+const fetchItems = (state: IItemsState, action: IAction): IItemsState => {
+  const { items } = action.payload;
+
+  if (items) {
+    return listItemsArrayToOrderedMap(items);
+  }
+
+  return state;
+};
+
 const initialState = OrderedMap<Guid, ListItem>();
 
 export const items = (state = initialState, action: IAction): IItemsState => {
@@ -67,6 +77,8 @@ export const items = (state = initialState, action: IAction): IItemsState => {
       return openItemForEditing(state, action);
     case ActionTypes.ITEM_CHANGES_CANCELED:
       return cancelItemChanges(state, action);
+    case ActionTypes.FETCH_ITEMS:
+      return fetchItems(state, action);
     default:
       return state;
   }
