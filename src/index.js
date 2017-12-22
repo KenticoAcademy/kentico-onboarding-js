@@ -3,6 +3,7 @@ import * as ReactDOM from 'react-dom';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import logger from 'redux-logger';
+import 'es6-promise/auto';
 import { reducers } from './reducers/index.ts';
 import { initialState } from './constants/initialState.ts';
 import 'bootstrap/dist/css/bootstrap.css';
