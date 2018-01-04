@@ -36,7 +36,6 @@ export class AddNewItem extends React.PureComponent<IAddNewItemDataProps & IAddN
     const input = this.props.newItemText;
     const isEmpty = containsNoCharacters(input);
 
-    console.log(this);
     return (
       <div className="list-group-item form-inline">
         <div className="input-group">
