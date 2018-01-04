@@ -1,13 +1,12 @@
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
-import { EventHandler } from 'react';
 
 export interface IUneditedListItemDataProps {
   itemText: string;
 }
 
 export interface IUneditedListItemCallbackProps {
-  onTextClick: EventHandler<any>;
+  onTextClick: React.EventHandler<any>;
 }
 
 const UneditedListItem: React.SFC<IUneditedListItemDataProps & IUneditedListItemCallbackProps> = ({ onTextClick, itemText }:

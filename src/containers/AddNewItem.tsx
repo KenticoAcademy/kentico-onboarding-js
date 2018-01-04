@@ -1,9 +1,10 @@
 import { connect } from 'react-redux';
+import { ComponentClass } from 'react';
 import { AddNewItem as AddNewItemComponent, IAddNewItemCallbackProps, IAddNewItemDataProps } from '../components/AddNewItem';
 import { IAppState } from '../stores/IAppState';
 import { generateId } from '../utils/generateId';
 import { addItem, updateNewItemText } from '../actions/actionCreators';
-import { ComponentClass } from 'react';
+
 
 
 const mapStateToProps = ({ items: { newItemText} }: IAppState): IAddNewItemDataProps => ({
