@@ -70,6 +70,7 @@
     "prop-types": "^15.6.0",
     "react": "^15.6.2",
     "react-dom": "^15.6.2",
+    "react-loading-animation": "^1.4.0",
     "react-redux": "^5.0.6",
     "redux": "^3.7.2",
     "ts-jest": "^19.0.14"
@@ -115,5 +116,6 @@
     "presets": [
       "react-app"
     ]
-  }
+  },
+  "proxy": "http://localhost:55557/api"
 }

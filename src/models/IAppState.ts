@@ -6,4 +6,5 @@ export interface IAppState {
   readonly todoList: {
     readonly items: Collection<Uuid, ListItem>;
   };
+  isFetching: boolean;
 }

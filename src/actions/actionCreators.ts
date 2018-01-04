@@ -3,6 +3,7 @@ import {
   TODO_LIST_ITEM_UPDATE,
   TODO_LIST_ITEM_EDIT,
   TODO_LIST_ITEM_CANCEL_EDIT,
+  APP_FETCH_END,
 } from '../constants/actionTypes';
 import { generateId, Uuid } from '../utils/generateId';
 import { insertItemFactory } from './insertItemFactory';
@@ -37,4 +38,9 @@ export const cancelItemEditing = (id: Uuid): IAction => ({
   payload: {
     id,
   },
+});
+
+export const stopFetching = (): IAction => ({
+  type: APP_FETCH_END,
+  payload: {}
 });
