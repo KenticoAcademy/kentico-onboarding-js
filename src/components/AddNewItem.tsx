@@ -1,7 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { containsNoCharacters } from '../utils/containsNoCharacters';
-import { ChangeEvent } from 'react';
 
 export interface IAddNewItemDataProps {
   newItemText: string;
@@ -22,7 +21,7 @@ export class AddNewItem extends React.PureComponent<IAddNewItemDataProps & IAddN
     onNewTextChange: PropTypes.func.isRequired,
   };
 
-  _onChange = (e: ChangeEvent<HTMLInputElement>): void => {
+  _onChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const newText = e.target.value;
     const {onNewTextChange} = this.props;
     onNewTextChange(newText);
