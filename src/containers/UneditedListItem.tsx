@@ -1,10 +1,10 @@
 import { connect } from 'react-redux';
+import { ComponentClass } from 'react';
 import { IUneditedListItemCallbackProps, IUneditedListItemDataProps, UneditedListItem as UneditedListItemComponent } from '../components/UneditedListItem';
 import {
   toggleEditing,
 } from '../actions/actionCreators';
 import { IAppState } from '../stores/IAppState';
-import { ComponentClass } from 'react';
 import { ItemId } from '../models/ItemId';
 
 interface IUneditedListItemContainerProps {

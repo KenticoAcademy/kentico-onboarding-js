@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import { ComponentClass } from 'react';
 import { EditedListItem as EditedListItemComponent, IEditedListItemCallbackProps, IEditedListItemDataProps } from '../components/EditedListItem';
 import {
   deleteItem,
@@ -7,7 +8,6 @@ import {
   textUpdateChange,
 } from '../actions/actionCreators';
 import { IAppState } from '../stores/IAppState';
-import { ComponentClass } from 'react';
 import { IItem } from '../models/Item';
 import { ItemId } from '../models/ItemId';
 
