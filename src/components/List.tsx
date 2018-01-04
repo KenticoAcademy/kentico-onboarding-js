@@ -1,8 +1,8 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 import { Seq } from 'immutable';
 import { ListItem } from '../containers/ListItem';
 import { ItemId } from '../models/ItemId';
+const ImmutablePropTypes = require('react-immutable-proptypes');
 
 interface  IListDataProps {
   ids: Seq.Indexed<ItemId>;
@@ -30,7 +30,7 @@ const List: React.SFC<IListDataProps> = ({ ids }: IListDataProps): JSX.Element =
 List.displayName = 'List';
 
 List.propTypes = {
-  ids: PropTypes.object.isRequired,
+  ids: ImmutablePropTypes.seq.isRequired,
 };
 
 export { List };
