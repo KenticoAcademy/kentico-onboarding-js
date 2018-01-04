@@ -5,7 +5,7 @@ import { ListItem } from '../containers/ListItem';
 import { ItemId } from '../models/ItemId';
 
 interface  IListDataProps {
-  ids: Seq.Indexed<string>;
+  ids: Seq.Indexed<ItemId>;
 }
 
 const List: React.SFC<IListDataProps> = ({ ids }: IListDataProps): JSX.Element => {
