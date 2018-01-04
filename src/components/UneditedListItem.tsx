@@ -6,7 +6,7 @@ export interface IUneditedListItemDataProps {
 }
 
 export interface IUneditedListItemCallbackProps {
-  onTextClick: React.EventHandler<any>;
+  onTextClick: React.MouseEventHandler<HTMLDivElement>;
 }
 
 const UneditedListItem: React.SFC<IUneditedListItemDataProps & IUneditedListItemCallbackProps> = ({ onTextClick, itemText }:

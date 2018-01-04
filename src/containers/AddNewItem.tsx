@@ -5,8 +5,6 @@ import { IAppState } from '../stores/IAppState';
 import { generateId } from '../utils/generateId';
 import { addItem, updateNewItemText } from '../actions/actionCreators';
 
-
-
 const mapStateToProps = ({ items: { newItemText} }: IAppState): IAddNewItemDataProps => ({
   newItemText,
 });
