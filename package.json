@@ -85,6 +85,7 @@
     "build": "node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom --no-cache"
   },
+  "proxy": "http://localhost:59833",
   "jest": {
     "collectCoverageFrom": [
       "src/**/*.{js,jsx,ts,tsx}"
