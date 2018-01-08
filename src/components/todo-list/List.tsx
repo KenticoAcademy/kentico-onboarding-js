@@ -13,6 +13,7 @@ export interface IListDataProps {
 
 export interface IListCallbackProps {
   readonly onFetchFinished: () => void;
+  readonly onAddItem: (text: string, id: Uuid) => void;
 }
 
 const Loading = require('react-loading-animation');
@@ -29,8 +30,9 @@ export class List extends React.PureComponent<IListDataProps & IListCallbackProp
 
   componentDidMount() {
     fetch('/v1/items')
-      .then((data) => data.json())
-      .then(() => setTimeout(() => this.props.onFetchFinished(), 2000));
+      .then(data => data.json())
+      .then(data => data.map((item: any) => this.props.onAddItem(item.Text, item.Id)))
+      .then(() => this.props.onFetchFinished());
   }
 
   render(): JSX.Element {

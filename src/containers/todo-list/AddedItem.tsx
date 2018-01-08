@@ -3,9 +3,10 @@ import { AddedItem, IAddedItemCallbackProps } from '../../components/todo-list/A
 import { insertItem } from '../../actions/actionCreators';
 import { IAppState } from '../../models/IAppState';
 import { IAction } from '../../actions/IAction';
+import { Uuid } from '../../utils/generateId';
 
 const mapDispatchToProps = (dispatch: Dispatch<IAppState>): IAddedItemCallbackProps => ({
-  onAddItem: (text: string): IAction => dispatch(insertItem(text)),
+  onAddItem: (text: string, id: Uuid): IAction => dispatch(insertItem(text, id)),
 });
 
 const enhancer = connect(undefined, mapDispatchToProps);

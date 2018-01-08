@@ -3,7 +3,6 @@ import * as ReactDOM from 'react-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 import './index.css';
 import logger from 'redux-logger';
-import { getInitialState } from './utils/getInitialState';
 import {
   applyMiddleware,
   compose,
@@ -19,7 +18,7 @@ interface IDevTools {
 
 const composeEnhancers = (window as IDevTools).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-const store = createStore(app, getInitialState(), composeEnhancers(
+const store = createStore(app, {}, composeEnhancers(
   applyMiddleware(logger),
 ));
 
