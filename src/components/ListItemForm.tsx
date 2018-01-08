@@ -3,11 +3,10 @@ import * as PropTypes from 'prop-types';
 import { HotKeys } from 'react-hotkeys';
 import { keyActions } from '../constants/keys';
 import { isTextEmpty } from '../utils/validation';
-import { IAction } from '../models/IAction';
 import { ListItem } from '../models/ListItem';
 
 export interface IListItemFormCallbackProps {
-  readonly onSave: (text: string) => IAction;
+  readonly onSave: (uri: string, text: string) => void;
   readonly onCancel: (uri: string) => void;
   readonly onDelete: (uri: string) => void;
 }
@@ -65,7 +64,7 @@ export class ListItemForm extends React.PureComponent<IListItemFormProps, IOpene
     const { onSave } = this.props;
     const { text } = this.state;
 
-    onSave(text);
+    onSave('/api/v1/listItems/', text);
   };
 
   _onDelete = (): void => {

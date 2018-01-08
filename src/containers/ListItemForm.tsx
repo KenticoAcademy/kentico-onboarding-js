@@ -7,8 +7,7 @@ import {
 } from '../components/ListItemForm';
 import { Dispatch } from 'redux';
 import { IAction } from '../models/IAction';
-import { cancelItem, deleteItemFromServer } from '../actions/thunk';
-import { saveItemChanges } from '../actions';
+import { cancelItem, deleteItemFromServer, saveNewText } from '../actions/thunk';
 import { ListItem } from '../models/ListItem';
 
 const propTypes = {
@@ -29,10 +28,11 @@ interface IListItemFormContainerDataProps {
 }
 
 const mapDispatchToProps = (dispatch: Dispatch<IAction>, ownProps: IListItemFormContainerDataProps): IListItemFormCallbackProps => ({
-  onSave: (newText: string) => dispatch(saveItemChanges(
-    ownProps.item.id,
+  onSave: (uri: string, newText: string) => saveNewText(
+    uri,
+    ownProps.item,
     newText,
-  )),
+  )(dispatch),
   onDelete: (uri: string) => deleteItemFromServer(
     uri,
     ownProps.item.id,
