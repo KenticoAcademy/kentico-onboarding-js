@@ -2,6 +2,14 @@ import { IAction } from '../models/IAction';
 import * as ActionTypes from '../constants/actionTypes';
 import { Guid } from '../models/Guid';
 
+export const addNewItem = ({ id: itemId, text }: { id: Guid, text: string }): IAction => ({
+  type: ActionTypes.ITEM_CREATED,
+  payload: {
+    itemId,
+    text,
+  },
+});
+
 export const openItemForEditing = (itemId: Guid): IAction => ({
   type: ActionTypes.ITEM_OPENED_FOR_EDITING,
   payload: {

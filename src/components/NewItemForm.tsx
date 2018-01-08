@@ -3,10 +3,9 @@ import * as PropTypes from 'prop-types';
 import { HotKeys } from 'react-hotkeys';
 import { keyActions } from '../constants/keys';
 import { isTextEmpty } from '../utils/validation';
-import { IAction } from '../models/IAction';
 
 export interface INewItemFormCallbackProps {
-  readonly onSubmit: (text: string) => IAction;
+  readonly onSubmit: (uri: string, text: string) => void;
 }
 
 interface INewItemFormState {
@@ -36,7 +35,7 @@ export class NewItemForm extends React.PureComponent<INewItemFormCallbackProps, 
     const { onSubmit } = this.props;
     const { newItemText } = this.state;
 
-    onSubmit(newItemText);
+    onSubmit('/api/v1/listItems', newItemText);
 
     this.setState({
       newItemText: '',

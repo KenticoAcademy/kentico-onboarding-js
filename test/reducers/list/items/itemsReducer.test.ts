@@ -3,7 +3,6 @@ import { ListItem } from '../../../../src/models/ListItem';
 import * as deepFreeze from 'deep-freeze';
 import { items } from '../../../../src/reducers/list/items/items';
 import * as actions from '../../../../src/actions/actionCreators';
-import * as actionsExtended from '../../../../src/actions/actionCreatorsWithDependency';
 import * as thunkActions from '../../../../src/actions/thunk';
 import { Guid } from '../../../../src/models/Guid';
 import { IListItem } from '../../../../src/models/IListItem';
@@ -14,18 +13,20 @@ describe('items', () => {
     deepFreeze(initialState);
 
     const expectedId = 'test';
-    const expectedTest = 'text';
+    const expectedText = 'text';
 
     const expectedState = OrderedMap<Guid, ListItem>({
       [expectedId]: new ListItem({
         id: expectedId,
-        text: expectedTest,
+        text: expectedText,
       }),
     });
 
-    const fakeCreateId = () => expectedId;
-    const addNewItem = actionsExtended.addNewItemFactory(fakeCreateId);
-    const addNewItemAction = addNewItem(expectedTest);
+    const newItem = {
+      id: expectedId,
+      text: expectedText,
+    };
+    const addNewItemAction = actions.addNewItem(newItem);
     const result = items(initialState, addNewItemAction);
 
     expect(result)
@@ -34,18 +35,20 @@ describe('items', () => {
 
   it('will add ListItem model to undefined state', () => {
     const expectedId = 'test';
-    const expectedTest = 'text';
+    const expectedText = 'text';
 
     const expectedState = OrderedMap<Guid, ListItem>({
       [expectedId]: new ListItem({
         id: expectedId,
-        text: expectedTest,
+        text: expectedText,
       }),
     });
 
-    const fakeCreateId = () => expectedId;
-    const addNewItem = actionsExtended.addNewItemFactory(fakeCreateId);
-    const addNewItemAction = addNewItem(expectedTest);
+    const newItem = {
+      id: expectedId,
+      text: expectedText,
+    };
+    const addNewItemAction = actions.addNewItem(newItem);
     const result = items(undefined, addNewItemAction);
 
     expect(result)
