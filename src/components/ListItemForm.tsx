@@ -9,7 +9,7 @@ import { IAction } from '../models/IAction';
 export interface IListItemFormCallbackProps {
   readonly onSave: (text: string) => IAction;
   readonly onCancel: () => IAction;
-  readonly onDelete: () => IAction;
+  readonly onDelete: (uri: string) => void;
 }
 
 interface IListItemFormProps extends IListItemFormCallbackProps {
@@ -68,6 +68,10 @@ export class ListItemForm extends React.PureComponent<IListItemFormProps, IOpene
     onSave(text);
   };
 
+  _onDelete = (): void => {
+    this.props.onDelete('/api/v1/listItems/');
+  };
+
   _onEnterPress = (): void => {
     const { text } = this.state;
 
@@ -82,7 +86,7 @@ export class ListItemForm extends React.PureComponent<IListItemFormProps, IOpene
 
   render() {
     const { text } = this.state;
-    const { itemNumber, onCancel, onDelete } = this.props;
+    const { itemNumber, onCancel } = this.props;
     const enableSaveButton = !isTextEmpty(text);
 
     const handlers = {
@@ -128,7 +132,7 @@ export class ListItemForm extends React.PureComponent<IListItemFormProps, IOpene
 
           <button
             className="btn btn-danger ml-2"
-            onClick={onDelete}
+            onClick={this._onDelete}
             title="Removes item from list"
           >
             Delete

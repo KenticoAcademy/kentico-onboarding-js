@@ -6,13 +6,13 @@ import {
   ListItemForm as ListItemFormComponent
 } from '../components/ListItemForm';
 import {
-  deleteItem,
   cancelItemChanges,
   saveItemChanges,
 } from '../actions';
 import { Dispatch } from 'redux';
 import { IAction } from '../models/IAction';
 import { IListItem } from '../models/IListItem';
+import { deleteItemFromServer } from '../actions/thunk';
 
 const propTypes = {
   itemNumber: PropTypes.number.isRequired,
@@ -36,9 +36,10 @@ const mapDispatchToProps = (dispatch: Dispatch<IAction>, ownProps: IListItemForm
     ownProps.item.id,
     newText,
   )),
-  onDelete: () => dispatch(deleteItem(
+  onDelete: (uri: string) => deleteItemFromServer(
+    uri,
     ownProps.item.id,
-  )),
+  )(dispatch),
   onCancel: () => dispatch(cancelItemChanges(
     ownProps.item.id,
   )),
