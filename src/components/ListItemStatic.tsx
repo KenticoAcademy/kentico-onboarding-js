@@ -1,10 +1,9 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { IListItem } from '../models/IListItem';
-import { IAction } from '../models/IAction';
 
 export interface IListItemStaticCallbackProps {
-  readonly onItemOpened: () => IAction;
+  readonly onItemOpened: (uri: string) => void;
 }
 
 interface IListItemStaticProps extends IListItemStaticCallbackProps {
@@ -34,7 +33,7 @@ export class ListItemStatic extends React.PureComponent<IListItemStaticProps> {
     const {onTextSelection, onItemOpened } = this.props;
 
     onTextSelection(startOffset, endOffset);
-    onItemOpened();
+    onItemOpened('/api/v1/listItems/');
   };
 
   render() {

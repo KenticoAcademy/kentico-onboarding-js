@@ -5,10 +5,10 @@ import {
   IListItemStaticCallbackProps,
   ListItemStatic as ListItemStaticComponent
 } from '../components/ListItemStatic';
-import { openItemForEditing } from '../actions';
 import { Dispatch } from 'redux';
 import { IAction } from '../models/IAction';
-import { IListItem } from '../models/IListItem';
+import { openItem } from '../actions/thunk';
+import { ListItem } from '../models/ListItem';
 
 const propTypes = {
   itemNumber: PropTypes.number.isRequired,
@@ -21,7 +21,7 @@ const propTypes = {
 
 interface IListItemStaticContainerDataProps {
   readonly itemNumber: number;
-  readonly item: IListItem;
+  readonly item: ListItem;
 }
 
 interface IListItemStaticContainerCallbackProps {
@@ -31,9 +31,10 @@ interface IListItemStaticContainerCallbackProps {
 interface IListItemStaticContainerProps extends IListItemStaticContainerCallbackProps, IListItemStaticContainerDataProps {}
 
 const mapDispatchToProps = (dispatch: Dispatch<IAction>, ownProps: IListItemStaticContainerProps): IListItemStaticCallbackProps => ({
-  onItemOpened: () => dispatch(openItemForEditing(
-    ownProps.item.id,
-  )),
+  onItemOpened: (uri: string) => openItem(
+    uri,
+    ownProps.item,
+  )(dispatch),
 });
 
 const ListItemStatic: ComponentClass<IListItemStaticContainerProps> = connect(

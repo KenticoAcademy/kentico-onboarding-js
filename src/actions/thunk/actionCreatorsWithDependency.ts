@@ -1,7 +1,7 @@
 import { IAction } from '../../models/IAction';
 import { IListItem } from '../../models/IListItem';
 import { Dispatch } from 'redux';
-import { addNewItem, cancelItemChanges, deleteItem, receiveItems, requestItems } from '../actionCreators';
+import { addNewItem, cancelItemChanges, deleteItem, receiveItems, requestItems, openItemForEditing } from '../actionCreators';
 import { Guid } from '../../models/Guid';
 import { ListItem } from '../../models/ListItem';
 
@@ -60,4 +60,24 @@ export const cancelItemFactory = (fetch: any) => (uri: string, item: ListItem) =
     },
   )
     .then(() => dispatch(cancelItemChanges(id)));
+};
+
+export const openItemFactory = (fetch: any) => (uri: string, item: ListItem) => (dispatch: Dispatch<IAction>) => {
+  const { id } = item;
+  const updatedItem = {
+    isBeingEdited: true,
+    id,
+  };
+
+  return fetch(
+    uri + id,
+    {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(updatedItem),
+    },
+  )
+    .then(() => dispatch(openItemForEditing(id)));
 };

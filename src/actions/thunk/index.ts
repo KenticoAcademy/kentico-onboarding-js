@@ -1,6 +1,6 @@
 import {
   cancelItemFactory,
-  deleteItemFactory, fetchItemsFactory,
+  deleteItemFactory, fetchItemsFactory, openItemFactory,
   postItemFactory,
 } from './actionCreatorsWithDependency';
 
@@ -8,5 +8,6 @@ export const fetchItems = fetchItemsFactory(fetch);
 export const postItem = postItemFactory(fetch);
 export const deleteItemFromServer = deleteItemFactory(fetch);
 export const cancelItem = cancelItemFactory(fetch);
+export const openItem = openItemFactory(fetch);
 
 export * from './actionCreatorsWithDependency';
