@@ -3,7 +3,6 @@ import { ListItem } from '../../../../src/models/ListItem';
 import * as deepFreeze from 'deep-freeze';
 import { items } from '../../../../src/reducers/list/items/items';
 import * as actions from '../../../../src/actions/actionCreators';
-import * as thunkActions from '../../../../src/actions/thunk';
 import { Guid } from '../../../../src/models/Guid';
 import { IListItem } from '../../../../src/models/IListItem';
 
@@ -221,10 +220,10 @@ describe('items', () => {
       [listItem2.id]: listItem2,
     });
 
-    const receiveItemsAction = thunkActions.receiveItems(fakeItems);
+    const receiveItemsAction = actions.receiveItems(fakeItems);
     const result = items(initialState, receiveItemsAction);
 
     expect(result)
       .toEqual(expectedState);
-  })
+  });
 });

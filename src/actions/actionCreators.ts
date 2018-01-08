@@ -1,6 +1,7 @@
 import { IAction } from '../models/IAction';
 import * as ActionTypes from '../constants/actionTypes';
 import { Guid } from '../models/Guid';
+import { IListItem } from '../models/IListItem';
 
 export const addNewItem = ({ id: itemId, text }: { id: Guid, text: string }): IAction => ({
   type: ActionTypes.ITEM_CREATED,
@@ -37,4 +38,18 @@ export const cancelItemChanges = (itemId: Guid): IAction => ({
   payload: {
     itemId,
   },
+});
+
+export const requestItems = (uri: string): IAction => ({
+  type: ActionTypes.FETCH_ITEMS,
+  payload: {
+    uri,
+  }
+});
+
+export const receiveItems = (items: IListItem[]): IAction => ({
+  type: ActionTypes.FETCH_ITEMS,
+  payload: {
+    items,
+  }
 });
