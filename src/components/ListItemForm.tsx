@@ -3,17 +3,17 @@ import * as PropTypes from 'prop-types';
 import { HotKeys } from 'react-hotkeys';
 import { keyActions } from '../constants/keys';
 import { isTextEmpty } from '../utils/validation';
-import { IListItem } from '../models/IListItem';
 import { IAction } from '../models/IAction';
+import { ListItem } from '../models/ListItem';
 
 export interface IListItemFormCallbackProps {
   readonly onSave: (text: string) => IAction;
-  readonly onCancel: () => IAction;
+  readonly onCancel: (uri: string) => void;
   readonly onDelete: (uri: string) => void;
 }
 
 interface IListItemFormProps extends IListItemFormCallbackProps {
-  readonly item: IListItem;
+  readonly item: ListItem;
   readonly itemNumber: number;
   readonly selectionRangeStarts: number;
   readonly selectionRangeEnds: number;
@@ -72,6 +72,10 @@ export class ListItemForm extends React.PureComponent<IListItemFormProps, IOpene
     this.props.onDelete('/api/v1/listItems/');
   };
 
+  _onCancel = (): void => {
+    this.props.onCancel('/api/v1/listItems/');
+  };
+
   _onEnterPress = (): void => {
     const { text } = this.state;
 
@@ -124,7 +128,7 @@ export class ListItemForm extends React.PureComponent<IListItemFormProps, IOpene
 
           <button
             className="btn btn-secondary ml-2"
-            onClick={onCancel}
+            onClick={this._onCancel}
             title="Drops unsaved changes"
           >
             Cancel

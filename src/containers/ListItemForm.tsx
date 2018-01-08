@@ -5,14 +5,11 @@ import {
   IListItemFormCallbackProps,
   ListItemForm as ListItemFormComponent
 } from '../components/ListItemForm';
-import {
-  cancelItemChanges,
-  saveItemChanges,
-} from '../actions';
 import { Dispatch } from 'redux';
 import { IAction } from '../models/IAction';
-import { IListItem } from '../models/IListItem';
-import { deleteItemFromServer } from '../actions/thunk';
+import { cancelItem, deleteItemFromServer } from '../actions/thunk';
+import { saveItemChanges } from '../actions';
+import { ListItem } from '../models/ListItem';
 
 const propTypes = {
   itemNumber: PropTypes.number.isRequired,
@@ -26,7 +23,7 @@ const propTypes = {
 
 interface IListItemFormContainerDataProps {
   readonly itemNumber: number;
-  readonly item: IListItem;
+  readonly item: ListItem;
   readonly selectionRangeStarts: number;
   readonly selectionRangeEnds: number;
 }
@@ -40,9 +37,10 @@ const mapDispatchToProps = (dispatch: Dispatch<IAction>, ownProps: IListItemForm
     uri,
     ownProps.item.id,
   )(dispatch),
-  onCancel: () => dispatch(cancelItemChanges(
-    ownProps.item.id,
-  )),
+  onCancel: (uri: string) => cancelItem(
+    uri,
+    ownProps.item,
+  )(dispatch),
 });
 
 const ListItemForm: ComponentClass<IListItemFormContainerDataProps> = connect(
