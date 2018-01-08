@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import axios from 'axios';
 import { AddedItem } from '../../containers/todo-list/AddedItem';
 import { TsComponent } from './TsComponent';
 import { Item } from '../../containers/todo-list/Item';
@@ -29,9 +30,9 @@ export class List extends React.PureComponent<IListDataProps & IListCallbackProp
   }
 
   componentDidMount() {
-    fetch('/v1/items')
-      .then(data => data.json())
-      .then(data => data.map((item: any) => this.props.onAddItem(item.Text, item.Id)))
+    axios.get('/v1/items')
+      .then(response => response.data.map((item: any) =>
+        this.props.onAddItem(item.Text, item.Id)))
       .then(() => this.props.onFetchFinished());
   }
 

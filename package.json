@@ -63,6 +63,7 @@
     "whatwg-fetch": "^1.1.1"
   },
   "dependencies": {
+    "@types/axios": "^0.14.0",
     "bootstrap": "^3.3.7",
     "classnames": "^2.2.5",
     "immutable": "^3.8.2",

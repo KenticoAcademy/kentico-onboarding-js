@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import axios from 'axios';
 import { validateText } from '../../utils/validateText';
 import { Input } from './Input';
 import { Uuid } from '../../utils/generateId';
@@ -63,14 +64,10 @@ export class AddedItem extends React.PureComponent<IAddedItemCallbackProps, ISta
   };
 
   private _addItem = (): void => {
-    fetch('v1/items', {
-      method: 'post',
-      headers: new Headers({
-        'Content-Type': 'application/json'
-      }),
-      body: JSON.stringify({Text: this.state.inputText})
-    }).then(data => data.json())
-      .then(item => this.props.onAddItem(item.Text, item.Id));
+    axios.post('v1/items', {Text: this.state.inputText})
+      .then(response => this.props.onAddItem(
+          response.data.Text,
+          response.data.Id));
 
     this.setState({
       inputText: '',
