@@ -1,4 +1,4 @@
-import { connect } from 'react-redux';
+import { connect, Dispatch } from 'react-redux';
 import { ComponentClass } from 'react';
 import { AddNewItem as AddNewItemComponent, IAddNewItemCallbackProps, IAddNewItemDataProps } from '../components/AddNewItem';
 import { IAppState } from '../stores/IAppState';
@@ -9,7 +9,7 @@ const mapStateToProps = ({ items: { newItemText} }: IAppState): IAddNewItemDataP
   newItemText,
 });
 
-const mapDispatchToProps = (dispatch: Function): IAddNewItemCallbackProps => ({
+const mapDispatchToProps = (dispatch: Dispatch<IAppState>): IAddNewItemCallbackProps => ({
   onAdd: (value: string) => dispatch(addItem(generateId(), value)),
   onNewTextChange: (newText: string) => dispatch(updateNewItemText(newText)),
 });

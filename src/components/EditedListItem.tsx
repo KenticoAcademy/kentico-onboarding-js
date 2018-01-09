@@ -1,19 +1,22 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { containsNoCharacters } from '../utils/containsNoCharacters';
+import { ChangeEvent, PureComponent } from 'react';
+import { IAction } from '../actions/IAction';
+
 export interface IEditedListItemDataProps {
   itemText: string;
   textUpdate: string;
 }
 
 export interface IEditedListItemCallbackProps {
-  onDelete: () => Function;
-  onCancel: () => Function;
-  onSave: () => Function;
-  textUpdateChange: (textUpdate: string) => Function;
+  onDelete: () => IAction;
+  onCancel: () => IAction;
+  onSave: () => IAction;
+  textUpdateChange: (textUpdate: string) => IAction;
 }
 
-export class EditedListItem extends React.PureComponent<IEditedListItemDataProps & IEditedListItemCallbackProps> {
+export class EditedListItem extends PureComponent<IEditedListItemDataProps & IEditedListItemCallbackProps> {
 
   static displayName = 'EditedListItem';
 
@@ -26,7 +29,7 @@ export class EditedListItem extends React.PureComponent<IEditedListItemDataProps
     textUpdateChange: PropTypes.func.isRequired,
   };
 
-  onTextChanged = (e: React.ChangeEvent<HTMLInputElement>): void => {
+  onTextChanged = (e: ChangeEvent<HTMLInputElement>): void => {
     const textUpdate = e.target.value;
     const { textUpdateChange } = this.props;
     textUpdateChange(textUpdate);
