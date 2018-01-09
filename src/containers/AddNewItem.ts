@@ -4,7 +4,7 @@ import {
 } from '../actions/actionCreators';
 import { generateId } from '../utils/generateId';
 import { connect } from 'react-redux';
-import { AddNewItem as AddNewItemComponent } from '../components/AddNewItem';
+import { AddNewItem as AddNewItemComponent } from '../components/AddNewItem.tsx';
 
 const mapStateToProps = ({ items: { newItemText } }) => ({
   newItemText,
