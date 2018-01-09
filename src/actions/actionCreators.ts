@@ -12,6 +12,11 @@ export const addItem = (id: ItemId, text: string): IAction => {
   };
 };
 
+export function addItemFactory (idFunc: () => string, text: string) {
+  const newItemId = idFunc();
+  return addItem(newItemId, text);
+}
+
 export const deleteItem = (id: ItemId): IAction => {
   return {
     type: actionTypes.DELETE_ITEM,
