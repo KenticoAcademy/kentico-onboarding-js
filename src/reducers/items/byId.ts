@@ -18,7 +18,7 @@ export const byId = (state = DEFAULT_STATE, action: IAction): OrderedMap<ItemId,
         text: action.payload.text,
       }));
 
-    case actionTypes.UPDATE_ITEM_TEXT:
+    case actionTypes.UPDATE_ITEM:
       return state.update(action.payload.id, (item) => item.with({
         text: item.textUpdate,
         isBeingEdited: false,
@@ -35,7 +35,7 @@ export const byId = (state = DEFAULT_STATE, action: IAction): OrderedMap<ItemId,
       }));
     }
 
-    case actionTypes.TEXT_UPDATE_CHANGE: {
+    case actionTypes.EDIT_ITEM_TEXT: {
       return state.update(action.payload.id, (item) => item.with({
         textUpdate: action.payload.updatedText,
       }));
