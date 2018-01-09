@@ -1,2 +1,2 @@
 
-export const isNotText = (text) => (!text || text.trim() === '');
+export const isNotText = (text: string) => (!text || text.trim() === '');

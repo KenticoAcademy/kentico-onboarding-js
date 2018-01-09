@@ -1,4 +1,4 @@
-import Immutable from 'immutable';
+import * as Immutable from 'immutable';
 
 const emptyId = '00000000-0000-0000-0000-000000000000';
 
