@@ -1,8 +1,15 @@
 import * as Immutable from 'immutable';
 
-const emptyId = '00000000-0000-0000-0000-000000000000';
+export interface IItem {
+  id: string;
+  text: string;
+  isBeingEdited: boolean;
+  textUpdate: string;
+}
 
-const defaultItem = {
+const emptyId: string = '00000000-0000-0000-0000-000000000000';
+
+const defaultItem: IItem = {
   id: emptyId,
   text: '',
   isBeingEdited: false,
