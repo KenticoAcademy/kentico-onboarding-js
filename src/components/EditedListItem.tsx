@@ -1,8 +1,21 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
-import { containsNoCharacters } from '../utils/containsNoCharacters.ts';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
+import { containsNoCharacters } from '../utils/containsNoCharacters';
+import { ChangeEvent, PureComponent } from 'react';
 
-export class EditedListItem extends PureComponent {
+export interface IEditedListItemDataProps {
+  itemText: string;
+  textUpdate: string;
+}
+
+export interface IEditedListItemCallbackProps {
+  onDelete: () => Function;
+  onCancel: () => Function;
+  onSave: () => Function;
+  textUpdateChange: (textUpdate: string) => Function;
+}
+
+export class EditedListItem extends PureComponent<IEditedListItemDataProps & IEditedListItemCallbackProps> {
 
   static displayName = 'EditedListItem';
 
@@ -15,9 +28,10 @@ export class EditedListItem extends PureComponent {
     textUpdateChange: PropTypes.func.isRequired,
   };
 
-  onTextChanged = (e) => {
+  onTextChanged = (e: ChangeEvent<HTMLInputElement>): void => {
+    const textUpdate = e.target.value;
     const { textUpdateChange } = this.props;
-    textUpdateChange(e.target.value);
+    textUpdateChange(textUpdate);
   };
 
   render() {
@@ -34,7 +48,7 @@ export class EditedListItem extends PureComponent {
         />
         <div className="input-group-btn">
           <button
-            data-balloon={isEmpty ? "Item name mustn't be empty" : null}
+            data-balloon={isEmpty ? 'Item name mustn\'t be empty' : null}
             data-balloon-pos="up"
             className="btn btn-primary"
             disabled={isEmpty}
