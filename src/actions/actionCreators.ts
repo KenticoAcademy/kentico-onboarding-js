@@ -3,8 +3,11 @@ import {
   TODO_LIST_ITEM_UPDATE,
   TODO_LIST_ITEM_EDIT,
   TODO_LIST_ITEM_CANCEL_EDIT,
-  APP_FETCH_END, TODO_LIST_ITEM_INSERT,
+  TODO_LIST_ITEM_INSERT,
+  APP_FETCH_ERROR,
+  APP_FETCH_SUCCESS,
 } from '../constants/actionTypes';
+import axios from 'axios';
 import { Uuid } from '../utils/generateId';
 import { IAction } from './IAction';
 
@@ -47,7 +50,25 @@ export const cancelItemEditing = (id: Uuid): IAction => ({
   },
 });
 
-export const stopFetching = (): IAction => ({
-  type: APP_FETCH_END,
+export const setFetchError = (errorText: String): IAction => ({
+  type: APP_FETCH_ERROR,
+  payload: {
+    errorText
+  }
+});
+
+export const setFetchSuccess = (): IAction => ({
+  type: APP_FETCH_SUCCESS,
   payload: {}
 });
+
+export const fetchItems = () =>
+  (dispatch: any) => {
+    axios.get('/v1/items')
+      .then(response => response.data.map((item: any) =>
+        dispatch(insertItem(item.Text, item.Id))))
+      .then(() => dispatch(setFetchSuccess()))
+      .catch(error => {
+        dispatch(setFetchError(error.response.status + ' ' + error.response.statusText));
+      });
+  };

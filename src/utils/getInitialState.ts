@@ -23,13 +23,17 @@ export const getInitialState = (): IAppState => ({
             isEdited: false,
           };
           return (
-          [
-            guid,
-            new ListItem(listItem),
-          ]
+            [
+              guid,
+              new ListItem(listItem),
+            ]
           );
         })
     ),
   },
-  isFetching: true,
+  fetchStatus: {
+    isFetching: true,
+    hasError: false,
+    errorMessage: ''
+  }
 });

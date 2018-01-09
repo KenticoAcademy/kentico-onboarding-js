@@ -3,6 +3,7 @@ import * as ReactDOM from 'react-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 import './index.css';
 import logger from 'redux-logger';
+import thunkMiddleware from 'redux-thunk';
 import {
   applyMiddleware,
   compose,
@@ -19,7 +20,7 @@ interface IDevTools {
 const composeEnhancers = (window as IDevTools).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const store = createStore(app, {}, composeEnhancers(
-  applyMiddleware(logger),
+  applyMiddleware(logger, thunkMiddleware),
 ));
 
 ReactDOM.render(

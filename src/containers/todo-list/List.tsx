@@ -3,16 +3,18 @@ import { IListCallbackProps, IListDataProps, List } from '../../components/todo-
 import { IAppState } from '../../models/IAppState';
 import { getItemIds } from '../../selectors/getItemIds';
 import { IAction } from '../../actions/IAction';
-import { insertItem, stopFetching } from '../../actions/actionCreators';
+import { fetchItems, insertItem} from '../../actions/actionCreators';
 import { Uuid } from '../../utils/generateId';
 
 const mapStateToProps = (state: IAppState): IListDataProps => ({
   ids: getItemIds(state),
-  isFetching: state.isFetching,
+  isFetching: state.fetchStatus.isFetching,
+  hasError: state.fetchStatus.hasError,
+  errorMessage: state.fetchStatus.errorMessage
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<IAppState>): IListCallbackProps => ({
-  onFetchFinished: (): IAction => dispatch(stopFetching()),
+  onFetchItems: (): void => dispatch(fetchItems()),
   onAddItem: (text: string, id: Uuid): IAction => dispatch(insertItem(text, id)),
 });
 

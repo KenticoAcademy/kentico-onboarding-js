@@ -6,5 +6,9 @@ export interface IAppState {
   readonly todoList: {
     readonly items: Collection<Uuid, ListItem>;
   };
-  isFetching: boolean;
+  fetchStatus: {
+    isFetching: boolean,
+    hasError: boolean,
+    errorMessage: string
+  };
 }
