@@ -28,21 +28,21 @@ export const toggleEditing = (id: ItemId): IAction => {
 
 export const updateItemText = (id: ItemId): IAction => {
   return {
-    type: actionTypes.UPDATE_ITEM_TEXT,
+    type: actionTypes.UPDATE_ITEM,
     payload: { id },
   };
 };
 
 export const updateNewItemText = (newItemText: string): IAction => {
   return {
-    type: actionTypes.UPDATE_NEW_ITEM_TEXT,
+    type: actionTypes.UPDATE_NEW_ITEM,
     payload: { newItemText },
   };
 };
 
 export const textUpdateChange = (id: ItemId, updatedText: string): IAction => {
   return {
-    type: actionTypes.TEXT_UPDATE_CHANGE,
+    type: actionTypes.EDIT_ITEM_TEXT,
     payload: {
       id,
       updatedText },

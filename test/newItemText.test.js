@@ -7,7 +7,7 @@ import {
 import { generateId } from '../src/utils/generateId.ts';
 
 describe('newItemText', () => {
-  it('returns text that is given in args when the action type is UPDATE_NEW_ITEM_TEXT', () => {
+  it('returns text that is given in args when the action type is UPDATE_NEW_ITEM', () => {
     const expectedState = 'Some random sentence.';
     const action = updateNewItemText(expectedState);
 
