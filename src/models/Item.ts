@@ -10,7 +10,7 @@ export interface IItem {
 
 const emptyId: string = '00000000-0000-0000-0000-000000000000';
 
-const defaultItem: IItem = {
+export const defaultItem: IItem = {
   id: emptyId,
   text: '',
   isBeingEdited: false,
