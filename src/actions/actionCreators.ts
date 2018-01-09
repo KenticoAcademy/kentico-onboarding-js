@@ -1,15 +1,9 @@
-import {
-  ADD_ITEM,
-  DELETE_ITEM,
-  UPDATE_ITEM_TEXT,
-  TOGGLE_EDITING,
-  UPDATE_NEW_ITEM_TEXT,
-  TEXT_UPDATE_CHANGE,
-} from '../constants/actionTypes';
+import { actionTypes } from '../constants/actionTypes';
+import { IAction } from './IAction';
 
-export const addItem = (id, text) => {
+export const addItem = (id: string, text: string): IAction => {
   return {
-    type: ADD_ITEM,
+    type: actionTypes.ADD_ITEM,
     payload: {
       text,
       id,
@@ -17,23 +11,23 @@ export const addItem = (id, text) => {
   };
 };
 
-export const deleteItem = (id) => {
+export const deleteItem = (id: string): IAction => {
   return {
-    type: DELETE_ITEM,
+    type: actionTypes.DELETE_ITEM,
     payload: { id },
   };
 };
 
-export const toggleEditing = (id) => {
+export const toggleEditing = (id: string): IAction => {
   return {
-    type: TOGGLE_EDITING,
+    type: actionTypes.TOGGLE_EDITING,
     payload: { id },
   };
 };
 
-export const updateItemText = (id, newText) => {
+export const updateItemText = (id: string, newText: string): IAction => {
   return {
-    type: UPDATE_ITEM_TEXT,
+    type: actionTypes.UPDATE_ITEM_TEXT,
     payload: {
       id,
       newText,
@@ -41,16 +35,16 @@ export const updateItemText = (id, newText) => {
   };
 };
 
-export const updateNewItemText = (newItemText) => {
+export const updateNewItemText = (newItemText: string): IAction => {
   return {
-    type: UPDATE_NEW_ITEM_TEXT,
+    type: actionTypes.UPDATE_NEW_ITEM_TEXT,
     payload: { newItemText },
   };
 };
 
-export const textUpdateChange = (id, updatedText) => {
+export const textUpdateChange = (id: string, updatedText: string): IAction => {
   return {
-    type: TEXT_UPDATE_CHANGE,
+    type: actionTypes.TEXT_UPDATE_CHANGE,
     payload: {
       id,
       updatedText },
