@@ -1,13 +1,14 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { containsNoCharacters } from '../utils/containsNoCharacters';
+import { IAction } from '../actions/IAction';
 
 export interface IAddNewItemDataProps {
   newItemText: string;
 }
 
 export interface IAddNewItemCallbackProps {
-  onAdd: (value: string) => Function;
+  onAdd: (value: string) => IAction;
   onNewTextChange: Function;
 }
 
