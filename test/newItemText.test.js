@@ -1,10 +1,10 @@
-import { newItemText } from './newItemText.ts';
+import { newItemText } from '../src/reducers/items/newItemText.ts';
 import {
   addItem,
   deleteItem,
   updateNewItemText,
-} from '../../actions/actionCreators.ts';
-import { generateId } from '../../utils/generateId.ts';
+} from '../src/actions/actionCreators.ts';
+import { generateId } from '../src/utils/generateId.ts';
 
 describe('newItemText', () => {
   it('returns text that is given in args when the action type is UPDATE_NEW_ITEM_TEXT', () => {

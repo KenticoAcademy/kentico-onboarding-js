@@ -1,4 +1,4 @@
-import { containsNoCharacters } from './containsNoCharacters.ts';
+import { containsNoCharacters } from '../src/utils/containsNoCharacters.ts';
 
 describe('containsNoCharacters', () => {
   it('returns true when the text is empty', () => {
