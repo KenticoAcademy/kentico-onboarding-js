@@ -1,24 +1,20 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { EditedListItem } from '../containers/EditedListItem.tsx';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
+import { EditedListItem } from '../containers/EditedListItem';
 import { UneditedListItem } from '../containers/UneditedListItem';
 
-const ListItem = ({ itemId, isBeingEdited }) => {
+export interface IListItemDataProps {
+  id: string;
+  isBeingEdited: boolean;
+}
+
+const ListItem: React.SFC<IListItemDataProps>  = ({ id, isBeingEdited }: IListItemDataProps): JSX.Element => {
   return (
     isBeingEdited ?
       <EditedListItem
-        itemId={itemId}
+        itemId={id}
       /> :
       <UneditedListItem
-        itemId={itemId}
+        itemId={id}
       />);
 };
-
-ListItem.displayName = 'ListItem';
-
-ListItem.propTypes = {
-  itemId: PropTypes.string.isRequired,
-  isBeingEdited: PropTypes.bool.isRequired,
-};
-
-export { ListItem };

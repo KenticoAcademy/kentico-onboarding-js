@@ -1,9 +1,15 @@
 import { connect } from 'react-redux';
-import { ListItem as ListItemComponent } from '../components/ListItem.jsx';
+import { IListItemDataProps, ListItem as ListItemComponent } from '../components/ListItem';
+import { IAppState } from '../stores/IAppState';
+import { ComponentClass } from 'react';
 
-const mapStateToProps = (state, { itemId }) => ({
-  id: itemId,
-  isBeingEdited: state.items.byId.get(itemId).isBeingEdited,
+export interface IListItemContainerProps {
+  id: string;
+}
+
+const mapStateToProps = (state: IAppState, { id }: IListItemContainerProps): IListItemDataProps => ({
+  id,
+  isBeingEdited: state.items.byId.get(id).isBeingEdited,
 });
 
-export const ListItem = connect(mapStateToProps)(ListItemComponent);
+export const ListItem: ComponentClass<IListItemContainerProps> = connect(mapStateToProps)(ListItemComponent);
