@@ -9,7 +9,7 @@ export interface IAddNewItemDataProps {
 
 export interface IAddNewItemCallbackProps {
   onAdd: (value: string) => Function;
-  onNewTextChange: (newText: string) => Function;
+  onNewTextChange: Function;
 }
 
 export class AddNewItem extends React.PureComponent<IAddNewItemDataProps & IAddNewItemCallbackProps> {
@@ -22,9 +22,17 @@ export class AddNewItem extends React.PureComponent<IAddNewItemDataProps & IAddN
     onNewTextChange: PropTypes.func.isRequired,
   };
 
+  constructor(props: IAddNewItemDataProps & IAddNewItemCallbackProps) {
+    super(props);
+
+    this._onChange = this._onChange.bind(this);
+    this._onClick = this._onClick.bind(this);
+  }
+
   _onChange (e: ChangeEvent<HTMLInputElement>): void {
     const newText = e.target.value;
-    this.props.onNewTextChange(newText);
+    const { onNewTextChange } = this.props;
+    onNewTextChange(newText);
   };
 
   _onClick = () => {
@@ -36,6 +44,7 @@ export class AddNewItem extends React.PureComponent<IAddNewItemDataProps & IAddN
     const input = this.props.newItemText;
     const isEmpty = containsNoCharacters(input);
 
+    console.log(this);
     return (
       <div className="list-group-item form-inline">
         <div className="input-group">
