@@ -19,3 +19,12 @@ const ListItem: React.SFC<IListItemDataProps>  = ({ id, isBeingEdited }: IListIt
         itemId={id}
       />);
 };
+
+ListItem.displayName = 'ListItem';
+
+ListItem.propTypes = {
+  id: PropTypes.string.isRequired,
+  isBeingEdited: PropTypes.bool.isRequired,
+};
+
+export { ListItem };
