@@ -35,5 +35,9 @@ export const getInitialState = (): IAppState => ({
     isFetching: true,
     hasError: false,
     errorMessage: ''
+  },
+  postStatus: {
+    hasError: false,
+    errorMessage: ''
   }
 });

@@ -10,12 +10,13 @@ export interface IListDataProps {
   readonly ids: Seq.Indexed<Uuid>;
   isFetching: boolean;
   hasError: boolean;
-  errorMessage: String;
+  postError: boolean;
+  postErrorMessage: string;
+  errorMessage: string;
 }
 
 export interface IListCallbackProps {
   readonly onFetchItems: () => void;
-  readonly onAddItem: (text: string, id: Uuid) => void;
 }
 
 const Loading = require('react-loading-animation');
@@ -42,6 +43,16 @@ export class List extends React.PureComponent<IListDataProps & IListCallbackProp
             <TsComponent name="𝕱𝖆𝖓𝖈𝖞" />
           </div>
         </div>
+        {this.props.postError
+          ? (<div className="alert alert-danger">
+            <span
+              className="glyphicon glyphicon-warning-sign"
+              aria-hidden="true"
+            />
+            <strong> ERROR: </strong>
+            {this.props.postErrorMessage}
+          </div>) : <div />
+        }
         {this.props.isFetching
           ? <Loading />
           : (!this.props.hasError

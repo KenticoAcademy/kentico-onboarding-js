@@ -5,7 +5,7 @@ import {
   TODO_LIST_ITEM_CANCEL_EDIT,
   TODO_LIST_ITEM_INSERT,
   APP_FETCH_ERROR,
-  APP_FETCH_SUCCESS,
+  APP_FETCH_SUCCESS, APP_POST_SUCCESS, APP_POST_ERROR,
 } from '../constants/actionTypes';
 import axios from 'axios';
 import { Uuid } from '../utils/generateId';
@@ -50,7 +50,7 @@ export const cancelItemEditing = (id: Uuid): IAction => ({
   },
 });
 
-export const setFetchError = (errorText: String): IAction => ({
+export const setFetchError = (errorText: string): IAction => ({
   type: APP_FETCH_ERROR,
   payload: {
     errorText
@@ -61,6 +61,30 @@ export const setFetchSuccess = (): IAction => ({
   type: APP_FETCH_SUCCESS,
   payload: {}
 });
+
+export const setPostSuccess = (): IAction => ({
+  type: APP_POST_SUCCESS,
+  payload: {}
+});
+
+export const setPostError = (errorText: string): IAction => ({
+  type: APP_POST_ERROR,
+  payload: {
+    errorText
+  }
+});
+
+export const postItem = (text: string) =>
+  (dispatch: any) => {
+    axios.post('v1/items', {Text: text})
+      .then(item => dispatch(insertItem(
+        item.data.Text,
+        item.data.Id)))
+      .then(() => dispatch(setPostSuccess()))
+      .catch(error => {
+        dispatch(setPostError(error.response.status + ' ' + error.response.statusText));
+      });
+  };
 
 export const fetchItems = () =>
   (dispatch: any) => {

@@ -1,9 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import axios from 'axios';
 import { validateText } from '../../utils/validateText';
 import { Input } from './Input';
-import { Uuid } from '../../utils/generateId';
 
 interface IState {
   readonly inputText: string;
@@ -11,7 +9,7 @@ interface IState {
 }
 
 export interface IAddedItemCallbackProps {
-  readonly onAddItem: (text: string, id: Uuid) => void;
+  readonly onAddItem: (text: string) => void;
 }
 
 export class AddedItem extends React.PureComponent<IAddedItemCallbackProps, IState> {
@@ -64,10 +62,7 @@ export class AddedItem extends React.PureComponent<IAddedItemCallbackProps, ISta
   };
 
   private _addItem = (): void => {
-    axios.post('v1/items', {Text: this.state.inputText})
-      .then(response => this.props.onAddItem(
-          response.data.Text,
-          response.data.Id));
+    this.props.onAddItem(this.state.inputText);
 
     this.setState({
       inputText: '',

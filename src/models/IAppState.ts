@@ -11,4 +11,8 @@ export interface IAppState {
     hasError: boolean,
     errorMessage: string
   };
+  postStatus: {
+    hasError: boolean,
+    errorMessage: string
+  };
 }
