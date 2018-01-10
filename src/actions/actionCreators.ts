@@ -10,8 +10,15 @@ import {
 import axios from 'axios';
 import { Uuid } from '../utils/generateId';
 import { IAction } from './IAction';
+import { IAppState } from '../models/IAppState';
+import { Dispatch } from 'react-redux';
 
 // export const insertItem = insertItemFactory(generateId);
+
+interface FetchedItem {
+  Text: string;
+  Id: Uuid;
+}
 
 export const insertItem = (text: string, id: Uuid) => ({
   type: TODO_LIST_ITEM_INSERT,
@@ -75,7 +82,7 @@ export const setPostError = (errorText: string): IAction => ({
 });
 
 export const postItem = (text: string) =>
-  (dispatch: any) => {
+  (dispatch: Dispatch<IAppState>) => {
     axios.post('v1/items', {Text: text})
       .then(item => dispatch(insertItem(
         item.data.Text,
@@ -87,9 +94,9 @@ export const postItem = (text: string) =>
   };
 
 export const fetchItems = () =>
-  (dispatch: any) => {
+  (dispatch: Dispatch<IAppState>) => {
     axios.get('/v1/items')
-      .then(response => response.data.map((item: any) =>
+      .then(response => response.data.map((item: FetchedItem) =>
         dispatch(insertItem(item.Text, item.Id))))
       .then(() => dispatch(setFetchSuccess()))
       .catch(error => {

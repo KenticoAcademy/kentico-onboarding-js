@@ -1,7 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { AddedItem } from '../../containers/todo-list/AddedItem';
-import { TsComponent } from './TsComponent';
 import { Item } from '../../containers/todo-list/Item';
 import { Seq } from 'immutable';
 import { Uuid } from '../../utils/generateId';
@@ -38,11 +37,6 @@ export class List extends React.PureComponent<IListDataProps & IListCallbackProp
   render(): JSX.Element {
     return (
       <div className="row">
-        <div className="row">
-          <div className="col-sm-12 text-center">
-            <TsComponent name="𝕱𝖆𝖓𝖈𝖞" />
-          </div>
-        </div>
         {this.props.postError
           ? (<div className="alert alert-danger">
             <span
