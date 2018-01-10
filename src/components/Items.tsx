@@ -2,32 +2,17 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { ListItem } from '../containers/ListItem';
 import { Guid } from '../models/Guid';
-import { FetchItemsState } from '../models/FetchItemsState';
 
 export interface IItemsDataProps {
   readonly itemIds: Guid[];
-  readonly fetchItemsState: FetchItemsState;
 }
 
-export interface IItemsCallbackProps {
-  readonly fetchItems: (uri: string) => void;
-}
-
-interface IIItemsProps extends IItemsDataProps, IItemsCallbackProps {}
-
-export class Items extends React.PureComponent<IIItemsProps> {
+export class Items extends React.PureComponent<IItemsDataProps> {
   static displayName = 'Items';
 
   static propTypes = {
     itemIds: PropTypes.arrayOf(PropTypes.string),
-    fetchItems: PropTypes.func.isRequired,
   };
-
-  componentDidMount() {
-    if (this.props.fetchItemsState === FetchItemsState.INITIAL) {
-      this.props.fetchItems('/api/v1/listItems');
-    }
-  }
 
   render() {
     return (
