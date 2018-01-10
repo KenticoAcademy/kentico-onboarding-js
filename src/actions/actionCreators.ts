@@ -82,8 +82,8 @@ export const setPostError = (errorText: string): IAction => ({
 });
 
 export const postItem = (text: string) =>
-  (dispatch: Dispatch<IAppState>) => {
-    axios.post('v1/items', {Text: text})
+  (dispatch: Dispatch<IAppState>, _getState: () => IAppState, url: string) => {
+    axios.post(url, {Text: text})
       .then(item => dispatch(insertItem(
         item.data.Text,
         item.data.Id)))
@@ -94,8 +94,8 @@ export const postItem = (text: string) =>
   };
 
 export const fetchItems = () =>
-  (dispatch: Dispatch<IAppState>) => {
-    axios.get('/v1/items')
+  (dispatch: Dispatch<IAppState>, _getState: () => IAppState, url: string) => {
+    axios.get(url)
       .then(response => response.data.map((item: FetchedItem) =>
         dispatch(insertItem(item.Text, item.Id))))
       .then(() => dispatch(setFetchSuccess()))
