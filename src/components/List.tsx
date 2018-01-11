@@ -6,6 +6,7 @@ import { NewItemForm } from '../containers/NewItemForm';
 import { FetchItemsState } from '../models/FetchItemsState';
 import * as PropTypes from 'prop-types';
 import { IAction } from '../models/IAction';
+import { Loader } from './Loader';
 
 export interface IListDataProps {
   readonly fetchItemsState: FetchItemsState;
@@ -32,7 +33,7 @@ export class List extends React.PureComponent<IListProps> {
   render() {
     return this.props.fetchItemsState === FetchItemsState.REQUESTED ?
       (
-        <h1>IS FETCHING!</h1>
+        <Loader />
       ) :
       (
         <HotKeys keyMap={keyMap}>
