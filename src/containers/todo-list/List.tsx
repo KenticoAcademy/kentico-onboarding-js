@@ -3,6 +3,7 @@ import { IListCallbackProps, IListDataProps, List } from '../../components/todo-
 import { IAppState } from '../../models/IAppState';
 import { getItemIds } from '../../selectors/getItemIds';
 import { fetchItems } from '../../actions/actionCreators';
+import { IAction } from '../../actions/IAction';
 
 const mapStateToProps = (state: IAppState): IListDataProps => ({
   ids: getItemIds(state),
@@ -14,7 +15,7 @@ const mapStateToProps = (state: IAppState): IListDataProps => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<IAppState>): IListCallbackProps => ({
-  onFetchItems: (): void => dispatch(fetchItems()),
+  onFetchItems: (): Promise<void | IAction> => dispatch(fetchItems()),
 });
 
 const enhancer = connect(mapStateToProps, mapDispatchToProps);
