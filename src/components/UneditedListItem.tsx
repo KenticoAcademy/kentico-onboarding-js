@@ -10,7 +10,7 @@ export interface IUneditedListItemCallbackProps {
 }
 
 const UneditedListItem: React.SFC<IUneditedListItemDataProps & IUneditedListItemCallbackProps> = ({ onTextClick, itemText }:
-       IUneditedListItemDataProps & IUneditedListItemCallbackProps): JSX.Element => {
+                                                                                                    IUneditedListItemDataProps & IUneditedListItemCallbackProps): JSX.Element => {
   return(
     <div
       className="form-control-static"
@@ -29,4 +29,3 @@ UneditedListItem.propTypes = {
 };
 
 export { UneditedListItem };
-

@@ -1,10 +1,13 @@
 import { newItemText } from '../src/reducers/items/newItemText.ts';
 import {
-  addItem,
+  addItemFactory,
   deleteItem,
   updateNewItemText,
 } from '../src/actions/actionCreators.ts';
-import { generateId } from '../src/utils/generateId.ts';
+
+function mockId() {
+  return '2';
+}
 
 describe('newItemText', () => {
   it('returns text that is given in args when the action type is UPDATE_NEW_ITEM', () => {
@@ -19,7 +22,7 @@ describe('newItemText', () => {
   it('returns empty string when action type is ADD_ITEM', () => {
     const initialState = 'INITIAL_STATE';
     const expectedState = '';
-    const action = addItem(generateId(), 'Some random sentence.');
+    const action = addItemFactory(mockId, 'Some random sentence.');
 
     const actualState = newItemText(initialState, action);
 
