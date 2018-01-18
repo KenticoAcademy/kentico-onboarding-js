@@ -1,18 +1,13 @@
 import { Collection } from 'immutable';
 import { ListItem } from './ListItem';
 import { Uuid } from '../utils/generateId';
+import { FetchStatus } from './FetchStatus';
+import { PostStatus } from './PostStatus';
 
 export interface IAppState {
   readonly todoList: {
     readonly items: Collection<Uuid, ListItem>;
   };
-  fetchStatus: {
-    isFetching: boolean,
-    hasError: boolean,
-    errorMessage: string
-  };
-  postStatus: {
-    hasError: boolean,
-    errorMessage: string
-  };
+  fetchStatus: FetchStatus;
+  postStatus: PostStatus;
 }

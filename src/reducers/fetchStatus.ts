@@ -1,20 +1,27 @@
 import { ITEMS_FETCH_ERROR, ITEMS_FETCH_SUCCESS } from '../constants/actionTypes';
 import { IAction } from '../actions/IAction';
+import { FetchStatus } from '../models/FetchStatus';
 
-export const fetchStatus = (previousState: {} = {isFetching: true, hasError: false}, action: IAction): {} => {
+export const fetchStatus = (previousState: FetchStatus = new FetchStatus(), action: IAction): FetchStatus => {
   switch (action.type) {
-    case ITEMS_FETCH_ERROR:
-      return {
+    case ITEMS_FETCH_ERROR: {
+      const updatedStatus = {
         isFetching: false,
         hasError: true,
         errorMessage: action.payload.errorText
       };
 
-    case ITEMS_FETCH_SUCCESS:
-      return {
+      return previousState.with(updatedStatus);
+    }
+
+    case ITEMS_FETCH_SUCCESS: {
+      const updatedStatus = {
         isFetching: false,
         hasError: false
       };
+
+      return previousState.with(updatedStatus);
+    }
 
     default:
       return previousState;

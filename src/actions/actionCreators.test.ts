@@ -109,10 +109,7 @@ describe('Async actions', () => {
   });
 
   it('creates ITEMS_POST_ERROR on bad POST request', (done) => {
-    const postTestItem = {
-      id: 'e1f5c5e4-7f5e-4aa0-9e52-117cc8267f12',
-      text: 'item'
-    };
+    const newItemText = 'item';
     const expectedAction = [
       {
         type: ITEM_POST_ERROR,
@@ -126,7 +123,7 @@ describe('Async actions', () => {
 
     const postItem = postItemFactory(axios);
 
-    store.dispatch(postItem(postTestItem))
+    store.dispatch(postItem(newItemText))
       .then(() => {
         expect(store.getActions()).toEqual(expectedAction);
         done();
