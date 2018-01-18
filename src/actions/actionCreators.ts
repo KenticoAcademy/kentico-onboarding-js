@@ -86,12 +86,13 @@ export const setPostError = (errorText: string): IAction => ({
   }
 });
 
-const postItemFactory = (axios: AxiosStatic) => (text: string) =>
-  (dispatch: Dispatch<IAppState>, _getState: () => IAppState, url: string) => {
-    return axios.post(url, {Text: text})
-      .then((response: AxiosResponse) => dispatch(insertItem(
-        response.data.Text,
-        response.data.Id)))
+export const postItemFactory = (axios: AxiosStatic) => (text: string) =>
+  (dispatch: Dispatch<IAppState>, _getState: () => IAppState, url: string) =>
+    axios.post(url, {Text: text})
+      .then((response: AxiosResponse) =>
+        dispatch(insertItem(
+          response.data.Text,
+          response.data.Id)))
       .then(() => dispatch(setPostSuccess()))
       .catch((error: AxiosError) => {
         const errorResponse = error.response;
@@ -99,11 +100,10 @@ const postItemFactory = (axios: AxiosStatic) => (text: string) =>
           dispatch(setPostError(errorResponse.status + ' ' + errorResponse.statusText));
         }
       });
-  };
 
 export const fetchItemsFactory = (axios: AxiosStatic) => () =>
-  (dispatch: Dispatch<IAppState>, _getState: () => IAppState, url: string) => {
-    return axios.get(url)
+  (dispatch: Dispatch<IAppState>, _getState: () => IAppState, url: string) =>
+    axios.get(url)
       .then((response: AxiosResponse) => response.data.map((item: FetchedItem) =>
         dispatch(insertItem(item.Text, item.Id))))
       .then(() => dispatch(setFetchSuccess()))
@@ -113,7 +113,6 @@ export const fetchItemsFactory = (axios: AxiosStatic) => () =>
           dispatch(setFetchError(errorResponse.status + ' ' + errorResponse.statusText));
         }
       });
-  };
 
 export const postItem = postItemFactory(axios);
 export const fetchItems = fetchItemsFactory(axios);
