@@ -1,9 +1,10 @@
 import {
-  setPostError,
-  setPostSuccess
+  setCallError,
+  setCallSuccess
 } from '../actions/actionCreators';
 import { PostStatus } from '../models/PostStatus';
 import { postStatus } from './postStatus';
+import { ITEM_POST_ERROR, ITEM_POST_SUCCESS } from '../constants/actionTypes';
 
 describe('postStatus reducer', () => {
   const UNKNOWN_ACTION = 'UNKNOWN_ACTION';
@@ -22,7 +23,8 @@ describe('postStatus reducer', () => {
 
   it('sets flags correctly on failed request with errorMessage', () => {
     const errorMessage = '400 Bad Request';
-    const errorAction = setPostError(errorMessage);
+    const errorAction = setCallError(ITEM_POST_ERROR, errorMessage);
+    console.log(errorAction);
     const expectedState = new PostStatus({
       hasError: true,
       errorMessage
@@ -34,7 +36,7 @@ describe('postStatus reducer', () => {
   });
 
   it('sets flags correctly on successful request', () => {
-    const successfulAction = setPostSuccess();
+    const successfulAction = setCallSuccess(ITEM_POST_SUCCESS);
     const expectedState = new PostStatus({
       hasError: false,
     });

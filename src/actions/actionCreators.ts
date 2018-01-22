@@ -25,7 +25,7 @@ interface FetchedItem {
   Id: Uuid;
 }
 
-export const insertItem = (text: string, id: Uuid) => ({
+export const insertItem = (text: string, id: Uuid): IAction => ({
   type: TODO_LIST_ITEM_INSERT,
   payload: {
     id,
@@ -62,28 +62,16 @@ export const cancelItemEditing = (id: Uuid): IAction => ({
   },
 });
 
-export const setFetchError = (errorText: string): IAction => ({
-  type: ITEMS_FETCH_ERROR,
+export const setCallError = (errorType: string, errorText: string): IAction => ({
+  type: errorType,
   payload: {
     errorText
   }
 });
 
-export const setFetchSuccess = (): IAction => ({
-  type: ITEMS_FETCH_SUCCESS,
+export const setCallSuccess = (callType: string): IAction => ({
+  type: callType,
   payload: {}
-});
-
-export const setPostSuccess = (): IAction => ({
-  type: ITEM_POST_SUCCESS,
-  payload: {}
-});
-
-export const setPostError = (errorText: string): IAction => ({
-  type: ITEM_POST_ERROR,
-  payload: {
-    errorText
-  }
 });
 
 export const postItemFactory = (axios: AxiosStatic) => (text: string) =>
@@ -93,11 +81,11 @@ export const postItemFactory = (axios: AxiosStatic) => (text: string) =>
         dispatch(insertItem(
           response.data.Text,
           response.data.Id)))
-      .then(() => dispatch(setPostSuccess()))
+      .then(() => dispatch(setCallSuccess(ITEM_POST_SUCCESS)))
       .catch((error: AxiosError) => {
         const errorResponse = error.response;
         if (!isUndefined(errorResponse)) {
-          dispatch(setPostError(errorResponse.status + ' ' + errorResponse.statusText));
+          dispatch(setCallError(ITEM_POST_ERROR, errorResponse.status + ' ' + errorResponse.statusText));
         }
       });
 
@@ -106,11 +94,11 @@ export const fetchItemsFactory = (axios: AxiosStatic) => () =>
     axios.get(url)
       .then((response: AxiosResponse) => response.data.map((item: FetchedItem) =>
         dispatch(insertItem(item.Text, item.Id))))
-      .then(() => dispatch(setFetchSuccess()))
+      .then(() => dispatch(setCallSuccess(ITEMS_FETCH_SUCCESS)))
       .catch((error: AxiosError) => {
         const errorResponse = error.response;
         if (!isUndefined(errorResponse)) {
-          dispatch(setFetchError(errorResponse.status + ' ' + errorResponse.statusText));
+          dispatch(setCallError(ITEMS_FETCH_ERROR, errorResponse.status + ' ' + errorResponse.statusText));
         }
       });
 

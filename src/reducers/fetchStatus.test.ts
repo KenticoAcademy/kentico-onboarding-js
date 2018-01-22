@@ -1,6 +1,7 @@
 import { fetchStatus } from './fetchStatus';
 import { FetchStatus } from '../models/FetchStatus';
-import { setFetchError, setFetchSuccess } from '../actions/actionCreators';
+import { setCallError, setCallSuccess } from '../actions/actionCreators';
+import { ITEMS_FETCH_ERROR, ITEMS_FETCH_SUCCESS } from '../constants/actionTypes';
 
 describe('fetchStatus reducer', () => {
   const UNKNOWN_ACTION = 'UNKNOWN_ACTION';
@@ -19,7 +20,7 @@ describe('fetchStatus reducer', () => {
 
   it('sets flags correctly on failed request with errorMessage', () => {
     const errorMessage = '400 Bad Request';
-    const errorAction = setFetchError(errorMessage);
+    const errorAction = setCallError(ITEMS_FETCH_ERROR, errorMessage);
     const expectedState = new FetchStatus({
       isFetching: false,
       hasError: true,
@@ -32,7 +33,7 @@ describe('fetchStatus reducer', () => {
   });
 
   it('sets flags correctly on successful', () => {
-    const successfulAction = setFetchSuccess();
+    const successfulAction = setCallSuccess(ITEMS_FETCH_SUCCESS);
     const expectedState = new FetchStatus({
       isFetching: false,
       hasError: false,
