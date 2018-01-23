@@ -6,7 +6,9 @@ import {
   ITEMS_FETCH_ERROR,
   ITEMS_FETCH_SUCCESS, TODO_LIST_ITEM_INSERT
 } from '../constants/actionTypes';
-import { fetchItemsFactory, postItemFactory } from './actionCreators';
+import { postItemFactory } from './postItemFactory';
+import { fetchItemsFactory } from './fetchItemsFactory';
+import { insertItem, setCallError, setCallSuccess } from './actionCreators';
 
 const MockAdapter = require('axios-mock-adapter');
 const axios = require('axios');
@@ -44,7 +46,13 @@ describe('Async actions', () => {
         Text: postTestItem.text
       }
     );
-    const postItem = postItemFactory(axios);
+    const postItem = postItemFactory(
+      {
+        insertItem,
+        setCallSuccess,
+        setCallError
+      },
+      axios);
 
     store.dispatch(postItem(postTestItem.text))
       .then(() => {
@@ -76,7 +84,13 @@ describe('Async actions', () => {
         }
       ]
     );
-    const fetchItems = fetchItemsFactory(axios);
+    const fetchItems = fetchItemsFactory(
+      {
+        insertItem,
+        setCallSuccess,
+        setCallError
+      },
+      axios);
 
     store.dispatch(fetchItems())
       .then(() => {
@@ -98,7 +112,13 @@ describe('Async actions', () => {
     mock.restore();
     mock.onGet(url).reply(400);
 
-    const fetchItems = fetchItemsFactory(axios);
+    const fetchItems = fetchItemsFactory(
+      {
+        insertItem,
+        setCallSuccess,
+        setCallError
+      },
+      axios);
 
     store.dispatch(fetchItems())
       .then(() => {
@@ -121,7 +141,13 @@ describe('Async actions', () => {
     // mock.restore();
     mock.onGet(url).reply(400);
 
-    const postItem = postItemFactory(axios);
+    const postItem = postItemFactory(
+      {
+        insertItem,
+        setCallSuccess,
+        setCallError
+      },
+      axios);
 
     store.dispatch(postItem(newItemText))
       .then(() => {
