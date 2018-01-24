@@ -7,5 +7,5 @@ export interface IDependencies {
   setCallSuccess: (callType: string) => IAction;
   setCallError: (errorType: string, errorText: string) => IAction;
   readonly url: string;
-  axios: AxiosStatic;
+  axios: AxiosStatic | any;
 }
