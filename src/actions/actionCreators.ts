@@ -10,6 +10,7 @@ import { Uuid } from '../utils/generateId';
 import { IAction } from './IAction';
 import { postItemFactory } from './postItemFactory';
 import { fetchItemsFactory } from './fetchItemsFactory';
+import { API_URL } from '../constants/apiUrl';
 
 // export const insertItem = insertItemFactory(generateId);
 
@@ -66,14 +67,16 @@ export const postItem = postItemFactory(
   {
     insertItem,
     setCallSuccess,
-    setCallError
-  },
-  axios);
+    setCallError,
+    url: API_URL,
+    axios
+  });
 
 export const fetchItems = fetchItemsFactory(
   {
     insertItem,
     setCallSuccess,
-    setCallError
-  },
-  axios);
+    setCallError,
+    url: API_URL,
+    axios
+  });
