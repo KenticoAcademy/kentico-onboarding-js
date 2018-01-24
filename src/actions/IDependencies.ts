@@ -3,9 +3,9 @@ import { IAction } from './IAction';
 import { Uuid } from '../utils/generateId';
 
 export interface IDependencies {
-  insertItem: (text: string, id: Uuid) => IAction;
-  setCallSuccess: (callType: string) => IAction;
-  setCallError: (errorType: string, errorText: string) => IAction;
+  readonly insertItem: (text: string, id: Uuid) => IAction;
+  readonly setCallSuccess: (callType: string) => IAction;
+  readonly setCallError: (errorType: string, errorText: string) => IAction;
   readonly url: string;
-  axios: AxiosStatic | any;
+  readonly axios: AxiosStatic | any;
 }

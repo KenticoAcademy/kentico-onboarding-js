@@ -3,7 +3,7 @@ import {
   OrderedMap,
 } from 'immutable';
 import { items } from './items';
-import { insertItemFactory } from '../../../actions/insertItemFactory';
+import { insertItem } from '../../../actions/actionCreators';
 import { ListItem } from '../../../models/ListItem';
 import { Uuid } from '../../../utils/generateId';
 
@@ -25,8 +25,6 @@ describe('items reducers', () => {
       item: plainItem2,
     },
   };
-
-  const insertItem = (id: Uuid) => insertItemFactory(() => id);
 
   it('should return the initial state', () => {
     const initialState = items(undefined, unknownAction);
@@ -51,11 +49,10 @@ describe('items reducers', () => {
         new ListItem(plainItem2),
       ],
     ]).toJS();
-    const insertItemAction = insertItem(plainItem2.id);
 
     const newState: OrderedMap<Uuid, ListItem> = items(
       singleItemState,
-      insertItemAction(plainItem2.text),
+      insertItem(plainItem2.text, plainItem2.id),
     ).toJS();
 
     expect(newState).toEqual(expectedState);
@@ -69,8 +66,8 @@ describe('items reducers', () => {
           ...plainItem1,
           isEdited: true,
         }),
-  ],
-  ]).toJS();
+      ],
+    ]).toJS();
     const singleItemState: OrderedMap<Uuid, ListItem> = OrderedMap([
       [
         plainItem1.id,

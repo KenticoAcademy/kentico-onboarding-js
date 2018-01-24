@@ -12,8 +12,6 @@ import { postItemFactory } from './postItemFactory';
 import { fetchItemsFactory } from './fetchItemsFactory';
 import { API_URL } from '../constants/apiUrl';
 
-// export const insertItem = insertItemFactory(generateId);
-
 export const insertItem = (text: string, id: Uuid): IAction => ({
   type: TODO_LIST_ITEM_INSERT,
   payload: {
