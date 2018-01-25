@@ -3,6 +3,7 @@ import { ListItem } from './ListItem';
 import { Uuid } from '../utils/generateId';
 import { FetchStatus } from './FetchStatus';
 import { PostStatus } from './PostStatus';
+import { PutStatus } from './PutStatus';
 
 export interface IAppState {
   readonly todoList: {
@@ -10,4 +11,5 @@ export interface IAppState {
   };
   fetchStatus: FetchStatus;
   postStatus: PostStatus;
+  putStatus: PutStatus;
 }

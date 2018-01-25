@@ -8,7 +8,7 @@ import { IAppState } from '../models/IAppState';
 import { Dispatch } from 'react-redux';
 import { Uuid } from '../utils/generateId';
 import { IAction } from './IAction';
-import { IDependencies } from './IDependencies';
+import { IDependencies } from './IInsertDependencies';
 
 interface FetchedItem {
   Text: string;

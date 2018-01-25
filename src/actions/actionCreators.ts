@@ -11,6 +11,7 @@ import { IAction } from './IAction';
 import { postItemFactory } from './postItemFactory';
 import { fetchItemsFactory } from './fetchItemsFactory';
 import { API_URL } from '../constants/apiUrl';
+import { putItemFactory } from './putItemFactory';
 
 export const insertItem = (text: string, id: Uuid): IAction => ({
   type: TODO_LIST_ITEM_INSERT,
@@ -73,6 +74,15 @@ export const postItem = postItemFactory(
 export const fetchItems = fetchItemsFactory(
   {
     insertItem,
+    setCallSuccess,
+    setCallError,
+    url: API_URL,
+    axios
+  });
+
+export const putItem = putItemFactory(
+  {
+    updateItem,
     setCallSuccess,
     setCallError,
     url: API_URL,

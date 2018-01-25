@@ -1,9 +1,11 @@
 import { postItemFactory } from './postItemFactory';
 import { fetchItemsFactory } from './fetchItemsFactory';
 import { API_URL } from '../constants/apiUrl';
+import { putItemFactory } from './putItemFactory';
 
 describe('Async actions', () => {
   const insertItem = jest.fn();
+  const updateItem = jest.fn();
   const setCallSuccess = jest.fn();
   const setCallError = jest.fn();
   const dispatch = jest.fn(input => input);
@@ -54,6 +56,34 @@ describe('Async actions', () => {
       .catch(err => console.log(err));
   });
 
+  it('creates TODO_LIST_ITEM_UPDATE, ITEMS_PUT_SUCCESS on correct PUT request', (done) => {
+    updateItem.mock.calls.length = 0;
+    setCallSuccess.mock.calls.length = 0;
+    const putTestItem = {
+      id: 'e1f5c5e4-7f5e-4aa0-9e52-117cc8267f15',
+      text: 'item'
+    };
+    const put = callResponse(true);
+    const putItem = putItemFactory(
+      {
+        updateItem,
+        setCallSuccess,
+        setCallError,
+        url: API_URL,
+        axios: {
+          put,
+        }
+      });
+
+    putItem(putTestItem.id, putTestItem.text)(dispatch)
+      .then(() => {
+        expect(updateItem.mock.calls.length).toBe(1);
+        expect(setCallSuccess.mock.calls.length).toBe(1);
+        done();
+      })
+      .catch(err => console.log(err));
+  });
+
   it('creates TODO_LIST_ITEM_INSERT, ITEMS_FETCH_SUCCESS on correct GET request', (done) => {
     insertItem.mock.calls.length = 0;
     setCallSuccess.mock.calls.length = 0;
@@ -81,7 +111,7 @@ describe('Async actions', () => {
   it('creates TODO_LIST_ITEM_INSERT with correct argument', (done) => {
     insertItem.mock.calls.length = 0;
     const fetchedTestItem = {
-      id: 'e1f5c5e4-7f5e-4aa0-9e52-117cc8267f13',
+      id: 'e1f5c5e4-7f5e-4aa0-9e52-117cc8267f17',
       text: 'item'
     };
     const get = callResponse(true);
@@ -142,6 +172,32 @@ describe('Async actions', () => {
       });
 
     postItem(newItemText)(dispatch)
+      .then(() => {
+        expect(setCallError.mock.calls.length).toBe(1);
+        done();
+      })
+      .catch(err => console.log(err));
+  });
+
+  it('creates ITEMS_POST_ERROR on bad POST request', (done) => {
+    setCallError.mock.calls.length = 0;
+    const putTestItem = {
+      id: 'e1f5c5e4-7f5e-4aa0-9e52-117cc8267f13',
+      text: 'item'
+    };
+    const put = callResponse(false);
+    const putItem = putItemFactory(
+      {
+        updateItem,
+        setCallSuccess,
+        setCallError,
+        url: API_URL,
+        axios: {
+          put,
+        }
+      });
+
+    putItem(putTestItem.id, putTestItem.text)(dispatch)
       .then(() => {
         expect(setCallError.mock.calls.length).toBe(1);
         done();

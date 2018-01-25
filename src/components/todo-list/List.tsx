@@ -12,6 +12,8 @@ export interface IListDataProps {
   postError: boolean;
   postErrorMessage: string;
   errorMessage: string;
+  putError: boolean;
+  putErrorMessage: string;
 }
 
 export interface IListCallbackProps {
@@ -45,8 +47,18 @@ export class List extends React.PureComponent<IListDataProps & IListCallbackProp
             />
             <strong> ERROR: </strong>
             {this.props.postErrorMessage}
-          </div>) : <div />
-        }
+          </div>)
+          : <div />}
+        {this.props.putError
+          ? (<div className="alert alert-danger">
+            <span
+              className="glyphicon glyphicon-warning-sign"
+              aria-hidden="true"
+            />
+            <strong> ERROR: </strong>
+            {this.props.putErrorMessage}
+          </div>)
+          : <div />}
         {this.props.isFetching
           ? <Loading />
           : (!this.props.hasError

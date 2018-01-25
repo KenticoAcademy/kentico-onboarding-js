@@ -7,7 +7,7 @@ import { isUndefined } from 'util';
 import { IAppState } from '../models/IAppState';
 import { Dispatch } from 'react-redux';
 import { IAction } from './IAction';
-import { IDependencies } from './IDependencies';
+import { IDependencies } from './IInsertDependencies';
 
 export const postItemFactory = ({insertItem, setCallSuccess, setCallError, url, axios}: IDependencies) => (text: string) =>
   (dispatch: Dispatch<IAppState>): Promise<void | IAction> =>

@@ -3,9 +3,12 @@ import { todoList } from './todo-list/todoList';
 import { IAppState } from '../models/IAppState';
 import { fetchStatus } from './fetchStatus';
 import { postStatus } from './postStatus';
+import { putStatus } from './putStatus';
+
 
 export const app = combineReducers<IAppState>({
   todoList,
   fetchStatus,
-  postStatus
+  postStatus,
+  putStatus
 });
