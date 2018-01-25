@@ -12,6 +12,7 @@ import { postItemFactory } from './postItemFactory';
 import { fetchItemsFactory } from './fetchItemsFactory';
 import { API_URL } from '../constants/apiUrl';
 import { putItemFactory } from './putItemFactory';
+import { deleteItemFactory } from './deleteItemFactory';
 
 export const insertItem = (text: string, id: Uuid): IAction => ({
   type: TODO_LIST_ITEM_INSERT,
@@ -88,3 +89,13 @@ export const putItem = putItemFactory(
     url: API_URL,
     axios
   });
+
+export const deleteIt = deleteItemFactory(
+  {
+    deleteItem,
+    setCallSuccess,
+    setCallError,
+    url: API_URL,
+    axios
+  }
+);

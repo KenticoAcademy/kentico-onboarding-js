@@ -13,7 +13,9 @@ const mapStateToProps = (state: IAppState): IListDataProps => ({
   postErrorMessage: state.postStatus.errorMessage,
   errorMessage: state.fetchStatus.errorMessage,
   putError: state.putStatus.hasError,
-  putErrorMessage: state.putStatus.errorMessage
+  putErrorMessage: state.putStatus.errorMessage,
+  deleteError: state.deleteStatus.hasError,
+  deleteErrorMessage: state.deleteStatus.errorMessage
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<IAppState>): IListCallbackProps => ({

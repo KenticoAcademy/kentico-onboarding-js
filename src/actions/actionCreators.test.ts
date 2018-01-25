@@ -2,10 +2,12 @@ import { postItemFactory } from './postItemFactory';
 import { fetchItemsFactory } from './fetchItemsFactory';
 import { API_URL } from '../constants/apiUrl';
 import { putItemFactory } from './putItemFactory';
+import { deleteItemFactory } from './deleteItemFactory';
 
 describe('Async actions', () => {
   const insertItem = jest.fn();
   const updateItem = jest.fn();
+  const deleteItem = jest.fn();
   const setCallSuccess = jest.fn();
   const setCallError = jest.fn();
   const dispatch = jest.fn(input => input);
@@ -108,6 +110,33 @@ describe('Async actions', () => {
       .catch(err => console.log(err));
   });
 
+  it('creates TODO_LIST_ITEM_DELETE, ITEMS_DELETE_SUCCESS on correct DELETE request', (done) => {
+    deleteItem.mock.calls.length = 0;
+    setCallSuccess.mock.calls.length = 0;
+    const deleteTestItem = {
+      id: 'e1f5c5e4-7f5e-4aa0-9e52-117cc8267f12',
+      text: 'item'
+    };
+    const deleteIt = deleteItemFactory(
+      {
+        deleteItem,
+        setCallSuccess,
+        setCallError,
+        url: API_URL,
+        axios: {
+          delete: callResponse(true),
+        }
+      });
+
+    deleteIt(deleteTestItem.id)(dispatch)
+      .then(() => {
+        expect(deleteItem.mock.calls.length).toBe(1);
+        expect(setCallSuccess.mock.calls.length).toBe(1);
+        done();
+      })
+      .catch(err => console.log(err));
+  });
+
   it('creates TODO_LIST_ITEM_INSERT with correct argument', (done) => {
     insertItem.mock.calls.length = 0;
     const fetchedTestItem = {
@@ -179,7 +208,7 @@ describe('Async actions', () => {
       .catch(err => console.log(err));
   });
 
-  it('creates ITEMS_POST_ERROR on bad POST request', (done) => {
+  it('creates ITEMS_PUT_ERROR on bad PUT request', (done) => {
     setCallError.mock.calls.length = 0;
     const putTestItem = {
       id: 'e1f5c5e4-7f5e-4aa0-9e52-117cc8267f13',
@@ -198,6 +227,31 @@ describe('Async actions', () => {
       });
 
     putItem(putTestItem.id, putTestItem.text)(dispatch)
+      .then(() => {
+        expect(setCallError.mock.calls.length).toBe(1);
+        done();
+      })
+      .catch(err => console.log(err));
+  });
+
+  it('creates ITEMS_DELETE_ERROR on bad DELETE request', (done) => {
+    setCallError.mock.calls.length = 0;
+    const deleteTestItem = {
+      id: 'e1f5c5e4-7f5e-4aa0-9e52-117cc8267f13',
+      text: 'item'
+    };
+    const deleteIt = deleteItemFactory(
+      {
+        deleteItem,
+        setCallSuccess,
+        setCallError,
+        url: API_URL,
+        axios: {
+          delete: callResponse(false),
+        }
+      });
+
+    deleteIt(deleteTestItem.id)(dispatch)
       .then(() => {
         expect(setCallError.mock.calls.length).toBe(1);
         done();

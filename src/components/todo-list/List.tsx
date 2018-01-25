@@ -14,6 +14,8 @@ export interface IListDataProps {
   errorMessage: string;
   putError: boolean;
   putErrorMessage: string;
+  deleteError: boolean;
+  deleteErrorMessage: string;
 }
 
 export interface IListCallbackProps {
@@ -57,6 +59,16 @@ export class List extends React.PureComponent<IListDataProps & IListCallbackProp
             />
             <strong> ERROR: </strong>
             {this.props.putErrorMessage}
+          </div>)
+          : <div />}
+        {this.props.deleteError
+          ? (<div className="alert alert-danger">
+            <span
+              className="glyphicon glyphicon-warning-sign"
+              aria-hidden="true"
+            />
+            <strong> ERROR: </strong>
+            {this.props.deleteErrorMessage}
           </div>)
           : <div />}
         {this.props.isFetching

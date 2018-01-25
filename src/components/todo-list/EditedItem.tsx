@@ -1,6 +1,5 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import axios from 'axios';
 import { validateText } from '../../utils/validateText';
 import { Input } from './Input';
 import { IndexedItem } from '../../models/IndexedItem';
@@ -101,7 +100,6 @@ export class EditedItem extends React.PureComponent<IEditedItemCallbackProps & I
   };
 
   private _deleteItem = (): void => {
-    axios.delete('v1/items/' + this.props.item.id);
     this.props.onDeleteItem();
   }
 }

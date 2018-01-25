@@ -6,7 +6,7 @@ import { PutStatus } from '../models/PutStatus';
 import { putStatus } from './putStatus';
 import { ITEM_PUT_ERROR, ITEM_PUT_SUCCESS } from '../constants/actionTypes';
 
-describe('postStatus reducer', () => {
+describe('putStatus reducer', () => {
   const UNKNOWN_ACTION = 'UNKNOWN_ACTION';
   const unknownAction = {
     type: UNKNOWN_ACTION,
