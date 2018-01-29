@@ -13,9 +13,9 @@ interface IPostDependencies extends IDependencies {
   readonly insertItem: (args: {text: string, id: Uuid}) => IAction;
 }
 
-export const postItemFactory = ({insertItem, apiCallSuccess, apiCallError, url, axios}: IPostDependencies) => (text: string) =>
+export const postItemFactory = ({insertItem, apiCallSuccess, apiCallError, getAxios}: IPostDependencies) => (text: string) =>
   (dispatch: Dispatch<IAppState>): Promise<void | IAction> =>
-    axios.post(url, {Text: text})
+    getAxios().axios.post(getAxios().url, {Text: text})
       .then((response: AxiosResponse) =>
         dispatch(insertItem({
           text: response.data.Text,

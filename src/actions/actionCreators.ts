@@ -13,6 +13,7 @@ import { fetchItemsFactory } from './fetchItemsFactory';
 import { API_URL } from '../constants/apiUrl';
 import { putItemFactory } from './putItemFactory';
 import { deleteItemFactory } from './deleteItemFactory';
+import { getAxiosFactory } from './getAxiosFactory';
 
 export const insertItem = (args: { text: string, id: Uuid }): IAction => ({
   type: TODO_LIST_ITEM_INSERT,
@@ -63,13 +64,14 @@ export const apiCallSuccess = (callType: string): IAction => ({
   payload: undefined
 });
 
+const getAxios = getAxiosFactory(axios, API_URL);
+
 export const postItem = postItemFactory(
   {
     insertItem,
     apiCallSuccess,
     apiCallError,
-    url: API_URL,
-    axios
+    getAxios
   });
 
 export const fetchItems = fetchItemsFactory(
@@ -77,8 +79,7 @@ export const fetchItems = fetchItemsFactory(
     insertItem,
     apiCallSuccess,
     apiCallError,
-    url: API_URL,
-    axios
+    getAxios
   });
 
 export const putItem = putItemFactory(
@@ -86,8 +87,7 @@ export const putItem = putItemFactory(
     updateItem,
     apiCallSuccess,
     apiCallError,
-    url: API_URL,
-    axios
+    getAxios
   });
 
 export const deleteIt = deleteItemFactory(
@@ -95,7 +95,6 @@ export const deleteIt = deleteItemFactory(
     deleteItem,
     apiCallSuccess,
     apiCallError,
-    url: API_URL,
-    axios
+    getAxios
   }
 );

@@ -14,9 +14,9 @@ interface IDeleteDependencies extends IDependencies {
   readonly deleteItem: (id: Uuid) => IAction;
 }
 
-export const deleteItemFactory = ({deleteItem, apiCallSuccess, apiCallError, url, axios}: IDeleteDependencies) => (id: Uuid) =>
+export const deleteItemFactory = ({deleteItem, apiCallSuccess, apiCallError, getAxios}: IDeleteDependencies) => (id: Uuid) =>
   (dispatch: Dispatch<IAppState>): Promise<void | IAction> =>
-    axios.delete(url + '/' + id)
+    getAxios().axios.delete(getAxios().url + '/' + id)
       .then(() => dispatch(deleteItem(id)))
       .then(() => dispatch(apiCallSuccess(ITEM_DELETE_SUCCESS)))
       .catch((error: AxiosError) => {

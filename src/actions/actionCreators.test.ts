@@ -3,6 +3,7 @@ import { fetchItemsFactory } from './fetchItemsFactory';
 import { API_URL } from '../constants/apiUrl';
 import { putItemFactory } from './putItemFactory';
 import { deleteItemFactory } from './deleteItemFactory';
+import { getAxiosFactory } from './getAxiosFactory';
 
 describe('Async actions', () => {
   const insertItem = jest.fn();
@@ -11,19 +12,24 @@ describe('Async actions', () => {
   const apiCallSuccess = jest.fn();
   const setCallError = jest.fn();
   const dispatch = jest.fn(input => input);
+  const fetchedTestItem = {
+    id: 'e1f5c5e4-7f5e-4aa0-9e52-117cc8267f13',
+    text: 'item'
+  };
 
   const callResponse = (isSuccessful: boolean) => (_url: string) => new Promise((resolve, reject) => {
     if (isSuccessful) {
       resolve({
         data: [{
-          Id: 'e1f5c5e4-7f5e-4aa0-9e52-117cc8267f13',
-          Text: 'item'
+          Id: fetchedTestItem.id,
+          Text: fetchedTestItem.text
         }],
       });
     } else {
       reject({
         response:
-          { status: 400,
+          {
+            status: 400,
             statusText: 'Bad Request',
           }
       });
@@ -43,11 +49,13 @@ describe('Async actions', () => {
         insertItem,
         apiCallSuccess,
         apiCallError: setCallError,
-        url: API_URL,
-        axios: {
-          post,
-        }
-      });
+        getAxios: getAxiosFactory(
+          {
+            post
+          },
+          API_URL)
+      })
+    ;
 
     postItem(postTestItem.text)(dispatch)
       .then(() => {
@@ -71,10 +79,11 @@ describe('Async actions', () => {
         updateItem,
         apiCallSuccess: apiCallSuccess,
         apiCallError: setCallError,
-        url: API_URL,
-        axios: {
-          put,
-        }
+        getAxios: getAxiosFactory(
+          {
+            put
+          },
+          API_URL)
       });
 
     putItem(putTestItem.id, putTestItem.text)(dispatch)
@@ -95,10 +104,11 @@ describe('Async actions', () => {
         insertItem,
         apiCallSuccess: apiCallSuccess,
         apiCallError: setCallError,
-        url: API_URL,
-        axios: {
-          get,
-        }
+        getAxios: getAxiosFactory(
+          {
+            get
+          },
+          API_URL)
       });
 
     fetchItems()(dispatch)
@@ -122,10 +132,11 @@ describe('Async actions', () => {
         deleteItem,
         apiCallSuccess: apiCallSuccess,
         apiCallError: setCallError,
-        url: API_URL,
-        axios: {
-          delete: callResponse(true),
-        }
+        getAxios: getAxiosFactory(
+          {
+            delete: callResponse(true)
+          },
+          API_URL)
       });
 
     deleteIt(deleteTestItem.id)(dispatch)
@@ -139,25 +150,23 @@ describe('Async actions', () => {
 
   it('creates TODO_LIST_ITEM_INSERT with correct argument', (done) => {
     insertItem.mock.calls.length = 0;
-    const fetchedTestItem = {
-      id: 'e1f5c5e4-7f5e-4aa0-9e52-117cc8267f17',
-      text: 'item'
-    };
     const get = callResponse(true);
     const fetchItems = fetchItemsFactory(
       {
         insertItem,
         apiCallSuccess: apiCallSuccess,
         apiCallError: setCallError,
-        url: API_URL,
-        axios: {
-          get,
-        }
+        getAxios: getAxiosFactory(
+          {
+            get
+          },
+          API_URL)
       });
 
     fetchItems()(dispatch)
       .then(() => {
-        expect(insertItem.mock.calls[0][0]).toBe(fetchedTestItem.text);
+        expect(insertItem.mock.calls[0][0].id).toBe(fetchedTestItem.id);
+        expect(insertItem.mock.calls[0][0].text).toBe(fetchedTestItem.text);
         done();
       })
       .catch(err => console.log(err));
@@ -171,10 +180,11 @@ describe('Async actions', () => {
         insertItem,
         apiCallSuccess: apiCallSuccess,
         apiCallError: setCallError,
-        url: API_URL,
-        axios: {
-          get,
-        }
+        getAxios: getAxiosFactory(
+          {
+            get
+          },
+          API_URL)
       });
 
     fetchItems()(dispatch)
@@ -194,10 +204,11 @@ describe('Async actions', () => {
         insertItem,
         apiCallSuccess: apiCallSuccess,
         apiCallError: setCallError,
-        url: API_URL,
-        axios: {
-          post,
-        }
+        getAxios: getAxiosFactory(
+          {
+            post
+          },
+          API_URL)
       });
 
     postItem(newItemText)(dispatch)
@@ -220,10 +231,11 @@ describe('Async actions', () => {
         updateItem,
         apiCallSuccess: apiCallSuccess,
         apiCallError: setCallError,
-        url: API_URL,
-        axios: {
-          put,
-        }
+        getAxios: getAxiosFactory(
+          {
+            put
+          },
+          API_URL)
       });
 
     putItem(putTestItem.id, putTestItem.text)(dispatch)
@@ -245,10 +257,11 @@ describe('Async actions', () => {
         deleteItem,
         apiCallSuccess: apiCallSuccess,
         apiCallError: setCallError,
-        url: API_URL,
-        axios: {
-          delete: callResponse(false),
-        }
+        getAxios: getAxiosFactory(
+          {
+            delete: callResponse(false)
+          },
+          API_URL)
       });
 
     deleteIt(deleteTestItem.id)(dispatch)

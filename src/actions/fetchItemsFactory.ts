@@ -12,15 +12,17 @@ import { IDependencies } from './IDependencies';
 interface FetchedItem {
   Text: string;
   Id: Uuid;
+  CreateTime: string;
+  UpdateTime: string;
 }
 
 interface IPostDependencies extends IDependencies {
   readonly insertItem: (args: { text: string, id: Uuid }) => IAction;
 }
 
-export const fetchItemsFactory = ({insertItem, apiCallSuccess, apiCallError, url, axios}: IPostDependencies) => () =>
+export const fetchItemsFactory = ({insertItem, apiCallSuccess, apiCallError, getAxios}: IPostDependencies) => () =>
   (dispatch: Dispatch<IAppState>): Promise<void | IAction> =>
-    axios.get(url)
+    getAxios().axios.get(getAxios().url)
       .then((response: AxiosResponse) => response.data.map((item: FetchedItem) =>
         dispatch(insertItem({
           text: item.Text,
