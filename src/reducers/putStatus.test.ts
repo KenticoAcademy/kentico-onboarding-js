@@ -1,6 +1,6 @@
 import {
-  setCallError,
-  setCallSuccess
+  apiCallError,
+  apiCallSuccess
 } from '../actions/actionCreators';
 import { PutStatus } from '../models/PutStatus';
 import { putStatus } from './putStatus';
@@ -23,7 +23,7 @@ describe('putStatus reducer', () => {
 
   it('sets flags correctly on failed request with errorMessage', () => {
     const errorMessage = '400 Bad Request';
-    const errorAction = setCallError(ITEM_PUT_ERROR, errorMessage);
+    const errorAction = apiCallError(ITEM_PUT_ERROR, errorMessage);
     const expectedState = new PutStatus({
       hasError: true,
       errorMessage
@@ -35,7 +35,7 @@ describe('putStatus reducer', () => {
   });
 
   it('sets flags correctly on successful request', () => {
-    const successfulAction = setCallSuccess(ITEM_PUT_SUCCESS);
+    const successfulAction = apiCallSuccess(ITEM_PUT_SUCCESS);
     const expectedState = new PutStatus({
       hasError: false,
     });

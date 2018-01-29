@@ -14,19 +14,19 @@ import { API_URL } from '../constants/apiUrl';
 import { putItemFactory } from './putItemFactory';
 import { deleteItemFactory } from './deleteItemFactory';
 
-export const insertItem = (text: string, id: Uuid): IAction => ({
+export const insertItem = (args: { text: string, id: Uuid }): IAction => ({
   type: TODO_LIST_ITEM_INSERT,
   payload: {
-    id,
-    text,
+    id: args.id,
+    text: args.text,
   },
 });
 
-export const updateItem = (id: Uuid, text: string): IAction => ({
+export const updateItem = (args: { id: Uuid, text: string }): IAction => ({
   type: TODO_LIST_ITEM_UPDATE,
   payload: {
-    id,
-    text,
+    id: args.id,
+    text: args.text,
   },
 });
 
@@ -51,23 +51,23 @@ export const cancelItemEditing = (id: Uuid): IAction => ({
   },
 });
 
-export const setCallError = (errorType: string, errorText: string): IAction => ({
+export const apiCallError = (errorType: string, errorText: string): IAction => ({
   type: errorType,
   payload: {
     errorText
   }
 });
 
-export const setCallSuccess = (callType: string): IAction => ({
+export const apiCallSuccess = (callType: string): IAction => ({
   type: callType,
-  payload: {}
+  payload: undefined
 });
 
 export const postItem = postItemFactory(
   {
     insertItem,
-    setCallSuccess,
-    setCallError,
+    apiCallSuccess,
+    apiCallError,
     url: API_URL,
     axios
   });
@@ -75,8 +75,8 @@ export const postItem = postItemFactory(
 export const fetchItems = fetchItemsFactory(
   {
     insertItem,
-    setCallSuccess,
-    setCallError,
+    apiCallSuccess,
+    apiCallError,
     url: API_URL,
     axios
   });
@@ -84,8 +84,8 @@ export const fetchItems = fetchItemsFactory(
 export const putItem = putItemFactory(
   {
     updateItem,
-    setCallSuccess,
-    setCallError,
+    apiCallSuccess,
+    apiCallError,
     url: API_URL,
     axios
   });
@@ -93,8 +93,8 @@ export const putItem = putItemFactory(
 export const deleteIt = deleteItemFactory(
   {
     deleteItem,
-    setCallSuccess,
-    setCallError,
+    apiCallSuccess,
+    apiCallError,
     url: API_URL,
     axios
   }

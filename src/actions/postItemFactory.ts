@@ -3,23 +3,30 @@ import {
   AxiosError
 } from 'axios';
 import { ITEM_POST_ERROR, ITEM_POST_SUCCESS } from '../constants/actionTypes';
-import { isUndefined } from 'util';
 import { IAppState } from '../models/IAppState';
 import { Dispatch } from 'react-redux';
 import { IAction } from './IAction';
-import { IDependencies } from './IInsertDependencies';
+import { Uuid } from '../utils/generateId';
+import { IDependencies } from './IDependencies';
 
-export const postItemFactory = ({insertItem, setCallSuccess, setCallError, url, axios}: IDependencies) => (text: string) =>
+interface IPostDependencies extends IDependencies {
+  readonly insertItem: (args: {text: string, id: Uuid}) => IAction;
+}
+
+export const postItemFactory = ({insertItem, apiCallSuccess, apiCallError, url, axios}: IPostDependencies) => (text: string) =>
   (dispatch: Dispatch<IAppState>): Promise<void | IAction> =>
     axios.post(url, {Text: text})
       .then((response: AxiosResponse) =>
-        dispatch(insertItem(
-          response.data.Text,
-          response.data.Id)))
-      .then(() => dispatch(setCallSuccess(ITEM_POST_SUCCESS)))
+        dispatch(insertItem({
+          text: response.data.Text,
+          id: response.data.Id
+        })))
+      .then(() => dispatch(apiCallSuccess(ITEM_POST_SUCCESS)))
       .catch((error: AxiosError) => {
         const errorResponse = error.response;
-        if (!isUndefined(errorResponse)) {
-          dispatch(setCallError(ITEM_POST_ERROR, errorResponse.status + ' ' + errorResponse.statusText));
+        if (errorResponse !== undefined) {
+          dispatch(apiCallError(ITEM_POST_ERROR, errorResponse.status + ' ' + errorResponse.statusText));
+        } else {
+          dispatch(apiCallError(ITEM_POST_ERROR, 'No internet connection'));
         }
       });

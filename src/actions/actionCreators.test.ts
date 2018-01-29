@@ -8,7 +8,7 @@ describe('Async actions', () => {
   const insertItem = jest.fn();
   const updateItem = jest.fn();
   const deleteItem = jest.fn();
-  const setCallSuccess = jest.fn();
+  const apiCallSuccess = jest.fn();
   const setCallError = jest.fn();
   const dispatch = jest.fn(input => input);
 
@@ -32,7 +32,7 @@ describe('Async actions', () => {
 
   it('creates TODO_LIST_ITEM_INSERT, ITEMS_POST_SUCCESS on correct POST request', (done) => {
     insertItem.mock.calls.length = 0;
-    setCallSuccess.mock.calls.length = 0;
+    apiCallSuccess.mock.calls.length = 0;
     const postTestItem = {
       id: 'e1f5c5e4-7f5e-4aa0-9e52-117cc8267f12',
       text: 'item'
@@ -41,8 +41,8 @@ describe('Async actions', () => {
     const postItem = postItemFactory(
       {
         insertItem,
-        setCallSuccess,
-        setCallError,
+        apiCallSuccess,
+        apiCallError: setCallError,
         url: API_URL,
         axios: {
           post,
@@ -52,7 +52,7 @@ describe('Async actions', () => {
     postItem(postTestItem.text)(dispatch)
       .then(() => {
         expect(insertItem.mock.calls.length).toBe(1);
-        expect(setCallSuccess.mock.calls.length).toBe(1);
+        expect(apiCallSuccess.mock.calls.length).toBe(1);
         done();
       })
       .catch(err => console.log(err));
@@ -60,7 +60,7 @@ describe('Async actions', () => {
 
   it('creates TODO_LIST_ITEM_UPDATE, ITEMS_PUT_SUCCESS on correct PUT request', (done) => {
     updateItem.mock.calls.length = 0;
-    setCallSuccess.mock.calls.length = 0;
+    apiCallSuccess.mock.calls.length = 0;
     const putTestItem = {
       id: 'e1f5c5e4-7f5e-4aa0-9e52-117cc8267f15',
       text: 'item'
@@ -69,8 +69,8 @@ describe('Async actions', () => {
     const putItem = putItemFactory(
       {
         updateItem,
-        setCallSuccess,
-        setCallError,
+        apiCallSuccess: apiCallSuccess,
+        apiCallError: setCallError,
         url: API_URL,
         axios: {
           put,
@@ -80,7 +80,7 @@ describe('Async actions', () => {
     putItem(putTestItem.id, putTestItem.text)(dispatch)
       .then(() => {
         expect(updateItem.mock.calls.length).toBe(1);
-        expect(setCallSuccess.mock.calls.length).toBe(1);
+        expect(apiCallSuccess.mock.calls.length).toBe(1);
         done();
       })
       .catch(err => console.log(err));
@@ -88,13 +88,13 @@ describe('Async actions', () => {
 
   it('creates TODO_LIST_ITEM_INSERT, ITEMS_FETCH_SUCCESS on correct GET request', (done) => {
     insertItem.mock.calls.length = 0;
-    setCallSuccess.mock.calls.length = 0;
+    apiCallSuccess.mock.calls.length = 0;
     const get = callResponse(true);
     const fetchItems = fetchItemsFactory(
       {
         insertItem,
-        setCallSuccess,
-        setCallError,
+        apiCallSuccess: apiCallSuccess,
+        apiCallError: setCallError,
         url: API_URL,
         axios: {
           get,
@@ -104,7 +104,7 @@ describe('Async actions', () => {
     fetchItems()(dispatch)
       .then(() => {
         expect(insertItem.mock.calls.length).toBe(1);
-        expect(setCallSuccess.mock.calls.length).toBe(1);
+        expect(apiCallSuccess.mock.calls.length).toBe(1);
         done();
       })
       .catch(err => console.log(err));
@@ -112,7 +112,7 @@ describe('Async actions', () => {
 
   it('creates TODO_LIST_ITEM_DELETE, ITEMS_DELETE_SUCCESS on correct DELETE request', (done) => {
     deleteItem.mock.calls.length = 0;
-    setCallSuccess.mock.calls.length = 0;
+    apiCallSuccess.mock.calls.length = 0;
     const deleteTestItem = {
       id: 'e1f5c5e4-7f5e-4aa0-9e52-117cc8267f12',
       text: 'item'
@@ -120,8 +120,8 @@ describe('Async actions', () => {
     const deleteIt = deleteItemFactory(
       {
         deleteItem,
-        setCallSuccess,
-        setCallError,
+        apiCallSuccess: apiCallSuccess,
+        apiCallError: setCallError,
         url: API_URL,
         axios: {
           delete: callResponse(true),
@@ -131,7 +131,7 @@ describe('Async actions', () => {
     deleteIt(deleteTestItem.id)(dispatch)
       .then(() => {
         expect(deleteItem.mock.calls.length).toBe(1);
-        expect(setCallSuccess.mock.calls.length).toBe(1);
+        expect(apiCallSuccess.mock.calls.length).toBe(1);
         done();
       })
       .catch(err => console.log(err));
@@ -147,8 +147,8 @@ describe('Async actions', () => {
     const fetchItems = fetchItemsFactory(
       {
         insertItem,
-        setCallSuccess,
-        setCallError,
+        apiCallSuccess: apiCallSuccess,
+        apiCallError: setCallError,
         url: API_URL,
         axios: {
           get,
@@ -169,8 +169,8 @@ describe('Async actions', () => {
     const fetchItems = fetchItemsFactory(
       {
         insertItem,
-        setCallSuccess,
-        setCallError,
+        apiCallSuccess: apiCallSuccess,
+        apiCallError: setCallError,
         url: API_URL,
         axios: {
           get,
@@ -192,8 +192,8 @@ describe('Async actions', () => {
     const postItem = postItemFactory(
       {
         insertItem,
-        setCallSuccess,
-        setCallError,
+        apiCallSuccess: apiCallSuccess,
+        apiCallError: setCallError,
         url: API_URL,
         axios: {
           post,
@@ -218,8 +218,8 @@ describe('Async actions', () => {
     const putItem = putItemFactory(
       {
         updateItem,
-        setCallSuccess,
-        setCallError,
+        apiCallSuccess: apiCallSuccess,
+        apiCallError: setCallError,
         url: API_URL,
         axios: {
           put,
@@ -243,8 +243,8 @@ describe('Async actions', () => {
     const deleteIt = deleteItemFactory(
       {
         deleteItem,
-        setCallSuccess,
-        setCallError,
+        apiCallSuccess: apiCallSuccess,
+        apiCallError: setCallError,
         url: API_URL,
         axios: {
           delete: callResponse(false),

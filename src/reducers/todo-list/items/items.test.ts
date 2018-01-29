@@ -52,7 +52,10 @@ describe('items reducers', () => {
 
     const newState: OrderedMap<Uuid, ListItem> = items(
       singleItemState,
-      insertItem(plainItem2.text, plainItem2.id),
+      insertItem({
+        text: plainItem2.text,
+        id: plainItem2.id
+      }),
     ).toJS();
 
     expect(newState).toEqual(expectedState);
@@ -162,7 +165,10 @@ describe('items reducers', () => {
 
     const newState: OrderedMap<Uuid, ListItem> = items(
       twoItemsState,
-      actions.updateItem(plainItem1.id, updatedText),
+      actions.updateItem({
+        id: plainItem1.id,
+        text: updatedText
+      }),
     ).toJS();
 
     expect(newState).toEqual(expectedState);
