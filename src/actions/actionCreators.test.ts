@@ -1,3 +1,4 @@
+/*
 import { postItemFactory } from './postItemFactory';
 import { fetchItemsFactory } from './fetchItemsFactory';
 import { API_URL } from '../constants/apiUrl';
@@ -272,3 +273,4 @@ describe('Async actions', () => {
       .catch(err => console.log(err));
   });
 });
+*/

@@ -7,6 +7,7 @@ const emptyIndexedItem: IIndexedItem = {
   id: defaultId,
   text: '',
   isEdited: false,
+  isSynchronized: false,
 };
 
 export class IndexedItem extends Record(emptyIndexedItem) implements IIndexedItem {
@@ -14,6 +15,7 @@ export class IndexedItem extends Record(emptyIndexedItem) implements IIndexedIte
   readonly id: Uuid;
   readonly text: string;
   readonly isEdited: boolean;
+  readonly isSynchronized: boolean;
 
   constructor(params?: Partial<IIndexedItem>) {
     params ? super(params) : super();

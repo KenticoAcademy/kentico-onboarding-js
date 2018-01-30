@@ -4,4 +4,5 @@ export interface IListItem {
   readonly id: Uuid;
   readonly text: string;
   readonly isEdited: boolean;
+  readonly isSynchronized: boolean;
 }

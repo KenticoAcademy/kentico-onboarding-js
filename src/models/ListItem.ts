@@ -6,12 +6,14 @@ const emptyItem: IListItem = {
   id: defaultId,
   text: '',
   isEdited: false,
+  isSynchronized: true,
 };
 
 export class ListItem extends Record(emptyItem) implements IListItem {
   id: Uuid;
   text: string;
   isEdited: boolean;
+  isSynchronized: boolean;
 
   constructor(params?: Partial<IListItem>) {
     params ? super(params) : super();

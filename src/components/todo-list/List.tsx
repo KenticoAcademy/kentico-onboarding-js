@@ -92,13 +92,15 @@ export class List extends React.PureComponent<IListDataProps & IListCallbackProp
                 <AddedItem />
               </ul>
             </div>
-            : <div className="alert alert-danger">
+            : <div className="alert alert-danger alert-dismissable fade in">
               <span
                 className="glyphicon glyphicon-warning-sign"
                 aria-hidden="true"
               />
+              <button className="close" data-dismiss="alert" aria-label="close">&times;</button>
               <strong> ERROR: </strong>
               {this.props.errorMessage}
+
             </div>)
         }
       </div>

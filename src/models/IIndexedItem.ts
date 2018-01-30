@@ -5,4 +5,5 @@ export interface IIndexedItem {
   readonly id: Uuid;
   readonly text: string;
   readonly isEdited: boolean;
+  readonly isSynchronized: boolean;
 }

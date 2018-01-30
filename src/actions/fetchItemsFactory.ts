@@ -17,7 +17,7 @@ interface FetchedItem {
 }
 
 interface IPostDependencies extends IDependencies {
-  readonly insertItem: (args: { text: string, id: Uuid }) => IAction;
+  readonly insertItem: (args: { text: string, id: Uuid, isSynchronized: boolean }) => IAction;
 }
 
 export const fetchItemsFactory = ({insertItem, apiCallSuccess, apiCallError, getAxios}: IPostDependencies) => () =>
@@ -26,7 +26,8 @@ export const fetchItemsFactory = ({insertItem, apiCallSuccess, apiCallError, get
       .then((response: AxiosResponse) => response.data.map((item: FetchedItem) =>
         dispatch(insertItem({
           text: item.Text,
-          id: item.Id
+          id: item.Id,
+          isSynchronized: true
         }))))
       .then(() => dispatch(apiCallSuccess(ITEMS_FETCH_SUCCESS)))
       .catch((error: AxiosError) => {
