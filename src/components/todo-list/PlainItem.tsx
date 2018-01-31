@@ -20,7 +20,9 @@ const PlainItem: React.SFC<IPlainItemCallbackProps & IPlainItemDataProps> = (pro
       <span
         className="glyphicon glyphicon-hourglass pull-right"
         aria-hidden="true"
-      />
+      >
+        Updating...
+      </span>
     </div>;
 
 PlainItem.propTypes = {

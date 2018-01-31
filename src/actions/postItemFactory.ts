@@ -16,14 +16,13 @@ interface IPostDependencies extends IDependencies {
 export const postItemFactory = ({postSuccess, apiCallSuccess, apiCallError, getAxios}: IPostDependencies) => (tempId: Uuid, text: string) =>
   (dispatch: Dispatch<IAppState>): Promise<void | IAction> =>
     getAxios().axios.post(getAxios().url, {Text: text})
-      .then((response: AxiosResponse) => {
-        return dispatch(postSuccess({
+      .then((response: AxiosResponse) => dispatch(postSuccess({
           newId: response.data.Id,
           id: tempId,
           text: response.data.Text,
           isSynchronized: true
-        }));
-      })
+        }))
+      )
       .then(() => dispatch(apiCallSuccess(ITEM_POST_SUCCESS)))
       .catch((error: AxiosError) => {
         const errorResponse = error.response;
