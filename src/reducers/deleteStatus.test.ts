@@ -1,7 +1,7 @@
 import {
   apiCallError,
   apiCallSuccess
-} from '../actions/actionCreators';
+} from '../actions/index';
 import { DeleteStatus } from '../models/DeleteStatus';
 import { deleteStatus } from './deleteStatus';
 import { ITEM_DELETE_ERROR, ITEM_DELETE_SUCCESS } from '../constants/actionTypes';

@@ -2,13 +2,13 @@ import * as PropTypes from 'prop-types';
 import { connect, Dispatch } from 'react-redux';
 import { EditedItem, IEditedItemCallbackProps } from '../../components/todo-list/EditedItem';
 import {
-  cancelItemEditing,
   optimisticDelete,
   optimisticUpdate
-} from '../../actions/actionCreators';
+} from '../../actions/index';
 import { IAppState } from '../../models/IAppState';
 import { IndexedItem } from '../../models/IndexedItem';
 import { IAction } from '../../actions/IAction';
+import { cancelItemEditing } from '../../actions/actionCreators';
 
 interface IProps {
   readonly item: IndexedItem;

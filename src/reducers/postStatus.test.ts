@@ -1,7 +1,7 @@
 import {
   apiCallError,
   apiCallSuccess
-} from '../actions/actionCreators';
+} from '../actions/index';
 import { PostStatus } from '../models/PostStatus';
 import { postStatus } from './postStatus';
 import { ITEM_POST_ERROR, ITEM_POST_SUCCESS } from '../constants/actionTypes';

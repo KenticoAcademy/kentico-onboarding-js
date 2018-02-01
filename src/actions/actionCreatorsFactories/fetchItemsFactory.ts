@@ -2,12 +2,12 @@ import {
   AxiosResponse,
   AxiosError,
 } from 'axios';
-import { ITEMS_FETCH_ERROR, ITEMS_FETCH_SUCCESS } from '../constants/actionTypes';
-import { IAppState } from '../models/IAppState';
+import { ITEMS_FETCH_ERROR, ITEMS_FETCH_SUCCESS } from '../../constants/actionTypes';
+import { IAppState } from '../../models/IAppState';
 import { Dispatch } from 'react-redux';
-import { Uuid } from '../utils/generateId';
-import { IAction } from './IAction';
-import { IDependencies } from './IDependencies';
+import { Uuid } from '../../utils/generateId';
+import { IAction } from '../IAction';
+import { IDependencies } from '../IDependencies';
 
 interface FetchedItem {
   Text: string;

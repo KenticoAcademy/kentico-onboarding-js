@@ -1,6 +1,6 @@
 import { fetchStatus } from './fetchStatus';
 import { FetchStatus } from '../models/FetchStatus';
-import { apiCallError, apiCallSuccess } from '../actions/actionCreators';
+import { apiCallError, apiCallSuccess } from '../actions/index';
 import { ITEMS_FETCH_ERROR, ITEMS_FETCH_SUCCESS } from '../constants/actionTypes';
 
 describe('fetchStatus reducer', () => {

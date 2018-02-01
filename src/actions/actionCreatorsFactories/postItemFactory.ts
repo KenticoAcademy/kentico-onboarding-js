@@ -2,12 +2,12 @@ import {
   AxiosResponse,
   AxiosError
 } from 'axios';
-import { ITEM_POST_ERROR } from '../constants/actionTypes';
-import { IAppState } from '../models/IAppState';
+import { ITEM_POST_ERROR } from '../../constants/actionTypes';
+import { IAppState } from '../../models/IAppState';
 import { Dispatch } from 'react-redux';
-import { IAction } from './IAction';
-import { Uuid } from '../utils/generateId';
-import { IDependencies } from './IDependencies';
+import { IAction } from '../IAction';
+import { Uuid } from '../../utils/generateId';
+import { IDependencies } from '../IDependencies';
 
 interface IPostDependencies extends IDependencies {
   readonly postSuccess: (args: {newId: Uuid, id: Uuid, text: string, isSynchronized: boolean}) => IAction;

@@ -2,7 +2,7 @@ import { connect, Dispatch } from 'react-redux';
 import { IListCallbackProps, IListDataProps, List } from '../../components/todo-list/List';
 import { IAppState } from '../../models/IAppState';
 import { getItemIds } from '../../selectors/getItemIds';
-import { fetchItems } from '../../actions/actionCreators';
+import { fetchItems } from '../../actions/index';
 import { IAction } from '../../actions/IAction';
 
 const mapStateToProps = (state: IAppState): IListDataProps => ({

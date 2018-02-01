@@ -2,11 +2,11 @@ import {
   AxiosError
 } from 'axios';
 import { Dispatch } from 'react-redux';
-import { IAppState } from '../models/IAppState';
-import { IAction } from './IAction';
-import { ITEM_DELETE_ERROR } from '../constants/actionTypes';
-import { Uuid } from '../utils/generateId';
-import { IDependencies } from './IDependencies';
+import { IAppState } from '../../models/IAppState';
+import { IAction } from '../IAction';
+import { ITEM_DELETE_ERROR } from '../../constants/actionTypes';
+import { Uuid } from '../../utils/generateId';
+import { IDependencies } from '../IDependencies';
 
 interface IDeleteDependencies extends IDependencies {
   readonly deleteSuccess: (args: { id: Uuid }) => IAction;

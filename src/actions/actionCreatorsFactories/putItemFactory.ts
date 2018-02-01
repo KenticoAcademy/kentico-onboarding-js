@@ -3,11 +3,11 @@ import {
   AxiosError
 } from 'axios';
 import { Dispatch } from 'react-redux';
-import { IAppState } from '../models/IAppState';
-import { IAction } from './IAction';
-import { ITEM_PUT_ERROR } from '../constants/actionTypes';
-import { Uuid } from '../utils/generateId';
-import { IDependencies } from './IDependencies';
+import { IDependencies } from '../IDependencies';
+import { Uuid } from '../../utils/generateId';
+import { IAction } from '../IAction';
+import { IAppState } from '../../models/IAppState';
+import { ITEM_PUT_ERROR } from '../../constants/actionTypes';
 
 interface IUpdateDependencies extends IDependencies {
   readonly putSuccess: (args: { id: Uuid }) => IAction;
