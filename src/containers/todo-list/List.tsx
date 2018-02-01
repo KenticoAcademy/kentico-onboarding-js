@@ -7,15 +7,7 @@ import { IAction } from '../../actions/IAction';
 
 const mapStateToProps = (state: IAppState): IListDataProps => ({
   ids: getItemIds(state),
-  isFetching: state.fetchStatus.isFetching,
-  hasError: state.fetchStatus.hasError,
-  postError: state.postStatus.hasError,
-  postErrorMessage: state.postStatus.errorMessage,
-  errorMessage: state.fetchStatus.errorMessage,
-  putError: state.putStatus.hasError,
-  putErrorMessage: state.putStatus.errorMessage,
-  deleteError: state.deleteStatus.hasError,
-  deleteErrorMessage: state.deleteStatus.errorMessage
+  fetchFailed: state.fetchStatus.hasError,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<IAppState>): IListCallbackProps => ({

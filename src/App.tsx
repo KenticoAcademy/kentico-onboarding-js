@@ -1,8 +1,23 @@
 import './sticky-footer.css';
 import * as React from 'react';
+import * as PropTypes from 'prop-types';
 import { List } from './containers/todo-list/List';
 
-export class App extends React.PureComponent {
+const Loading = require('react-loading-animation');
+
+export interface IAppDataProps {
+  readonly isFetching: boolean;
+}
+
+export class App extends React.PureComponent<IAppDataProps> {
+  static propTypes = {
+    isFetching: PropTypes.bool,
+  };
+
+  constructor(props: IAppDataProps) {
+    super(props);
+  }
+
   render() {
     return (
       <div>
@@ -16,7 +31,8 @@ export class App extends React.PureComponent {
             <p className="lead">
               We will implement simple task using
               <a href="https://facebook.github.io/react/docs/hello-world.html">ReactJS</a> and later move on to refactor our app to use
-              <a href="https://facebook.github.io/immutable-js/">Immutable</a> and <a href="http://redux.js.org/">Redux</a>.
+              <a href="https://facebook.github.io/immutable-js/">Immutable</a> and
+              <a href="http://redux.js.org/">Redux</a>.
             </p>
             <p>You can find all the relevant info in git repository.</p>
             <p>
@@ -29,6 +45,7 @@ export class App extends React.PureComponent {
           </div>
 
           <section id="app-content">
+            <Loading isLoading={this.props.isFetching}/>
             <List />
           </section>
         </div>
