@@ -2,7 +2,7 @@ import {
   TODO_LIST_ITEM_UPDATE,
   TODO_LIST_ITEM_INSERT,
   TODO_LIST_ITEM_EDIT,
-  TODO_LIST_ITEM_CANCEL_EDIT, NEW_ITEM_PERSISTED, UPDATED_ITEM_PERSISTED,
+  TODO_LIST_ITEM_CANCEL_EDIT, NEW_ITEM_PERSISTED, UPDATED_ITEM_PERSISTED, TODO_LIST_ITEM_DELETE,
 } from '../../../constants/actionTypes';
 import { ListItem } from '../../../models/ListItem';
 import { IAction } from '../../../actions/IAction';
@@ -13,6 +13,15 @@ export const item = (previousState: ListItem, action: IAction): ListItem => {
     case TODO_LIST_ITEM_CANCEL_EDIT: {
       const updatedItem = {
         isEdited: !previousState.isEdited,
+      };
+
+      return previousState.with(updatedItem);
+    }
+
+    case TODO_LIST_ITEM_DELETE: {
+      const updatedItem = {
+        isEdited: false,
+        isSynchronized: false
       };
 
       return previousState.with(updatedItem);

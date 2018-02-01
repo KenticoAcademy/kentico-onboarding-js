@@ -18,6 +18,7 @@ interface FetchedItem {
 
 interface IPostDependencies extends IDependencies {
   readonly insertItem: (args: { text: string, id: Uuid, isSynchronized: boolean }) => IAction;
+  readonly apiCallSuccess: (callType: string) => IAction;
 }
 
 export const fetchItemsFactory = ({insertItem, apiCallSuccess, apiCallError, getAxios}: IPostDependencies) => () =>

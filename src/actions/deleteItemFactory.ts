@@ -4,21 +4,18 @@ import {
 import { Dispatch } from 'react-redux';
 import { IAppState } from '../models/IAppState';
 import { IAction } from './IAction';
-import {
-  ITEM_DELETE_ERROR, ITEM_DELETE_SUCCESS
-} from '../constants/actionTypes';
+import { ITEM_DELETE_ERROR } from '../constants/actionTypes';
 import { Uuid } from '../utils/generateId';
 import { IDependencies } from './IDependencies';
 
 interface IDeleteDependencies extends IDependencies {
-  readonly deleteItem: (id: Uuid) => IAction;
+  readonly deleteSuccess: (args: { id: Uuid }) => IAction;
 }
 
-export const deleteItemFactory = ({deleteItem, apiCallSuccess, apiCallError, getAxios}: IDeleteDependencies) => (id: Uuid) =>
+export const deleteItemFactory = ({deleteSuccess, apiCallError, getAxios}: IDeleteDependencies) => (id: Uuid) =>
   (dispatch: Dispatch<IAppState>): Promise<void | IAction> =>
     getAxios().axios.delete(getAxios().url + '/' + id)
-      .then(() => dispatch(deleteItem(id)))
-      .then(() => dispatch(apiCallSuccess(ITEM_DELETE_SUCCESS)))
+      .then(() => dispatch(deleteSuccess({id})))
       .catch((error: AxiosError) => {
         const errorResponse = error.response;
         if (errorResponse !== undefined) {

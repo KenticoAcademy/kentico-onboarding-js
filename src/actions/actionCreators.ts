@@ -5,7 +5,7 @@ import {
   TODO_LIST_ITEM_EDIT,
   TODO_LIST_ITEM_CANCEL_EDIT,
   TODO_LIST_ITEM_INSERT,
-  NEW_ITEM_PERSISTED, UPDATED_ITEM_PERSISTED
+  NEW_ITEM_PERSISTED, UPDATED_ITEM_PERSISTED, DELETE_ITEM_SUCCESSFUL
 } from '../constants/actionTypes';
 import { generateId, Uuid } from '../utils/generateId';
 import { IAction } from './IAction';
@@ -52,6 +52,13 @@ export const putSuccess = (args: { id: Uuid }): IAction => ({
   }
 });
 
+export const deleteSuccess = (args: {id: Uuid}): IAction => ({
+  type: DELETE_ITEM_SUCCESSFUL,
+  payload: {
+    id: args.id
+  }
+});
+
 export const deleteItem = (id: Uuid): IAction => ({
   type: TODO_LIST_ITEM_DELETE,
   payload: {
@@ -90,7 +97,6 @@ const getAxios = getAxiosFactory(axios, API_URL);
 export const postItem = postItemFactory(
   {
     postSuccess,
-    apiCallSuccess,
     apiCallError,
     getAxios
   });
@@ -106,36 +112,45 @@ export const fetchItems = fetchItemsFactory(
 export const putItem = putItemFactory(
   {
     putSuccess,
-    apiCallSuccess,
     apiCallError,
     getAxios
   });
 
 export const deleteIt = deleteItemFactory(
   {
-    deleteItem,
-    apiCallSuccess,
+    deleteSuccess,
     apiCallError,
     getAxios
   }
 );
 
-export const optimisticAdd = (text: string) =>
-  (dispatch: Dispatch<IAppState>): Promise<void | IAction> => {
-    const tempId = generateId();
-    dispatch(insertItem({
-      text,
-      id: tempId,
-      isSynchronized: false
-    }));
-    return dispatch(postItem(tempId, text));
-  };
+export const optimisticAddFactory = (generateId: () => Uuid, insertItemToList: any) =>
+  (text: string) =>
+    (dispatch: Dispatch<IAppState>): Promise<void | IAction> => {
+      const tempId = generateId();
+      dispatch(insertItemToList({
+        text,
+        id: tempId,
+        isSynchronized: false
+      }));
+      return dispatch(postItem(tempId, text));
+    };
 
-export const optimisticUpdate = (id: Uuid, text: string) =>
+export const optimisticUpdateFactory = (updateItemInList: any) => (id: Uuid, text: string) =>
   (dispatch: Dispatch<IAppState>): Promise<void | IAction> => {
-    dispatch(updateItem({
+    dispatch(updateItemInList({
       id,
       text
     }));
     return dispatch(putItem(id, text));
   };
+
+export const optimisticDeleteFactory = (deleteItemFromList: any) => (id: Uuid) =>
+  (dispatch: Dispatch<IAppState>): any => {
+    dispatch(deleteItemFromList(id));
+    return dispatch(deleteIt(id));
+  };
+
+export const optimisticAdd = optimisticAddFactory(generateId, insertItem);
+export const optimisticUpdate = optimisticUpdateFactory(updateItem);
+export const optimisticDelete = optimisticDeleteFactory(deleteItem);
