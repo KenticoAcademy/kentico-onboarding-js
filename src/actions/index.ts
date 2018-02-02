@@ -1,6 +1,11 @@
 import axios from 'axios';
 import {
-  deleteItem, deleteSuccess, insertItem, postSuccess, putSuccess,
+  deleteItem,
+  deleteSuccess,
+  insertItem, itemDeleteFail,
+  itemUpdateFail,
+  postSuccess,
+  putSuccess,
   updateItem
 } from './actionCreators';
 import { generateId } from '../utils/generateId';
@@ -31,6 +36,7 @@ const getAxios = getAxiosFactory(axios, API_URL);
 
 export const postItem = postItemFactory(
   {
+    deleteSuccess,
     postSuccess,
     apiCallError,
     getAxios
@@ -46,6 +52,7 @@ export const fetchItems = fetchItemsFactory(
 
 export const putItem = putItemFactory(
   {
+    itemUpdateFail,
     putSuccess,
     apiCallError,
     getAxios
@@ -54,6 +61,7 @@ export const putItem = putItemFactory(
 export const deleteIt = deleteItemFactory(
   {
     deleteSuccess,
+    itemDeleteFail,
     apiCallError,
     getAxios
   }

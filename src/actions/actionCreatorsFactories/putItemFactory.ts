@@ -10,10 +10,11 @@ import { IAppState } from '../../models/IAppState';
 import { ITEM_PUT_ERROR } from '../../constants/actionTypes';
 
 interface IUpdateDependencies extends IDependencies {
+  readonly itemUpdateFail: (id: Uuid) => IAction;
   readonly putSuccess: (args: { id: Uuid }) => IAction;
 }
 
-export const putItemFactory = ({putSuccess, apiCallError, getAxios}: IUpdateDependencies) => (id: Uuid, text: string) =>
+export const putItemFactory = ({itemUpdateFail, putSuccess, apiCallError, getAxios}: IUpdateDependencies) => (id: Uuid, text: string) =>
   (dispatch: Dispatch<IAppState>): Promise<void | IAction> =>
     getAxios().axios.put(getAxios().url + '/' + id, {Id: id, Text: text})
       .then((response: AxiosResponse) =>
@@ -21,6 +22,7 @@ export const putItemFactory = ({putSuccess, apiCallError, getAxios}: IUpdateDepe
           id: response.data.Id,
         })))
       .catch((error: AxiosError) => {
+        dispatch(itemUpdateFail(id));
         const errorResponse = error.response;
         if (errorResponse !== undefined) {
           dispatch(apiCallError(ITEM_PUT_ERROR, errorResponse.status + ' ' + errorResponse.statusText));

@@ -5,6 +5,7 @@ import { IListItem } from './IListItem';
 const emptyItem: IListItem = {
   id: defaultId,
   text: '',
+  backupText: '',
   isEdited: false,
   isSynchronized: true,
 };
@@ -12,6 +13,7 @@ const emptyItem: IListItem = {
 export class ListItem extends Record(emptyItem) implements IListItem {
   id: Uuid;
   text: string;
+  backupText: string;
   isEdited: boolean;
   isSynchronized: boolean;
 

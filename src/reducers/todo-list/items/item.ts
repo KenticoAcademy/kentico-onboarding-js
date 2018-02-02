@@ -3,6 +3,7 @@ import {
   TODO_LIST_ITEM_INSERT,
   TODO_LIST_ITEM_EDIT,
   TODO_LIST_ITEM_CANCEL_EDIT, NEW_ITEM_PERSISTED, UPDATED_ITEM_PERSISTED, TODO_LIST_ITEM_DELETE,
+  ITEM_UPDATE_FAILED, DELETE_ITEM_FAILED,
 } from '../../../constants/actionTypes';
 import { ListItem } from '../../../models/ListItem';
 import { IAction } from '../../../actions/IAction';
@@ -30,6 +31,7 @@ export const item = (previousState: ListItem, action: IAction): ListItem => {
     case TODO_LIST_ITEM_UPDATE: {
       const updatedItem = {
         text: action.payload.text,
+        backupText: previousState.text,
         isEdited: false,
         isSynchronized: false
       };
@@ -40,6 +42,23 @@ export const item = (previousState: ListItem, action: IAction): ListItem => {
     case UPDATED_ITEM_PERSISTED: {
       const updatedItem = {
         isSynchronized: true
+      };
+
+      return previousState.with(updatedItem);
+    }
+
+    case ITEM_UPDATE_FAILED: {
+      const updatedItem = {
+        isSynchronized: true,
+        text: previousState.backupText
+      };
+
+      return previousState.with(updatedItem);
+    }
+
+    case DELETE_ITEM_FAILED: {
+      const updatedItem = {
+        isSynchronized: true,
       };
 
       return previousState.with(updatedItem);

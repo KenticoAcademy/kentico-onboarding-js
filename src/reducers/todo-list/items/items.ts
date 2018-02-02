@@ -5,6 +5,7 @@ import {
   TODO_LIST_ITEM_UPDATE,
   TODO_LIST_ITEM_CANCEL_EDIT,
   TODO_LIST_ITEM_EDIT, NEW_ITEM_PERSISTED, UPDATED_ITEM_PERSISTED, DELETE_ITEM_SUCCESSFUL,
+  ITEM_UPDATE_FAILED, DELETE_ITEM_FAILED,
 } from '../../../constants/actionTypes';
 import { item } from './item';
 import { IAction } from '../../../actions/IAction';
@@ -23,7 +24,9 @@ export const items = (previousState: OrderedMap<Uuid, ListItem> = OrderedMap<Uui
         .update(action.payload.newId, existingItem => item(existingItem, action));
 
     case TODO_LIST_ITEM_DELETE:
+    case DELETE_ITEM_FAILED:
     case UPDATED_ITEM_PERSISTED:
+    case ITEM_UPDATE_FAILED:
     case TODO_LIST_ITEM_INSERT:
     case TODO_LIST_ITEM_UPDATE:
     case TODO_LIST_ITEM_EDIT:

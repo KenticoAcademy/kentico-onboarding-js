@@ -10,10 +10,11 @@ import { Uuid } from '../../utils/generateId';
 import { IDependencies } from '../IDependencies';
 
 interface IPostDependencies extends IDependencies {
+  readonly deleteSuccess: (args: {id: Uuid}) => IAction;
   readonly postSuccess: (args: {newId: Uuid, id: Uuid, text: string, isSynchronized: boolean}) => IAction;
 }
 
-export const postItemFactory = ({postSuccess, apiCallError, getAxios}: IPostDependencies) => (tempId: Uuid, text: string) =>
+export const postItemFactory = ({deleteSuccess, postSuccess, apiCallError, getAxios}: IPostDependencies) => (tempId: Uuid, text: string) =>
   (dispatch: Dispatch<IAppState>): Promise<void | IAction> =>
     getAxios().axios.post(getAxios().url, {Text: text})
       .then((response: AxiosResponse) => dispatch(postSuccess({
@@ -24,6 +25,7 @@ export const postItemFactory = ({postSuccess, apiCallError, getAxios}: IPostDepe
         })))
       .catch((error: AxiosError) => {
         const errorResponse = error.response;
+        dispatch(deleteSuccess({id: tempId}));
         if (errorResponse !== undefined) {
           dispatch(apiCallError(ITEM_POST_ERROR, errorResponse.status + ' ' + errorResponse.statusText));
         } else {
