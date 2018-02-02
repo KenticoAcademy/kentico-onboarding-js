@@ -11,3 +11,6 @@ export const FETCH_ITEMS = 'FETCH_ITEMS';
 export const ERROR_MESSAGE = 'ERROR_MESSAGE';
 export const SUCCESS_MESSAGE = 'SUCCESS_MESSAGE';
 export const CLEAR_MESSAGE = 'CLEAR_MESSAGE';
+
+// Other
+export const REGISTER_ACTION = 'REGISTER_ACTION';
