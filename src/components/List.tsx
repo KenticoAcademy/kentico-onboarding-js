@@ -7,9 +7,14 @@ import { FetchItemsState } from '../models/FetchItemsState';
 import * as PropTypes from 'prop-types';
 import { IAction } from '../models/IAction';
 import { Loader } from './Loader';
+import { IMessage } from '../models/IMessage';
+import { AllMessageTypes, MessageType } from '../constants/MessageType';
+import { Success } from './Success';
+import { Error } from './Error';
 
 export interface IListDataProps {
   readonly fetchItemsState: FetchItemsState;
+  readonly message: IMessage;
 }
 
 export interface IListCallbackProps {
@@ -24,6 +29,10 @@ export class List extends React.PureComponent<IListProps> {
   static propTypes = {
     fetchItemsState: PropTypes.number.isRequired,
     fetchItems: PropTypes.func.isRequired,
+    message: PropTypes.shape({
+      content: PropTypes.string.isRequired,
+      type: PropTypes.oneOf(AllMessageTypes)
+    }),
   };
 
   componentDidMount() {
@@ -31,12 +40,32 @@ export class List extends React.PureComponent<IListProps> {
   }
 
   render() {
-    return this.props.fetchItemsState === FetchItemsState.REQUESTED ?
-      (
-        <Loader />
-      ) :
-      (
-        <HotKeys keyMap={keyMap}>
+    const { message: { content, type } } = this.props;
+
+    let messageComponent;
+
+    switch (type) {
+      case MessageType.Error:
+        messageComponent = <Error message={content} />;
+        break;
+
+      case MessageType.Success:
+        messageComponent = <Success message={content} />;
+        break;
+
+      default:
+        break;
+    }
+
+    let component;
+
+    switch (this.props.fetchItemsState) {
+      case FetchItemsState.REQUESTED:
+        component = <Loader />;
+        break;
+
+      case FetchItemsState.RECEIVED:
+        component = <HotKeys keyMap={keyMap}>
           <ol className="list-group">
             <Items />
 
@@ -44,7 +73,19 @@ export class List extends React.PureComponent<IListProps> {
               <NewItemForm />
             </li>
           </ol>
-        </HotKeys>
-      );
+        </HotKeys>;
+        break;
+
+      case FetchItemsState.FAILED:
+      default:
+        break;
+    }
+
+    return (
+      <div>
+        {messageComponent}
+        {component}
+      </div>
+    );
   }
 }

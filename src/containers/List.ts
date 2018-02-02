@@ -8,6 +8,7 @@ import { fetchItems } from '../actions/thunk';
 
 const mapStateToProps = (state: IAppState): IListDataProps => ({
   fetchItemsState: state.list.fetchItemsState,
+  message: state.list.message,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<IAction>) => ({
