@@ -8,6 +8,7 @@ import { App } from '../src/App';
 import { FetchItemsState } from '../src/models/FetchItemsState';
 import { IAppState } from '../src/models/IAppState';
 import { ListItem } from '../src/models/ListItem';
+import { Message } from '../src/models/Message';
 
 it('renders without crashing', () => {
   const div = document.createElement('div');
@@ -15,6 +16,7 @@ it('renders without crashing', () => {
     list: {
       items: OrderedMap<string, ListItem>(),
       fetchItemsState: FetchItemsState.INITIAL,
+      message: new Message(),
     },
   });
   const fakeStore = createStore(fakeReducer);
