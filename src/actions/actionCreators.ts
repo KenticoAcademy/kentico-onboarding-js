@@ -91,3 +91,10 @@ export const clearMessage = (): IAction => ({
     }),
   }
 });
+
+export const registerAction = (action: () => void): IAction => ({
+  type: ActionTypes.REGISTER_ACTION,
+  payload: {
+    action,
+  },
+});
