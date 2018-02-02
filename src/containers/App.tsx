@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
-import { App, IAppDataProps } from '../App';
 import { IAppState } from '../models/IAppState';
+import { App, IAppDataProps } from '../components/App';
 
 const mapStateToProps = (state: IAppState): IAppDataProps => ({
   isFetching: state.fetchStatus.isFetching,
