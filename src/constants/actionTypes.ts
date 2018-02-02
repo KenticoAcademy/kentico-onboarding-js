@@ -6,3 +6,8 @@ export const ITEM_DELETED = 'ITEM_DELETED';
 
 // Async actions
 export const FETCH_ITEMS = 'FETCH_ITEMS';
+
+// Messages
+export const ERROR_MESSAGE = 'ERROR_MESSAGE';
+export const SUCCESS_MESSAGE = 'SUCCESS_MESSAGE';
+export const CLEAR_MESSAGE = 'CLEAR_MESSAGE';
