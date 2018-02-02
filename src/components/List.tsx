@@ -46,7 +46,7 @@ export class List extends React.PureComponent<IListProps> {
 
     switch (type) {
       case MessageType.Error:
-        messageComponent = <Error message={content} />;
+        messageComponent = <Error message={content} showRetry={true} />;
         break;
 
       case MessageType.Success:
