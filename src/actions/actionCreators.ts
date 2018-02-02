@@ -2,6 +2,8 @@ import { IAction } from '../models/IAction';
 import * as ActionTypes from '../constants/actionTypes';
 import { Guid } from '../models/Guid';
 import { IListItem } from '../models/IListItem';
+import { MessageType } from '../constants/MessageType';
+import { Message } from '../models/Message';
 
 export const addNewItem = ({ id: itemId, text }: { id: Guid, text: string }): IAction => ({
   type: ActionTypes.ITEM_CREATED,
@@ -51,5 +53,41 @@ export const receiveItems = (items: IListItem[]): IAction => ({
   type: ActionTypes.FETCH_ITEMS,
   payload: {
     items,
+  }
+});
+
+export const fetchFailed = (error: Error): IAction => ({
+  type: ActionTypes.FETCH_ITEMS,
+  payload: {
+    error,
+  },
+});
+
+export const notifyError = (message: string): IAction => ({
+  type: ActionTypes.ERROR_MESSAGE,
+  payload: {
+    message: new Message({
+      content: message,
+      type: MessageType.Error,
+    }),
+  },
+});
+
+export const notifySuccess = (message: string): IAction => ({
+  type: ActionTypes.SUCCESS_MESSAGE,
+  payload: {
+    message: new Message({
+      content: message,
+      type: MessageType.Success,
+    }),
+  },
+});
+
+export const clearMessage = (): IAction => ({
+  type: ActionTypes.CLEAR_MESSAGE,
+  payload: {
+    message: new Message({
+      type: MessageType.Empty,
+    }),
   }
 });
