@@ -2,21 +2,6 @@ import { actionTypes } from '../constants/actionTypes';
 import { IAction } from './IAction';
 import { ItemId } from '../models/ItemId';
 
-const addItem = (id: ItemId, text: string): IAction => {
-  return {
-    type: actionTypes.ADD_ITEM,
-    payload: {
-      text,
-      id,
-    },
-  };
-};
-
-export function addItemFactory (idFunc: () => string, text: string) {
-  const newItemId = idFunc();
-  return addItem(newItemId, text);
-}
-
 export const deleteItem = (id: ItemId): IAction => {
   return {
     type: actionTypes.DELETE_ITEM,
