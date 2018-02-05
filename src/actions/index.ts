@@ -14,7 +14,7 @@ import { deleteItemFactory } from './actionCreatorsFactories/deleteItemFactory';
 import { putItemFactory } from './actionCreatorsFactories/putItemFactory';
 import { fetchItemsFactory } from './actionCreatorsFactories/fetchItemsFactory';
 import { postItemFactory } from './actionCreatorsFactories/postItemFactory';
-import { API_URL } from '../constants/apiUrl';
+import { API_URL } from '../constants/connection';
 import { getAxiosFactory } from './actionCreatorsFactories/getAxiosFactory';
 import { optimisticAddFactory } from './actionCreatorsFactories/optimisticAddFactory';
 import { optimisticUpdateFactory } from './actionCreatorsFactories/optimisticUpdateFactory';

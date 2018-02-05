@@ -19,6 +19,7 @@ export class PlainItem extends React.PureComponent<IPlainItemCallbackProps & IPl
       text: PropTypes.string.isRequired,
     }).isRequired,
     onEditStart: PropTypes.func.isRequired,
+    onCloseError: PropTypes.func.isRequired
   };
 
   constructor(props: IPlainItemDataProps & IPlainItemCallbackProps) {
