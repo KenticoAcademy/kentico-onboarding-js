@@ -3,8 +3,8 @@ import { IListItem } from '../../models/IListItem';
 import { Dispatch } from 'redux';
 import {
   addNewItem, cancelItemChanges, deleteItem, fetchFailed, notifyError, notifySuccess,
-  openItemForEditing, receiveItems, requestItems,
-  saveItemChanges
+  openItemForEditing, receiveItems,
+  registerAction, requestItems, saveItemChanges
 } from '../actionCreators';
 import { Guid } from '../../models/Guid';
 import { ListItem } from '../../models/ListItem';
@@ -18,16 +18,22 @@ const handleErrors = (response: any) => {
 };
 
 export const fetchItemsFactory = (fetch: any) => (uri: string) => (dispatch: Dispatch<IAction>) => {
-  dispatch(requestItems(uri));
+  const action = () => {
+    dispatch(requestItems(uri));
 
-  return fetch(uri)
-    .then(handleErrors)
-    .then((res: any) => res.json())
-    .then((items: IListItem[]) => dispatch(receiveItems(items)))
-    .catch((err: Error) => {
-      dispatch(notifyError('Items failed to load.'));
-      dispatch(fetchFailed(err));
-    });
+    return fetch(uri)
+      .then(handleErrors)
+      .then((res: any) => res.json())
+      .then((items: IListItem[]) => dispatch(receiveItems(items)))
+      .catch((err: Error) => {
+        dispatch(notifyError('Items failed to load.'));
+        dispatch(fetchFailed(err));
+      });
+  };
+
+  dispatch(registerAction(action));
+
+  return action();
 };
 
 export const postItemFactory = (fetch: any) => (uri: string, text: string) => (dispatch: Dispatch<IAction>) => {
@@ -36,7 +42,7 @@ export const postItemFactory = (fetch: any) => (uri: string, text: string) => (d
     text,
   };
 
-  return fetch(
+  const action = () => fetch(
     uri,
     {
       method: 'POST',
@@ -53,10 +59,14 @@ export const postItemFactory = (fetch: any) => (uri: string, text: string) => (d
       dispatch(addNewItem(returnedItem));
     })
     .catch(() => dispatch(notifyError('Item failed to create.')));
+
+  dispatch(registerAction(action));
+
+  return action();
 };
 
-export const deleteItemFactory = (fetch: any) => (uri: string, id: Guid) => (dispatch: Dispatch<IAction>) =>
-  fetch(
+export const deleteItemFactory = (fetch: any) => (uri: string, id: Guid) => (dispatch: Dispatch<IAction>) => {
+  const action = () => fetch(
     uri + id,
     {
       method: 'DELETE',
@@ -69,6 +79,11 @@ export const deleteItemFactory = (fetch: any) => (uri: string, id: Guid) => (dis
     })
     .catch(() => dispatch(notifyError('Item failed to delete.')));
 
+  dispatch(registerAction(action));
+
+  return action();
+};
+
 export const cancelItemFactory = (fetch: any) => (uri: string, item: ListItem) => (dispatch: Dispatch<IAction>) => {
   const { id } = item;
   const updatedItem = {
@@ -76,7 +91,7 @@ export const cancelItemFactory = (fetch: any) => (uri: string, item: ListItem) =
     id,
   };
 
-  return fetch(
+  const action = () => fetch(
     uri + id,
     {
       method: 'PATCH',
@@ -89,6 +104,10 @@ export const cancelItemFactory = (fetch: any) => (uri: string, item: ListItem) =
     .then(handleErrors)
     .then(() => dispatch(cancelItemChanges(id)))
     .catch(() => dispatch(notifyError('Item failed to cancel.')));
+
+  dispatch(registerAction(action));
+
+  return action();
 };
 
 export const openItemFactory = (fetch: any) => (uri: string, item: ListItem) => (dispatch: Dispatch<IAction>) => {
@@ -98,7 +117,7 @@ export const openItemFactory = (fetch: any) => (uri: string, item: ListItem) => 
     id,
   };
 
-  return fetch(
+  const action = () => fetch(
     uri + id,
     {
       method: 'PATCH',
@@ -111,6 +130,10 @@ export const openItemFactory = (fetch: any) => (uri: string, item: ListItem) => 
     .then(handleErrors)
     .then(() => dispatch(openItemForEditing(id)))
     .catch(() => dispatch(notifyError('Item failed to open.')));
+
+  dispatch(registerAction(action));
+
+  return action();
 };
 
 export const saveNewTextFactory = (fetch: any) => (uri: string, item: ListItem, text: string) => (dispatch: Dispatch<IAction>) => {
@@ -121,7 +144,7 @@ export const saveNewTextFactory = (fetch: any) => (uri: string, item: ListItem, 
     id,
   };
 
-  return fetch(
+  const action = () => fetch(
     uri + id,
     {
       method: 'PATCH',
@@ -137,4 +160,8 @@ export const saveNewTextFactory = (fetch: any) => (uri: string, item: ListItem, 
       dispatch(saveItemChanges(item.id, text));
     })
     .catch(() => dispatch(notifyError('Item failed to update.')));
+
+  dispatch(registerAction(action));
+
+  return action();
 };
