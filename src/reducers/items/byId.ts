@@ -5,10 +5,11 @@ import {
 } from '../../constants/actionTypes';
 import { IAction } from '../../actions/IAction';
 import { ItemId } from '../../models/ItemId';
+import { Reducer } from 'redux';
 
 const DEFAULT_STATE = OrderedMap<ItemId, Item>();
 
-export const byId = (state = DEFAULT_STATE, action: IAction): OrderedMap<ItemId, Item> => {
+export const byId: Reducer<OrderedMap<ItemId, Item>> = (state = DEFAULT_STATE, action: IAction) => {
 
   switch (action.type) {
 
