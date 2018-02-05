@@ -9,7 +9,7 @@ export interface IListItemDataProps {
   isBeingEdited: boolean;
 }
 
-const ListItem: React.SFC<IListItemDataProps>  = ({ id, isBeingEdited }: IListItemDataProps): JSX.Element => {
+const ListItem: React.StatelessComponent<IListItemDataProps>  = ({ id, isBeingEdited }) => {
   return (
     isBeingEdited ?
       <EditedListItem

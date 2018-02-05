@@ -8,9 +8,10 @@ export interface IUneditedListItemDataProps {
 export interface IUneditedListItemCallbackProps {
   onTextClick: React.MouseEventHandler<HTMLDivElement>;
 }
+export interface IUneditedListItemProps extends IUneditedListItemDataProps, IUneditedListItemCallbackProps {}
 
-const UneditedListItem: React.SFC<IUneditedListItemDataProps & IUneditedListItemCallbackProps> = ({ onTextClick, itemText }:
-                                                                                                    IUneditedListItemDataProps & IUneditedListItemCallbackProps): JSX.Element => {
+const UneditedListItem:
+  React.StatelessComponent<IUneditedListItemProps> = ({ onTextClick, itemText }) => {
   return(
     <div
       className="form-control-static"

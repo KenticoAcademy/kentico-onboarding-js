@@ -12,7 +12,9 @@ export interface IAddNewItemCallbackProps {
   onNewTextChange: Function;
 }
 
-export class AddNewItem extends React.PureComponent<IAddNewItemDataProps & IAddNewItemCallbackProps> {
+export interface IAddNewItemProps extends IAddNewItemDataProps, IAddNewItemCallbackProps {}
+
+export class AddNewItem extends React.PureComponent<IAddNewItemProps> {
 
   static displayName = 'AddNewItem';
 

@@ -10,7 +10,7 @@ interface  IListDataProps {
   ids: Seq.Indexed<ItemId>;
 }
 
-const List: React.SFC<IListDataProps> = ({ ids }: IListDataProps): JSX.Element => {
+const List: React.StatelessComponent<IListDataProps> = ({ ids }) => {
   return (
     <div>
       {ids.map((id: ItemId, index: number) =>

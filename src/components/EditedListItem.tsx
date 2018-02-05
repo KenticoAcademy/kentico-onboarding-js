@@ -15,7 +15,9 @@ export interface IEditedListItemCallbackProps {
   textUpdateChange: (textUpdate: string) => IAction;
 }
 
-export class EditedListItem extends React.PureComponent<IEditedListItemDataProps & IEditedListItemCallbackProps> {
+export interface IEditedListItemProps extends IEditedListItemDataProps, IEditedListItemCallbackProps {}
+
+export class EditedListItem extends React.PureComponent<IEditedListItemProps> {
 
   static displayName = 'EditedListItem';
 
