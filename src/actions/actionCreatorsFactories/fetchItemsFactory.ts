@@ -8,6 +8,7 @@ import { Dispatch } from 'react-redux';
 import { Uuid } from '../../utils/generateId';
 import { IAction } from '../IAction';
 import { IDependencies } from '../IDependencies';
+import { NO_CONNECTION } from '../../constants/connection';
 
 interface FetchedItem {
   Text: string;
@@ -36,6 +37,6 @@ export const fetchItemsFactory = ({insertItem, apiCallSuccess, apiCallError, get
         if (errorResponse !== undefined) {
           dispatch(apiCallError(ITEMS_FETCH_ERROR, errorResponse.status + ' ' + errorResponse.statusText));
         } else {
-          dispatch(apiCallError(ITEMS_FETCH_ERROR, 'No internet connection'));
+          dispatch(apiCallError(ITEMS_FETCH_ERROR, NO_CONNECTION));
         }
       });

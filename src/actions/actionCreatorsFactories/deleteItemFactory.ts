@@ -6,6 +6,7 @@ import { IAppState } from '../../models/IAppState';
 import { IAction } from '../IAction';
 import { Uuid } from '../../utils/generateId';
 import { IDependencies } from '../IDependencies';
+import { NO_CONNECTION, OPERATION_FAILED } from '../../constants/connection';
 
 interface IDeleteDependencies extends IDependencies {
   readonly deleteSuccess: (args: { id: Uuid }) => IAction;
@@ -22,13 +23,13 @@ export const deleteItemFactory = ({deleteSuccess, itemDeleteFail, _apiCallError,
           dispatch(itemDeleteFail(
             {
               id,
-              message: 'Operation failed'
+              message: OPERATION_FAILED
             }));
         } else {
           dispatch(itemDeleteFail(
             {
               id,
-              message: 'No internet connection'
+              message: NO_CONNECTION
             }));
         }
       });

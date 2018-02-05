@@ -8,6 +8,7 @@ import { Dispatch } from 'react-redux';
 import { IAction } from '../IAction';
 import { Uuid } from '../../utils/generateId';
 import { IDependencies } from '../IDependencies';
+import { NO_CONNECTION } from '../../constants/connection';
 
 interface IPostDependencies extends IDependencies {
   readonly deleteSuccess: (args: {id: Uuid}) => IAction;
@@ -29,6 +30,6 @@ export const postItemFactory = ({deleteSuccess, postSuccess, apiCallError, getAx
         if (errorResponse !== undefined) {
           dispatch(apiCallError(ITEM_POST_ERROR, errorResponse.status + ' ' + errorResponse.statusText));
         } else {
-          dispatch(apiCallError(ITEM_POST_ERROR, 'No internet connection'));
+          dispatch(apiCallError(ITEM_POST_ERROR, NO_CONNECTION));
         }
       });

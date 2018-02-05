@@ -7,6 +7,7 @@ import { IDependencies } from '../IDependencies';
 import { Uuid } from '../../utils/generateId';
 import { IAction } from '../IAction';
 import { IAppState } from '../../models/IAppState';
+import { NO_CONNECTION } from '../../constants/connection';
 
 interface IUpdateDependencies extends IDependencies {
   readonly itemUpdateFail: (args: { id: Uuid, message: string }) => IAction;
@@ -32,7 +33,7 @@ export const putItemFactory = ({itemUpdateFail, putSuccess, _apiCallError, getAx
           dispatch(itemUpdateFail(
             {
               id,
-              message: 'No internet connection'
+              message: NO_CONNECTION
             }));
         }
       });
