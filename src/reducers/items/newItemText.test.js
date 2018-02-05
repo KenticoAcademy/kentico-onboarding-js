@@ -6,9 +6,7 @@ import {
 } from '../../actions/actionCreators.ts';
 
 
-function mockId() {
-  return '2';
-}
+const mockId = () => '2';
 
 describe('newItemText', () => {
   it('returns text that is given in args when the action type is UPDATE_NEW_ITEM', () => {
