@@ -1,5 +1,5 @@
-import * as Immutable from 'immutable';
 import { ItemId } from './ItemId';
+import { BaseRecord } from './BaseRecord';
 
 export interface IItem {
   readonly id: ItemId;
@@ -17,7 +17,7 @@ export const defaultItem: IItem = {
   textUpdate: '',
 };
 
-export class Item extends Immutable.Record(defaultItem) implements IItem {
+export class Item extends BaseRecord(defaultItem)<Item> implements IItem {
 
   readonly id: ItemId;
   readonly text: string;
@@ -26,9 +26,5 @@ export class Item extends Immutable.Record(defaultItem) implements IItem {
 
   constructor(params: Partial<IItem>) {
     super(params);
-  }
-
-  with(update: Partial<IItem>) {
-    return this.merge(update) as this;
   }
 }
