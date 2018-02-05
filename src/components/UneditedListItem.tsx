@@ -11,8 +11,7 @@ export interface IUneditedListItemCallbackProps {
 export interface IUneditedListItemProps extends IUneditedListItemDataProps, IUneditedListItemCallbackProps {}
 
 const UneditedListItem:
-  React.StatelessComponent<IUneditedListItemProps> = ({ onTextClick, itemText }) => {
-  return(
+  React.StatelessComponent<IUneditedListItemProps> = ({ onTextClick, itemText }) => (
     <div
       className="form-control-static"
       onClick={onTextClick}
@@ -20,7 +19,6 @@ const UneditedListItem:
       {itemText}
     </div>
   );
-};
 
 UneditedListItem.displayName = 'EditedListItem';
 

@@ -10,8 +10,7 @@ interface  IListDataProps {
   ids: Seq.Indexed<ItemId>;
 }
 
-const List: React.StatelessComponent<IListDataProps> = ({ ids }) => {
-  return (
+const List: React.StatelessComponent<IListDataProps> = ({ ids }) => (
     <div>
       {ids.map((id: ItemId, index: number) =>
         <div
@@ -27,7 +26,6 @@ const List: React.StatelessComponent<IListDataProps> = ({ ids }) => {
       )}
     </div>
   );
-};
 
 List.displayName = 'List';
 

@@ -9,8 +9,7 @@ export interface IListItemDataProps {
   isBeingEdited: boolean;
 }
 
-const ListItem: React.StatelessComponent<IListItemDataProps>  = ({ id, isBeingEdited }) => {
-  return (
+const ListItem: React.StatelessComponent<IListItemDataProps>  = ({ id, isBeingEdited }) => (
     isBeingEdited ?
       <EditedListItem
         itemId={id}
@@ -18,7 +17,6 @@ const ListItem: React.StatelessComponent<IListItemDataProps>  = ({ id, isBeingEd
       <UneditedListItem
         itemId={id}
       />);
-};
 
 ListItem.displayName = 'ListItem';
 
