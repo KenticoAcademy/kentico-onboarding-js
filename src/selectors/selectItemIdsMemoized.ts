@@ -1,7 +1,7 @@
 import { OrderedMap, Seq } from 'immutable';
 import { ItemId } from '../models/ItemId';
 import { Item } from '../models/Item';
-import memoize from 'fast-memoize';
+const memoize = require('fast-memoize');
 
 const memoizeIds = memoize((ids: Seq.Indexed<ItemId>) => ids);
 
