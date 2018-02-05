@@ -1,6 +1,6 @@
 import { connect, Dispatch } from 'react-redux';
 import {
-  Fetch,
+  FetchedItems,
   IFetchCallbackProps,
   IFetchDataProps
 } from '../components/FetchedItems';
@@ -17,6 +17,6 @@ const mapDispatchToProps = (dispatch: Dispatch<IAppState>): IFetchCallbackProps 
 });
 
 const enhancer = connect(mapStateToProps, mapDispatchToProps);
-const connectedComponent = enhancer(Fetch);
+const connectedComponent = enhancer(FetchedItems);
 
-export { connectedComponent as Fetch };
+export { connectedComponent as FetchedItems };

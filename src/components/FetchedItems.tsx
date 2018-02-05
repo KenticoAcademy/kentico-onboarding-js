@@ -10,7 +10,7 @@ export interface IFetchCallbackProps {
   readonly onFetchItems: () => void;
 }
 
-export class Fetch extends React.PureComponent<IFetchDataProps & IFetchCallbackProps> {
+export class FetchedItems extends React.PureComponent<IFetchDataProps & IFetchCallbackProps> {
 
   constructor(props: IFetchDataProps & IFetchCallbackProps) {
     super(props);

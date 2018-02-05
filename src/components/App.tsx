@@ -1,7 +1,7 @@
 import '../sticky-footer.css';
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { Fetch } from '../containers/FetchedItems';
+import { FetchedItems } from '../containers/FetchedItems';
 
 const Loading = require('react-loading-animation');
 
@@ -46,7 +46,7 @@ export class App extends React.PureComponent<IAppDataProps> {
 
           <section id="app-content">
             <Loading isLoading={this.props.isFetching}/>
-            <Fetch />
+            <FetchedItems />
           </section>
         </div>
         <footer className="footer">
