@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { IndexedItem } from '../../models/IndexedItem';
+import { ItemError } from './ItemError';
 
 interface IPlainItemDataProps {
   readonly item: IndexedItem;
@@ -29,22 +30,10 @@ export class PlainItem extends React.PureComponent<IPlainItemCallbackProps & IPl
       (this.props.item.isSynchronized)
         ? <div onClick={this.props.onEditStart}>
           {this.props.item.index + '. ' + this.props.item.text}
-          {(this.props.item.errorMessage !== '')
-            ? <span
-              className="glyphicon glyphicon-exclamation-sign text-danger pull-right"
-            >
-              <strong>
-                Error: {this.props.item.errorMessage}
-              </strong>
-              <button
-                className="close pull-right"
-                data-dismiss="alert"
-                aria-label="close"
-                onClick={this._onCloseError}
-              >&times;</button>
-            </span>
-            : <span />
-          }
+          <ItemError
+              errorMessage={this.props.item.errorMessage}
+              onCloseError={this._onCloseError}
+          />
         </div>
         : <div className="text-warning">
           {this.props.item.index + '. ' + this.props.item.text}
