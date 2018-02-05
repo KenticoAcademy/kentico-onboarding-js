@@ -1,8 +1,9 @@
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
+import { IItem, Item } from '../models/Item';
 
 export interface IUneditedListItemDataProps {
-  itemText: string;
+  item: IItem;
 }
 
 export interface IUneditedListItemCallbackProps {
@@ -11,19 +12,19 @@ export interface IUneditedListItemCallbackProps {
 export interface IUneditedListItemProps extends IUneditedListItemDataProps, IUneditedListItemCallbackProps {}
 
 const UneditedListItem:
-  React.StatelessComponent<IUneditedListItemProps> = ({ onTextClick, itemText }) => (
+  React.StatelessComponent<IUneditedListItemProps> = ({ onTextClick, item }) => (
     <div
       className="form-control-static"
       onClick={onTextClick}
     >
-      {itemText}
+      {item.text}
     </div>
   );
 
 UneditedListItem.displayName = 'EditedListItem';
 
 UneditedListItem.propTypes = {
-  itemText: PropTypes.string.isRequired,
+  item: PropTypes.instanceOf(Item),
   onTextClick: PropTypes.func.isRequired,
 };
 

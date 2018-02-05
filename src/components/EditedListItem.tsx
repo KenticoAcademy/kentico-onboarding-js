@@ -2,9 +2,10 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { containsNoCharacters } from '../utils/containsNoCharacters';
 import { IAction } from '../actions/IAction';
+import { IItem, Item } from '../models/Item';
 
 export interface IEditedListItemDataProps {
-  itemText: string;
+  item: IItem;
   textUpdate: string;
 }
 
@@ -22,7 +23,7 @@ export class EditedListItem extends React.PureComponent<IEditedListItemProps> {
   static displayName = 'EditedListItem';
 
   static propTypes = {
-    itemText: PropTypes.string.isRequired,
+    item: PropTypes.instanceOf(Item),
     textUpdate: PropTypes.string.isRequired,
     onSave: PropTypes.func.isRequired,
     onDelete: PropTypes.func.isRequired,
@@ -37,14 +38,14 @@ export class EditedListItem extends React.PureComponent<IEditedListItemProps> {
   };
 
   render() {
-    const { itemText, onCancel, onDelete, textUpdate, onSave } = this.props;
+    const { item, onCancel, onDelete, textUpdate, onSave } = this.props;
     const isEmpty = containsNoCharacters(textUpdate);
 
     return (
       <div className="input-group">
         <input
           className="form-control"
-          defaultValue={itemText}
+          defaultValue={item.text}
           onChange={this.onTextChanged}
           placeholder="Type new item name..."
         />

@@ -18,7 +18,7 @@ interface IEditListItemContainerProps {
 function mapStateToProps(state: IAppState, { itemId }: IEditListItemContainerProps): IEditedListItemDataProps {
   const item: IItem = state.items.byId.get(itemId);
   return {
-    itemText: item.text,
+    item: item,
     textUpdate: item.textUpdate,
   };
 }

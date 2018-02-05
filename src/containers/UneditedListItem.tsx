@@ -12,7 +12,7 @@ interface IUneditedListItemContainerProps {
 }
 
 const mapStateToProps = (state: IAppState, { itemId }: IUneditedListItemContainerProps): IUneditedListItemDataProps => ({
-  itemText: state.items.byId.get(itemId).text,
+  item: state.items.byId.get(itemId),
 });
 
 const mapDispatchToProps = (dispatch: Function, { itemId }: IUneditedListItemContainerProps): IUneditedListItemCallbackProps => ({
