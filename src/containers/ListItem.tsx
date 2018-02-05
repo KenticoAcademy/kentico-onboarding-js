@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { ComponentClass } from 'react';
 import { IListItemDataProps, ListItem as ListItemComponent } from '../components/ListItem';
-import { IAppState } from '../stores/IAppState';
+import { IAppState } from '../reducers/IAppState';
 import { ItemId } from '../models/ItemId';
 
 export interface IListItemContainerProps {

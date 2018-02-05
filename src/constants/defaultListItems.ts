@@ -1,7 +1,7 @@
 import { OrderedMap } from 'immutable';
 import { generateId } from '../utils/generateId';
 import { Item } from '../models/Item';
-import { IAppState } from '../stores/IAppState';
+import { IAppState } from '../reducers/IAppState';
 
 const defaultListItems = [
   'Make a coffee',

@@ -1,7 +1,7 @@
 import { connect, Dispatch } from 'react-redux';
 import { ComponentClass } from 'react';
 import { AddNewItem as AddNewItemComponent, IAddNewItemCallbackProps, IAddNewItemDataProps } from '../components/AddNewItem';
-import { IAppState } from '../stores/IAppState';
+import { IAppState } from '../reducers/IAppState';
 import { generateId } from '../utils/generateId';
 import { addItemFactory, updateNewItemText } from '../actions/actionCreators';
 

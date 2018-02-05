@@ -4,7 +4,7 @@ import { IUneditedListItemCallbackProps, IUneditedListItemDataProps, UneditedLis
 import {
   toggleEditing,
 } from '../actions/actionCreators';
-import { IAppState } from '../stores/IAppState';
+import { IAppState } from '../reducers/IAppState';
 import { ItemId } from '../models/ItemId';
 
 interface IUneditedListItemContainerProps {

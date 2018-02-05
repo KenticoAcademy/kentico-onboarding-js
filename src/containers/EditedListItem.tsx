@@ -6,7 +6,7 @@ import {
   updateItemText,
   textUpdateChange,
 } from '../actions/actionCreators';
-import { IAppState } from '../stores/IAppState';
+import { IAppState } from '../reducers/IAppState';
 import { ComponentClass } from 'react';
 import { IItem } from '../models/Item';
 import { ItemId } from '../models/ItemId';
