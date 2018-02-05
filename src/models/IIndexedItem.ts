@@ -6,4 +6,5 @@ export interface IIndexedItem {
   readonly text: string;
   readonly isEdited: boolean;
   readonly isSynchronized: boolean;
+  readonly errorMessage: string;
 }

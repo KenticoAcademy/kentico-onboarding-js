@@ -3,7 +3,7 @@ import {
   TODO_LIST_ITEM_INSERT,
   TODO_LIST_ITEM_EDIT,
   TODO_LIST_ITEM_CANCEL_EDIT, NEW_ITEM_PERSISTED, UPDATED_ITEM_PERSISTED, TODO_LIST_ITEM_DELETE,
-  ITEM_UPDATE_FAILED, DELETE_ITEM_FAILED,
+  ITEM_UPDATE_FAILED, DELETE_ITEM_FAILED, CLOSE_ITEM_ERROR,
 } from '../../../constants/actionTypes';
 import { ListItem } from '../../../models/ListItem';
 import { IAction } from '../../../actions/IAction';
@@ -14,6 +14,14 @@ export const item = (previousState: ListItem, action: IAction): ListItem => {
     case TODO_LIST_ITEM_CANCEL_EDIT: {
       const updatedItem = {
         isEdited: !previousState.isEdited,
+      };
+
+      return previousState.with(updatedItem);
+    }
+
+    case CLOSE_ITEM_ERROR: {
+      const updatedItem = {
+        errorMessage: ''
       };
 
       return previousState.with(updatedItem);
@@ -41,7 +49,8 @@ export const item = (previousState: ListItem, action: IAction): ListItem => {
 
     case UPDATED_ITEM_PERSISTED: {
       const updatedItem = {
-        isSynchronized: true
+        isSynchronized: true,
+        errorMessage: ''
       };
 
       return previousState.with(updatedItem);
@@ -50,7 +59,8 @@ export const item = (previousState: ListItem, action: IAction): ListItem => {
     case ITEM_UPDATE_FAILED: {
       const updatedItem = {
         isSynchronized: true,
-        text: previousState.backupText
+        text: previousState.backupText,
+        errorMessage: action.payload.message
       };
 
       return previousState.with(updatedItem);
@@ -59,6 +69,7 @@ export const item = (previousState: ListItem, action: IAction): ListItem => {
     case DELETE_ITEM_FAILED: {
       const updatedItem = {
         isSynchronized: true,
+        errorMessage: action.payload.message
       };
 
       return previousState.with(updatedItem);

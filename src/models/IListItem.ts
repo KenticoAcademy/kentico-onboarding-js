@@ -6,4 +6,5 @@ export interface IListItem {
   readonly backupText: string;
   readonly isEdited: boolean;
   readonly isSynchronized: boolean;
+  readonly errorMessage: string;
 }

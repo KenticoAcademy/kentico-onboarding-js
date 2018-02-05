@@ -4,25 +4,31 @@ import {
 import { Dispatch } from 'react-redux';
 import { IAppState } from '../../models/IAppState';
 import { IAction } from '../IAction';
-import { ITEM_DELETE_ERROR } from '../../constants/actionTypes';
 import { Uuid } from '../../utils/generateId';
 import { IDependencies } from '../IDependencies';
 
 interface IDeleteDependencies extends IDependencies {
   readonly deleteSuccess: (args: { id: Uuid }) => IAction;
-  readonly itemDeleteFail: (id: Uuid) => IAction;
+  readonly itemDeleteFail: (args: { id: Uuid, message: string }) => IAction;
 }
 
-export const deleteItemFactory = ({deleteSuccess, itemDeleteFail, apiCallError, getAxios}: IDeleteDependencies) => (id: Uuid) =>
+export const deleteItemFactory = ({deleteSuccess, itemDeleteFail, _apiCallError, getAxios}: IDeleteDependencies| any) => (id: Uuid) =>
   (dispatch: Dispatch<IAppState>): Promise<void | IAction> =>
     getAxios().axios.delete(getAxios().url + '/' + id)
       .then(() => dispatch(deleteSuccess({id})))
       .catch((error: AxiosError) => {
-        dispatch(itemDeleteFail(id));
         const errorResponse = error.response;
         if (errorResponse !== undefined) {
-          dispatch(apiCallError(ITEM_DELETE_ERROR, errorResponse.status + ' ' + errorResponse.statusText));
+          dispatch(itemDeleteFail(
+            {
+              id,
+              message: 'Operation failed'
+            }));
         } else {
-          dispatch(apiCallError(ITEM_DELETE_ERROR, 'No internet connection'));
+          dispatch(itemDeleteFail(
+            {
+              id,
+              message: 'No internet connection'
+            }));
         }
       });

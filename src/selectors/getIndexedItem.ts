@@ -10,7 +10,8 @@ const createIndexedItem = (item: ListItem, index: number): IndexedItem =>
     id: item.id,
     text: item.text,
     isEdited: item.isEdited,
-    isSynchronized: item.isSynchronized
+    isSynchronized: item.isSynchronized,
+    errorMessage: item.errorMessage
   });
 
 const createIndexedItemMemoized = memoize(createIndexedItem);

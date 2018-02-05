@@ -8,6 +8,7 @@ const emptyItem: IListItem = {
   backupText: '',
   isEdited: false,
   isSynchronized: true,
+  errorMessage: ''
 };
 
 export class ListItem extends Record(emptyItem) implements IListItem {
@@ -16,6 +17,7 @@ export class ListItem extends Record(emptyItem) implements IListItem {
   backupText: string;
   isEdited: boolean;
   isSynchronized: boolean;
+  errorMessage: string;
 
   constructor(params?: Partial<IListItem>) {
     params ? super(params) : super();

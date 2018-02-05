@@ -5,7 +5,7 @@ import {
   TODO_LIST_ITEM_CANCEL_EDIT,
   TODO_LIST_ITEM_INSERT,
   NEW_ITEM_PERSISTED, UPDATED_ITEM_PERSISTED, DELETE_ITEM_SUCCESSFUL, ITEM_UPDATE_FAILED,
-  DELETE_ITEM_FAILED
+  DELETE_ITEM_FAILED, CLOSE_ITEM_ERROR
 } from '../constants/actionTypes';
 import { Uuid } from '../utils/generateId';
 import { IAction } from './IAction';
@@ -72,15 +72,24 @@ export const cancelItemEditing = (id: Uuid): IAction => ({
   },
 });
 
-export const itemUpdateFail = (id: Uuid): IAction => ({
+export const itemUpdateFail = (args: {id: Uuid, message: string}): IAction => ({
   type: ITEM_UPDATE_FAILED,
   payload: {
-    id,
+    id: args.id,
+    message: args.message
   }
 });
 
-export const itemDeleteFail = (id: Uuid): IAction => ({
+export const itemDeleteFail = (args: { id: Uuid, message: string }): IAction => ({
   type: DELETE_ITEM_FAILED,
+  payload: {
+    id: args.id,
+    message: args.message
+  }
+});
+
+export const closeItemError = (id: Uuid): IAction => ({
+  type: CLOSE_ITEM_ERROR,
   payload: {
     id,
   }
