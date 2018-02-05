@@ -1,4 +1,4 @@
-import { selectItemIdsMemoized } from '../src/selectors/selectItemIdsMemoized.ts';
+import { selectItemIdsMemoized } from './selectItemIdsMemoized.ts';
 import { OrderedMap } from 'immutable';
 
 describe('selectItemIdsMemoized', () => {

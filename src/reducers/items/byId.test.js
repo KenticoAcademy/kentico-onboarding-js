@@ -1,13 +1,13 @@
 import { OrderedMap } from 'immutable';
-import { byId } from '../src/reducers/items/byId.ts';
-import { Item } from '../src/models/Item.ts';
+import { byId } from '../../reducers/items/byId.ts';
+import { Item } from '../../models/Item.ts';
 import {
   addItemFactory,
   deleteItem,
   textUpdateChange,
   toggleEditing,
   updateItemText,
-} from '../src/actions/actionCreators.ts';
+} from '../../actions/actionCreators.ts';
 
 function mockId() {
   return '2';

@@ -1,9 +1,10 @@
-import { newItemText } from '../src/reducers/items/newItemText.ts';
+import { newItemText } from '../../../dist/reducers/items/newItemText';
 import {
   addItemFactory,
   deleteItem,
   updateNewItemText,
-} from '../src/actions/actionCreators.ts';
+} from '../../actions/actionCreators.ts';
+
 
 function mockId() {
   return '2';

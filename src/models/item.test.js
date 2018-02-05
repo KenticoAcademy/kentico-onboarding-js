@@ -1,5 +1,5 @@
 import Immutable from 'immutable';
-import { Item, defaultItem } from '../src/models/Item.ts';
+import { Item, defaultItem } from './Item.ts';
 
 describe('Item', () => {
   it('creates immutable object', () => {
