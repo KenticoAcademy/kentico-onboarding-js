@@ -2,12 +2,12 @@ import { OrderedMap } from 'immutable';
 import { byId } from '../../reducers/items/byId.ts';
 import { Item } from '../../models/Item.ts';
 import {
-  addItemFactory,
   deleteItem,
   textUpdateChange,
   toggleEditing,
   updateItemText,
 } from '../../actions/actionCreators.ts';
+import { addItemFactory } from '../../actions/addItem.ts';
 
 function mockId() {
   return '2';
@@ -23,7 +23,7 @@ describe('byId', () => {
         isBeingEdited: false,
       }),
     });
-    const stateAfter = byId(undefined, addItemFactory(mockId, 'tested item'));
+    const stateAfter = byId(undefined, addItemFactory(mockId)('tested item'));
 
     expect(stateAfter).toEqual(expectedState);
   });
