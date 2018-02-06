@@ -1,11 +1,11 @@
 import { OrderedMap } from 'immutable';
+import { Reducer } from 'redux';
 import { Item } from '../../models/Item';
 import {
   actionTypes
 } from '../../constants/actionTypes';
 import { IAction } from '../../actions/IAction';
 import { ItemId } from '../../models/ItemId';
-import { Reducer } from 'redux';
 
 const DEFAULT_STATE = OrderedMap<ItemId, Item>();
 

@@ -5,7 +5,6 @@ import {
 } from '../../actions/actionCreators.ts';
 import { addItemFactory } from '../../actions/addItem.ts';
 
-
 const mockId = () => '2';
 
 describe('newItemText', () => {

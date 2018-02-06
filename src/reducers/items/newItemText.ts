@@ -1,8 +1,8 @@
+import { Reducer } from 'redux';
 import {
   actionTypes,
 } from '../../constants/actionTypes';
 import { IAction } from '../../actions/IAction';
-import { Reducer } from 'redux';
 
 const DEFAULT_VALUE: string = '';
 

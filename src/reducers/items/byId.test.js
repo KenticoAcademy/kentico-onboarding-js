@@ -9,9 +9,7 @@ import {
 } from '../../actions/actionCreators.ts';
 import { addItemFactory } from '../../actions/addItem.ts';
 
-function mockId() {
-  return '2';
-}
+const mockId = () => '2';
 
 describe('byId', () => {
   it('addItem returns map filled with new item with correct text and id', () => {
