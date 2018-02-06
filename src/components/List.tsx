@@ -1,13 +1,11 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
-import { Seq } from 'immutable';
+import * as Immutable from 'immutable';
 import { ListItem } from '../containers/ListItem';
 import { ItemId } from '../models/ItemId';
-
-
+import ImmutablePropTypes = require('react-immutable-proptypes');
 
 interface  IListDataProps {
-  ids: Seq.Indexed<ItemId>;
+  ids: Immutable.Seq.Indexed<ItemId>;
 }
 
 const List: React.StatelessComponent<IListDataProps> = ({ ids }) => (
@@ -30,7 +28,7 @@ const List: React.StatelessComponent<IListDataProps> = ({ ids }) => (
 List.displayName = 'List';
 
 List.propTypes = {
-  ids: PropTypes.arrayOf(PropTypes.string).isRequired,
+  ids: ImmutablePropTypes.seq,
 };
 
 export { List };
