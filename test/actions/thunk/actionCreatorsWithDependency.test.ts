@@ -1,4 +1,4 @@
-import { fetchItemsFactory, postItemFactory, deleteItemFactory } from '../../../src/actions/thunk/actionCreatorsWithDependency';
+import { fetchItemsFactory, postItemFactory, deleteItemFactory, cancelItemFactory } from '../../../src/actions/thunk/actionCreatorsWithDependency';
 import Mock = jest.Mock;
 import { IListItem } from '../../../src/models/IListItem';
 import { ListItem } from '../../../src/models/ListItem';
@@ -145,5 +145,39 @@ describe('deleteItem will call dispatch with', () => {
     const dispatchableDeleteItem = deleteItem(uri, id);
 
     return assertThatDispatchWasCalledWithActions(dispatchableDeleteItem, dispatch, expectedActions);
+  });
+});
+
+describe('cancelItem will call dispatch with', () => {
+  it('cancel item changes action', () => {
+    const expectedActions = [
+      'cancelItemChanges',
+    ];
+    const uri = '';
+    const item: ListItem = new ListItem({});
+    const fetch = fetchReturnsOkResponseFactory();
+    const cancelItemChanges = jest.fn(() => expectedActions[0]);
+    const cancelItem = cancelItemFactory(fetch)(cancelItemChanges)(fakeFunction)(fakeFunction)(handleErrors);
+    const dispatch = dispatchFactory();
+
+    const dispatchableCancelItem = cancelItem(uri, item);
+
+    return assertThatDispatchWasCalledWithActions(dispatchableCancelItem, dispatch, expectedActions);
+  });
+
+  it('notify error action', () => {
+    const expectedActions = [
+      'notifyError',
+    ];
+    const uri = '';
+    const item: ListItem = new ListItem({});
+    const fetch = fetchAlwaysFailFactory();
+    const notifyError = jest.fn(() => expectedActions[0]);
+    const cancelItem = cancelItemFactory(fetch)(fakeFunction)(notifyError)(fakeFunction)(handleErrors);
+    const dispatch = dispatchFactory();
+
+    const dispatchableCancelItem = cancelItem(uri, item);
+
+    return assertThatDispatchWasCalledWithActions(dispatchableCancelItem, dispatch, expectedActions);
   });
 });
