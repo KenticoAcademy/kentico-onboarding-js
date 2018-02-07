@@ -1,13 +1,36 @@
-import React, { PureComponent } from 'react';
-import assignment from './../../assignment.gif';
+import React from 'react';
 
+import { uuidv4 } from './../utils/UUIDGenerator.js';
 import { TsComponent } from './TsComponent.tsx';
+import { NewItem } from './NewItem';
+import { ListItem } from './ListItem';
 
-export class List extends PureComponent {
+export class List extends React.PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      items: [],
+    };
+  }
+
+  addItem = (item) => this.setState(prevState => ({ items: [...prevState.items, { key: uuidv4(), value: item }] }));
+
+  saveItem = (item) => {
+    const newItems = this.state.items;
+    newItems[item.key] = item.value;
+    this.setState({ items: newItems });
+  }
+
+  deleteItem = (item) => {
+    const newItems = this.state.items.filter(arrayItem => arrayItem.key !== item.key);
+    this.setState({ items: newItems });
+  }
+
   render() {
+    const list = this.state.items.map(item => <ListItem key={item.key} item={item} onSave={this.saveItem} onDelete={this.deleteItem} />);
+
     return (
       <div className="row">
-        {/* TODO: You can delete the assignment part once you do not need it */}
         <div className="row">
           <div className="col-sm-12 text-center">
             <TsComponent name="𝕱𝖆𝖓𝖈𝖞" />
@@ -15,18 +38,10 @@ export class List extends PureComponent {
         </div>
 
         <div className="row">
-          <div className="col-sm-12">
-            <p className="lead text-center">Desired functionality is captured in the gif image. </p>
-            <p className="lead text-center"><b>Note: </b>Try to make solution easily extensible (e.g. more displayed fields per item like
-              <code>dateCreated</code>).</p>
-            <img src={assignment} alt="assignment" className="img--assignment" />
-          </div>
-        </div>
-
-        <div className="row">
           <div className="col-sm-12 col-md-offset-2 col-md-8">
             <pre>
-              // TODO: implement the list here :)
+              <ol type="1">{list}</ol>
+              <NewItem onCreate={this.addItem} />
             </pre>
           </div>
         </div>
