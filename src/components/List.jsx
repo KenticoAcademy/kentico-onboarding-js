@@ -5,7 +5,7 @@ import { TsComponent } from './TsComponent.tsx';
 import { NewItem } from './NewItem';
 import { ListItem } from './ListItem';
 
-export class List extends React.PureComponent {
+export class List extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -13,21 +13,42 @@ export class List extends React.PureComponent {
     };
   }
 
-  addItem = (item) => this.setState(prevState => ({ items: [...prevState.items, { key: uuidv4(), value: item }] }));
+  addItem = (item) => this.setState(prevState => ({
+    items: [...prevState.items, {
+      key: uuidv4(),
+      value: item,
+    }],
+  }));
 
   saveItem = (item) => {
-    const newItems = this.state.items;
-    newItems[item.key] = item.value;
-    this.setState({ items: newItems });
-  }
+    const { items } = this.state;
+    const index = items.indexOf(x => x.key === item.key);
+    items[index] = item;
+    this.setState({ items });
+  };
 
   deleteItem = (item) => {
-    const newItems = this.state.items.filter(arrayItem => arrayItem.key !== item.key);
+    const newItems = this.state.items
+      .filter(arrayItem => arrayItem.key !== item.key);
     this.setState({ items: newItems });
-  }
+  };
 
   render() {
-    const list = this.state.items.map(item => <ListItem key={item.key} item={item} onSave={this.saveItem} onDelete={this.deleteItem} />);
+    const list = this.state.items
+      .map((item, index) => (
+        <div className="list-group-item" key={item.key}>
+          <span className="input-group">
+            <span className="input-group-addon">
+              {index + 1}
+            </span>
+            <ListItem
+              item={item}
+              onSave={this.saveItem}
+              onDelete={this.deleteItem}
+            />
+          </span>
+        </div>
+    ));
 
     return (
       <div className="row">
@@ -39,10 +60,10 @@ export class List extends React.PureComponent {
 
         <div className="row">
           <div className="col-sm-12 col-md-offset-2 col-md-8">
-            <pre>
-              <ol type="1">{list}</ol>
-              <NewItem onCreate={this.addItem} />
-            </pre>
+            <div className="list-group">
+              {list}
+            </div>
+            <NewItem onCreate={this.addItem} />
           </div>
         </div>
       </div>

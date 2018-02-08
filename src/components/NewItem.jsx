@@ -8,7 +8,7 @@ export class NewItem extends React.PureComponent {
 
   handleChange = (event) => this.setState({ item: event.target.value });
 
-  handleKeyPress = (event) => {
+  handleKeyUp = (event) => {
     if (event.key === 'Enter' && this.state.item) {
       this.addItem();
     }
@@ -22,7 +22,7 @@ export class NewItem extends React.PureComponent {
   render() {
     return (
       <div className="input-group">
-        <input type="text" className="form-control" placeholder="What is on your mind ... ?" value={this.state.item} onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
+        <input type="text" className="form-control" placeholder="What is on your mind ... ?" value={this.state.item} onChange={this.handleChange} onKeyUp={this.handleKeyUp} />
         <span className="input-group-btn">
           <button type="button" className="btn btn-default" onClick={this.addItem} disabled={!this.state.item}>Add</button>
         </span>
