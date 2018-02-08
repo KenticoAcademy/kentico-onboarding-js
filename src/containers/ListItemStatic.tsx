@@ -6,9 +6,9 @@ import {
   ListItemStatic as ListItemStaticComponent
 } from '../components/ListItemStatic';
 import { Dispatch } from 'redux';
-import { IAction } from '../models/IAction';
+import { IAction } from '../models/interfaces/IAction';
 import { openItem } from '../actions/thunk';
-import { ListItem } from '../models/ListItem';
+import { ListItem } from '../models/classes/ListItem';
 
 const propTypes = {
   itemNumber: PropTypes.number.isRequired,

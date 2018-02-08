@@ -4,11 +4,11 @@ import * as ReactDOM from 'react-dom';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import { OrderedMap } from 'immutable';
-import { App } from '../src/App';
-import { FetchItemsState } from '../src/models/FetchItemsState';
-import { IAppState } from '../src/models/IAppState';
-import { ListItem } from '../src/models/ListItem';
-import { Message } from '../src/models/Message';
+import { App } from '../src/components/App';
+import { FetchItemsState } from '../src/models/enums/FetchItemsState';
+import { IAppState } from '../src/models/interfaces/IAppState';
+import { ListItem } from '../src/models/classes/ListItem';
+import { Message } from '../src/models/classes/Message';
 
 it('renders without crashing', () => {
   const div = document.createElement('div');

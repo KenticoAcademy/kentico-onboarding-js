@@ -3,12 +3,12 @@ import { HotKeys } from 'react-hotkeys';
 import { keyMap } from '../constants/keys';
 import { Items } from '../containers/Items';
 import { NewItemForm } from '../containers/NewItemForm';
-import { FetchItemsState } from '../models/FetchItemsState';
+import { FetchItemsState } from '../models/enums/FetchItemsState';
 import * as PropTypes from 'prop-types';
-import { IAction } from '../models/IAction';
+import { IAction } from '../models/interfaces/IAction';
 import { Loader } from './Loader';
-import { IMessage } from '../models/IMessage';
-import { AllMessageTypes, MessageType } from '../constants/MessageType';
+import { IMessage } from '../models/interfaces/IMessage';
+import { AllMessageTypes, MessageType } from '../models/enums/MessageType';
 import { Success } from './Success';
 import { Error } from './Error';
 

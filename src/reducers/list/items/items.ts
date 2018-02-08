@@ -1,8 +1,8 @@
 import { OrderedMap } from 'immutable';
-import { ListItem } from '../../../models/ListItem';
+import { ListItem } from '../../../models/classes/ListItem';
 import * as ActionTypes from '../../../constants/actionTypes';
-import { IItemsState } from '../../../models/IItemsState';
-import { IAction } from '../../../models/IAction';
+import { IItemsState } from '../../../models/interfaces/IItemsState';
+import { IAction } from '../../../models/interfaces/IAction';
 import { Guid } from '../../../models/Guid';
 import { listItemsArrayToOrderedMap } from '../../../utils/listItemsArrayToOrderedMap';
 

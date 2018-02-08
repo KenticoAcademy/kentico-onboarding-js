@@ -1,8 +1,8 @@
 import { ComponentClass } from 'react';
 import { connect } from 'react-redux';
 import { IListDataProps, List as ListComponent } from '../components/List';
-import { IAppState } from '../models/IAppState';
-import { IAction } from '../models/IAction';
+import { IAppState } from '../models/interfaces/IAppState';
+import { IAction } from '../models/interfaces/IAction';
 import { Dispatch } from 'redux';
 import { fetchItems } from '../actions/thunk';
 

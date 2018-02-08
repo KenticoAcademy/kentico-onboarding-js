@@ -1,7 +1,7 @@
-import { IListItem } from './IListItem';
-import { defaultUuid } from '../constants/defaultUuid';
+import { IListItem } from '../interfaces/IListItem';
+import { defaultUuid } from '../../constants/defaultUuid';
 import { Record } from 'immutable';
-import { Guid } from './Guid';
+import { Guid } from '../Guid';
 
 
 const defaultItem: IListItem = {

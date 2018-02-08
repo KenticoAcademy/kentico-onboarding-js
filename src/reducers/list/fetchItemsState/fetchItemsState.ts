@@ -1,5 +1,5 @@
-import { FetchItemsState } from '../../../models/FetchItemsState';
-import { IAction } from '../../../models/IAction';
+import { FetchItemsState } from '../../../models/enums/FetchItemsState';
+import { IAction } from '../../../models/interfaces/IAction';
 import { FETCH_ITEMS } from '../../../constants/actionTypes';
 
 const fetchItems = (state: FetchItemsState, action: IAction): FetchItemsState => {

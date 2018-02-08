@@ -1,8 +1,8 @@
-import { IAction } from '../../models/IAction';
-import { IListItem } from '../../models/IListItem';
+import { IAction } from '../../models/interfaces/IAction';
+import { IListItem } from '../../models/interfaces/IListItem';
 import { Dispatch } from 'redux';
 import { Guid } from '../../models/Guid';
-import { ListItem } from '../../models/ListItem';
+import { ListItem } from '../../models/classes/ListItem';
 
 export const fetchItemsFactory =
   (fetch: any) =>

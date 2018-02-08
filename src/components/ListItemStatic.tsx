@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { IListItem } from '../models/IListItem';
+import { IListItem } from '../models/interfaces/IListItem';
 
 export interface IListItemStaticCallbackProps {
   readonly onItemOpened: (uri: string) => void;

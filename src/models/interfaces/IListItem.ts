@@ -1,4 +1,4 @@
-import { Guid } from './Guid';
+import { Guid } from '../Guid';
 
 export interface IListItem {
   readonly id: Guid;

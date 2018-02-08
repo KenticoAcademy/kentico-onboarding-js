@@ -1,5 +1,5 @@
 import { OrderedMap } from 'immutable';
-import { ListItem } from '../models/ListItem';
+import { ListItem } from '../models/classes/ListItem';
 import { createNewId } from '../utils/createNewId';
 
 const itemId1 = createNewId();

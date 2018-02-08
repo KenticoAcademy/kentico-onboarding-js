@@ -1,9 +1,9 @@
-import { IAction } from '../models/IAction';
+import { IAction } from '../models/interfaces/IAction';
 import * as ActionTypes from '../constants/actionTypes';
 import { Guid } from '../models/Guid';
-import { IListItem } from '../models/IListItem';
-import { MessageType } from '../constants/MessageType';
-import { Message } from '../models/Message';
+import { IListItem } from '../models/interfaces/IListItem';
+import { MessageType } from '../models/enums/MessageType';
+import { Message } from '../models/classes/Message';
 
 export const addNewItem = ({ id: itemId, text }: { id: Guid, text: string }): IAction => ({
   type: ActionTypes.ITEM_CREATED,

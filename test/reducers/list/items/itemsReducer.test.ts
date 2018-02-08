@@ -1,10 +1,10 @@
 import { OrderedMap } from 'immutable';
-import { ListItem } from '../../../../src/models/ListItem';
+import { ListItem } from '../../../../src/models/classes/ListItem';
 import * as deepFreeze from 'deep-freeze';
 import { items } from '../../../../src/reducers/list/items/items';
 import * as actions from '../../../../src/actions/actionCreators';
 import { Guid } from '../../../../src/models/Guid';
-import { IListItem } from '../../../../src/models/IListItem';
+import { IListItem } from '../../../../src/models/interfaces/IListItem';
 
 describe('items', () => {
   it('will add ListItem model to state with specific text', () => {

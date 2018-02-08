@@ -4,9 +4,9 @@ import {
   ITryAgainCallbackProps,
   TryAgain as TryAgainComponent
 } from '../components/TryAgain';
-import { IAppState } from '../models/IAppState';
+import { IAppState } from '../models/interfaces/IAppState';
 import { Dispatch } from 'redux';
-import { IAction } from '../models/IAction';
+import { IAction } from '../models/interfaces/IAction';
 import { clearMessage } from '../actions';
 
 interface ITryAgainStateProps {

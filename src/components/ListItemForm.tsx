@@ -3,7 +3,7 @@ import * as PropTypes from 'prop-types';
 import { HotKeys } from 'react-hotkeys';
 import { keyActions } from '../constants/keys';
 import { isTextEmpty } from '../utils/validation';
-import { ListItem } from '../models/ListItem';
+import { ListItem } from '../models/classes/ListItem';
 
 export interface IListItemFormCallbackProps {
   readonly onSave: (uri: string, text: string) => void;

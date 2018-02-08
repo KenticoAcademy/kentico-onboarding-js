@@ -1,5 +1,5 @@
-import { IListItem } from '../../src/models/IListItem';
-import { ListItem } from '../../src/models/ListItem';
+import { IListItem } from '../../src/models/interfaces/IListItem';
+import { ListItem } from '../../src/models/classes/ListItem';
 import { listItemsArrayToOrderedMap } from '../../src/utils/listItemsArrayToOrderedMap';
 import { OrderedMap } from 'immutable';
 import { Guid } from '../../src/models/Guid';

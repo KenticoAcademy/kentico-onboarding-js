@@ -5,7 +5,7 @@ import {
   NewItemForm as NewItemFormComponent
 } from '../components/NewItemForm';
 import { Dispatch } from 'redux';
-import { IAction } from '../models/IAction';
+import { IAction } from '../models/interfaces/IAction';
 import { postItem } from '../actions/thunk';
 
 const mapDispatchToProps = (dispatch: Dispatch<IAction>): INewItemFormCallbackProps => ({

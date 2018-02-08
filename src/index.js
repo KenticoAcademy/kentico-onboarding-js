@@ -8,9 +8,9 @@ import 'es6-promise/auto';
 import { reducers } from './reducers/index.ts';
 import { initialState } from './constants/initialState.ts';
 import 'bootstrap/dist/css/bootstrap.css';
-import './index.css';
+import './styles/index.css';
 
-import { App } from './App.tsx';
+import { App } from './components/App.tsx';
 
 const store = createStore(
   reducers,

@@ -1,5 +1,5 @@
-import { IMessage } from './IMessage';
-import { MessageType } from '../constants/MessageType';
+import { IMessage } from '../interfaces/IMessage';
+import { MessageType } from '../enums/MessageType';
 import { Record } from 'immutable';
 
 const defaultMessage: IMessage = {

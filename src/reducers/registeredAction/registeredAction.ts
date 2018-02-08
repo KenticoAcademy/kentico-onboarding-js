@@ -1,4 +1,4 @@
-import { IAction } from '../../models/IAction';
+import { IAction } from '../../models/interfaces/IAction';
 import { REGISTER_ACTION } from '../../constants/actionTypes';
 
 const registerAction = (action: IAction) => action.payload.action;

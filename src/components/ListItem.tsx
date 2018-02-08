@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { ListItemForm } from '../containers/ListItemForm';
 import { ListItemStatic } from '../containers/ListItemStatic';
-import { ListItem as ListItemModel } from '../models/ListItem';
+import { ListItem as ListItemModel } from '../models/classes/ListItem';
 
 export interface IListItemDataProps {
   readonly item: ListItemModel;
