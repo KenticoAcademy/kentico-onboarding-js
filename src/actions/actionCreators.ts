@@ -4,8 +4,9 @@ import { Guid } from '../models/Guid';
 import { IListItem } from '../models/interfaces/IListItem';
 import { MessageType } from '../models/enums/MessageType';
 import { Message } from '../models/classes/Message';
+import { INewItem } from '../models/interfaces/INewItem';
 
-export const addNewItem = ({ id: itemId, text }: { id: Guid, text: string }): IAction => ({
+export const addNewItem = ({ id: itemId, text }: INewItem): IAction => ({
   type: ActionTypes.ITEM_CREATED,
   payload: {
     itemId,
