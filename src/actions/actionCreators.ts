@@ -44,21 +44,21 @@ export const cancelItemChanges = (itemId: Guid): IAction => ({
 });
 
 export const requestItems = (uri: string): IAction => ({
-  type: ActionTypes.FETCH_ITEMS,
+  type: ActionTypes.FETCH_ITEMS_START,
   payload: {
     uri,
   }
 });
 
 export const receiveItems = (items: IListItem[]): IAction => ({
-  type: ActionTypes.FETCH_ITEMS,
+  type: ActionTypes.FETCH_ITEMS_SUCCESS,
   payload: {
     items,
   }
 });
 
 export const fetchFailed = (error: Error): IAction => ({
-  type: ActionTypes.FETCH_ITEMS,
+  type: ActionTypes.FETCH_ITEMS_FAIL,
   payload: {
     error,
   },

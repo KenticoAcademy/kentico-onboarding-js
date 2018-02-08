@@ -5,7 +5,9 @@ export const ITEM_CHANGES_CANCELED = 'ITEM_CHANGES_CANCELED';
 export const ITEM_DELETED = 'ITEM_DELETED';
 
 // Async actions
-export const FETCH_ITEMS = 'FETCH_ITEMS';
+export const FETCH_ITEMS_START = 'FETCH_ITEMS_START';
+export const FETCH_ITEMS_SUCCESS = 'FETCH_ITEMS_SUCCESS';
+export const FETCH_ITEMS_FAIL = 'FETCH_ITEMS_FAIL';
 
 // Messages
 export const ERROR_MESSAGE = 'ERROR_MESSAGE';

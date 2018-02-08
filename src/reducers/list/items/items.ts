@@ -51,15 +51,8 @@ const cancelItemChanges = (state: IItemsState, action: IAction): IItemsState => 
     }));
 };
 
-const fetchItems = (state: IItemsState, action: IAction): IItemsState => {
-  const { items } = action.payload;
-
-  if (items) {
-    return listItemsArrayToOrderedMap(items);
-  }
-
-  return state;
-};
+const fetchItems = (action: IAction): IItemsState =>
+  listItemsArrayToOrderedMap(action.payload.items);
 
 const initialState = OrderedMap<Guid, ListItem>();
 
@@ -77,8 +70,8 @@ export const items = (state = initialState, action: IAction): IItemsState => {
       return openItemForEditing(state, action);
     case ActionTypes.ITEM_CHANGES_CANCELED:
       return cancelItemChanges(state, action);
-    case ActionTypes.FETCH_ITEMS:
-      return fetchItems(state, action);
+    case ActionTypes.FETCH_ITEMS_SUCCESS:
+      return fetchItems(action);
     default:
       return state;
   }
