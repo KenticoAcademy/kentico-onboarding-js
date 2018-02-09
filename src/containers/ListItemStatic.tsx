@@ -8,7 +8,7 @@ import {
 import { Dispatch } from 'redux';
 import { IAction } from '../models/interfaces/IAction';
 import { openItem } from '../actions/thunk';
-import { ListItem } from '../models/classes/ListItem';
+import { IListItem } from '../models/interfaces/IListItem';
 
 const propTypes = {
   itemNumber: PropTypes.number.isRequired,
@@ -21,7 +21,7 @@ const propTypes = {
 
 interface IListItemStaticContainerDataProps {
   readonly itemNumber: number;
-  readonly item: ListItem;
+  readonly item: IListItem;
 }
 
 interface IListItemStaticContainerCallbackProps {

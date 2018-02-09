@@ -2,10 +2,10 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { ListItemForm } from '../containers/ListItemForm';
 import { ListItemStatic } from '../containers/ListItemStatic';
-import { ListItem as ListItemModel } from '../models/classes/ListItem';
+import { IListItem } from '../models/interfaces/IListItem';
 
 export interface IListItemDataProps {
-  readonly item: ListItemModel;
+  readonly item: IListItem;
 }
 
 interface IListItemProps extends IListItemDataProps {

@@ -3,7 +3,7 @@ import * as PropTypes from 'prop-types';
 import { HotKeys } from 'react-hotkeys';
 import { keyActions } from '../constants/keys';
 import { isTextEmpty } from '../utils/validation';
-import { ListItem } from '../models/classes/ListItem';
+import { IListItem } from '../models/interfaces/IListItem';
 
 export interface IListItemFormCallbackProps {
   readonly onSave: (uri: string, text: string) => void;
@@ -12,7 +12,7 @@ export interface IListItemFormCallbackProps {
 }
 
 interface IListItemFormProps extends IListItemFormCallbackProps {
-  readonly item: ListItem;
+  readonly item: IListItem;
   readonly itemNumber: number;
   readonly selectionRangeStarts: number;
   readonly selectionRangeEnds: number;

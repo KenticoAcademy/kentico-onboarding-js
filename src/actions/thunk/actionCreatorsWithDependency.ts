@@ -2,7 +2,6 @@ import { IAction } from '../../models/interfaces/IAction';
 import { IListItem } from '../../models/interfaces/IListItem';
 import { Dispatch } from 'redux';
 import { Guid } from '../../models/Guid';
-import { ListItem } from '../../models/classes/ListItem';
 
 export const fetchItemsFactory =
   (fetch: any) =>
@@ -102,7 +101,7 @@ export const cancelItemFactory =
   (notifyError: (message: string) => IAction) =>
   (registerAction: (action: () => void) => IAction) =>
   (handleErrors: <T>(response: T) => T) =>
-  (uri: string, item: ListItem) =>
+  (uri: string, item: IListItem) =>
   (dispatch: Dispatch<IAction>) => {
     const { id } = item;
     const updatedItem = {
@@ -135,7 +134,7 @@ export const openItemFactory =
   (notifyError: (message: string) => IAction) =>
   (registerAction: (action: () => void) => IAction) =>
   (handleErrors: <T>(response: T) => T) =>
-  (uri: string, item: ListItem) =>
+  (uri: string, item: IListItem) =>
   (dispatch: Dispatch<IAction>) => {
     const { id } = item;
     const updatedItem = {
@@ -169,7 +168,7 @@ export const saveNewTextFactory =
   (notifyError: (message: string) => IAction) =>
   (registerAction: (action: () => void) => IAction) =>
   (handleErrors: <T>(response: T) => T) =>
-  (uri: string, item: ListItem, text: string) =>
+  (uri: string, item: IListItem, text: string) =>
   (dispatch: Dispatch<IAction>) => {
     const { id } = item;
     const updatedItem = {

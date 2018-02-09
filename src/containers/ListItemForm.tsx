@@ -7,12 +7,12 @@ import {
 } from '../components/ListItemForm';
 import { Dispatch } from 'redux';
 import { IAction } from '../models/interfaces/IAction';
-import { ListItem } from '../models/classes/ListItem';
 import {
   cancelItem,
   deleteItemFromServer,
   saveNewText,
 } from '../actions/thunk';
+import { IListItem } from '../models/interfaces/IListItem';
 
 const propTypes = {
   itemNumber: PropTypes.number.isRequired,
@@ -26,7 +26,8 @@ const propTypes = {
 
 interface IListItemFormContainerDataProps {
   readonly itemNumber: number;
-  readonly item: ListItem;
+  readonly item: IListItem
+  ;
   readonly selectionRangeStarts: number;
   readonly selectionRangeEnds: number;
 }
