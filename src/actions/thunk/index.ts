@@ -26,9 +26,42 @@ const handleErrors = (response: Response): Response => {
   return response;
 };
 
-export const fetchItems = fetchItemsFactory(fetch)(requestItems)(receiveItems)(fetchFailed)(notifyError)(registerAction)(handleErrors);
-export const postItem = postItemFactory(fetch)(addNewItem)(notifySuccess)(notifyError)(registerAction)(handleErrors);
-export const deleteItemFromServer = deleteItemFactory(fetch)(deleteItem)(notifySuccess)(notifyError)(registerAction)(handleErrors);
-export const cancelItem = cancelItemFactory(fetch)(cancelItemChanges)(notifyError)(registerAction)(handleErrors);
-export const openItem = openItemFactory(fetch)(openItemForEditing)(notifyError)(registerAction)(handleErrors);
-export const saveNewText = saveNewTextFactory(fetch)(saveItemChanges)(notifySuccess)(notifyError)(registerAction)(handleErrors);
+const configurationObjectBase = {
+  fetch,
+  notifyError,
+  registerAction,
+  handleErrors,
+};
+
+export const fetchItems = fetchItemsFactory({
+  ...configurationObjectBase,
+  requestItems,
+  receiveItems,
+  fetchFailed,
+});
+export const postItem = postItemFactory({
+  ...configurationObjectBase,
+  addNewItem,
+  notifySuccess,
+});
+
+export const deleteItemFromServer = deleteItemFactory({
+  ...configurationObjectBase,
+  deleteItem,
+  notifySuccess,
+});
+
+export const cancelItem = cancelItemFactory({
+  ...configurationObjectBase,
+  cancelItemChanges,
+});
+export const openItem = openItemFactory({
+  ...configurationObjectBase,
+  openItemForEditing,
+});
+
+export const saveNewText = saveNewTextFactory({
+  ...configurationObjectBase,
+  saveItemChanges,
+  notifySuccess,
+});

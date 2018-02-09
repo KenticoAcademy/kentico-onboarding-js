@@ -2,9 +2,12 @@ import { IListItem } from '../../../src/models/interfaces/IListItem';
 import { ListItem } from '../../../src/models/classes/ListItem';
 import { postItemFactory } from '../../../src/actions/thunk/postItemFactory';
 import {
-  assertThatDispatchWasCalledWithActions, dispatchFactory, fakeFunction, fetchAlwaysFailFactory,
+  assertThatDispatchWasCalledWithActions,
+  configurationObjectBase,
+  dispatchFactory,
+  fakeFunction,
+  fetchAlwaysFailFactory,
   fetchReturnsOkResponseFactory,
-  handleErrors
 } from './utils/utils';
 
 describe('postItem will call dispatch with', () => {
@@ -19,7 +22,12 @@ describe('postItem will call dispatch with', () => {
     const fetch = fetchReturnsOkResponseFactory(createdItem);
     const notifySuccess = jest.fn(() => expectedActions[0]);
     const addNewItem = jest.fn(() => expectedActions[1]);
-    const postItem = postItemFactory(fetch)(addNewItem)(notifySuccess)(fakeFunction)(fakeFunction)(handleErrors);
+    const postItem = postItemFactory({
+      ...configurationObjectBase,
+      fetch,
+      notifySuccess,
+      addNewItem
+    });
     const dispatch = dispatchFactory();
 
     const dispatchablePostItem = postItem(uri, text);
@@ -35,7 +43,13 @@ describe('postItem will call dispatch with', () => {
     const text = '';
     const fetch = fetchAlwaysFailFactory();
     const notifyError = jest.fn(() => expectedActions[0]);
-    const postItem = postItemFactory(fetch)(fakeFunction)(fakeFunction)(notifyError)(fakeFunction)(handleErrors);
+    const postItem = postItemFactory({
+      ...configurationObjectBase,
+      fetch,
+      notifyError,
+      addNewItem: fakeFunction,
+      notifySuccess: fakeFunction,
+    });
     const dispatch = dispatchFactory();
 
     const dispatchablePostItem = postItem(uri, text);

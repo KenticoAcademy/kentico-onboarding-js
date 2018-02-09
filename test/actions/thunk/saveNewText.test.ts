@@ -1,9 +1,12 @@
 import { saveNewTextFactory } from '../../../src/actions/thunk/saveNewTextFactory';
 import { ListItem } from '../../../src/models/classes/ListItem';
 import {
-  assertThatDispatchWasCalledWithActions, dispatchFactory, fakeFunction, fetchAlwaysFailFactory,
+  assertThatDispatchWasCalledWithActions,
+  configurationObjectBase,
+  dispatchFactory,
+  fakeFunction,
+  fetchAlwaysFailFactory,
   fetchReturnsOkResponseFactory,
-  handleErrors
 } from './utils/utils';
 
 describe('saveNewText will call dispatch with', () => {
@@ -18,7 +21,12 @@ describe('saveNewText will call dispatch with', () => {
     const fetch = fetchReturnsOkResponseFactory();
     const notifySuccess = jest.fn(() => expectedActions[0]);
     const saveItemChanges = jest.fn(() => expectedActions[1]);
-    const saveNewText = saveNewTextFactory(fetch)(saveItemChanges)(notifySuccess)(fakeFunction)(fakeFunction)(handleErrors);
+    const saveNewText = saveNewTextFactory({
+      ...configurationObjectBase,
+      fetch,
+      notifySuccess,
+      saveItemChanges,
+    });
     const dispatch = dispatchFactory();
 
     const dispatchableSaveItem = saveNewText(uri, item, text);
@@ -35,7 +43,13 @@ describe('saveNewText will call dispatch with', () => {
     const text = '';
     const fetch = fetchAlwaysFailFactory();
     const notifyError = jest.fn(() => expectedActions[0]);
-    const saveNewText = saveNewTextFactory(fetch)(fakeFunction)(fakeFunction)(notifyError)(fakeFunction)(handleErrors);
+    const saveNewText = saveNewTextFactory({
+      ...configurationObjectBase,
+      fetch,
+      notifyError,
+      saveItemChanges: fakeFunction,
+      notifySuccess: fakeFunction,
+    });
     const dispatch = dispatchFactory();
 
     const dispatchableSaveItem = saveNewText(uri, item, text);

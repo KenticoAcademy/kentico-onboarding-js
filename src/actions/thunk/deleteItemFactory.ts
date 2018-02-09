@@ -4,28 +4,37 @@ import { IAction } from '../../models/interfaces/IAction';
 import { IFetch } from '../../models/interfaces/IFetch';
 
 export const deleteItemFactory =
-  (fetch: IFetch) =>
-    (deleteItem: (id: Guid) => IAction) =>
-      (notifySuccess: (message: string) => IAction) =>
-        (notifyError: (message: string) => IAction) =>
-          (registerAction: (action: () => void) => IAction) =>
-            (handleErrors: (response: Response) => Response) =>
-              (uri: string, id: Guid) =>
-                (dispatch: Dispatch<IAction>) => {
-                  const action = () => fetch(
-                    uri + id,
-                    {
-                      method: 'DELETE',
-                    },
-                  )
-                    .then(handleErrors)
-                    .then(() => {
-                      dispatch(notifySuccess('Item was deleted.'));
-                      dispatch(deleteItem(id));
-                    })
-                    .catch(() => dispatch(notifyError('Item failed to delete.')));
+  ({
+     fetch,
+     deleteItem,
+     notifySuccess,
+     notifyError,
+     registerAction,
+     handleErrors,
+   }: {
+    fetch: IFetch,
+    deleteItem: (id: Guid) => IAction,
+    notifySuccess: (message: string) => IAction,
+    notifyError: (message: string) => IAction,
+    registerAction: (action: () => void) => IAction,
+    handleErrors: (response: Response) => Response,
+  }) =>
+    (uri: string, id: Guid) =>
+      (dispatch: Dispatch<IAction>) => {
+        const action = () => fetch(
+          uri + id,
+          {
+            method: 'DELETE',
+          },
+        )
+          .then(handleErrors)
+          .then(() => {
+            dispatch(notifySuccess('Item was deleted.'));
+            dispatch(deleteItem(id));
+          })
+          .catch(() => dispatch(notifyError('Item failed to delete.')));
 
-                  dispatch(registerAction(action));
+        dispatch(registerAction(action));
 
-                  return action();
-                };
+        return action();
+      };

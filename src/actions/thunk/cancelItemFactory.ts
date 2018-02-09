@@ -5,34 +5,43 @@ import { IAction } from '../../models/interfaces/IAction';
 import { IFetch } from '../../models/interfaces/IFetch';
 
 export const cancelItemFactory =
-  (fetch: IFetch) =>
-    (cancelItemChanges: (id: Guid) => IAction) =>
-      (notifyError: (message: string) => IAction) =>
-        (registerAction: (action: () => void) => IAction) =>
-          (handleErrors: (response: Response) => Response) =>
-            (uri: string, item: IListItem) =>
-              (dispatch: Dispatch<IAction>) => {
-                const { id } = item;
-                const updatedItem = {
-                  isBeingEdited: false,
-                  id,
-                };
+  ({
+     fetch,
+     cancelItemChanges,
+     notifyError,
+     registerAction,
+     handleErrors,
+   }: {
+    fetch: IFetch,
+    cancelItemChanges: (id: Guid) => IAction,
+    notifyError: (message: string) => IAction,
+    registerAction: (action: () => void) => IAction,
+    handleErrors: (response: Response) => Response,
+  }) =>
+    (uri: string,
+     item: IListItem) =>
+      (dispatch: Dispatch<IAction>) => {
+        const { id } = item;
+        const updatedItem = {
+          isBeingEdited: false,
+          id,
+        };
 
-                const action = () => fetch(
-                  uri + id,
-                  {
-                    method: 'PATCH',
-                    headers: {
-                      'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(updatedItem),
-                  },
-                )
-                  .then(handleErrors)
-                  .then(() => dispatch(cancelItemChanges(id)))
-                  .catch(() => dispatch(notifyError('Item failed to cancel.')));
+        const action = () => fetch(
+          uri + id,
+          {
+            method: 'PATCH',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(updatedItem),
+          },
+        )
+          .then(handleErrors)
+          .then(() => dispatch(cancelItemChanges(id)))
+          .catch(() => dispatch(notifyError('Item failed to cancel.')));
 
-                dispatch(registerAction(action));
+        dispatch(registerAction(action));
 
-                return action();
-              };
+        return action();
+      };

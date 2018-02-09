@@ -1,9 +1,12 @@
 import { ListItem } from '../../../src/models/classes/ListItem';
 import { openItemFactory } from '../../../src/actions/thunk/openItemFactory';
 import {
-  assertThatDispatchWasCalledWithActions, dispatchFactory, fakeFunction, fetchAlwaysFailFactory,
+  assertThatDispatchWasCalledWithActions,
+  configurationObjectBase,
+  dispatchFactory,
+  fakeFunction,
+  fetchAlwaysFailFactory,
   fetchReturnsOkResponseFactory,
-  handleErrors
 } from './utils/utils';
 
 describe('openItem will call dispatch with', () => {
@@ -15,7 +18,11 @@ describe('openItem will call dispatch with', () => {
     const item: ListItem = new ListItem({});
     const fetch = fetchReturnsOkResponseFactory();
     const openItemForEditing = jest.fn(() => expectedActions[0]);
-    const openItem = openItemFactory(fetch)(openItemForEditing)(fakeFunction)(fakeFunction)(handleErrors);
+    const openItem = openItemFactory({
+      ...configurationObjectBase,
+      fetch,
+      openItemForEditing,
+    });
     const dispatch = dispatchFactory();
 
     const dispatchableOpenItem = openItem(uri, item);
@@ -31,7 +38,12 @@ describe('openItem will call dispatch with', () => {
     const item: ListItem = new ListItem({});
     const fetch = fetchAlwaysFailFactory();
     const notifyError = jest.fn(() => expectedActions[0]);
-    const openItem = openItemFactory(fetch)(fakeFunction)(notifyError)(fakeFunction)(handleErrors);
+    const openItem = openItemFactory({
+      ...configurationObjectBase,
+      fetch,
+      notifyError,
+      openItemForEditing: fakeFunction,
+    });
     const dispatch = dispatchFactory();
 
     const dispatchableOpenItem = openItem(uri, item);
