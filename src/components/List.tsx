@@ -3,7 +3,10 @@ import { HotKeys } from 'react-hotkeys';
 import { keyMap } from '../constants/keys';
 import { Items } from '../containers/Items';
 import { NewItemForm } from '../containers/NewItemForm';
-import { FetchItemsState } from '../models/enums/FetchItemsState';
+import {
+  AllFetchItemsStates,
+  FetchItemsState,
+} from '../models/enums/FetchItemsState';
 import * as PropTypes from 'prop-types';
 import { IAction } from '../models/interfaces/IAction';
 import { Loader } from './Loader';
@@ -31,7 +34,7 @@ export class List extends React.PureComponent<IListProps> {
   static displayName = 'List';
 
   static propTypes = {
-    fetchItemsState: PropTypes.number.isRequired,
+    fetchItemsState: PropTypes.oneOf(AllFetchItemsStates),
     fetchItems: PropTypes.func.isRequired,
     message: PropTypes.shape({
       content: PropTypes.string.isRequired,

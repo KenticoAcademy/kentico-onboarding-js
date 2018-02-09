@@ -1,7 +1,7 @@
 export enum MessageType {
-  Empty,
-  Success,
-  Error,
+  Empty = 'Empty',
+  Success = 'Success',
+  Error = 'Error',
 }
 
 export const AllMessageTypes = [

@@ -1,6 +1,13 @@
 export enum FetchItemsState {
-  INITIAL,
-  REQUESTED,
-  RECEIVED,
-  FAILED,
+  INITIAL = 'Initial',
+  REQUESTED = 'Requested',
+  RECEIVED = 'Received',
+  FAILED = 'Failed',
 }
+
+export const AllFetchItemsStates = [
+  FetchItemsState.INITIAL,
+  FetchItemsState.REQUESTED,
+  FetchItemsState.RECEIVED,
+  FetchItemsState.FAILED,
+];
