@@ -2,7 +2,7 @@ import {
   AxiosResponse,
   AxiosError,
 } from 'axios';
-import { ITEMS_FETCH_ERROR, ITEMS_FETCH_SUCCESS } from '../../constants/actionTypes';
+import { ITEMS_FETCH_ERROR } from '../../constants/actionTypes';
 import { IAppState } from '../../models/IAppState';
 import { Dispatch } from 'react-redux';
 import { Uuid } from '../../utils/generateId';
@@ -19,10 +19,11 @@ interface FetchedItem {
 
 interface IPostDependencies extends IDependencies {
   readonly insertItem: (args: { text: string, id: Uuid, isSynchronized: boolean }) => IAction;
-  readonly apiCallSuccess: (callType: string) => IAction;
+  readonly fetchSuccess: () => IAction;
+  readonly fetchError: (errorType: string, errorText: string) => IAction;
 }
 
-export const fetchItemsFactory = ({insertItem, apiCallSuccess, apiCallError, getAxios}: IPostDependencies) => () =>
+export const fetchItemsFactory = ({insertItem, fetchSuccess, fetchError, getAxios}: IPostDependencies) => () =>
   (dispatch: Dispatch<IAppState>): Promise<void | IAction> =>
     getAxios().axios.get(getAxios().url)
       .then((response: AxiosResponse) => response.data.map((item: FetchedItem) =>
@@ -31,12 +32,12 @@ export const fetchItemsFactory = ({insertItem, apiCallSuccess, apiCallError, get
           id: item.Id,
           isSynchronized: true
         }))))
-      .then(() => dispatch(apiCallSuccess(ITEMS_FETCH_SUCCESS)))
+      .then(() => dispatch(fetchSuccess()))
       .catch((error: AxiosError) => {
         const errorResponse = error.response;
         if (errorResponse !== undefined) {
-          dispatch(apiCallError(ITEMS_FETCH_ERROR, errorResponse.status + ' ' + errorResponse.statusText));
+          dispatch(fetchError(ITEMS_FETCH_ERROR, errorResponse.status + ' ' + errorResponse.statusText));
         } else {
-          dispatch(apiCallError(ITEMS_FETCH_ERROR, NO_CONNECTION));
+          dispatch(fetchError(ITEMS_FETCH_ERROR, NO_CONNECTION));
         }
       });

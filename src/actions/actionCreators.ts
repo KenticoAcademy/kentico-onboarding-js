@@ -72,7 +72,7 @@ export const cancelItemEditing = (id: Uuid): IAction => ({
   },
 });
 
-export const itemUpdateFail = (args: {id: Uuid, message: string}): IAction => ({
+export const putError = (args: {id: Uuid, message: string}): IAction => ({
   type: ITEM_UPDATE_FAILED,
   payload: {
     id: args.id,
@@ -80,7 +80,7 @@ export const itemUpdateFail = (args: {id: Uuid, message: string}): IAction => ({
   }
 });
 
-export const itemDeleteFail = (args: { id: Uuid, message: string }): IAction => ({
+export const deleteError = (args: { id: Uuid, message: string }): IAction => ({
   type: DELETE_ITEM_FAILED,
   payload: {
     id: args.id,
@@ -92,5 +92,12 @@ export const closeItemError = (id: Uuid): IAction => ({
   type: CLOSE_ITEM_ERROR,
   payload: {
     id,
+  }
+});
+
+export const fetchError = (errorType: string, errorText: string): IAction => ({
+  type: errorType,
+  payload: {
+    errorText
   }
 });

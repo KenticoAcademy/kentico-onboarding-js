@@ -10,11 +10,11 @@ import { IAppState } from '../../models/IAppState';
 import { NO_CONNECTION } from '../../constants/connection';
 
 interface IUpdateDependencies extends IDependencies {
-  readonly itemUpdateFail: (args: { id: Uuid, message: string }) => IAction;
   readonly putSuccess: (args: { id: Uuid }) => IAction;
+  readonly putError: (args: { id: Uuid, message: string }) => IAction;
 }
 
-export const putItemFactory = ({itemUpdateFail, putSuccess, _apiCallError, getAxios}: IUpdateDependencies | any) => (id: Uuid, text: string) =>
+export const putItemFactory = ({putSuccess, putError: putError, getAxios}: IUpdateDependencies | any) => (id: Uuid, text: string) =>
   (dispatch: Dispatch<IAppState>): Promise<void | IAction> =>
     getAxios().axios.put(getAxios().url + '/' + id, {Id: id, Text: text})
       .then((response: AxiosResponse) =>
@@ -24,13 +24,13 @@ export const putItemFactory = ({itemUpdateFail, putSuccess, _apiCallError, getAx
       .catch((error: AxiosError) => {
         const errorResponse = error.response;
         if (errorResponse !== undefined) {
-          dispatch(itemUpdateFail(
+          dispatch(putError(
             {
               id,
               message: errorResponse.statusText
             }));
         } else {
-          dispatch(itemUpdateFail(
+          dispatch(putError(
             {
               id,
               message: NO_CONNECTION

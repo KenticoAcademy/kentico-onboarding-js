@@ -1,10 +1,10 @@
 import {
-  apiCallError,
   apiCallSuccess
 } from '../actions/index';
 import { PostStatus } from '../models/PostStatus';
 import { postStatus } from './postStatus';
 import { ITEM_POST_ERROR, ITEM_POST_SUCCESS } from '../constants/actionTypes';
+import { fetchError } from '../actions/actionCreators';
 
 describe('postStatus reducer', () => {
   const UNKNOWN_ACTION = 'UNKNOWN_ACTION';
@@ -23,7 +23,7 @@ describe('postStatus reducer', () => {
 
   it('sets flags correctly on failed request with errorMessage', () => {
     const errorMessage = '400 Bad Request';
-    const errorAction = apiCallError(ITEM_POST_ERROR, errorMessage);
+    const errorAction = fetchError(ITEM_POST_ERROR, errorMessage);
     const expectedState = new PostStatus({
       hasError: true,
       errorMessage

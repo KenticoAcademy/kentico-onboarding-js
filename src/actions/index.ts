@@ -2,11 +2,12 @@ import axios from 'axios';
 import {
   deleteItem,
   deleteSuccess,
-  insertItem, itemDeleteFail,
-  itemUpdateFail,
+  insertItem, deleteError,
+  putError,
   postSuccess,
   putSuccess,
-  updateItem
+  updateItem,
+  fetchError
 } from './actionCreators';
 import { generateId } from '../utils/generateId';
 import { IAction } from './IAction';
@@ -19,54 +20,51 @@ import { getAxiosFactory } from './actionCreatorsFactories/getAxiosFactory';
 import { optimisticAddFactory } from './actionCreatorsFactories/optimisticAddFactory';
 import { optimisticUpdateFactory } from './actionCreatorsFactories/optimisticUpdateFactory';
 import { optimisticDeleteFactory } from './actionCreatorsFactories/optimisticDeleteFactory';
-
-export const apiCallError = (errorType: string, errorText: string): IAction => ({
-  type: errorType,
-  payload: {
-    errorText
-  }
-});
+import { ITEMS_FETCH_SUCCESS } from '../constants/actionTypes';
 
 export const apiCallSuccess = (callType: string): IAction => ({
   type: callType,
   payload: undefined
 });
 
+export const fetchSuccess = (): IAction => ({
+  type: ITEMS_FETCH_SUCCESS,
+  payload: undefined
+});
+
 const getAxios = getAxiosFactory(axios, API_URL);
 
-export const postItem = postItemFactory(
+const postItem = postItemFactory(
   {
     deleteSuccess,
     postSuccess,
-    apiCallError,
+    apiCallError: fetchError,
     getAxios
   });
 
 export const fetchItems = fetchItemsFactory(
   {
     insertItem,
-    apiCallSuccess,
-    apiCallError,
+    fetchSuccess,
+    fetchError,
     getAxios
   });
 
-export const putItem = putItemFactory(
+const putItem = putItemFactory(
   {
-    itemUpdateFail,
     putSuccess,
-    apiCallError,
+    putError,
     getAxios
   });
 
-export const deleteIt = deleteItemFactory(
+const deleteFromServer = deleteItemFactory(
   {
     deleteSuccess,
-    itemDeleteFail,
-    apiCallError,
+    deleteError,
     getAxios
   }
 );
 
-export const optimisticAdd = optimisticAddFactory(generateId, insertItem);
-export const optimisticUpdate = optimisticUpdateFactory(updateItem);
-export const optimisticDelete = optimisticDeleteFactory(deleteItem);
+export const optimisticAdd = optimisticAddFactory(generateId, insertItem, postItem);
+export const optimisticUpdate = optimisticUpdateFactory(updateItem, putItem);
+export const optimisticDelete = optimisticDeleteFactory(deleteItem, deleteFromServer);

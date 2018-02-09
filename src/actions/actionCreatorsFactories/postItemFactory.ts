@@ -13,6 +13,7 @@ import { NO_CONNECTION } from '../../constants/connection';
 interface IPostDependencies extends IDependencies {
   readonly deleteSuccess: (args: {id: Uuid}) => IAction;
   readonly postSuccess: (args: {newId: Uuid, id: Uuid, text: string, isSynchronized: boolean}) => IAction;
+  readonly apiCallError: (errorType: string, errorText: string) => IAction;
 }
 
 export const postItemFactory = ({deleteSuccess, postSuccess, apiCallError, getAxios}: IPostDependencies) => (tempId: Uuid, text: string) =>

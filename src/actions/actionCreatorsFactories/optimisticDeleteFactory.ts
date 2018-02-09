@@ -1,10 +1,13 @@
-import { deleteIt } from '../index';
 import { IAppState } from '../../models/IAppState';
 import { Dispatch } from 'react-redux';
 import { Uuid } from '../../utils/generateId';
+import { IAction } from '../IAction';
 
-export const optimisticDeleteFactory = (deleteItemFromList: any) => (id: Uuid) =>
-  (dispatch: Dispatch<IAppState>): any => {
-    dispatch(deleteItemFromList(id));
-    return dispatch(deleteIt(id));
-  };
+export const optimisticDeleteFactory =
+  (deleteLocally: (id: Uuid) => IAction,
+   deleteFromServer: (id: Uuid) => any) =>
+    (id: Uuid) =>
+      (dispatch: Dispatch<IAppState>): Promise<void | IAction> => {
+        dispatch(deleteLocally(id));
+        return dispatch(deleteFromServer(id));
+      };
