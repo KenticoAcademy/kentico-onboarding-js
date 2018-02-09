@@ -1,12 +1,4 @@
 import {
-  cancelItemFactory,
-  deleteItemFactory,
-  fetchItemsFactory,
-  openItemFactory,
-  postItemFactory,
-  saveNewTextFactory,
-} from './actionCreatorsWithDependency';
-import {
   addNewItem,
   cancelItemChanges,
   deleteItem,
@@ -19,6 +11,12 @@ import {
   requestItems,
   saveItemChanges,
 } from '../actionCreators';
+import { fetchItemsFactory } from './fetchItemsFactory';
+import { postItemFactory } from './postItemFactory';
+import { deleteItemFactory } from './deleteItemFactory';
+import { cancelItemFactory } from './cancelItemFactory';
+import { openItemFactory } from './openItemFactory';
+import { saveNewTextFactory } from './saveNewTextFactory';
 
 const handleErrors = (response: Response): Response => {
   if (!response.ok) {
@@ -34,5 +32,3 @@ export const deleteItemFromServer = deleteItemFactory(fetch)(deleteItem)(notifyS
 export const cancelItem = cancelItemFactory(fetch)(cancelItemChanges)(notifyError)(registerAction)(handleErrors);
 export const openItem = openItemFactory(fetch)(openItemForEditing)(notifyError)(registerAction)(handleErrors);
 export const saveNewText = saveNewTextFactory(fetch)(saveItemChanges)(notifySuccess)(notifyError)(registerAction)(handleErrors);
-
-export * from './actionCreatorsWithDependency';
