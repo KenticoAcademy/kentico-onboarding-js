@@ -1,12 +1,23 @@
 import {
   cancelItemFactory,
-  deleteItemFactory, fetchItemsFactory, openItemFactory,
-  postItemFactory, saveNewTextFactory,
+  deleteItemFactory,
+  fetchItemsFactory,
+  openItemFactory,
+  postItemFactory,
+  saveNewTextFactory,
 } from './actionCreatorsWithDependency';
 import {
-  addNewItem, cancelItemChanges, deleteItem,
-  fetchFailed, notifyError, notifySuccess, openItemForEditing, receiveItems, registerAction,
-  requestItems, saveItemChanges
+  addNewItem,
+  cancelItemChanges,
+  deleteItem,
+  fetchFailed,
+  notifyError,
+  notifySuccess,
+  openItemForEditing,
+  receiveItems,
+  registerAction,
+  requestItems,
+  saveItemChanges,
 } from '../actionCreators';
 
 const handleErrors = (response: any) => {

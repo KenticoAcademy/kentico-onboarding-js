@@ -1,7 +1,14 @@
-import { fetchItemsFactory, postItemFactory, deleteItemFactory, cancelItemFactory, saveNewTextFactory, openItemFactory } from '../../../src/actions/thunk/actionCreatorsWithDependency';
-import Mock = jest.Mock;
+import {
+  cancelItemFactory,
+  deleteItemFactory,
+  fetchItemsFactory,
+  openItemFactory,
+  postItemFactory,
+  saveNewTextFactory,
+} from '../../../src/actions/thunk/actionCreatorsWithDependency';
 import { IListItem } from '../../../src/models/interfaces/IListItem';
 import { ListItem } from '../../../src/models/classes/ListItem';
+import Mock = jest.Mock;
 
 const fetchReturnsOkResponseFactory = (body = {}) => jest
   .fn(() => Promise.resolve({

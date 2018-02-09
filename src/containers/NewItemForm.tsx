@@ -2,7 +2,7 @@ import { ComponentClass } from 'react';
 import { connect } from 'react-redux';
 import {
   INewItemFormCallbackProps,
-  NewItemForm as NewItemFormComponent
+  NewItemForm as NewItemFormComponent,
 } from '../components/NewItemForm';
 import { Dispatch } from 'redux';
 import { IAction } from '../models/interfaces/IAction';

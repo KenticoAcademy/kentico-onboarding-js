@@ -3,12 +3,16 @@ import * as PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
   IListItemFormCallbackProps,
-  ListItemForm as ListItemFormComponent
+  ListItemForm as ListItemFormComponent,
 } from '../components/ListItemForm';
 import { Dispatch } from 'redux';
 import { IAction } from '../models/interfaces/IAction';
-import { cancelItem, deleteItemFromServer, saveNewText } from '../actions/thunk';
 import { ListItem } from '../models/classes/ListItem';
+import {
+  cancelItem,
+  deleteItemFromServer,
+  saveNewText,
+} from '../actions/thunk';
 
 const propTypes = {
   itemNumber: PropTypes.number.isRequired,

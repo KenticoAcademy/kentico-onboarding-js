@@ -3,7 +3,7 @@ import * as PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
   IListItemStaticCallbackProps,
-  ListItemStatic as ListItemStaticComponent
+  ListItemStatic as ListItemStaticComponent,
 } from '../components/ListItemStatic';
 import { Dispatch } from 'redux';
 import { IAction } from '../models/interfaces/IAction';

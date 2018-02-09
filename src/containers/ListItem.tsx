@@ -1,7 +1,10 @@
 import { ComponentClass } from 'react';
 import { connect } from 'react-redux';
 import * as PropTypes from 'prop-types';
-import { IListItemDataProps, ListItem as ListItemComponent } from '../components/ListItem';
+import {
+  IListItemDataProps,
+  ListItem as ListItemComponent,
+} from '../components/ListItem';
 import { IAppState } from '../models/interfaces/IAppState';
 import { Guid } from '../models/Guid';
 

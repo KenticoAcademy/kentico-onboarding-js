@@ -1,7 +1,11 @@
 import { IMessage } from '../../../models/interfaces/IMessage';
 import { IAction } from '../../../models/interfaces/IAction';
-import { CLEAR_MESSAGE, ERROR_MESSAGE, SUCCESS_MESSAGE } from '../../../constants/actionTypes';
 import { Message } from '../../../models/classes/Message';
+import {
+  CLEAR_MESSAGE,
+  ERROR_MESSAGE,
+  SUCCESS_MESSAGE,
+} from '../../../constants/actionTypes';
 
 const defaultState: IMessage = new Message();
 

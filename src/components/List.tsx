@@ -7,8 +7,11 @@ import { FetchItemsState } from '../models/enums/FetchItemsState';
 import * as PropTypes from 'prop-types';
 import { IAction } from '../models/interfaces/IAction';
 import { Loader } from './Loader';
+import {
+  AllMessageTypes,
+  MessageType,
+} from '../models/enums/MessageType';
 import { IMessage } from '../models/interfaces/IMessage';
-import { AllMessageTypes, MessageType } from '../models/enums/MessageType';
 import { Success } from './Success';
 import { Error } from './Error';
 
@@ -21,7 +24,8 @@ export interface IListCallbackProps {
   readonly fetchItems: (uri: string) => IAction;
 }
 
-interface IListProps extends  IListDataProps, IListCallbackProps {}
+interface IListProps extends IListDataProps, IListCallbackProps {
+}
 
 export class List extends React.PureComponent<IListProps> {
   static displayName = 'List';
@@ -40,7 +44,7 @@ export class List extends React.PureComponent<IListProps> {
   }
 
   render() {
-    const { message: { content, type } } = this.props;
+    const {message: {content, type}} = this.props;
 
     let messageComponent;
 

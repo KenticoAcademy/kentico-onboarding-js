@@ -2,7 +2,7 @@ import { ComponentClass } from 'react';
 import { connect } from 'react-redux';
 import {
   ITryAgainCallbackProps,
-  TryAgain as TryAgainComponent
+  TryAgain as TryAgainComponent,
 } from '../components/TryAgain';
 import { IAppState } from '../models/interfaces/IAppState';
 import { Dispatch } from 'redux';
