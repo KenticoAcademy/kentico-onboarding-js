@@ -3,6 +3,7 @@ import * as ReactDOM from 'react-dom';
 import {
   createStore,
   applyMiddleware,
+  compose,
 } from 'redux';
 import { Provider } from 'react-redux';
 import logger from 'redux-logger';
@@ -15,12 +16,16 @@ import './styles/index.css';
 
 import { App } from './components/App.tsx';
 
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
 const store = createStore(
   reducers,
   initialState,
-  applyMiddleware(
-    logger,
-    thunkMiddleware,
+  composeEnhancers(
+    applyMiddleware(
+      logger,
+      thunkMiddleware,
+    ),
   )
 );
 
