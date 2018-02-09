@@ -1,20 +1,14 @@
 import { IMessage } from '../interfaces/IMessage';
 import { MessageType } from '../enums/MessageType';
-import { Record } from 'immutable';
+import { TypedRecord } from './TypedRecord';
 
 const defaultMessage: IMessage = {
   type: MessageType.Empty,
   content: '',
 };
 
-export class Message extends Record(defaultMessage) implements IMessage {
+export class Message extends TypedRecord(defaultMessage) implements IMessage {
   readonly type: MessageType;
   readonly content: string;
-
-  constructor(params: Partial<IMessage> = defaultMessage) {
-    super(params);
-  }
-
-  with = (params: Partial<IMessage>): IMessage =>
-    super.merge(params) as this;
 }
+

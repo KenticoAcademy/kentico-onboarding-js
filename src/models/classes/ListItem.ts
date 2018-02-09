@@ -1,8 +1,7 @@
 import { IListItem } from '../interfaces/IListItem';
 import { defaultUuid } from '../../constants/defaultUuid';
-import { Record } from 'immutable';
+import { TypedRecord } from './TypedRecord';
 import { Guid } from '../Guid';
-
 
 const defaultItem: IListItem = {
   id: defaultUuid,
@@ -10,16 +9,8 @@ const defaultItem: IListItem = {
   isBeingEdited: false,
 };
 
-export class ListItem extends Record(defaultItem) implements IListItem {
+export class ListItem extends TypedRecord(defaultItem) implements IListItem {
   readonly id: Guid;
   readonly text: string;
   readonly isBeingEdited: boolean;
-
-  constructor(params: Partial<IListItem>) {
-    super(params);
-  }
-
-  with(params: Partial<IListItem>) {
-    return super.merge(params) as this;
-  }
 }
