@@ -10,7 +10,6 @@ import logger from 'redux-logger';
 import thunkMiddleware from 'redux-thunk';
 import 'es6-promise/auto';
 import { reducers } from './reducers/index.ts';
-import { initialState } from './constants/initialState.ts';
 import 'bootstrap/dist/css/bootstrap.css';
 import './styles/index.css';
 
@@ -20,7 +19,6 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const store = createStore(
   reducers,
-  initialState,
   composeEnhancers(
     applyMiddleware(
       logger,
