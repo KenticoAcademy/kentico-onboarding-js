@@ -9,6 +9,7 @@ import {
 import { IListItem } from '../../../src/models/interfaces/IListItem';
 import { ListItem } from '../../../src/models/classes/ListItem';
 import Mock = jest.Mock;
+import { IAction } from '../../../src/models/interfaces/IAction';
 
 const fetchReturnsOkResponseFactory = (body = {}) => jest
   .fn(() => Promise.resolve({
@@ -23,15 +24,15 @@ const fetchAlwaysFailFactory = (error: Error = new Error()) => jest
 const fakeFunction = jest.fn();
 const dispatchFactory = () => jest.fn();
 
-const handleErrors = jest.fn((res: any) => res);
+const handleErrors = jest.fn((res: Response) => res);
 
-const getFirstArgumentOfCalls = <T>(mockedObject: Mock<T>) =>
-  mockedObject
+const getFirstArgumentOfCalls = <T>(mockedFunction: Mock<T>) =>
+  mockedFunction
     .mock
     .calls
     .map(call => call[0]);
 
-const assertThatDispatchWasCalledWithActions = (dispatchableAction: (dispatch: any) => any, dispatch: any, expectedActions: any[]) =>
+const assertThatDispatchWasCalledWithActions = (dispatchableAction: (dispatch: Mock<{}>) => Promise<IAction | void>, dispatch: Mock<{}>, expectedActions: string[]) =>
   dispatchableAction(dispatch)
     .then(() => {
       const callArguments = getFirstArgumentOfCalls(dispatch);

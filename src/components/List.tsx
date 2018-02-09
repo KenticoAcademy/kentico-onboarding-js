@@ -8,7 +8,6 @@ import {
   FetchItemsState,
 } from '../models/enums/FetchItemsState';
 import * as PropTypes from 'prop-types';
-import { IAction } from '../models/interfaces/IAction';
 import { Loader } from './Loader';
 import {
   AllMessageTypes,
@@ -24,7 +23,7 @@ export interface IListDataProps {
 }
 
 export interface IListCallbackProps {
-  readonly fetchItems: (uri: string) => IAction;
+  readonly fetchItems: (uri: string) => Promise<void>;
 }
 
 interface IListProps extends IListDataProps, IListCallbackProps {

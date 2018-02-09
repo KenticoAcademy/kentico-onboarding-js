@@ -2,15 +2,16 @@ import { IAction } from '../../models/interfaces/IAction';
 import { IListItem } from '../../models/interfaces/IListItem';
 import { Dispatch } from 'redux';
 import { Guid } from '../../models/Guid';
+import { IFetch } from '../../models/interfaces/IFetch';
 
 export const fetchItemsFactory =
-  (fetch: any) =>
+  (fetch: IFetch) =>
   (requestItems: (uri: string) => IAction) =>
   (receiveItems: (items: IListItem[]) => IAction) =>
   (fetchFailed: (err: Error) => IAction) =>
   (notifyError: (message: string) => IAction) =>
   (registerAction: (action: () => void) => IAction) =>
-  (handleErrors: <T>(response: T) => T) =>
+  (handleErrors: (response: Response) => Response) =>
   (uri: string) =>
   (dispatch: Dispatch<IAction>) => {
     const action = () => {
@@ -18,7 +19,7 @@ export const fetchItemsFactory =
 
       return fetch(uri)
         .then(handleErrors)
-        .then((res: any) => res.json())
+        .then((res: Response) => res.json())
         .then((items: IListItem[]) => dispatch(receiveItems(items)))
         .catch((err: Error) => {
           dispatch(notifyError('Items failed to load.'));
@@ -32,12 +33,12 @@ export const fetchItemsFactory =
   };
 
 export const postItemFactory =
-  (fetch: any) =>
+  (fetch: IFetch) =>
   (addNewItem: (item: IListItem) => IAction) =>
   (notifySuccess: (message: string) => IAction) =>
   (notifyError: (message: string) => IAction) =>
   (registerAction: (action: () => void) => IAction) =>
-  (handleErrors: <T>(response: T) => T) =>
+  (handleErrors: (response: Response) => Response) =>
   (uri: string, text: string) =>
   (dispatch: Dispatch<IAction>) => {
     const newItem = {
@@ -56,7 +57,7 @@ export const postItemFactory =
       }
     )
       .then(handleErrors)
-      .then((res: any) => res.json())
+      .then((res: Response) => res.json())
       .then((returnedItem: IListItem) => {
         dispatch(notifySuccess('Item was created.'));
         dispatch(addNewItem(returnedItem));
@@ -69,12 +70,12 @@ export const postItemFactory =
   };
 
 export const deleteItemFactory =
-  (fetch: any) =>
+  (fetch: IFetch) =>
   (deleteItem: (id: Guid) => IAction) =>
   (notifySuccess: (message: string) => IAction) =>
   (notifyError: (message: string) => IAction) =>
   (registerAction: (action: () => void) => IAction) =>
-  (handleErrors: <T>(response: T) => T) =>
+  (handleErrors: (response: Response) => Response) =>
   (uri: string, id: Guid) =>
   (dispatch: Dispatch<IAction>) => {
     const action = () => fetch(
@@ -96,11 +97,11 @@ export const deleteItemFactory =
   };
 
 export const cancelItemFactory =
-  (fetch: any) =>
+  (fetch: IFetch) =>
   (cancelItemChanges: (id: Guid) => IAction) =>
   (notifyError: (message: string) => IAction) =>
   (registerAction: (action: () => void) => IAction) =>
-  (handleErrors: <T>(response: T) => T) =>
+  (handleErrors: (response: Response) => Response) =>
   (uri: string, item: IListItem) =>
   (dispatch: Dispatch<IAction>) => {
     const { id } = item;
@@ -129,11 +130,11 @@ export const cancelItemFactory =
   };
 
 export const openItemFactory =
-  (fetch: any) =>
+  (fetch: IFetch) =>
   (openItemForEditing: (id: Guid) => IAction) =>
   (notifyError: (message: string) => IAction) =>
   (registerAction: (action: () => void) => IAction) =>
-  (handleErrors: <T>(response: T) => T) =>
+  (handleErrors: (response: Response) => Response) =>
   (uri: string, item: IListItem) =>
   (dispatch: Dispatch<IAction>) => {
     const { id } = item;
@@ -162,12 +163,12 @@ export const openItemFactory =
   };
 
 export const saveNewTextFactory =
-  (fetch: any) =>
+  (fetch: IFetch) =>
   (saveItemChanges: (id: Guid, text: string) => IAction) =>
   (notifySuccess: (message: string) => IAction) =>
   (notifyError: (message: string) => IAction) =>
   (registerAction: (action: () => void) => IAction) =>
-  (handleErrors: <T>(response: T) => T) =>
+  (handleErrors: (response: Response) => Response) =>
   (uri: string, item: IListItem, text: string) =>
   (dispatch: Dispatch<IAction>) => {
     const { id } = item;

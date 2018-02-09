@@ -20,7 +20,7 @@ import {
   saveItemChanges,
 } from '../actionCreators';
 
-const handleErrors = (response: any) => {
+const handleErrors = (response: Response): Response => {
   if (!response.ok) {
     throw Error(response.statusText);
   }
