@@ -6,9 +6,9 @@ import {
   ListItemStatic as ListItemStaticComponent,
 } from '../components/ListItemStatic';
 import { Dispatch } from 'redux';
-import { changeItemOpenStateAsync } from '../actions/thunk';
 import { IListItem } from '../models/interfaces/IListItem';
-import { IAppState } from '../models/interfaces/IAppState';
+import { changeItemOpenState } from '../actions';
+import { IAction } from '../models/interfaces/IAction';
 
 const propTypes = {
   itemNumber: PropTypes.number.isRequired,
@@ -30,13 +30,10 @@ interface IListItemStaticContainerCallbackProps {
 
 interface IListItemStaticContainerProps extends IListItemStaticContainerCallbackProps, IListItemStaticContainerDataProps {}
 
-const mapDispatchToProps = (dispatch: Dispatch<IAppState>, ownProps: IListItemStaticContainerProps): IListItemStaticCallbackProps => ({
-  onItemOpened: (uri: string) =>
+const mapDispatchToProps = (dispatch: Dispatch<IAction>, ownProps: IListItemStaticContainerProps): IListItemStaticCallbackProps => ({
+  onItemOpened: () =>
     dispatch(
-      changeItemOpenStateAsync(
-        uri,
-        ownProps.item,
-      )),
+      changeItemOpenState(ownProps.item.id)),
 });
 
 const ListItemStatic: ComponentClass<IListItemStaticContainerProps> = connect(

@@ -1,6 +1,5 @@
 import {
   addNewItem,
-  changeItemOpenState,
   deleteItem,
   fetchFailed,
   notifyError,
@@ -14,7 +13,6 @@ import { fetchItemsFactory } from './fetchItemsFactory';
 import { postItemFactory } from './postItemFactory';
 import { deleteItemFactory } from './deleteItemFactory';
 import { saveNewTextFactory } from './saveNewTextFactory';
-import { changeItemOpenStateFactory } from './changeItemOpenStateFactory';
 import { handleErrors } from './utils/handleErrors';
 import { IThunkAction } from '../../models/interfaces/IThunkAction';
 
@@ -41,12 +39,6 @@ export const deleteItemAsync: IThunkAction = deleteItemFactory({
   ...configurationObjectBase,
   deleteItem,
   notifySuccess,
-  notifyError,
-});
-
-export const changeItemOpenStateAsync: IThunkAction = changeItemOpenStateFactory({
-  ...configurationObjectBase,
-  changeItemOpenState,
   notifyError,
 });
 

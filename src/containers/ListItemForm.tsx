@@ -7,12 +7,12 @@ import {
 } from '../components/ListItemForm';
 import { Dispatch } from 'redux';
 import {
-  changeItemOpenStateAsync,
   deleteItemAsync,
   saveNewTextAsync,
 } from '../actions/thunk';
 import { IListItem } from '../models/interfaces/IListItem';
 import { IAppState } from '../models/interfaces/IAppState';
+import { changeItemOpenState } from '../actions';
 
 const propTypes = {
   itemNumber: PropTypes.number.isRequired,
@@ -26,8 +26,7 @@ const propTypes = {
 
 interface IListItemFormContainerDataProps {
   readonly itemNumber: number;
-  readonly item: IListItem
-  ;
+  readonly item: IListItem;
   readonly selectionRangeStarts: number;
   readonly selectionRangeEnds: number;
 }
@@ -46,12 +45,9 @@ const mapDispatchToProps = (dispatch: Dispatch<IAppState>, ownProps: IListItemFo
         uri,
         ownProps.item.id,
       )),
-  onCancel: (uri: string) =>
+  onCancel: () =>
     dispatch(
-      changeItemOpenStateAsync(
-        uri,
-        ownProps.item,
-      )),
+      changeItemOpenState(ownProps.item.id)),
 });
 
 const ListItemForm: ComponentClass<IListItemFormContainerDataProps> = connect(

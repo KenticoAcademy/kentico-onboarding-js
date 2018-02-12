@@ -7,7 +7,7 @@ import { IListItem } from '../models/interfaces/IListItem';
 
 export interface IListItemFormCallbackProps {
   readonly onSave: (uri: string, text: string) => void;
-  readonly onCancel: (uri: string) => void;
+  readonly onCancel: () => void;
   readonly onDelete: (uri: string) => void;
 }
 
@@ -71,10 +71,6 @@ export class ListItemForm extends React.PureComponent<IListItemFormProps, IOpene
     this.props.onDelete('/api/v1/listItems/');
   };
 
-  _onCancel = (): void => {
-    this.props.onCancel('/api/v1/listItems/');
-  };
-
   _onEnterPress = (): void => {
     const { text } = this.state;
 
@@ -91,9 +87,11 @@ export class ListItemForm extends React.PureComponent<IListItemFormProps, IOpene
     const { text } = this.state;
     const enableSaveButton = !isTextEmpty(text);
 
+    const { onCancel } = this.props;
+
     const handlers = {
       [keyActions.OnEnter]: this._onEnterPress,
-      [keyActions.OnEsc]: this._onCancel,
+      [keyActions.OnEsc]: onCancel,
     };
 
     return (
@@ -126,7 +124,7 @@ export class ListItemForm extends React.PureComponent<IListItemFormProps, IOpene
 
           <button
             className="btn btn-secondary ml-2"
-            onClick={this._onCancel}
+            onClick={onCancel}
             title="Drops unsaved changes"
           >
             Cancel

@@ -3,7 +3,7 @@ import * as PropTypes from 'prop-types';
 import { IListItem } from '../models/interfaces/IListItem';
 
 export interface IListItemStaticCallbackProps {
-  readonly onItemOpened: (uri: string) => void;
+  readonly onItemOpened: () => void;
 }
 
 interface IListItemStaticProps extends IListItemStaticCallbackProps {
@@ -33,7 +33,7 @@ export class ListItemStatic extends React.PureComponent<IListItemStaticProps> {
     const {onTextSelection, onItemOpened } = this.props;
 
     onTextSelection(startOffset, endOffset);
-    onItemOpened('/api/v1/listItems/');
+    onItemOpened();
   };
 
   render() {
