@@ -40,9 +40,10 @@ export const changeItemOpenStateFactory =
         )
           .then(handleErrors)
           .then(() => dispatch(changeItemOpenState(id, !isBeingEdited)))
-          .catch(() => dispatch(notifyError('Item failed to change open state.')));
-
-        dispatch(registerAction(action));
+          .catch(() => {
+            dispatch(registerAction(action));
+            dispatch(notifyError('Item failed to change open state.'));
+          });
 
         return action();
       };

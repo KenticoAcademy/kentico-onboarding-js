@@ -42,9 +42,10 @@ export const postItemFactory =
             dispatch(notifySuccess('Item was created.'));
             dispatch(addNewItem(returnedItem));
           })
-          .catch(() => dispatch(notifyError('Item failed to create.')));
-
-        dispatch(registerAction(action));
+          .catch(() => {
+            dispatch(registerAction(action));
+            dispatch(notifyError('Item failed to create.'));
+          });
 
         return action();
       };

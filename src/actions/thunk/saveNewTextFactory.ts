@@ -44,9 +44,10 @@ export const saveNewTextFactory =
             dispatch(notifySuccess('Item text was updated.'));
             dispatch(saveItemChanges(item.id, text));
           })
-          .catch(() => dispatch(notifyError('Item failed to update.')));
-
-        dispatch(registerAction(action));
+          .catch(() => {
+            dispatch(registerAction(action));
+            dispatch(notifyError('Item failed to update.'));
+          });
 
         return action();
       };

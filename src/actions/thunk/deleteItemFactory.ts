@@ -32,9 +32,10 @@ export const deleteItemFactory =
             dispatch(notifySuccess('Item was deleted.'));
             dispatch(deleteItem(id));
           })
-          .catch(() => dispatch(notifyError('Item failed to delete.')));
-
-        dispatch(registerAction(action));
+          .catch(() => {
+            dispatch(registerAction(action));
+            dispatch(notifyError('Item failed to delete.'));
+          });
 
         return action();
       };

@@ -28,10 +28,11 @@ export const fetchItemsFactory =
             .then(handleErrors)
             .then((res: Response) => res.json())
             .then((items: IListItem[]) => dispatch(receiveItems(items)))
-            .catch(() => dispatch(fetchFailed('Items failed to load.')));
+            .catch(() => {
+              dispatch(registerAction(action));
+              dispatch(fetchFailed('Items failed to load.'));
+            });
         };
-
-        dispatch(registerAction(action));
 
         return action();
       };

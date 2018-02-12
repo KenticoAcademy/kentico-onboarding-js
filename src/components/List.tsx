@@ -16,7 +16,6 @@ import {
 import { IMessage } from '../models/interfaces/IMessage';
 import { Success } from './Success';
 import { Error } from './Error';
-import { IAction } from '../models/interfaces/IAction';
 
 export interface IListDataProps {
   readonly fetchItemsState: FetchItemsState;
@@ -24,7 +23,7 @@ export interface IListDataProps {
 }
 
 export interface IListCallbackProps {
-  readonly fetchItems: (uri: string) => Promise<IAction>;
+  readonly fetchItems: (uri: string) => Promise<void>;
 }
 
 interface IListProps extends IListDataProps, IListCallbackProps {
