@@ -30,20 +30,20 @@ const configurationObjectBase = {
   handleErrors,
 };
 
-export const fetchItems = fetchItemsFactory({
+export const fetchItemsAsync = fetchItemsFactory({
   ...configurationObjectBase,
   requestItems,
   receiveItems,
   fetchFailed,
 });
-export const postItem = postItemFactory({
+export const postItemAsync = postItemFactory({
   ...configurationObjectBase,
   addNewItem,
   notifySuccess,
   notifyError,
 });
 
-export const deleteItemFromServer = deleteItemFactory({
+export const deleteItemAsync = deleteItemFactory({
   ...configurationObjectBase,
   deleteItem,
   notifySuccess,
@@ -56,7 +56,7 @@ export const changeItemOpenStateAsync = changeItemOpenStateFactory({
   notifyError,
 });
 
-export const saveNewText = saveNewTextFactory({
+export const saveNewTextAsync = saveNewTextFactory({
   ...configurationObjectBase,
   saveItemChanges,
   notifySuccess,

@@ -9,8 +9,8 @@ import { Dispatch } from 'redux';
 import { IAction } from '../models/interfaces/IAction';
 import {
   changeItemOpenStateAsync,
-  deleteItemFromServer,
-  saveNewText,
+  deleteItemAsync,
+  saveNewTextAsync,
 } from '../actions/thunk';
 import { IListItem } from '../models/interfaces/IListItem';
 
@@ -33,12 +33,12 @@ interface IListItemFormContainerDataProps {
 }
 
 const mapDispatchToProps = (dispatch: Dispatch<IAction>, ownProps: IListItemFormContainerDataProps): IListItemFormCallbackProps => ({
-  onSave: (uri: string, newText: string) => saveNewText(
+  onSave: (uri: string, newText: string) => saveNewTextAsync(
     uri,
     ownProps.item,
     newText,
   )(dispatch),
-  onDelete: (uri: string) => deleteItemFromServer(
+  onDelete: (uri: string) => deleteItemAsync(
     uri,
     ownProps.item.id,
   )(dispatch),

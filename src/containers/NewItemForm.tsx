@@ -6,11 +6,11 @@ import {
 } from '../components/NewItemForm';
 import { Dispatch } from 'redux';
 import { IAction } from '../models/interfaces/IAction';
-import { postItem } from '../actions/thunk';
+import { postItemAsync } from '../actions/thunk';
 
 const mapDispatchToProps = (dispatch: Dispatch<IAction>): INewItemFormCallbackProps => ({
   onSubmit: (uri: string, text: string) =>
-    postItem(
+    postItemAsync(
       uri,
       text,
     )(dispatch),
