@@ -89,12 +89,11 @@ export class ListItemForm extends React.PureComponent<IListItemFormProps, IOpene
 
   render() {
     const { text } = this.state;
-    const { itemNumber, onCancel } = this.props;
     const enableSaveButton = !isTextEmpty(text);
 
     const handlers = {
       [keyActions.OnEnter]: this._onEnterPress,
-      [keyActions.OnEsc]: onCancel,
+      [keyActions.OnEsc]: this._onCancel,
     };
 
     return (
@@ -103,7 +102,7 @@ export class ListItemForm extends React.PureComponent<IListItemFormProps, IOpene
         handlers={handlers}
       >
         <label className="col-form-label pl-3">
-          {`${itemNumber}. `}
+          {`${this.props.itemNumber}. `}
         </label>
         <div className="input-group col">
           <input
