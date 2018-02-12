@@ -4,20 +4,15 @@ import { Dispatch } from 'redux';
 import { IAction } from '../../models/interfaces/IAction';
 import { IFetch } from '../../models/interfaces/IFetch';
 
-export const changeItemOpenStateFactory =
-  ({
-     fetch,
-     changeItemOpenState,
-     notifyError,
-     registerAction,
-     handleErrors,
-   }: {
-    fetch: IFetch,
-    changeItemOpenState: (id: Guid, isBeingEdited: boolean) => IAction,
-    notifyError: (message: string) => IAction,
-    registerAction: (action: () => void) => IAction,
-    handleErrors: (response: Response) => Response,
-  }) =>
+interface IItemOpenStateFactoryDependencies {
+  readonly fetch: IFetch;
+  readonly changeItemOpenState: (id: Guid, isBeingEdited: boolean) => IAction;
+  readonly notifyError: (message: string) => IAction;
+  readonly registerAction: (action: () => void) => IAction;
+  readonly handleErrors: (response: Response) => Response;
+}
+
+export const changeItemOpenStateFactory = (deps: IItemOpenStateFactoryDependencies) =>
     (uri: string,
      item: IListItem) =>
       (dispatch: Dispatch<IAction>) => {
@@ -38,11 +33,11 @@ export const changeItemOpenStateFactory =
             body: JSON.stringify(updatedItem),
           },
         )
-          .then(handleErrors)
-          .then(() => dispatch(changeItemOpenState(id, !isBeingEdited)))
+          .then(deps.handleErrors)
+          .then(() => dispatch(deps.changeItemOpenState(id, !isBeingEdited)))
           .catch(() => {
-            dispatch(registerAction(action));
-            return dispatch(notifyError('Item failed to change open state.'));
+            dispatch(deps.registerAction(action));
+            return dispatch(deps.notifyError('Item failed to change open state.'));
           });
 
         return action();

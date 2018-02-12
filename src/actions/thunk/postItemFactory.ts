@@ -3,22 +3,16 @@ import { Dispatch } from 'redux';
 import { IAction } from '../../models/interfaces/IAction';
 import { IFetch } from '../../models/interfaces/IFetch';
 
-export const postItemFactory =
-  ({
-     fetch,
-     addNewItem,
-     notifySuccess,
-     notifyError,
-     registerAction,
-     handleErrors,
-   }: {
-    fetch: IFetch,
-    addNewItem: (item: IListItem) => IAction,
-    notifySuccess: (message: string) => IAction,
-    notifyError: (message: string) => IAction,
-    registerAction: (action: () => void) => IAction,
-    handleErrors: (response: Response) => Response,
-  }) =>
+interface IPostItemFactoryDependencies {
+  readonly fetch: IFetch;
+  readonly addNewItem: (item: IListItem) => IAction;
+  readonly notifySuccess: (message: string) => IAction;
+  readonly notifyError: (message: string) => IAction;
+  readonly registerAction: (action: () => void) => IAction;
+  readonly handleErrors: (response: Response) => Response;
+}
+
+export const postItemFactory = (deps: IPostItemFactoryDependencies) =>
     (uri: string, text: string) =>
       (dispatch: Dispatch<IAction>) => {
         const newItem = {
@@ -36,15 +30,15 @@ export const postItemFactory =
             body: JSON.stringify(newItem),
           }
         )
-          .then(handleErrors)
+          .then(deps.handleErrors)
           .then((res: Response) => res.json())
           .then((returnedItem: IListItem) => {
-            dispatch(notifySuccess('Item was created.'));
-            return dispatch(addNewItem(returnedItem));
+            dispatch(deps.notifySuccess('Item was created.'));
+            return dispatch(deps.addNewItem(returnedItem));
           })
           .catch(() => {
-            dispatch(registerAction(action));
-            return dispatch(notifyError('Item failed to create.'));
+            dispatch(deps.registerAction(action));
+            return dispatch(deps.notifyError('Item failed to create.'));
           });
 
         return action();

@@ -4,22 +4,16 @@ import { Dispatch } from 'redux';
 import { IAction } from '../../models/interfaces/IAction';
 import { IFetch } from '../../models/interfaces/IFetch';
 
-export const saveNewTextFactory =
-  ({
-     fetch,
-     saveItemChanges,
-     notifySuccess,
-     notifyError,
-     registerAction,
-     handleErrors,
-   }: {
-    fetch: IFetch,
-    saveItemChanges: (id: Guid, text: string) => IAction,
-    notifySuccess: (message: string) => IAction,
-    notifyError: (message: string) => IAction,
-    registerAction: (action: () => void) => IAction,
-    handleErrors: (response: Response) => Response,
-  }) =>
+interface ISaveNewTextFactoryDependencies {
+  readonly fetch: IFetch;
+  readonly saveItemChanges: (id: Guid, text: string) => IAction;
+  readonly notifySuccess: (message: string) => IAction;
+  readonly notifyError: (message: string) => IAction;
+  readonly registerAction: (action: () => void) => IAction;
+  readonly handleErrors: (response: Response) => Response;
+}
+
+export const saveNewTextFactory = (deps: ISaveNewTextFactoryDependencies) =>
     (uri: string, item: IListItem, text: string) =>
       (dispatch: Dispatch<IAction>) => {
         const { id } = item;
@@ -39,14 +33,14 @@ export const saveNewTextFactory =
             body: JSON.stringify(updatedItem),
           },
         )
-          .then(handleErrors)
+          .then(deps.handleErrors)
           .then(() => {
-            dispatch(notifySuccess('Item text was updated.'));
-            return dispatch(saveItemChanges(item.id, text));
+            dispatch(deps.notifySuccess('Item text was updated.'));
+            return dispatch(deps.saveItemChanges(item.id, text));
           })
           .catch(() => {
-            dispatch(registerAction(action));
-            return dispatch(notifyError('Item failed to update.'));
+            dispatch(deps.registerAction(action));
+            return dispatch(deps.notifyError('Item failed to update.'));
           });
 
         return action();
