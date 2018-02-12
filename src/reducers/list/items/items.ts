@@ -6,9 +6,7 @@ import { IAction } from '../../../models/interfaces/IAction';
 import { Guid } from '../../../models/Guid';
 import { listItemsArrayToOrderedMap } from '../../../utils/listItemsArrayToOrderedMap';
 
-const addNewItem = (state: IItemsState, action: IAction): IItemsState => {
-  const { itemId: id, text } = action.payload;
-
+const addNewItem = (state: IItemsState, { payload: { itemId: id, text } }: IAction): IItemsState => {
   const newItem = new ListItem({
     id,
     text,
@@ -17,39 +15,27 @@ const addNewItem = (state: IItemsState, action: IAction): IItemsState => {
   return state.set(id, newItem);
 };
 
-const deleteItem = (state: IItemsState, action: IAction): IItemsState => {
-  const { itemId } = action.payload;
+const deleteItem = (state: IItemsState, { payload: { itemId } }: IAction): IItemsState =>
+  state.delete(itemId);
 
-  return state.delete(itemId);
-};
-
-const saveItemChanges = (state: IItemsState, action: IAction): IItemsState => {
-  const { itemId, newText } = action.payload;
-
-  return state.update(itemId, item =>
+const saveItemChanges = (state: IItemsState, { payload: { itemId, newText: text } }: IAction): IItemsState =>
+  state.update(itemId, item =>
     item.with({
-      text: newText,
+      text,
       isBeingEdited: false,
     }));
-};
 
-const openItemForEditing = (state: IItemsState, action: IAction): IItemsState => {
-  const { itemId } = action.payload;
-
-  return state.update(itemId, item =>
+const openItemForEditing = (state: IItemsState, { payload: { itemId } }: IAction): IItemsState =>
+  state.update(itemId, item =>
     item.with({
       isBeingEdited: true,
     }));
-};
 
-const cancelItemChanges = (state: IItemsState, action: IAction): IItemsState => {
-  const { itemId } = action.payload;
-
-  return state.update(itemId, item =>
+const cancelItemChanges = (state: IItemsState, { payload: { itemId } }: IAction): IItemsState =>
+  state.update(itemId, item =>
     item.with({
       isBeingEdited: false,
     }));
-};
 
 const fetchItems = (action: IAction): IItemsState =>
   listItemsArrayToOrderedMap(action.payload.items);
