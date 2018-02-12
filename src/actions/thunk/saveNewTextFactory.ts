@@ -42,11 +42,11 @@ export const saveNewTextFactory =
           .then(handleErrors)
           .then(() => {
             dispatch(notifySuccess('Item text was updated.'));
-            dispatch(saveItemChanges(item.id, text));
+            return dispatch(saveItemChanges(item.id, text));
           })
           .catch(() => {
             dispatch(registerAction(action));
-            dispatch(notifyError('Item failed to update.'));
+            return dispatch(notifyError('Item failed to update.'));
           });
 
         return action();

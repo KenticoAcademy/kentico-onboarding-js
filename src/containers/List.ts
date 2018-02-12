@@ -5,7 +5,6 @@ import {
   List as ListComponent,
 } from '../components/List';
 import { IAppState } from '../models/interfaces/IAppState';
-import { IAction } from '../models/interfaces/IAction';
 import { Dispatch } from 'redux';
 import { fetchItemsAsync } from '../actions/thunk';
 
@@ -14,9 +13,10 @@ const mapStateToProps = (state: IAppState): IListDataProps => ({
   message: state.list.message,
 });
 
-const mapDispatchToProps = (dispatch: Dispatch<IAction>) => ({
+const mapDispatchToProps = (dispatch: Dispatch<IAppState>) => ({
   fetchItems: (uri: string) =>
-    fetchItemsAsync(uri)(dispatch)
+    dispatch(
+      fetchItemsAsync(uri)),
 });
 
 export const List: ComponentClass = connect(

@@ -6,13 +6,13 @@ import {
   ListItemForm as ListItemFormComponent,
 } from '../components/ListItemForm';
 import { Dispatch } from 'redux';
-import { IAction } from '../models/interfaces/IAction';
 import {
   changeItemOpenStateAsync,
   deleteItemAsync,
   saveNewTextAsync,
 } from '../actions/thunk';
 import { IListItem } from '../models/interfaces/IListItem';
+import { IAppState } from '../models/interfaces/IAppState';
 
 const propTypes = {
   itemNumber: PropTypes.number.isRequired,
@@ -32,20 +32,26 @@ interface IListItemFormContainerDataProps {
   readonly selectionRangeEnds: number;
 }
 
-const mapDispatchToProps = (dispatch: Dispatch<IAction>, ownProps: IListItemFormContainerDataProps): IListItemFormCallbackProps => ({
-  onSave: (uri: string, newText: string) => saveNewTextAsync(
-    uri,
-    ownProps.item,
-    newText,
-  )(dispatch),
-  onDelete: (uri: string) => deleteItemAsync(
-    uri,
-    ownProps.item.id,
-  )(dispatch),
-  onCancel: (uri: string) => changeItemOpenStateAsync(
-    uri,
-    ownProps.item,
-  )(dispatch),
+const mapDispatchToProps = (dispatch: Dispatch<IAppState>, ownProps: IListItemFormContainerDataProps): IListItemFormCallbackProps => ({
+  onSave: (uri: string, newText: string) =>
+    dispatch(
+      saveNewTextAsync(
+        uri,
+        ownProps.item,
+        newText,
+      )),
+  onDelete: (uri: string) =>
+    dispatch(
+      deleteItemAsync(
+        uri,
+        ownProps.item.id,
+      )),
+  onCancel: (uri: string) =>
+    dispatch(
+      changeItemOpenStateAsync(
+        uri,
+        ownProps.item,
+      )),
 });
 
 const ListItemForm: ComponentClass<IListItemFormContainerDataProps> = connect(

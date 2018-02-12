@@ -5,15 +5,16 @@ import {
   NewItemForm as NewItemFormComponent,
 } from '../components/NewItemForm';
 import { Dispatch } from 'redux';
-import { IAction } from '../models/interfaces/IAction';
 import { postItemAsync } from '../actions/thunk';
+import { IAppState } from '../models/interfaces/IAppState';
 
-const mapDispatchToProps = (dispatch: Dispatch<IAction>): INewItemFormCallbackProps => ({
+const mapDispatchToProps = (dispatch: Dispatch<IAppState>): INewItemFormCallbackProps => ({
   onSubmit: (uri: string, text: string) =>
-    postItemAsync(
-      uri,
-      text,
-    )(dispatch),
+    dispatch(
+      postItemAsync(
+        uri,
+        text,
+      )),
 });
 
 export const NewItemForm: ComponentClass = connect(

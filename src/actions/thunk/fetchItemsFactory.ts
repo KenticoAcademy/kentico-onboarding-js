@@ -30,7 +30,7 @@ export const fetchItemsFactory =
             .then((items: IListItem[]) => dispatch(receiveItems(items)))
             .catch(() => {
               dispatch(registerAction(action));
-              dispatch(fetchFailed('Items failed to load.'));
+              return dispatch(fetchFailed('Items failed to load.'));
             });
         };
 

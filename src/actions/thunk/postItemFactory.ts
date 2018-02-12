@@ -40,11 +40,11 @@ export const postItemFactory =
           .then((res: Response) => res.json())
           .then((returnedItem: IListItem) => {
             dispatch(notifySuccess('Item was created.'));
-            dispatch(addNewItem(returnedItem));
+            return dispatch(addNewItem(returnedItem));
           })
           .catch(() => {
             dispatch(registerAction(action));
-            dispatch(notifyError('Item failed to create.'));
+            return dispatch(notifyError('Item failed to create.'));
           });
 
         return action();
