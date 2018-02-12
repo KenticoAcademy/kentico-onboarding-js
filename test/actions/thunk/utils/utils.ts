@@ -23,9 +23,8 @@ const getFirstArgumentOfCalls = <T>(mockedFunction: Mock<T>) =>
     .map(call => call[0]);
 
 export const configurationObjectBase = {
-  notifyError: fakeFunction,
   handleErrors: fakeFunction,
-  registerAction: fakeFunction
+  registerAction: fakeFunction,
 };
 
 export const assertThatDispatchWasCalledWithActions = (dispatchableAction: (dispatch: Mock<{}>) => Promise<IAction | void>, dispatch: Mock<{}>, expectedActions: string[]) =>

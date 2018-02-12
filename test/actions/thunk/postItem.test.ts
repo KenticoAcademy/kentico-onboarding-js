@@ -26,7 +26,8 @@ describe('postItem will call dispatch with', () => {
       ...configurationObjectBase,
       fetch,
       notifySuccess,
-      addNewItem
+      addNewItem,
+      notifyError: fakeFunction,
     });
     const dispatch = dispatchFactory();
 

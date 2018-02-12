@@ -9,15 +9,13 @@ export const fetchItemsFactory =
      requestItems,
      receiveItems,
      fetchFailed,
-     notifyError,
      registerAction,
      handleErrors,
    }: {
     fetch: IFetch,
     requestItems: (uri: string) => IAction,
     receiveItems: (items: IListItem[]) => IAction,
-    fetchFailed: (err: Error) => IAction,
-    notifyError: (message: string) => IAction,
+    fetchFailed: (message: string) => IAction,
     registerAction: (action: () => void) => IAction,
     handleErrors: (response: Response) => Response,
   }) =>
@@ -30,10 +28,7 @@ export const fetchItemsFactory =
             .then(handleErrors)
             .then((res: Response) => res.json())
             .then((items: IListItem[]) => dispatch(receiveItems(items)))
-            .catch((err: Error) => {
-              dispatch(notifyError('Items failed to load.'));
-              dispatch(fetchFailed(err));
-            });
+            .catch(() => dispatch(fetchFailed('Items failed to load.')));
         };
 
         dispatch(registerAction(action));

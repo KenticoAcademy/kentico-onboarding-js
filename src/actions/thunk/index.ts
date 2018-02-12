@@ -28,7 +28,6 @@ const handleErrors = (response: Response): Response => {
 
 const configurationObjectBase = {
   fetch,
-  notifyError,
   registerAction,
   handleErrors,
 };
@@ -43,25 +42,30 @@ export const postItem = postItemFactory({
   ...configurationObjectBase,
   addNewItem,
   notifySuccess,
+  notifyError,
 });
 
 export const deleteItemFromServer = deleteItemFactory({
   ...configurationObjectBase,
   deleteItem,
   notifySuccess,
+  notifyError,
 });
 
 export const cancelItem = cancelItemFactory({
   ...configurationObjectBase,
   cancelItemChanges,
+  notifyError,
 });
 export const openItem = openItemFactory({
   ...configurationObjectBase,
   openItemForEditing,
+  notifyError,
 });
 
 export const saveNewText = saveNewTextFactory({
   ...configurationObjectBase,
   saveItemChanges,
   notifySuccess,
+  notifyError,
 });

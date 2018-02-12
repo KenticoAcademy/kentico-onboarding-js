@@ -22,6 +22,7 @@ describe('cancelItem will call dispatch with', () => {
         ...configurationObjectBase,
       fetch,
       cancelItemChanges,
+      notifyError: fakeFunction,
     });
     const dispatch = dispatchFactory();
 

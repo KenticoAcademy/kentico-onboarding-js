@@ -4,6 +4,7 @@ import { Message } from '../../../models/classes/Message';
 import {
   CLEAR_MESSAGE,
   ERROR_MESSAGE,
+  FETCH_ITEMS_FAIL,
   SUCCESS_MESSAGE,
 } from '../../../constants/actionTypes';
 
@@ -14,6 +15,7 @@ export const message = (state = defaultState, action: IAction): IMessage => {
     case ERROR_MESSAGE:
     case SUCCESS_MESSAGE:
     case CLEAR_MESSAGE:
+    case FETCH_ITEMS_FAIL:
       return action.payload.message;
 
     default:

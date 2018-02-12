@@ -40,19 +40,16 @@ describe('fetchItems will call dispatch with', () => {
   it('request items, notify error and fetch failed actions', () => {
     const expectedActions = [
       'requestItems',
-      'notifyError',
       'fetchFailed',
     ];
     const uri = '';
     const fetch = fetchAlwaysFailFactory();
     const requestItems = jest.fn(() => expectedActions[0]);
-    const notifyError = jest.fn(() => expectedActions[1]);
-    const fetchFailed = jest.fn(() => expectedActions[2]);
+    const fetchFailed = jest.fn(() => expectedActions[1]);
     const fetchItems = fetchItemsFactory({
       ...configurationObjectBase,
       fetch,
       requestItems,
-      notifyError,
       fetchFailed,
       receiveItems: fakeFunction,
     });

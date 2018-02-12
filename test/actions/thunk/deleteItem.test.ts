@@ -23,6 +23,7 @@ describe('deleteItem will call dispatch with', () => {
       fetch,
       notifySuccess,
       deleteItem: deleteItemAction,
+      notifyError: fakeFunction,
     });
     const dispatch = dispatchFactory();
 

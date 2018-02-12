@@ -26,6 +26,7 @@ describe('saveNewText will call dispatch with', () => {
       fetch,
       notifySuccess,
       saveItemChanges,
+      notifyError: fakeFunction,
     });
     const dispatch = dispatchFactory();
 

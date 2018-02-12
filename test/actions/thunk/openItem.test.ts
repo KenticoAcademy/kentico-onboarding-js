@@ -22,6 +22,7 @@ describe('openItem will call dispatch with', () => {
       ...configurationObjectBase,
       fetch,
       openItemForEditing,
+      notifyError: fakeFunction,
     });
     const dispatch = dispatchFactory();
 

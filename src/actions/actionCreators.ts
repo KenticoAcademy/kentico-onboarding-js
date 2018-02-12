@@ -5,6 +5,7 @@ import { IListItem } from '../models/interfaces/IListItem';
 import { MessageType } from '../models/enums/MessageType';
 import { Message } from '../models/classes/Message';
 import { INewItem } from '../models/interfaces/INewItem';
+import { FETCH_ITEMS_FAIL } from '../constants/actionTypes';
 
 export const addNewItem = ({ id: itemId, text }: INewItem): IAction => ({
   type: ActionTypes.ITEM_CREATED,
@@ -57,13 +58,6 @@ export const receiveItems = (items: IListItem[]): IAction => ({
   }
 });
 
-export const fetchFailed = (error: Error): IAction => ({
-  type: ActionTypes.FETCH_ITEMS_FAIL,
-  payload: {
-    error,
-  },
-});
-
 export const notifyError = (message: string): IAction => ({
   type: ActionTypes.ERROR_MESSAGE,
   payload: {
@@ -72,6 +66,11 @@ export const notifyError = (message: string): IAction => ({
       type: MessageType.Error,
     }),
   },
+});
+
+export const fetchFailed = (message: string): IAction => ({
+  ...notifyError(message),
+  type: FETCH_ITEMS_FAIL,
 });
 
 export const notifySuccess = (message: string): IAction => ({
