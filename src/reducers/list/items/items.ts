@@ -25,16 +25,10 @@ const saveItemChanges = (state: IItemsState, { payload: { itemId, newText: text 
       isBeingEdited: false,
     }));
 
-const openItemForEditing = (state: IItemsState, { payload: { itemId } }: IAction): IItemsState =>
+const changeItemOpenState = (state: IItemsState, { payload: { itemId } }: IAction): IItemsState =>
   state.update(itemId, item =>
     item.with({
-      isBeingEdited: true,
-    }));
-
-const cancelItemChanges = (state: IItemsState, { payload: { itemId } }: IAction): IItemsState =>
-  state.update(itemId, item =>
-    item.with({
-      isBeingEdited: false,
+      isBeingEdited: !item.isBeingEdited,
     }));
 
 const fetchItems = (action: IAction): IItemsState =>
@@ -52,10 +46,8 @@ export const items = (state = initialState, action: IAction): IItemsState => {
       return deleteItem(state, action);
     case ActionTypes.ITEM_CHANGES_SAVED:
       return saveItemChanges(state, action);
-    case ActionTypes.ITEM_OPENED_FOR_EDITING:
-      return openItemForEditing(state, action);
-    case ActionTypes.ITEM_CHANGES_CANCELED:
-      return cancelItemChanges(state, action);
+    case ActionTypes.ITEM_OPEN_STATE_CHANGED:
+      return changeItemOpenState(state, action);
     case ActionTypes.FETCH_ITEMS_SUCCESS:
       return fetchItems(action);
     default:

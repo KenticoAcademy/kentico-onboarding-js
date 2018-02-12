@@ -1,11 +1,10 @@
 import {
   addNewItem,
-  cancelItemChanges,
+  changeItemOpenState,
   deleteItem,
   fetchFailed,
   notifyError,
   notifySuccess,
-  openItemForEditing,
   receiveItems,
   registerAction,
   requestItems,
@@ -14,9 +13,8 @@ import {
 import { fetchItemsFactory } from './fetchItemsFactory';
 import { postItemFactory } from './postItemFactory';
 import { deleteItemFactory } from './deleteItemFactory';
-import { cancelItemFactory } from './cancelItemFactory';
-import { openItemFactory } from './openItemFactory';
 import { saveNewTextFactory } from './saveNewTextFactory';
+import { changeItemOpenStateFactory } from './changeItemOpenStateFactory';
 
 const handleErrors = (response: Response): Response => {
   if (!response.ok) {
@@ -52,14 +50,9 @@ export const deleteItemFromServer = deleteItemFactory({
   notifyError,
 });
 
-export const cancelItem = cancelItemFactory({
+export const changeItemOpenStateAsync = changeItemOpenStateFactory({
   ...configurationObjectBase,
-  cancelItemChanges,
-  notifyError,
-});
-export const openItem = openItemFactory({
-  ...configurationObjectBase,
-  openItemForEditing,
+  changeItemOpenState,
   notifyError,
 });
 

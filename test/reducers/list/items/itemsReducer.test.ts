@@ -75,7 +75,7 @@ describe('items', () => {
       }),
     });
 
-    const selectItemTextAction = actions.openItemForEditing(expectedId);
+    const selectItemTextAction = actions.changeItemOpenState(expectedId);
     const result = items(initialState, selectItemTextAction);
 
     expect(result)
@@ -132,7 +132,7 @@ describe('items', () => {
       }),
     });
 
-    const cancelItemChangesAction = actions.cancelItemChanges(expectedId);
+    const cancelItemChangesAction = actions.changeItemOpenState(expectedId);
     const result = items(initialState, cancelItemChangesAction);
 
     expect(result)

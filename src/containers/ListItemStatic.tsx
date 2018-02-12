@@ -7,7 +7,7 @@ import {
 } from '../components/ListItemStatic';
 import { Dispatch } from 'redux';
 import { IAction } from '../models/interfaces/IAction';
-import { openItem } from '../actions/thunk';
+import { changeItemOpenStateAsync } from '../actions/thunk';
 import { IListItem } from '../models/interfaces/IListItem';
 
 const propTypes = {
@@ -31,7 +31,7 @@ interface IListItemStaticContainerCallbackProps {
 interface IListItemStaticContainerProps extends IListItemStaticContainerCallbackProps, IListItemStaticContainerDataProps {}
 
 const mapDispatchToProps = (dispatch: Dispatch<IAction>, ownProps: IListItemStaticContainerProps): IListItemStaticCallbackProps => ({
-  onItemOpened: (uri: string) => openItem(
+  onItemOpened: (uri: string) => changeItemOpenStateAsync(
     uri,
     ownProps.item,
   )(dispatch),

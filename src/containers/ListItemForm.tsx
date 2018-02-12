@@ -8,7 +8,7 @@ import {
 import { Dispatch } from 'redux';
 import { IAction } from '../models/interfaces/IAction';
 import {
-  cancelItem,
+  changeItemOpenStateAsync,
   deleteItemFromServer,
   saveNewText,
 } from '../actions/thunk';
@@ -42,7 +42,7 @@ const mapDispatchToProps = (dispatch: Dispatch<IAction>, ownProps: IListItemForm
     uri,
     ownProps.item.id,
   )(dispatch),
-  onCancel: (uri: string) => cancelItem(
+  onCancel: (uri: string) => changeItemOpenStateAsync(
     uri,
     ownProps.item,
   )(dispatch),

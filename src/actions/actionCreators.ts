@@ -15,13 +15,6 @@ export const addNewItem = ({ id: itemId, text }: INewItem): IAction => ({
   },
 });
 
-export const openItemForEditing = (itemId: Guid): IAction => ({
-  type: ActionTypes.ITEM_OPENED_FOR_EDITING,
-  payload: {
-    itemId,
-  },
-});
-
 export const deleteItem = (itemId: Guid): IAction => ({
   type: ActionTypes.ITEM_DELETED,
   payload: {
@@ -37,11 +30,11 @@ export const saveItemChanges = (itemId: Guid, newText: string): IAction => ({
   },
 });
 
-export const cancelItemChanges = (itemId: Guid): IAction => ({
-  type: ActionTypes.ITEM_CHANGES_CANCELED,
+export const changeItemOpenState = (itemId: Guid): IAction => ({
+  type: ActionTypes.ITEM_OPEN_STATE_CHANGED,
   payload: {
     itemId,
-  },
+  }
 });
 
 export const requestItems = (uri: string): IAction => ({

@@ -4,25 +4,27 @@ import { Dispatch } from 'redux';
 import { IAction } from '../../models/interfaces/IAction';
 import { IFetch } from '../../models/interfaces/IFetch';
 
-export const openItemFactory =
+export const changeItemOpenStateFactory =
   ({
      fetch,
-     openItemForEditing,
+     changeItemOpenState,
      notifyError,
      registerAction,
      handleErrors,
    }: {
     fetch: IFetch,
-    openItemForEditing: (id: Guid) => IAction,
+    changeItemOpenState: (id: Guid, isBeingEdited: boolean) => IAction,
     notifyError: (message: string) => IAction,
     registerAction: (action: () => void) => IAction,
     handleErrors: (response: Response) => Response,
   }) =>
-    (uri: string, item: IListItem) =>
+    (uri: string,
+     item: IListItem) =>
       (dispatch: Dispatch<IAction>) => {
-        const { id } = item;
+        const { id, isBeingEdited } = item;
+
         const updatedItem = {
-          isBeingEdited: true,
+          isBeingEdited: !isBeingEdited,
           id,
         };
 
@@ -37,8 +39,8 @@ export const openItemFactory =
           },
         )
           .then(handleErrors)
-          .then(() => dispatch(openItemForEditing(id)))
-          .catch(() => dispatch(notifyError('Item failed to open.')));
+          .then(() => dispatch(changeItemOpenState(id, !isBeingEdited)))
+          .catch(() => dispatch(notifyError('Item failed to change open state.')));
 
         dispatch(registerAction(action));
 

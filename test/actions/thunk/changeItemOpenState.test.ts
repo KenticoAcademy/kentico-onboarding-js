@@ -1,5 +1,5 @@
 import { ListItem } from '../../../src/models/classes/ListItem';
-import { openItemFactory } from '../../../src/actions/thunk/openItemFactory';
+import { changeItemOpenStateFactory } from '../../../src/actions/thunk/changeItemOpenStateFactory';
 import {
   assertThatDispatchWasCalledWithActions,
   configurationObjectBase,
@@ -9,26 +9,26 @@ import {
   fetchReturnsOkResponseFactory,
 } from './utils/utils';
 
-describe('openItem will call dispatch with', () => {
-  it('open item for editing action', () => {
+describe('changeItemOpenState will call dispatch with', () => {
+  it('change item open state action', () => {
     const expectedActions = [
-      'openItemForEditing',
+      'changeItemOpenState',
     ];
     const uri = '';
     const item: ListItem = new ListItem({});
     const fetch = fetchReturnsOkResponseFactory();
-    const openItemForEditing = jest.fn(() => expectedActions[0]);
-    const openItem = openItemFactory({
+    const changeItemOpenStateAction = jest.fn(() => expectedActions[0]);
+    const changeItemOpenState = changeItemOpenStateFactory({
       ...configurationObjectBase,
       fetch,
-      openItemForEditing,
+      changeItemOpenState: changeItemOpenStateAction,
       notifyError: fakeFunction,
     });
     const dispatch = dispatchFactory();
 
-    const dispatchableOpenItem = openItem(uri, item);
+    const dispatchableCancelItem = changeItemOpenState(uri, item);
 
-    return assertThatDispatchWasCalledWithActions(dispatchableOpenItem, dispatch, expectedActions);
+    return assertThatDispatchWasCalledWithActions(dispatchableCancelItem, dispatch, expectedActions);
   });
 
   it('notify error action', () => {
@@ -39,16 +39,16 @@ describe('openItem will call dispatch with', () => {
     const item: ListItem = new ListItem({});
     const fetch = fetchAlwaysFailFactory();
     const notifyError = jest.fn(() => expectedActions[0]);
-    const openItem = openItemFactory({
+    const changeItemOpenState = changeItemOpenStateFactory({
       ...configurationObjectBase,
       fetch,
       notifyError,
-      openItemForEditing: fakeFunction,
+      changeItemOpenState: fakeFunction,
     });
     const dispatch = dispatchFactory();
 
-    const dispatchableOpenItem = openItem(uri, item);
+    const dispatchableCancelItem = changeItemOpenState(uri, item);
 
-    return assertThatDispatchWasCalledWithActions(dispatchableOpenItem, dispatch, expectedActions);
+    return assertThatDispatchWasCalledWithActions(dispatchableCancelItem, dispatch, expectedActions);
   });
 });
