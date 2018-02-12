@@ -15,14 +15,7 @@ import { postItemFactory } from './postItemFactory';
 import { deleteItemFactory } from './deleteItemFactory';
 import { saveNewTextFactory } from './saveNewTextFactory';
 import { changeItemOpenStateFactory } from './changeItemOpenStateFactory';
-
-const handleErrors = (response: Response): Response => {
-  if (!response.ok) {
-    throw Error(response.statusText);
-  }
-
-  return response;
-};
+import { handleErrors } from './utils/handleErrors';
 
 const configurationObjectBase = {
   fetch,
