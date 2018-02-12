@@ -2,12 +2,11 @@ import { IListItem } from '../../../src/models/interfaces/IListItem';
 import { ListItem } from '../../../src/models/classes/ListItem';
 import { postItemFactory } from '../../../src/actions/thunk/postItemFactory';
 import {
-  assertThatDispatchWasCalledWithActions,
-  configurationObjectBase,
-  dispatchFactory,
+  assertThatDispatchWasCalledWithArgumentsInGiveOrder,
   fakeFunction,
   fetchAlwaysFailFactory,
   fetchReturnsOkResponseFactory,
+  fakeHandleErrors as handleErrors,
 } from './utils/utils';
 
 describe('postItem will call dispatch with', () => {
@@ -23,38 +22,40 @@ describe('postItem will call dispatch with', () => {
     const notifySuccess = jest.fn(() => expectedActions[0]);
     const addNewItem = jest.fn(() => expectedActions[1]);
     const postItem = postItemFactory({
-      ...configurationObjectBase,
       fetch,
       notifySuccess,
       addNewItem,
+      handleErrors,
       notifyError: fakeFunction,
+      registerAction: fakeFunction,
     });
-    const dispatch = dispatchFactory();
 
-    const dispatchablePostItem = postItem(uri, text);
+    const dispatchableAction = postItem(uri, text);
 
-    return assertThatDispatchWasCalledWithActions(dispatchablePostItem, dispatch, expectedActions);
+    return assertThatDispatchWasCalledWithArgumentsInGiveOrder(dispatchableAction, expectedActions);
   });
 
   it('notify error action', () => {
     const expectedActions = [
+      'registerAction',
       'notifyError',
     ];
     const uri = '';
     const text = '';
     const fetch = fetchAlwaysFailFactory();
-    const notifyError = jest.fn(() => expectedActions[0]);
+    const registerAction = jest.fn(() => expectedActions[0]);
+    const notifyError = jest.fn(() => expectedActions[1]);
     const postItem = postItemFactory({
-      ...configurationObjectBase,
       fetch,
       notifyError,
+      handleErrors,
+      registerAction,
       addNewItem: fakeFunction,
       notifySuccess: fakeFunction,
     });
-    const dispatch = dispatchFactory();
 
-    const dispatchablePostItem = postItem(uri, text);
+    const dispatchableAction = postItem(uri, text);
 
-    return assertThatDispatchWasCalledWithActions(dispatchablePostItem, dispatch, expectedActions);
+    return assertThatDispatchWasCalledWithArgumentsInGiveOrder(dispatchableAction, expectedActions);
   });
 });

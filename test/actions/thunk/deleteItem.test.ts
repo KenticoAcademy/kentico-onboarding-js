@@ -1,10 +1,10 @@
 import { deleteItemFactory } from '../../../src/actions/thunk/deleteItemFactory';
 import {
-  assertThatDispatchWasCalledWithActions, configurationObjectBase,
-  dispatchFactory,
+  assertThatDispatchWasCalledWithArgumentsInGiveOrder,
   fakeFunction,
   fetchAlwaysFailFactory,
   fetchReturnsOkResponseFactory,
+  fakeHandleErrors as handleErrors,
 } from './utils/utils';
 
 describe('deleteItem will call dispatch with', () => {
@@ -19,38 +19,40 @@ describe('deleteItem will call dispatch with', () => {
     const notifySuccess = jest.fn(() => expectedActions[0]);
     const deleteItemAction = jest.fn(() => expectedActions[1]);
     const deleteItem = deleteItemFactory({
-      ...configurationObjectBase,
       fetch,
       notifySuccess,
+      handleErrors,
       deleteItem: deleteItemAction,
       notifyError: fakeFunction,
+      registerAction: fakeFunction,
     });
-    const dispatch = dispatchFactory();
 
-    const dispatchableDeleteItem = deleteItem(uri, id);
+    const dispatchableAction = deleteItem(uri, id);
 
-    return assertThatDispatchWasCalledWithActions(dispatchableDeleteItem, dispatch, expectedActions);
+    return assertThatDispatchWasCalledWithArgumentsInGiveOrder(dispatchableAction, expectedActions);
   });
 
   it('notify error action', () => {
     const expectedActions = [
+      'registerAction',
       'notifyError',
     ];
     const uri = '';
     const id = '';
     const fetch = fetchAlwaysFailFactory();
-    const notifyError = jest.fn(() => expectedActions[0]);
+    const registerAction = jest.fn(() => expectedActions[0]);
+    const notifyError = jest.fn(() => expectedActions[1]);
     const deleteItem = deleteItemFactory({
-      ...configurationObjectBase,
       fetch,
+      registerAction,
       notifyError,
+      handleErrors,
       notifySuccess: fakeFunction,
       deleteItem: fakeFunction,
     });
-    const dispatch = dispatchFactory();
 
-    const dispatchableDeleteItem = deleteItem(uri, id);
+    const dispatchableAction = deleteItem(uri, id);
 
-    return assertThatDispatchWasCalledWithActions(dispatchableDeleteItem, dispatch, expectedActions);
+    return assertThatDispatchWasCalledWithArgumentsInGiveOrder(dispatchableAction, expectedActions);
   });
 });

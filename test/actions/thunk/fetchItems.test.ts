@@ -2,12 +2,11 @@ import { IListItem } from '../../../src/models/interfaces/IListItem';
 import { ListItem } from '../../../src/models/classes/ListItem';
 import { fetchItemsFactory } from '../../../src/actions/thunk/fetchItemsFactory';
 import {
-  assertThatDispatchWasCalledWithActions,
-  configurationObjectBase,
-  dispatchFactory,
+  assertThatDispatchWasCalledWithArgumentsInGiveOrder,
   fakeFunction,
   fetchAlwaysFailFactory,
   fetchReturnsOkResponseFactory,
+  fakeHandleErrors as handleErrors,
 } from './utils/utils';
 
 describe('fetchItems will call dispatch with', () => {
@@ -24,39 +23,41 @@ describe('fetchItems will call dispatch with', () => {
     const requestItems = jest.fn(() => expectedActions[0]);
     const receiveItems = jest.fn(() => expectedActions[1]);
     const fetchItems = fetchItemsFactory({
-      ...configurationObjectBase,
       fetch,
       requestItems,
       receiveItems,
+      handleErrors,
       fetchFailed: fakeFunction,
+      registerAction: fakeFunction,
     });
-    const dispatch = dispatchFactory();
 
-    const dispatchableFetchItems = fetchItems(uri);
+    const dispatchableAction = fetchItems(uri);
 
-    return assertThatDispatchWasCalledWithActions(dispatchableFetchItems, dispatch, expectedActions);
+    return assertThatDispatchWasCalledWithArgumentsInGiveOrder(dispatchableAction, expectedActions);
   });
 
   it('request items, notify error and fetch failed actions', () => {
     const expectedActions = [
       'requestItems',
+      'registerAction',
       'fetchFailed',
     ];
     const uri = '';
     const fetch = fetchAlwaysFailFactory();
     const requestItems = jest.fn(() => expectedActions[0]);
-    const fetchFailed = jest.fn(() => expectedActions[1]);
+    const registerAction = jest.fn(() => expectedActions[1]);
+    const fetchFailed = jest.fn(() => expectedActions[2]);
     const fetchItems = fetchItemsFactory({
-      ...configurationObjectBase,
       fetch,
       requestItems,
       fetchFailed,
+      handleErrors,
+      registerAction,
       receiveItems: fakeFunction,
     });
-    const dispatch = dispatchFactory();
 
-    const dispatchableFetchItems = fetchItems(uri);
+    const dispatchableAction = fetchItems(uri);
 
-    return assertThatDispatchWasCalledWithActions(dispatchableFetchItems, dispatch, expectedActions);
+    return assertThatDispatchWasCalledWithArgumentsInGiveOrder(dispatchableAction, expectedActions);
   });
 });

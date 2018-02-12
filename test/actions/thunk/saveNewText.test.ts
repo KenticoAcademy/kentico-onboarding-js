@@ -1,12 +1,11 @@
 import { saveNewTextFactory } from '../../../src/actions/thunk/saveNewTextFactory';
 import { ListItem } from '../../../src/models/classes/ListItem';
 import {
-  assertThatDispatchWasCalledWithActions,
-  configurationObjectBase,
-  dispatchFactory,
+  assertThatDispatchWasCalledWithArgumentsInGiveOrder,
   fakeFunction,
   fetchAlwaysFailFactory,
   fetchReturnsOkResponseFactory,
+  fakeHandleErrors as handleErrors,
 } from './utils/utils';
 
 describe('saveNewText will call dispatch with', () => {
@@ -22,39 +21,41 @@ describe('saveNewText will call dispatch with', () => {
     const notifySuccess = jest.fn(() => expectedActions[0]);
     const saveItemChanges = jest.fn(() => expectedActions[1]);
     const saveNewText = saveNewTextFactory({
-      ...configurationObjectBase,
       fetch,
       notifySuccess,
       saveItemChanges,
+      handleErrors,
       notifyError: fakeFunction,
+      registerAction: fakeFunction,
     });
-    const dispatch = dispatchFactory();
 
-    const dispatchableSaveItem = saveNewText(uri, item, text);
+    const dispatchableAction = saveNewText(uri, item, text);
 
-    return assertThatDispatchWasCalledWithActions(dispatchableSaveItem, dispatch, expectedActions);
+    return assertThatDispatchWasCalledWithArgumentsInGiveOrder(dispatchableAction, expectedActions);
   });
 
   it('notify error action', () => {
     const expectedActions = [
+      'registerAction',
       'notifyError',
     ];
     const uri = '';
     const item: ListItem = new ListItem({});
     const text = '';
     const fetch = fetchAlwaysFailFactory();
-    const notifyError = jest.fn(() => expectedActions[0]);
+    const registerAction = jest.fn(() => expectedActions[0]);
+    const notifyError = jest.fn(() => expectedActions[1]);
     const saveNewText = saveNewTextFactory({
-      ...configurationObjectBase,
       fetch,
       notifyError,
+      handleErrors,
+      registerAction,
       saveItemChanges: fakeFunction,
       notifySuccess: fakeFunction,
     });
-    const dispatch = dispatchFactory();
 
-    const dispatchableSaveItem = saveNewText(uri, item, text);
+    const dispatchableAction = saveNewText(uri, item, text);
 
-    return assertThatDispatchWasCalledWithActions(dispatchableSaveItem, dispatch, expectedActions);
+    return assertThatDispatchWasCalledWithArgumentsInGiveOrder(dispatchableAction, expectedActions);
   });
 });

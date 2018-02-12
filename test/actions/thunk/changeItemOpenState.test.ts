@@ -1,12 +1,11 @@
 import { ListItem } from '../../../src/models/classes/ListItem';
 import { changeItemOpenStateFactory } from '../../../src/actions/thunk/changeItemOpenStateFactory';
 import {
-  assertThatDispatchWasCalledWithActions,
-  configurationObjectBase,
-  dispatchFactory,
+  assertThatDispatchWasCalledWithArgumentsInGiveOrder,
   fakeFunction,
   fetchAlwaysFailFactory,
   fetchReturnsOkResponseFactory,
+  fakeHandleErrors as handleErrors,
 } from './utils/utils';
 
 describe('changeItemOpenState will call dispatch with', () => {
@@ -19,36 +18,37 @@ describe('changeItemOpenState will call dispatch with', () => {
     const fetch = fetchReturnsOkResponseFactory();
     const changeItemOpenStateAction = jest.fn(() => expectedActions[0]);
     const changeItemOpenState = changeItemOpenStateFactory({
-      ...configurationObjectBase,
       fetch,
       changeItemOpenState: changeItemOpenStateAction,
       notifyError: fakeFunction,
+      registerAction: fakeFunction,
+      handleErrors,
     });
-    const dispatch = dispatchFactory();
+    const dispatchableAction = changeItemOpenState(uri, item);
 
-    const dispatchableCancelItem = changeItemOpenState(uri, item);
-
-    return assertThatDispatchWasCalledWithActions(dispatchableCancelItem, dispatch, expectedActions);
+    return assertThatDispatchWasCalledWithArgumentsInGiveOrder(dispatchableAction, expectedActions);
   });
 
-  it('notify error action', () => {
+  it('notify error and register action actions', () => {
     const expectedActions = [
+      'registerAction',
       'notifyError',
     ];
     const uri = '';
     const item: ListItem = new ListItem({});
     const fetch = fetchAlwaysFailFactory();
-    const notifyError = jest.fn(() => expectedActions[0]);
+    const registerAction = jest.fn(() => expectedActions[0]);
+    const notifyError = jest.fn(() => expectedActions[1]);
     const changeItemOpenState = changeItemOpenStateFactory({
-      ...configurationObjectBase,
       fetch,
       notifyError,
+      registerAction,
+      handleErrors,
       changeItemOpenState: fakeFunction,
     });
-    const dispatch = dispatchFactory();
 
-    const dispatchableCancelItem = changeItemOpenState(uri, item);
+    const dispatchableAction = changeItemOpenState(uri, item);
 
-    return assertThatDispatchWasCalledWithActions(dispatchableCancelItem, dispatch, expectedActions);
+    return assertThatDispatchWasCalledWithArgumentsInGiveOrder(dispatchableAction, expectedActions);
   });
 });
