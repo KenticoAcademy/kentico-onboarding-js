@@ -10,7 +10,7 @@ import { IAppState } from '../../models/IAppState';
 import { NO_CONNECTION } from '../../constants/connection';
 
 interface IUpdateDependencies extends IDependencies {
-  readonly putSuccess: (args: { id: Uuid }) => IAction;
+  readonly putSuccess: (id: Uuid) => IAction;
   readonly putError: (args: { id: Uuid, message: string }) => IAction;
 }
 
@@ -18,9 +18,9 @@ export const putItemFactory = ({putSuccess, putError: putError, getAxios}: IUpda
   (dispatch: Dispatch<IAppState>): Promise<void | IAction> =>
     getAxios().axios.put(getAxios().url + '/' + id, {Id: id, Text: text})
       .then((response: AxiosResponse) =>
-        dispatch(putSuccess({
-          id: response.data.Id,
-        })))
+        dispatch(putSuccess(
+          response.data.Id,
+        )))
       .catch((error: AxiosError) => {
         const errorResponse = error.response;
         if (errorResponse !== undefined) {

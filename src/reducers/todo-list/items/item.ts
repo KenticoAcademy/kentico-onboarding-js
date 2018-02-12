@@ -19,22 +19,21 @@ export const item = (previousState: ListItem, action: IAction): ListItem => {
       return previousState.with(updatedItem);
     }
 
-    case CLOSE_ITEM_ERROR: {
-      const updatedItem = {
-        errorMessage: ''
-      };
-
-      return previousState.with(updatedItem);
-    }
-
-    case TODO_LIST_ITEM_DELETE: {
-      const updatedItem = {
+    case TODO_LIST_ITEM_INSERT:
+      return new ListItem({
+        id: action.payload.id,
+        text: action.payload.text,
         isEdited: false,
-        isSynchronized: false
-      };
+        isSynchronized: action.payload.isSynchronized
+      });
 
-      return previousState.with(updatedItem);
-    }
+    case NEW_ITEM_PERSISTED:
+      return new ListItem({
+        id: action.payload.newId,
+        text: action.payload.text,
+        isEdited: false,
+        isSynchronized: true
+      });
 
     case TODO_LIST_ITEM_UPDATE: {
       const updatedItem = {
@@ -66,6 +65,15 @@ export const item = (previousState: ListItem, action: IAction): ListItem => {
       return previousState.with(updatedItem);
     }
 
+    case TODO_LIST_ITEM_DELETE: {
+      const updatedItem = {
+        isEdited: false,
+        isSynchronized: false
+      };
+
+      return previousState.with(updatedItem);
+    }
+
     case DELETE_ITEM_FAILED: {
       const updatedItem = {
         isSynchronized: true,
@@ -75,21 +83,13 @@ export const item = (previousState: ListItem, action: IAction): ListItem => {
       return previousState.with(updatedItem);
     }
 
-    case NEW_ITEM_PERSISTED:
-      return new ListItem({
-        id: action.payload.newId,
-        text: action.payload.text,
-        isEdited: false,
-        isSynchronized: true
-      });
+    case CLOSE_ITEM_ERROR: {
+      const updatedItem = {
+        errorMessage: ''
+      };
 
-    case TODO_LIST_ITEM_INSERT:
-      return new ListItem({
-        id: action.payload.id,
-        text: action.payload.text,
-        isEdited: false,
-        isSynchronized: action.payload.isSynchronized
-      });
+      return previousState.with(updatedItem);
+    }
 
     default:
       return previousState;

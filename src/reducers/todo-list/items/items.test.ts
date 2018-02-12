@@ -1,10 +1,9 @@
-/*
 import * as actions from '../../../actions/actionCreators';
 import {
   OrderedMap,
 } from 'immutable';
 import { items } from './items';
-import { insertItem } from '../../../actions/actionCreators';
+import { insertItem, postSuccess, putSuccess } from '../../../actions/actionCreators';
 import { ListItem } from '../../../models/ListItem';
 import { Uuid } from '../../../utils/generateId';
 
@@ -55,8 +54,48 @@ describe('items reducers', () => {
       singleItemState,
       insertItem({
         text: plainItem2.text,
-        id: plainItem2.id
+        id: plainItem2.id,
+        isSynchronized: true
       }),
+    ).toJS();
+
+    expect(newState).toEqual(expectedState);
+  });
+
+  it('should update item\'s id after NEW_ITEM_PERSISTED action', () => {
+    const idFromServer = '4061431b-40b1-4c24-a99b-8dc505e879ed';
+    const twoItemsState: OrderedMap<Uuid, ListItem> = OrderedMap([
+      [
+        plainItem1.id,
+        new ListItem(plainItem1),
+      ],
+      [
+        plainItem2.id,
+        new ListItem(plainItem2),
+      ],
+    ]);
+    const expectedState: OrderedMap<Uuid, ListItem> = OrderedMap([
+      [
+        idFromServer,
+        new ListItem({
+          ...plainItem1,
+          id: idFromServer
+        })
+      ],
+      [
+        plainItem2.id,
+        new ListItem(plainItem2)
+      ]
+    ]).toJS();
+
+    const newState: OrderedMap<Uuid, ListItem> = items(
+      twoItemsState,
+      postSuccess({
+        newId: idFromServer,
+        id: plainItem1.id,
+        text: plainItem1.text,
+        isSynchronized: true
+      })
     ).toJS();
 
     expect(newState).toEqual(expectedState);
@@ -115,7 +154,7 @@ describe('items reducers', () => {
     expect(newState).toEqual(expectedState);
   });
 
-  it('should delete record after ITEM_DELETE action', () => {
+  it('should delete record after DELETE_ITEM_SUCCESSFUL action', () => {
     const twoItemsState: OrderedMap<Uuid, ListItem> = OrderedMap([
       [
         plainItem1.id,
@@ -130,19 +169,72 @@ describe('items reducers', () => {
 
     const newState: OrderedMap<Uuid, ListItem> = items(
       twoItemsState,
-      actions.deleteItem(plainItem1.id),
+      actions.deleteSuccess(plainItem1.id),
     ).toJS();
 
     expect(newState).toEqual(expectedState);
   });
 
-  it('should update correct item after ITEM_UPDATE action', () => {
-    const updatedText: string = 'updatedText';
-    const updatedItem: ListItem = new ListItem({
-      id: plainItem1.id,
-      text: updatedText,
-      isEdited: !plainItem1.isEdited,
+  it('should add error message to item after DELETE_ITEM_FAILED action', () => {
+    const errorMessage = 'this time it is really bad';
+    const twoItemsState: OrderedMap<Uuid, ListItem> = OrderedMap([
+      [
+        plainItem1.id,
+        new ListItem(plainItem1),
+      ],
+      [
+        plainItem2.id,
+        new ListItem(plainItem2),
+      ],
+    ]);
+    const expectedState: OrderedMap<Uuid, ListItem> = twoItemsState.update(
+      plainItem1.id,
+      () => new ListItem({
+        ...plainItem1,
+        isSynchronized: true,
+        errorMessage
+      })
+    ).toJS();
+
+    const newState: OrderedMap<Uuid, ListItem> = items(
+      twoItemsState,
+      actions.deleteError({
+        id: plainItem1.id,
+        message: errorMessage
+      }),
+    ).toJS();
+
+    expect(newState).toEqual(expectedState);
+  });
+
+  it('should set item to delete state after TODO_LIST_ITEM_DELETE action', () => {
+    const singleItemState: OrderedMap<Uuid, ListItem> = OrderedMap([
+      [
+        plainItem1.id,
+        new ListItem(plainItem1)
+      ],
+      [
+        plainItem2.id,
+        new ListItem(plainItem2)
+      ]
+    ]);
+    const itemBeingDeleted = new ListItem({
+      ...plainItem1,
+      isEdited: false,
+      isSynchronized: false,
     });
+    const expectedState: OrderedMap<Uuid, ListItem> = singleItemState.update(plainItem1.id, () => itemBeingDeleted);
+
+    const newState: OrderedMap<Uuid, ListItem> = items(
+      singleItemState,
+      actions.deleteItem(plainItem1.id)
+    );
+
+    expect(newState).toEqual(expectedState);
+  });
+
+  it('should update correct item after TODO_LIST_ITEM_UPDATE action', () => {
+    const updatedText: string = 'updatedText';
     const twoItemsState: OrderedMap<Uuid, ListItem> = OrderedMap([
       [
         plainItem1.id,
@@ -155,8 +247,14 @@ describe('items reducers', () => {
     ]);
     const expectedState: OrderedMap<Uuid, ListItem> = OrderedMap([
       [
-        updatedItem.id,
-        new ListItem(updatedItem),
+        plainItem1.id,
+        new ListItem({
+          ...plainItem1,
+          text: updatedText,
+          isEdited: false,
+          isSynchronized: false,
+          backupText: plainItem1.text
+        }),
       ],
       [
         plainItem2.id,
@@ -168,8 +266,102 @@ describe('items reducers', () => {
       twoItemsState,
       actions.updateItem({
         id: plainItem1.id,
-        text: updatedText
+        text: updatedText,
       }),
+    ).toJS();
+
+    expect(newState).toEqual(expectedState);
+  });
+
+  it('should update correct item after UPDATED_ITEM_PERSISTED action accordingly', () => {
+    const twoItemsState: OrderedMap<Uuid, ListItem> = OrderedMap([
+      [
+        plainItem1.id,
+        new ListItem(plainItem1),
+      ],
+      [
+        plainItem2.id,
+        new ListItem(plainItem2),
+      ],
+    ]);
+    const expectedState: OrderedMap<Uuid, ListItem> = twoItemsState.update(
+      plainItem2.id,
+      () => new ListItem({
+        ...plainItem2,
+        isSynchronized: true,
+        errorMessage: ''
+      }));
+
+    const newState: OrderedMap<Uuid, ListItem> = items(
+      twoItemsState,
+      putSuccess(plainItem2.id)
+    );
+
+    expect(newState).toEqual(expectedState);
+  });
+
+  it('should revert item back after ITEM_UPDATE_FAILED action', () => {
+    const errorMessage = 'something went really wrong';
+    const backupText = 'some intelligent backup text';
+    const twoItemsState: OrderedMap<Uuid, ListItem> = OrderedMap([
+      [
+        plainItem1.id,
+        new ListItem(plainItem1)
+      ],
+      [
+        plainItem2.id,
+        new ListItem({
+          ...plainItem2,
+          backupText
+        }),
+      ],
+    ]);
+    const expectedState: OrderedMap<Uuid, ListItem> = twoItemsState.update(
+      plainItem2.id,
+      () => new ListItem({
+        ...plainItem2,
+        isSynchronized: true,
+        text: backupText,
+        backupText,
+        errorMessage
+      })).toJS();
+
+    const newState: OrderedMap<Uuid, ListItem> = items(
+      twoItemsState,
+      actions.putError({
+        id: plainItem2.id,
+        message: errorMessage
+      })
+    ).toJS();
+
+    expect(newState).toEqual(expectedState);
+  });
+
+  it('should delete item\'s error message after CLOSE_ITEM_ERROR action', () => {
+    const errorMessage = 'something went really wrong';
+    const twoItemsState: OrderedMap<Uuid, ListItem> = OrderedMap([
+      [
+        plainItem1.id,
+        new ListItem(plainItem1)
+      ],
+      [
+        plainItem2.id,
+        new ListItem({
+          ...plainItem2,
+          errorMessage
+        }),
+      ],
+    ]);
+    const expectedState: OrderedMap<Uuid, ListItem> = twoItemsState.update(
+      plainItem2.id,
+      () => new ListItem({
+        ...plainItem2,
+        errorMessage: ''
+      })).toJS();
+
+    const newState: OrderedMap<Uuid, ListItem> = items(
+      twoItemsState,
+      actions.closeItemError(plainItem2.id)
     ).toJS();
 
     expect(newState).toEqual(expectedState);
@@ -195,4 +387,3 @@ describe('items reducers', () => {
     expect(newState).toEqual(expectedState);
   });
 });
-*/

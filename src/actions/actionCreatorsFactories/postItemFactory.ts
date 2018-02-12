@@ -11,7 +11,7 @@ import { IDependencies } from '../IDependencies';
 import { NO_CONNECTION } from '../../constants/connection';
 
 interface IPostDependencies extends IDependencies {
-  readonly deleteSuccess: (args: {id: Uuid}) => IAction;
+  readonly deleteSuccess: (id: Uuid) => IAction;
   readonly postSuccess: (args: {newId: Uuid, id: Uuid, text: string, isSynchronized: boolean}) => IAction;
   readonly apiCallError: (errorType: string, errorText: string) => IAction;
 }
@@ -27,7 +27,7 @@ export const postItemFactory = ({deleteSuccess, postSuccess, apiCallError, getAx
         })))
       .catch((error: AxiosError) => {
         const errorResponse = error.response;
-        dispatch(deleteSuccess({id: tempId}));
+        dispatch(deleteSuccess(tempId));
         if (errorResponse !== undefined) {
           dispatch(apiCallError(ITEM_POST_ERROR, errorResponse.status + ' ' + errorResponse.statusText));
         } else {
