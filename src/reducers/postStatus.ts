@@ -1,3 +1,4 @@
+/*
 import { ITEM_POST_ERROR, ITEM_POST_SUCCESS } from '../constants/actionTypes';
 import { IAction } from '../actions/IAction';
 import { PostStatus } from '../models/PostStatus';
@@ -24,3 +25,4 @@ export const postStatus = (previousState: PostStatus = new PostStatus(), action:
       return previousState;
   }
 };
+*/

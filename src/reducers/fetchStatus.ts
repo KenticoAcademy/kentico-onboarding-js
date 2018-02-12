@@ -1,4 +1,7 @@
-import { ITEMS_FETCH_ERROR, ITEMS_FETCH_SUCCESS } from '../constants/actionTypes';
+import {
+  CLOSE_FETCH_ERROR,
+  ITEMS_FETCH_ERROR, ITEMS_FETCH_SUCCESS
+} from '../constants/actionTypes';
 import { IAction } from '../actions/IAction';
 import { FetchStatus } from '../models/FetchStatus';
 
@@ -14,7 +17,8 @@ export const fetchStatus = (previousState: FetchStatus = new FetchStatus(), acti
       return previousState.with(updatedStatus);
     }
 
-    case ITEMS_FETCH_SUCCESS: {
+    case ITEMS_FETCH_SUCCESS:
+    case CLOSE_FETCH_ERROR: {
       const updatedStatus = {
         isFetching: false,
         hasError: false

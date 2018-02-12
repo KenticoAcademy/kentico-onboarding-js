@@ -7,10 +7,9 @@ import {
   postSuccess,
   putSuccess,
   updateItem,
-  fetchError
+  fetchError, postError, fetchSuccess
 } from './actionCreators';
 import { generateId } from '../utils/generateId';
-import { IAction } from './IAction';
 import { deleteItemFactory } from './actionCreatorsFactories/deleteItemFactory';
 import { putItemFactory } from './actionCreatorsFactories/putItemFactory';
 import { fetchItemsFactory } from './actionCreatorsFactories/fetchItemsFactory';
@@ -20,17 +19,6 @@ import { getAxiosFactory } from './actionCreatorsFactories/getAxiosFactory';
 import { optimisticAddFactory } from './actionCreatorsFactories/optimisticAddFactory';
 import { optimisticUpdateFactory } from './actionCreatorsFactories/optimisticUpdateFactory';
 import { optimisticDeleteFactory } from './actionCreatorsFactories/optimisticDeleteFactory';
-import { ITEMS_FETCH_SUCCESS } from '../constants/actionTypes';
-
-export const apiCallSuccess = (callType: string): IAction => ({
-  type: callType,
-  payload: undefined
-});
-
-export const fetchSuccess = (): IAction => ({
-  type: ITEMS_FETCH_SUCCESS,
-  payload: undefined
-});
 
 const getAxios = getAxiosFactory(axios, API_URL);
 
@@ -38,15 +26,7 @@ const postItem = postItemFactory(
   {
     deleteSuccess,
     postSuccess,
-    apiCallError: fetchError,
-    getAxios
-  });
-
-export const fetchItems = fetchItemsFactory(
-  {
-    insertItem,
-    fetchSuccess,
-    fetchError,
+    postError,
     getAxios
   });
 
@@ -64,6 +44,14 @@ const deleteFromServer = deleteItemFactory(
     getAxios
   }
 );
+
+export const fetchItems = fetchItemsFactory(
+  {
+    insertItem,
+    fetchSuccess,
+    fetchError,
+    getAxios
+  });
 
 export const optimisticAdd = optimisticAddFactory(generateId, insertItem, postItem);
 export const optimisticUpdate = optimisticUpdateFactory(updateItem, putItem);

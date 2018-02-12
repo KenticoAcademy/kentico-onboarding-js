@@ -4,11 +4,11 @@ import {
   TODO_LIST_ITEM_EDIT,
   TODO_LIST_ITEM_CANCEL_EDIT,
   TODO_LIST_ITEM_INSERT,
-  NEW_ITEM_PERSISTED,
-  UPDATED_ITEM_PERSISTED,
-  DELETE_ITEM_SUCCESSFUL,
-  ITEM_UPDATE_FAILED,
-  DELETE_ITEM_FAILED, CLOSE_ITEM_ERROR
+  ITEM_POST_SUCCESS,
+  ITEM_PUT_SUCCESS,
+  ITEM_DELETE_SUCCESS,
+  ITEM_PUT_ERROR,
+  ITEM_DELETE_FAILED, CLOSE_ITEM_ERROR, ITEM_POST_ERROR, ITEMS_FETCH_SUCCESS, CLOSE_FETCH_ERROR
 } from '../constants/actionTypes';
 import { Uuid } from '../utils/generateId';
 import { IAction } from './IAction';
@@ -23,12 +23,19 @@ export const insertItem = (args: { text: string, id: Uuid, isSynchronized: boole
 });
 
 export const postSuccess = (args: { newId: Uuid, id: Uuid, text: string, isSynchronized: boolean }): IAction => ({
-  type: NEW_ITEM_PERSISTED,
+  type: ITEM_POST_SUCCESS,
   payload: {
     newId: args.newId,
     id: args.id,
     text: args.text,
     isSynchronized: args.isSynchronized
+  }
+});
+
+export const postError = (errorMessage: string): IAction => ({
+  type: ITEM_POST_ERROR,
+  payload: {
+    errorMessage
   }
 });
 
@@ -41,14 +48,14 @@ export const updateItem = (args: { id: Uuid, text: string }): IAction => ({
 });
 
 export const putSuccess = (id: Uuid): IAction => ({
-  type: UPDATED_ITEM_PERSISTED,
+  type: ITEM_PUT_SUCCESS,
   payload: {
     id
   }
 });
 
 export const putError = (args: { id: Uuid, message: string }): IAction => ({
-  type: ITEM_UPDATE_FAILED,
+  type: ITEM_PUT_ERROR,
   payload: {
     id: args.id,
     message: args.message
@@ -63,14 +70,14 @@ export const deleteItem = (id: Uuid): IAction => ({
 });
 
 export const deleteSuccess = (id: Uuid): IAction => ({
-  type: DELETE_ITEM_SUCCESSFUL,
+  type: ITEM_DELETE_SUCCESS,
   payload: {
     id
   }
 });
 
 export const deleteError = (args: { id: Uuid, message: string }): IAction => ({
-  type: DELETE_ITEM_FAILED,
+  type: ITEM_DELETE_FAILED,
   payload: {
     id: args.id,
     message: args.message
@@ -98,9 +105,19 @@ export const closeItemError = (id: Uuid): IAction => ({
   }
 });
 
+export const fetchSuccess = (): IAction => ({
+  type: ITEMS_FETCH_SUCCESS,
+  payload: undefined
+});
+
 export const fetchError = (errorType: string, errorText: string): IAction => ({
   type: errorType,
   payload: {
     errorText
   }
+});
+
+export const closeFetchError = (): IAction => ({
+  type: CLOSE_FETCH_ERROR,
+  payload: undefined
 });

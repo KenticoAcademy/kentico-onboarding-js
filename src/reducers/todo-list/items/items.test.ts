@@ -62,7 +62,7 @@ describe('items reducers', () => {
     expect(newState).toEqual(expectedState);
   });
 
-  it('should update item\'s id after NEW_ITEM_PERSISTED action', () => {
+  it('should update item\'s id after ITEM_POST_SUCCESS action', () => {
     const idFromServer = '4061431b-40b1-4c24-a99b-8dc505e879ed';
     const twoItemsState: OrderedMap<Uuid, ListItem> = OrderedMap([
       [
@@ -154,7 +154,7 @@ describe('items reducers', () => {
     expect(newState).toEqual(expectedState);
   });
 
-  it('should delete record after DELETE_ITEM_SUCCESSFUL action', () => {
+  it('should delete record after ITEM_DELETE_SUCCESS action', () => {
     const twoItemsState: OrderedMap<Uuid, ListItem> = OrderedMap([
       [
         plainItem1.id,
@@ -175,7 +175,7 @@ describe('items reducers', () => {
     expect(newState).toEqual(expectedState);
   });
 
-  it('should add error message to item after DELETE_ITEM_FAILED action', () => {
+  it('should add error message to item after ITEM_DELETE_FAILED action', () => {
     const errorMessage = 'this time it is really bad';
     const twoItemsState: OrderedMap<Uuid, ListItem> = OrderedMap([
       [
@@ -273,7 +273,7 @@ describe('items reducers', () => {
     expect(newState).toEqual(expectedState);
   });
 
-  it('should update correct item after UPDATED_ITEM_PERSISTED action accordingly', () => {
+  it('should update correct item after ITEM_PUT_SUCCESS action accordingly', () => {
     const twoItemsState: OrderedMap<Uuid, ListItem> = OrderedMap([
       [
         plainItem1.id,
@@ -300,7 +300,7 @@ describe('items reducers', () => {
     expect(newState).toEqual(expectedState);
   });
 
-  it('should revert item back after ITEM_UPDATE_FAILED action', () => {
+  it('should revert item back after ITEM_PUT_ERROR action', () => {
     const errorMessage = 'something went really wrong';
     const backupText = 'some intelligent backup text';
     const twoItemsState: OrderedMap<Uuid, ListItem> = OrderedMap([
