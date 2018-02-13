@@ -1,37 +1,50 @@
+// components/ListItem.jsx
+
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import { ListItemEditor } from './ListItemEditor';
 import { ListItemDisplay } from './ListItemDisplay';
 
 export class ListItem extends React.PureComponent {
+  static displayName = 'ListItem';
+
+  static propTypes = {
+    item: PropTypes.shape({
+      key: PropTypes.string.isRequired,
+      value: PropTypes.string.isRequired,
+    }).isRequired,
+    onDelete: PropTypes.func.isRequired,
+    onSave: PropTypes.func.isRequired,
+  };
+
   constructor(props) {
     super(props);
     this.state = {
-      item: props.item,
-      editMode: false,
+      isEditing: false,
     };
   }
 
-  cancelEditing = () => this.setState({ editMode: false });
+  toggleEditMode = () => this.setState(prevState => ({ isEditing: !prevState.isEditing }));
 
-  editItem = () => this.setState({ editMode: true });
-  deleteItem = () => this.props.onDelete(this.state.item);
+  deleteItem = () => {
+    const { onDelete, item } = this.props;
+    onDelete(item);
+  };
+
   updateItem = (updatedItemValue) => {
-    const { item } = this.state;
-    item.value = updatedItemValue;
-    this.props.onSave(item);
-
-    this.setState({
-      editMode: false,
-    });
+    const { item, onSave } = this.props;
+    onSave(item, updatedItemValue);
+    this.toggleEditMode();
   };
 
   render() {
-    const { item, editMode } = this.state;
+    const { item } = this.props;
 
-    if (editMode) {
+    if (this.state.isEditing) {
       return (
         <ListItemEditor
-          onCancel={this.cancelEditing}
+          onCancel={this.toggleEditMode}
           onDelete={this.deleteItem}
           onUpdate={this.updateItem}
           item={item.value}
@@ -41,7 +54,7 @@ export class ListItem extends React.PureComponent {
     return (
       <ListItemDisplay
         itemValue={item.value}
-        onEdit={this.editItem}
+        onEdit={this.toggleEditMode}
       />);
   }
 }
