@@ -12,13 +12,17 @@ interface IFetchItemsFactoryDependencies {
   readonly handleErrors: (response: Response) => Response;
 }
 
+export interface IFetchItemsActionParams {
+  readonly uri: string;
+}
+
 export const fetchItemsFactory = (deps: IFetchItemsFactoryDependencies) =>
-    (uri: string) =>
+    ({ uri }: IFetchItemsActionParams) =>
       (dispatch: Dispatch<IAction>) => {
         const action = () => {
           dispatch(deps.requestItems(uri));
 
-          return fetch(uri)
+          return deps.fetch(uri)
             .then(deps.handleErrors)
             .then((res: Response) => res.json())
             .then((items: IListItem[]) => dispatch(deps.receiveItems(items)))

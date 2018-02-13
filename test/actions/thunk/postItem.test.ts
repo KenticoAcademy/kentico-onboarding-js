@@ -9,14 +9,17 @@ import {
   fakeHandleErrors as handleErrors,
 } from './utils/utils';
 
+const actionParams = {
+  uri: '',
+  text: '',
+};
+
 describe('postItem will call dispatch with', () => {
   it('notify success and add new item actions', () => {
     const expectedActions = [
       'notifySuccess',
       'addNewItem',
     ];
-    const uri = '';
-    const text = '';
     const createdItem: IListItem = new ListItem({});
     const fetch = fetchReturnsOkResponseFactory(createdItem);
     const notifySuccess = jest.fn(() => expectedActions[0]);
@@ -30,7 +33,7 @@ describe('postItem will call dispatch with', () => {
       registerAction: fakeFunction,
     });
 
-    const dispatchableAction = postItem(uri, text);
+    const dispatchableAction = postItem(actionParams);
 
     return assertThatDispatchWasCalledWithArgumentsInGiveOrder(dispatchableAction, expectedActions);
   });
@@ -40,8 +43,6 @@ describe('postItem will call dispatch with', () => {
       'registerAction',
       'notifyError',
     ];
-    const uri = '';
-    const text = '';
     const fetch = fetchAlwaysFailFactory();
     const registerAction = jest.fn(() => expectedActions[0]);
     const notifyError = jest.fn(() => expectedActions[1]);
@@ -54,7 +55,7 @@ describe('postItem will call dispatch with', () => {
       notifySuccess: fakeFunction,
     });
 
-    const dispatchableAction = postItem(uri, text);
+    const dispatchableAction = postItem(actionParams);
 
     return assertThatDispatchWasCalledWithArgumentsInGiveOrder(dispatchableAction, expectedActions);
   });

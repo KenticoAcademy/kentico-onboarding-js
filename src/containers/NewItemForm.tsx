@@ -11,10 +11,10 @@ import { IAppState } from '../models/interfaces/IAppState';
 const mapDispatchToProps = (dispatch: Dispatch<IAppState>): INewItemFormCallbackProps => ({
   onSubmit: (uri: string, text: string) =>
     dispatch(
-      postItemAsync(
+      postItemAsync({
         uri,
         text,
-      )),
+      })),
 });
 
 export const NewItemForm: ComponentClass = connect(

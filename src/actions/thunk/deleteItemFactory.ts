@@ -12,10 +12,15 @@ interface IDeleteItemFactoryDependencies {
   readonly handleErrors: (response: Response) => Response;
 }
 
+export interface IDeleteItemActionParams {
+  readonly uri: string;
+  readonly id: Guid;
+}
+
 export const deleteItemFactory = (deps: IDeleteItemFactoryDependencies) =>
-    (uri: string, id: Guid) =>
+    ({ uri, id }: IDeleteItemActionParams) =>
       (dispatch: Dispatch<IAction>) => {
-        const action = () => fetch(
+        const action = () => deps.fetch(
           uri + id,
           {
             method: 'DELETE',

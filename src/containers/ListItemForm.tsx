@@ -31,23 +31,23 @@ interface IListItemFormContainerDataProps {
   readonly selectionRangeEnds: number;
 }
 
-const mapDispatchToProps = (dispatch: Dispatch<IAppState>, ownProps: IListItemFormContainerDataProps): IListItemFormCallbackProps => ({
-  onSave: (uri: string, newText: string) =>
+const mapDispatchToProps = (dispatch: Dispatch<IAppState>, { item, item: { id } }: IListItemFormContainerDataProps): IListItemFormCallbackProps => ({
+  onSave: (uri: string, text: string) =>
     dispatch(
-      saveNewTextAsync(
+      saveNewTextAsync({
         uri,
-        ownProps.item,
-        newText,
-      )),
+        text,
+        item,
+      })),
   onDelete: (uri: string) =>
     dispatch(
-      deleteItemAsync(
+      deleteItemAsync({
         uri,
-        ownProps.item.id,
-      )),
+        id,
+      })),
   onCancel: () =>
     dispatch(
-      changeItemOpenState(ownProps.item.id)),
+      changeItemOpenState(id)),
 });
 
 const ListItemForm: ComponentClass<IListItemFormContainerDataProps> = connect(

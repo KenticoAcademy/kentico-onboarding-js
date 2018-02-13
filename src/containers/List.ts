@@ -16,7 +16,9 @@ const mapStateToProps = (state: IAppState): IListDataProps => ({
 const mapDispatchToProps = (dispatch: Dispatch<IAppState>) => ({
   fetchItems: (uri: string) =>
     dispatch(
-      fetchItemsAsync(uri)),
+      fetchItemsAsync({
+        uri,
+      })),
 });
 
 export const List: ComponentClass = connect(

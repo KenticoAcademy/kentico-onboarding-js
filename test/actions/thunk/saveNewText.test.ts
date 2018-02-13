@@ -8,15 +8,18 @@ import {
   fakeHandleErrors as handleErrors,
 } from './utils/utils';
 
+const actionParams = {
+  uri: '',
+  item: new ListItem(),
+  text: '',
+};
+
 describe('saveNewText will call dispatch with', () => {
   it('notify success and save item changes actions', () => {
     const expectedActions = [
       'notifySuccess',
       'saveItemChanges',
     ];
-    const uri = '';
-    const item: ListItem = new ListItem({});
-    const text = '';
     const fetch = fetchReturnsOkResponseFactory();
     const notifySuccess = jest.fn(() => expectedActions[0]);
     const saveItemChanges = jest.fn(() => expectedActions[1]);
@@ -29,7 +32,7 @@ describe('saveNewText will call dispatch with', () => {
       registerAction: fakeFunction,
     });
 
-    const dispatchableAction = saveNewText(uri, item, text);
+    const dispatchableAction = saveNewText(actionParams);
 
     return assertThatDispatchWasCalledWithArgumentsInGiveOrder(dispatchableAction, expectedActions);
   });
@@ -39,9 +42,6 @@ describe('saveNewText will call dispatch with', () => {
       'registerAction',
       'notifyError',
     ];
-    const uri = '';
-    const item: ListItem = new ListItem({});
-    const text = '';
     const fetch = fetchAlwaysFailFactory();
     const registerAction = jest.fn(() => expectedActions[0]);
     const notifyError = jest.fn(() => expectedActions[1]);
@@ -54,7 +54,7 @@ describe('saveNewText will call dispatch with', () => {
       notifySuccess: fakeFunction,
     });
 
-    const dispatchableAction = saveNewText(uri, item, text);
+    const dispatchableAction = saveNewText(actionParams);
 
     return assertThatDispatchWasCalledWithArgumentsInGiveOrder(dispatchableAction, expectedActions);
   });

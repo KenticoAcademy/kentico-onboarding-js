@@ -25,7 +25,7 @@ const getFirstArgumentOfCalls = <T>(mockedFunction: Mock<T>): T[] =>
     .map(call => call[0]);
 
 export const assertThatDispatchWasCalledWithArgumentsInGiveOrder = (dispatchableAction: (dispatch: Mock<{}>) => Promise<any>, expectedActions: string[]) => {
-    resetDispatch();
+  resetDispatch();
 
   return dispatchableAction(dispatch)
     .then(() => {

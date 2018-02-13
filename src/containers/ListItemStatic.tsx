@@ -30,10 +30,10 @@ interface IListItemStaticContainerCallbackProps {
 
 interface IListItemStaticContainerProps extends IListItemStaticContainerCallbackProps, IListItemStaticContainerDataProps {}
 
-const mapDispatchToProps = (dispatch: Dispatch<IAction>, ownProps: IListItemStaticContainerProps): IListItemStaticCallbackProps => ({
+const mapDispatchToProps = (dispatch: Dispatch<IAction>, { item: { id } }: IListItemStaticContainerProps): IListItemStaticCallbackProps => ({
   onItemOpened: () =>
     dispatch(
-      changeItemOpenState(ownProps.item.id)),
+      changeItemOpenState(id)),
 });
 
 const ListItemStatic: ComponentClass<IListItemStaticContainerProps> = connect(

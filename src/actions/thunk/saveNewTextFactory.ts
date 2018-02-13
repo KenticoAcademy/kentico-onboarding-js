@@ -13,8 +13,14 @@ interface ISaveNewTextFactoryDependencies {
   readonly handleErrors: (response: Response) => Response;
 }
 
+export interface ISaveNewTextActionParams {
+  readonly uri: string;
+  readonly item: IListItem;
+  readonly text: string;
+}
+
 export const saveNewTextFactory = (deps: ISaveNewTextFactoryDependencies) =>
-    (uri: string, item: IListItem, text: string) =>
+    ({ uri, item, text }: ISaveNewTextActionParams) =>
       (dispatch: Dispatch<IAction>) => {
         const { id } = item;
         const updatedItem = {
@@ -23,7 +29,7 @@ export const saveNewTextFactory = (deps: ISaveNewTextFactoryDependencies) =>
           id,
         };
 
-        const action = () => fetch(
+        const action = () => deps.fetch(
           uri + id,
           {
             method: 'PATCH',

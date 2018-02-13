@@ -12,15 +12,20 @@ interface IPostItemFactoryDependencies {
   readonly handleErrors: (response: Response) => Response;
 }
 
+export interface IPostItemActionParams {
+  readonly uri: string;
+  readonly text: string;
+}
+
 export const postItemFactory = (deps: IPostItemFactoryDependencies) =>
-    (uri: string, text: string) =>
+    ({ uri, text }: IPostItemActionParams) =>
       (dispatch: Dispatch<IAction>) => {
         const newItem = {
           isBeingEdited: false,
           text,
         };
 
-        const action = () => fetch(
+        const action = () => deps.fetch(
           uri,
           {
             method: 'POST',

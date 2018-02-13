@@ -1,4 +1,3 @@
-import { IListItem } from '../../../src/models/interfaces/IListItem';
 import { ListItem } from '../../../src/models/classes/ListItem';
 import { fetchItemsFactory } from '../../../src/actions/thunk/fetchItemsFactory';
 import {
@@ -9,17 +8,22 @@ import {
   fakeHandleErrors as handleErrors,
 } from './utils/utils';
 
+const actionParams = {
+  uri: '',
+  items:
+    [
+      new ListItem(),
+    ],
+};
+
 describe('fetchItems will call dispatch with', () => {
   it('request items and receive items actions', () => {
     const expectedActions = [
       'requestItems',
       'receiveItems',
     ];
-    const uri = '';
-    const items: IListItem[] = [
-      new ListItem({}),
-    ];
-    const fetch = fetchReturnsOkResponseFactory(items);
+
+    const fetch = fetchReturnsOkResponseFactory(actionParams.items);
     const requestItems = jest.fn(() => expectedActions[0]);
     const receiveItems = jest.fn(() => expectedActions[1]);
     const fetchItems = fetchItemsFactory({
@@ -31,7 +35,7 @@ describe('fetchItems will call dispatch with', () => {
       registerAction: fakeFunction,
     });
 
-    const dispatchableAction = fetchItems(uri);
+    const dispatchableAction = fetchItems(actionParams);
 
     return assertThatDispatchWasCalledWithArgumentsInGiveOrder(dispatchableAction, expectedActions);
   });
@@ -42,7 +46,6 @@ describe('fetchItems will call dispatch with', () => {
       'registerAction',
       'fetchFailed',
     ];
-    const uri = '';
     const fetch = fetchAlwaysFailFactory();
     const requestItems = jest.fn(() => expectedActions[0]);
     const registerAction = jest.fn(() => expectedActions[1]);
@@ -56,7 +59,7 @@ describe('fetchItems will call dispatch with', () => {
       receiveItems: fakeFunction,
     });
 
-    const dispatchableAction = fetchItems(uri);
+    const dispatchableAction = fetchItems(actionParams);
 
     return assertThatDispatchWasCalledWithArgumentsInGiveOrder(dispatchableAction, expectedActions);
   });
