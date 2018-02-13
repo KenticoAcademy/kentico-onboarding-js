@@ -5,6 +5,7 @@ import { IAction } from '../actions/IAction';
 
 export interface IFetchDataProps {
   fetchFailed: boolean;
+  errorMessage: string;
 }
 
 export interface IFetchCallbackProps {
@@ -27,10 +28,12 @@ export class FetchedItems extends React.PureComponent<IFetchDataProps & IFetchCa
       <div className="row">
         {!this.props.fetchFailed
           ? <List />
-          : <Error
-            errorMessage="Ups..."
-            onCloseError={this.props.onFetchErrorClose}
-          />
+          : <div className="col-sm-12 col-md-offset-2 col-md-8">
+              <Error
+                errorMessage={this.props.errorMessage}
+                onCloseError={this.props.onFetchErrorClose}
+              />
+          </div>
         }
       </div>
     );

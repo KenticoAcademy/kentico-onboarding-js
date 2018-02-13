@@ -1,5 +1,4 @@
-/*
-import { ITEM_POST_ERROR, ITEM_POST_SUCCESS } from '../constants/actionTypes';
+import { CLOSE_POST_ERROR, ITEM_POST_ERROR, ITEM_POST_SUCCESS } from '../constants/actionTypes';
 import { IAction } from '../actions/IAction';
 import { PostStatus } from '../models/PostStatus';
 
@@ -8,11 +7,12 @@ export const postStatus = (previousState: PostStatus = new PostStatus(), action:
     case ITEM_POST_ERROR: {
       const updatedStatus = {
         hasError: true,
-        errorMessage: action.payload.errorText
+        errorMessage: action.payload.errorMessage
       };
 
       return previousState.with(updatedStatus);
     }
+    case CLOSE_POST_ERROR:
     case ITEM_POST_SUCCESS: {
       const updatedStatus = {
         hasError: false
@@ -25,4 +25,3 @@ export const postStatus = (previousState: PostStatus = new PostStatus(), action:
       return previousState;
   }
 };
-*/
