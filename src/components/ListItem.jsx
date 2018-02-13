@@ -1,5 +1,5 @@
 import React from 'react';
-import { ListItemEdit } from './ListItemEdit';
+import { ListItemEditor } from './ListItemEditor';
 import { ListItemDisplay } from './ListItemDisplay';
 
 export class ListItem extends React.PureComponent {
@@ -30,7 +30,7 @@ export class ListItem extends React.PureComponent {
 
     if (editMode) {
       return (
-        <ListItemEdit
+        <ListItemEditor
           onCancel={this.cancelEditing}
           onDelete={this.deleteItem}
           onUpdate={this.updateItem}

@@ -1,6 +1,6 @@
 import React from 'react';
 
-export class ListItemEdit extends React.PureComponent {
+export class ListItemEditor extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
