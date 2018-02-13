@@ -2,9 +2,6 @@ import * as fetch from 'isomorphic-fetch';
 import {
   addNewItem,
   deleteItem,
-  fetchFailed,
-  notifyError,
-  notifySuccess,
   receiveItems,
   requestItems,
   saveItemChanges,
@@ -25,25 +22,18 @@ export const fetchItemsAsync: IThunkAction<IFetchItemsActionParams> = fetchItems
   ...configurationObjectBase,
   requestItems,
   receiveItems,
-  fetchFailed,
 });
 export const postItemAsync: IThunkAction<IPostItemActionParams> = postItemFactory({
   ...configurationObjectBase,
   addNewItem,
-  notifySuccess,
-  notifyError,
 });
 
 export const deleteItemAsync: IThunkAction<IDeleteItemActionParams> = deleteItemFactory({
   ...configurationObjectBase,
   deleteItem,
-  notifySuccess,
-  notifyError,
 });
 
 export const saveNewTextAsync: IThunkAction<ISaveNewTextActionParams> = saveNewTextFactory({
   ...configurationObjectBase,
   saveItemChanges,
-  notifySuccess,
-  notifyError,
 });

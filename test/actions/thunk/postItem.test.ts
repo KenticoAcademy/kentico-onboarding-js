@@ -15,21 +15,17 @@ const actionParams = {
 };
 
 describe('postItem will call dispatch with', () => {
-  it('notify success and add new item actions', () => {
+  it('add new item action', () => {
     const expectedActions = [
-      'notifySuccess',
       'addNewItem',
     ];
     const createdItem: IListItem = new ListItem({});
     const fetch = fetchReturnsOkResponseFactory(createdItem);
-    const notifySuccess = jest.fn(() => expectedActions[0]);
-    const addNewItem = jest.fn(() => expectedActions[1]);
+    const addNewItem = jest.fn(() => expectedActions[0]);
     const postItem = postItemFactory({
       fetch,
-      notifySuccess,
       addNewItem,
       handleErrors,
-      notifyError: fakeFunction,
     });
 
     const dispatchableAction = postItem(actionParams);
@@ -37,18 +33,14 @@ describe('postItem will call dispatch with', () => {
     return assertThatDispatchWasCalledWithArgumentsInGiveOrder(dispatchableAction, expectedActions);
   });
 
-  it('notify error action', () => {
-    const expectedActions = [
-      'notifyError',
+  it('no action', () => {
+    const expectedActions: string[] = [
     ];
     const fetch = fetchAlwaysFailFactory();
-    const notifyError = jest.fn(() => expectedActions[0]);
     const postItem = postItemFactory({
       fetch,
-      notifyError,
       handleErrors,
       addNewItem: fakeFunction,
-      notifySuccess: fakeFunction,
     });
 
     const dispatchableAction = postItem(actionParams);

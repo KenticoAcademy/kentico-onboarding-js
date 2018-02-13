@@ -7,7 +7,6 @@ interface IFetchItemsFactoryDependencies {
   readonly fetch: IFetch;
   readonly requestItems: (uri: string) => IAction;
   readonly receiveItems: (items: IListItem[]) => IAction;
-  readonly fetchFailed: (message: string) => IAction;
   readonly handleErrors: (response: Response) => Response;
 }
 
@@ -23,6 +22,5 @@ export const fetchItemsFactory = (deps: IFetchItemsFactoryDependencies) =>
           return deps.fetch(uri)
             .then(deps.handleErrors)
             .then((res: Response) => res.json())
-            .then((items: IListItem[]) => dispatch(deps.receiveItems(items)))
-            .catch(() => dispatch(deps.fetchFailed('Items failed to load.')));
+            .then((items: IListItem[]) => dispatch(deps.receiveItems(items)));
         };

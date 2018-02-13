@@ -13,20 +13,16 @@ const actionParams = {
 };
 
 describe('deleteItem will call dispatch with', () => {
-  it('notify success and delete item actions', () => {
+  it('delete item action', () => {
     const expectedActions = [
-      'notifySuccess',
       'deleteItem',
     ];
     const fetch = fetchReturnsOkResponseFactory();
-    const notifySuccess = jest.fn(() => expectedActions[0]);
-    const deleteItemAction = jest.fn(() => expectedActions[1]);
+    const deleteItemAction = jest.fn(() => expectedActions[0]);
     const deleteItem = deleteItemFactory({
       fetch,
-      notifySuccess,
       handleErrors,
       deleteItem: deleteItemAction,
-      notifyError: fakeFunction,
     });
 
     const dispatchableAction = deleteItem(actionParams);
@@ -34,17 +30,12 @@ describe('deleteItem will call dispatch with', () => {
     return assertThatDispatchWasCalledWithArgumentsInGiveOrder(dispatchableAction, expectedActions);
   });
 
-  it('notify error action', () => {
-    const expectedActions = [
-      'notifyError',
-    ];
+  it('no action', () => {
+    const expectedActions: string[] = [];
     const fetch = fetchAlwaysFailFactory();
-    const notifyError = jest.fn(() => expectedActions[0]);
     const deleteItem = deleteItemFactory({
       fetch,
-      notifyError,
       handleErrors,
-      notifySuccess: fakeFunction,
       deleteItem: fakeFunction,
     });
 

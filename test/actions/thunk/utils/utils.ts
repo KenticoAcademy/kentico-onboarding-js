@@ -33,5 +33,6 @@ export const assertThatDispatchWasCalledWithArgumentsInGiveOrder = (dispatchable
 
       expect(callArguments)
         .toEqual(expectedActions);
-    });
+    })
+    .catch(fakeFunction);
 };

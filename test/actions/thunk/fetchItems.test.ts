@@ -31,7 +31,6 @@ describe('fetchItems will call dispatch with', () => {
       requestItems,
       receiveItems,
       handleErrors,
-      fetchFailed: fakeFunction,
     });
 
     const dispatchableAction = fetchItems(actionParams);
@@ -39,18 +38,15 @@ describe('fetchItems will call dispatch with', () => {
     return assertThatDispatchWasCalledWithArgumentsInGiveOrder(dispatchableAction, expectedActions);
   });
 
-  it('request items, notify error and fetch failed actions', () => {
+  it('request items action', () => {
     const expectedActions = [
       'requestItems',
-      'fetchFailed',
     ];
     const fetch = fetchAlwaysFailFactory();
     const requestItems = jest.fn(() => expectedActions[0]);
-    const fetchFailed = jest.fn(() => expectedActions[1]);
     const fetchItems = fetchItemsFactory({
       fetch,
       requestItems,
-      fetchFailed,
       handleErrors,
       receiveItems: fakeFunction,
     });

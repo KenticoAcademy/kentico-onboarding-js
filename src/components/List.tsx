@@ -9,18 +9,10 @@ import {
 } from '../models/enums/FetchItemsState';
 import * as PropTypes from 'prop-types';
 import { Loader } from './Loader';
-import {
-  AllMessageTypes,
-  MessageType,
-} from '../models/enums/MessageType';
-import { IMessage } from '../models/interfaces/IMessage';
-import { Success } from './Success';
-import { Error } from './Error';
 import { IAction } from '../models/interfaces/IAction';
 
 export interface IListDataProps {
   readonly fetchItemsState: FetchItemsState;
-  readonly message: IMessage;
 }
 
 export interface IListCallbackProps {
@@ -36,10 +28,6 @@ export class List extends React.PureComponent<IListProps> {
   static propTypes = {
     fetchItemsState: PropTypes.oneOf(AllFetchItemsStates),
     fetchItems: PropTypes.func.isRequired,
-    message: PropTypes.shape({
-      content: PropTypes.string.isRequired,
-      type: PropTypes.oneOf(AllMessageTypes)
-    }),
   };
 
   componentDidMount() {
@@ -47,32 +35,12 @@ export class List extends React.PureComponent<IListProps> {
   }
 
   render() {
-    const {message: {content, type}} = this.props;
-
-    let messageComponent;
-
-    switch (type) {
-      case MessageType.Error:
-        messageComponent = <Error message={content} showRetry={true} />;
-        break;
-
-      case MessageType.Success:
-        messageComponent = <Success message={content} />;
-        break;
-
-      default:
-        break;
-    }
-
-    let component;
-
     switch (this.props.fetchItemsState) {
       case FetchItemsState.REQUESTED:
-        component = <Loader />;
-        break;
+        return <Loader />;
 
       case FetchItemsState.RECEIVED:
-        component = <HotKeys keyMap={keyMap}>
+        return <HotKeys keyMap={keyMap}>
           <ol className="list-group">
             <Items />
 
@@ -81,18 +49,10 @@ export class List extends React.PureComponent<IListProps> {
             </li>
           </ol>
         </HotKeys>;
-        break;
 
       case FetchItemsState.FAILED:
       default:
-        break;
+        return null;
     }
-
-    return (
-      <div>
-        {messageComponent}
-        {component}
-      </div>
-    );
   }
 }

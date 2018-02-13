@@ -6,8 +6,6 @@ import { IFetch } from '../../models/interfaces/IFetch';
 interface IDeleteItemFactoryDependencies {
   readonly fetch: IFetch;
   readonly deleteItem: (id: Guid) => IAction;
-  readonly notifySuccess: (message: string) => IAction;
-  readonly notifyError: (message: string) => IAction;
   readonly handleErrors: (response: Response) => Response;
 }
 
@@ -25,8 +23,4 @@ export const deleteItemFactory = (deps: IDeleteItemFactoryDependencies) =>
       },
     )
       .then(deps.handleErrors)
-      .then(() => {
-        dispatch(deps.notifySuccess('Item was deleted.'));
-        return dispatch(deps.deleteItem(id));
-      })
-      .catch(() => dispatch(deps.notifyError('Item failed to delete.')));
+      .then(() => dispatch(deps.deleteItem(id)));

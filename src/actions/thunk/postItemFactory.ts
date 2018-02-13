@@ -6,8 +6,6 @@ import { IFetch } from '../../models/interfaces/IFetch';
 interface IPostItemFactoryDependencies {
   readonly fetch: IFetch;
   readonly addNewItem: (item: IListItem) => IAction;
-  readonly notifySuccess: (message: string) => IAction;
-  readonly notifyError: (message: string) => IAction;
   readonly handleErrors: (response: Response) => Response;
 }
 
@@ -36,9 +34,5 @@ export const postItemFactory = (deps: IPostItemFactoryDependencies) =>
       )
         .then(deps.handleErrors)
         .then((res: Response) => res.json())
-        .then((returnedItem: IListItem) => {
-          dispatch(deps.notifySuccess('Item was created.'));
-          return dispatch(deps.addNewItem(returnedItem));
-        })
-        .catch(() => dispatch(deps.notifyError('Item failed to create.')));
+        .then((returnedItem: IListItem) => dispatch(deps.addNewItem(returnedItem)));
     };

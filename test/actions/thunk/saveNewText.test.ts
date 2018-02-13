@@ -15,20 +15,16 @@ const actionParams = {
 };
 
 describe('saveNewText will call dispatch with', () => {
-  it('notify success and save item changes actions', () => {
+  it('save item changes action', () => {
     const expectedActions = [
-      'notifySuccess',
       'saveItemChanges',
     ];
     const fetch = fetchReturnsOkResponseFactory();
-    const notifySuccess = jest.fn(() => expectedActions[0]);
-    const saveItemChanges = jest.fn(() => expectedActions[1]);
+    const saveItemChanges = jest.fn(() => expectedActions[0]);
     const saveNewText = saveNewTextFactory({
       fetch,
-      notifySuccess,
       saveItemChanges,
       handleErrors,
-      notifyError: fakeFunction,
     });
 
     const dispatchableAction = saveNewText(actionParams);
@@ -36,18 +32,14 @@ describe('saveNewText will call dispatch with', () => {
     return assertThatDispatchWasCalledWithArgumentsInGiveOrder(dispatchableAction, expectedActions);
   });
 
-  it('notify error action', () => {
-    const expectedActions = [
-      'notifyError',
+  it('no action', () => {
+    const expectedActions: string[] = [
     ];
     const fetch = fetchAlwaysFailFactory();
-    const notifyError = jest.fn(() => expectedActions[0]);
     const saveNewText = saveNewTextFactory({
       fetch,
-      notifyError,
       handleErrors,
       saveItemChanges: fakeFunction,
-      notifySuccess: fakeFunction,
     });
 
     const dispatchableAction = saveNewText(actionParams);

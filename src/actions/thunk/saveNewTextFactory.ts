@@ -7,8 +7,6 @@ import { IFetch } from '../../models/interfaces/IFetch';
 interface ISaveNewTextFactoryDependencies {
   readonly fetch: IFetch;
   readonly saveItemChanges: (id: Guid, text: string) => IAction;
-  readonly notifySuccess: (message: string) => IAction;
-  readonly notifyError: (message: string) => IAction;
   readonly handleErrors: (response: Response) => Response;
 }
 
@@ -38,9 +36,5 @@ export const saveNewTextFactory = (deps: ISaveNewTextFactoryDependencies) =>
         },
       )
         .then(deps.handleErrors)
-        .then(() => {
-          dispatch(deps.notifySuccess('Item text was updated.'));
-          return dispatch(deps.saveItemChanges(id, text));
-        })
-        .catch(() => dispatch(deps.notifyError('Item failed to update.')));
+        .then(() => dispatch(deps.saveItemChanges(id, text)));
     };
