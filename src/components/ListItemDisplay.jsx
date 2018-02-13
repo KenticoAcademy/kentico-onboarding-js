@@ -1,4 +1,7 @@
+// components/ListItemDisplay.jsx
+
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export const ListItemDisplay = ({ itemValue, onEdit }) => {
   return (
@@ -13,6 +16,6 @@ export const ListItemDisplay = ({ itemValue, onEdit }) => {
 ListItemDisplay.displayName = 'ListItemDisplay';
 
 ListItemDisplay.propTypes = {
-  itemValue: React.PropTypes.string.isRequired,
-  onEdit: React.PropTypes.func.isRequired,
+  itemValue: PropTypes.string.isRequired,
+  onEdit: PropTypes.func.isRequired,
 };
