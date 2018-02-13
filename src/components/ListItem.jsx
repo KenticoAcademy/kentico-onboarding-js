@@ -44,17 +44,19 @@ export class ListItem extends React.PureComponent {
     if (this.state.isEditing) {
       return (
         <ListItemEditor
+          itemValue={item.value}
           onCancel={this.toggleEditMode}
           onDelete={this.deleteItem}
           onUpdate={this.updateItem}
-          item={item.value}
-        />);
+        />
+      );
     }
 
     return (
       <ListItemDisplay
         itemValue={item.value}
         onEdit={this.toggleEditMode}
-      />);
+      />
+    );
   }
 }

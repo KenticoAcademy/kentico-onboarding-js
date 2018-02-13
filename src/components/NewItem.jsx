@@ -52,8 +52,7 @@ export class NewItem extends React.PureComponent {
             className="btn btn-default"
             onClick={this.addItem}
             disabled={!itemValue}
-          >
-            Add
+          > Add
           </button>
         </span>
       </div>
