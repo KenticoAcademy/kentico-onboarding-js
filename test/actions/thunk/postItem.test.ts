@@ -30,7 +30,6 @@ describe('postItem will call dispatch with', () => {
       addNewItem,
       handleErrors,
       notifyError: fakeFunction,
-      registerAction: fakeFunction,
     });
 
     const dispatchableAction = postItem(actionParams);
@@ -40,17 +39,14 @@ describe('postItem will call dispatch with', () => {
 
   it('notify error action', () => {
     const expectedActions = [
-      'registerAction',
       'notifyError',
     ];
     const fetch = fetchAlwaysFailFactory();
-    const registerAction = jest.fn(() => expectedActions[0]);
-    const notifyError = jest.fn(() => expectedActions[1]);
+    const notifyError = jest.fn(() => expectedActions[0]);
     const postItem = postItemFactory({
       fetch,
       notifyError,
       handleErrors,
-      registerAction,
       addNewItem: fakeFunction,
       notifySuccess: fakeFunction,
     });

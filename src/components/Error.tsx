@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { TryAgain } from '../containers/TryAgain';
+import { TryAgain } from '../components/TryAgain';
 
 interface ErrorDataProps {
   readonly message: string;

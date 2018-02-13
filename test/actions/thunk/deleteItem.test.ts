@@ -27,7 +27,6 @@ describe('deleteItem will call dispatch with', () => {
       handleErrors,
       deleteItem: deleteItemAction,
       notifyError: fakeFunction,
-      registerAction: fakeFunction,
     });
 
     const dispatchableAction = deleteItem(actionParams);
@@ -37,15 +36,12 @@ describe('deleteItem will call dispatch with', () => {
 
   it('notify error action', () => {
     const expectedActions = [
-      'registerAction',
       'notifyError',
     ];
     const fetch = fetchAlwaysFailFactory();
-    const registerAction = jest.fn(() => expectedActions[0]);
-    const notifyError = jest.fn(() => expectedActions[1]);
+    const notifyError = jest.fn(() => expectedActions[0]);
     const deleteItem = deleteItemFactory({
       fetch,
-      registerAction,
       notifyError,
       handleErrors,
       notifySuccess: fakeFunction,

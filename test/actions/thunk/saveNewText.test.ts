@@ -29,7 +29,6 @@ describe('saveNewText will call dispatch with', () => {
       saveItemChanges,
       handleErrors,
       notifyError: fakeFunction,
-      registerAction: fakeFunction,
     });
 
     const dispatchableAction = saveNewText(actionParams);
@@ -39,17 +38,14 @@ describe('saveNewText will call dispatch with', () => {
 
   it('notify error action', () => {
     const expectedActions = [
-      'registerAction',
       'notifyError',
     ];
     const fetch = fetchAlwaysFailFactory();
-    const registerAction = jest.fn(() => expectedActions[0]);
-    const notifyError = jest.fn(() => expectedActions[1]);
+    const notifyError = jest.fn(() => expectedActions[0]);
     const saveNewText = saveNewTextFactory({
       fetch,
       notifyError,
       handleErrors,
-      registerAction,
       saveItemChanges: fakeFunction,
       notifySuccess: fakeFunction,
     });

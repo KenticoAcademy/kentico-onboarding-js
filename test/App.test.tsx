@@ -18,7 +18,6 @@ it('renders without crashing', () => {
       fetchItemsState: FetchItemsState.INITIAL,
       message: new Message(),
     },
-    registeredAction: () => null,
   });
   const fakeStore = createStore(fakeReducer);
 

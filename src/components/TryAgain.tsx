@@ -1,11 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 
-export interface ITryAgainCallbackProps {
-  readonly retryAction: () => void;
-}
-
-export class TryAgain extends React.PureComponent<ITryAgainCallbackProps> {
+export class TryAgain extends React.PureComponent {
   static displayName = 'TryAgain';
 
   static propTypes  = {
@@ -16,7 +12,6 @@ export class TryAgain extends React.PureComponent<ITryAgainCallbackProps> {
     return (
       <button
         className="btn btn-outline-secondary"
-        onClick={this.props.retryAction}
       >
         Try again
       </button>

@@ -8,7 +8,6 @@ interface IDeleteItemFactoryDependencies {
   readonly deleteItem: (id: Guid) => IAction;
   readonly notifySuccess: (message: string) => IAction;
   readonly notifyError: (message: string) => IAction;
-  readonly registerAction: (action: () => void) => IAction;
   readonly handleErrors: (response: Response) => Response;
 }
 
@@ -18,23 +17,16 @@ export interface IDeleteItemActionParams {
 }
 
 export const deleteItemFactory = (deps: IDeleteItemFactoryDependencies) =>
-    ({ uri, id }: IDeleteItemActionParams) =>
-      (dispatch: Dispatch<IAction>) => {
-        const action = () => deps.fetch(
-          uri + id,
-          {
-            method: 'DELETE',
-          },
-        )
-          .then(deps.handleErrors)
-          .then(() => {
-            dispatch(deps.notifySuccess('Item was deleted.'));
-            return dispatch(deps.deleteItem(id));
-          })
-          .catch(() => {
-            dispatch(deps.registerAction(action));
-            return dispatch(deps.notifyError('Item failed to delete.'));
-          });
-
-        return action();
-      };
+  ({ uri, id }: IDeleteItemActionParams) =>
+    (dispatch: Dispatch<IAction>) => deps.fetch(
+      uri + id,
+      {
+        method: 'DELETE',
+      },
+    )
+      .then(deps.handleErrors)
+      .then(() => {
+        dispatch(deps.notifySuccess('Item was deleted.'));
+        return dispatch(deps.deleteItem(id));
+      })
+      .catch(() => dispatch(deps.notifyError('Item failed to delete.')));

@@ -6,7 +6,6 @@ import {
   notifyError,
   notifySuccess,
   receiveItems,
-  registerAction,
   requestItems,
   saveItemChanges,
 } from '../actionCreators';
@@ -19,7 +18,6 @@ import { IThunkAction } from '../../models/interfaces/IThunkAction';
 
 const configurationObjectBase = {
   fetch,
-  registerAction,
   handleErrors,
 };
 
