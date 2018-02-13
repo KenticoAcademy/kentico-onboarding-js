@@ -3,11 +3,11 @@ import {
   FetchedItems,
   IFetchCallbackProps,
   IFetchDataProps
-} from '../components/FetchedItems';
-import { fetchItems } from '../actions/index';
-import { IAction } from '../actions/IAction';
-import { IAppState } from '../models/IAppState';
-import { closeFetchError } from '../actions/actionCreators';
+} from '../../components/todo-list/FetchedItems';
+import { fetchItems } from '../../actions/index';
+import { IAction } from '../../actions/IAction';
+import { IAppState } from '../../models/IAppState';
+import { closeFetchError } from '../../actions/actionCreators';
 
 const mapStateToProps = (state: IAppState): IFetchDataProps => ({
   fetchFailed: state.fetchStatus.hasError,

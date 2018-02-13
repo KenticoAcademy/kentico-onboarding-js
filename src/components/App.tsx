@@ -1,7 +1,7 @@
 import '../sticky-footer.css';
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { FetchedItems } from '../containers/FetchedItems';
+import { FetchedItems } from '../containers/todo-list/FetchedItems';
 
 const Loading = require('react-loading-animation');
 

@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { List } from '../containers/todo-list/List';
-import { Error } from './todo-list/Error';
-import { IAction } from '../actions/IAction';
+import { List } from '../../containers/todo-list/List';
+import { Error } from './Error';
+import { IAction } from '../../actions/IAction';
 
 export interface IFetchDataProps {
   fetchFailed: boolean;
