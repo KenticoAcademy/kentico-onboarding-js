@@ -1,11 +1,6 @@
-/*
-import {
-  apiCallSuccess
-} from '../actions/index';
 import { PostStatus } from '../models/PostStatus';
 import { postStatus } from './postStatus';
-import { ITEM_POST_ERROR, ITEM_POST_SUCCESS } from '../constants/actionTypes';
-import { fetchError } from '../actions/actionCreators';
+import { postError, postSuccess } from '../actions/actionCreators';
 
 describe('postStatus reducer', () => {
   const UNKNOWN_ACTION = 'UNKNOWN_ACTION';
@@ -24,7 +19,7 @@ describe('postStatus reducer', () => {
 
   it('sets flags correctly on failed request with errorMessage', () => {
     const errorMessage = '400 Bad Request';
-    const errorAction = fetchError(ITEM_POST_ERROR, errorMessage);
+    const errorAction = postError(errorMessage);
     const expectedState = new PostStatus({
       hasError: true,
       errorMessage
@@ -36,14 +31,21 @@ describe('postStatus reducer', () => {
   });
 
   it('sets flags correctly on successful request', () => {
-    const successfulAction = apiCallSuccess(ITEM_POST_SUCCESS);
+    const successfulAction = postSuccess({
+      newId: '123',
+      id: '234',
+      text: 'bla',
+      isSynchronized: true
+    });
+    const stateWithError = new PostStatus({
+      hasError: true,
+    });
     const expectedState = new PostStatus({
       hasError: false,
     });
 
-    const newState = postStatus(expectedState, successfulAction);
+    const newState = postStatus(stateWithError, successfulAction);
 
     expect(newState).toEqual(expectedState);
   });
 });
-*/
