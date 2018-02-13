@@ -9,7 +9,7 @@ import {
   ITEM_DELETE_SUCCESS,
   ITEM_PUT_ERROR,
   ITEM_DELETE_FAILED, CLOSE_ITEM_ERROR, ITEM_POST_ERROR, ITEMS_FETCH_SUCCESS, CLOSE_FETCH_ERROR,
-  CLOSE_POST_ERROR
+  CLOSE_POST_ERROR, ITEMS_FETCH_ERROR
 } from '../constants/actionTypes';
 import { Uuid } from '../utils/generateId';
 import { IAction } from './IAction';
@@ -111,8 +111,8 @@ export const fetchSuccess = (): IAction => ({
   payload: undefined
 });
 
-export const fetchError = (errorType: string, errorText: string): IAction => ({
-  type: errorType,
+export const fetchError = (errorText: string): IAction => ({
+  type: ITEMS_FETCH_ERROR,
   payload: {
     errorText
   }

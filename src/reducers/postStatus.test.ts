@@ -1,6 +1,6 @@
 import { PostStatus } from '../models/PostStatus';
 import { postStatus } from './postStatus';
-import { postError, postSuccess } from '../actions/actionCreators';
+import { closePostError, postError, postSuccess } from '../actions/actionCreators';
 
 describe('postStatus reducer', () => {
   const UNKNOWN_ACTION = 'UNKNOWN_ACTION';
@@ -45,6 +45,19 @@ describe('postStatus reducer', () => {
     });
 
     const newState = postStatus(stateWithError, successfulAction);
+
+    expect(newState).toEqual(expectedState);
+  });
+
+  it('sets flag correctly on error message close', () => {
+    const stateWithError = new PostStatus({
+      hasError: true
+    });
+    const expectedState = new PostStatus({
+      hasError: false
+    });
+
+    const newState = postStatus(stateWithError, closePostError());
 
     expect(newState).toEqual(expectedState);
   });

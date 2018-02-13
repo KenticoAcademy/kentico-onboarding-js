@@ -1,9 +1,10 @@
-/*
 import { fetchStatus } from './fetchStatus';
 import { FetchStatus } from '../models/FetchStatus';
-import { apiCallSuccess } from '../actions/index';
-import { ITEMS_FETCH_ERROR, ITEMS_FETCH_SUCCESS } from '../constants/actionTypes';
-import { fetchError } from '../actions/actionCreators';
+import {
+  closeFetchError,
+  fetchError,
+  fetchSuccess
+} from '../actions/actionCreators';
 
 describe('fetchStatus reducer', () => {
   const UNKNOWN_ACTION = 'UNKNOWN_ACTION';
@@ -22,7 +23,7 @@ describe('fetchStatus reducer', () => {
 
   it('sets flags correctly on failed request with errorMessage', () => {
     const errorMessage = '400 Bad Request';
-    const errorAction = fetchError(ITEMS_FETCH_ERROR, errorMessage);
+    const errorAction = fetchError(errorMessage);
     const expectedState = new FetchStatus({
       isFetching: false,
       hasError: true,
@@ -35,7 +36,7 @@ describe('fetchStatus reducer', () => {
   });
 
   it('sets flags correctly on successful', () => {
-    const successfulAction = apiCallSuccess(ITEMS_FETCH_SUCCESS);
+    const successfulAction = fetchSuccess();
     const expectedState = new FetchStatus({
       isFetching: false,
       hasError: false,
@@ -45,5 +46,18 @@ describe('fetchStatus reducer', () => {
 
     expect(newState).toEqual(expectedState);
   });
+
+  it('sets flag correctly on error message close', () => {
+    const stateWithError = new FetchStatus({
+      hasError: true
+    });
+    const expectedState = new FetchStatus({
+      hasError: false,
+      isFetching: false,
+    });
+
+    const newState = fetchStatus(stateWithError, closeFetchError());
+
+    expect(newState).toEqual(expectedState);
+  });
 });
-*/

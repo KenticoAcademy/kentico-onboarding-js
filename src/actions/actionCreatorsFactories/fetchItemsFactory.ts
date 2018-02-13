@@ -2,7 +2,6 @@ import {
   AxiosResponse,
   AxiosError,
 } from 'axios';
-import { ITEMS_FETCH_ERROR } from '../../constants/actionTypes';
 import { IAppState } from '../../models/IAppState';
 import { Dispatch } from 'react-redux';
 import { Uuid } from '../../utils/generateId';
@@ -20,7 +19,7 @@ interface FetchedItem {
 interface IPostDependencies extends IDependencies {
   readonly insertItem: (args: { text: string, id: Uuid, isSynchronized: boolean }) => IAction;
   readonly fetchSuccess: () => IAction;
-  readonly fetchError: (errorType: string, errorText: string) => IAction;
+  readonly fetchError: (errorText: string) => IAction;
 }
 
 export const fetchItemsFactory = ({insertItem, fetchSuccess, fetchError, getAxios}: IPostDependencies) => () =>
@@ -36,8 +35,8 @@ export const fetchItemsFactory = ({insertItem, fetchSuccess, fetchError, getAxio
       .catch((error: AxiosError) => {
         const errorResponse = error.response;
         if (errorResponse !== undefined) {
-          dispatch(fetchError(ITEMS_FETCH_ERROR, errorResponse.status + ' ' + errorResponse.statusText));
+          dispatch(fetchError(errorResponse.status + ' ' + errorResponse.statusText));
         } else {
-          dispatch(fetchError(ITEMS_FETCH_ERROR, NO_CONNECTION));
+          dispatch(fetchError(NO_CONNECTION));
         }
       });

@@ -273,4 +273,5 @@ describe('Async actions', () => {
       .catch(err => console.log(err));
   });
 });
+
 */
