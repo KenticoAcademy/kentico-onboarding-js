@@ -40,7 +40,7 @@ export class ListItem extends React.PureComponent {
 
     return (
       <ListItemDisplay
-        item={item.value}
+        itemValue={item.value}
         onEdit={this.editItem}
       />);
   }

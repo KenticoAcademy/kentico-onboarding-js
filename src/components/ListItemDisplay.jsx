@@ -1,14 +1,18 @@
 import React from 'react';
 
-export class ListItemDisplay extends React.PureComponent {
-  render() {
-    const { item, onEdit } = this.props;
-    return (
-      <span className="input-group" onClick={onEdit}>
-        <span className="form-control">
-          {item}
-        </span>
+export const ListItemDisplay = ({ itemValue, onEdit }) => {
+  return (
+    <span className="input-group" onClick={onEdit}>
+      <span className="form-control">
+        {itemValue}
       </span>
-    );
-  }
-}
+    </span>
+  );
+};
+
+ListItemDisplay.displayName = 'ListItemDisplay';
+
+ListItemDisplay.propTypes = {
+  itemValue: React.PropTypes.string.isRequired,
+  onEdit: React.PropTypes.func.isRequired,
+};
