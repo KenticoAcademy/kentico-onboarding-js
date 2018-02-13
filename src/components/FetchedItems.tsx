@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { List } from '../containers/todo-list/List';
-import { Error } from '../containers/todo-list/Error';
+import { Error } from './todo-list/Error';
+import { IAction } from '../actions/IAction';
 
 export interface IFetchDataProps {
   fetchFailed: boolean;
@@ -8,6 +9,7 @@ export interface IFetchDataProps {
 
 export interface IFetchCallbackProps {
   readonly onFetchItems: () => void;
+  readonly onFetchErrorClose: () => IAction;
 }
 
 export class FetchedItems extends React.PureComponent<IFetchDataProps & IFetchCallbackProps> {
@@ -25,7 +27,10 @@ export class FetchedItems extends React.PureComponent<IFetchDataProps & IFetchCa
       <div className="row">
         {!this.props.fetchFailed
           ? <List />
-          : <Error />
+          : <Error
+            errorMessage="Ups..."
+            onCloseError={this.props.onFetchErrorClose}
+          />
         }
       </div>
     );
