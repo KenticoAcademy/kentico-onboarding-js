@@ -14,7 +14,7 @@ describe('delete item tests', () => {
     const deleteFromServer = deleteItemFactory({
       deleteSuccess,
       deleteError,
-      getAxios: () => ({
+      getAxios: ({
         axios: {
           delete: deleteItem
         },
@@ -42,7 +42,7 @@ describe('delete item tests', () => {
     const deleteFromServer = deleteItemFactory({
       deleteSuccess,
       deleteError,
-      getAxios: () => ({
+      getAxios: ({
         axios: {
           delete: deleteItem
         },

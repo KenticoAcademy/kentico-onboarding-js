@@ -13,23 +13,24 @@ interface IDeleteDependencies extends IDependencies {
   readonly deleteError: (args: { id: Uuid, message: string }) => IAction;
 }
 
-export const deleteItemFactory = ({deleteSuccess, deleteError, getAxios}: IDeleteDependencies) => (id: Uuid) =>
-  (dispatch: Dispatch<IAppState>): Promise<void | IAction> =>
-    getAxios().axios.delete(getAxios().url + '/' + id)
-      .then(() => dispatch(deleteSuccess(id)))
-      .catch((error: AxiosError) => {
-        const errorResponse = error.response;
-        if (errorResponse !== undefined) {
-          dispatch(deleteError(
-            {
-              id,
-              message: OPERATION_FAILED
-            }));
-        } else {
-          dispatch(deleteError(
-            {
-              id,
-              message: NO_CONNECTION
-            }));
-        }
-      });
+export const deleteItemFactory =
+  ({deleteSuccess, deleteError, getAxios}: IDeleteDependencies) =>
+    (id: Uuid) => (dispatch: Dispatch<IAppState>): Promise<void | IAction> =>
+      getAxios.axios.delete(getAxios.url + '/' + id)
+        .then(() => dispatch(deleteSuccess(id)))
+        .catch((error: AxiosError) => {
+          const errorResponse = error.response;
+          if (errorResponse !== undefined) {
+            dispatch(deleteError(
+              {
+                id,
+                message: OPERATION_FAILED
+              }));
+          } else {
+            dispatch(deleteError(
+              {
+                id,
+                message: NO_CONNECTION
+              }));
+          }
+        });

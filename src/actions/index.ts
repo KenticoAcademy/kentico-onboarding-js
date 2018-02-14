@@ -28,21 +28,21 @@ const postItem = postItemFactory(
     deleteSuccess,
     postSuccess,
     postError,
-    getAxios
+    getAxios: getAxios()
   });
 
 const putItem = putItemFactory(
   {
     putSuccess,
     putError,
-    getAxios
+    getAxios: getAxios()
   });
 
 const deleteFromServer = deleteItemFactory(
   {
     deleteSuccess,
     deleteError,
-    getAxios
+    getAxios: getAxios()
   });
 
 export const fetchItems = fetchItemsFactory(
@@ -50,7 +50,7 @@ export const fetchItems = fetchItemsFactory(
     insertItem,
     fetchSuccess,
     fetchError,
-    getAxios
+    getAxios: getAxios()
   });
 
 export const optimisticAdd = optimisticAddFactory(generateId, insertItem, postItem);

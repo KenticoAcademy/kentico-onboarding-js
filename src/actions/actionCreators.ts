@@ -24,24 +24,26 @@ interface ErrorActionArgs {
   message: string;
 }
 
-export const insertItem = (args: { text: string, id: Uuid, isSynchronized: boolean }): IAction => ({
-  type: TODO_LIST_ITEM_INSERT,
-  payload: {
-    id: args.id,
-    text: args.text,
-    isSynchronized: args.isSynchronized
-  },
-});
+export const insertItem =
+  (args: { text: string, id: Uuid, isSynchronized: boolean }): IAction => ({
+    type: TODO_LIST_ITEM_INSERT,
+    payload: {
+      id: args.id,
+      text: args.text,
+      isSynchronized: args.isSynchronized
+    },
+  });
 
-export const postSuccess = (args: { newId: Uuid, id: Uuid, text: string, isSynchronized: boolean }): IAction => ({
-  type: ITEM_POST_SUCCESS,
-  payload: {
-    newId: args.newId,
-    id: args.id,
-    text: args.text,
-    isSynchronized: args.isSynchronized
-  }
-});
+export const postSuccess =
+  (args: { newId: Uuid, id: Uuid, text: string, isSynchronized: boolean }): IAction => ({
+    type: ITEM_POST_SUCCESS,
+    payload: {
+      newId: args.newId,
+      id: args.id,
+      text: args.text,
+      isSynchronized: args.isSynchronized
+    }
+  });
 
 export const postError = (errorMessage: string): IAction => ({
   type: ITEM_POST_ERROR,

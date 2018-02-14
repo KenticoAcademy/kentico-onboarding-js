@@ -30,7 +30,7 @@ describe('post item tests', () => {
         deleteSuccess,
         postSuccess,
         postError,
-        getAxios: () => ({
+        getAxios: ({
           axios: {
             post
           },
@@ -64,7 +64,7 @@ describe('post item tests', () => {
         deleteSuccess,
         postSuccess,
         postError,
-        getAxios: () => ({
+        getAxios: ({
           axios: {
             post
           },
@@ -99,7 +99,7 @@ describe('post item tests', () => {
         deleteSuccess,
         postSuccess,
         postError,
-        getAxios: () => ({
+        getAxios: ({
           axios: {
             post
           },

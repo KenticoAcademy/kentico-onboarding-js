@@ -36,7 +36,7 @@ describe('fetch items tests', () => {
         insertItem,
         fetchSuccess,
         fetchError,
-        getAxios: () => ({
+        getAxios: ({
           axios: {
             get
           },
@@ -72,7 +72,7 @@ describe('fetch items tests', () => {
         insertItem,
         fetchSuccess,
         fetchError,
-        getAxios: () => ({
+        getAxios: ({
           axios: {
             get
           },
@@ -103,7 +103,7 @@ describe('fetch items tests', () => {
         insertItem,
         fetchSuccess,
         fetchError,
-        getAxios: () => ({
+        getAxios: ({
           axios: {
             get
           },

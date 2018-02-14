@@ -22,21 +22,22 @@ interface IPostDependencies extends IDependencies {
   readonly fetchError: (errorText: string) => IAction;
 }
 
-export const fetchItemsFactory = ({insertItem, fetchSuccess, fetchError, getAxios}: IPostDependencies) => () =>
-  (dispatch: Dispatch<IAppState>): Promise<void | IAction> =>
-    getAxios().axios.get(getAxios().url)
-      .then((response: AxiosResponse) => response.data.map((item: FetchedItem) =>
-        dispatch(insertItem({
-          text: item.Text,
-          id: item.Id,
-          isSynchronized: true
-        }))))
-      .then(() => dispatch(fetchSuccess()))
-      .catch((error: AxiosError) => {
-        const errorResponse = error.response;
-        if (errorResponse !== undefined) {
-          dispatch(fetchError(errorResponse.status + ' ' + errorResponse.statusText));
-        } else {
-          dispatch(fetchError(NO_CONNECTION));
-        }
-      });
+export const fetchItemsFactory =
+  ({insertItem, fetchSuccess, fetchError, getAxios}: IPostDependencies) =>
+    () => (dispatch: Dispatch<IAppState>): Promise<void | IAction> =>
+      getAxios.axios.get(getAxios.url)
+        .then((response: AxiosResponse) => response.data.map((item: FetchedItem) =>
+          dispatch(insertItem({
+            text: item.Text,
+            id: item.Id,
+            isSynchronized: true
+          }))))
+        .then(() => dispatch(fetchSuccess()))
+        .catch((error: AxiosError) => {
+          const errorResponse = error.response;
+          if (errorResponse !== undefined) {
+            dispatch(fetchError(errorResponse.status + ' ' + errorResponse.statusText));
+          } else {
+            dispatch(fetchError(NO_CONNECTION));
+          }
+        });

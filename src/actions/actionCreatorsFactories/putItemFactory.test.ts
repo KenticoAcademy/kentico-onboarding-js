@@ -23,7 +23,7 @@ describe('put item tests', () => {
     const putItem = putItemFactory({
       putSuccess,
       putError,
-      getAxios: () => ({
+      getAxios: ({
         axios: {
           put
         },
@@ -56,7 +56,7 @@ describe('put item tests', () => {
     const putItem = putItemFactory({
       putSuccess,
       putError,
-      getAxios: () => ({
+      getAxios: ({
         axios: {
           put
         },
@@ -93,7 +93,7 @@ describe('put item tests', () => {
     const putItem = putItemFactory({
       putSuccess,
       putError,
-      getAxios: () => ({
+      getAxios: ({
         axios: {
           put
         },
