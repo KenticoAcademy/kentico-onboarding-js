@@ -1,6 +1,6 @@
 import { AxiosStatic } from 'axios';
 
-export const getAxiosFactory = (axios: AxiosStatic | any, url: string) =>
+export const getAxiosFactory = (axios: AxiosStatic, url: string) =>
   () => ({
     axios,
     url

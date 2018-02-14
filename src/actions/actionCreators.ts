@@ -19,6 +19,11 @@ import {
 import { Uuid } from '../utils/generateId';
 import { IAction } from './IAction';
 
+interface ErrorActionArgs {
+  id: Uuid;
+  message: string;
+}
+
 export const insertItem = (args: { text: string, id: Uuid, isSynchronized: boolean }): IAction => ({
   type: TODO_LIST_ITEM_INSERT,
   payload: {
@@ -60,7 +65,7 @@ export const putSuccess = (id: Uuid): IAction => ({
   }
 });
 
-export const putError = (args: { id: Uuid, message: string }): IAction => ({
+export const putError = (args: ErrorActionArgs): IAction => ({
   type: ITEM_PUT_ERROR,
   payload: {
     id: args.id,
@@ -82,7 +87,7 @@ export const deleteSuccess = (id: Uuid): IAction => ({
   }
 });
 
-export const deleteError = (args: { id: Uuid, message: string }): IAction => ({
+export const deleteError = (args: ErrorActionArgs): IAction => ({
   type: ITEM_DELETE_ERROR,
   payload: {
     id: args.id,

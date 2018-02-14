@@ -2,7 +2,8 @@ import axios from 'axios';
 import {
   deleteItem,
   deleteSuccess,
-  insertItem, deleteError,
+  insertItem,
+  deleteError,
   putError,
   postSuccess,
   putSuccess,
@@ -42,8 +43,7 @@ const deleteFromServer = deleteItemFactory(
     deleteSuccess,
     deleteError,
     getAxios
-  }
-);
+  });
 
 export const fetchItems = fetchItemsFactory(
   {
