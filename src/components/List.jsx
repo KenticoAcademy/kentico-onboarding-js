@@ -8,13 +8,9 @@ import { ListItem } from './ListItem';
 
 export class List extends React.PureComponent {
   static displayName = 'List';
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      items: [],
-    };
-  }
+  state = {
+    items: [],
+  };
 
   addItem = (itemValue) => this.setState(prevState => ({
     items: [
