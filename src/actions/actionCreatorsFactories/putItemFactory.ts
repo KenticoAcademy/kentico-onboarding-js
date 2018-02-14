@@ -14,7 +14,7 @@ interface IUpdateDependencies extends IDependencies {
   readonly putError: (args: { id: Uuid, message: string }) => IAction;
 }
 
-export const putItemFactory = ({putSuccess, putError: putError, getAxios}: IUpdateDependencies | any) => (id: Uuid, text: string) =>
+export const putItemFactory = ({putSuccess, putError, getAxios}: IUpdateDependencies) => (id: Uuid, text: string) =>
   (dispatch: Dispatch<IAppState>): Promise<void | IAction> =>
     getAxios().axios.put(getAxios().url + '/' + id, {Id: id, Text: text})
       .then((response: AxiosResponse) =>

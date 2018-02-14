@@ -8,8 +8,13 @@ import {
   ITEM_PUT_SUCCESS,
   ITEM_DELETE_SUCCESS,
   ITEM_PUT_ERROR,
-  ITEM_DELETE_FAILED, CLOSE_ITEM_ERROR, ITEM_POST_ERROR, ITEMS_FETCH_SUCCESS, CLOSE_FETCH_ERROR,
-  CLOSE_POST_ERROR, ITEMS_FETCH_ERROR
+  ITEM_DELETE_ERROR,
+  CLOSE_ITEM_ERROR,
+  ITEM_POST_ERROR,
+  ITEMS_FETCH_SUCCESS,
+  CLOSE_FETCH_ERROR,
+  CLOSE_POST_ERROR,
+  ITEMS_FETCH_ERROR
 } from '../constants/actionTypes';
 import { Uuid } from '../utils/generateId';
 import { IAction } from './IAction';
@@ -78,7 +83,7 @@ export const deleteSuccess = (id: Uuid): IAction => ({
 });
 
 export const deleteError = (args: { id: Uuid, message: string }): IAction => ({
-  type: ITEM_DELETE_FAILED,
+  type: ITEM_DELETE_ERROR,
   payload: {
     id: args.id,
     message: args.message

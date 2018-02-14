@@ -5,7 +5,7 @@ import {
   TODO_LIST_ITEM_UPDATE,
   TODO_LIST_ITEM_CANCEL_EDIT,
   TODO_LIST_ITEM_EDIT, ITEM_POST_SUCCESS, ITEM_PUT_SUCCESS, ITEM_DELETE_SUCCESS,
-  ITEM_PUT_ERROR, ITEM_DELETE_FAILED, CLOSE_ITEM_ERROR,
+  ITEM_PUT_ERROR, ITEM_DELETE_ERROR, CLOSE_ITEM_ERROR,
 } from '../../../constants/actionTypes';
 import { item } from './item';
 import { IAction } from '../../../actions/IAction';
@@ -28,7 +28,7 @@ export const items = (previousState: OrderedMap<Uuid, ListItem> = OrderedMap<Uui
     case TODO_LIST_ITEM_EDIT:
     case TODO_LIST_ITEM_CANCEL_EDIT:
     case TODO_LIST_ITEM_DELETE:
-    case ITEM_DELETE_FAILED:
+    case ITEM_DELETE_ERROR:
     case ITEM_PUT_SUCCESS:
     case ITEM_PUT_ERROR:
     case CLOSE_ITEM_ERROR: {

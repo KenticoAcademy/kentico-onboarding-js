@@ -175,7 +175,7 @@ describe('items reducers', () => {
     expect(newState).toEqual(expectedState);
   });
 
-  it('should add error message to item after ITEM_DELETE_FAILED action', () => {
+  it('should add error message to item after ITEM_DELETE_ERROR action', () => {
     const errorMessage = 'this time it is really bad';
     const twoItemsState: OrderedMap<Uuid, ListItem> = OrderedMap([
       [

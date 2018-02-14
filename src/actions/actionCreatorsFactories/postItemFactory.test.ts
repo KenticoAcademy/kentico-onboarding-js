@@ -10,13 +10,15 @@ describe('post item tests', () => {
   const deleteSuccess = jest.fn();
   const postError = jest.fn();
 
-  it('creates ITEM_POST_SUCCESS on correct POST request', () => {
+  it('creates ITEM_POST_SUCCESS on correct POST request', (done) => {
     postSuccess.mock.calls.length = 0;
     const fetchedTestItem = {
       id: 'e1f5c5e4-7f5e-4aa0-9e52-117cc8267f13',
       text: 'item'
     };
-    const post = (url: string, {text}: { text: string }) =>
+    const post = (
+      _url: string,
+      {_text}: { _text: string }) =>
       new Promise((resolve => resolve({
         data: [{
           Id: fetchedTestItem.id,
@@ -39,17 +41,18 @@ describe('post item tests', () => {
     postItem(postTestItem.id, postTestItem.text)(dispatch)
       .then(() => {
         expect(postSuccess.mock.calls.length).toBe(1);
+        done();
       })
       .catch(err => console.log(err));
   });
 
-  it('creates ITEM_POST_SUCCESS with correct arguments', () => {
+  it('creates ITEM_POST_SUCCESS with correct arguments', (done) => {
     postSuccess.mock.calls.length = 0;
     const fetchedTestItem = {
       id: 'e1f5c5e4-7f5e-4aa0-9e52-117cc8267f13',
       text: 'item'
     };
-    const post = (url: string, {text}: { text: string }) =>
+    const post = (_url: string, {_text}: { _text: string }) =>
       new Promise((resolve => resolve({
         data: {
           Id: fetchedTestItem.id,
@@ -75,14 +78,15 @@ describe('post item tests', () => {
         expect(postSuccess.mock.calls[0][0].id).toEqual(postTestItem.id);
         expect(postSuccess.mock.calls[0][0].text).toEqual(fetchedTestItem.text);
         expect(postSuccess.mock.calls[0][0].isSynchronized).toEqual(true);
+        done();
       })
       .catch(err => console.log(err));
   });
 
-  it('creates ITEM_POST_ERROR, ITEM_DELETE_SUCCESS on POST request failure', () => {
+  it('creates ITEM_POST_ERROR, ITEM_DELETE_SUCCESS on POST request failure', (done) => {
     deleteSuccess.mock.calls.length = 0;
     postError.mock.calls.length = 0;
-    const post = (url: string, {text}: { text: string }) =>
+    const post = (_url: string, {_text}: { _text: string }) =>
       new Promise((_resolve, reject) => reject({
         response:
           {
@@ -107,6 +111,7 @@ describe('post item tests', () => {
       .then(() => {
         expect(deleteSuccess.mock.calls.length).toBe(1);
         expect(postError.mock.calls.length).toBe(1);
+        done();
       })
       .catch(err => console.log(err));
   });
