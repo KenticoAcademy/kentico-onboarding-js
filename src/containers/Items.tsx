@@ -4,7 +4,7 @@ import {
   IItemsDataProps,
   Items as ItemsComponent,
 } from '../components/Items';
-import { IAppState } from '../models/interfaces/IAppState';
+import { IAppState } from '../models/state/IAppState';
 import { keySeqToArray } from '../utils/keySeqToArray';
 
 const mapStateToProps = (state: IAppState): IItemsDataProps => ({

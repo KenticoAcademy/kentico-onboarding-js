@@ -4,7 +4,7 @@ import {
   IListDataProps,
   List as ListComponent,
 } from '../components/List';
-import { IAppState } from '../models/interfaces/IAppState';
+import { IAppState } from '../models/state/IAppState';
 import { Dispatch } from 'redux';
 import { fetchItemsAsync } from '../actions/thunk';
 

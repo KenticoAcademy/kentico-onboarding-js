@@ -6,7 +6,7 @@ import {
 } from '../components/NewItemForm';
 import { Dispatch } from 'redux';
 import { postItemAsync } from '../actions/thunk';
-import { IAppState } from '../models/interfaces/IAppState';
+import { IAppState } from '../models/state/IAppState';
 
 const mapDispatchToProps = (dispatch: Dispatch<IAppState>): INewItemFormCallbackProps => ({
   onSubmit: (text: string, uri: string) =>

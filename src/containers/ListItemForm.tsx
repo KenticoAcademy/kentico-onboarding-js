@@ -11,7 +11,7 @@ import {
   saveNewTextAsync,
 } from '../actions/thunk';
 import { IListItem } from '../models/interfaces/IListItem';
-import { IAppState } from '../models/interfaces/IAppState';
+import { IAppState } from '../models/state/IAppState';
 import { changeItemOpenState } from '../actions';
 
 const propTypes = {

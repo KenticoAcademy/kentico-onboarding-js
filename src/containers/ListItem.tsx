@@ -5,7 +5,7 @@ import {
   IListItemDataProps,
   ListItem as ListItemComponent,
 } from '../components/ListItem';
-import { IAppState } from '../models/interfaces/IAppState';
+import { IAppState } from '../models/state/IAppState';
 import { Guid } from '../models/Guid';
 
 const propTypes = {

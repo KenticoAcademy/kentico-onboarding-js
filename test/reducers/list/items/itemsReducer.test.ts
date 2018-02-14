@@ -24,6 +24,7 @@ describe('items', () => {
     const newItem = {
       id: expectedId,
       text: expectedText,
+      isBeingEdited: false,
     };
     const addNewItemAction = actions.addNewItem(newItem);
     const result = items(initialState, addNewItemAction);
@@ -46,6 +47,7 @@ describe('items', () => {
     const newItem = {
       id: expectedId,
       text: expectedText,
+      isBeingEdited: false,
     };
     const addNewItemAction = actions.addNewItem(newItem);
     const result = items(undefined, addNewItemAction);
