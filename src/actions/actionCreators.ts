@@ -2,35 +2,34 @@ import { IAction } from '../models/interfaces/IAction';
 import * as ActionTypes from '../constants/actionTypes';
 import { Guid } from '../models/Guid';
 import { IListItem } from '../models/interfaces/IListItem';
-import { INewItem } from '../models/interfaces/INewItem';
 
-export const addNewItem = ({ id: itemId, text }: INewItem): IAction => ({
+export const addNewItem = ({ id, text }: IListItem): IAction => ({
   type: ActionTypes.ITEM_CREATED,
   payload: {
-    itemId,
+    id,
     text,
   },
 });
 
-export const deleteItem = (itemId: Guid): IAction => ({
+export const deleteItem = (id: Guid): IAction => ({
   type: ActionTypes.ITEM_DELETED,
   payload: {
-    itemId,
+    id,
   },
 });
 
-export const saveItemChanges = (itemId: Guid, newText: string): IAction => ({
+export const saveItemChanges = (id: Guid, text: string): IAction => ({
   type: ActionTypes.ITEM_CHANGES_SAVED,
   payload: {
-    itemId,
-    newText,
+    id,
+    text,
   },
 });
 
-export const changeItemOpenState = (itemId: Guid): IAction => ({
+export const changeItemOpenState = (id: Guid): IAction => ({
   type: ActionTypes.ITEM_OPEN_STATE_CHANGED,
   payload: {
-    itemId,
+    id,
   }
 });
 

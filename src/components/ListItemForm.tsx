@@ -6,7 +6,7 @@ import { isTextEmpty } from '../utils/validation';
 import { IListItem } from '../models/interfaces/IListItem';
 
 export interface IListItemFormCallbackProps {
-  readonly onSave: (uri: string, text: string) => void;
+  readonly onSave: (text: string, uri: string) => void;
   readonly onCancel: () => void;
   readonly onDelete: (uri: string) => void;
 }
@@ -64,7 +64,7 @@ export class ListItemForm extends React.PureComponent<IListItemFormProps, IOpene
     const { onSave } = this.props;
     const { text } = this.state;
 
-    onSave('/api/v1/listItems/', text);
+    onSave(text, '/api/v1/listItems/');
   };
 
   _onDelete = (): void => {

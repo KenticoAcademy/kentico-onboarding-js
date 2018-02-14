@@ -1,5 +1,5 @@
 import { Reducer } from 'redux';
 
-export type ReducersMapObject<S> = {
-  [P in keyof S]: Reducer<S[P]>;
+export type ReducersMapObject<TState> = {
+  [prop in keyof TState]: Reducer<TState[prop]>;
 };

@@ -18,7 +18,6 @@ const propTypes = {
   itemNumber: PropTypes.number.isRequired,
   item: PropTypes.shape({
     id: PropTypes.string.isRequired,
-    text: PropTypes.string.isRequired,
   }),
   selectionRangeStarts: PropTypes.number.isRequired,
   selectionRangeEnds: PropTypes.number.isRequired,
@@ -31,13 +30,13 @@ interface IListItemFormContainerDataProps {
   readonly selectionRangeEnds: number;
 }
 
-const mapDispatchToProps = (dispatch: Dispatch<IAppState>, { item, item: { id } }: IListItemFormContainerDataProps): IListItemFormCallbackProps => ({
-  onSave: (uri: string, text: string) =>
+const mapDispatchToProps = (dispatch: Dispatch<IAppState>, { item: { id } }: IListItemFormContainerDataProps): IListItemFormCallbackProps => ({
+  onSave: (text: string, uri: string) =>
     dispatch(
       saveNewTextAsync({
         uri,
         text,
-        item,
+        id,
       })),
   onDelete: (uri: string) =>
     dispatch(

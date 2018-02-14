@@ -1,12 +1,12 @@
 import { OrderedMap } from 'immutable';
 import { ListItem } from '../../../models/classes/ListItem';
 import * as ActionTypes from '../../../constants/actionTypes';
-import { IItemsState } from '../../../models/interfaces/IItemsState';
+import { ItemsState } from '../../../models/interfaces/ItemsState';
 import { IAction } from '../../../models/interfaces/IAction';
 import { Guid } from '../../../models/Guid';
 import { listItemsArrayToOrderedMap } from '../../../utils/listItemsArrayToOrderedMap';
 
-const addNewItem = (state: IItemsState, { payload: { itemId: id, text } }: IAction): IItemsState => {
+const addNewItem = (state: ItemsState, { payload: { id, text } }: IAction): ItemsState => {
   const newItem = new ListItem({
     id,
     text,
@@ -15,28 +15,28 @@ const addNewItem = (state: IItemsState, { payload: { itemId: id, text } }: IActi
   return state.set(id, newItem);
 };
 
-const deleteItem = (state: IItemsState, { payload: { itemId } }: IAction): IItemsState =>
-  state.delete(itemId);
+const deleteItem = (state: ItemsState, { payload: { id } }: IAction): ItemsState =>
+  state.delete(id);
 
-const saveItemChanges = (state: IItemsState, { payload: { itemId, newText: text } }: IAction): IItemsState =>
-  state.update(itemId, item =>
+const saveItemChanges = (state: ItemsState, { payload: { id, text } }: IAction): ItemsState =>
+  state.update(id, item =>
     item.with({
       text,
       isBeingEdited: false,
     }));
 
-const changeItemOpenState = (state: IItemsState, { payload: { itemId } }: IAction): IItemsState =>
-  state.update(itemId, item =>
+const changeItemOpenState = (state: ItemsState, { payload: { id } }: IAction): ItemsState =>
+  state.update(id, item =>
     item.with({
       isBeingEdited: !item.isBeingEdited,
     }));
 
-const fetchItems = (action: IAction): IItemsState =>
+const fetchItems = (action: IAction): ItemsState =>
   listItemsArrayToOrderedMap(action.payload.items);
 
 const initialState = OrderedMap<Guid, ListItem>();
 
-export const items = (state = initialState, action: IAction): IItemsState => {
+export const items = (state = initialState, action: IAction): ItemsState => {
   const { type } = action;
 
   switch (type) {

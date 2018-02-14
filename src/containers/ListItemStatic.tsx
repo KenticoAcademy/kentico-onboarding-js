@@ -14,7 +14,6 @@ const propTypes = {
   itemNumber: PropTypes.number.isRequired,
   item: PropTypes.shape({
     id: PropTypes.string.isRequired,
-    text: PropTypes.string.isRequired,
   }),
   onTextSelection: PropTypes.func.isRequired,
 };

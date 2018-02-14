@@ -1,7 +1,7 @@
-import { IItemsState } from './IItemsState';
+import { ItemsState } from './ItemsState';
 import { FetchItemsState } from '../enums/FetchItemsState';
 
 export interface IListState {
-  items: IItemsState;
+  items: ItemsState;
   fetchItemsState: FetchItemsState;
 }

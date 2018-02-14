@@ -5,7 +5,7 @@ import { keyActions } from '../constants/keys';
 import { isTextEmpty } from '../utils/validation';
 
 export interface INewItemFormCallbackProps {
-  readonly onSubmit: (uri: string, text: string) => void;
+  readonly onSubmit: (text: string, uri: string) => void;
 }
 
 interface INewItemFormState {
@@ -35,7 +35,7 @@ export class NewItemForm extends React.PureComponent<INewItemFormCallbackProps, 
     const { onSubmit } = this.props;
     const { newItemText } = this.state;
 
-    onSubmit('/api/v1/listItems', newItemText);
+    onSubmit(newItemText, '/api/v1/listItems');
 
     this.setState({
       newItemText: '',

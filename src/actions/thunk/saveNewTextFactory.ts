@@ -1,4 +1,3 @@
-import { IListItem } from '../../models/interfaces/IListItem';
 import { Guid } from '../../models/Guid';
 import { Dispatch } from 'redux';
 import { IAction } from '../../models/interfaces/IAction';
@@ -12,12 +11,12 @@ interface ISaveNewTextFactoryDependencies {
 
 export interface ISaveNewTextActionParams {
   readonly uri: string;
-  readonly item: IListItem;
+  readonly id: Guid;
   readonly text: string;
 }
 
 export const saveNewTextFactory = (deps: ISaveNewTextFactoryDependencies) =>
-  ({ uri, item: { id }, text }: ISaveNewTextActionParams) =>
+  ({ uri, id, text }: ISaveNewTextActionParams) =>
     (dispatch: Dispatch<IAction>) => {
       const updatedItem = {
         text,

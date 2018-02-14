@@ -1,5 +1,4 @@
 import { saveNewTextFactory } from '../../../src/actions/thunk/saveNewTextFactory';
-import { ListItem } from '../../../src/models/classes/ListItem';
 import {
   assertThatDispatchWasCalledWithArgumentsInGiveOrder,
   fakeFunction,
@@ -7,10 +6,11 @@ import {
   fetchReturnsOkResponseFactory,
   fakeHandleErrors as handleErrors,
 } from './utils/utils';
+import { defaultUuid } from '../../../src/constants/defaultUuid';
 
 const actionParams = {
   uri: '',
-  item: new ListItem(),
+  id: defaultUuid,
   text: '',
 };
 

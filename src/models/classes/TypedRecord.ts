@@ -1,7 +1,7 @@
 import { Record } from 'immutable';
 
 export const TypedRecord = <TClass>(defaultValues: TClass) =>
-  class extends Record((<any>Object).assign({}, defaultValues)) {
+  class extends Record(defaultValues) {
     constructor(params: Partial<TClass> = defaultValues) {
       super(params);
     }
