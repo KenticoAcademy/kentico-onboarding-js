@@ -12,7 +12,7 @@ interface InsertItemArguments {
 export const optimisticAddFactory =
   (generateId: () => Uuid,
    insertItemToList: (args: InsertItemArguments) => IAction,
-   postItem: (id: Uuid, text: string) => any) =>
+   postItem: (id: Uuid, text: string) => (dispatch: Dispatch<IAppState>) => Promise<void | IAction>) =>
     (text: string) =>
       (dispatch: Dispatch<IAppState>): Promise<void | IAction> => {
         const tempId = generateId();

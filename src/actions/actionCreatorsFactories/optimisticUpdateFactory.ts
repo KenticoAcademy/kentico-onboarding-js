@@ -10,7 +10,7 @@ interface UpdateItemArguments {
 
 export const optimisticUpdateFactory =
   (updateItemLocally: (args: UpdateItemArguments) => IAction,
-   putItem: (id: Uuid, text: string) => Promise<void | IAction> | any) =>
+   putItem: (id: Uuid, text: string) => (dispatch: Dispatch<IAppState>) => Promise<void | IAction>) =>
     (id: Uuid, text: string) =>
       (dispatch: Dispatch<IAppState>): Promise<void | IAction> => {
         dispatch(updateItemLocally({

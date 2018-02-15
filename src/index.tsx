@@ -20,7 +20,7 @@ interface IDevTools {
 const composeEnhancers = (window as IDevTools).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const store = createStore(app, {}, composeEnhancers(
-  applyMiddleware(logger, thunkMiddleware),
+  applyMiddleware(thunkMiddleware, logger),
 ));
 
 ReactDOM.render(

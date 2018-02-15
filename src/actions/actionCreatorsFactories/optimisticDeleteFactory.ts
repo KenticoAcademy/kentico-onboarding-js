@@ -5,7 +5,7 @@ import { IAction } from '../IAction';
 
 export const optimisticDeleteFactory =
   (deleteLocally: (id: Uuid) => IAction,
-   deleteFromServer: (id: Uuid) => any) =>
+   deleteFromServer: (id: Uuid) => (dispatch: Dispatch<IAppState>) => Promise<void | IAction>) =>
     (id: Uuid) =>
       (dispatch: Dispatch<IAppState>): Promise<void | IAction> => {
         dispatch(deleteLocally(id));
