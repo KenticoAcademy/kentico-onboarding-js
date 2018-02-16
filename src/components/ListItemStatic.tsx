@@ -1,28 +1,47 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { IListItem } from '../models/interfaces/IListItem';
+import { IItemSyncInfo } from '../models/interfaces/IItemSyncInfo';
+import { SyncState } from '../models/enums/SyncState';
 
 export interface IListItemStaticCallbackProps {
   readonly onItemOpened: () => void;
 }
 
-interface IListItemStaticProps extends IListItemStaticCallbackProps {
+export interface IListItemStaticOwnProps {
   readonly item: IListItem;
   readonly itemNumber: number;
   readonly onTextSelection: (startOffset: number, endOffset: number) => void;
+  readonly itemSyncInfo: IItemSyncInfo;
 }
+
+export interface IListItemStaticProps extends IListItemStaticCallbackProps, IListItemStaticOwnProps {
+}
+
+export const listItemStaticPropTypes = {
+  onTextSelection: PropTypes.func.isRequired,
+  itemNumber: PropTypes.number.isRequired,
+  item: PropTypes.shape({
+    text: PropTypes.string.isRequired,
+  }).isRequired,
+  itemSyncInfo: PropTypes.shape({
+    state: PropTypes.string.isRequired,
+  }),
+};
+
+export const listItemStaticDefaultProps = {
+  itemSyncInfo: undefined,
+};
 
 export class ListItemStatic extends React.PureComponent<IListItemStaticProps> {
   static displayName = 'ListItemStatic';
 
   static propTypes = {
-    onTextSelection: PropTypes.func.isRequired,
+    ...listItemStaticPropTypes,
     onItemOpened: PropTypes.func.isRequired,
-    itemNumber: PropTypes.number.isRequired,
-    item: PropTypes.shape({
-      text: PropTypes.string.isRequired,
-    }).isRequired,
   };
+
+  static defaultProps = listItemStaticDefaultProps;
 
   _onTextSelection = (): void => {
     const selection = window
@@ -40,12 +59,18 @@ export class ListItemStatic extends React.PureComponent<IListItemStaticProps> {
     const {
       itemNumber,
       item: { text },
+      itemSyncInfo,
     } = this.props;
 
+    const isSyncing = itemSyncInfo.state === SyncState.Pending;
+    const onMouseUp = isSyncing ? () => undefined : this._onTextSelection;
+
     return (
-      <div onMouseUp={this._onTextSelection}>
+      <div onMouseUp={onMouseUp}>
         {itemNumber + '. '}
         {text}
+        {isSyncing && ' - is syncing'}
+        {itemSyncInfo.state === SyncState.Unsynced && ' - failed to sync'}
       </div>
     );
   }

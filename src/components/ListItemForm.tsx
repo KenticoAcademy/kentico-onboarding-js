@@ -1,155 +1,48 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { HotKeys } from 'react-hotkeys';
-import { keyActions } from '../constants/keys';
-import { isTextEmpty } from '../utils/validation';
+import { UnsyncedListItemForm } from '../containers/UnsyncedListItemForm';
+import { SyncedListItemForm } from '../containers/SyncedListItemForm';
 import { IListItem } from '../models/interfaces/IListItem';
+import { IItemSyncInfo } from '../models/interfaces/IItemSyncInfo';
+import { SyncState } from '../models/enums/SyncState';
 
-export interface IListItemFormCallbackProps {
-  readonly onSave: (text: string, uri: string) => void;
-  readonly onCancel: () => void;
-  readonly onDelete: (uri: string) => void;
+export interface IListItemFormDataProps {
+  readonly itemSyncInfo: IItemSyncInfo;
 }
 
-interface IListItemFormProps extends IListItemFormCallbackProps {
+export interface IListItemFormOwnProps {
   readonly item: IListItem;
   readonly itemNumber: number;
   readonly selectionRangeStarts: number;
   readonly selectionRangeEnds: number;
 }
 
-interface IOpenedListItemState {
-  text: string;
+export interface IListItemFormProps extends IListItemFormDataProps, IListItemFormOwnProps {
 }
 
-export class ListItemForm extends React.PureComponent<IListItemFormProps, IOpenedListItemState> {
-  static displayName = 'ListItemForm';
+export const listItemFormPropTypes = {
+  itemNumber: PropTypes.number.isRequired,
+  item: PropTypes.shape({
+    text: PropTypes.string.isRequired,
+  }).isRequired,
+  selectionRangeStarts: PropTypes.number.isRequired,
+  selectionRangeEnds: PropTypes.number.isRequired,
+};
 
-  static propTypes = {
-    onSave: PropTypes.func.isRequired,
-    onCancel: PropTypes.func.isRequired,
-    onDelete: PropTypes.func.isRequired,
-    itemNumber: PropTypes.number.isRequired,
-    item: PropTypes.shape({
-      text: PropTypes.string.isRequired,
-    }).isRequired,
-    selectionRangeStarts: PropTypes.number.isRequired,
-    selectionRangeEnds: PropTypes.number.isRequired,
-  };
+const defaultProps = {
+  itemSyncInfo: undefined,
+};
 
-  private input: HTMLInputElement;
+const ListItemForm: React.SFC<IListItemFormProps> = ({ itemSyncInfo, ...props }) =>
+  itemSyncInfo.state === SyncState.Synced ?
+    <SyncedListItemForm { ...props } /> :
+    <UnsyncedListItemForm { ...props } itemSyncInfo={itemSyncInfo} />;
 
-  constructor(props: IListItemFormProps) {
-    super(props);
+ListItemForm.propTypes = {
+  ...listItemFormPropTypes,
+  itemSyncInfo: PropTypes.object,
+};
 
-    this.state = {
-      text: this.props.item.text,
-    };
-  }
+ListItemForm.defaultProps = defaultProps;
 
-  componentDidMount() {
-    const {
-      selectionRangeStarts,
-      selectionRangeEnds,
-    } = this.props;
-
-    this.input.setSelectionRange(selectionRangeStarts, selectionRangeEnds);
-  }
-
-  _onInputChange = (e: React.FormEvent<HTMLInputElement>): void => this.setState({
-    text: e.currentTarget.value,
-  });
-
-  _textChanged = (newText: string): boolean =>
-    this.props.item.text !== newText;
-
-  _onSaveWithNewText = (newText: string): void =>
-    this._textChanged(newText) ?
-      this._submitNewItemText() :
-      this.props.onCancel();
-
-  _onSave = (): void =>
-    this._onSaveWithNewText(this.state.text);
-
-  _submitNewItemText = (): void => {
-    const { onSave } = this.props;
-    const { text } = this.state;
-
-    onSave(text, '/api/v1/listItems/');
-  };
-
-  _onDelete = (): void => {
-    this.props.onDelete('/api/v1/listItems/');
-  };
-
-  _onEnterPress = (): void => {
-    const { text } = this.state;
-
-    if (!isTextEmpty(text)) {
-      this._onSaveWithNewText(text);
-    }
-  };
-
-  _setInputRef = (ref: HTMLInputElement): void => {
-    this.input = ref;
-  };
-
-  render() {
-    const { text } = this.state;
-    const enableSaveButton = !isTextEmpty(text);
-
-    const { onCancel } = this.props;
-
-    const handlers = {
-      [keyActions.OnEnter]: this._onEnterPress,
-      [keyActions.OnEsc]: onCancel,
-    };
-
-    return (
-      <HotKeys
-        {...{className: 'row'}}
-        handlers={handlers}
-      >
-        <label className="col-form-label pl-3">
-          {`${this.props.itemNumber}. `}
-        </label>
-        <div className="input-group col">
-          <input
-            className="form-control col-md-6 rounded"
-            type="text"
-            value={text}
-            placeholder="Item name cannot be empty"
-            onChange={this._onInputChange}
-            autoFocus={true}
-            ref={this._setInputRef}
-          />
-
-          <button
-            className="btn btn-primary ml-3"
-            onClick={this._onSave}
-            disabled={!enableSaveButton}
-            title="Saves new text which cannot be empty"
-          >
-            Save
-          </button>
-
-          <button
-            className="btn btn-secondary ml-2"
-            onClick={onCancel}
-            title="Drops unsaved changes"
-          >
-            Cancel
-          </button>
-
-          <button
-            className="btn btn-danger ml-2"
-            onClick={this._onDelete}
-            title="Removes item from list"
-          >
-            Delete
-          </button>
-        </div>
-      </HotKeys>
-    );
-  }
-}
+export { ListItemForm };

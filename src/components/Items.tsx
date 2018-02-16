@@ -1,32 +1,40 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { ListItem } from '../containers/ListItem';
-import { Guid } from '../models/Guid';
+import { IItemSyncInfo } from '../models/interfaces/IItemSyncInfo';
+import { SyncState } from '../models/enums/SyncState';
 
 export interface IItemsDataProps {
-  readonly itemIds: Guid[];
+  readonly itemsSyncInfo: IItemSyncInfo[];
 }
 
 export class Items extends React.PureComponent<IItemsDataProps> {
   static displayName = 'Items';
 
   static propTypes = {
-    itemIds: PropTypes.arrayOf(PropTypes.string),
+    itemsSyncInfo: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   };
 
   render() {
     return (
       <div>
-        {this.props.itemIds.map((itemId, index) => (
-          <li
-            className="list-group-item"
-            key={itemId}
-          >
-            <ListItem
-              itemId={itemId}
-              itemNumber={index + 1}
-            />
-          </li>))}
+        {this.props.itemsSyncInfo.map((itemSyncInfo, index) => {
+          const syncPending = itemSyncInfo.state === SyncState.Pending;
+          const className = `list-group-item${syncPending ? ' disabled' : ''}`;
+
+          return (
+            <li
+              className={className}
+              key={itemSyncInfo.id}
+            >
+              <ListItem
+                itemId={itemSyncInfo.id}
+                itemNumber={index + 1}
+                itemSyncInfo={itemSyncInfo}
+              />
+            </li>
+          );
+        })}
       </div>
     );
   }

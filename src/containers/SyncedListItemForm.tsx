@@ -2,9 +2,9 @@ import { ComponentClass } from 'react';
 import * as PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
-  IListItemFormCallbackProps,
-  ListItemForm as ListItemFormComponent,
-} from '../components/ListItemForm';
+  ISyncedListItemFormCallbackProps,
+  SyncedListItemForm as SyncedListItemFormComponent,
+} from '../components/SyncedListItemForm';
 import { Dispatch } from 'redux';
 import {
   deleteItemAsync,
@@ -14,7 +14,7 @@ import { IListItem } from '../models/interfaces/IListItem';
 import { IAppState } from '../models/state/IAppState';
 import { changeItemOpenState } from '../actions';
 
-const propTypes = {
+export const syncedListItemFormContainerPropTypes = {
   itemNumber: PropTypes.number.isRequired,
   item: PropTypes.shape({
     id: PropTypes.string.isRequired,
@@ -23,14 +23,14 @@ const propTypes = {
   selectionRangeEnds: PropTypes.number.isRequired,
 };
 
-interface IListItemFormContainerDataProps {
+export interface ISyncedListItemFormContainerDataProps {
   readonly itemNumber: number;
   readonly item: IListItem;
   readonly selectionRangeStarts: number;
   readonly selectionRangeEnds: number;
 }
 
-const mapDispatchToProps = (dispatch: Dispatch<IAppState>, { item: { id } }: IListItemFormContainerDataProps): IListItemFormCallbackProps => ({
+const mapDispatchToProps = (dispatch: Dispatch<IAppState>, { item: { id } }: ISyncedListItemFormContainerDataProps): ISyncedListItemFormCallbackProps => ({
   onSave: (text: string, uri: string) =>
     dispatch(
       saveNewTextAsync({
@@ -49,11 +49,11 @@ const mapDispatchToProps = (dispatch: Dispatch<IAppState>, { item: { id } }: ILi
       changeItemOpenState(id)),
 });
 
-const ListItemForm: ComponentClass<IListItemFormContainerDataProps> = connect(
+const SyncedListItemForm: ComponentClass<ISyncedListItemFormContainerDataProps> = connect(
   null,
   mapDispatchToProps,
-)(ListItemFormComponent);
+)(SyncedListItemFormComponent);
 
-ListItemForm.propTypes = propTypes;
+SyncedListItemForm.propTypes = syncedListItemFormContainerPropTypes;
 
-export { ListItemForm };
+export { SyncedListItemForm };

@@ -1,8 +1,9 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { ListItemForm } from '../containers/ListItemForm';
 import { ListItemStatic } from '../containers/ListItemStatic';
 import { IListItem } from '../models/interfaces/IListItem';
+import { IItemSyncInfo } from '../models/interfaces/IItemSyncInfo';
+import { ListItemForm } from './ListItemForm';
 
 export interface IListItemDataProps {
   readonly item: IListItem;
@@ -10,6 +11,7 @@ export interface IListItemDataProps {
 
 interface IListItemProps extends IListItemDataProps {
   readonly itemNumber: number;
+  readonly itemSyncInfo: IItemSyncInfo;
 }
 
 interface IListItemState {
@@ -17,14 +19,21 @@ interface IListItemState {
   selectionRangeEnds: number;
 }
 
+export const listItemPropTypes = {
+  itemNumber: PropTypes.number.isRequired,
+  item: PropTypes.shape({
+    isBeingEdited: PropTypes.bool.isRequired,
+  }),
+  itemSyncInfo: PropTypes.object,
+};
+
 export class ListItem extends React.PureComponent<IListItemProps, IListItemState> {
   static displayName = 'ListItem';
 
-  static propTypes = {
-    itemNumber: PropTypes.number.isRequired,
-    item: PropTypes.shape({
-      isBeingEdited: PropTypes.bool.isRequired,
-    }),
+  static propTypes = listItemPropTypes;
+
+  static defaultProps = {
+    itemSyncInfo: undefined,
   };
 
   constructor(props: IListItemProps) {
@@ -47,19 +56,22 @@ export class ListItem extends React.PureComponent<IListItemProps, IListItemState
     const {
       itemNumber,
       item,
+      itemSyncInfo,
     } = this.props;
 
     return item.isBeingEdited ?
       <ListItemForm
         itemNumber={itemNumber}
         item={item}
-        selectionRangeStarts={this.state.selectionRangeStarts}
         selectionRangeEnds={this.state.selectionRangeEnds}
+        selectionRangeStarts={this.state.selectionRangeStarts}
+        itemSyncInfo={itemSyncInfo}
       /> :
       <ListItemStatic
         itemNumber={itemNumber}
         item={item}
         onTextSelection={this._selectText}
+        itemSyncInfo={itemSyncInfo}
       />;
   }
 }
