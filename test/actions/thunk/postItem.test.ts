@@ -24,6 +24,9 @@ describe('postItem will call dispatch with', () => {
     const postItem = postItemFactory({
       httpClient,
       addNewItem,
+      confirmAddedItem: fakeFunction,
+      createNewId: fakeFunction,
+      itemSyncFailed: fakeFunction,
     });
 
     const dispatchableAction = postItem(actionParams);
@@ -38,6 +41,9 @@ describe('postItem will call dispatch with', () => {
     const postItem = postItemFactory({
       httpClient,
       addNewItem: fakeFunction,
+      confirmAddedItem: fakeFunction,
+      createNewId: fakeFunction,
+      itemSyncFailed: fakeFunction,
     });
 
     const dispatchableAction = postItem(actionParams);

@@ -21,6 +21,8 @@ describe('deleteItem will call dispatch with', () => {
     const deleteItem = deleteItemFactory({
       httpClient,
       deleteItem: deleteItemAction,
+      itemSyncFailed: fakeFunction,
+      itemSyncRequested: fakeFunction,
     });
 
     const dispatchableAction = deleteItem(actionParams);
@@ -34,6 +36,8 @@ describe('deleteItem will call dispatch with', () => {
     const deleteItem = deleteItemFactory({
       httpClient,
       deleteItem: fakeFunction,
+      itemSyncFailed: fakeFunction,
+      itemSyncRequested: fakeFunction,
     });
 
     const dispatchableAction = deleteItem(actionParams);

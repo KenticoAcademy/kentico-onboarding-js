@@ -23,6 +23,8 @@ describe('saveNewText will call dispatch with', () => {
     const saveNewText = saveNewTextFactory({
       httpClient,
       saveItemChanges,
+      itemSyncFailed: fakeFunction,
+      itemSyncSucceeded: fakeFunction,
     });
 
     const dispatchableAction = saveNewText(actionParams);
@@ -37,6 +39,8 @@ describe('saveNewText will call dispatch with', () => {
     const saveNewText = saveNewTextFactory({
       httpClient,
       saveItemChanges: fakeFunction,
+      itemSyncFailed: fakeFunction,
+      itemSyncSucceeded: fakeFunction,
     });
 
     const dispatchableAction = saveNewText(actionParams);

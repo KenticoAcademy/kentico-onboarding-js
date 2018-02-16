@@ -2,10 +2,14 @@ import { Guid } from '../../models/Guid';
 import { Dispatch } from 'redux';
 import { IAction } from '../../models/interfaces/IAction';
 import { IHttpClient } from '../../models/interfaces/IHttpClient';
+import { IItemSyncRequest } from '../../models/interfaces/IItemSyncRequest';
+import { SyncOperation } from '../../models/enums/SyncOperation';
 
 interface ISaveNewTextFactoryDependencies {
   readonly httpClient: IHttpClient;
   readonly saveItemChanges: (id: Guid, text: string) => IAction;
+  readonly itemSyncSucceeded: (itemSyncRequest: IItemSyncRequest) => IAction;
+  readonly itemSyncFailed: (itemSyncRequest: IItemSyncRequest) => IAction;
 }
 
 export interface ISaveNewTextActionParams {
@@ -23,6 +27,14 @@ export const saveNewTextFactory = (deps: ISaveNewTextFactoryDependencies) =>
         id,
       };
 
+      const itemSyncRequest: IItemSyncRequest = {
+        id,
+        operation: SyncOperation.Modify,
+      };
+
+      dispatch(deps.saveItemChanges(id, text));
+
       return deps.httpClient.patch(uri + id, updatedItem)
-        .then(() => dispatch(deps.saveItemChanges(id, text)));
+        .then(() => dispatch(deps.itemSyncSucceeded(itemSyncRequest)))
+        .catch(() => dispatch(deps.itemSyncFailed(itemSyncRequest)));
     };
