@@ -3,7 +3,7 @@ import { ListItem } from '../models/classes/ListItem';
 import { OrderedMap } from 'immutable';
 import { Guid } from '../models/Guid';
 
-export const listItemsArrayToOrderedMap = (something: IListItem[]) =>
+export const listItemsArrayToOrderedMap = (items: IListItem[]) =>
   OrderedMap<Guid, ListItem>(
-    something.map(item => [item.id, new ListItem(item)])
+    items.map(item => [item.id, new ListItem(item)])
   );
