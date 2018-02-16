@@ -2,12 +2,26 @@ import { IAction } from '../models/interfaces/IAction';
 import * as ActionTypes from '../constants/actionTypes';
 import { Guid } from '../models/Guid';
 import { IListItem } from '../models/interfaces/IListItem';
+import { SyncOperation } from '../models/enums/SyncOperation';
+import { IAddedItemConfirmed } from '../models/interfaces/IAddedItemConfirmed';
+import { IItemSyncRequest } from '../models/interfaces/IItemSyncRequest';
+import { SyncState } from '../models/enums/SyncState';
 
 export const addNewItem = ({ id, text }: IListItem): IAction => ({
   type: ActionTypes.ITEM_CREATED,
   payload: {
     id,
     text,
+    operation: SyncOperation.Add,
+  },
+});
+
+export const confirmAddedItem = ({ id, newId }: IAddedItemConfirmed) => ({
+  type: ActionTypes.ADDED_ITEM_CONFIRMED,
+  payload: {
+    id,
+    newId,
+    operation: SyncOperation.Add,
   },
 });
 
@@ -18,11 +32,20 @@ export const deleteItem = (id: Guid): IAction => ({
   },
 });
 
-export const saveItemChanges = (id: Guid, text: string): IAction => ({
+export const deleteUnsavedItem = (id: Guid): IAction => ({
+  type: ActionTypes.UNSAVED_ITEM_DELETED,
+  payload: {
+    id,
+  }
+});
+
+export const saveItemChanges = (id: Guid, text: string, operation = SyncOperation.Modify, initialSyncState?: SyncState): IAction => ({
   type: ActionTypes.ITEM_CHANGES_SAVED,
   payload: {
     id,
     text,
+    operation,
+    initialSyncState,
   },
 });
 
@@ -44,5 +67,29 @@ export const receiveItems = (items: IListItem[]): IAction => ({
   type: ActionTypes.FETCH_ITEMS_SUCCESS,
   payload: {
     items,
+  }
+});
+
+export const itemSyncFailed = ({ id, operation }: IItemSyncRequest): IAction => ({
+  type: ActionTypes.ITEM_SYNC_FAILED,
+  payload: {
+    id,
+    operation,
+  }
+});
+
+export const itemSyncRequested = ({ id, operation }: IItemSyncRequest): IAction => ({
+  type: ActionTypes.ITEM_SYNC_REQUESTED,
+  payload: {
+    id,
+    operation,
+  }
+});
+
+export const itemSyncSucceeded = ({ id, operation }: IItemSyncRequest): IAction => ({
+  type: ActionTypes.ITEM_SYNC_SUCCEEDED,
+  payload: {
+    id,
+    operation,
   }
 });
