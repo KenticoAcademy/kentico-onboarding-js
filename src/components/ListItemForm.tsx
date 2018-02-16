@@ -60,6 +60,17 @@ export class ListItemForm extends React.PureComponent<IListItemFormProps, IOpene
     text: e.currentTarget.value,
   });
 
+  _textChanged = (newText: string): boolean =>
+    this.props.item.text !== newText;
+
+  _onSaveWithNewText = (newText: string): void =>
+    this._textChanged(newText) ?
+      this._submitNewItemText() :
+      this.props.onCancel();
+
+  _onSave = (): void =>
+    this._onSaveWithNewText(this.state.text);
+
   _submitNewItemText = (): void => {
     const { onSave } = this.props;
     const { text } = this.state;
@@ -75,7 +86,7 @@ export class ListItemForm extends React.PureComponent<IListItemFormProps, IOpene
     const { text } = this.state;
 
     if (!isTextEmpty(text)) {
-      this._submitNewItemText();
+      this._onSaveWithNewText(text);
     }
   };
 
@@ -115,7 +126,7 @@ export class ListItemForm extends React.PureComponent<IListItemFormProps, IOpene
 
           <button
             className="btn btn-primary ml-3"
-            onClick={this._submitNewItemText}
+            onClick={this._onSave}
             disabled={!enableSaveButton}
             title="Saves new text which cannot be empty"
           >
