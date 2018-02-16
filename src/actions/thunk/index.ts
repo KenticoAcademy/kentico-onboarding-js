@@ -1,4 +1,3 @@
-import * as fetch from 'isomorphic-fetch';
 import {
   addNewItem,
   deleteItem,
@@ -10,30 +9,25 @@ import { fetchItemsFactory, IFetchItemsActionParams } from './fetchItemsFactory'
 import { IPostItemActionParams, postItemFactory } from './postItemFactory';
 import { deleteItemFactory, IDeleteItemActionParams } from './deleteItemFactory';
 import { ISaveNewTextActionParams, saveNewTextFactory } from './saveNewTextFactory';
-import { handleErrors } from './utils/handleErrors';
 import { IThunkAction } from '../../models/interfaces/IThunkAction';
-
-const configurationObjectBase = {
-  fetch,
-  handleErrors,
-};
+import { httpClient } from '../../models/classes/AxiosHttpClient';
 
 export const fetchItemsAsync: IThunkAction<IFetchItemsActionParams> = fetchItemsFactory({
-  ...configurationObjectBase,
+  httpClient,
   requestItems,
   receiveItems,
 });
 export const postItemAsync: IThunkAction<IPostItemActionParams> = postItemFactory({
-  ...configurationObjectBase,
+  httpClient,
   addNewItem,
 });
 
 export const deleteItemAsync: IThunkAction<IDeleteItemActionParams> = deleteItemFactory({
-  ...configurationObjectBase,
+  httpClient,
   deleteItem,
 });
 
 export const saveNewTextAsync: IThunkAction<ISaveNewTextActionParams> = saveNewTextFactory({
-  ...configurationObjectBase,
+  httpClient,
   saveItemChanges,
 });

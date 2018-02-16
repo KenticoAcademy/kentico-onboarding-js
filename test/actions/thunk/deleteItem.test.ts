@@ -2,9 +2,8 @@ import { deleteItemFactory } from '../../../src/actions/thunk/deleteItemFactory'
 import {
   assertThatDispatchWasCalledWithArgumentsInGiveOrder,
   fakeFunction,
-  fetchAlwaysFailFactory,
-  fetchReturnsOkResponseFactory,
-  fakeHandleErrors as handleErrors,
+  httpClientFailure,
+  httpClientSuccessFactory,
 } from './utils/utils';
 
 const actionParams = {
@@ -17,11 +16,10 @@ describe('deleteItem will call dispatch with', () => {
     const expectedActions = [
       'deleteItem',
     ];
-    const fetch = fetchReturnsOkResponseFactory();
+    const httpClient = httpClientSuccessFactory();
     const deleteItemAction = jest.fn(() => expectedActions[0]);
     const deleteItem = deleteItemFactory({
-      fetch,
-      handleErrors,
+      httpClient,
       deleteItem: deleteItemAction,
     });
 
@@ -32,10 +30,9 @@ describe('deleteItem will call dispatch with', () => {
 
   it('no action', () => {
     const expectedActions: string[] = [];
-    const fetch = fetchAlwaysFailFactory();
+    const httpClient = httpClientFailure;
     const deleteItem = deleteItemFactory({
-      fetch,
-      handleErrors,
+      httpClient,
       deleteItem: fakeFunction,
     });
 

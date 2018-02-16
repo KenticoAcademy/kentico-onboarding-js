@@ -4,9 +4,8 @@ import { postItemFactory } from '../../../src/actions/thunk/postItemFactory';
 import {
   assertThatDispatchWasCalledWithArgumentsInGiveOrder,
   fakeFunction,
-  fetchAlwaysFailFactory,
-  fetchReturnsOkResponseFactory,
-  fakeHandleErrors as handleErrors,
+  httpClientFailure,
+  httpClientSuccessFactory,
 } from './utils/utils';
 
 const actionParams = {
@@ -20,12 +19,11 @@ describe('postItem will call dispatch with', () => {
       'addNewItem',
     ];
     const createdItem: IListItem = new ListItem({});
-    const fetch = fetchReturnsOkResponseFactory(createdItem);
+    const httpClient = httpClientSuccessFactory(createdItem);
     const addNewItem = jest.fn(() => expectedActions[0]);
     const postItem = postItemFactory({
-      fetch,
+      httpClient,
       addNewItem,
-      handleErrors,
     });
 
     const dispatchableAction = postItem(actionParams);
@@ -36,10 +34,9 @@ describe('postItem will call dispatch with', () => {
   it('no action', () => {
     const expectedActions: string[] = [
     ];
-    const fetch = fetchAlwaysFailFactory();
+    const httpClient = httpClientFailure;
     const postItem = postItemFactory({
-      fetch,
-      handleErrors,
+      httpClient,
       addNewItem: fakeFunction,
     });
 

@@ -2,9 +2,8 @@ import { saveNewTextFactory } from '../../../src/actions/thunk/saveNewTextFactor
 import {
   assertThatDispatchWasCalledWithArgumentsInGiveOrder,
   fakeFunction,
-  fetchAlwaysFailFactory,
-  fetchReturnsOkResponseFactory,
-  fakeHandleErrors as handleErrors,
+  httpClientFailure,
+  httpClientSuccessFactory,
 } from './utils/utils';
 import { defaultUuid } from '../../../src/constants/defaultUuid';
 
@@ -19,12 +18,11 @@ describe('saveNewText will call dispatch with', () => {
     const expectedActions = [
       'saveItemChanges',
     ];
-    const fetch = fetchReturnsOkResponseFactory();
+    const httpClient = httpClientSuccessFactory();
     const saveItemChanges = jest.fn(() => expectedActions[0]);
     const saveNewText = saveNewTextFactory({
-      fetch,
+      httpClient,
       saveItemChanges,
-      handleErrors,
     });
 
     const dispatchableAction = saveNewText(actionParams);
@@ -35,10 +33,9 @@ describe('saveNewText will call dispatch with', () => {
   it('no action', () => {
     const expectedActions: string[] = [
     ];
-    const fetch = fetchAlwaysFailFactory();
+    const httpClient = httpClientFailure;
     const saveNewText = saveNewTextFactory({
-      fetch,
-      handleErrors,
+      httpClient,
       saveItemChanges: fakeFunction,
     });
 

@@ -63,6 +63,7 @@
     "webpack-dev-server": "^1.16.5"
   },
   "dependencies": {
+    "axios": "^0.17.1",
     "bootstrap": "^4.0.0",
     "es6-promise": "^4.2.4",
     "immutable": "^3.8.2",

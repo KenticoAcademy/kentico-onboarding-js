@@ -1,13 +1,12 @@
 import { IListItem } from '../../models/interfaces/IListItem';
 import { Dispatch } from 'redux';
 import { IAction } from '../../models/interfaces/IAction';
-import { IFetch } from '../../models/interfaces/IFetch';
+import { IHttpClient } from '../../models/interfaces/IHttpClient';
 
 interface IFetchItemsFactoryDependencies {
-  readonly fetch: IFetch;
+  readonly httpClient: IHttpClient;
   readonly requestItems: (uri: string) => IAction;
   readonly receiveItems: (items: IListItem[]) => IAction;
-  readonly handleErrors: (response: Response) => Response;
 }
 
 export interface IFetchItemsActionParams {
@@ -15,12 +14,10 @@ export interface IFetchItemsActionParams {
 }
 
 export const fetchItemsFactory = (deps: IFetchItemsFactoryDependencies) =>
-    ({ uri }: IFetchItemsActionParams) =>
-      (dispatch: Dispatch<IAction>) => {
-          dispatch(deps.requestItems(uri));
+  ({ uri }: IFetchItemsActionParams) =>
+    (dispatch: Dispatch<IAction>) => {
+      dispatch(deps.requestItems(uri));
 
-          return deps.fetch(uri)
-            .then(deps.handleErrors)
-            .then((res: Response) => res.json())
-            .then((items: IListItem[]) => dispatch(deps.receiveItems(items)));
-        };
+      return deps.httpClient.get<IListItem[]>(uri)
+        .then(items => dispatch(deps.receiveItems(items)));
+    };

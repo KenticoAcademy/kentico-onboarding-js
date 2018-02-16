@@ -1,12 +1,11 @@
 import { IListItem } from '../../models/interfaces/IListItem';
 import { Dispatch } from 'redux';
 import { IAction } from '../../models/interfaces/IAction';
-import { IFetch } from '../../models/interfaces/IFetch';
+import { IHttpClient } from '../../models/interfaces/IHttpClient';
 
 interface IPostItemFactoryDependencies {
-  readonly fetch: IFetch;
+  readonly httpClient: IHttpClient;
   readonly addNewItem: (item: IListItem) => IAction;
-  readonly handleErrors: (response: Response) => Response;
 }
 
 export interface IPostItemActionParams {
@@ -22,17 +21,6 @@ export const postItemFactory = (deps: IPostItemFactoryDependencies) =>
         text,
       };
 
-      return deps.fetch(
-        uri,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(newItem),
-        }
-      )
-        .then(deps.handleErrors)
-        .then((res: Response) => res.json())
+      return deps.httpClient.post(uri, newItem)
         .then((returnedItem: IListItem) => dispatch(deps.addNewItem(returnedItem)));
     };

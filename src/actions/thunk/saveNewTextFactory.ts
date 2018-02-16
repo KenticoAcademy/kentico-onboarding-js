@@ -1,12 +1,11 @@
 import { Guid } from '../../models/Guid';
 import { Dispatch } from 'redux';
 import { IAction } from '../../models/interfaces/IAction';
-import { IFetch } from '../../models/interfaces/IFetch';
+import { IHttpClient } from '../../models/interfaces/IHttpClient';
 
 interface ISaveNewTextFactoryDependencies {
-  readonly fetch: IFetch;
+  readonly httpClient: IHttpClient;
   readonly saveItemChanges: (id: Guid, text: string) => IAction;
-  readonly handleErrors: (response: Response) => Response;
 }
 
 export interface ISaveNewTextActionParams {
@@ -24,16 +23,6 @@ export const saveNewTextFactory = (deps: ISaveNewTextFactoryDependencies) =>
         id,
       };
 
-      return deps.fetch(
-        uri + id,
-        {
-          method: 'PATCH',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(updatedItem),
-        },
-      )
-        .then(deps.handleErrors)
+      return deps.httpClient.patch(uri + id, updatedItem)
         .then(() => dispatch(deps.saveItemChanges(id, text)));
     };

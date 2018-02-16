@@ -3,9 +3,8 @@ import { fetchItemsFactory } from '../../../src/actions/thunk/fetchItemsFactory'
 import {
   assertThatDispatchWasCalledWithArgumentsInGiveOrder,
   fakeFunction,
-  fetchAlwaysFailFactory,
-  fetchReturnsOkResponseFactory,
-  fakeHandleErrors as handleErrors,
+  httpClientSuccessFactory,
+  httpClientFailure,
 } from './utils/utils';
 
 const actionParams = {
@@ -23,14 +22,13 @@ describe('fetchItems will call dispatch with', () => {
       'receiveItems',
     ];
 
-    const fetch = fetchReturnsOkResponseFactory(actionParams.items);
+    const httpClient = httpClientSuccessFactory(actionParams.items);
     const requestItems = jest.fn(() => expectedActions[0]);
     const receiveItems = jest.fn(() => expectedActions[1]);
     const fetchItems = fetchItemsFactory({
-      fetch,
+      httpClient,
       requestItems,
       receiveItems,
-      handleErrors,
     });
 
     const dispatchableAction = fetchItems(actionParams);
@@ -42,12 +40,11 @@ describe('fetchItems will call dispatch with', () => {
     const expectedActions = [
       'requestItems',
     ];
-    const fetch = fetchAlwaysFailFactory();
+    const httpClient = httpClientFailure;
     const requestItems = jest.fn(() => expectedActions[0]);
     const fetchItems = fetchItemsFactory({
-      fetch,
+      httpClient,
       requestItems,
-      handleErrors,
       receiveItems: fakeFunction,
     });
 

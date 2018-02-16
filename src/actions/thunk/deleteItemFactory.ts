@@ -1,12 +1,11 @@
 import { Guid } from '../../models/Guid';
 import { Dispatch } from 'redux';
 import { IAction } from '../../models/interfaces/IAction';
-import { IFetch } from '../../models/interfaces/IFetch';
+import { IHttpClient } from '../../models/interfaces/IHttpClient';
 
 interface IDeleteItemFactoryDependencies {
-  readonly fetch: IFetch;
+  readonly httpClient: IHttpClient;
   readonly deleteItem: (id: Guid) => IAction;
-  readonly handleErrors: (response: Response) => Response;
 }
 
 export interface IDeleteItemActionParams {
@@ -16,11 +15,5 @@ export interface IDeleteItemActionParams {
 
 export const deleteItemFactory = (deps: IDeleteItemFactoryDependencies) =>
   ({ uri, id }: IDeleteItemActionParams) =>
-    (dispatch: Dispatch<IAction>) => deps.fetch(
-      uri + id,
-      {
-        method: 'DELETE',
-      },
-    )
-      .then(deps.handleErrors)
+    (dispatch: Dispatch<IAction>) => deps.httpClient.delete(uri + id)
       .then(() => dispatch(deps.deleteItem(id)));
