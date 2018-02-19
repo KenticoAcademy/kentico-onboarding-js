@@ -9,9 +9,12 @@ export interface IListItemDataProps {
   readonly item: IListItem;
 }
 
-interface IListItemProps extends IListItemDataProps {
+export interface IListItemOwnProps {
   readonly itemNumber: number;
   readonly itemSyncInfo: IItemSyncInfo;
+}
+
+interface IListItemProps extends IListItemDataProps, IListItemOwnProps {
 }
 
 interface IListItemState {

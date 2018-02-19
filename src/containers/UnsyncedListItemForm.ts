@@ -4,64 +4,39 @@ import {
   connect,
   Dispatch
 } from 'react-redux';
-import { IAppState } from '../models/state/IAppState';
 import { SyncOperation } from '../models/enums/SyncOperation';
-import {
-  deleteItemAsync,
-  postItemAsync,
-  saveNewTextAsync
-} from '../actions/thunk';
-import {
-  UnsyncedListItemForm as UnsyncedListItemFormComponent,
-  IUnsyncedListItemFormCallbackProps,
-  IUnsyncedListItemFormDataProps,
-} from '../components/UnsyncedListItemForm';
 import { IAction } from '../models/interfaces/IAction';
 import {
   changeItemOpenState,
   deleteUnsavedItem,
   saveItemChanges
 } from '../actions';
-import {
-  ISyncedListItemFormContainerDataProps,
-  syncedListItemFormContainerPropTypes
-} from './SyncedListItemForm';
 import { IItemSyncInfo } from '../models/interfaces/IItemSyncInfo';
-import { IListItem } from '../models/interfaces/IListItem';
-
-const syncToMethod: any = ({ operation }: IItemSyncInfo, { id, text }: IListItem) => {
-  switch (operation) {
-    case SyncOperation.Add:
-      return () => postItemAsync({ text, uri: text });
-    case SyncOperation.Modify:
-      return () => saveNewTextAsync({ id, text, uri: text });
-    case SyncOperation.Delete:
-      return () => deleteItemAsync({ id, uri: text });
-    default:
-      return () => () => null;
-  }
-};
+import {
+  CompleteListItemForm as CompleteListItemFormComponent,
+  ICompleteListItemFormCallbackProps
+} from '../components/CompleteListItemForm';
+import {
+  IListItemFormOwnProps,
+  listItemFormPropTypes
+} from '../components/ListItemForm';
 
 const propTypes = {
-  ...syncedListItemFormContainerPropTypes,
+  ...listItemFormPropTypes,
   itemSyncInfo: PropTypes.object.isRequired,
 };
 
-export interface IUnsyncedListItemContainerProps extends ISyncedListItemFormContainerDataProps {
+export interface IUnsyncedListItemContainerProps extends IListItemFormOwnProps {
   readonly itemSyncInfo: IItemSyncInfo;
 }
 
-const mapStateToProps = (state: IAppState, { item: { id } }: IUnsyncedListItemContainerProps): IUnsyncedListItemFormDataProps => ({
-  description: state.list.itemsSyncInfo.get(id).description,
-});
-
-const mapDispatchToProps = (dispatch: Dispatch<IAction>,  { item, item: { id }, itemSyncInfo }: IUnsyncedListItemContainerProps): IUnsyncedListItemFormCallbackProps => ({
-  retrySync: dispatch(syncToMethod(itemSyncInfo, item)),
+const mapDispatchToProps = (dispatch: Dispatch<IAction>,  { item: { id }, itemSyncInfo }: IUnsyncedListItemContainerProps): ICompleteListItemFormCallbackProps => ({
   onSave: (newText: string) =>
     dispatch(
       saveItemChanges(
         id,
         newText,
+        itemSyncInfo.uri,
         itemSyncInfo.operation,
         itemSyncInfo.state,
       )),
@@ -75,9 +50,9 @@ const mapDispatchToProps = (dispatch: Dispatch<IAction>,  { item, item: { id }, 
 });
 
 const UnsyncedListItemForm: ComponentClass<IUnsyncedListItemContainerProps> = connect(
-  mapStateToProps,
+  undefined,
   mapDispatchToProps,
-)(UnsyncedListItemFormComponent);
+)(CompleteListItemFormComponent);
 
 UnsyncedListItemForm.propTypes = propTypes;
 

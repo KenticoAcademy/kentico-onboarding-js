@@ -8,12 +8,12 @@ const defaultItem: IItemSyncInfo = {
   id: defaultUuid,
   operation: SyncOperation.Add,
   state: SyncState.Synced,
-  description: '',
+  uri: '',
 };
 
 export class ItemSyncInfo extends TypedRecord(defaultItem) implements IItemSyncInfo {
   readonly id: string;
   readonly operation: SyncOperation;
   readonly state: SyncState;
-  readonly description: string;
+  readonly uri: string;
 }

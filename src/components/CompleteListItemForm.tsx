@@ -8,37 +8,32 @@ import {
   listItemFormPropTypes
 } from './ListItemForm';
 
-export interface ISyncedListItemFormCallbackProps {
+export interface ICompleteListItemFormCallbackProps {
   readonly onSave: (text: string, uri: string) => void;
   readonly onCancel: () => void;
   readonly onDelete: (uri: string) => void;
 }
 
-export interface ISyncedListItemFormDataProps {
+interface ICompleteListItemFormProps extends ICompleteListItemFormCallbackProps, IListItemFormOwnProps {
 }
 
-export interface ISyncedListItemFormProps extends ISyncedListItemFormCallbackProps, ISyncedListItemFormDataProps, IListItemFormOwnProps {
-}
-
-interface ISyncedListItemFormState {
+interface ICompleteListItemFormState {
   text: string;
 }
 
-export const syncedListItemFormPropTypes = {
-  ...listItemFormPropTypes,
-  onSave: PropTypes.func.isRequired,
-  onCancel: PropTypes.func.isRequired,
-  onDelete: PropTypes.func.isRequired,
-};
+export class CompleteListItemForm extends React.PureComponent<ICompleteListItemFormProps, ICompleteListItemFormState> {
+  static displayName = 'CompleteListItemForm';
 
-export class SyncedListItemForm extends React.PureComponent<ISyncedListItemFormProps, ISyncedListItemFormState> {
-  static displayName = 'SyncedListItemForm';
-
-  static propTypes = syncedListItemFormPropTypes;
+  static propTypes = {
+    ...listItemFormPropTypes,
+    onSave: PropTypes.func.isRequired,
+    onCancel: PropTypes.func.isRequired,
+    onDelete: PropTypes.func.isRequired,
+  };
 
   private input: HTMLInputElement;
 
-  constructor(props: ISyncedListItemFormProps) {
+  constructor(props: ICompleteListItemFormProps) {
     super(props);
 
     this.state = {
@@ -100,10 +95,7 @@ export class SyncedListItemForm extends React.PureComponent<ISyncedListItemFormP
     const { text } = this.state;
     const enableSaveButton = !isTextEmpty(text);
 
-    const {
-      onCancel,
-      children,
-    } = this.props;
+    const { onCancel } = this.props;
 
     const handlers = {
       [keyActions.OnEnter]: this._onEnterPress,
@@ -156,7 +148,6 @@ export class SyncedListItemForm extends React.PureComponent<ISyncedListItemFormP
             </button>
           </div>
         </HotKeys>
-        {children}
       </div>
     );
   }

@@ -2,17 +2,15 @@ import { ComponentClass } from 'react';
 import { connect } from 'react-redux';
 import {
   IListItemDataProps,
+  IListItemOwnProps,
   ListItem as ListItemComponent,
   listItemPropTypes,
 } from '../components/ListItem';
 import { IAppState } from '../models/state/IAppState';
 import { Guid } from '../models/Guid';
-import { IItemSyncInfo } from '../models/interfaces/IItemSyncInfo';
 
-interface IListItemContainerDataProps {
-  readonly itemNumber: number;
+interface IListItemContainerDataProps extends IListItemOwnProps {
   readonly itemId: Guid;
-  readonly itemSyncInfo: IItemSyncInfo;
 }
 
 const mapStateToProps = (state: IAppState, { itemId }: IListItemContainerDataProps): IListItemDataProps => ({

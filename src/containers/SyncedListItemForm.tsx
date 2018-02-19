@@ -1,36 +1,22 @@
 import { ComponentClass } from 'react';
-import * as PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
-  ISyncedListItemFormCallbackProps,
-  SyncedListItemForm as SyncedListItemFormComponent,
-} from '../components/SyncedListItemForm';
+  ICompleteListItemFormCallbackProps,
+  CompleteListItemForm as CompleteListItemFormComponent,
+} from '../components/CompleteListItemForm';
 import { Dispatch } from 'redux';
 import {
   deleteItemAsync,
   saveNewTextAsync,
 } from '../actions/thunk';
-import { IListItem } from '../models/interfaces/IListItem';
 import { IAppState } from '../models/state/IAppState';
 import { changeItemOpenState } from '../actions';
+import {
+  IListItemFormOwnProps,
+  listItemFormPropTypes
+} from '../components/ListItemForm';
 
-export const syncedListItemFormContainerPropTypes = {
-  itemNumber: PropTypes.number.isRequired,
-  item: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-  }),
-  selectionRangeStarts: PropTypes.number.isRequired,
-  selectionRangeEnds: PropTypes.number.isRequired,
-};
-
-export interface ISyncedListItemFormContainerDataProps {
-  readonly itemNumber: number;
-  readonly item: IListItem;
-  readonly selectionRangeStarts: number;
-  readonly selectionRangeEnds: number;
-}
-
-const mapDispatchToProps = (dispatch: Dispatch<IAppState>, { item: { id } }: ISyncedListItemFormContainerDataProps): ISyncedListItemFormCallbackProps => ({
+const mapDispatchToProps = (dispatch: Dispatch<IAppState>, { item: { id } }: IListItemFormOwnProps): ICompleteListItemFormCallbackProps => ({
   onSave: (text: string, uri: string) =>
     dispatch(
       saveNewTextAsync({
@@ -49,11 +35,11 @@ const mapDispatchToProps = (dispatch: Dispatch<IAppState>, { item: { id } }: ISy
       changeItemOpenState(id)),
 });
 
-const SyncedListItemForm: ComponentClass<ISyncedListItemFormContainerDataProps> = connect(
+const SyncedListItemForm: ComponentClass<IListItemFormOwnProps> = connect(
   null,
   mapDispatchToProps,
-)(SyncedListItemFormComponent);
+)(CompleteListItemFormComponent);
 
-SyncedListItemForm.propTypes = syncedListItemFormContainerPropTypes;
+SyncedListItemForm.propTypes = listItemFormPropTypes;
 
 export { SyncedListItemForm };

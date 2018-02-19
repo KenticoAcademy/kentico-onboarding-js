@@ -18,20 +18,23 @@ interface IPostItemFactoryDependencies {
 export interface IPostItemActionParams {
   readonly uri: string;
   readonly text: string;
+  readonly givenId?: Guid;
 }
 
 export const postItemFactory = (deps: IPostItemFactoryDependencies) =>
-  ({ uri, text }: IPostItemActionParams) =>
+  ({ uri, text, givenId }: IPostItemActionParams) =>
     (dispatch: Dispatch<IAction>) => {
-      const id = deps.createNewId();
+      const id = givenId || deps.createNewId();
       const newItem = {
         id,
         text,
+        uri,
       };
 
       const itemSyncRequest: IItemSyncRequest = {
         id,
         operation: SyncOperation.Add,
+        uri,
       };
 
       dispatch(deps.addNewItem(newItem));

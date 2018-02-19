@@ -3,6 +3,8 @@ import * as PropTypes from 'prop-types';
 import { IListItem } from '../models/interfaces/IListItem';
 import { IItemSyncInfo } from '../models/interfaces/IItemSyncInfo';
 import { SyncState } from '../models/enums/SyncState';
+import { Retry } from '../containers/Retry';
+import { SyncOperation } from '../models/enums/SyncOperation';
 
 export interface IListItemStaticCallbackProps {
   readonly onItemOpened: () => void;
@@ -58,20 +60,40 @@ export class ListItemStatic extends React.PureComponent<IListItemStaticProps> {
   render() {
     const {
       itemNumber,
+      item,
       item: { text },
       itemSyncInfo,
     } = this.props;
 
-    const isSyncing = itemSyncInfo.state === SyncState.Pending;
-    const onMouseUp = isSyncing ? () => undefined : this._onTextSelection;
+    let syncingComponent;
+    let onMouseUp = this._onTextSelection;
+
+    switch (itemSyncInfo.state) {
+      case SyncState.Pending:
+        onMouseUp = () => undefined;
+        syncingComponent = ' - is syncing';
+        break;
+
+      case SyncState.Unsynced:
+        if (itemSyncInfo.operation === SyncOperation.Delete) {
+          onMouseUp = () => undefined;
+        }
+        syncingComponent = <Retry item={item} itemSyncInfo={itemSyncInfo} />;
+        break;
+
+      default:
+        syncingComponent = undefined;
+        break;
+    }
 
     return (
-      <div onMouseUp={onMouseUp}>
-        {itemNumber + '. '}
-        {text}
-        {isSyncing && ' - is syncing'}
-        {itemSyncInfo.state === SyncState.Unsynced && ' - failed to sync'}
-      </div>
+      <span>
+        <div onMouseUp={onMouseUp}>
+          {itemNumber + '. '}
+          {text}
+        </div>
+        {syncingComponent}
+      </span>
     );
   }
 }

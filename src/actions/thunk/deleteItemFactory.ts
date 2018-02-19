@@ -23,6 +23,7 @@ export const deleteItemFactory = (deps: IDeleteItemFactoryDependencies) =>
       const itemSyncRequest: IItemSyncRequest = {
         id,
         operation: SyncOperation.Delete,
+        uri,
       };
 
       dispatch(deps.itemSyncRequested(itemSyncRequest));

@@ -28,6 +28,9 @@ import {
 import { IThunkAction } from '../../models/interfaces/IThunkAction';
 import { httpClient } from '../../models/classes/AxiosHttpClient';
 import { createNewId } from '../../utils/createNewId';
+import {
+  retryActionFactory
+} from './retryActionFactory';
 
 export const fetchItemsAsync: IThunkAction<IFetchItemsActionParams> = fetchItemsFactory({
   httpClient,
@@ -55,3 +58,5 @@ export const saveNewTextAsync: IThunkAction<ISaveNewTextActionParams> = saveNewT
   itemSyncSucceeded,
   itemSyncFailed,
 });
+
+export const retryActionAsync = retryActionFactory();

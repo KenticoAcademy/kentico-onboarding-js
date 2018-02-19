@@ -7,7 +7,7 @@ import { SyncOperation } from '../../models/enums/SyncOperation';
 
 interface ISaveNewTextFactoryDependencies {
   readonly httpClient: IHttpClient;
-  readonly saveItemChanges: (id: Guid, text: string) => IAction;
+  readonly saveItemChanges: (id: Guid, text: string, uri: string) => IAction;
   readonly itemSyncSucceeded: (itemSyncRequest: IItemSyncRequest) => IAction;
   readonly itemSyncFailed: (itemSyncRequest: IItemSyncRequest) => IAction;
 }
@@ -30,9 +30,10 @@ export const saveNewTextFactory = (deps: ISaveNewTextFactoryDependencies) =>
       const itemSyncRequest: IItemSyncRequest = {
         id,
         operation: SyncOperation.Modify,
+        uri,
       };
 
-      dispatch(deps.saveItemChanges(id, text));
+      dispatch(deps.saveItemChanges(id, text, uri));
 
       return deps.httpClient.patch(uri + id, updatedItem)
         .then(() => dispatch(deps.itemSyncSucceeded(itemSyncRequest)))

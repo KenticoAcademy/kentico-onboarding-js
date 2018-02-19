@@ -7,12 +7,13 @@ import { IAddedItemConfirmed } from '../models/interfaces/IAddedItemConfirmed';
 import { IItemSyncRequest } from '../models/interfaces/IItemSyncRequest';
 import { SyncState } from '../models/enums/SyncState';
 
-export const addNewItem = ({ id, text }: IListItem): IAction => ({
+export const addNewItem = ({ id, text, uri }: IListItem & { uri: string }): IAction => ({
   type: ActionTypes.ITEM_CREATED,
   payload: {
     id,
     text,
     operation: SyncOperation.Add,
+    uri,
   },
 });
 
@@ -39,13 +40,14 @@ export const deleteUnsavedItem = (id: Guid): IAction => ({
   }
 });
 
-export const saveItemChanges = (id: Guid, text: string, operation = SyncOperation.Modify, initialSyncState?: SyncState): IAction => ({
+export const saveItemChanges = (id: Guid, text: string, uri: string, operation = SyncOperation.Modify, initialSyncState?: SyncState): IAction => ({
   type: ActionTypes.ITEM_CHANGES_SAVED,
   payload: {
     id,
     text,
     operation,
     initialSyncState,
+    uri,
   },
 });
 
@@ -70,26 +72,23 @@ export const receiveItems = (items: IListItem[]): IAction => ({
   }
 });
 
-export const itemSyncFailed = ({ id, operation }: IItemSyncRequest): IAction => ({
+export const itemSyncFailed = (itemSyncRequest: IItemSyncRequest): IAction => ({
   type: ActionTypes.ITEM_SYNC_FAILED,
   payload: {
-    id,
-    operation,
+    ...itemSyncRequest,
   }
 });
 
-export const itemSyncRequested = ({ id, operation }: IItemSyncRequest): IAction => ({
+export const itemSyncRequested = (itemSyncRequest: IItemSyncRequest): IAction => ({
   type: ActionTypes.ITEM_SYNC_REQUESTED,
   payload: {
-    id,
-    operation,
+    ...itemSyncRequest,
   }
 });
 
-export const itemSyncSucceeded = ({ id, operation }: IItemSyncRequest): IAction => ({
+export const itemSyncSucceeded = (itemSyncRequest: IItemSyncRequest): IAction => ({
   type: ActionTypes.ITEM_SYNC_SUCCEEDED,
   payload: {
-    id,
-    operation,
+    ...itemSyncRequest,
   }
 });

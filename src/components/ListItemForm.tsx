@@ -6,10 +6,6 @@ import { IListItem } from '../models/interfaces/IListItem';
 import { IItemSyncInfo } from '../models/interfaces/IItemSyncInfo';
 import { SyncState } from '../models/enums/SyncState';
 
-export interface IListItemFormDataProps {
-  readonly itemSyncInfo: IItemSyncInfo;
-}
-
 export interface IListItemFormOwnProps {
   readonly item: IListItem;
   readonly itemNumber: number;
@@ -17,7 +13,8 @@ export interface IListItemFormOwnProps {
   readonly selectionRangeEnds: number;
 }
 
-export interface IListItemFormProps extends IListItemFormDataProps, IListItemFormOwnProps {
+interface IListItemFormProps extends IListItemFormOwnProps {
+  readonly itemSyncInfo: IItemSyncInfo;
 }
 
 export const listItemFormPropTypes = {

@@ -25,6 +25,7 @@ describe('items', () => {
       id: expectedId,
       text: expectedText,
       isBeingEdited: false,
+      uri: '',
     };
     const addNewItemAction = actions.addNewItem(newItem);
     const result = items(initialState, addNewItemAction);
@@ -48,6 +49,7 @@ describe('items', () => {
       id: expectedId,
       text: expectedText,
       isBeingEdited: false,
+      uri: '',
     };
     const addNewItemAction = actions.addNewItem(newItem);
     const result = items(undefined, addNewItemAction);
@@ -106,7 +108,7 @@ describe('items', () => {
       }),
     });
 
-    const changeItemTextAction = actions.saveItemChanges(expectedId, expectedNewText);
+    const changeItemTextAction = actions.saveItemChanges(expectedId, expectedNewText, '');
     const result = items(initialState, changeItemTextAction);
 
     expect(result)
