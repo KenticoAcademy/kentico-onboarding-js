@@ -16,6 +16,10 @@ export class ListItem extends React.PureComponent {
     }).isRequired,
     onDelete: PropTypes.func.isRequired,
     onSave: PropTypes.func.isRequired,
+    bullet: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+    ]).isRequired,
   };
 
   constructor(props) {
@@ -39,10 +43,17 @@ export class ListItem extends React.PureComponent {
   };
 
   render() {
-    const { item } = this.props;
+    const { item, bullet } = this.props;
+
+    let listItem = (
+      <ListItemDisplay
+        itemValue={item.value}
+        onEdit={this.toggleEditMode}
+      />
+    );
 
     if (this.state.isEditing) {
-      return (
+      listItem = (
         <ListItemEditor
           itemValue={item.value}
           onCancel={this.toggleEditMode}
@@ -53,10 +64,12 @@ export class ListItem extends React.PureComponent {
     }
 
     return (
-      <ListItemDisplay
-        itemValue={item.value}
-        onEdit={this.toggleEditMode}
-      />
+      <span className="input-group">
+        <span className="input-group-addon">
+          {bullet}
+        </span>
+        {listItem}
+      </span>
     );
   }
 }

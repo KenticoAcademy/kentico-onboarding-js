@@ -1,13 +1,14 @@
 // components/List.jsx
 
 import React from 'react';
-import v4 from 'uuid/v4';
+import { default as getUUID } from 'uuid/v4';
 
 import { NewItem } from './NewItem';
 import { ListItem } from './ListItem';
 
 export class List extends React.PureComponent {
   static displayName = 'List';
+
   state = {
     items: [],
   };
@@ -16,7 +17,7 @@ export class List extends React.PureComponent {
     items: [
       ...prevState.items,
       {
-        key: v4(),
+        key: getUUID(),
         value: itemValue,
       },
     ],
@@ -42,25 +43,15 @@ export class List extends React.PureComponent {
   };
 
   render() {
-    const listItemSpan = (index, item) => {
-      return (
-        <span className="input-group">
-          <span className="input-group-addon">
-            {index + 1}
-          </span>
+    const list = this.state.items
+      .map((item, index) => (
+        <div className="list-group-item" key={item.key}>
           <ListItem
+            bullet={index + 1}
             item={item}
             onSave={this.saveItem}
             onDelete={this.deleteItem}
           />
-        </span>
-      );
-    };
-
-    const list = this.state.items
-      .map((item, index) => (
-        <div className="list-group-item" key={item.key}>
-          {listItemSpan(index, item)}
         </div>
       ));
 
