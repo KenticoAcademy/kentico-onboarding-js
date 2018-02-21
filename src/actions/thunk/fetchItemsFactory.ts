@@ -7,6 +7,7 @@ interface IFetchItemsFactoryDependencies {
   readonly httpClient: IHttpClient;
   readonly requestItems: (uri: string) => IAction;
   readonly receiveItems: (items: IListItem[]) => IAction;
+  readonly fetchFailed: () => IAction;
 }
 
 export interface IFetchItemsActionParams {
@@ -19,5 +20,6 @@ export const fetchItemsFactory = (deps: IFetchItemsFactoryDependencies) =>
       dispatch(deps.requestItems(uri));
 
       return deps.httpClient.get<IListItem[]>(uri)
-        .then(items => dispatch(deps.receiveItems(items)));
+        .then(items => dispatch(deps.receiveItems(items)))
+        .catch(() => dispatch(deps.fetchFailed()));
     };

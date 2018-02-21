@@ -72,6 +72,11 @@ export const receiveItems = (items: IListItem[]): IAction => ({
   }
 });
 
+export const fetchFailed = (): IAction => ({
+  type: ActionTypes.FETCH_ITEMS_FAIL,
+  payload: undefined,
+});
+
 export const itemSyncFailed = (itemSyncRequest: IItemSyncRequest): IAction => ({
   type: ActionTypes.ITEM_SYNC_FAILED,
   payload: {

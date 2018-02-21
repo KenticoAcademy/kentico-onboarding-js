@@ -2,6 +2,7 @@ import {
   addNewItem,
   confirmAddedItem,
   deleteItem,
+  fetchFailed,
   itemSyncFailed,
   itemSyncRequested,
   itemSyncSucceeded,
@@ -36,6 +37,7 @@ export const fetchItemsAsync: IThunkAction<IFetchItemsActionParams> = fetchItems
   httpClient,
   requestItems,
   receiveItems,
+  fetchFailed,
 });
 export const postItemAsync: IThunkAction<IPostItemActionParams> = postItemFactory({
   httpClient,

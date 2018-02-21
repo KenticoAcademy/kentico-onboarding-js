@@ -3,7 +3,7 @@ import * as PropTypes from 'prop-types';
 import { IListItem } from '../models/interfaces/IListItem';
 import { IItemSyncInfo } from '../models/interfaces/IItemSyncInfo';
 import { SyncState } from '../models/enums/SyncState';
-import { Retry } from '../containers/Retry';
+import { RetryItem } from '../containers/RetryItem';
 import { SyncOperation } from '../models/enums/SyncOperation';
 
 export interface IListItemStaticCallbackProps {
@@ -78,7 +78,7 @@ export class ListItemStatic extends React.PureComponent<IListItemStaticProps> {
         if (itemSyncInfo.operation === SyncOperation.Delete) {
           onMouseUp = () => undefined;
         }
-        syncingComponent = <Retry item={item} itemSyncInfo={itemSyncInfo} />;
+        syncingComponent = <RetryItem item={item} itemSyncInfo={itemSyncInfo} />;
         break;
 
       default:

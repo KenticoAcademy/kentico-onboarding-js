@@ -20,7 +20,7 @@ import {
 } from '../actions/thunk';
 import { IAction } from '../models/interfaces/IAction';
 
-export interface IRetryContainerProps {
+export interface IRetryItemContainerProps {
   readonly item: IListItem;
   readonly itemSyncInfo: IItemSyncInfo;
 }
@@ -59,23 +59,23 @@ const getRetryAction = ({ id, text }: IListItem, itemSyncInfo: IItemSyncInfo) =>
   }
 };
 
-const mapDispatchToProps = (dispatch: Dispatch<IAction>,  { item, itemSyncInfo }: IRetryContainerProps): IRetryCallbackProps => ({
+const mapDispatchToProps = (dispatch: Dispatch<IAction>,  { item, itemSyncInfo }: IRetryItemContainerProps): IRetryCallbackProps => ({
   retryAction: () =>
     dispatch(
-      (getRetryAction(item, itemSyncInfo) as any)),
+      getRetryAction(item, itemSyncInfo) as any),
 });
 
-const mergeProps = (_: undefined, { retryAction }: IRetryCallbackProps, { itemSyncInfo }: IRetryContainerProps): IRetryProps => ({
+const mergeProps = (_: undefined, { retryAction }: IRetryCallbackProps, { itemSyncInfo }: IRetryItemContainerProps): IRetryProps => ({
   retryAction,
   description: `${itemSyncInfo.operation} failed`,
 });
 
-const Retry: ComponentClass<IRetryContainerProps> = connect(
+const RetryItem: ComponentClass<IRetryItemContainerProps> = connect(
   undefined,
   mapDispatchToProps,
   mergeProps,
 )(RetryComponent);
 
-Retry.propTypes = propTypes;
+RetryItem.propTypes = propTypes;
 
-export { Retry };
+export { RetryItem };

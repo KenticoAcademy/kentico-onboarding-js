@@ -10,6 +10,7 @@ import {
 import * as PropTypes from 'prop-types';
 import { Loader } from './Loader';
 import { IAction } from '../models/interfaces/IAction';
+import { RetryList } from '../containers/RetryList';
 
 export interface IListDataProps {
   readonly fetchItemsState: FetchItemsState;
@@ -22,6 +23,8 @@ export interface IListCallbackProps {
 interface IListProps extends IListDataProps, IListCallbackProps {
 }
 
+const fetchItemsUri = '/api/v1/listItems';
+
 export class List extends React.PureComponent<IListProps> {
   static displayName = 'List';
 
@@ -31,7 +34,7 @@ export class List extends React.PureComponent<IListProps> {
   };
 
   componentDidMount() {
-    this.props.fetchItems('/api/v1/listItems');
+    this.props.fetchItems(fetchItemsUri);
   }
 
   render() {
@@ -51,6 +54,8 @@ export class List extends React.PureComponent<IListProps> {
         </HotKeys>;
 
       case FetchItemsState.FAILED:
+        return <RetryList uri={fetchItemsUri} />;
+
       default:
         return null;
     }
