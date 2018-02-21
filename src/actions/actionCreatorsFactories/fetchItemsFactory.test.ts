@@ -56,12 +56,12 @@ describe('fetch items tests', () => {
   it('creates TODO_LIST_ITEM_INSERT with correct arguments', (done) => {
     insertItem.mock.calls.length = 0;
     const items = [{
-      Id: fetchedTestItem0.id,
-      Text: fetchedTestItem0.text
+      id: fetchedTestItem0.id,
+      text: fetchedTestItem0.text
     },
       {
-        Id: fetchedTestItem1.id,
-        Text: fetchedTestItem1.text
+        id: fetchedTestItem1.id,
+        text: fetchedTestItem1.text
       }];
     const get = (_url: string) =>
       new Promise((resolve) => resolve({

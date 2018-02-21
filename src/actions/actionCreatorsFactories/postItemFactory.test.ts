@@ -21,8 +21,8 @@ describe('post item tests', () => {
       {_text}: { _text: string }) =>
       new Promise((resolve => resolve({
         data: [{
-          Id: fetchedTestItem.id,
-          Text: fetchedTestItem.text
+          id: fetchedTestItem.id,
+          text: fetchedTestItem.text
         }]
       })));
     const postItem = postItemFactory(
@@ -55,8 +55,8 @@ describe('post item tests', () => {
     const post = (_url: string, {_text}: { _text: string }) =>
       new Promise((resolve => resolve({
         data: {
-          Id: fetchedTestItem.id,
-          Text: fetchedTestItem.text
+          id: fetchedTestItem.id,
+          text: fetchedTestItem.text
         }
       })));
     const postItem = postItemFactory(

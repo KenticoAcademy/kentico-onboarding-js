@@ -10,10 +10,10 @@ import { IDependencies } from '../IDependencies';
 import { NO_CONNECTION } from '../../constants/connection';
 
 interface FetchedItem {
-  Text: string;
-  Id: Uuid;
-  CreateTime: string;
-  UpdateTime: string;
+  text: string;
+  id: Uuid;
+  createdAt: string;
+  modifiedAt: string;
 }
 
 interface IPostDependencies extends IDependencies {
@@ -28,8 +28,8 @@ export const fetchItemsFactory =
       getAxios.axios.get(getAxios.url)
         .then((response: AxiosResponse) => response.data.map((item: FetchedItem) =>
           dispatch(insertItem({
-            text: item.Text,
-            id: item.Id,
+            text: item.text,
+            id: item.id,
             isSynchronized: true
           }))))
         .then(() => dispatch(fetchSuccess()))

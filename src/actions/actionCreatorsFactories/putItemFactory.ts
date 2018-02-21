@@ -18,10 +18,10 @@ export const putItemFactory =
   ({putSuccess, putError, getAxios}: IUpdateDependencies) =>
     (id: Uuid, text: string) =>
       (dispatch: Dispatch<IAppState>): Promise<void | IAction> =>
-        getAxios.axios.put(getAxios.url + '/' + id, {Id: id, Text: text})
+        getAxios.axios.put(getAxios.url + '/' + id, {id, text})
           .then((response: AxiosResponse) =>
             dispatch(putSuccess(
-              response.data.Id,
+              response.data.id,
             )))
           .catch((error: AxiosError) => {
             const errorResponse = error.response;

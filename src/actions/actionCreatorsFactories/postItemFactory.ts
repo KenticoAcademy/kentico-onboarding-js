@@ -24,11 +24,11 @@ export const postItemFactory =
   ({deleteSuccess, postSuccess, postError, getAxios}: IPostDependencies) =>
     (tempId: Uuid, text: string) =>
       (dispatch: Dispatch<IAppState>): Promise<void | IAction> =>
-        getAxios.axios.post(getAxios.url, {Text: text})
+        getAxios.axios.post(getAxios.url, {text})
           .then((response: AxiosResponse) => dispatch(postSuccess({
-            newId: response.data.Id,
+            newId: response.data.id,
             id: tempId,
-            text: response.data.Text,
+            text: response.data.text,
             isSynchronized: true
           })))
           .catch((error: AxiosError) => {
