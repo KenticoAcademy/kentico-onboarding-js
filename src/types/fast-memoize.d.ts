@@ -1,7 +1,15 @@
 declare module 'fast-memoize' {
+
+  interface Options {
+    cache?: Cache;
+    serializer?: (...args: any[]) => any;
+    strategy?: (fn: Function, options?: Options) => Function;
+  }
+
   function memoize<T>(
     fn: T,
-    options?: any
+    options?: Options
   ): T;
+
   export = memoize;
 }
