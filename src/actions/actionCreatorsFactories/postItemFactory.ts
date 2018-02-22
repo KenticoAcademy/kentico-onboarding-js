@@ -6,8 +6,8 @@ import { IAppState } from '../../models/IAppState';
 import { Dispatch } from 'react-redux';
 import { IAction } from '../IAction';
 import { Uuid } from '../../utils/generateId';
-import { IDependencies } from '../IDependencies';
 import { NO_CONNECTION } from '../../constants/connection';
+import { AxiosStatic } from 'axios';
 
 interface InsertItemArguments {
   text: string;
@@ -19,11 +19,12 @@ interface PostSuccessArguments extends InsertItemArguments {
   newId: Uuid;
 }
 
-interface IPostDependencies extends IDependencies {
+interface IPostDependencies {
   readonly postSuccess: (args: PostSuccessArguments) => IAction;
   readonly postError: (id: Uuid, errorMessage: string) => IAction;
   readonly insertItem: (args: InsertItemArguments) => IAction;
   readonly generateId: () => Uuid;
+  readonly getAxios: {axios: AxiosStatic | any, url: string};
 }
 
 export const postItemFactory =

@@ -3,21 +3,22 @@ import {
   AxiosError
 } from 'axios';
 import { Dispatch } from 'react-redux';
-import { IDependencies } from '../IDependencies';
 import { Uuid } from '../../utils/generateId';
 import { IAction } from '../IAction';
 import { IAppState } from '../../models/IAppState';
 import { NO_CONNECTION } from '../../constants/connection';
+import { AxiosStatic } from 'axios';
 
 interface UpdateItemArguments {
   id: Uuid;
   text: string;
 }
 
-interface IUpdateDependencies extends IDependencies {
+interface IUpdateDependencies {
   readonly updateItem: (args: UpdateItemArguments) => IAction;
   readonly putSuccess: (id: Uuid) => IAction;
   readonly putError: (args: { id: Uuid, message: string }) => IAction;
+  readonly getAxios: {axios: AxiosStatic | any, url: string};
 }
 
 export const putItemFactory =

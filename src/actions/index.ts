@@ -8,7 +8,9 @@ import {
   postSuccess,
   putSuccess,
   updateItem,
-  fetchError, postError, fetchSuccess
+  fetchError,
+  postError,
+  fetchSuccess
 } from './actionCreators';
 import { generateId } from '../utils/generateId';
 import { deleteItemFactory } from './actionCreatorsFactories/deleteItemFactory';

@@ -6,8 +6,8 @@ import { IAppState } from '../../models/IAppState';
 import { Dispatch } from 'react-redux';
 import { Uuid } from '../../utils/generateId';
 import { IAction } from '../IAction';
-import { IDependencies } from '../IDependencies';
 import { NO_CONNECTION } from '../../constants/connection';
+import { AxiosStatic } from 'axios';
 
 interface FetchedItem {
   text: string;
@@ -16,10 +16,11 @@ interface FetchedItem {
   modifiedAt: string;
 }
 
-interface IPostDependencies extends IDependencies {
+interface IPostDependencies {
   readonly insertItem: (args: { text: string, id: Uuid, isSynchronized: boolean }) => IAction;
   readonly fetchSuccess: () => IAction;
   readonly fetchError: (errorText: string) => IAction;
+  readonly getAxios: {axios: AxiosStatic | any, url: string};
 }
 
 export const fetchItemsFactory =

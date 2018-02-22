@@ -5,13 +5,14 @@ import { Dispatch } from 'react-redux';
 import { IAppState } from '../../models/IAppState';
 import { IAction } from '../IAction';
 import { Uuid } from '../../utils/generateId';
-import { IDependencies } from '../IDependencies';
 import { NO_CONNECTION, OPERATION_FAILED } from '../../constants/connection';
+import { AxiosStatic } from 'axios';
 
-interface IDeleteDependencies extends IDependencies {
+interface IDeleteDependencies {
   readonly deleteItem: (id: Uuid) => IAction;
   readonly deleteSuccess: (id: Uuid) => IAction;
   readonly deleteError: (args: { id: Uuid, message: string }) => IAction;
+  readonly getAxios: {axios: AxiosStatic | any, url: string};
 }
 
 export const deleteItemFactory =
