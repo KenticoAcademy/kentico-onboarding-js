@@ -1,7 +1,7 @@
 // components/List.jsx
 
 import React from 'react';
-import { default as getUUID } from 'uuid/v4';
+import { getUUIDv4 } from '../utils/uuidService';
 
 import { NewItem } from './NewItem';
 import { ListItem } from './ListItem';
@@ -17,7 +17,7 @@ export class List extends React.PureComponent {
     items: [
       ...prevState.items,
       {
-        key: getUUID(),
+        key: getUUIDv4(),
         value: itemValue,
       },
     ],
