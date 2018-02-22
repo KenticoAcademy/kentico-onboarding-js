@@ -13,7 +13,7 @@ export class List extends React.PureComponent {
     items: [],
   };
 
-  addItem = (itemValue) => this.setState(prevState => ({
+  _addItem = (itemValue) => this.setState(prevState => ({
     items: [
       ...prevState.items,
       {
@@ -23,7 +23,7 @@ export class List extends React.PureComponent {
     ],
   }));
 
-  saveItem = (item, updatedValue) => {
+  _saveItem = (item, updatedValue) => {
     const newItems = this.state.items
       .map(itemInList => (itemInList.key === item.key
           ? {
@@ -36,7 +36,7 @@ export class List extends React.PureComponent {
     this.setState({ items: newItems });
   };
 
-  deleteItem = (item) => {
+  _deleteItem = (item) => {
     const newItems = this.state.items
       .filter(arrayItem => arrayItem.key !== item.key);
     this.setState({ items: newItems });
@@ -55,8 +55,8 @@ export class List extends React.PureComponent {
         <div className="list-group-item" key={item.key}>
           <ListItem
             item={item}
-            onSave={this.saveItem}
-            onDelete={this.deleteItem}
+            onSave={this._saveItem}
+            onDelete={this._deleteItem}
           />
         </div>
       ));
@@ -67,7 +67,7 @@ export class List extends React.PureComponent {
           <div className="list-group">
             {list}
           </div>
-          <NewItem onCreate={this.addItem} />
+          <NewItem onCreate={this._addItem} />
         </div>
       </div>
     );

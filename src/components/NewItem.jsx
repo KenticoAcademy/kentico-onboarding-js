@@ -18,18 +18,18 @@ export class NewItem extends React.PureComponent {
     };
   }
 
-  handleChange = (event) => this.setState({ itemValue: event.target.value });
+  _handleChange = (event) => this.setState({ itemValue: event.target.value });
 
-  handleKeyUp = (event) => {
+  _handleKeyUp = (event) => {
     if (event.key === 'Enter' && isInputValid(this.state.itemValue)) {
-      this.addItem();
+      this._addItem();
     }
     else if (event.key === 'Escape') {
       this.setState({ itemValue: '' });
     }
   };
 
-  addItem = () => {
+  _addItem = () => {
     this.props.onCreate(this.state.itemValue);
     this.setState({ itemValue: '' });
   };
@@ -44,14 +44,14 @@ export class NewItem extends React.PureComponent {
           className="form-control"
           placeholder="What is on your mind ... ?"
           value={itemValue}
-          onChange={this.handleChange}
-          onKeyUp={this.handleKeyUp}
+          onChange={this._handleChange}
+          onKeyUp={this._handleKeyUp}
         />
         <span className="input-group-btn">
           <button
             type="button"
             className="btn btn-default"
-            onClick={this.addItem}
+            onClick={this._addItem}
             disabled={!isInputValid(itemValue)}
           > Add
           </button>

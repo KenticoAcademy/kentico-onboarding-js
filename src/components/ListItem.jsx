@@ -22,17 +22,17 @@ export class ListItem extends React.PureComponent {
     };
   }
 
-  toggleEditMode = () => this.setState(prevState => ({ isEditing: !prevState.isEditing }));
+  _toggleEditMode = () => this.setState(prevState => ({ isEditing: !prevState.isEditing }));
 
-  deleteItem = () => {
+  _deleteItem = () => {
     const { onDelete, item } = this.props;
     onDelete(item);
   };
 
-  updateItem = (updatedItemValue) => {
+  _updateItem = (updatedItemValue) => {
     const { item, onSave } = this.props;
     onSave(item, updatedItemValue);
-    this.toggleEditMode();
+    this._toggleEditMode();
   };
 
   render() {
@@ -41,7 +41,7 @@ export class ListItem extends React.PureComponent {
     let listItem = (
       <ListItemDisplay
         item={item}
-        onEdit={this.toggleEditMode}
+        onEdit={this._toggleEditMode}
       />
     );
 
@@ -49,9 +49,9 @@ export class ListItem extends React.PureComponent {
       listItem = (
         <ListItemEditor
           item={item}
-          onCancel={this.toggleEditMode}
-          onDelete={this.deleteItem}
-          onUpdate={this.updateItem}
+          onCancel={this._toggleEditMode}
+          onDelete={this._deleteItem}
+          onUpdate={this._updateItem}
         />
       );
     }

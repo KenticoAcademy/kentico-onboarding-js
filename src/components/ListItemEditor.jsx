@@ -27,18 +27,18 @@ export class ListItemEditor extends React.PureComponent {
     };
   }
 
-  handleInputChange = (event) => this.setState({ itemValue: event.target.value });
+  _handleInputChange = (event) => this.setState({ itemValue: event.target.value });
 
-  handleInputKeyUp = (event) => {
+  _handleInputKeyUp = (event) => {
     if (event.key === 'Enter' && isInputValid(this.state.itemValue)) {
-      this.updateItem();
+      this._updateItem();
     }
     else if (event.key === 'Escape') {
       this.props.onCancel();
     }
   };
 
-  updateItem = () => this.props.onUpdate(this.state.itemValue);
+  _updateItem = () => this.props.onUpdate(this.state.itemValue);
 
   render() {
     const { onCancel, onDelete, item: { bullet } } = this.props;
@@ -53,15 +53,15 @@ export class ListItemEditor extends React.PureComponent {
           type="text"
           className="form-control"
           value={itemValue}
-          onChange={this.handleInputChange}
-          onKeyUp={this.handleInputKeyUp}
+          onChange={this._handleInputChange}
+          onKeyUp={this._handleInputKeyUp}
           autoFocus
         />
         <span className="input-group-btn">
           <button
             type="button"
             className="btn btn-primary"
-            onClick={this.updateItem}
+            onClick={this._updateItem}
             disabled={!isInputValid(itemValue)}
           > Save
           </button>
