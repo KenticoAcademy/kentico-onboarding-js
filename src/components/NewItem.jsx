@@ -2,6 +2,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { isInputValid } from '../utils/validationService';
 
 export class NewItem extends React.PureComponent {
   static displayName = 'NewItem';
@@ -20,7 +21,7 @@ export class NewItem extends React.PureComponent {
   handleChange = (event) => this.setState({ itemValue: event.target.value });
 
   handleKeyUp = (event) => {
-    if (event.key === 'Enter' && this.state.itemValue) {
+    if (event.key === 'Enter' && isInputValid(this.state.itemValue)) {
       this.addItem();
     }
     else if (event.key === 'Escape') {
@@ -51,7 +52,7 @@ export class NewItem extends React.PureComponent {
             type="button"
             className="btn btn-default"
             onClick={this.addItem}
-            disabled={!itemValue}
+            disabled={!isInputValid(itemValue)}
           > Add
           </button>
         </span>

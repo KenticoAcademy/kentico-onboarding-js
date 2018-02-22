@@ -2,6 +2,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { isInputValid } from '../utils/validationService';
 
 export class ListItemEditor extends React.PureComponent {
   static displayName = 'ListItemEditor';
@@ -29,7 +30,7 @@ export class ListItemEditor extends React.PureComponent {
   handleInputChange = (event) => this.setState({ itemValue: event.target.value });
 
   handleInputKeyUp = (event) => {
-    if (event.key === 'Enter') {
+    if (event.key === 'Enter' && isInputValid(this.state.itemValue)) {
       this.updateItem();
     }
     else if (event.key === 'Escape') {
@@ -37,13 +38,7 @@ export class ListItemEditor extends React.PureComponent {
     }
   };
 
-  updateItem = () => {
-    const { itemValue } = this.state;
-
-    if (itemValue) {
-      this.props.onUpdate(itemValue);
-    }
-  };
+  updateItem = () => this.props.onUpdate(this.state.itemValue);
 
   render() {
     const { onCancel, onDelete, item: { bullet } } = this.props;
@@ -67,7 +62,7 @@ export class ListItemEditor extends React.PureComponent {
             type="button"
             className="btn btn-primary"
             onClick={this.updateItem}
-            disabled={!itemValue}
+            disabled={!isInputValid(itemValue)}
           > Save
           </button>
           <button
