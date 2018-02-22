@@ -7,10 +7,11 @@ describe('post item tests', () => {
   };
   const postSuccess = jest.fn();
   const dispatch = jest.fn(input => input);
-  const deleteSuccess = jest.fn();
   const postError = jest.fn();
+  const insertItem = jest.fn();
 
   it('creates ITEM_POST_SUCCESS on correct POST request', (done) => {
+    const generateId = jest.fn();
     postSuccess.mock.calls.length = 0;
     const fetchedTestItem = {
       id: 'e1f5c5e4-7f5e-4aa0-9e52-117cc8267f13',
@@ -27,7 +28,8 @@ describe('post item tests', () => {
       })));
     const postItem = postItemFactory(
       {
-        deleteSuccess,
+        insertItem,
+        generateId,
         postSuccess,
         postError,
         getAxios: ({
@@ -38,7 +40,7 @@ describe('post item tests', () => {
         })
       });
 
-    postItem(postTestItem.id, postTestItem.text)(dispatch)
+    postItem(postTestItem.text)(dispatch)
       .then(() => {
         expect(postSuccess.mock.calls.length).toBe(1);
         done();
@@ -48,6 +50,7 @@ describe('post item tests', () => {
 
   it('creates ITEM_POST_SUCCESS with correct arguments', (done) => {
     postSuccess.mock.calls.length = 0;
+    const generateId = jest.fn(() => postTestItem.id);
     const fetchedTestItem = {
       id: 'e1f5c5e4-7f5e-4aa0-9e52-117cc8267f13',
       text: 'item'
@@ -61,7 +64,8 @@ describe('post item tests', () => {
       })));
     const postItem = postItemFactory(
       {
-        deleteSuccess,
+        insertItem,
+        generateId,
         postSuccess,
         postError,
         getAxios: ({
@@ -72,7 +76,7 @@ describe('post item tests', () => {
         })
       });
 
-    postItem(postTestItem.id, postTestItem.text)(dispatch)
+    postItem(postTestItem.text)(dispatch)
       .then(() => {
         expect(postSuccess.mock.calls[0][0].newId).toEqual(fetchedTestItem.id);
         expect(postSuccess.mock.calls[0][0].id).toEqual(postTestItem.id);
@@ -83,8 +87,8 @@ describe('post item tests', () => {
       .catch(err => console.log(err));
   });
 
-  it('creates ITEM_POST_ERROR, ITEM_DELETE_SUCCESS on POST request failure', (done) => {
-    deleteSuccess.mock.calls.length = 0;
+  it('creates ITEM_POST_ERROR on POST request failure', (done) => {
+    const generateId = jest.fn();
     postError.mock.calls.length = 0;
     const post = (_url: string, {_text}: { _text: string }) =>
       new Promise((_resolve, reject) => reject({
@@ -96,7 +100,8 @@ describe('post item tests', () => {
       }));
     const postItem = postItemFactory(
       {
-        deleteSuccess,
+        insertItem,
+        generateId,
         postSuccess,
         postError,
         getAxios: ({
@@ -107,9 +112,8 @@ describe('post item tests', () => {
         })
       });
 
-    postItem(postTestItem.id, postTestItem.text)(dispatch)
+    postItem(postTestItem.text)(dispatch)
       .then(() => {
-        expect(deleteSuccess.mock.calls.length).toBe(1);
         expect(postError.mock.calls.length).toBe(1);
         done();
       })

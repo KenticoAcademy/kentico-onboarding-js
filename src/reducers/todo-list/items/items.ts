@@ -5,7 +5,7 @@ import {
   TODO_LIST_ITEM_UPDATE,
   TODO_LIST_ITEM_CANCEL_EDIT,
   TODO_LIST_ITEM_EDIT, ITEM_POST_SUCCESS, ITEM_PUT_SUCCESS, ITEM_DELETE_SUCCESS,
-  ITEM_PUT_ERROR, ITEM_DELETE_ERROR, CLOSE_ITEM_ERROR,
+  ITEM_PUT_ERROR, ITEM_DELETE_ERROR, CLOSE_ITEM_ERROR, ITEM_POST_ERROR,
 } from '../../../constants/actionTypes';
 import { item } from './item';
 import { IAction } from '../../../actions/IAction';
@@ -21,6 +21,7 @@ export const items = (previousState: OrderedMap<Uuid, ListItem> = OrderedMap<Uui
         .update(action.payload.newId, existingItem => item(existingItem, action));
 
     case ITEM_DELETE_SUCCESS:
+    case ITEM_POST_ERROR:
       return previousState.delete(action.payload.id);
 
     case TODO_LIST_ITEM_INSERT:
