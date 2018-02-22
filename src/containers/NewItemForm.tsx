@@ -9,10 +9,9 @@ import { postItemAsync } from '../actions/thunk';
 import { IAppState } from '../models/state/IAppState';
 
 const mapDispatchToProps = (dispatch: Dispatch<IAppState>): INewItemFormCallbackProps => ({
-  onSubmit: (text: string, uri: string) =>
+  onSubmit: (text: string) =>
     dispatch(
       postItemAsync({
-        uri,
         text,
       })),
 });

@@ -6,6 +6,7 @@ import { IItemSyncRequest } from '../../models/interfaces/IItemSyncRequest';
 import { SyncOperation } from '../../models/enums/SyncOperation';
 
 interface IDeleteItemFactoryDependencies {
+  readonly uri: string;
   readonly httpClient: IHttpClient;
   readonly deleteItem: (id: Guid) => IAction;
   readonly itemSyncRequested: (itemSyncRequest: IItemSyncRequest) => IAction;
@@ -13,22 +14,20 @@ interface IDeleteItemFactoryDependencies {
 }
 
 export interface IDeleteItemActionParams {
-  readonly uri: string;
   readonly id: Guid;
 }
 
 export const deleteItemFactory = (deps: IDeleteItemFactoryDependencies) =>
-  ({ uri, id }: IDeleteItemActionParams) =>
+  ({ id }: IDeleteItemActionParams) =>
     (dispatch: Dispatch<IAction>) => {
       const itemSyncRequest: IItemSyncRequest = {
         id,
         operation: SyncOperation.Delete,
-        uri,
       };
 
       dispatch(deps.itemSyncRequested(itemSyncRequest));
 
-      return deps.httpClient.delete(uri + id)
+      return deps.httpClient.delete(deps.uri + id)
         .then(() => dispatch(deps.deleteItem(id)))
         .catch(() => dispatch(deps.itemSyncFailed(itemSyncRequest)));
     };

@@ -17,13 +17,11 @@ export interface IListDataProps {
 }
 
 export interface IListCallbackProps {
-  readonly fetchItems: (uri: string) => Promise<IAction>;
+  readonly fetchItems: () => Promise<IAction>;
 }
 
 interface IListProps extends IListDataProps, IListCallbackProps {
 }
-
-const fetchItemsUri = '/api/v1/listItems';
 
 export class List extends React.PureComponent<IListProps> {
   static displayName = 'List';
@@ -34,7 +32,7 @@ export class List extends React.PureComponent<IListProps> {
   };
 
   componentDidMount() {
-    this.props.fetchItems(fetchItemsUri);
+    this.props.fetchItems();
   }
 
   render() {
@@ -54,7 +52,7 @@ export class List extends React.PureComponent<IListProps> {
         </HotKeys>;
 
       case FetchItemsState.FAILED:
-        return <RetryList uri={fetchItemsUri} />;
+        return <RetryList />;
 
       default:
         return null;

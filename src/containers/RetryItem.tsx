@@ -18,7 +18,7 @@ import {
   retryActionAsync,
   saveNewTextAsync
 } from '../actions/thunk';
-import { IAction } from '../models/interfaces/IAction';
+import { IAppState } from '../models/state/IAppState';
 
 export interface IRetryItemContainerProps {
   readonly item: IListItem;
@@ -36,7 +36,6 @@ const getRetryAction = ({ id, text }: IListItem, itemSyncInfo: IItemSyncInfo) =>
   switch (itemSyncInfo.operation) {
     case SyncOperation.Add:
       return retryActionAsync(postItemAsync)({
-        uri: itemSyncInfo.uri,
         text,
         givenId: id,
       });
@@ -44,14 +43,12 @@ const getRetryAction = ({ id, text }: IListItem, itemSyncInfo: IItemSyncInfo) =>
     case SyncOperation.Modify:
       return retryActionAsync(saveNewTextAsync)({
         id,
-        uri: itemSyncInfo.uri,
         text,
       });
 
     case SyncOperation.Delete:
       return retryActionAsync(deleteItemAsync)({
         id,
-        uri: itemSyncInfo.uri,
       });
 
     default:
@@ -59,10 +56,10 @@ const getRetryAction = ({ id, text }: IListItem, itemSyncInfo: IItemSyncInfo) =>
   }
 };
 
-const mapDispatchToProps = (dispatch: Dispatch<IAction>,  { item, itemSyncInfo }: IRetryItemContainerProps): IRetryCallbackProps => ({
+const mapDispatchToProps = (dispatch: Dispatch<IAppState>,  { item, itemSyncInfo }: IRetryItemContainerProps): IRetryCallbackProps => ({
   retryAction: () =>
     dispatch(
-      getRetryAction(item, itemSyncInfo) as any),
+      getRetryAction(item, itemSyncInfo)),
 });
 
 const mergeProps = (_: undefined, { retryAction }: IRetryCallbackProps, { itemSyncInfo }: IRetryItemContainerProps): IRetryProps => ({

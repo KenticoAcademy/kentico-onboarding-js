@@ -6,20 +6,20 @@ import { IItemSyncRequest } from '../../models/interfaces/IItemSyncRequest';
 import { SyncOperation } from '../../models/enums/SyncOperation';
 
 interface ISaveNewTextFactoryDependencies {
+  readonly uri: string;
   readonly httpClient: IHttpClient;
-  readonly saveItemChanges: (id: Guid, text: string, uri: string) => IAction;
+  readonly saveItemChanges: (id: Guid, text: string) => IAction;
   readonly itemSyncSucceeded: (itemSyncRequest: IItemSyncRequest) => IAction;
   readonly itemSyncFailed: (itemSyncRequest: IItemSyncRequest) => IAction;
 }
 
 export interface ISaveNewTextActionParams {
-  readonly uri: string;
   readonly id: Guid;
   readonly text: string;
 }
 
 export const saveNewTextFactory = (deps: ISaveNewTextFactoryDependencies) =>
-  ({ uri, id, text }: ISaveNewTextActionParams) =>
+  ({ id, text }: ISaveNewTextActionParams) =>
     (dispatch: Dispatch<IAction>) => {
       const updatedItem = {
         text,
@@ -30,12 +30,11 @@ export const saveNewTextFactory = (deps: ISaveNewTextFactoryDependencies) =>
       const itemSyncRequest: IItemSyncRequest = {
         id,
         operation: SyncOperation.Modify,
-        uri,
       };
 
-      dispatch(deps.saveItemChanges(id, text, uri));
+      dispatch(deps.saveItemChanges(id, text));
 
-      return deps.httpClient.patch(uri + id, updatedItem)
+      return deps.httpClient.patch(deps.uri + id, updatedItem)
         .then(() => dispatch(deps.itemSyncSucceeded(itemSyncRequest)))
         .catch(() => dispatch(deps.itemSyncFailed(itemSyncRequest)));
     };

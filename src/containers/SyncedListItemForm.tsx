@@ -17,17 +17,15 @@ import {
 } from '../components/ListItemForm';
 
 const mapDispatchToProps = (dispatch: Dispatch<IAppState>, { item: { id } }: IListItemFormOwnProps): ICompleteListItemFormCallbackProps => ({
-  onSave: (text: string, uri: string) =>
+  onSave: (text: string) =>
     dispatch(
       saveNewTextAsync({
-        uri,
         text,
         id,
       })),
-  onDelete: (uri: string) =>
+  onDelete: () =>
     dispatch(
       deleteItemAsync({
-        uri,
         id,
       })),
   onCancel: () =>

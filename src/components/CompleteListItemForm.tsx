@@ -9,9 +9,9 @@ import {
 } from './ListItemForm';
 
 export interface ICompleteListItemFormCallbackProps {
-  readonly onSave: (text: string, uri: string) => void;
+  readonly onSave: (text: string) => void;
   readonly onCancel: () => void;
-  readonly onDelete: (uri: string) => void;
+  readonly onDelete: () => void;
 }
 
 interface ICompleteListItemFormProps extends ICompleteListItemFormCallbackProps, IListItemFormOwnProps {
@@ -58,11 +58,7 @@ export class CompleteListItemForm extends React.PureComponent<ICompleteListItemF
     const { onSave } = this.props;
     const { text } = this.state;
 
-    onSave(text, '/api/v1/listItems/');
-  };
-
-  _onDelete = (): void => {
-    this.props.onDelete('/api/v1/listItems/');
+    onSave(text);
   };
 
   _textChanged = (newText: string): boolean =>
@@ -95,7 +91,10 @@ export class CompleteListItemForm extends React.PureComponent<ICompleteListItemF
     const { text } = this.state;
     const enableSaveButton = !isTextEmpty(text);
 
-    const { onCancel } = this.props;
+    const {
+      onCancel,
+      onDelete,
+    } = this.props;
 
     const handlers = {
       [keyActions.OnEnter]: this._onEnterPress,
@@ -141,7 +140,7 @@ export class CompleteListItemForm extends React.PureComponent<ICompleteListItemF
 
             <button
               className="btn btn-danger ml-2"
-              onClick={this._onDelete}
+              onClick={onDelete}
               title="Removes item from list"
             >
               Delete

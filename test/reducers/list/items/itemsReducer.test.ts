@@ -108,7 +108,7 @@ describe('items', () => {
       }),
     });
 
-    const changeItemTextAction = actions.saveItemChanges(expectedId, expectedNewText, '');
+    const changeItemTextAction = actions.saveItemChanges(expectedId, expectedNewText);
     const result = items(initialState, changeItemTextAction);
 
     expect(result)

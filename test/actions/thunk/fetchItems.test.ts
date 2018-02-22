@@ -7,13 +7,7 @@ import {
   httpClientFailure,
 } from './utils/utils';
 
-const actionParams = {
-  uri: '',
-  items:
-    [
-      new ListItem(),
-    ],
-};
+const uri = '';
 
 describe('fetchItems will call dispatch with', () => {
   it('request items and receive items actions', () => {
@@ -22,17 +16,21 @@ describe('fetchItems will call dispatch with', () => {
       'receiveItems',
     ];
 
-    const httpClient = httpClientSuccessFactory(actionParams.items);
+    const items = [
+      new ListItem(),
+    ];
+    const httpClient = httpClientSuccessFactory(items);
     const requestItems = jest.fn(() => expectedActions[0]);
     const receiveItems = jest.fn(() => expectedActions[1]);
     const fetchItems = fetchItemsFactory({
+      uri,
       httpClient,
       requestItems,
       receiveItems,
       fetchFailed: fakeFunction,
     });
 
-    const dispatchableAction = fetchItems(actionParams);
+    const dispatchableAction = fetchItems();
 
     return assertThatDispatchWasCalledWithArgumentsInGiveOrder(dispatchableAction, expectedActions);
   });
@@ -46,13 +44,14 @@ describe('fetchItems will call dispatch with', () => {
     const requestItems = jest.fn(() => expectedActions[0]);
     const fetchFailed = jest.fn(() => expectedActions[1]);
     const fetchItems = fetchItemsFactory({
+      uri,
       httpClient,
       requestItems,
       fetchFailed,
       receiveItems: fakeFunction,
     });
 
-    const dispatchableAction = fetchItems(actionParams);
+    const dispatchableAction = fetchItems();
 
     return assertThatDispatchWasCalledWithArgumentsInGiveOrder(dispatchableAction, expectedActions);
   });

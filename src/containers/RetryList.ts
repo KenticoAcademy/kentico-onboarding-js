@@ -1,29 +1,23 @@
+import { ComponentClass } from 'react';
 import {
   connect,
   Dispatch,
-  ComponentClass,
 } from 'react-redux';
 import {
   Retry as RetryComponent,
   IRetryCallbackProps,
   IRetryProps
 } from '../components/Retry';
-import { IAction } from '../models/interfaces/IAction';
 import {
   fetchItemsAsync,
-  retryActionAsync
+  retryActionWithoutParamsAsync
 } from '../actions/thunk';
+import { IAppState } from '../models/state/IAppState';
 
-export interface IRetryListContainerProps {
-  uri: string;
-}
-
-const mapDispatchToProps = (dispatch: Dispatch<IAction>, { uri }: IRetryListContainerProps): IRetryCallbackProps => ({
+const mapDispatchToProps = (dispatch: Dispatch<IAppState>): IRetryCallbackProps => ({
   retryAction: () =>
     dispatch(
-      retryActionAsync(fetchItemsAsync)({
-        uri,
-      }) as any),
+      retryActionWithoutParamsAsync(fetchItemsAsync)),
 });
 
 const mergeProps = (_: undefined, { retryAction }: IRetryCallbackProps): IRetryProps => ({
@@ -31,7 +25,7 @@ const mergeProps = (_: undefined, { retryAction }: IRetryCallbackProps): IRetryP
   description: 'Fetching items from server failed',
 });
 
-export const RetryList: ComponentClass<IRetryListContainerProps> = connect(
+export const RetryList: ComponentClass = connect(
   undefined,
   mapDispatchToProps,
   mergeProps,

@@ -6,5 +6,4 @@ export interface IItemSyncInfo {
   readonly id: Guid;
   readonly state: SyncState;
   readonly operation: SyncOperation;
-  readonly uri: string;
 }

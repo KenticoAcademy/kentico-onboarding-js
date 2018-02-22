@@ -4,18 +4,16 @@ import { IAction } from '../../models/interfaces/IAction';
 import { IHttpClient } from '../../models/interfaces/IHttpClient';
 
 interface IFetchItemsFactoryDependencies {
+  readonly uri: string;
   readonly httpClient: IHttpClient;
   readonly requestItems: (uri: string) => IAction;
   readonly receiveItems: (items: IListItem[]) => IAction;
   readonly fetchFailed: () => IAction;
 }
 
-export interface IFetchItemsActionParams {
-  readonly uri: string;
-}
 
-export const fetchItemsFactory = (deps: IFetchItemsFactoryDependencies) =>
-  ({ uri }: IFetchItemsActionParams) =>
+export const fetchItemsFactory = ({ uri, ...deps }: IFetchItemsFactoryDependencies) =>
+  () =>
     (dispatch: Dispatch<IAction>) => {
       dispatch(deps.requestItems(uri));
 

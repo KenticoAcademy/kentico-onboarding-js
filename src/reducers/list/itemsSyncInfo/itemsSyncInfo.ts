@@ -19,7 +19,7 @@ import { SyncOperation } from '../../../models/enums/SyncOperation';
 import { itemSyncInfoArrayToOrderedMap } from '../../../utils/itemSyncInfoArrayToOrderedMap';
 import { IListItem } from '../../../models/interfaces/IListItem';
 
-const setSyncState = (state: ItemsSyncInfoState, { payload: { id, operation, uri, initialSyncState } }: IAction, syncState: SyncState): ItemsSyncInfoState =>
+const setSyncState = (state: ItemsSyncInfoState, { payload: { id, operation, initialSyncState } }: IAction, syncState: SyncState): ItemsSyncInfoState =>
   state.update(
     id,
     new ItemSyncInfo({
@@ -27,7 +27,6 @@ const setSyncState = (state: ItemsSyncInfoState, { payload: { id, operation, uri
     }),
     syncInfo => syncInfo.with({
       operation,
-      uri,
       state: initialSyncState || syncState,
     })
   );

@@ -7,13 +7,12 @@ import { IAddedItemConfirmed } from '../models/interfaces/IAddedItemConfirmed';
 import { IItemSyncRequest } from '../models/interfaces/IItemSyncRequest';
 import { SyncState } from '../models/enums/SyncState';
 
-export const addNewItem = ({ id, text, uri }: IListItem & { uri: string }): IAction => ({
+export const addNewItem = ({ id, text }: IListItem): IAction => ({
   type: ActionTypes.ITEM_CREATED,
   payload: {
     id,
     text,
     operation: SyncOperation.Add,
-    uri,
   },
 });
 
@@ -40,14 +39,13 @@ export const deleteUnsavedItem = (id: Guid): IAction => ({
   }
 });
 
-export const saveItemChanges = (id: Guid, text: string, uri: string, operation = SyncOperation.Modify, initialSyncState?: SyncState): IAction => ({
+export const saveItemChanges = (id: Guid, text: string, operation = SyncOperation.Modify, initialSyncState?: SyncState): IAction => ({
   type: ActionTypes.ITEM_CHANGES_SAVED,
   payload: {
     id,
     text,
     operation,
     initialSyncState,
-    uri,
   },
 });
 

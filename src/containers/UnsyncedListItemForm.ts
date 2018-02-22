@@ -36,7 +36,6 @@ const mapDispatchToProps = (dispatch: Dispatch<IAction>,  { item: { id }, itemSy
       saveItemChanges(
         id,
         newText,
-        itemSyncInfo.uri,
         itemSyncInfo.operation,
         itemSyncInfo.state,
       )),

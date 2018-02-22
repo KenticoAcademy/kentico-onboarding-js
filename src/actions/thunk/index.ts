@@ -10,10 +10,7 @@ import {
   requestItems,
   saveItemChanges,
 } from '../actionCreators';
-import {
-  fetchItemsFactory,
-  IFetchItemsActionParams
-} from './fetchItemsFactory';
+import { fetchItemsFactory } from './fetchItemsFactory';
 import {
   IPostItemActionParams,
   postItemFactory
@@ -26,20 +23,29 @@ import {
   ISaveNewTextActionParams,
   saveNewTextFactory
 } from './saveNewTextFactory';
-import { IThunkAction } from '../../models/interfaces/IThunkAction';
+import {
+  IThunkAction,
+  IThunkActionWithoutParams
+} from '../../models/interfaces/IThunkAction';
 import { httpClient } from '../../models/classes/AxiosHttpClient';
 import { createNewId } from '../../utils/createNewId';
 import {
-  retryActionFactory
+  retryActionFactory,
+  retryActionWithoutParamsFactory
 } from './retryActionFactory';
+import { itemCollection } from '../../constants/backendUris';
 
-export const fetchItemsAsync: IThunkAction<IFetchItemsActionParams> = fetchItemsFactory({
+const uri = itemCollection;
+
+export const fetchItemsAsync: IThunkActionWithoutParams = fetchItemsFactory({
+  uri,
   httpClient,
   requestItems,
   receiveItems,
   fetchFailed,
 });
 export const postItemAsync: IThunkAction<IPostItemActionParams> = postItemFactory({
+  uri,
   httpClient,
   addNewItem,
   createNewId,
@@ -48,6 +54,7 @@ export const postItemAsync: IThunkAction<IPostItemActionParams> = postItemFactor
 });
 
 export const deleteItemAsync: IThunkAction<IDeleteItemActionParams> = deleteItemFactory({
+  uri,
   httpClient,
   deleteItem,
   itemSyncFailed,
@@ -55,6 +62,7 @@ export const deleteItemAsync: IThunkAction<IDeleteItemActionParams> = deleteItem
 });
 
 export const saveNewTextAsync: IThunkAction<ISaveNewTextActionParams> = saveNewTextFactory({
+  uri,
   httpClient,
   saveItemChanges,
   itemSyncSucceeded,
@@ -62,3 +70,4 @@ export const saveNewTextAsync: IThunkAction<ISaveNewTextActionParams> = saveNewT
 });
 
 export const retryActionAsync = retryActionFactory();
+export const retryActionWithoutParamsAsync = retryActionWithoutParamsFactory();

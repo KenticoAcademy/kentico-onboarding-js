@@ -9,9 +9,9 @@ import {
 } from './utils/utils';
 
 const actionParams = {
-  uri: '',
   text: '',
 };
+const uri = '';
 
 describe('postItem will call dispatch with', () => {
   it('add new item and confirm added item actions', () => {
@@ -24,6 +24,7 @@ describe('postItem will call dispatch with', () => {
     const addNewItem = jest.fn(() => expectedActions[0]);
     const confirmAddedItem = jest.fn(() => expectedActions[1]);
     const postItem = postItemFactory({
+      uri,
       httpClient,
       addNewItem,
       confirmAddedItem,
@@ -45,6 +46,7 @@ describe('postItem will call dispatch with', () => {
     const addNewItem = jest.fn(() => expectedActions[0]);
     const itemSyncFailed = jest.fn(() => expectedActions[1]);
     const postItem = postItemFactory({
+      uri,
       httpClient,
       addNewItem,
       itemSyncFailed,

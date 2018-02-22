@@ -8,10 +8,10 @@ import {
 import { defaultUuid } from '../../../src/constants/defaultUuid';
 
 const actionParams = {
-  uri: '',
   id: defaultUuid,
   text: '',
 };
+const uri = '';
 
 describe('saveNewText will call dispatch with', () => {
   it('save item changes and item sync succeeded actions', () => {
@@ -23,6 +23,7 @@ describe('saveNewText will call dispatch with', () => {
     const saveItemChanges = jest.fn(() => expectedActions[0]);
     const itemSyncSucceeded = jest.fn(() => expectedActions[1]);
     const saveNewText = saveNewTextFactory({
+      uri,
       httpClient,
       saveItemChanges,
       itemSyncSucceeded,
@@ -43,6 +44,7 @@ describe('saveNewText will call dispatch with', () => {
     const saveItemChanges = jest.fn(() => expectedActions[0]);
     const itemSyncFailed = jest.fn(() => expectedActions[1]);
     const saveNewText = saveNewTextFactory({
+      uri,
       httpClient,
       saveItemChanges,
       itemSyncFailed,

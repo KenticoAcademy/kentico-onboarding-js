@@ -8,6 +8,7 @@ import { IItemSyncRequest } from '../../models/interfaces/IItemSyncRequest';
 import { SyncOperation } from '../../models/enums/SyncOperation';
 
 interface IPostItemFactoryDependencies {
+  readonly uri: string;
   readonly httpClient: IHttpClient;
   readonly addNewItem: (item: Partial<IListItem>) => IAction;
   readonly createNewId: () => Guid;
@@ -16,31 +17,28 @@ interface IPostItemFactoryDependencies {
 }
 
 export interface IPostItemActionParams {
-  readonly uri: string;
   readonly text: string;
   readonly givenId?: Guid;
 }
 
 export const postItemFactory = (deps: IPostItemFactoryDependencies) =>
-  ({ uri, text, givenId }: IPostItemActionParams) =>
+  ({ text, givenId }: IPostItemActionParams) =>
     (dispatch: Dispatch<IAction>) => {
       const id = givenId || deps.createNewId();
       const newItem = {
         id,
         text,
-        uri,
       };
 
       const itemSyncRequest: IItemSyncRequest = {
         id,
         operation: SyncOperation.Add,
-        uri,
       };
 
       dispatch(deps.addNewItem(newItem));
 
       return deps.httpClient.post<IListItem>(
-        uri,
+        deps.uri,
         {
           text,
         })
