@@ -9,14 +9,17 @@ import { IDependencies } from '../IDependencies';
 import { NO_CONNECTION, OPERATION_FAILED } from '../../constants/connection';
 
 interface IDeleteDependencies extends IDependencies {
+  readonly deleteItem: (id: Uuid) => IAction;
   readonly deleteSuccess: (id: Uuid) => IAction;
   readonly deleteError: (args: { id: Uuid, message: string }) => IAction;
 }
 
 export const deleteItemFactory =
-  ({deleteSuccess, deleteError, getAxios}: IDeleteDependencies) =>
-    (id: Uuid) => (dispatch: Dispatch<IAppState>): Promise<void | IAction> =>
-      getAxios.axios.delete(getAxios.url + '/' + id)
+  ({deleteItem, deleteSuccess, deleteError, getAxios}: IDeleteDependencies) =>
+    (id: Uuid) => (dispatch: Dispatch<IAppState>): Promise<void | IAction> => {
+      dispatch(deleteItem(id));
+
+      return getAxios.axios.delete(getAxios.url + '/' + id)
         .then(() => dispatch(deleteSuccess(id)))
         .catch((error: AxiosError) => {
           const errorResponse = error.response;
@@ -34,3 +37,4 @@ export const deleteItemFactory =
               }));
           }
         });
+    };

@@ -2,6 +2,7 @@ import { deleteItemFactory } from './deleteItemFactory';
 import { OPERATION_FAILED } from '../../constants/connection';
 
 describe('delete item tests', () => {
+  const deleteItem = jest.fn();
   const deleteSuccess = jest.fn();
   const deleteError = jest.fn();
   const dispatch = jest.fn(input => input);
@@ -9,14 +10,15 @@ describe('delete item tests', () => {
 
   it('creates ITEM_DELETE_SUCCESS after successful DELETE request', (done) => {
     deleteSuccess.mock.calls.length = 0;
-    const deleteItem = (_url: string) =>
+    const axiosDelete = (_url: string) =>
       new Promise((resolve) => resolve({}));
     const deleteFromServer = deleteItemFactory({
+      deleteItem,
       deleteSuccess,
       deleteError,
       getAxios: ({
         axios: {
-          delete: deleteItem
+          delete: axiosDelete
         },
         url: 'fake_url'
       })
@@ -32,7 +34,7 @@ describe('delete item tests', () => {
 
   it('creates ITEM_DELETE_ERROR after unsuccessful DELETE request', (done) => {
     deleteError.mock.calls.length = 0;
-    const deleteItem = (_url: string) =>
+    const axiosDelete = (_url: string) =>
       new Promise((_resolve, reject) => reject({
         response: {
           status: 400,
@@ -40,11 +42,12 @@ describe('delete item tests', () => {
         }
       }));
     const deleteFromServer = deleteItemFactory({
+      deleteItem,
       deleteSuccess,
       deleteError,
       getAxios: ({
         axios: {
-          delete: deleteItem
+          delete: axiosDelete
         },
         url: 'fake_url'
       })
