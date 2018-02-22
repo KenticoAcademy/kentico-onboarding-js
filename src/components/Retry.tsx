@@ -13,12 +13,19 @@ export interface IRetryProps extends IRetryCallbackProps, IRetryOwnProps {
 }
 
 const Retry: React.SFC<IRetryProps> = ({ retryAction, description }) =>
-  <span>
-    <button onClick={retryAction}>
-      Retry
-    </button>
-    {description}
-  </span>;
+  <div className="input-group">
+    <div className="p-2 text-danger">
+      {description}
+    </div>
+    <div className="float-right">
+      <button
+        className="btn btn-primary"
+        onClick={retryAction}
+      >
+        Try again
+      </button>
+    </div>
+  </div>;
 
 Retry.displayName = 'Retry';
 Retry.propTypes = {

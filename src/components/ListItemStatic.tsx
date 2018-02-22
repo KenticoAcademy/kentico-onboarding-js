@@ -5,6 +5,7 @@ import { IItemSyncInfo } from '../models/interfaces/IItemSyncInfo';
 import { SyncState } from '../models/enums/SyncState';
 import { RetryItem } from '../containers/RetryItem';
 import { SyncOperation } from '../models/enums/SyncOperation';
+import { ClipLoader } from 'react-spinners';
 
 export interface IListItemStaticCallbackProps {
   readonly onItemOpened: () => void;
@@ -71,7 +72,7 @@ export class ListItemStatic extends React.PureComponent<IListItemStaticProps> {
     switch (itemSyncInfo.state) {
       case SyncState.Pending:
         onMouseUp = () => undefined;
-        syncingComponent = ' - is syncing';
+        syncingComponent = <ClipLoader color="#17a2b8" />;
         break;
 
       case SyncState.Unsynced:
@@ -87,13 +88,15 @@ export class ListItemStatic extends React.PureComponent<IListItemStaticProps> {
     }
 
     return (
-      <span>
+      <div className="form-inline">
         <div onMouseUp={onMouseUp}>
           {itemNumber + '. '}
           {text}
         </div>
-        {syncingComponent}
-      </span>
+        <div className="ml-5">
+          {syncingComponent}
+        </div>
+      </div>
     );
   }
 }
