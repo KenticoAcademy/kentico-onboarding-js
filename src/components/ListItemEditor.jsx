@@ -7,7 +7,13 @@ export class ListItemEditor extends React.PureComponent {
   static displayName = 'ListItemEditor';
 
   static propTypes = {
-    itemValue: PropTypes.string.isRequired,
+    item: PropTypes.shape({
+      bullet: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number,
+      ]).isRequired,
+      value: PropTypes.string.isRequired,
+    }).isRequired,
     onCancel: PropTypes.func.isRequired,
     onUpdate: PropTypes.func.isRequired,
     onDelete: PropTypes.func.isRequired,
@@ -16,7 +22,7 @@ export class ListItemEditor extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      itemValue: props.itemValue,
+      itemValue: props.item.value,
     };
   }
 
@@ -40,11 +46,14 @@ export class ListItemEditor extends React.PureComponent {
   };
 
   render() {
-    const { onCancel, onDelete } = this.props;
+    const { onCancel, onDelete, item: { bullet } } = this.props;
     const { itemValue } = this.state;
 
     return (
-      <span className="input-group">
+      <div className="input-group">
+        <span className="input-group-addon">
+          {bullet}
+        </span>
         <input
           type="text"
           className="form-control"
@@ -74,7 +83,7 @@ export class ListItemEditor extends React.PureComponent {
           > Delete
           </button>
         </span>
-      </span>
+      </div>
     );
   }
 }

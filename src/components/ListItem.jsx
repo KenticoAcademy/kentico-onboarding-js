@@ -10,16 +10,9 @@ export class ListItem extends React.PureComponent {
   static displayName = 'ListItem';
 
   static propTypes = {
-    item: PropTypes.shape({
-      key: PropTypes.string.isRequired,
-      value: PropTypes.string.isRequired,
-    }).isRequired,
+    item: PropTypes.object.isRequired,
     onDelete: PropTypes.func.isRequired,
     onSave: PropTypes.func.isRequired,
-    bullet: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number,
-    ]).isRequired,
   };
 
   constructor(props) {
@@ -43,11 +36,11 @@ export class ListItem extends React.PureComponent {
   };
 
   render() {
-    const { item, bullet } = this.props;
+    const { item } = this.props;
 
     let listItem = (
       <ListItemDisplay
-        itemValue={item.value}
+        item={item}
         onEdit={this.toggleEditMode}
       />
     );
@@ -55,7 +48,7 @@ export class ListItem extends React.PureComponent {
     if (this.state.isEditing) {
       listItem = (
         <ListItemEditor
-          itemValue={item.value}
+          item={item}
           onCancel={this.toggleEditMode}
           onDelete={this.deleteItem}
           onUpdate={this.updateItem}
@@ -64,12 +57,9 @@ export class ListItem extends React.PureComponent {
     }
 
     return (
-      <span className="input-group">
-        <span className="input-group-addon">
-          {bullet}
-        </span>
+      <div>
         {listItem}
-      </span>
+      </div>
     );
   }
 }

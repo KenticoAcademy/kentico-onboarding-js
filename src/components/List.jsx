@@ -45,9 +45,15 @@ export class List extends React.PureComponent {
   render() {
     const list = this.state.items
       .map((item, index) => (
+        {
+          key: item.key,
+          value: item.value,
+          bullet: index + 1,
+        }
+      ))
+      .map(item => (
         <div className="list-group-item" key={item.key}>
           <ListItem
-            bullet={index + 1}
             item={item}
             onSave={this.saveItem}
             onDelete={this.deleteItem}
