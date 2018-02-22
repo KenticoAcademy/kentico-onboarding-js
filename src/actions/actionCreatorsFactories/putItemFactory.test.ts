@@ -2,6 +2,7 @@ import { putItemFactory } from './putItemFactory';
 import { Uuid } from '../../utils/generateId';
 
 describe('put item tests', () => {
+  const updateItem = jest.fn();
   const putSuccess = jest.fn();
   const putError = jest.fn();
   const dispatch = jest.fn(input => input);
@@ -21,6 +22,7 @@ describe('put item tests', () => {
         data: updatedItem
       }));
     const putItem = putItemFactory({
+      updateItem,
       putSuccess,
       putError,
       getAxios: ({
@@ -31,7 +33,7 @@ describe('put item tests', () => {
       })
     });
 
-    putItem(updatedItem.id, updatedItem.text)(dispatch)
+    putItem({id: updatedItem.id, text: updatedItem.text})(dispatch)
       .then(() => {
         expect(putSuccess.mock.calls.length).toEqual(1);
         done();
@@ -54,6 +56,7 @@ describe('put item tests', () => {
         data: updatedItem
       }));
     const putItem = putItemFactory({
+      updateItem,
       putSuccess,
       putError,
       getAxios: ({
@@ -64,7 +67,7 @@ describe('put item tests', () => {
       })
     });
 
-    putItem(updatedItem.id, updatedItem.text)(dispatch)
+    putItem({id: updatedItem.id, text: updatedItem.text})(dispatch)
       .then(() => {
         expect(putSuccess.mock.calls[0][0]).toEqual(updatedItem.id);
         done();
@@ -91,6 +94,7 @@ describe('put item tests', () => {
         }
       }));
     const putItem = putItemFactory({
+      updateItem,
       putSuccess,
       putError,
       getAxios: ({
@@ -101,7 +105,7 @@ describe('put item tests', () => {
       })
     });
 
-    putItem(updatedItem.id, updatedItem.text)(dispatch)
+    putItem({id: updatedItem.id, text: updatedItem.text})(dispatch)
       .then(() => {
         expect(putError.mock.calls.length).toEqual(1);
         expect(putError.mock.calls[0][0]).toEqual({

@@ -17,7 +17,6 @@ import { fetchItemsFactory } from './actionCreatorsFactories/fetchItemsFactory';
 import { postItemFactory } from './actionCreatorsFactories/postItemFactory';
 import { API_URL } from '../constants/connection';
 import { getAxiosFactory } from './actionCreatorsFactories/getAxiosFactory';
-import { optimisticUpdateFactory } from './actionCreatorsFactories/optimisticUpdateFactory';
 import { optimisticDeleteFactory } from './actionCreatorsFactories/optimisticDeleteFactory';
 
 const getAxios = getAxiosFactory(axios, API_URL);
@@ -31,8 +30,9 @@ export const postItem = postItemFactory(
     getAxios: getAxios()
   });
 
-const putItem = putItemFactory(
+export const putItem = putItemFactory(
   {
+    updateItem,
     putSuccess,
     putError,
     getAxios: getAxios()
@@ -53,5 +53,4 @@ export const fetchItems = fetchItemsFactory(
     getAxios: getAxios()
   });
 
-export const optimisticUpdate = optimisticUpdateFactory(updateItem, putItem);
 export const optimisticDelete = optimisticDeleteFactory(deleteItem, deleteFromServer);

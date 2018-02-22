@@ -1,10 +1,7 @@
 import * as PropTypes from 'prop-types';
 import { connect, Dispatch } from 'react-redux';
 import { EditedItem, IEditedItemCallbackProps } from '../../components/todo-list/EditedItem';
-import {
-  optimisticDelete,
-  optimisticUpdate
-} from '../../actions/index';
+import { optimisticDelete, putItem } from '../../actions/index';
 import { IAppState } from '../../models/IAppState';
 import { IndexedItem } from '../../models/IndexedItem';
 import { IAction } from '../../actions/IAction';
@@ -15,7 +12,7 @@ interface IProps {
 }
 
 const mapDispatchToProps = (dispatch: Dispatch<IAppState>, ownProps: IProps): IEditedItemCallbackProps => ({
-  onUpdateItem: (text: string): Promise<void | IAction> => dispatch(optimisticUpdate(ownProps.item.id, text)),
+  onUpdateItem: (text: string): Promise<void | IAction> => dispatch(putItem({id: ownProps.item.id, text})),
   onDeleteItem: (): Promise<void | IAction> => dispatch(optimisticDelete(ownProps.item.id)),
   onEditStop: (): IAction => dispatch(cancelItemEditing(ownProps.item.id)),
 });
