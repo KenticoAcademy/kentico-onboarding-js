@@ -41,6 +41,12 @@ const changeItemOpenState = (state: ItemsState, { payload: { id } }: IAction): I
       isBeingEdited: !item.isBeingEdited,
     }));
 
+const closeItem = (state: ItemsState, { payload: { id } }: IAction): ItemsState =>
+  state.update(id, item =>
+    item.with({
+      isBeingEdited: false,
+    }));
+
 const deleteSyncRequest = (state: ItemsState, { payload: { id, operation } }: IAction): ItemsState => {
   if (operation === SyncOperation.Delete) {
     return state.update(id, item =>
@@ -72,6 +78,8 @@ export const items = (state = initialState, action: IAction): ItemsState => {
       return saveItemChanges(state, action);
     case ActionTypes.ITEM_OPEN_STATE_CHANGED:
       return changeItemOpenState(state, action);
+    case ActionTypes.ITEM_CLOSED:
+      return closeItem(state, action);
     case ActionTypes.ITEM_SYNC_REQUESTED:
       return deleteSyncRequest(state, action);
     case ActionTypes.FETCH_ITEMS_SUCCESS:

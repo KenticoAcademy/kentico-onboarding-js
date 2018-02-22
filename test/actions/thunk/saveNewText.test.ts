@@ -14,19 +14,22 @@ const actionParams = {
 const uri = '';
 
 describe('saveNewText will call dispatch with', () => {
-  it('save item changes and item sync succeeded actions', () => {
+  it('saveItemChanges, itemSyncRequested and itemSyncSucceeded actions', () => {
     const expectedActions = [
       'saveItemChanges',
+      'itemSyncRequested',
       'itemSyncSucceeded',
     ];
     const httpClient = httpClientSuccessFactory();
     const saveItemChanges = jest.fn(() => expectedActions[0]);
-    const itemSyncSucceeded = jest.fn(() => expectedActions[1]);
+    const itemSyncRequested = jest.fn(() => expectedActions[1]);
+    const itemSyncSucceeded = jest.fn(() => expectedActions[2]);
     const saveNewText = saveNewTextFactory({
       uri,
       httpClient,
       saveItemChanges,
       itemSyncSucceeded,
+      itemSyncRequested,
       itemSyncFailed: fakeFunction,
     });
 
@@ -35,19 +38,22 @@ describe('saveNewText will call dispatch with', () => {
     return assertThatDispatchWasCalledWithArgumentsInGiveOrder(dispatchableAction, expectedActions);
   });
 
-  it('save item changes and item sync failed actions', () => {
+  it('saveItemChanges, itemSyncRequested and itemSyncFailed actions', () => {
     const expectedActions = [
       'saveItemChanges',
+      'itemSyncRequested',
       'itemSyncFailed',
     ];
     const httpClient = httpClientFailure;
     const saveItemChanges = jest.fn(() => expectedActions[0]);
-    const itemSyncFailed = jest.fn(() => expectedActions[1]);
+    const itemSyncRequested = jest.fn(() => expectedActions[1]);
+    const itemSyncFailed = jest.fn(() => expectedActions[2]);
     const saveNewText = saveNewTextFactory({
       uri,
       httpClient,
       saveItemChanges,
       itemSyncFailed,
+      itemSyncRequested,
       itemSyncSucceeded: fakeFunction,
     });
 

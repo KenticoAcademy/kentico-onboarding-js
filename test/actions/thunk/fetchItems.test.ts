@@ -10,7 +10,7 @@ import {
 const uri = '';
 
 describe('fetchItems will call dispatch with', () => {
-  it('request items and receive items actions', () => {
+  it('requestItems and receiveItems actions', () => {
     const expectedActions = [
       'requestItems',
       'receiveItems',
@@ -35,7 +35,7 @@ describe('fetchItems will call dispatch with', () => {
     return assertThatDispatchWasCalledWithArgumentsInGiveOrder(dispatchableAction, expectedActions);
   });
 
-  it('request items and fetch failed actions', () => {
+  it('requestItems and fetchFailed actions', () => {
     const expectedActions = [
       'requestItems',
       'fetchFailed',

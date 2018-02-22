@@ -12,6 +12,7 @@ interface IPostItemFactoryDependencies {
   readonly httpClient: IHttpClient;
   readonly addNewItem: (item: Partial<IListItem>) => IAction;
   readonly createNewId: () => Guid;
+  readonly itemSyncRequested: (itemSyncRequest: IItemSyncRequest) => IAction;
   readonly itemSyncFailed: (itemSyncRequest: IItemSyncRequest) => IAction;
   readonly confirmAddedItem: (addedItemConfirmation: IAddedItemConfirmed) => IAction;
 }
@@ -36,6 +37,7 @@ export const postItemFactory = (deps: IPostItemFactoryDependencies) =>
       };
 
       dispatch(deps.addNewItem(newItem));
+      dispatch(deps.itemSyncRequested(itemSyncRequest));
 
       return deps.httpClient.post<IListItem>(
         deps.uri,

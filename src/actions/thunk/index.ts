@@ -1,5 +1,6 @@
 import {
   addNewItem,
+  closeItem,
   confirmAddedItem,
   deleteItem,
   fetchFailed,
@@ -51,6 +52,7 @@ export const postItemAsync: IThunkAction<IPostItemActionParams> = postItemFactor
   createNewId,
   confirmAddedItem,
   itemSyncFailed,
+  itemSyncRequested
 });
 
 export const deleteItemAsync: IThunkAction<IDeleteItemActionParams> = deleteItemFactory({
@@ -59,6 +61,7 @@ export const deleteItemAsync: IThunkAction<IDeleteItemActionParams> = deleteItem
   deleteItem,
   itemSyncFailed,
   itemSyncRequested,
+  closeItem,
 });
 
 export const saveNewTextAsync: IThunkAction<ISaveNewTextActionParams> = saveNewTextFactory({
@@ -67,6 +70,7 @@ export const saveNewTextAsync: IThunkAction<ISaveNewTextActionParams> = saveNewT
   saveItemChanges,
   itemSyncSucceeded,
   itemSyncFailed,
+  itemSyncRequested
 });
 
 export const retryActionAsync = retryActionFactory();

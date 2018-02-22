@@ -36,8 +36,6 @@ const mapDispatchToProps = (dispatch: Dispatch<IAction>,  { item: { id }, itemSy
       saveItemChanges(
         id,
         newText,
-        itemSyncInfo.operation,
-        itemSyncInfo.state,
       )),
   onDelete: itemSyncInfo.operation === SyncOperation.Add ?
     () => dispatch(

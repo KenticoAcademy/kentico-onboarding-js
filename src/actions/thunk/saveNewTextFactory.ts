@@ -9,6 +9,7 @@ interface ISaveNewTextFactoryDependencies {
   readonly uri: string;
   readonly httpClient: IHttpClient;
   readonly saveItemChanges: (id: Guid, text: string) => IAction;
+  readonly itemSyncRequested: (itemSyncRequest: IItemSyncRequest) => IAction;
   readonly itemSyncSucceeded: (itemSyncRequest: IItemSyncRequest) => IAction;
   readonly itemSyncFailed: (itemSyncRequest: IItemSyncRequest) => IAction;
 }
@@ -33,6 +34,7 @@ export const saveNewTextFactory = (deps: ISaveNewTextFactoryDependencies) =>
       };
 
       dispatch(deps.saveItemChanges(id, text));
+      dispatch(deps.itemSyncRequested(itemSyncRequest));
 
       return deps.httpClient.patch(deps.uri + id, updatedItem)
         .then(() => dispatch(deps.itemSyncSucceeded(itemSyncRequest)))

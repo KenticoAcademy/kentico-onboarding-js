@@ -1,9 +1,6 @@
 import { SyncState } from '../enums/SyncState';
-import { SyncOperation } from '../enums/SyncOperation';
-import { Guid } from '../Guid';
+import { IItemSyncRequest } from './IItemSyncRequest';
 
-export interface IItemSyncInfo {
-  readonly id: Guid;
+export interface IItemSyncInfo extends IItemSyncRequest {
   readonly state: SyncState;
-  readonly operation: SyncOperation;
 }
