@@ -20,12 +20,12 @@ describe('post item tests', () => {
     const post = (
       _url: string,
       {_text}: { _text: string }) =>
-      new Promise((resolve => resolve({
+      Promise.resolve({
         data: [{
           id: fetchedTestItem.id,
           text: fetchedTestItem.text
         }]
-      })));
+      });
     const postItem = postItemFactory(
       {
         insertItem,
@@ -56,12 +56,12 @@ describe('post item tests', () => {
       text: 'item'
     };
     const post = (_url: string, {_text}: { _text: string }) =>
-      new Promise((resolve => resolve({
+      Promise.resolve({
         data: {
           id: fetchedTestItem.id,
           text: fetchedTestItem.text
         }
-      })));
+      });
     const postItem = postItemFactory(
       {
         insertItem,
@@ -91,13 +91,13 @@ describe('post item tests', () => {
     const generateId = jest.fn();
     postError.mock.calls.length = 0;
     const post = (_url: string, {_text}: { _text: string }) =>
-      new Promise((_resolve, reject) => reject({
+      Promise.reject({
         response:
           {
             status: 400,
             statusText: 'Bad Request',
           }
-      }));
+      });
     const postItem = postItemFactory(
       {
         insertItem,

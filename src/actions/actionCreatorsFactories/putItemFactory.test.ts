@@ -18,9 +18,7 @@ describe('put item tests', () => {
                    _id,
                    _text
                  }: { _id: Uuid, _text: string }) =>
-      new Promise((resolve) => resolve({
-        data: updatedItem
-      }));
+      Promise.resolve({data: updateItem});
     const putItem = putItemFactory({
       updateItem,
       putSuccess,
@@ -52,9 +50,7 @@ describe('put item tests', () => {
                    _id,
                    _text
                  }: { _id: Uuid, _text: string }) =>
-      new Promise((resolve) => resolve({
-        data: updatedItem
-      }));
+      Promise.resolve({data: updatedItem});
     const putItem = putItemFactory({
       updateItem,
       putSuccess,
@@ -87,12 +83,12 @@ describe('put item tests', () => {
                    _id,
                    _text
                  }: { _id: Uuid, _text: string }) =>
-      new Promise((_resolve, reject) => reject({
+      Promise.reject({
         response: {
           status: 400,
           statusText: errorMessage,
         }
-      }));
+      });
     const putItem = putItemFactory({
       updateItem,
       putSuccess,

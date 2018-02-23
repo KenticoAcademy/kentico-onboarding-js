@@ -11,7 +11,7 @@ describe('delete item tests', () => {
   it('creates ITEM_DELETE_SUCCESS after successful DELETE request', (done) => {
     deleteSuccess.mock.calls.length = 0;
     const axiosDelete = (_url: string) =>
-      new Promise((resolve) => resolve({}));
+      Promise.resolve({});
     const deleteFromServer = deleteItemFactory({
       deleteItem,
       deleteSuccess,
@@ -35,12 +35,12 @@ describe('delete item tests', () => {
   it('creates ITEM_DELETE_ERROR after unsuccessful DELETE request', (done) => {
     deleteError.mock.calls.length = 0;
     const axiosDelete = (_url: string) =>
-      new Promise((_resolve, reject) => reject({
+      Promise.reject({
         response: {
           status: 400,
           statusText: 'BadRequest'
         }
-      }));
+      });
     const deleteFromServer = deleteItemFactory({
       deleteItem,
       deleteSuccess,

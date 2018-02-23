@@ -28,9 +28,9 @@ describe('fetch items tests', () => {
         Text: fetchedTestItem1.text
       }];
     const get = (_url: string) =>
-      new Promise((resolve) => resolve({
+      Promise.resolve({
         data: items
-      }));
+      });
     const fetchItems = fetchItemsFactory(
       {
         insertItem,
@@ -64,9 +64,9 @@ describe('fetch items tests', () => {
         text: fetchedTestItem1.text
       }];
     const get = (_url: string) =>
-      new Promise((resolve) => resolve({
+      Promise.resolve({
         data: items
-      }));
+      });
     const fetchItems = fetchItemsFactory(
       {
         insertItem,
@@ -92,12 +92,12 @@ describe('fetch items tests', () => {
   it('creates ITEMS_FETCH_ERROR after GET request failure', (done) => {
     fetchError.mock.calls.length = 0;
     const get = (_url: string) =>
-      new Promise((_resolve, reject) => reject({
+      Promise.reject({
         response: {
           status: 400,
           statusText: 'BadRequest',
         }
-      }));
+      });
     const fetchItems = fetchItemsFactory(
       {
         insertItem,
