@@ -44,11 +44,10 @@ export class List extends React.PureComponent {
 
   render() {
     const list = this.state.items.valueSeq()
-      .map((item, index) => item.set('bullet', index + 1))
-      .map(item => (
+      .map((item, index) => (
         <div className="list-group-item" key={item.key}>
           <ListItem
-            item={item}
+            item={item.set('bullet', index + 1)}
             onSave={this._saveItem}
             onDelete={this._deleteItem}
           />
