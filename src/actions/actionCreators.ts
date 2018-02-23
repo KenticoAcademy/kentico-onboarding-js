@@ -6,11 +6,15 @@ import { IAddedItemConfirmed } from '../models/interfaces/IAddedItemConfirmed';
 import { IItemSyncRequest } from '../models/interfaces/IItemSyncRequest';
 import { SyncState } from '../models/enums/SyncState';
 
-export const addNewItem = ({ id, text }: IListItem): IAction => ({
+export const addNewItem = ({ id, text }: IListItem, itemSyncRequest: IItemSyncRequest): IAction => ({
   type: ActionTypes.ITEM_CREATED,
   payload: {
     id,
     text,
+    itemSyncInfo: {
+      ...itemSyncRequest,
+      state: SyncState.Pending,
+    },
   },
 });
 
@@ -36,18 +40,26 @@ export const deleteUnsavedItem = (id: Guid): IAction => ({
   }
 });
 
-export const saveItemChanges = (id: Guid, text: string): IAction => ({
+export const saveItemChanges = (id: Guid, text: string, itemSyncRequest?: IItemSyncRequest): IAction => ({
   type: ActionTypes.ITEM_CHANGES_SAVED,
   payload: {
     id,
     text,
+    itemSyncInfo: itemSyncRequest && {
+      ...itemSyncRequest,
+      state: SyncState.Pending,
+    },
   },
 });
 
-export const closeItem = (id: Guid): IAction => ({
+export const closeItem = (id: Guid, itemSyncRequest: IItemSyncRequest): IAction => ({
   type: ActionTypes.ITEM_CLOSED,
   payload: {
     id,
+    itemSyncInfo: {
+      ...itemSyncRequest,
+      state: SyncState.Pending,
+    },
   }
 });
 
@@ -83,16 +95,6 @@ export const itemSyncFailed = (itemSyncRequest: IItemSyncRequest): IAction => ({
     itemSyncInfo: {
       ...itemSyncRequest,
       state: SyncState.Unsynced,
-    },
-  }
-});
-
-export const itemSyncRequested = (itemSyncRequest: IItemSyncRequest): IAction => ({
-  type: ActionTypes.ITEM_SYNC_REQUESTED,
-  payload: {
-    itemSyncInfo: {
-      ...itemSyncRequest,
-      state: SyncState.Pending,
     },
   }
 });

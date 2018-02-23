@@ -9,8 +9,7 @@ interface IDeleteItemFactoryDependencies {
   readonly uri: string;
   readonly httpClient: IHttpClient;
   readonly deleteItem: (id: Guid) => IAction;
-  readonly closeItem: (id: Guid) => IAction;
-  readonly itemSyncRequested: (itemSyncRequest: IItemSyncRequest) => IAction;
+  readonly closeItem: (id: Guid, itemSyncRequest: IItemSyncRequest) => IAction;
   readonly itemSyncFailed: (itemSyncRequest: IItemSyncRequest) => IAction;
 }
 
@@ -26,8 +25,7 @@ export const deleteItemFactory = (deps: IDeleteItemFactoryDependencies) =>
         operation: SyncOperation.Delete,
       };
 
-      dispatch(deps.itemSyncRequested(itemSyncRequest));
-      dispatch(deps.closeItem(id));
+      dispatch(deps.closeItem(id, itemSyncRequest));
 
       return deps.httpClient.delete(deps.uri + id)
         .then(() => dispatch(deps.deleteItem(id)))

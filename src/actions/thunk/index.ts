@@ -5,7 +5,6 @@ import {
   deleteItem,
   fetchFailed,
   itemSyncFailed,
-  itemSyncRequested,
   itemSyncSucceeded,
   receiveItems,
   requestItems,
@@ -48,7 +47,6 @@ export const postItemAsync: IThunkAction<IPostItemActionParams> = postItemFactor
   createNewId,
   confirmAddedItem,
   itemSyncFailed,
-  itemSyncRequested
 });
 
 export const deleteItemAsync: IThunkAction<IDeleteItemActionParams> = deleteItemFactory({
@@ -56,7 +54,6 @@ export const deleteItemAsync: IThunkAction<IDeleteItemActionParams> = deleteItem
   httpClient,
   deleteItem,
   itemSyncFailed,
-  itemSyncRequested,
   closeItem,
 });
 
@@ -66,5 +63,4 @@ export const saveNewTextAsync: IThunkAction<ISaveNewTextActionParams> = saveNewT
   saveItemChanges,
   itemSyncSucceeded,
   itemSyncFailed,
-  itemSyncRequested
 });

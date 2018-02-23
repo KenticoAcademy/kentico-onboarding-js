@@ -2,9 +2,11 @@ import { IAction } from '../../../models/interfaces/IAction';
 import {
   ADDED_ITEM_CONFIRMED,
   FETCH_ITEMS_SUCCESS,
+  ITEM_CHANGES_SAVED,
+  ITEM_CLOSED,
+  ITEM_CREATED,
   ITEM_DELETED,
   ITEM_SYNC_FAILED,
-  ITEM_SYNC_REQUESTED,
   ITEM_SYNC_SUCCEEDED,
   UNSAVED_ITEM_DELETED,
 } from '../../../constants/actionTypes';
@@ -17,17 +19,18 @@ import { SyncOperation } from '../../../models/enums/SyncOperation';
 import { itemSyncInfoArrayToOrderedMap } from '../../../utils/itemSyncInfoArrayToOrderedMap';
 import { IListItem } from '../../../models/interfaces/IListItem';
 
-const setSyncState = (state: ItemsSyncInfoState, { payload: { itemSyncInfo: { id, operation, state: syncState } } }: IAction): ItemsSyncInfoState =>
-  state.update(
-    id,
-    new ItemSyncInfo({
-      id,
-    }),
-    syncInfo => syncInfo.with({
-      operation,
-      state: syncState,
-    })
-  );
+const setSyncState = (state: ItemsSyncInfoState, { payload: { itemSyncInfo } }: IAction): ItemsSyncInfoState =>
+  itemSyncInfo ?
+    state.update(
+      itemSyncInfo.id,
+      new ItemSyncInfo({
+        id: itemSyncInfo.id,
+      }),
+      syncInfo => syncInfo.with({
+        operation: itemSyncInfo.operation,
+        state: itemSyncInfo.state,
+      })) :
+    state;
 
 const addedItemConfirmed = (state: ItemsSyncInfoState, { payload: { id, newId } }: IAction): ItemsSyncInfoState =>
   state
@@ -55,7 +58,9 @@ const initialState: ItemsSyncInfoState = OrderedMap<Guid, ItemSyncInfo>();
 
 export const itemsSyncInfo = (state = initialState, action: IAction): ItemsSyncInfoState => {
   switch (action.type) {
-    case ITEM_SYNC_REQUESTED:
+    case ITEM_CREATED:
+    case ITEM_CLOSED:
+    case ITEM_CHANGES_SAVED:
     case ITEM_SYNC_FAILED:
     case ITEM_SYNC_SUCCEEDED:
       return setSyncState(state, action);

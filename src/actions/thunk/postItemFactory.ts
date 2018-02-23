@@ -10,9 +10,8 @@ import { SyncOperation } from '../../models/enums/SyncOperation';
 interface IPostItemFactoryDependencies {
   readonly uri: string;
   readonly httpClient: IHttpClient;
-  readonly addNewItem: (item: Partial<IListItem>) => IAction;
+  readonly addNewItem: (item: Partial<IListItem>, itemSyncRequest: IItemSyncRequest) => IAction;
   readonly createNewId: () => Guid;
-  readonly itemSyncRequested: (itemSyncRequest: IItemSyncRequest) => IAction;
   readonly itemSyncFailed: (itemSyncRequest: IItemSyncRequest) => IAction;
   readonly confirmAddedItem: (addedItemConfirmation: IAddedItemConfirmed) => IAction;
 }
@@ -36,8 +35,7 @@ export const postItemFactory = (deps: IPostItemFactoryDependencies) =>
         operation: SyncOperation.Add,
       };
 
-      dispatch(deps.addNewItem(newItem));
-      dispatch(deps.itemSyncRequested(itemSyncRequest));
+      dispatch(deps.addNewItem(newItem, itemSyncRequest));
 
       return deps.httpClient.post<IListItem>(
         deps.uri,

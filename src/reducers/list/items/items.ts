@@ -5,7 +5,6 @@ import { ItemsState } from '../../../models/state/ItemsState';
 import { IAction } from '../../../models/interfaces/IAction';
 import { Guid } from '../../../models/Guid';
 import { listItemsArrayToOrderedMap } from '../../../utils/listItemsArrayToOrderedMap';
-import { SyncOperation } from '../../../models/enums/SyncOperation';
 
 const addNewItem = (state: ItemsState, { payload: { id, text } }: IAction): ItemsState => {
   const newItem = new ListItem({
@@ -47,7 +46,7 @@ const closeItem = (state: ItemsState, { payload: { id } }: IAction): ItemsState 
       isBeingEdited: false,
     }));
 
-const deleteSyncRequest = (state: ItemsState, { payload: { id, operation } }: IAction): ItemsState => {
+/*const deleteSyncRequest = (state: ItemsState, { payload: { id, operation } }: IAction): ItemsState => {
   if (operation === SyncOperation.Delete) {
     return state.update(id, item =>
       item.with({
@@ -56,7 +55,7 @@ const deleteSyncRequest = (state: ItemsState, { payload: { id, operation } }: IA
   }
 
   return state;
-};
+};*/
 
 const fetchItems = (action: IAction): ItemsState =>
   listItemsArrayToOrderedMap(action.payload.items);
@@ -80,8 +79,8 @@ export const items = (state = initialState, action: IAction): ItemsState => {
       return changeItemOpenState(state, action);
     case ActionTypes.ITEM_CLOSED:
       return closeItem(state, action);
-    case ActionTypes.ITEM_SYNC_REQUESTED:
-      return deleteSyncRequest(state, action);
+    /*case ActionTypes.ITEM_SYNC_REQUESTED:
+      return deleteSyncRequest(state, action);*/
     case ActionTypes.FETCH_ITEMS_SUCCESS:
       return fetchItems(action);
     default:

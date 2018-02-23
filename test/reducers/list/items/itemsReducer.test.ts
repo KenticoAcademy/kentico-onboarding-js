@@ -5,6 +5,7 @@ import { items } from '../../../../src/reducers/list/items/items';
 import * as actions from '../../../../src/actions/actionCreators';
 import { Guid } from '../../../../src/models/Guid';
 import { IListItem } from '../../../../src/models/interfaces/IListItem';
+import { mockSyncRequest } from '../../utils/utils';
 
 describe('items', () => {
   it('will add ListItem model to state with specific text', () => {
@@ -27,7 +28,7 @@ describe('items', () => {
       isBeingEdited: false,
       uri: '',
     };
-    const addNewItemAction = actions.addNewItem(newItem);
+    const addNewItemAction = actions.addNewItem(newItem, mockSyncRequest);
     const result = items(initialState, addNewItemAction);
 
     expect(result)
@@ -51,7 +52,7 @@ describe('items', () => {
       isBeingEdited: false,
       uri: '',
     };
-    const addNewItemAction = actions.addNewItem(newItem);
+    const addNewItemAction = actions.addNewItem(newItem, mockSyncRequest);
     const result = items(undefined, addNewItemAction);
 
     expect(result)
@@ -108,7 +109,7 @@ describe('items', () => {
       }),
     });
 
-    const changeItemTextAction = actions.saveItemChanges(expectedId, expectedNewText);
+    const changeItemTextAction = actions.saveItemChanges(expectedId, expectedNewText, mockSyncRequest);
     const result = items(initialState, changeItemTextAction);
 
     expect(result)
