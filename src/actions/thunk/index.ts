@@ -30,10 +30,6 @@ import {
 } from '../../models/interfaces/IThunkAction';
 import { httpClient } from '../../models/classes/AxiosHttpClient';
 import { createNewId } from '../../utils/createNewId';
-import {
-  retryActionFactory,
-  retryActionWithoutParamsFactory
-} from './retryActionFactory';
 import { itemCollection } from '../../constants/backendUris';
 
 const uri = itemCollection;
@@ -72,6 +68,3 @@ export const saveNewTextAsync: IThunkAction<ISaveNewTextActionParams> = saveNewT
   itemSyncFailed,
   itemSyncRequested
 });
-
-export const retryActionAsync = retryActionFactory();
-export const retryActionWithoutParamsAsync = retryActionWithoutParamsFactory();
