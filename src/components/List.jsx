@@ -1,56 +1,50 @@
 // components/List.jsx
 
 import React from 'react';
+import { OrderedMap } from 'immutable';
+
 import { getUUIDv4 } from '../utils/uuidService';
 
 import { NewItem } from './NewItem';
 import { ListItem } from './ListItem';
+import { ToDoItem } from '../models/toDoItem';
 
 export class List extends React.PureComponent {
   static displayName = 'List';
 
   state = {
-    items: [],
+    items: OrderedMap(),
   };
 
-  _addItem = (itemValue) => this.setState(prevState => ({
-    items: [
-      ...prevState.items,
-      {
-        key: getUUIDv4(),
-        value: itemValue,
-      },
-    ],
-  }));
+  _addItem = (itemValue) => {
+    const key = getUUIDv4();
+    const toDoItem = new ToDoItem({
+      key,
+      value: itemValue,
+    });
+
+    this.setState(prevState => {
+      return {
+        items: prevState.items.set(key, toDoItem),
+      };
+    });
+  };
 
   _saveItem = (item, updatedValue) => {
-    const newItems = this.state.items
-      .map(itemInList => (itemInList.key === item.key
-          ? {
-            key: item.key,
-            value: updatedValue,
-          }
-          : itemInList
-      ));
+    const newItem = new ToDoItem({
+      key: item.key,
+      value: updatedValue,
+    });
+    const newItems = this.state.items.update(item.key, () => newItem);
 
     this.setState({ items: newItems });
   };
 
-  _deleteItem = (item) => {
-    const newItems = this.state.items
-      .filter(arrayItem => arrayItem.key !== item.key);
-    this.setState({ items: newItems });
-  };
+  _deleteItem = (item) => this.setState({ items: this.state.items.delete(item.key) });
 
   render() {
-    const list = this.state.items
-      .map((item, index) => (
-        {
-          key: item.key,
-          value: item.value,
-          bullet: index + 1,
-        }
-      ))
+    const list = this.state.items.valueSeq()
+      .map((item, index) => item.set('bullet', index + 1))
       .map(item => (
         <div className="list-group-item" key={item.key}>
           <ListItem

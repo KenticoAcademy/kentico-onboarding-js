@@ -3,6 +3,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { ToDoItem } from '../models/toDoItem';
+
 export const ListItemDisplay = ({ item: { bullet, value }, onEdit }) => (
   <div onClick={onEdit}>
     {bullet}.&nbsp;
@@ -13,12 +15,6 @@ export const ListItemDisplay = ({ item: { bullet, value }, onEdit }) => (
 ListItemDisplay.displayName = 'ListItemDisplay';
 
 ListItemDisplay.propTypes = {
-  item: PropTypes.shape({
-    bullet: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number,
-    ]).isRequired,
-    value: PropTypes.string.isRequired,
-  }).isRequired,
+  item: PropTypes.instanceOf(ToDoItem).isRequired,
   onEdit: PropTypes.func.isRequired,
 };
