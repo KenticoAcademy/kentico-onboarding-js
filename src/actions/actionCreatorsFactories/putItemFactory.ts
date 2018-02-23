@@ -7,7 +7,6 @@ import { Uuid } from '../../utils/generateId';
 import { IAction } from '../IAction';
 import { IAppState } from '../../models/IAppState';
 import { NO_CONNECTION } from '../../constants/connection';
-import { AxiosStatic } from 'axios';
 
 interface UpdateItemArguments {
   id: Uuid;
@@ -18,11 +17,11 @@ interface IUpdateDependencies {
   readonly updateItem: (args: UpdateItemArguments) => IAction;
   readonly putSuccess: (id: Uuid) => IAction;
   readonly putError: (args: { id: Uuid, message: string }) => IAction;
-  readonly getAxios: {axios: AxiosStatic | any, url: string};
+  readonly axiosPut: (data: {id: Uuid, text: string}) => Promise<AxiosResponse>;
 }
 
 export const putItemFactory =
-  ({updateItem, putSuccess, putError, getAxios}: IUpdateDependencies) =>
+  ({updateItem, putSuccess, putError, axiosPut}: IUpdateDependencies) =>
     ({id, text}: {id: Uuid, text: string}) =>
       (dispatch: Dispatch<IAppState>): Promise<void | IAction> => {
         dispatch(updateItem({
@@ -30,7 +29,7 @@ export const putItemFactory =
           text
         }));
 
-        return getAxios.axios.put(getAxios.url + '/' + id, {id, text})
+        return axiosPut({id, text})
           .then((response: AxiosResponse) =>
             dispatch(putSuccess(
               response.data.id,

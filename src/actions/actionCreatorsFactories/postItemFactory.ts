@@ -7,7 +7,6 @@ import { Dispatch } from 'react-redux';
 import { IAction } from '../IAction';
 import { Uuid } from '../../utils/generateId';
 import { NO_CONNECTION } from '../../constants/connection';
-import { AxiosStatic } from 'axios';
 
 interface InsertItemArguments {
   text: string;
@@ -24,11 +23,11 @@ interface IPostDependencies {
   readonly postError: (id: Uuid, errorMessage: string) => IAction;
   readonly insertItem: (args: InsertItemArguments) => IAction;
   readonly generateId: () => Uuid;
-  readonly getAxios: {axios: AxiosStatic | any, url: string};
+  readonly axiosPost: (data: {text: string}) => Promise<AxiosResponse>;
 }
 
 export const postItemFactory =
-  ({insertItem, generateId, postSuccess, postError, getAxios}: IPostDependencies) =>
+  ({insertItem, generateId, postSuccess, postError, axiosPost}: IPostDependencies) =>
     (text: string) =>
       (dispatch: Dispatch<IAppState>): Promise<void | IAction> => {
         const tempId = generateId();
@@ -38,7 +37,7 @@ export const postItemFactory =
           isSynchronized: false
         }));
 
-        return getAxios.axios.post(getAxios.url, {text})
+        return axiosPost({text})
           .then((response: AxiosResponse) => dispatch(postSuccess({
             newId: response.data.id,
             id: tempId,

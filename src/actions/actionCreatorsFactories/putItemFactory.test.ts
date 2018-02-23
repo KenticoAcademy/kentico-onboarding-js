@@ -1,3 +1,4 @@
+/*
 import { putItemFactory } from './putItemFactory';
 import { Uuid } from '../../utils/generateId';
 
@@ -113,3 +114,4 @@ describe('put item tests', () => {
       .catch(err => console.log(err));
   });
 });
+*/
