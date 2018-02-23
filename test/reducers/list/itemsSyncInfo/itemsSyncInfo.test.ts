@@ -1,0 +1,304 @@
+import {
+  addNewItem,
+  closeItem,
+  confirmAddedItem,
+  deleteItem,
+  deleteUnsavedItem,
+  itemSyncFailed,
+  itemSyncSucceeded,
+  receiveItems,
+  saveItemChanges
+} from '../../../../src/actions';
+import { IListItem } from '../../../../src/models/interfaces/IListItem';
+import { itemsSyncInfo } from '../../../../src/reducers/list/itemsSyncInfo/itemsSyncInfo';
+import { OrderedMap } from 'immutable';
+import { Guid } from '../../../../src/models/Guid';
+import { ItemSyncInfo } from '../../../../src/models/classes/ItemSyncInfo';
+import { ListItem } from '../../../../src/models/classes/ListItem';
+import { SyncOperation } from '../../../../src/models/enums/SyncOperation';
+import { SyncState } from '../../../../src/models/enums/SyncState';
+import deepFreeze = require('deep-freeze');
+import { IAddedItemConfirmed } from '../../../../src/models/interfaces/IAddedItemConfirmed';
+import { IItemSyncRequest } from '../../../../src/models/interfaces/IItemSyncRequest';
+
+describe('itemsSyncInfo', () => {
+  it('will create item sync info for all fetched items', () => {
+    const initialState = undefined;
+
+    const item1 = new ListItem({
+      id: '1',
+    });
+    const item2 = new ListItem({
+      id: '2',
+    });
+    const items: IListItem[] = [
+      item1,
+      item2,
+    ];
+
+    const expectedState = OrderedMap<Guid, ItemSyncInfo>({
+      [item1.id]: new ItemSyncInfo({
+        id: item1.id,
+        operation: SyncOperation.Fetch,
+        state: SyncState.Synced,
+      }),
+      [item2.id]: new ItemSyncInfo({
+        id: item2.id,
+        operation: SyncOperation.Fetch,
+        state: SyncState.Synced,
+      }),
+    });
+
+    const action = receiveItems(items);
+    const result = itemsSyncInfo(initialState, action);
+
+    expect(result)
+      .toEqual(expectedState);
+  });
+
+  [deleteItem, deleteUnsavedItem]
+    .forEach(actionCreator =>
+      it('will delete item sync info with existing id', () => {
+        const itemSyncInfo1 = new ItemSyncInfo({
+          id: '1',
+        });
+        const itemSyncInfo2 = new ItemSyncInfo({
+          id: '2',
+        });
+        const itemSyncInfo3 = new ItemSyncInfo({
+          id: '3',
+        });
+
+        const initialState = OrderedMap<Guid, ItemSyncInfo>({
+          [itemSyncInfo1.id]: itemSyncInfo1,
+          [itemSyncInfo2.id]: itemSyncInfo2,
+          [itemSyncInfo3.id]: itemSyncInfo3,
+        });
+        deepFreeze(initialState);
+
+        const expectedState = OrderedMap<Guid, ItemSyncInfo>({
+          [itemSyncInfo1.id]: itemSyncInfo1,
+          [itemSyncInfo3.id]: itemSyncInfo3,
+        });
+
+        const action = actionCreator(itemSyncInfo2.id);
+        const result = itemsSyncInfo(initialState, action);
+
+        expect(result)
+          .toEqual(expectedState);
+      }));
+
+  it('will change confirmed item to syncState synced', () => {
+    const oldId = 'oldId';
+    const newId = 'newId';
+    const itemSyncInfo = new ItemSyncInfo({
+      id: oldId,
+      state: SyncState.Pending,
+      operation: SyncOperation.Add,
+    });
+    const itemSyncInfoConfirmed = new ItemSyncInfo({
+      id: newId,
+      state: SyncState.Synced,
+      operation: SyncOperation.Add,
+    });
+    const initialState = OrderedMap<Guid, ItemSyncInfo>({
+      [oldId]: itemSyncInfo,
+    });
+    deepFreeze(initialState);
+
+    const expectedState = OrderedMap<Guid, ItemSyncInfo>({
+      [newId]: itemSyncInfoConfirmed,
+    });
+
+    const actionParams: IAddedItemConfirmed = {
+      newId,
+      id: oldId,
+    };
+    const action = confirmAddedItem(actionParams);
+    const result = itemsSyncInfo(initialState, action);
+
+    expect(result)
+      .toEqual(expectedState);
+  });
+
+  it('will change item sync info to Synced', () => {
+    const itemSyncInfo1 = new ItemSyncInfo({
+      id: '1',
+      operation: SyncOperation.Modify,
+      state: SyncState.Pending,
+    });
+    const itemSyncInfo1Succeeded = new ItemSyncInfo({
+      id: '1',
+      operation: SyncOperation.Modify,
+      state: SyncState.Synced,
+    });
+    const itemSyncInfo2 = new ItemSyncInfo({
+      id: '2'
+    });
+    const itemSyncInfo3 = new ItemSyncInfo({
+      id: '3'
+    });
+    const initialState = OrderedMap<Guid, ItemSyncInfo>({
+      [itemSyncInfo1.id]: itemSyncInfo1,
+      [itemSyncInfo3.id]: itemSyncInfo3,
+      [itemSyncInfo2.id]: itemSyncInfo2,
+    });
+    deepFreeze(initialState);
+
+    const expectedState = OrderedMap<Guid, ItemSyncInfo>({
+      [itemSyncInfo1Succeeded.id]: itemSyncInfo1Succeeded,
+      [itemSyncInfo3.id]: itemSyncInfo3,
+      [itemSyncInfo2.id]: itemSyncInfo2,
+    });
+
+    const actionParams: IItemSyncRequest = {
+      id: itemSyncInfo1.id,
+      operation: SyncOperation.Modify,
+    };
+    const action = itemSyncSucceeded(actionParams);
+    const result = itemsSyncInfo(initialState, action);
+
+    expect(result)
+      .toEqual(expectedState);
+  });
+
+  it('will change item sync info to Unsynced', () => {
+    const id = 'id';
+    const itemSyncInfo = new ItemSyncInfo({
+      id,
+      operation: SyncOperation.Fetch,
+      state: SyncState.Pending,
+    });
+    const itemSyncInfoFailed = new ItemSyncInfo({
+      id,
+      operation: SyncOperation.Delete,
+      state: SyncState.Unsynced,
+    });
+    const initialState = OrderedMap<Guid, ItemSyncInfo>({
+      [id]: itemSyncInfo,
+    });
+    deepFreeze(initialState);
+
+    const expectedState = OrderedMap<Guid, ItemSyncInfo>({
+      [id]: itemSyncInfoFailed,
+    });
+
+    const actionParams: IItemSyncRequest = {
+      operation: SyncOperation.Delete,
+      id
+    };
+    const action = itemSyncFailed(actionParams);
+    const result = itemsSyncInfo(initialState, action);
+
+    expect(result)
+      .toEqual(expectedState);
+  });
+
+  it('will add new item sync info', () => {
+    const id = 'id';
+    const initialState = OrderedMap<Guid, ItemSyncInfo>();
+    deepFreeze(initialState);
+
+    const expectedState = OrderedMap<Guid, ItemSyncInfo>({
+      [id]: new ItemSyncInfo({
+        id,
+        operation: SyncOperation.Add,
+        state: SyncState.Pending,
+      })
+    });
+
+    const mockItem = new ListItem();
+    const syncRequest: IItemSyncRequest = {
+      id,
+      operation: SyncOperation.Add,
+    };
+    const action = addNewItem(mockItem, syncRequest);
+    const result = itemsSyncInfo(initialState, action);
+
+    expect(result)
+      .toEqual(expectedState);
+  });
+
+  it('will change item sync info to Pending', () => {
+    const id = 'id';
+    const itemSyncInfo = new ItemSyncInfo({
+      id,
+      operation: SyncOperation.Modify,
+      state: SyncState.Synced,
+    });
+    const itemSyncInfoPending = new ItemSyncInfo({
+      id,
+      operation: SyncOperation.Modify,
+      state: SyncState.Pending,
+    });
+    const initialState = OrderedMap<Guid, ItemSyncInfo>({
+      [id]: itemSyncInfo,
+    });
+    deepFreeze(initialState);
+
+    const expectedState = OrderedMap<Guid, ItemSyncInfo>({
+      [id]: itemSyncInfoPending,
+    });
+
+    const syncRequest: IItemSyncRequest = {
+      id,
+      operation: SyncOperation.Add,
+    };
+    const action = closeItem(id, syncRequest);
+    const result = itemsSyncInfo(initialState, action);
+
+    expect(result.keySeq())
+      .toEqual(expectedState.keySeq());
+  });
+
+  it('will not modify state items', () => {
+    const itemSyncInfo1 = new ItemSyncInfo();
+    const itemSyncInfo2 = new ItemSyncInfo();
+    const initialState = OrderedMap<Guid, ItemSyncInfo>({
+      [itemSyncInfo1.id]: itemSyncInfo1,
+      [itemSyncInfo2.id]: itemSyncInfo2,
+    });
+    deepFreeze(initialState);
+
+    const expectedState = OrderedMap<Guid, ItemSyncInfo>({
+      [itemSyncInfo1.id]: itemSyncInfo1,
+      [itemSyncInfo2.id]: itemSyncInfo2,
+    });
+
+    const action = saveItemChanges(itemSyncInfo2.id, '.');
+    const result = itemsSyncInfo(initialState, action);
+
+    expect(result)
+      .toEqual(expectedState);
+  });
+
+  it('will change item sync info to Pending', () => {
+    const itemSyncInfo1 = new ItemSyncInfo();
+    const itemSyncInfo2 = new ItemSyncInfo();
+    const itemSyncInfo2Modified = new ItemSyncInfo({
+      operation: SyncOperation.Modify,
+      state: SyncState.Pending,
+      id: itemSyncInfo2.id,
+    });
+    const initialState = OrderedMap<Guid, ItemSyncInfo>({
+      [itemSyncInfo1.id]: itemSyncInfo1,
+      [itemSyncInfo2.id]: itemSyncInfo2,
+    });
+    deepFreeze(initialState);
+
+    const expectedState = OrderedMap<Guid, ItemSyncInfo>({
+      [itemSyncInfo1.id]: itemSyncInfo1,
+      [itemSyncInfo2.id]: itemSyncInfo2Modified,
+    });
+
+    const itemSyncRequest: IItemSyncRequest = {
+      id: itemSyncInfo2.id,
+      operation: SyncOperation.Modify,
+    };
+    const action = saveItemChanges(itemSyncInfo2.id, '.', itemSyncRequest);
+    const result = itemsSyncInfo(initialState, action);
+
+    expect(result)
+      .toEqual(expectedState);
+  });
+});

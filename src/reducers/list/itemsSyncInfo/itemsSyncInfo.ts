@@ -46,13 +46,11 @@ const itemDeleted = (state: ItemsSyncInfoState, { payload: { id } }: IAction): I
   state.delete(id);
 
 const syncAllItems = ({ payload: { items } }: IAction): ItemsSyncInfoState =>
-  itemSyncInfoArrayToOrderedMap(items.map(({ id }: IListItem) =>
-    new ItemSyncInfo({
-      id,
-      state: SyncState.Synced,
-      operation: SyncOperation.Fetch,
-    })
-  ));
+  itemSyncInfoArrayToOrderedMap(items.map(({ id }: IListItem) => ({
+    id,
+    state: SyncState.Synced,
+    operation: SyncOperation.Fetch,
+  })));
 
 const initialState: ItemsSyncInfoState = OrderedMap<Guid, ItemSyncInfo>();
 
