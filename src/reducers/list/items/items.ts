@@ -46,17 +46,6 @@ const closeItem = (state: ItemsState, { payload: { id } }: IAction): ItemsState 
       isBeingEdited: false,
     }));
 
-/*const deleteSyncRequest = (state: ItemsState, { payload: { id, operation } }: IAction): ItemsState => {
-  if (operation === SyncOperation.Delete) {
-    return state.update(id, item =>
-      item.with({
-        isBeingEdited: false,
-      }));
-  }
-
-  return state;
-};*/
-
 const fetchItems = (action: IAction): ItemsState =>
   listItemsArrayToOrderedMap(action.payload.items);
 
@@ -79,8 +68,6 @@ export const items = (state = initialState, action: IAction): ItemsState => {
       return changeItemOpenState(state, action);
     case ActionTypes.ITEM_CLOSED:
       return closeItem(state, action);
-    /*case ActionTypes.ITEM_SYNC_REQUESTED:
-      return deleteSyncRequest(state, action);*/
     case ActionTypes.FETCH_ITEMS_SUCCESS:
       return fetchItems(action);
     default:

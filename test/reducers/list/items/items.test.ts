@@ -6,6 +6,7 @@ import * as actions from '../../../../src/actions/actionCreators';
 import { Guid } from '../../../../src/models/Guid';
 import { IListItem } from '../../../../src/models/interfaces/IListItem';
 import { mockSyncRequest } from '../../utils/utils';
+import { IAddedItemConfirmed } from '../../../../src/models/interfaces/IAddedItemConfirmed';
 
 describe('items', () => {
   it('will add ListItem model to state with specific text', () => {
@@ -227,6 +228,101 @@ describe('items', () => {
 
     const receiveItemsAction = actions.receiveItems(fakeItems);
     const result = items(initialState, receiveItemsAction);
+
+    expect(result)
+      .toEqual(expectedState);
+  });
+
+  it('will replace old item with the same item containing updated id', () => {
+    const oldId = 'oldId';
+    const newId = 'newId';
+    const listItem1Old = new ListItem({
+      id: oldId,
+      text: 'whatever',
+    });
+    const listItem1New = new ListItem({
+      id: newId,
+      text: 'whatever',
+    });
+    const listItem2 = new ListItem({
+      id: 'fakeId',
+      text: 'something else',
+    });
+    const initialState = OrderedMap<Guid, ListItem>({
+      [listItem1Old.id]: listItem1Old,
+      [listItem2.id]: listItem2,
+    });
+    deepFreeze(initialState);
+
+    const expectedState = OrderedMap<Guid, ListItem>({
+      [listItem2.id]: listItem2,
+      [listItem1New.id]: listItem1New,
+    });
+
+    const actionParams: IAddedItemConfirmed = {
+      id: oldId,
+      newId,
+    };
+    const confirmAddedItemAction = actions.confirmAddedItem(actionParams);
+    const result = items(initialState, confirmAddedItemAction);
+
+    expect(result)
+      .toEqual(expectedState);
+  });
+
+  it('will change isBeingEdited value to false', () => {
+    const id = 'id';
+    const listItem = new ListItem({
+      id,
+      text: 'whatever',
+      isBeingEdited: true,
+    });
+    const listItemClosed = new ListItem({
+      id,
+      text: 'whatever',
+      isBeingEdited: false,
+    });
+
+    const initialState = OrderedMap<Guid, ListItem>({
+      [listItem.id]: listItem,
+    });
+    deepFreeze(initialState);
+
+    const expectedState = OrderedMap<Guid, ListItem>({
+      [listItemClosed.id]: listItemClosed,
+    });
+
+    const closeItemAction = actions.closeItem(id, mockSyncRequest);
+    const result = items(initialState, closeItemAction);
+
+    expect(result)
+      .toEqual(expectedState);
+  });
+
+  it('will not change item value isBeingEdited', () => {
+    const id = 'id';
+    const listItem = new ListItem({
+      id,
+      text: 'whatever',
+      isBeingEdited: false,
+    });
+    const listItemSame = new ListItem({
+      id,
+      text: 'whatever',
+      isBeingEdited: false,
+    });
+
+    const initialState = OrderedMap<Guid, ListItem>({
+      [listItem.id]: listItem,
+    });
+    deepFreeze(initialState);
+
+    const expectedState = OrderedMap<Guid, ListItem>({
+      [listItemSame.id]: listItemSame,
+    });
+
+    const closeItemAction = actions.closeItem(id, mockSyncRequest);
+    const result = items(initialState, closeItemAction);
 
     expect(result)
       .toEqual(expectedState);
