@@ -1,4 +1,3 @@
-/*
 import { postItemFactory } from './postItemFactory';
 
 describe('post item tests', () => {
@@ -18,14 +17,16 @@ describe('post item tests', () => {
       id: 'e1f5c5e4-7f5e-4aa0-9e52-117cc8267f13',
       text: 'item'
     };
-    const post = (
-      _url: string,
-      {_text}: { _text: string }) =>
+    const axiosPost = (_data: {text: string}) =>
       Promise.resolve({
         data: [{
           id: fetchedTestItem.id,
           text: fetchedTestItem.text
-        }]
+        }],
+        status: 201,
+        statusText: 'Created',
+        headers: undefined,
+        config: {},
       });
     const postItem = postItemFactory(
       {
@@ -33,12 +34,7 @@ describe('post item tests', () => {
         generateId,
         postSuccess,
         postError,
-        getAxios: ({
-          axios: {
-            post
-          },
-          url: 'fake_url'
-        })
+        axiosPost
       });
 
     postItem(postTestItem.text)(dispatch)
@@ -56,12 +52,16 @@ describe('post item tests', () => {
       id: 'e1f5c5e4-7f5e-4aa0-9e52-117cc8267f13',
       text: 'item'
     };
-    const post = (_url: string, {_text}: { _text: string }) =>
+    const axiosPost = (_data: {text: string}) =>
       Promise.resolve({
         data: {
           id: fetchedTestItem.id,
           text: fetchedTestItem.text
-        }
+        },
+        status: 201,
+        statusText: 'Created',
+        headers: undefined,
+        config: {},
       });
     const postItem = postItemFactory(
       {
@@ -69,12 +69,7 @@ describe('post item tests', () => {
         generateId,
         postSuccess,
         postError,
-        getAxios: ({
-          axios: {
-            post
-          },
-          url: 'fake_url'
-        })
+        axiosPost
       });
 
     postItem(postTestItem.text)(dispatch)
@@ -91,13 +86,15 @@ describe('post item tests', () => {
   it('creates ITEM_POST_ERROR on POST request failure', (done) => {
     const generateId = jest.fn();
     postError.mock.calls.length = 0;
-    const post = (_url: string, {_text}: { _text: string }) =>
+    const axiosPost = (_data: {text: string}) =>
       Promise.reject({
-        response:
-          {
-            status: 400,
-            statusText: 'Bad Request',
-          }
+        response: {
+          data: undefined,
+          status: 400,
+          statusText: 'Bad Request',
+          headers: undefined,
+          config: {},
+        },
       });
     const postItem = postItemFactory(
       {
@@ -105,12 +102,7 @@ describe('post item tests', () => {
         generateId,
         postSuccess,
         postError,
-        getAxios: ({
-          axios: {
-            post
-          },
-          url: 'fake_url'
-        })
+        axiosPost
       });
 
     postItem(postTestItem.text)(dispatch)
@@ -121,4 +113,3 @@ describe('post item tests', () => {
       .catch(err => console.log(err));
   });
 });
-*/

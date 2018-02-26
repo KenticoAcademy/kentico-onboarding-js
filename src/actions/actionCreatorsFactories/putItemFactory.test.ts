@@ -1,4 +1,3 @@
-/*
 import { putItemFactory } from './putItemFactory';
 import { Uuid } from '../../utils/generateId';
 
@@ -14,22 +13,19 @@ describe('put item tests', () => {
       id: '9a0b391a-2a57-4be1-8179-7271b5e8cdc3',
       text: 'updatedText',
     };
-    const put = (_url: string,
-                 {
-                   _id,
-                   _text
-                 }: { _id: Uuid, _text: string }) =>
-      Promise.resolve({data: updateItem});
+    const axiosPut = (_data: {id: Uuid, text: string}) =>
+      Promise.resolve({
+        data: updatedItem,
+        status: 200,
+        statusText: 'OK',
+        headers: undefined,
+        config: {}
+      });
     const putItem = putItemFactory({
       updateItem,
       putSuccess,
       putError,
-      getAxios: ({
-        axios: {
-          put
-        },
-        url: 'fake_url'
-      })
+      axiosPut
     });
 
     putItem({id: updatedItem.id, text: updatedItem.text})(dispatch)
@@ -46,22 +42,19 @@ describe('put item tests', () => {
       id: '9a0b391a-2a57-4be1-8179-7271b5e8cdc3',
       text: 'updatedText',
     };
-    const put = (_url: string,
-                 {
-                   _id,
-                   _text
-                 }: { _id: Uuid, _text: string }) =>
-      Promise.resolve({data: updatedItem});
+    const axiosPut = (_data: {id: Uuid, text: string}) =>
+      Promise.resolve({
+        data: updatedItem,
+        status: 200,
+        statusText: 'OK',
+        headers: undefined,
+        config: {},
+      });
     const putItem = putItemFactory({
       updateItem,
       putSuccess,
       putError,
-      getAxios: ({
-        axios: {
-          put
-        },
-        url: 'fake_url'
-      })
+      axiosPut
     });
 
     putItem({id: updatedItem.id, text: updatedItem.text})(dispatch)
@@ -79,27 +72,21 @@ describe('put item tests', () => {
       id: '9a0b391a-2a57-4be1-8179-7271b5e8cdc3',
       text: 'updatedText',
     };
-    const put = (_url: string,
-                 {
-                   _id,
-                   _text
-                 }: { _id: Uuid, _text: string }) =>
+    const axiosPut = (_data: {id: Uuid, text: string}) =>
       Promise.reject({
         response: {
-          status: 400,
+          data: undefined,
+          status: 200,
           statusText: errorMessage,
+          headers: undefined,
+          config: {}
         }
       });
     const putItem = putItemFactory({
       updateItem,
       putSuccess,
       putError,
-      getAxios: ({
-        axios: {
-          put
-        },
-        url: 'fake_url'
-      })
+      axiosPut
     });
 
     putItem({id: updatedItem.id, text: updatedItem.text})(dispatch)
@@ -114,4 +101,3 @@ describe('put item tests', () => {
       .catch(err => console.log(err));
   });
 });
-*/

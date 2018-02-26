@@ -1,4 +1,3 @@
-/*
 import { deleteItemFactory } from './deleteItemFactory';
 import { OPERATION_FAILED } from '../../constants/connection';
 
@@ -11,18 +10,19 @@ describe('delete item tests', () => {
 
   it('creates ITEM_DELETE_SUCCESS after successful DELETE request', (done) => {
     deleteSuccess.mock.calls.length = 0;
-    const axiosDelete = (_url: string) =>
-      Promise.resolve({});
+    const axiosDelete = (_id: string) =>
+      Promise.resolve({
+        data: undefined,
+        status: 204,
+        statusText: 'No Content',
+        headers: undefined,
+        config: {}
+      });
     const deleteFromServer = deleteItemFactory({
       deleteItem,
       deleteSuccess,
       deleteError,
-      getAxios: ({
-        axios: {
-          delete: axiosDelete
-        },
-        url: 'fake_url'
-      })
+      axiosDelete
     });
 
     deleteFromServer(id)(dispatch)
@@ -35,23 +35,21 @@ describe('delete item tests', () => {
 
   it('creates ITEM_DELETE_ERROR after unsuccessful DELETE request', (done) => {
     deleteError.mock.calls.length = 0;
-    const axiosDelete = (_url: string) =>
+    const axiosDelete = (_id: string) =>
       Promise.reject({
         response: {
-          status: 400,
-          statusText: 'BadRequest'
-        }
+          data: undefined,
+          status: 404,
+          statusText: 'Not Found',
+          headers: undefined,
+          config: {},
+        },
       });
     const deleteFromServer = deleteItemFactory({
       deleteItem,
       deleteSuccess,
       deleteError,
-      getAxios: ({
-        axios: {
-          delete: axiosDelete
-        },
-        url: 'fake_url'
-      })
+      axiosDelete
     });
 
     deleteFromServer(id)(dispatch)
@@ -62,4 +60,3 @@ describe('delete item tests', () => {
       });
   });
 });
-*/

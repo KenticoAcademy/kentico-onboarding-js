@@ -1,4 +1,3 @@
-/*
 import { fetchItemsFactory } from './fetchItemsFactory';
 
 describe('fetch items tests', () => {
@@ -28,21 +27,20 @@ describe('fetch items tests', () => {
         Id: fetchedTestItem1.id,
         Text: fetchedTestItem1.text
       }];
-    const get = (_url: string) =>
+    const axiosFetch = () =>
       Promise.resolve({
-        data: items
+        data: items,
+        status: 200,
+        statusText: 'OK',
+        headers: undefined,
+        config: {},
       });
     const fetchItems = fetchItemsFactory(
       {
         insertItem,
         fetchSuccess,
         fetchError,
-        getAxios: ({
-          axios: {
-            get
-          },
-          url: 'fake_url'
-        })
+        axiosFetch
       });
 
     fetchItems()(dispatch)
@@ -64,21 +62,20 @@ describe('fetch items tests', () => {
         id: fetchedTestItem1.id,
         text: fetchedTestItem1.text
       }];
-    const get = (_url: string) =>
+    const axiosFetch = () =>
       Promise.resolve({
-        data: items
+        data: items,
+        status: 200,
+        statusText: 'OK',
+        headers: undefined,
+        config: {},
       });
     const fetchItems = fetchItemsFactory(
       {
         insertItem,
         fetchSuccess,
         fetchError,
-        getAxios: ({
-          axios: {
-            get
-          },
-          url: 'fake_url'
-        })
+        axiosFetch
       });
 
     fetchItems()(dispatch)
@@ -92,11 +89,14 @@ describe('fetch items tests', () => {
 
   it('creates ITEMS_FETCH_ERROR after GET request failure', (done) => {
     fetchError.mock.calls.length = 0;
-    const get = (_url: string) =>
+    const axiosFetch = () =>
       Promise.reject({
         response: {
-          status: 400,
-          statusText: 'BadRequest',
+          data: undefined,
+          status: 404,
+          statusText: 'Not Found',
+          headers: undefined,
+          config: {}
         }
       });
     const fetchItems = fetchItemsFactory(
@@ -104,12 +104,7 @@ describe('fetch items tests', () => {
         insertItem,
         fetchSuccess,
         fetchError,
-        getAxios: ({
-          axios: {
-            get
-          },
-          url: 'fake_url'
-        })
+        axiosFetch
       });
 
     fetchItems()(dispatch)
@@ -120,4 +115,3 @@ describe('fetch items tests', () => {
       .catch(err => console.log(err));
   });
 });
-*/
