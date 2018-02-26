@@ -29,7 +29,7 @@ describe('items', () => {
       isBeingEdited: false,
       uri: '',
     };
-    const addNewItemAction = actions.addNewItem(newItem, mockSyncRequest);
+    const addNewItemAction = actions.addNewItemRequest(newItem, mockSyncRequest);
     const result = items(initialState, addNewItemAction);
 
     expect(result)
@@ -53,7 +53,7 @@ describe('items', () => {
       isBeingEdited: false,
       uri: '',
     };
-    const addNewItemAction = actions.addNewItem(newItem, mockSyncRequest);
+    const addNewItemAction = actions.addNewItemRequest(newItem, mockSyncRequest);
     const result = items(undefined, addNewItemAction);
 
     expect(result)
@@ -110,7 +110,7 @@ describe('items', () => {
       }),
     });
 
-    const changeItemTextAction = actions.saveItemChanges(expectedId, expectedNewText, mockSyncRequest);
+    const changeItemTextAction = actions.saveItemChangesRequest(expectedId, expectedNewText, mockSyncRequest);
     const result = items(initialState, changeItemTextAction);
 
     expect(result)
@@ -198,7 +198,7 @@ describe('items', () => {
       }),
     });
 
-    const deleteItemAction = actions.deleteItem(expectedId);
+    const deleteItemAction = actions.deleteItemConfirm(expectedId);
     const result = items(initialState, deleteItemAction);
 
     expect(result)
@@ -263,7 +263,7 @@ describe('items', () => {
       id: oldId,
       newId,
     };
-    const confirmAddedItemAction = actions.confirmAddedItem(actionParams);
+    const confirmAddedItemAction = actions.addNewItemConfirm(actionParams);
     const result = items(initialState, confirmAddedItemAction);
 
     expect(result)
@@ -292,7 +292,7 @@ describe('items', () => {
       [listItemClosed.id]: listItemClosed,
     });
 
-    const closeItemAction = actions.closeItem(id, mockSyncRequest);
+    const closeItemAction = actions.deleteItemRequest(id, mockSyncRequest);
     const result = items(initialState, closeItemAction);
 
     expect(result)
@@ -321,7 +321,7 @@ describe('items', () => {
       [listItemSame.id]: listItemSame,
     });
 
-    const closeItemAction = actions.closeItem(id, mockSyncRequest);
+    const closeItemAction = actions.deleteItemRequest(id, mockSyncRequest);
     const result = items(initialState, closeItemAction);
 
     expect(result)

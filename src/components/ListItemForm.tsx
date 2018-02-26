@@ -24,6 +24,9 @@ export const listItemFormPropTypes = {
   }).isRequired,
   selectionRangeStarts: PropTypes.number.isRequired,
   selectionRangeEnds: PropTypes.number.isRequired,
+  itemSyncInfo: PropTypes.shape({
+    syncState: PropTypes.string.isRequired,
+  }),
 };
 
 const defaultProps = {
@@ -31,7 +34,7 @@ const defaultProps = {
 };
 
 const ListItemForm: React.SFC<IListItemFormProps> = ({ itemSyncInfo, ...props }) =>
-  itemSyncInfo.state === SyncState.Synced ?
+  itemSyncInfo.syncState === SyncState.Synced ?
     <SyncedListItemForm { ...props } /> :
     <UnsyncedListItemForm { ...props } itemSyncInfo={itemSyncInfo} />;
 

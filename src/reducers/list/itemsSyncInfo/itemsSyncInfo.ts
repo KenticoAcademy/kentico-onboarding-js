@@ -1,14 +1,14 @@
 import { IAction } from '../../../models/interfaces/IAction';
 import {
-  ADDED_ITEM_CONFIRMED,
-  FETCH_ITEMS_SUCCESS,
-  ITEM_CHANGES_SAVED,
-  ITEM_CLOSED,
-  ITEM_CREATED,
-  ITEM_DELETED,
+  ADD_NEW_ITEM_CONFIRM,
+  RECEIVE_ITEMS,
+  SAVE_ITEM_CHANGES_REQUEST,
+  DELETE_ITEM_REQUEST,
+  ADD_NEW_ITEM_REQUEST,
+  DELETE_ITEM_CONFIRM,
   ITEM_SYNC_FAILED,
-  ITEM_SYNC_SUCCEEDED,
-  UNSAVED_ITEM_DELETED,
+  SAVE_ITEM_CHANGES_CONFIRM,
+  DELETE_UNSAVED_ITEM,
 } from '../../../constants/actionTypes';
 import { SyncState } from '../../../models/enums/SyncState';
 import { ItemSyncInfo } from '../../../models/classes/ItemSyncInfo';
@@ -18,6 +18,7 @@ import { ItemsSyncInfoState } from '../../../models/state/ItemsSyncInfoState';
 import { SyncOperation } from '../../../models/enums/SyncOperation';
 import { itemSyncInfoArrayToOrderedMap } from '../../../utils/itemSyncInfoArrayToOrderedMap';
 import { IListItem } from '../../../models/interfaces/IListItem';
+import { IItemSyncInfo } from '../../../models/interfaces/IItemSyncInfo';
 
 const setSyncState = (state: ItemsSyncInfoState, { payload: { itemSyncInfo } }: IAction): ItemsSyncInfoState =>
   itemSyncInfo ?
@@ -28,7 +29,7 @@ const setSyncState = (state: ItemsSyncInfoState, { payload: { itemSyncInfo } }: 
       }),
       syncInfo => syncInfo.with({
         operation: itemSyncInfo.operation,
-        state: itemSyncInfo.state,
+        syncState: itemSyncInfo.syncState,
       })) :
     state;
 
@@ -38,7 +39,7 @@ const addedItemConfirmed = (state: ItemsSyncInfoState, { payload: { id, newId } 
       newId,
       state.get(id).with({
         id: newId,
-        state: SyncState.Synced,
+        syncState: SyncState.Synced,
       }))
     .delete(id);
 
@@ -46,9 +47,9 @@ const itemDeleted = (state: ItemsSyncInfoState, { payload: { id } }: IAction): I
   state.delete(id);
 
 const syncAllItems = ({ payload: { items } }: IAction): ItemsSyncInfoState =>
-  itemSyncInfoArrayToOrderedMap(items.map(({ id }: IListItem) => ({
+  itemSyncInfoArrayToOrderedMap(items.map(({ id }: IListItem): IItemSyncInfo => ({
     id,
-    state: SyncState.Synced,
+    syncState: SyncState.Synced,
     operation: SyncOperation.Fetch,
   })));
 
@@ -56,18 +57,18 @@ const initialState: ItemsSyncInfoState = OrderedMap<Guid, ItemSyncInfo>();
 
 export const itemsSyncInfo = (state = initialState, action: IAction): ItemsSyncInfoState => {
   switch (action.type) {
-    case ITEM_CREATED:
-    case ITEM_CLOSED:
-    case ITEM_CHANGES_SAVED:
+    case ADD_NEW_ITEM_REQUEST:
+    case DELETE_ITEM_REQUEST:
+    case SAVE_ITEM_CHANGES_REQUEST:
     case ITEM_SYNC_FAILED:
-    case ITEM_SYNC_SUCCEEDED:
+    case SAVE_ITEM_CHANGES_CONFIRM:
       return setSyncState(state, action);
-    case ADDED_ITEM_CONFIRMED:
+    case ADD_NEW_ITEM_CONFIRM:
       return addedItemConfirmed(state, action);
-    case ITEM_DELETED:
-    case UNSAVED_ITEM_DELETED:
+    case DELETE_ITEM_CONFIRM:
+    case DELETE_UNSAVED_ITEM:
       return itemDeleted(state, action);
-    case FETCH_ITEMS_SUCCESS:
+    case RECEIVE_ITEMS:
       return syncAllItems(action);
     default:
       return state;

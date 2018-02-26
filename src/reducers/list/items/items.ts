@@ -55,20 +55,20 @@ export const items = (state = initialState, action: IAction): ItemsState => {
   const { type } = action;
 
   switch (type) {
-    case ActionTypes.ITEM_CREATED:
+    case ActionTypes.ADD_NEW_ITEM_REQUEST:
       return addNewItem(state, action);
-    case ActionTypes.ADDED_ITEM_CONFIRMED:
+    case ActionTypes.ADD_NEW_ITEM_CONFIRM:
       return confirmAddedItem(state, action);
-    case ActionTypes.ITEM_DELETED:
-    case ActionTypes.UNSAVED_ITEM_DELETED:
+    case ActionTypes.DELETE_ITEM_CONFIRM:
+    case ActionTypes.DELETE_UNSAVED_ITEM:
       return deleteItem(state, action);
-    case ActionTypes.ITEM_CHANGES_SAVED:
+    case ActionTypes.SAVE_ITEM_CHANGES_REQUEST:
       return saveItemChanges(state, action);
-    case ActionTypes.ITEM_OPEN_STATE_CHANGED:
+    case ActionTypes.CHANGE_ITEM_OPEN_STATE:
       return changeItemOpenState(state, action);
-    case ActionTypes.ITEM_CLOSED:
+    case ActionTypes.DELETE_ITEM_REQUEST:
       return closeItem(state, action);
-    case ActionTypes.FETCH_ITEMS_SUCCESS:
+    case ActionTypes.RECEIVE_ITEMS:
       return fetchItems(action);
     default:
       return state;

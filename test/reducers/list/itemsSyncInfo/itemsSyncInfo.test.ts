@@ -1,13 +1,13 @@
 import {
-  addNewItem,
-  closeItem,
-  confirmAddedItem,
-  deleteItem,
+  addNewItemRequest,
+  deleteItemRequest,
+  addNewItemConfirm,
+  deleteItemConfirm,
   deleteUnsavedItem,
   itemSyncFailed,
-  itemSyncSucceeded,
+  saveItemChangesConfirm,
   receiveItems,
-  saveItemChanges
+  saveItemChangesRequest
 } from '../../../../src/actions';
 import { IListItem } from '../../../../src/models/interfaces/IListItem';
 import { itemsSyncInfo } from '../../../../src/reducers/list/itemsSyncInfo/itemsSyncInfo';
@@ -40,12 +40,12 @@ describe('itemsSyncInfo', () => {
       [item1.id]: new ItemSyncInfo({
         id: item1.id,
         operation: SyncOperation.Fetch,
-        state: SyncState.Synced,
+        syncState: SyncState.Synced,
       }),
       [item2.id]: new ItemSyncInfo({
         id: item2.id,
         operation: SyncOperation.Fetch,
-        state: SyncState.Synced,
+        syncState: SyncState.Synced,
       }),
     });
 
@@ -56,7 +56,7 @@ describe('itemsSyncInfo', () => {
       .toEqual(expectedState);
   });
 
-  [deleteItem, deleteUnsavedItem]
+  [deleteItemConfirm, deleteUnsavedItem]
     .forEach(actionCreator =>
       it('will delete item sync info with existing id', () => {
         const itemSyncInfo1 = new ItemSyncInfo({
@@ -93,12 +93,12 @@ describe('itemsSyncInfo', () => {
     const newId = 'newId';
     const itemSyncInfo = new ItemSyncInfo({
       id: oldId,
-      state: SyncState.Pending,
+      syncState: SyncState.Pending,
       operation: SyncOperation.Add,
     });
     const itemSyncInfoConfirmed = new ItemSyncInfo({
       id: newId,
-      state: SyncState.Synced,
+      syncState: SyncState.Synced,
       operation: SyncOperation.Add,
     });
     const initialState = OrderedMap<Guid, ItemSyncInfo>({
@@ -114,7 +114,7 @@ describe('itemsSyncInfo', () => {
       newId,
       id: oldId,
     };
-    const action = confirmAddedItem(actionParams);
+    const action = addNewItemConfirm(actionParams);
     const result = itemsSyncInfo(initialState, action);
 
     expect(result)
@@ -125,12 +125,12 @@ describe('itemsSyncInfo', () => {
     const itemSyncInfo1 = new ItemSyncInfo({
       id: '1',
       operation: SyncOperation.Modify,
-      state: SyncState.Pending,
+      syncState: SyncState.Pending,
     });
     const itemSyncInfo1Succeeded = new ItemSyncInfo({
       id: '1',
       operation: SyncOperation.Modify,
-      state: SyncState.Synced,
+      syncState: SyncState.Synced,
     });
     const itemSyncInfo2 = new ItemSyncInfo({
       id: '2'
@@ -155,7 +155,7 @@ describe('itemsSyncInfo', () => {
       id: itemSyncInfo1.id,
       operation: SyncOperation.Modify,
     };
-    const action = itemSyncSucceeded(actionParams);
+    const action = saveItemChangesConfirm(actionParams);
     const result = itemsSyncInfo(initialState, action);
 
     expect(result)
@@ -167,12 +167,12 @@ describe('itemsSyncInfo', () => {
     const itemSyncInfo = new ItemSyncInfo({
       id,
       operation: SyncOperation.Fetch,
-      state: SyncState.Pending,
+      syncState: SyncState.Pending,
     });
     const itemSyncInfoFailed = new ItemSyncInfo({
       id,
       operation: SyncOperation.Delete,
-      state: SyncState.Unsynced,
+      syncState: SyncState.Unsynced,
     });
     const initialState = OrderedMap<Guid, ItemSyncInfo>({
       [id]: itemSyncInfo,
@@ -203,7 +203,7 @@ describe('itemsSyncInfo', () => {
       [id]: new ItemSyncInfo({
         id,
         operation: SyncOperation.Add,
-        state: SyncState.Pending,
+        syncState: SyncState.Pending,
       })
     });
 
@@ -212,7 +212,7 @@ describe('itemsSyncInfo', () => {
       id,
       operation: SyncOperation.Add,
     };
-    const action = addNewItem(mockItem, syncRequest);
+    const action = addNewItemRequest(mockItem, syncRequest);
     const result = itemsSyncInfo(initialState, action);
 
     expect(result)
@@ -224,12 +224,12 @@ describe('itemsSyncInfo', () => {
     const itemSyncInfo = new ItemSyncInfo({
       id,
       operation: SyncOperation.Modify,
-      state: SyncState.Synced,
+      syncState: SyncState.Synced,
     });
     const itemSyncInfoPending = new ItemSyncInfo({
       id,
       operation: SyncOperation.Modify,
-      state: SyncState.Pending,
+      syncState: SyncState.Pending,
     });
     const initialState = OrderedMap<Guid, ItemSyncInfo>({
       [id]: itemSyncInfo,
@@ -244,7 +244,7 @@ describe('itemsSyncInfo', () => {
       id,
       operation: SyncOperation.Add,
     };
-    const action = closeItem(id, syncRequest);
+    const action = deleteItemRequest(id, syncRequest);
     const result = itemsSyncInfo(initialState, action);
 
     expect(result.keySeq())
@@ -265,7 +265,7 @@ describe('itemsSyncInfo', () => {
       [itemSyncInfo2.id]: itemSyncInfo2,
     });
 
-    const action = saveItemChanges(itemSyncInfo2.id, '.');
+    const action = saveItemChangesRequest(itemSyncInfo2.id, '.');
     const result = itemsSyncInfo(initialState, action);
 
     expect(result)
@@ -277,7 +277,7 @@ describe('itemsSyncInfo', () => {
     const itemSyncInfo2 = new ItemSyncInfo();
     const itemSyncInfo2Modified = new ItemSyncInfo({
       operation: SyncOperation.Modify,
-      state: SyncState.Pending,
+      syncState: SyncState.Pending,
       id: itemSyncInfo2.id,
     });
     const initialState = OrderedMap<Guid, ItemSyncInfo>({
@@ -295,7 +295,7 @@ describe('itemsSyncInfo', () => {
       id: itemSyncInfo2.id,
       operation: SyncOperation.Modify,
     };
-    const action = saveItemChanges(itemSyncInfo2.id, '.', itemSyncRequest);
+    const action = saveItemChangesRequest(itemSyncInfo2.id, '.', itemSyncRequest);
     const result = itemsSyncInfo(initialState, action);
 
     expect(result)

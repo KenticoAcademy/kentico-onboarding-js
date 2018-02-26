@@ -14,20 +14,20 @@ const actionParams = {
 const uri = '';
 
 describe('postItem will call dispatch with', () => {
-  it('addNewItem and confirmAddedItem actions', () => {
+  it('addNewItemRequest and addNewItemConfirm actions', () => {
     const expectedActions = [
-      'addNewItem',
-      'confirmAddedItem',
+      'addNewItemRequest',
+      'addNewItemConfirm',
     ];
     const createdItem: IListItem = new ListItem({});
     const httpClient = httpClientSuccessFactory(createdItem);
-    const addNewItem = jest.fn(() => expectedActions[0]);
-    const confirmAddedItem = jest.fn(() => expectedActions[1]);
+    const addNewItemRequest = jest.fn(() => expectedActions[0]);
+    const addNewItemConfirm = jest.fn(() => expectedActions[1]);
     const postItem = postItemFactory({
       uri,
       httpClient,
-      addNewItem,
-      confirmAddedItem,
+      addNewItemRequest,
+      addNewItemConfirm,
       createNewId: fakeFunction,
       itemSyncFailed: fakeFunction,
     });
@@ -43,14 +43,14 @@ describe('postItem will call dispatch with', () => {
       'itemSyncFailed',
     ];
     const httpClient = httpClientFailure;
-    const addNewItem = jest.fn(() => expectedActions[0]);
+    const addNewItemRequest = jest.fn(() => expectedActions[0]);
     const itemSyncFailed = jest.fn(() => expectedActions[1]);
     const postItem = postItemFactory({
       uri,
       httpClient,
-      addNewItem,
+      addNewItemRequest,
       itemSyncFailed,
-      confirmAddedItem: fakeFunction,
+      addNewItemConfirm: fakeFunction,
       createNewId: fakeFunction,
     });
 

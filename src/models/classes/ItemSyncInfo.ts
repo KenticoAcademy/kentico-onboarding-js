@@ -7,11 +7,11 @@ import { defaultUuid } from '../../constants/defaultUuid';
 const defaultItem: IItemSyncInfo = {
   id: defaultUuid,
   operation: SyncOperation.Add,
-  state: SyncState.Synced,
+  syncState: SyncState.Synced,
 };
 
 export class ItemSyncInfo extends TypedRecord(defaultItem) implements IItemSyncInfo {
   readonly id: string;
   readonly operation: SyncOperation;
-  readonly state: SyncState;
+  readonly syncState: SyncState;
 }

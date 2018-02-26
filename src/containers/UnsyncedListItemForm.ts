@@ -9,7 +9,7 @@ import { IAction } from '../models/interfaces/IAction';
 import {
   changeItemOpenState,
   deleteUnsavedItem,
-  saveItemChanges
+  saveItemChangesRequest
 } from '../actions';
 import { IItemSyncInfo } from '../models/interfaces/IItemSyncInfo';
 import {
@@ -33,7 +33,7 @@ export interface IUnsyncedListItemContainerProps extends IListItemFormOwnProps {
 const mapDispatchToProps = (dispatch: Dispatch<IAction>,  { item: { id }, itemSyncInfo }: IUnsyncedListItemContainerProps): ICompleteListItemFormCallbackProps => ({
   onSave: (newText: string) =>
     dispatch(
-      saveItemChanges(
+      saveItemChangesRequest(
         id,
         newText,
       )),

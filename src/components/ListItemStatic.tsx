@@ -28,7 +28,8 @@ export const listItemStaticPropTypes = {
     text: PropTypes.string.isRequired,
   }).isRequired,
   itemSyncInfo: PropTypes.shape({
-    state: PropTypes.string.isRequired,
+    syncState: PropTypes.string.isRequired,
+    operation: PropTypes.string.isRequired,
   }),
 };
 
@@ -69,7 +70,7 @@ export class ListItemStatic extends React.PureComponent<IListItemStaticProps> {
     let syncingComponent;
     let onMouseUp = this._onTextSelection;
 
-    switch (itemSyncInfo.state) {
+    switch (itemSyncInfo.syncState) {
       case SyncState.Pending:
         onMouseUp = () => undefined;
         syncingComponent = <ClipLoader color="#17a2b8" />;

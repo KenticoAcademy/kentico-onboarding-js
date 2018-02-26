@@ -12,14 +12,17 @@ export class Items extends React.PureComponent<IItemsDataProps> {
   static displayName = 'Items';
 
   static propTypes = {
-    itemsSyncInfo: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+    itemsSyncInfo: PropTypes.arrayOf(PropTypes.shape({
+      syncState: PropTypes.string.isRequired,
+      id: PropTypes.string.isRequired,
+    })).isRequired,
   };
 
   render() {
     return (
       <div>
         {this.props.itemsSyncInfo.map((itemSyncInfo, index) => {
-          const syncPending = itemSyncInfo.state === SyncState.Pending;
+          const syncPending = itemSyncInfo.syncState === SyncState.Pending;
           const className = `list-group-item${syncPending ? ' disabled' : ''}`;
 
           return (

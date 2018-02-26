@@ -1,31 +1,31 @@
 import {
-  addNewItem,
-  closeItem,
-  confirmAddedItem,
-  deleteItem,
+  addNewItemConfirm,
+  addNewItemRequest,
+  deleteItemConfirm,
+  deleteItemRequest,
   fetchFailed,
   itemSyncFailed,
-  itemSyncSucceeded,
   receiveItems,
   requestItems,
-  saveItemChanges,
+  saveItemChangesConfirm,
+  saveItemChangesRequest,
 } from '../actionCreators';
 import { fetchItemsFactory } from './fetchItemsFactory';
 import {
   IPostItemActionParams,
-  postItemFactory
+  postItemFactory,
 } from './postItemFactory';
 import {
   deleteItemFactory,
-  IDeleteItemActionParams
+  IDeleteItemActionParams,
 } from './deleteItemFactory';
 import {
   ISaveNewTextActionParams,
-  saveNewTextFactory
+  saveNewTextFactory,
 } from './saveNewTextFactory';
 import {
   IThunkAction,
-  IThunkActionWithoutParams
+  IThunkActionWithoutParams,
 } from '../../models/interfaces/IThunkAction';
 import { httpClient } from '../../models/classes/AxiosHttpClient';
 import { createNewId } from '../../utils/createNewId';
@@ -43,24 +43,24 @@ export const fetchItemsAsync: IThunkActionWithoutParams = fetchItemsFactory({
 export const postItemAsync: IThunkAction<IPostItemActionParams> = postItemFactory({
   uri,
   httpClient,
-  addNewItem,
   createNewId,
-  confirmAddedItem,
+  addNewItemRequest,
+  addNewItemConfirm,
   itemSyncFailed,
 });
 
 export const deleteItemAsync: IThunkAction<IDeleteItemActionParams> = deleteItemFactory({
   uri,
   httpClient,
-  deleteItem,
+  deleteItemRequest,
+  deleteItemConfirm,
   itemSyncFailed,
-  closeItem,
 });
 
 export const saveNewTextAsync: IThunkAction<ISaveNewTextActionParams> = saveNewTextFactory({
   uri,
   httpClient,
-  saveItemChanges,
-  itemSyncSucceeded,
+  saveItemChangesRequest,
+  saveItemChangesConfirm,
   itemSyncFailed,
 });

@@ -12,19 +12,19 @@ const actionParams = {
 const uri = '';
 
 describe('deleteItem will call dispatch with', () => {
-  it('closeItem and deleteItem actions', () => {
+  it('deleteItemRequest and deleteItemConfirm actions', () => {
     const expectedActions = [
-      'closeItem',
-      'deleteItem',
+      'deleteItemRequest',
+      'deleteItemConfirm',
     ];
     const httpClient = httpClientSuccessFactory();
-    const closeItem = jest.fn(() => expectedActions[0]);
-    const deleteItemAction = jest.fn(() => expectedActions[1]);
+    const deleteItemRequest = jest.fn(() => expectedActions[0]);
+    const deleteItemConfirm = jest.fn(() => expectedActions[1]);
     const deleteItem = deleteItemFactory({
       uri,
       httpClient,
-      closeItem,
-      deleteItem: deleteItemAction,
+      deleteItemRequest,
+      deleteItemConfirm,
       itemSyncFailed: fakeFunction,
     });
 
@@ -33,20 +33,20 @@ describe('deleteItem will call dispatch with', () => {
     return assertThatDispatchWasCalledWithArgumentsInGiveOrder(dispatchableAction, expectedActions);
   });
 
-  it('closeItem and itemSyncFailed actions', () => {
+  it('deleteItemRequest and itemSyncFailed actions', () => {
     const expectedActions = [
-      'closeItem',
+      'deleteItemRequest',
       'itemSyncFailed',
     ];
     const httpClient = httpClientFailure;
-    const closeItem = jest.fn(() => expectedActions[1]);
-    const itemSyncFailed = jest.fn(() => expectedActions[2]);
+    const deleteItemRequest = jest.fn(() => expectedActions[0]);
+    const itemSyncFailed = jest.fn(() => expectedActions[1]);
     const deleteItem = deleteItemFactory({
       uri,
       httpClient,
       itemSyncFailed,
-      closeItem,
-      deleteItem: fakeFunction,
+      deleteItemRequest,
+      deleteItemConfirm: fakeFunction,
     });
 
     const dispatchableAction = deleteItem(actionParams);
