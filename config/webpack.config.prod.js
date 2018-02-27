@@ -185,6 +185,11 @@ module.exports = {
     ];
   },
   plugins: [
+    new webpack.DefinePlugin({
+      'process.env': {
+        'API_URL': JSON.stringify('http://todoappapi20180226050654.azurewebsites.net/api/v1/items'),
+      }
+    }),
     // Makes the public URL available as %PUBLIC_URL% in index.html, e.g.:
     // <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
     // In production, it will be an empty string unless you specify "homepage"

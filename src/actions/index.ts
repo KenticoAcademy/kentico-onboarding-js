@@ -17,7 +17,7 @@ import { deleteItemFactory } from './actionCreatorsFactories/deleteItemFactory';
 import { putItemFactory } from './actionCreatorsFactories/putItemFactory';
 import { fetchItemsFactory } from './actionCreatorsFactories/fetchItemsFactory';
 import { postItemFactory } from './actionCreatorsFactories/postItemFactory';
-import { API_URL } from '../constants/connection';
+
 import {
   axiosDeleteFactory,
   axiosFetchFactory,
@@ -25,10 +25,10 @@ import {
   axiosPutFactory
 } from '../axiosFactories/axiosFactories';
 
-const axiosFetch = axiosFetchFactory(axios, API_URL);
-const axiosPost = axiosPostFactory(axios, API_URL);
-const axiosPut = axiosPutFactory(axios, API_URL);
-const axiosDelete = axiosDeleteFactory(axios, API_URL);
+const axiosFetch = axiosFetchFactory(axios, process.env.API_URL);
+const axiosPost = axiosPostFactory(axios, process.env.API_URL);
+const axiosPut = axiosPutFactory(axios, process.env.API_URL);
+const axiosDelete = axiosDeleteFactory(axios, process.env.API_URL);
 
 export const fetchItems = fetchItemsFactory(
   {
