@@ -53,9 +53,11 @@ export class ListItemStatic extends React.PureComponent<IListItemStaticProps> {
       .getRangeAt(0);
 
     const { startOffset, endOffset } = selection;
-    const {onTextSelection, onItemOpened } = this.props;
+    const {onTextSelection, onItemOpened, item } = this.props;
 
-    onTextSelection(startOffset, endOffset);
+    const correctedEndOffset = endOffset > 0 || startOffset === 0 ? endOffset : item.text.length;
+
+    onTextSelection(startOffset, correctedEndOffset);
     onItemOpened();
   };
 
@@ -89,9 +91,11 @@ export class ListItemStatic extends React.PureComponent<IListItemStaticProps> {
     }
 
     return (
-      <div className="form-inline">
+      <div className="form-inline" >
+        <span className="mr-2">
+          {itemNumber + '.'}
+        </span>
         <div onMouseUp={onMouseUp}>
-          {itemNumber + '. '}
           {text}
         </div>
         <div className="ml-5">
