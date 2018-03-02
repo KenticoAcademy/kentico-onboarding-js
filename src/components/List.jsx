@@ -4,7 +4,7 @@ import React from 'react';
 
 import { OrderedMap } from 'immutable';
 
-import { getUUIDv4 } from '../utils/uuidService';
+import { getIdentifier } from '../utils/uuidService';
 
 import { NewItem } from './NewItem';
 import { ListItem } from './ListItem';
