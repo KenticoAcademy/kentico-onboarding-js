@@ -17,27 +17,24 @@ export class List extends React.PureComponent {
     items: OrderedMap(),
   };
 
-  _addItem = (itemValue) => this.setState(prevState => ({
-    items: [
-      ...prevState.items,
-      {
-        key: getIdentifier(),
-        value: itemValue,
-      },
-    ],
-  }));
+  _addItem = (itemValue) => {
+    const key = getIdentifier();
+    const toDoItem = new ToDoItem({
+      key,
+      value: itemValue,
+    });
+
+    this.setState(prevState => ({ items: prevState.items.set(key, toDoItem) }));
+  };
 
   _saveItem = (item, updatedValue) => {
-    const newItem = new ToDoItem({
-      key: item.key,
-      value: updatedValue,
-    });
-    const newItems = this.state.items.update(item.key, () => newItem);
+    const newItem = item.merge({ value: updatedValue });
+    const newItems = this.state.items.update(newItem.key, () => newItem);
 
     this.setState({ items: newItems });
   };
 
-  _deleteItem = (item) => this.setState({ items: this.state.items.delete(item.key) });
+  _deleteItem = (item) => this.setState(prevState => ({ items: prevState.items.delete(item.key) }));
 
   render() {
     const list = this.state.items.valueSeq()
