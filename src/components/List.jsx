@@ -1,6 +1,7 @@
 // components/List.jsx
 
 import React from 'react';
+
 import { OrderedMap } from 'immutable';
 
 import { getUUIDv4 } from '../utils/uuidService';
@@ -16,19 +17,15 @@ export class List extends React.PureComponent {
     items: OrderedMap(),
   };
 
-  _addItem = (itemValue) => {
-    const key = getUUIDv4();
-    const toDoItem = new ToDoItem({
-      key,
-      value: itemValue,
-    });
-
-    this.setState(prevState => {
-      return {
-        items: prevState.items.set(key, toDoItem),
-      };
-    });
-  };
+  _addItem = (itemValue) => this.setState(prevState => ({
+    items: [
+      ...prevState.items,
+      {
+        key: getIdentifier(),
+        value: itemValue,
+      },
+    ],
+  }));
 
   _saveItem = (item, updatedValue) => {
     const newItem = new ToDoItem({

@@ -1,5 +1,3 @@
-import v4 from 'uuid/v4';
+import { default as getV4Identifier } from 'uuid/v4';
 
-export function getUUIDv4() {
-  return v4();
-}
+export const getIdentifier = () => getV4Identifier();
