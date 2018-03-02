@@ -46,8 +46,7 @@ export class List extends React.PureComponent {
     const list = this.state.items
       .map((item, index) => {
         const itemWithBullet = {
-          key: item.key,
-          value: item.value,
+          ...item,
           bullet: index + 1,
         };
 
