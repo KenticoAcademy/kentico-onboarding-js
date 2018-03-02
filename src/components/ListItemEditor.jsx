@@ -4,13 +4,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { isInputValid } from '../utils/validationService';
-import { ToDoItem } from '../models/toDoItem';
 
 export class ListItemEditor extends React.PureComponent {
   static displayName = 'ListItemEditor';
 
   static propTypes = {
-    item: PropTypes.instanceOf(ToDoItem).isRequired,
+    itemValue: PropTypes.string.isRequired,
+    bullet: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+    ]).isRequired,
     onCancel: PropTypes.func.isRequired,
     onUpdate: PropTypes.func.isRequired,
     onDelete: PropTypes.func.isRequired,
@@ -19,7 +22,7 @@ export class ListItemEditor extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      itemValue: props.item.value,
+      itemValue: props.itemValue,
     };
   }
 
@@ -37,7 +40,7 @@ export class ListItemEditor extends React.PureComponent {
   _updateItem = () => this.props.onUpdate(this.state.itemValue);
 
   render() {
-    const { onCancel, onDelete, item: { bullet } } = this.props;
+    const { onCancel, onDelete, bullet } = this.props;
     const { itemValue } = this.state;
 
     return (

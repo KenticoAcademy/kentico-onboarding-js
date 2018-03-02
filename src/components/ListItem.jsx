@@ -12,6 +12,10 @@ export class ListItem extends React.PureComponent {
 
   static propTypes = {
     item: PropTypes.instanceOf(ToDoItem).isRequired,
+    bullet: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+    ]).isRequired,
     onDelete: PropTypes.func.isRequired,
     onSave: PropTypes.func.isRequired,
   };
@@ -37,11 +41,12 @@ export class ListItem extends React.PureComponent {
   };
 
   render() {
-    const { item } = this.props;
+    const { item: { value }, bullet } = this.props;
 
     let listItem = (
       <ListItemDisplay
-        item={item}
+        itemValue={value}
+        bullet={bullet}
         onEdit={this._toggleEditMode}
       />
     );
@@ -49,7 +54,8 @@ export class ListItem extends React.PureComponent {
     if (this.state.isEditing) {
       listItem = (
         <ListItemEditor
-          item={item}
+          itemValue={value}
+          bullet={bullet}
           onCancel={this._toggleEditMode}
           onDelete={this._deleteItem}
           onUpdate={this._updateItem}

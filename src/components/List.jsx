@@ -22,7 +22,7 @@ export class List extends React.PureComponent {
     const toDoItem = new ToDoItem({
       key,
       value: itemValue,
-    });
+    }, 'toDo');
 
     this.setState(prevState => ({ items: prevState.items.set(key, toDoItem) }));
   };
@@ -41,7 +41,8 @@ export class List extends React.PureComponent {
       .map((item, index) => (
         <div className="list-group-item" key={item.key}>
           <ListItem
-            item={item.set('bullet', index + 1)}
+            item={item}
+            bullet={index + 1}
             onSave={this._saveItem}
             onDelete={this._deleteItem}
           />
