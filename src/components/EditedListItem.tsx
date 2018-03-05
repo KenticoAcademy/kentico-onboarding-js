@@ -31,7 +31,7 @@ export class EditedListItem extends React.PureComponent<IEditedListItemProps> {
     textUpdateChange: PropTypes.func.isRequired,
   };
 
-  onTextChanged = (e: React.ChangeEvent<HTMLInputElement>): void => {
+  _onTextChanged = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const textUpdate = e.target.value;
     const { textUpdateChange } = this.props;
     textUpdateChange(textUpdate);
@@ -46,7 +46,7 @@ export class EditedListItem extends React.PureComponent<IEditedListItemProps> {
         <input
           className="form-control"
           defaultValue={item.text}
-          onChange={this.onTextChanged}
+          onChange={this._onTextChanged}
           placeholder="Type new item name..."
         />
         <div className="input-group-btn">
