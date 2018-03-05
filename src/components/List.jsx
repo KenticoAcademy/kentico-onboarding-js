@@ -27,12 +27,7 @@ export class List extends React.PureComponent {
     this.setState(prevState => ({ items: prevState.items.set(key, toDoItem) }));
   };
 
-  _saveItem = (item, updatedValue) => {
-    const newItem = item.merge({ value: updatedValue });
-    const newItems = this.state.items.update(newItem.key, () => newItem);
-
-    this.setState({ items: newItems });
-  };
+  _saveItem = (item, updatedValue) => this.setState(prevState => ({ items: prevState.items.mergeIn([item.key, 'value'], updatedValue) }));
 
   _deleteItem = (item) => this.setState(prevState => ({ items: prevState.items.delete(item.key) }));
 
