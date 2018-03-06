@@ -8,7 +8,7 @@ export class NewItem extends React.PureComponent {
   static displayName = 'NewItem';
 
   static propTypes = {
-    onCreate: PropTypes.func.isRequired,
+    onAddItem: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -30,7 +30,7 @@ export class NewItem extends React.PureComponent {
   };
 
   _addItem = () => {
-    this.props.onCreate(this.state.itemValue);
+    this.props.onAddItem(this.state.itemValue);
     this.setState({ itemValue: '' });
   };
 
@@ -38,24 +38,26 @@ export class NewItem extends React.PureComponent {
     const { itemValue } = this.state;
 
     return (
-      <div className="input-group">
-        <input
-          type="text"
-          className="form-control"
-          placeholder="What is on your mind ... ?"
-          value={itemValue}
-          onChange={this._handleChange}
-          onKeyUp={this._handleKeyUp}
-        />
-        <span className="input-group-btn">
-          <button
-            type="button"
-            className="btn btn-default"
-            onClick={this._addItem}
-            disabled={!isInputValid(itemValue)}
-          > Add
-          </button>
-        </span>
+      <div className="row">
+        <div className="input-group">
+          <input
+            type="text"
+            className="form-control"
+            placeholder="What is on your mind ... ?"
+            value={itemValue}
+            onChange={this._handleChange}
+            onKeyUp={this._handleKeyUp}
+          />
+          <span className="input-group-btn">
+            <button
+              type="button"
+              className="btn btn-default"
+              onClick={this._addItem}
+              disabled={!isInputValid(itemValue)}
+            > Add
+            </button>
+          </span>
+        </div>
       </div>
     );
   }
