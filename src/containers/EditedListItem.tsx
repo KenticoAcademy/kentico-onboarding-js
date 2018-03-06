@@ -4,7 +4,7 @@ import { EditedListItem as EditedListItemComponent, IEditedListItemCallbackProps
 import { IAppState } from '../reducers/IAppState';
 import { IItem } from '../models/Item';
 import { ItemId } from '../models/ItemId';
-import * as actionCreators from  '../actions';
+import { deleteItem, toggleEditing, updateItemText, textUpdateChange } from  '../actions';
 
 interface IEditListItemContainerProps {
   itemId: ItemId;
@@ -19,10 +19,10 @@ function mapStateToProps(state: IAppState, { itemId }: IEditListItemContainerPro
 }
 
 const mapDispatchToProps = (dispatch: Dispatch<IAppState>, { itemId }: IEditListItemContainerProps): IEditedListItemCallbackProps => ({
-  onDelete: () => dispatch(actionCreators.deleteItem(itemId)),
-  onCancel: () => dispatch(actionCreators.toggleEditing(itemId)),
-  onSave: () => dispatch(actionCreators.updateItemText(itemId)),
-  textUpdateChange: (text: string) => dispatch(actionCreators.textUpdateChange(itemId, text)),
+  onDelete: () => dispatch(deleteItem(itemId)),
+  onCancel: () => dispatch(toggleEditing(itemId)),
+  onSave: () => dispatch(updateItemText(itemId)),
+  textUpdateChange: (text: string) => dispatch(textUpdateChange(itemId, text)),
 });
 
 export const EditedListItem: ComponentClass<IEditListItemContainerProps>  = connect(mapStateToProps, mapDispatchToProps)(EditedListItemComponent);
