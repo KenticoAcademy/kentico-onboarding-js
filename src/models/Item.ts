@@ -17,14 +17,9 @@ export const defaultItem: IItem = {
   textUpdate: '',
 };
 
-export class Item extends BaseRecord(defaultItem) implements IItem {
-
+export class Item extends  BaseRecord<Item>(defaultItem, 'Item') implements IItem {
   readonly id: ItemId;
   readonly text: string;
   readonly isBeingEdited: boolean;
   readonly textUpdate: string;
-
-  constructor(params: Partial<IItem>) {
-    super(params);
-  }
 }
