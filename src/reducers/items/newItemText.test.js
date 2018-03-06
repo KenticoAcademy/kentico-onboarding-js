@@ -1,4 +1,4 @@
-import { newItemText } from '../../../dist/reducers/items/newItemText';
+import { newItemText } from './newItemText.ts';
 import {
   deleteItem,
   updateNewItemText,
