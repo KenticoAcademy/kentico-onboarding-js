@@ -24,11 +24,14 @@ import {
   axiosPostFactory,
   axiosPutFactory
 } from '../axiosFactories/axiosFactories';
+import { API_URL } from '../constants/connection';
 
-const axiosFetch = axiosFetchFactory(axios, process.env.API_URL);
-const axiosPost = axiosPostFactory(axios, process.env.API_URL);
-const axiosPut = axiosPutFactory(axios, process.env.API_URL);
-const axiosDelete = axiosDeleteFactory(axios, process.env.API_URL);
+const url = process.env.API_URL || API_URL;
+
+const axiosFetch = axiosFetchFactory(axios, url);
+const axiosPost = axiosPostFactory(axios, url);
+const axiosPut = axiosPutFactory(axios, url);
+const axiosDelete = axiosDeleteFactory(axios, url);
 
 export const fetchItems = fetchItemsFactory(
   {

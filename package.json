@@ -121,5 +121,5 @@
       "react-app"
     ]
   },
-  "proxy": "http://todoappapi20180226050654.azurewebsites.net/api"
+  "proxy": "http://localhost:55557/api"
 }

@@ -197,11 +197,11 @@ module.exports = {
     // a plugin that prints an error when you attempt to do this.
     // See https://github.com/facebookincubator/create-react-app/issues/240
     new CaseSensitivePathsPlugin(),
-    new webpack.DefinePlugin({
+    /* new webpack.DefinePlugin({
       'process.env': {
         'API_URL': JSON.stringify('http://localhost:55557/api/v1/items'),
       }
-    }),
+    }),*/
     // If you require a missing module and then `npm install` it, you still have
     // to restart the development server for Webpack to discover it. This plugin
     // makes the discovery automatic so you don't have to restart.
