@@ -2,8 +2,6 @@
 
 import React from 'react';
 
-import { OrderedMap } from 'immutable';
-
 import { getIdentifier } from '../utils/uuidService';
 
 import { NewItem } from './NewItem';
@@ -12,10 +10,6 @@ import { ToDoItem } from '../models/toDoItem';
 
 export class List extends React.PureComponent {
   static displayName = 'List';
-
-  state = {
-    items: OrderedMap(),
-  };
 
   _addItem = (itemValue) => {
     const key = getIdentifier();
@@ -32,7 +26,9 @@ export class List extends React.PureComponent {
   _deleteItem = (item) => this.setState(prevState => ({ items: prevState.items.delete(item.key) }));
 
   render() {
-    const list = this.state.items.valueSeq()
+    const props2 = this.props;
+
+    const list = props2.items.valueSeq()
       .map((item, index) => (
         <div className="list-group-item" key={item.key}>
           <ListItem
