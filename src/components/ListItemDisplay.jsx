@@ -3,8 +3,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export const ListItemDisplay = ({ itemValue, bullet, onEdit }) => (
-  <div onClick={onEdit}>
+export const ListItemDisplay = ({ itemValue, bullet, onItemEdit }) => (
+  <div onClick={onItemEdit}>
     {bullet}.&nbsp;
     {itemValue}
   </div>
@@ -18,5 +18,5 @@ ListItemDisplay.propTypes = {
     PropTypes.string,
     PropTypes.number,
   ]).isRequired,
-  onEdit: PropTypes.func.isRequired,
+  onItemEdit: PropTypes.func.isRequired,
 };
