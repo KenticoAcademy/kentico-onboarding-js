@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import { ListItem } from './ListItem';
+import { ListItem } from '../containers/ListItem';
 
 export class List extends React.PureComponent {
   static displayName = 'List';
