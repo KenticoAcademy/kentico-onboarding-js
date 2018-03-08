@@ -40,6 +40,7 @@ export const fetchItemsAsync: IThunkActionWithoutParams = fetchItemsFactory({
   receiveItems,
   fetchFailed,
 });
+
 export const postItemAsync: IThunkAction<IPostItemActionParams> = postItemFactory({
   uri,
   httpClient,

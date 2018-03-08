@@ -5,11 +5,9 @@ import {
   Dispatch
 } from 'react-redux';
 import { SyncOperation } from '../models/enums/SyncOperation';
-import { IAction } from '../models/interfaces/IAction';
 import {
   changeItemOpenState,
   deleteUnsavedItem,
-  saveItemChangesRequest
 } from '../actions';
 import { IItemSyncInfo } from '../models/interfaces/IItemSyncInfo';
 import {
@@ -20,6 +18,8 @@ import {
   IListItemFormOwnProps,
   listItemFormPropTypes
 } from '../components/ListItemForm';
+import { editItemAsync } from '../actions/thunk';
+import { IAppState } from '../models/state/IAppState';
 
 const propTypes = {
   ...listItemFormPropTypes,
@@ -30,13 +30,13 @@ export interface IUnsyncedListItemContainerProps extends IListItemFormOwnProps {
   readonly itemSyncInfo: IItemSyncInfo;
 }
 
-const mapDispatchToProps = (dispatch: Dispatch<IAction>,  { item: { id }, itemSyncInfo }: IUnsyncedListItemContainerProps): ICompleteListItemFormCallbackProps => ({
+const mapDispatchToProps = (dispatch: Dispatch<IAppState>,  { item: { id }, itemSyncInfo }: IUnsyncedListItemContainerProps): ICompleteListItemFormCallbackProps => ({
   onSave: (newText: string) =>
     dispatch(
-      saveItemChangesRequest(
+      editItemAsync({
+        text: newText,
         id,
-        newText,
-      )),
+      })),
   onDelete: itemSyncInfo.operation === SyncOperation.Add ?
     () => dispatch(
       deleteUnsavedItem(id)) :

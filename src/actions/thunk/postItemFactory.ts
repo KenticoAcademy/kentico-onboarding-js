@@ -4,16 +4,15 @@ import { IAction } from '../../models/interfaces/IAction';
 import { IHttpClient } from '../../models/interfaces/IHttpClient';
 import { Guid } from '../../models/Guid';
 import { IAddedItemConfirmed } from '../../models/interfaces/IAddedItemConfirmed';
-import { IItemSyncRequest } from '../../models/interfaces/IItemSyncRequest';
-import { SyncOperation } from '../../models/enums/SyncOperation';
+import { INewItem } from '../../models/interfaces/INewItem';
 
 interface IPostItemFactoryDependencies {
   readonly uri: string;
   readonly httpClient: IHttpClient;
   readonly createNewId: () => Guid;
-  readonly addNewItemRequest: (item: Partial<IListItem>, itemSyncRequest: IItemSyncRequest) => IAction;
+  readonly addNewItemRequest: (item: INewItem) => IAction;
   readonly addNewItemConfirm: (addedItemConfirmation: IAddedItemConfirmed) => IAction;
-  readonly addNewItemFailed: (itemSyncRequest: IItemSyncRequest) => IAction;
+  readonly addNewItemFailed: (id: Guid) => IAction;
 }
 
 export interface IPostItemActionParams {
@@ -25,17 +24,12 @@ export const postItemFactory = (dependencies: IPostItemFactoryDependencies) =>
   ({ text, givenId }: IPostItemActionParams) =>
     (dispatch: Dispatch<IAction>) => {
       const id = givenId || dependencies.createNewId();
-      const newItem = {
+      const newItem: INewItem = {
         id,
         text,
       };
 
-      const itemSyncRequest: IItemSyncRequest = {
-        id,
-        operation: SyncOperation.Add,
-      };
-
-      dispatch(dependencies.addNewItemRequest(newItem, itemSyncRequest));
+      dispatch(dependencies.addNewItemRequest(newItem));
 
       return dependencies.httpClient.post<IListItem>(
         dependencies.uri,
@@ -46,5 +40,5 @@ export const postItemFactory = (dependencies: IPostItemFactoryDependencies) =>
           id,
           newId,
         })))
-        .catch(() => dispatch(dependencies.addNewItemFailed(itemSyncRequest)));
+        .catch(() => dispatch(dependencies.addNewItemFailed(id)));
     };

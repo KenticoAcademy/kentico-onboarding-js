@@ -3,16 +3,18 @@ import * as ActionTypes from '../constants/actionTypes';
 import { Guid } from '../models/Guid';
 import { IListItem } from '../models/interfaces/IListItem';
 import { IAddedItemConfirmed } from '../models/interfaces/IAddedItemConfirmed';
-import { IItemSyncRequest } from '../models/interfaces/IItemSyncRequest';
 import { SyncState } from '../models/enums/SyncState';
+import { SyncOperation } from '../models/enums/SyncOperation';
+import { INewItem } from '../models/interfaces/INewItem';
 
-export const addNewItemRequest = ({ id, text }: IListItem, itemSyncRequest: IItemSyncRequest): IAction => ({
+export const addNewItemRequest = ({ id, text }: INewItem): IAction => ({
   type: ActionTypes.ADD_NEW_ITEM_REQUEST,
   payload: {
     id,
     text,
     itemSyncInfo: {
-      ...itemSyncRequest,
+      id,
+      operation: SyncOperation.Add,
       syncState: SyncState.Pending,
     },
   },
@@ -26,12 +28,13 @@ export const addNewItemConfirm = ({ id, newId }: IAddedItemConfirmed) => ({
   },
 });
 
-export const deleteItemRequest = (id: Guid, itemSyncRequest: IItemSyncRequest): IAction => ({
+export const deleteItemRequest = (id: Guid): IAction => ({
   type: ActionTypes.DELETE_ITEM_REQUEST,
   payload: {
     id,
     itemSyncInfo: {
-      ...itemSyncRequest,
+      id,
+      operation: SyncOperation.Delete,
       syncState: SyncState.Pending,
     },
   }
@@ -44,23 +47,25 @@ export const deleteItemConfirm = (id: Guid): IAction => ({
   },
 });
 
-export const saveItemChangesRequest = (id: Guid, text: string, itemSyncRequest?: IItemSyncRequest): IAction => ({
+export const saveItemChangesRequest = (id: Guid, text: string): IAction => ({
   type: ActionTypes.SAVE_ITEM_CHANGES_REQUEST,
   payload: {
     id,
     text,
-    itemSyncInfo: itemSyncRequest && {
-      ...itemSyncRequest,
+    itemSyncInfo: {
+      id,
+      operation: SyncOperation.Modify,
       syncState: SyncState.Pending,
     },
   },
 });
 
-export const saveItemChangesConfirm = (itemSyncRequest: IItemSyncRequest): IAction => ({
+export const saveItemChangesConfirm = (id: Guid): IAction => ({
   type: ActionTypes.SAVE_ITEM_CHANGES_CONFIRM,
   payload: {
     itemSyncInfo: {
-      ...itemSyncRequest,
+      id,
+      operation: SyncOperation.Modify,
       syncState: SyncState.Synced,
     },
   }
@@ -99,12 +104,9 @@ export const fetchFailed = (): IAction => ({
   payload: undefined,
 });
 
-export const itemSyncFailed = (itemSyncRequest: IItemSyncRequest): IAction => ({
+export const itemSyncFailed = (id: Guid): IAction => ({
   type: ActionTypes.ITEM_SYNC_FAILED,
   payload: {
-    itemSyncInfo: {
-      ...itemSyncRequest,
-      syncState: SyncState.Unsynced,
-    },
+    id,
   }
 });

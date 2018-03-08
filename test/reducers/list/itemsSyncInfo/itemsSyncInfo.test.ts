@@ -19,7 +19,6 @@ import { SyncOperation } from '../../../../src/models/enums/SyncOperation';
 import { SyncState } from '../../../../src/models/enums/SyncState';
 import deepFreeze = require('deep-freeze');
 import { IAddedItemConfirmed } from '../../../../src/models/interfaces/IAddedItemConfirmed';
-import { IItemSyncRequest } from '../../../../src/models/interfaces/IItemSyncRequest';
 
 describe('itemsSyncInfo', () => {
   it('will create item sync info for all fetched items', () => {
@@ -151,11 +150,7 @@ describe('itemsSyncInfo', () => {
       [itemSyncInfo2.id]: itemSyncInfo2,
     });
 
-    const actionParams: IItemSyncRequest = {
-      id: itemSyncInfo1.id,
-      operation: SyncOperation.Modify,
-    };
-    const action = saveItemChangesConfirm(actionParams);
+    const action = saveItemChangesConfirm(itemSyncInfo1.id);
     const result = itemsSyncInfo(initialState, action);
 
     expect(result)
@@ -166,7 +161,7 @@ describe('itemsSyncInfo', () => {
     const id = 'id';
     const itemSyncInfo = new ItemSyncInfo({
       id,
-      operation: SyncOperation.Default,
+      operation: SyncOperation.Delete,
       syncState: SyncState.Pending,
     });
     const itemSyncInfoFailed = new ItemSyncInfo({
@@ -183,11 +178,7 @@ describe('itemsSyncInfo', () => {
       [id]: itemSyncInfoFailed,
     });
 
-    const actionParams: IItemSyncRequest = {
-      operation: SyncOperation.Delete,
-      id
-    };
-    const action = itemSyncFailed(actionParams);
+    const action = itemSyncFailed(id);
     const result = itemsSyncInfo(initialState, action);
 
     expect(result)
@@ -207,12 +198,10 @@ describe('itemsSyncInfo', () => {
       })
     });
 
-    const mockItem = new ListItem();
-    const syncRequest: IItemSyncRequest = {
+    const mockItem = new ListItem({
       id,
-      operation: SyncOperation.Add,
-    };
-    const action = addNewItemRequest(mockItem, syncRequest);
+    });
+    const action = addNewItemRequest(mockItem);
     const result = itemsSyncInfo(initialState, action);
 
     expect(result)
@@ -240,36 +229,11 @@ describe('itemsSyncInfo', () => {
       [id]: itemSyncInfoPending,
     });
 
-    const syncRequest: IItemSyncRequest = {
-      id,
-      operation: SyncOperation.Add,
-    };
-    const action = deleteItemRequest(id, syncRequest);
+    const action = deleteItemRequest(id);
     const result = itemsSyncInfo(initialState, action);
 
     expect(result.keySeq())
       .toEqual(expectedState.keySeq());
-  });
-
-  it('will not modify state items', () => {
-    const itemSyncInfo1 = new ItemSyncInfo();
-    const itemSyncInfo2 = new ItemSyncInfo();
-    const initialState = OrderedMap<Guid, ItemSyncInfo>({
-      [itemSyncInfo1.id]: itemSyncInfo1,
-      [itemSyncInfo2.id]: itemSyncInfo2,
-    });
-    deepFreeze(initialState);
-
-    const expectedState = OrderedMap<Guid, ItemSyncInfo>({
-      [itemSyncInfo1.id]: itemSyncInfo1,
-      [itemSyncInfo2.id]: itemSyncInfo2,
-    });
-
-    const action = saveItemChangesRequest(itemSyncInfo2.id, '.');
-    const result = itemsSyncInfo(initialState, action);
-
-    expect(result)
-      .toEqual(expectedState);
   });
 
   it('will change item sync info to Pending', () => {
@@ -291,11 +255,7 @@ describe('itemsSyncInfo', () => {
       [itemSyncInfo2.id]: itemSyncInfo2Modified,
     });
 
-    const itemSyncRequest: IItemSyncRequest = {
-      id: itemSyncInfo2.id,
-      operation: SyncOperation.Modify,
-    };
-    const action = saveItemChangesRequest(itemSyncInfo2.id, '.', itemSyncRequest);
+    const action = saveItemChangesRequest(itemSyncInfo2.id, '.');
     const result = itemsSyncInfo(initialState, action);
 
     expect(result)

@@ -5,7 +5,6 @@ import { items } from '../../../../src/reducers/list/items/items';
 import * as actions from '../../../../src/actions/actionCreators';
 import { Guid } from '../../../../src/models/Guid';
 import { IListItem } from '../../../../src/models/interfaces/IListItem';
-import { mockSyncRequest } from '../../utils/utils';
 import { IAddedItemConfirmed } from '../../../../src/models/interfaces/IAddedItemConfirmed';
 
 describe('items', () => {
@@ -29,7 +28,7 @@ describe('items', () => {
       isBeingEdited: false,
       uri: '',
     };
-    const addNewItemAction = actions.addNewItemRequest(newItem, mockSyncRequest);
+    const addNewItemAction = actions.addNewItemRequest(newItem);
     const result = items(initialState, addNewItemAction);
 
     expect(result)
@@ -53,7 +52,7 @@ describe('items', () => {
       isBeingEdited: false,
       uri: '',
     };
-    const addNewItemAction = actions.addNewItemRequest(newItem, mockSyncRequest);
+    const addNewItemAction = actions.addNewItemRequest(newItem);
     const result = items(undefined, addNewItemAction);
 
     expect(result)
@@ -110,7 +109,7 @@ describe('items', () => {
       }),
     });
 
-    const changeItemTextAction = actions.saveItemChangesRequest(expectedId, expectedNewText, mockSyncRequest);
+    const changeItemTextAction = actions.saveItemChangesRequest(expectedId, expectedNewText);
     const result = items(initialState, changeItemTextAction);
 
     expect(result)
@@ -292,7 +291,7 @@ describe('items', () => {
       [listItemClosed.id]: listItemClosed,
     });
 
-    const closeItemAction = actions.deleteItemRequest(id, mockSyncRequest);
+    const closeItemAction = actions.deleteItemRequest(id);
     const result = items(initialState, closeItemAction);
 
     expect(result)
@@ -321,7 +320,7 @@ describe('items', () => {
       [listItemSame.id]: listItemSame,
     });
 
-    const closeItemAction = actions.deleteItemRequest(id, mockSyncRequest);
+    const closeItemAction = actions.deleteItemRequest(id);
     const result = items(initialState, closeItemAction);
 
     expect(result)

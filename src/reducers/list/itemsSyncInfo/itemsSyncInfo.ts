@@ -53,6 +53,12 @@ const syncAllItems = ({ payload: { items } }: IAction): ItemsSyncInfoState =>
     operation: SyncOperation.Default,
   })));
 
+const syncFailed = (state: ItemsSyncInfoState, { payload: { id } }: IAction): ItemsSyncInfoState =>
+  state.update(id, itemSyncInfo =>
+    itemSyncInfo.with({
+      syncState: SyncState.Unsynced,
+    }));
+
 const initialState: ItemsSyncInfoState = OrderedMap<Guid, ItemSyncInfo>();
 
 export const itemsSyncInfo = (state = initialState, action: IAction): ItemsSyncInfoState => {
@@ -60,9 +66,10 @@ export const itemsSyncInfo = (state = initialState, action: IAction): ItemsSyncI
     case ADD_NEW_ITEM_REQUEST:
     case DELETE_ITEM_REQUEST:
     case SAVE_ITEM_CHANGES_REQUEST:
-    case ITEM_SYNC_FAILED:
     case SAVE_ITEM_CHANGES_CONFIRM:
       return setSyncState(state, action);
+    case ITEM_SYNC_FAILED:
+      return syncFailed(state, action);
     case ADD_NEW_ITEM_CONFIRM:
       return addedItemConfirmed(state, action);
     case DELETE_ITEM_CONFIRM:
