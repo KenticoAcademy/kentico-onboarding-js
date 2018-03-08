@@ -8,6 +8,7 @@ import {
   ITEM_EDITING,
   ITEM_SAVE,
   ITEM_VALUE_CHANGED,
+  ITEM_EDITING_STOP,
 } from '../utils/constants';
 import { getIdentifier } from '../utils/uuidService';
 
@@ -17,20 +18,32 @@ export const items = (state = OrderedMap(), action) => {
       return addItem(state, action.itemValue);
 
     case ITEM_SAVE:
-      return saveItem(state, action.item.todo.key, action.newItemValue);
+      return saveItem(state, action.itemKey, action.updatedValue);
 
     case ITEM_DELETE:
-      return state.delete(action.item.todo.key);
+      return state.delete(action.itemKey);
 
     case ITEM_EDITING:
       return state.mergeIn([action.item.todo.key, 'isBeingEdited'], !action.item.isBeingEdited);
 
+    case ITEM_EDITING_STOP:
+      return stopEditing(state, action.itemKey);
+
     case ITEM_VALUE_CHANGED:
-      return state.mergeIn([action.item.todo.key, 'changedValue'], action.changedItemValue);
+      return state.mergeIn([action.itemKey, 'changedValue'], action.changedItemValue);
 
     default:
       return state;
   }
+};
+
+const stopEditing = (state, key) => {
+  const todo = state.get(key).todo;
+
+  return state.mergeIn([key], {
+    'isBeingEdited': false,
+    'changedValue': todo.value,
+  });
 };
 
 const addItem = (state, value) => {

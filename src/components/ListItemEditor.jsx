@@ -4,21 +4,21 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { isInputValid } from '../utils/validationService';
-import { ListItem } from '../models/listItem';
 
 export class ListItemEditor extends React.PureComponent {
   static displayName = 'ListItemEditor';
 
   static propTypes = {
-    item: PropTypes.instanceOf(ListItem).isRequired,
+    itemKey: PropTypes.string.isRequired,
+    itemValue: PropTypes.string.isRequired,
     bullet: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.number,
     ]).isRequired,
-    onCancel: PropTypes.func.isRequired,
+
     onSave: PropTypes.func.isRequired,
     onDelete: PropTypes.func.isRequired,
-    onItemValueChange: PropTypes.func.isRequired,
+    onCancel: PropTypes.func.isRequired,
   };
 
   _handleInputChange = (event) => this.props.onItemValueChange(event.target.value);

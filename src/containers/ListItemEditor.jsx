@@ -5,20 +5,19 @@ import {
   changeItemValue,
   deleteItem,
   saveItem,
-  toggleItemEditing,
+  stopItemEditing,
 } from '../actions';
 
-const mapStateToProps = (state, ownProps) => ({
-  item: ownProps.item,
-  bullet: ownProps.bullet,
-  itemValue: ownProps.item.changedValue,
+const mapStateToProps = (state, { itemValue, bullet }) => ({
+  itemValue,
+  bullet,
 });
 
-const mapDispatchToProps = (dispatch, { item }) => ({
-  onCancel: () => dispatch(toggleItemEditing(item)),
-  onDelete: () => dispatch(deleteItem(item)),
-  onSave: (itemValue) => dispatch(saveItem(item, itemValue)),
-  onItemValueChange: (itemValue) => dispatch(changeItemValue(item, itemValue)),
+const mapDispatchToProps = (dispatch, { itemKey }) => ({
+  onCancel: () => dispatch(stopItemEditing(itemKey)),
+  onDelete: () => dispatch(deleteItem(itemKey)),
+  onSave: (itemValue) => dispatch(saveItem(itemKey, itemValue)),
+  onItemValueChange: (itemValue) => dispatch(changeItemValue(itemKey, itemValue)),
 });
 
 export const ListItemEditor = connect(mapStateToProps, mapDispatchToProps)(ListItemEditorComponent);

@@ -4,6 +4,7 @@ import {
   ITEM_DELETE,
   ITEM_EDITING,
   ITEM_VALUE_CHANGED,
+  ITEM_EDITING_STOP,
 } from '../utils/constants';
 
 export const addItem = (itemValue) => ({
@@ -11,15 +12,15 @@ export const addItem = (itemValue) => ({
   itemValue,
 });
 
-export const saveItem = (item, newItemValue) => ({
+export const saveItem = (itemKey, updatedValue) => ({
   type: ITEM_SAVE,
-  item,
-  newItemValue,
+  itemKey,
+  updatedValue,
 });
 
-export const deleteItem = (item) => ({
+export const deleteItem = (itemKey) => ({
   type: ITEM_DELETE,
-  item,
+  itemKey,
 });
 
 export const toggleItemEditing = (item) => ({
@@ -27,8 +28,13 @@ export const toggleItemEditing = (item) => ({
   item,
 });
 
-export const changeItemValue = (item, changedItemValue) => ({
+export const stopItemEditing = (itemKey) => ({
+  type: ITEM_EDITING_STOP,
+  itemKey,
+});
+
+export const changeItemValue = (itemKey, changedItemValue) => ({
   type: ITEM_VALUE_CHANGED,
-  item,
+  itemKey,
   changedItemValue,
 });

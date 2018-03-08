@@ -10,11 +10,12 @@ export class List extends React.PureComponent {
   render() {
     const props2 = this.props;
 
-    const list = props2.items.valueSeq()
+    const list = props2.items.entrySeq()
       .map((item, index) => (
-        <div className="list-group-item" key={item.todo.key}>
+        <div className="list-group-item" key={item[0]}>
           <ListItem
-            item={item}
+            item={item[1]}
+            itemKey={item[0]}
             bullet={index + 1}
           />
         </div>
