@@ -7,10 +7,6 @@ import { ListItem } from '../containers/ListItem';
 export class List extends React.PureComponent {
   static displayName = 'List';
 
-  _saveItem = (item, updatedValue) => this.setState(prevState => ({ items: prevState.items.mergeIn([item.key, 'value'], updatedValue) }));
-
-  _deleteItem = (item) => this.setState(prevState => ({ items: prevState.items.delete(item.key) }));
-
   render() {
     const props2 = this.props;
 
@@ -20,8 +16,6 @@ export class List extends React.PureComponent {
           <ListItem
             item={item}
             bullet={index + 1}
-            onSave={this._saveItem}
-            onDelete={this._deleteItem}
           />
         </div>
       ));

@@ -5,6 +5,7 @@ import {
   ITEM_ADD,
   ITEM_DELETE,
   ITEM_EDITING,
+  ITEM_SAVE,
 } from '../utils/constants';
 
 export const items = (state = OrderedMap(), action) => {
@@ -15,6 +16,12 @@ export const items = (state = OrderedMap(), action) => {
         value: action.item.value,
         isBeingEdited: false,
       }));
+
+    case ITEM_SAVE:
+      return state.mergeIn([action.item.key], {
+        'value': action.newItemValue,
+        'isBeingEdited': !action.item.isBeingEdited,
+      });
 
     case ITEM_DELETE:
       return state.delete(action.item.key);

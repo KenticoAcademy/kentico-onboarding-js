@@ -1,5 +1,6 @@
 import {
   ITEM_ADD,
+  ITEM_SAVE,
   ITEM_DELETE,
   ITEM_EDITING,
 } from '../utils/constants';
@@ -10,6 +11,12 @@ export const addItem = (newItemKey, newItemValue) => ({
     key: newItemKey,
     value: newItemValue,
   },
+});
+
+export const saveItem = (item, newItemValue) => ({
+  type: ITEM_SAVE,
+  item,
+  newItemValue,
 });
 
 export const deleteItem = (item) => ({

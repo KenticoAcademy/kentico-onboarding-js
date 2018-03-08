@@ -16,12 +16,6 @@ export class ListItem extends React.PureComponent {
       PropTypes.string,
       PropTypes.number,
     ]).isRequired,
-    onSave: PropTypes.func.isRequired,
-  };
-
-  _updateItem = (updatedItemValue) => {
-    const { item, onSave } = this.props;
-    onSave(item, updatedItemValue);
   };
 
   render() {
@@ -39,7 +33,6 @@ export class ListItem extends React.PureComponent {
         <ListItemEditor
           item={item}
           bullet={bullet}
-          onUpdate={this._updateItem}
         />
       );
     }

@@ -11,38 +11,26 @@ export class ListItemEditor extends React.PureComponent {
 
   static propTypes = {
     item: PropTypes.instanceOf(ToDoItem).isRequired,
-    bullet: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number,
-    ]).isRequired,
     onCancel: PropTypes.func.isRequired,
-    onUpdate: PropTypes.func.isRequired,
+    onSave: PropTypes.func.isRequired,
     onDelete: PropTypes.func.isRequired,
   };
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      itemValue: props.item.value,
-    };
-  }
 
   _handleInputChange = (event) => this.setState({ itemValue: event.target.value });
 
   _handleInputKeyUp = (event) => {
     if (event.key === 'Enter' && isInputValid(this.state.itemValue)) {
-      this._updateItem();
+      this._saveItem();
     }
     else if (event.key === 'Escape') {
       this.props.onCancel();
     }
   };
 
-  _updateItem = () => this.props.onUpdate(this.state.itemValue);
+  _saveItem = () => this.props.onSave(this.props.itemValue);
 
   render() {
-    const { onCancel, onDelete, bullet } = this.props;
-    const { itemValue } = this.state;
+    const { onCancel, onDelete, bullet, itemValue } = this.props;
 
     return (
       <div className="input-group">
@@ -61,7 +49,7 @@ export class ListItemEditor extends React.PureComponent {
           <button
             type="button"
             className="btn btn-primary"
-            onClick={this._updateItem}
+            onClick={this._saveItem}
             disabled={!isInputValid(itemValue)}
           > Save
           </button>
