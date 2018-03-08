@@ -68,15 +68,12 @@ export class CompleteListItemForm extends React.PureComponent<ICompleteListItemF
     const { text } = this.state;
 
     if (!isTextEmpty(text)) {
-      this._onSaveWithNewText(text);
+      this._onSave();
     }
   };
 
-  _onSave = (): void =>
-    this._onSaveWithNewText(this.state.text);
-
-  _onSaveWithNewText = (newText: string): void => {
-    if (this._textChanged(newText)) {
+  _onSave = (): void => {
+    if (this._textChanged(this.state.text)) {
       this._submitNewItemText();
     } else {
       this.props.onCancel();
