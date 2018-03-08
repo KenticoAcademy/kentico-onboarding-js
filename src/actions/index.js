@@ -6,12 +6,9 @@ import {
   ITEM_VALUE_CHANGED,
 } from '../utils/constants';
 
-export const addItem = (newItemKey, newItemValue) => ({
+export const addItem = (itemValue) => ({
   type: ITEM_ADD,
-  item: {
-    key: newItemKey,
-    value: newItemValue,
-  },
+  itemValue,
 });
 
 export const saveItem = (item, newItemValue) => ({

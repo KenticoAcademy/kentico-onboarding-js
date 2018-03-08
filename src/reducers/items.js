@@ -9,11 +9,12 @@ import {
   ITEM_SAVE,
   ITEM_VALUE_CHANGED,
 } from '../utils/constants';
+import { getIdentifier } from '../utils/uuidService';
 
 export const items = (state = OrderedMap(), action) => {
   switch (action.type) {
     case ITEM_ADD:
-      return addItem(state, action.item.key, action.item.value);
+      return addItem(state, action.itemValue);
 
     case ITEM_SAVE:
       return saveItem(state, action.item.todo.key, action.newItemValue);
@@ -32,7 +33,8 @@ export const items = (state = OrderedMap(), action) => {
   }
 };
 
-const addItem = (state, key, value) => {
+const addItem = (state, value) => {
+  const key = getIdentifier();
   const todo = new ToDoItem({
     key,
     value,
