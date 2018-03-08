@@ -11,10 +11,7 @@ export const addItem = (newItemKey, newItemValue) => ({
   },
 });
 
-export const toggleItemEditing = (newItemKey, newItemValue) => ({
+export const toggleItemEditing = (item) => ({
   type: ITEM_EDITING,
-  item: {
-    key: newItemKey,
-    value: newItemValue,
-  },
+  item,
 });

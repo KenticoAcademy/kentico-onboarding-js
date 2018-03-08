@@ -2,18 +2,19 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { ToDoItem } from '../models/toDoItem';
 
-export const ListItemDisplay = ({ itemValue, bullet, onItemEdit }) => (
+export const ListItemDisplay = ({ item, bullet, onItemEdit }) => (
   <div onClick={onItemEdit}>
     {bullet}.&nbsp;
-    {itemValue}
+    {item.value}
   </div>
 );
 
 ListItemDisplay.displayName = 'ListItemDisplay';
 
 ListItemDisplay.propTypes = {
-  itemValue: PropTypes.string.isRequired,
+  item: PropTypes.instanceOf(ToDoItem).isRequired,
   bullet: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,

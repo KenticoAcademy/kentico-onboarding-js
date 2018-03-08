@@ -14,8 +14,10 @@ export const items = (state = OrderedMap(), action) => {
         value: action.item.value,
         isBeingEdited: false,
       }));
+
     case ITEM_EDITING:
-      return state.mergeIn([action.item.key, 'isBeingEdited'], !action.item.isBeingEdited),
+      return state.mergeIn([action.item.key, 'isBeingEdited'], !action.item.isBeingEdited);
+
     default:
       return state;
   }

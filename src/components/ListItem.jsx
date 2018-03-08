@@ -3,8 +3,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { ListItemEditor } from './ListItemEditor';
-import { ListItemDisplay } from './ListItemDisplay';
+import { ListItemEditor } from '../containers/ListItemEditor';
+import { ListItemDisplay } from '../containers/ListItemDisplay';
 import { ToDoItem } from '../models/toDoItem';
 
 export class ListItem extends React.PureComponent {
@@ -19,16 +19,6 @@ export class ListItem extends React.PureComponent {
     onDelete: PropTypes.func.isRequired,
     onSave: PropTypes.func.isRequired,
   };
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      isEditing: false,
-    };
-  }
-
-  _toggleEditMode = () => this.setState(prevState => ({ isEditing: !prevState.isEditing }));
-
   _deleteItem = () => {
     const { onDelete, item } = this.props;
     onDelete(item);
@@ -37,26 +27,23 @@ export class ListItem extends React.PureComponent {
   _updateItem = (updatedItemValue) => {
     const { item, onSave } = this.props;
     onSave(item, updatedItemValue);
-    this._toggleEditMode();
   };
 
   render() {
-    const { item: { value }, bullet } = this.props;
+    const { item, bullet } = this.props;
 
     let listItem = (
       <ListItemDisplay
-        itemValue={value}
+        item={item}
         bullet={bullet}
-        onEdit={this._toggleEditMode}
       />
     );
 
-    if (this.state.isEditing) {
+    if (item.isBeingEdited) {
       listItem = (
         <ListItemEditor
-          itemValue={value}
+          item={item}
           bullet={bullet}
-          onCancel={this._toggleEditMode}
           onDelete={this._deleteItem}
           onUpdate={this._updateItem}
         />
