@@ -2,11 +2,13 @@ import { connect } from 'react-redux';
 
 import { ListItemEditor as ListItemEditorComponent } from '../components/ListItemEditor';
 import {
-  changeItemValue,
   deleteItem,
   saveItem,
+} from '../actions/listActions';
+import {
   stopItemEditing,
-} from '../actions';
+  changeItemValue,
+} from '../actions/itemActions';
 
 const mapStateToProps = (state, { itemValue, bullet }) => ({
   itemValue,

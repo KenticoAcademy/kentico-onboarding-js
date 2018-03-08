@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
 import { ListItemDisplay as ListItemDisplayComponent } from '../components/ListItemDisplay';
-import { startItemEditing } from '../actions';
+import { startItemEditing } from '../actions/itemActions';
 
 const mapStateToProps = (state, { bullet, itemValue }) => ({
   itemValue,
