@@ -33,8 +33,8 @@ export const stopItemEditing = (itemKey) => ({
   itemKey,
 });
 
-export const changeItemValue = (itemKey, changedItemValue) => ({
+export const changeItemValue = (itemKey, updatedValue) => ({
   type: ITEM_VALUE_CHANGED,
   itemKey,
-  changedItemValue,
+  updatedValue,
 });

@@ -13,6 +13,7 @@ export class ListItem extends React.PureComponent {
   static propTypes = {
     item: PropTypes.instanceOf(ListItemModel).isRequired,
     itemKey: PropTypes.string.isRequired,
+    itemValue: PropTypes.string.isRequired,
     bullet: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.number,
@@ -20,7 +21,7 @@ export class ListItem extends React.PureComponent {
   };
 
   render() {
-    const { item, itemValue, itemKey, bullet } = this.props;
+    const { isBeingEdited, itemValue, itemKey, bullet } = this.props;
 
     let listItem = (
       <ListItemDisplay
@@ -30,7 +31,7 @@ export class ListItem extends React.PureComponent {
       />
     );
 
-    if (item.isBeingEdited) {
+    if (isBeingEdited) {
       listItem = (
         <ListItemEditor
           itemValue={itemValue}

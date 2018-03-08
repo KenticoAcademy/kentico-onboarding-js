@@ -8,9 +8,7 @@ export class List extends React.PureComponent {
   static displayName = 'List';
 
   render() {
-    const props2 = this.props;
-
-    const list = props2.items.entrySeq()
+    const list = this.props.items.entrySeq()
       .map((item, index) => (
         <div className="list-group-item" key={item[0]}>
           <ListItem

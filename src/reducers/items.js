@@ -24,13 +24,13 @@ export const items = (state = OrderedMap(), action) => {
       return state.delete(action.itemKey);
 
     case ITEM_EDITING_START:
-      return state.mergeIn([action.itemKey, 'isBeingEdited'], true);
+      return state.mergeIn([action.itemKey], { isBeingEdited: true });
 
     case ITEM_EDITING_STOP:
       return stopEditing(state, action.itemKey);
 
     case ITEM_VALUE_CHANGED:
-      return state.mergeIn([action.itemKey, 'changedValue'], action.changedItemValue);
+      return state.mergeIn([action.itemKey], { changeableValue: action.updatedValue });
 
     default:
       return state;
@@ -41,8 +41,8 @@ const stopEditing = (state, key) => {
   const todo = state.get(key).todo;
 
   return state.mergeIn([key], {
-    'isBeingEdited': false,
-    'changedValue': todo.value,
+    isBeingEdited: false,
+    changeableValue: todo.value,
   });
 };
 
@@ -55,7 +55,7 @@ const addItem = (state, value) => {
 
   return state.set(key, new ListItem({
     todo,
-    changedValue: value,
+    changeableValue: value,
     isBeingEdited: false,
   }));
 };
@@ -64,8 +64,8 @@ const saveItem = (state, key, updatedValue) => {
   const toDo = state.get(key).todo;
 
   return state.mergeIn([key], {
-    'todo': toDo.merge({ 'value': updatedValue }),
-    'changedValue': updatedValue,
-    'isBeingEdited': false,
+    todo: toDo.merge({ value: updatedValue }),
+    changeableValue: updatedValue,
+    isBeingEdited: false,
   });
 };

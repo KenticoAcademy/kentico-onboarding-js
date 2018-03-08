@@ -19,6 +19,7 @@ export class ListItemEditor extends React.PureComponent {
     onSave: PropTypes.func.isRequired,
     onDelete: PropTypes.func.isRequired,
     onCancel: PropTypes.func.isRequired,
+    onItemValueChange: PropTypes.func.isRequired,
   };
 
   _handleInputChange = (event) => this.props.onItemValueChange(event.target.value);
