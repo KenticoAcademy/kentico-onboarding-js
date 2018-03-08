@@ -33,15 +33,16 @@ const setSyncState = (state: ItemsSyncInfoState, { payload: { itemSyncInfo } }: 
       })) :
     state;
 
-const addedItemConfirmed = (state: ItemsSyncInfoState, { payload: { id, newId } }: IAction): ItemsSyncInfoState =>
+const addedItemConfirmed = (state: ItemsSyncInfoState, { payload: { oldId, updatedItem: { id: newId } } }: IAction): ItemsSyncInfoState =>
   state
     .set(
       newId,
-      state.get(id).with({
+      new ItemSyncInfo({
         id: newId,
         syncState: SyncState.Synced,
+        operation: SyncOperation.Add,
       }))
-    .delete(id);
+    .delete(oldId);
 
 const itemDeleted = (state: ItemsSyncInfoState, { payload: { id } }: IAction): ItemsSyncInfoState =>
   state.delete(id);

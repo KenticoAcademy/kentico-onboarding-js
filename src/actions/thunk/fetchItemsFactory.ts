@@ -6,7 +6,7 @@ import { IHttpClient } from '../../models/interfaces/IHttpClient';
 interface IFetchItemsFactoryDependencies {
   readonly uri: string;
   readonly httpClient: IHttpClient;
-  readonly requestItems: (uri: string) => IAction;
+  readonly requestItems: () => IAction;
   readonly receiveItems: (items: IListItem[]) => IAction;
   readonly fetchFailed: () => IAction;
 }
@@ -15,7 +15,7 @@ interface IFetchItemsFactoryDependencies {
 export const fetchItemsFactory = ({ uri, ...dependencies }: IFetchItemsFactoryDependencies) =>
   () =>
     (dispatch: Dispatch<IAction>) => {
-      dispatch(dependencies.requestItems(uri));
+      dispatch(dependencies.requestItems());
 
       return dependencies.httpClient.get<IListItem[]>(uri)
         .then(items => dispatch(dependencies.receiveItems(items)))

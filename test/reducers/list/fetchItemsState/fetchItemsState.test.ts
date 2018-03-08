@@ -14,7 +14,7 @@ describe('fetchItemsState', () => {
 
     const expectedState = FetchItemsState.REQUESTED;
 
-    const action = requestItems('');
+    const action = requestItems();
     const result = fetchItemsState(initialState, action);
 
     expect(result)
@@ -53,7 +53,7 @@ describe('fetchItemsState', () => {
 
     const expectedState = FetchItemsState.REQUESTED;
 
-    const action = requestItems('');
+    const action = requestItems();
     const result = fetchItemsState(initialState, action);
 
     expect(result)

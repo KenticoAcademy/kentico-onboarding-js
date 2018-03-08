@@ -110,8 +110,12 @@ describe('itemsSyncInfo', () => {
     });
 
     const actionParams: IAddedItemConfirmed = {
-      newId,
-      id: oldId,
+      oldId,
+      updatedItem: {
+        id: newId,
+        isBeingEdited: false,
+        text: '',
+      },
     };
     const action = addNewItemConfirm(actionParams);
     const result = itemsSyncInfo(initialState, action);

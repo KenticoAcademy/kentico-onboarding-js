@@ -1,6 +1,7 @@
 import { Guid } from '../Guid';
+import { IListItem } from './IListItem';
 
 export interface IAddedItemConfirmed {
-  id: Guid;
-  newId: Guid;
+  oldId: Guid;
+  updatedItem: IListItem;
 }

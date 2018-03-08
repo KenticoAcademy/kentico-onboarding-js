@@ -259,8 +259,12 @@ describe('items', () => {
     });
 
     const actionParams: IAddedItemConfirmed = {
-      id: oldId,
-      newId,
+      oldId,
+      updatedItem: {
+        id: newId,
+        text: listItem1Old.text,
+        isBeingEdited: false,
+      },
     };
     const confirmAddedItemAction = actions.addNewItemConfirm(actionParams);
     const result = items(initialState, confirmAddedItemAction);

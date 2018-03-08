@@ -20,11 +20,11 @@ export const addNewItemRequest = ({ id, text }: INewItem): IAction => ({
   },
 });
 
-export const addNewItemConfirm = ({ id, newId }: IAddedItemConfirmed) => ({
+export const addNewItemConfirm = ({ oldId, updatedItem }: IAddedItemConfirmed) => ({
   type: ActionTypes.ADD_NEW_ITEM_CONFIRM,
   payload: {
-    id,
-    newId,
+    oldId,
+    updatedItem,
   },
 });
 
@@ -85,11 +85,9 @@ export const changeItemOpenState = (id: Guid): IAction => ({
   }
 });
 
-export const requestItems = (uri: string): IAction => ({
+export const requestItems = (): IAction => ({
   type: ActionTypes.REQUEST_ITEMS,
-  payload: {
-    uri,
-  }
+  payload: undefined,
 });
 
 export const receiveItems = (items: IListItem[]): IAction => ({

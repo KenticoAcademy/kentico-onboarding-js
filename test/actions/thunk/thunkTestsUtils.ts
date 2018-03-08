@@ -41,7 +41,7 @@ export const assertThatDispatchWasCalledWithArgumentsInGiveOrder = (dispatchable
 
   return dispatchableAction(dispatch)
     .then(() => {
-      const callArguments: any = getFirstArgumentOfCalls(dispatch);
+      const callArguments = getFirstArgumentOfCalls(dispatch);
 
       expect(callArguments)
         .toEqual(expectedActions);

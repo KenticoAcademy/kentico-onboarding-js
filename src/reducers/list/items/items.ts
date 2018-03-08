@@ -15,14 +15,13 @@ const addNewItem = (state: ItemsState, { payload: { id, text } }: IAction): Item
   return state.set(id, newItem);
 };
 
-const confirmAddedItem = (state: ItemsState, { payload: { id, newId } }: IAction): ItemsState =>
+const confirmAddedItem = (state: ItemsState, { payload: { oldId, updatedItem } }: IAction): ItemsState =>
   state
     .set(
-      newId,
-      state.get(id).with({
-        id: newId,
-      }))
-    .delete(id);
+      updatedItem.id,
+      new ListItem(updatedItem),
+    )
+    .delete(oldId);
 
 const deleteItem = (state: ItemsState, { payload: { id } }: IAction): ItemsState =>
   state.delete(id);

@@ -36,9 +36,9 @@ export const postItemFactory = (dependencies: IPostItemFactoryDependencies) =>
         {
           text,
         })
-        .then(({ id: newId }) => dispatch(dependencies.addNewItemConfirm({
-          id,
-          newId,
+        .then(updatedItem => dispatch(dependencies.addNewItemConfirm({
+          oldId: id,
+          updatedItem,
         })))
         .catch(() => dispatch(dependencies.addNewItemFailed(id)));
     };
