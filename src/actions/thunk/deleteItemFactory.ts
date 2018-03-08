@@ -10,14 +10,14 @@ interface IDeleteItemFactoryDependencies {
   readonly httpClient: IHttpClient;
   readonly deleteItemRequest: (id: Guid, itemSyncRequest: IItemSyncRequest) => IAction;
   readonly deleteItemConfirm: (id: Guid) => IAction;
-  readonly itemSyncFailed: (itemSyncRequest: IItemSyncRequest) => IAction;
+  readonly deleteItemFailed: (itemSyncRequest: IItemSyncRequest) => IAction;
 }
 
 export interface IDeleteItemActionParams {
   readonly id: Guid;
 }
 
-export const deleteItemFactory = (deps: IDeleteItemFactoryDependencies) =>
+export const deleteItemFactory = (dependencies: IDeleteItemFactoryDependencies) =>
   ({ id }: IDeleteItemActionParams) =>
     (dispatch: Dispatch<IAction>) => {
       const itemSyncRequest: IItemSyncRequest = {
@@ -25,9 +25,9 @@ export const deleteItemFactory = (deps: IDeleteItemFactoryDependencies) =>
         operation: SyncOperation.Delete,
       };
 
-      dispatch(deps.deleteItemRequest(id, itemSyncRequest));
+      dispatch(dependencies.deleteItemRequest(id, itemSyncRequest));
 
-      return deps.httpClient.delete(deps.uri + id)
-        .then(() => dispatch(deps.deleteItemConfirm(id)))
-        .catch(() => dispatch(deps.itemSyncFailed(itemSyncRequest)));
+      return dependencies.httpClient.delete(dependencies.uri + id)
+        .then(() => dispatch(dependencies.deleteItemConfirm(id)))
+        .catch(() => dispatch(dependencies.deleteItemFailed(itemSyncRequest)));
     };

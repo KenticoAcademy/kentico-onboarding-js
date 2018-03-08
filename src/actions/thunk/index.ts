@@ -20,9 +20,9 @@ import {
   IDeleteItemActionParams,
 } from './deleteItemFactory';
 import {
-  ISaveNewTextActionParams,
-  saveNewTextFactory,
-} from './saveNewTextFactory';
+  IEditItemActionParams,
+  editItemFactory,
+} from './editItemFactory';
 import {
   IThunkAction,
   IThunkActionWithoutParams,
@@ -46,7 +46,7 @@ export const postItemAsync: IThunkAction<IPostItemActionParams> = postItemFactor
   createNewId,
   addNewItemRequest,
   addNewItemConfirm,
-  itemSyncFailed,
+  addNewItemFailed: itemSyncFailed,
 });
 
 export const deleteItemAsync: IThunkAction<IDeleteItemActionParams> = deleteItemFactory({
@@ -54,13 +54,13 @@ export const deleteItemAsync: IThunkAction<IDeleteItemActionParams> = deleteItem
   httpClient,
   deleteItemRequest,
   deleteItemConfirm,
-  itemSyncFailed,
+  deleteItemFailed: itemSyncFailed,
 });
 
-export const saveNewTextAsync: IThunkAction<ISaveNewTextActionParams> = saveNewTextFactory({
+export const editItemAsync: IThunkAction<IEditItemActionParams> = editItemFactory({
   uri,
   httpClient,
   saveItemChangesRequest,
   saveItemChangesConfirm,
-  itemSyncFailed,
+  saveItemChangesFailed: itemSyncFailed,
 });

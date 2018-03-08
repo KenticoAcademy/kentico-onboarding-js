@@ -6,7 +6,7 @@ import {
   fakeFunction,
   httpClientFailure,
   httpClientSuccessFactory,
-} from './utils/utils';
+} from './thunkTestsUtils';
 
 const actionParams = {
   text: '',
@@ -29,7 +29,7 @@ describe('postItem will call dispatch with', () => {
       addNewItemRequest,
       addNewItemConfirm,
       createNewId: fakeFunction,
-      itemSyncFailed: fakeFunction,
+      addNewItemFailed: fakeFunction,
     });
 
     const dispatchableAction = postItem(actionParams);
@@ -37,19 +37,19 @@ describe('postItem will call dispatch with', () => {
     return assertThatDispatchWasCalledWithArgumentsInGiveOrder(dispatchableAction, expectedActions);
   });
 
-  it('addNewItem and itemSyncFailed actions', () => {
+  it('addNewItem and addNewItemFailed actions', () => {
     const expectedActions = [
       'addNewItem',
-      'itemSyncFailed',
+      'addNewItemFailed',
     ];
     const httpClient = httpClientFailure;
     const addNewItemRequest = jest.fn(() => expectedActions[0]);
-    const itemSyncFailed = jest.fn(() => expectedActions[1]);
+    const addNewItemFailed = jest.fn(() => expectedActions[1]);
     const postItem = postItemFactory({
       uri,
       httpClient,
       addNewItemRequest,
-      itemSyncFailed,
+      addNewItemFailed,
       addNewItemConfirm: fakeFunction,
       createNewId: fakeFunction,
     });

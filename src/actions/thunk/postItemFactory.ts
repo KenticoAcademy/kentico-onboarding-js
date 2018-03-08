@@ -13,7 +13,7 @@ interface IPostItemFactoryDependencies {
   readonly createNewId: () => Guid;
   readonly addNewItemRequest: (item: Partial<IListItem>, itemSyncRequest: IItemSyncRequest) => IAction;
   readonly addNewItemConfirm: (addedItemConfirmation: IAddedItemConfirmed) => IAction;
-  readonly itemSyncFailed: (itemSyncRequest: IItemSyncRequest) => IAction;
+  readonly addNewItemFailed: (itemSyncRequest: IItemSyncRequest) => IAction;
 }
 
 export interface IPostItemActionParams {
@@ -21,10 +21,10 @@ export interface IPostItemActionParams {
   readonly givenId?: Guid;
 }
 
-export const postItemFactory = (deps: IPostItemFactoryDependencies) =>
+export const postItemFactory = (dependencies: IPostItemFactoryDependencies) =>
   ({ text, givenId }: IPostItemActionParams) =>
     (dispatch: Dispatch<IAction>) => {
-      const id = givenId || deps.createNewId();
+      const id = givenId || dependencies.createNewId();
       const newItem = {
         id,
         text,
@@ -35,16 +35,16 @@ export const postItemFactory = (deps: IPostItemFactoryDependencies) =>
         operation: SyncOperation.Add,
       };
 
-      dispatch(deps.addNewItemRequest(newItem, itemSyncRequest));
+      dispatch(dependencies.addNewItemRequest(newItem, itemSyncRequest));
 
-      return deps.httpClient.post<IListItem>(
-        deps.uri,
+      return dependencies.httpClient.post<IListItem>(
+        dependencies.uri,
         {
           text,
         })
-        .then(({ id: newId }) => dispatch(deps.addNewItemConfirm({
+        .then(({ id: newId }) => dispatch(dependencies.addNewItemConfirm({
           id,
           newId,
         })))
-        .catch(() => dispatch(deps.itemSyncFailed(itemSyncRequest)));
+        .catch(() => dispatch(dependencies.addNewItemFailed(itemSyncRequest)));
     };

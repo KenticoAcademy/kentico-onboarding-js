@@ -39,12 +39,12 @@ describe('itemsSyncInfo', () => {
     const expectedState = OrderedMap<Guid, ItemSyncInfo>({
       [item1.id]: new ItemSyncInfo({
         id: item1.id,
-        operation: SyncOperation.Fetch,
+        operation: SyncOperation.Default,
         syncState: SyncState.Synced,
       }),
       [item2.id]: new ItemSyncInfo({
         id: item2.id,
-        operation: SyncOperation.Fetch,
+        operation: SyncOperation.Default,
         syncState: SyncState.Synced,
       }),
     });
@@ -166,7 +166,7 @@ describe('itemsSyncInfo', () => {
     const id = 'id';
     const itemSyncInfo = new ItemSyncInfo({
       id,
-      operation: SyncOperation.Fetch,
+      operation: SyncOperation.Default,
       syncState: SyncState.Pending,
     });
     const itemSyncInfoFailed = new ItemSyncInfo({

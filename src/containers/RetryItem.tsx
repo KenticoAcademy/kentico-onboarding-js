@@ -15,7 +15,7 @@ import { SyncOperation } from '../models/enums/SyncOperation';
 import {
   deleteItemAsync,
   postItemAsync,
-  saveNewTextAsync
+  editItemAsync
 } from '../actions/thunk';
 import { IAppState } from '../models/state/IAppState';
 
@@ -40,7 +40,7 @@ const getRetryAction = ({ id, text }: IListItem, itemSyncInfo: IItemSyncInfo) =>
       });
 
     case SyncOperation.Modify:
-      return saveNewTextAsync({
+      return editItemAsync({
         id,
         text,
       });

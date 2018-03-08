@@ -5,7 +5,7 @@ import {
   fakeFunction,
   httpClientSuccessFactory,
   httpClientFailure,
-} from './utils/utils';
+} from './thunkTestsUtils';
 
 const uri = '';
 

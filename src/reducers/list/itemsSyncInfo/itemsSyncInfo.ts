@@ -50,7 +50,7 @@ const syncAllItems = ({ payload: { items } }: IAction): ItemsSyncInfoState =>
   itemSyncInfoArrayToOrderedMap(items.map(({ id }: IListItem): IItemSyncInfo => ({
     id,
     syncState: SyncState.Synced,
-    operation: SyncOperation.Fetch,
+    operation: SyncOperation.Default,
   })));
 
 const initialState: ItemsSyncInfoState = OrderedMap<Guid, ItemSyncInfo>();

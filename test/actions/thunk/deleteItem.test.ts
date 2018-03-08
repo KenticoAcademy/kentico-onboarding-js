@@ -4,7 +4,7 @@ import {
   fakeFunction,
   httpClientFailure,
   httpClientSuccessFactory,
-} from './utils/utils';
+} from './thunkTestsUtils';
 
 const actionParams = {
   id: '',
@@ -25,7 +25,7 @@ describe('deleteItem will call dispatch with', () => {
       httpClient,
       deleteItemRequest,
       deleteItemConfirm,
-      itemSyncFailed: fakeFunction,
+      deleteItemFailed: fakeFunction,
     });
 
     const dispatchableAction = deleteItem(actionParams);
@@ -33,18 +33,18 @@ describe('deleteItem will call dispatch with', () => {
     return assertThatDispatchWasCalledWithArgumentsInGiveOrder(dispatchableAction, expectedActions);
   });
 
-  it('deleteItemRequest and itemSyncFailed actions', () => {
+  it('deleteItemRequest and deleteItemFailed actions', () => {
     const expectedActions = [
       'deleteItemRequest',
-      'itemSyncFailed',
+      'deleteItemFailed',
     ];
     const httpClient = httpClientFailure;
     const deleteItemRequest = jest.fn(() => expectedActions[0]);
-    const itemSyncFailed = jest.fn(() => expectedActions[1]);
+    const deleteItemFailed = jest.fn(() => expectedActions[1]);
     const deleteItem = deleteItemFactory({
       uri,
       httpClient,
-      itemSyncFailed,
+      deleteItemFailed,
       deleteItemRequest,
       deleteItemConfirm: fakeFunction,
     });

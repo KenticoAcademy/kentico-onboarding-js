@@ -12,12 +12,12 @@ interface IFetchItemsFactoryDependencies {
 }
 
 
-export const fetchItemsFactory = ({ uri, ...deps }: IFetchItemsFactoryDependencies) =>
+export const fetchItemsFactory = ({ uri, ...dependencies }: IFetchItemsFactoryDependencies) =>
   () =>
     (dispatch: Dispatch<IAction>) => {
-      dispatch(deps.requestItems(uri));
+      dispatch(dependencies.requestItems(uri));
 
-      return deps.httpClient.get<IListItem[]>(uri)
-        .then(items => dispatch(deps.receiveItems(items)))
-        .catch(() => dispatch(deps.fetchFailed()));
+      return dependencies.httpClient.get<IListItem[]>(uri)
+        .then(items => dispatch(dependencies.receiveItems(items)))
+        .catch(() => dispatch(dependencies.fetchFailed()));
     };

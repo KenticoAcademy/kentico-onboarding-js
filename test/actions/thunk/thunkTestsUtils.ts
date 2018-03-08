@@ -1,5 +1,5 @@
 import Mock = jest.Mock;
-import { IHttpClient } from '../../../../src/models/interfaces/IHttpClient';
+import { IHttpClient } from '../../../src/models/interfaces/IHttpClient';
 
 export const httpClientSuccessFactory = <T>(body: T | {} = {}): IHttpClient => {
   const resolver = () => Promise.resolve<any>(body);

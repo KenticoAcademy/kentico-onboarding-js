@@ -7,7 +7,7 @@ import {
 import { Dispatch } from 'redux';
 import {
   deleteItemAsync,
-  saveNewTextAsync,
+  editItemAsync,
 } from '../actions/thunk';
 import { IAppState } from '../models/state/IAppState';
 import { changeItemOpenState } from '../actions';
@@ -19,7 +19,7 @@ import {
 const mapDispatchToProps = (dispatch: Dispatch<IAppState>, { item: { id } }: IListItemFormOwnProps): ICompleteListItemFormCallbackProps => ({
   onSave: (text: string) =>
     dispatch(
-      saveNewTextAsync({
+      editItemAsync({
         text,
         id,
       })),

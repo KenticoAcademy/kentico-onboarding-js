@@ -1,5 +1,5 @@
 export enum SyncOperation {
-  Fetch = 'Fetch',
+  Default = 'Default',
   Add = 'Add',
   Delete = 'Delete',
   Modify = 'Modify',

@@ -1,10 +1,10 @@
-import { saveNewTextFactory } from '../../../src/actions/thunk/saveNewTextFactory';
+import { editItemFactory } from '../../../src/actions/thunk/editItemFactory';
 import {
   assertThatDispatchWasCalledWithArgumentsInGiveOrder,
   fakeFunction,
   httpClientFailure,
   httpClientSuccessFactory,
-} from './utils/utils';
+} from './thunkTestsUtils';
 import { defaultUuid } from '../../../src/constants/defaultUuid';
 
 const actionParams = {
@@ -13,7 +13,7 @@ const actionParams = {
 };
 const uri = '';
 
-describe('saveNewText will call dispatch with', () => {
+describe('editItemAsync will call dispatch with', () => {
   it('saveItemChangesRequest and saveItemChangesConfirm actions', () => {
     const expectedActions = [
       'saveItemChangesRequest',
@@ -22,12 +22,12 @@ describe('saveNewText will call dispatch with', () => {
     const httpClient = httpClientSuccessFactory();
     const saveItemChangesRequest = jest.fn(() => expectedActions[0]);
     const saveItemChangesConfirm = jest.fn(() => expectedActions[1]);
-    const saveNewText = saveNewTextFactory({
+    const saveNewText = editItemFactory({
       uri,
       httpClient,
       saveItemChangesRequest,
       saveItemChangesConfirm,
-      itemSyncFailed: fakeFunction,
+      saveItemChangesFailed: fakeFunction,
     });
 
     const dispatchableAction = saveNewText(actionParams);
@@ -35,19 +35,19 @@ describe('saveNewText will call dispatch with', () => {
     return assertThatDispatchWasCalledWithArgumentsInGiveOrder(dispatchableAction, expectedActions);
   });
 
-  it('saveItemChangesRequest and itemSyncFailed actions', () => {
+  it('saveItemChangesRequest and saveItemChangesFailed actions', () => {
     const expectedActions = [
       'saveItemChangesRequest',
-      'itemSyncFailed',
+      'saveItemChangesFailed',
     ];
     const httpClient = httpClientFailure;
     const saveItemChangesRequest = jest.fn(() => expectedActions[0]);
-    const itemSyncFailed = jest.fn(() => expectedActions[1]);
-    const saveNewText = saveNewTextFactory({
+    const saveItemChangesFailed = jest.fn(() => expectedActions[1]);
+    const saveNewText = editItemFactory({
       uri,
       httpClient,
       saveItemChangesRequest,
-      itemSyncFailed,
+      saveItemChangesFailed,
       saveItemChangesConfirm: fakeFunction,
     });
 
