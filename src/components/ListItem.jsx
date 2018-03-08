@@ -16,12 +16,7 @@ export class ListItem extends React.PureComponent {
       PropTypes.string,
       PropTypes.number,
     ]).isRequired,
-    onDelete: PropTypes.func.isRequired,
     onSave: PropTypes.func.isRequired,
-  };
-  _deleteItem = () => {
-    const { onDelete, item } = this.props;
-    onDelete(item);
   };
 
   _updateItem = (updatedItemValue) => {
@@ -44,7 +39,6 @@ export class ListItem extends React.PureComponent {
         <ListItemEditor
           item={item}
           bullet={bullet}
-          onDelete={this._deleteItem}
           onUpdate={this._updateItem}
         />
       );

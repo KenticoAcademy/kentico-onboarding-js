@@ -1,7 +1,10 @@
 import { connect } from 'react-redux';
 
 import { ListItemEditor as ListItemEditorComponent } from '../components/ListItemEditor';
-import { toggleItemEditing } from '../actions';
+import {
+  deleteItem,
+  toggleItemEditing,
+} from '../actions';
 
 const mapStateToProps = (state, ownProps) => ({
   item: ownProps.item,
@@ -10,6 +13,7 @@ const mapStateToProps = (state, ownProps) => ({
 
 const mapDispatchToProps = (dispatch, { item }) => ({
   onCancel: () => dispatch(toggleItemEditing(item)),
+  onDelete: () => dispatch(deleteItem(item)),
 });
 
 export const ListItemEditor = connect(mapStateToProps, mapDispatchToProps)(ListItemEditorComponent);
