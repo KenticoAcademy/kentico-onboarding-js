@@ -12,7 +12,7 @@ export class List extends React.PureComponent {
 
     const list = props2.items.valueSeq()
       .map((item, index) => (
-        <div className="list-group-item" key={item.key}>
+        <div className="list-group-item" key={item.todo.key}>
           <ListItem
             item={item}
             bullet={index + 1}

@@ -4,13 +4,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { isInputValid } from '../utils/validationService';
-import { ToDoItem } from '../models/toDoItem';
+import { ListItem } from '../models/listItem';
 
 export class ListItemEditor extends React.PureComponent {
   static displayName = 'ListItemEditor';
 
   static propTypes = {
-    item: PropTypes.instanceOf(ToDoItem).isRequired,
+    item: PropTypes.instanceOf(ListItem).isRequired,
     bullet: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.number,
