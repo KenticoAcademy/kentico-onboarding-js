@@ -11,12 +11,17 @@ export class ListItemEditor extends React.PureComponent {
 
   static propTypes = {
     item: PropTypes.instanceOf(ToDoItem).isRequired,
+    bullet: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+    ]).isRequired,
     onCancel: PropTypes.func.isRequired,
     onSave: PropTypes.func.isRequired,
     onDelete: PropTypes.func.isRequired,
+    onItemValueChange: PropTypes.func.isRequired,
   };
 
-  _handleInputChange = (event) => this.setState({ itemValue: event.target.value });
+  _handleInputChange = (event) => this.props.onItemValueChange(event.target.value);
 
   _handleInputKeyUp = (event) => {
     if (event.key === 'Enter' && isInputValid(this.state.itemValue)) {

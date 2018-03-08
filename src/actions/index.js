@@ -3,6 +3,7 @@ import {
   ITEM_SAVE,
   ITEM_DELETE,
   ITEM_EDITING,
+  ITEM_VALUE_CHANGED,
 } from '../utils/constants';
 
 export const addItem = (newItemKey, newItemValue) => ({
@@ -27,4 +28,10 @@ export const deleteItem = (item) => ({
 export const toggleItemEditing = (item) => ({
   type: ITEM_EDITING,
   item,
+});
+
+export const changeItemValue = (item, changedItemValue) => ({
+  type: ITEM_VALUE_CHANGED,
+  item,
+  changedItemValue,
 });

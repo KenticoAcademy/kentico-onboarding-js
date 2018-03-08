@@ -6,6 +6,7 @@ import {
   ITEM_DELETE,
   ITEM_EDITING,
   ITEM_SAVE,
+  ITEM_VALUE_CHANGED,
 } from '../utils/constants';
 
 export const items = (state = OrderedMap(), action) => {
@@ -14,12 +15,14 @@ export const items = (state = OrderedMap(), action) => {
       return state.set(action.item.key, new ToDoItem({
         key: action.item.key,
         value: action.item.value,
+        changedValue: action.item.value,
         isBeingEdited: false,
       }));
 
     case ITEM_SAVE:
       return state.mergeIn([action.item.key], {
         'value': action.newItemValue,
+        'changedValue': action.newItemValue,
         'isBeingEdited': !action.item.isBeingEdited,
       });
 
@@ -28,6 +31,9 @@ export const items = (state = OrderedMap(), action) => {
 
     case ITEM_EDITING:
       return state.mergeIn([action.item.key, 'isBeingEdited'], !action.item.isBeingEdited);
+
+    case ITEM_VALUE_CHANGED:
+      return state.mergeIn([action.item.key, 'changedValue'], action.changedItemValue);
 
     default:
       return state;
