@@ -2,8 +2,8 @@ import {
   ITEM_ADD,
   ITEM_SAVE,
   ITEM_DELETE,
-  ITEM_EDITING,
   ITEM_VALUE_CHANGED,
+  ITEM_EDITING_START,
   ITEM_EDITING_STOP,
 } from '../utils/constants';
 
@@ -23,9 +23,9 @@ export const deleteItem = (itemKey) => ({
   itemKey,
 });
 
-export const toggleItemEditing = (item) => ({
-  type: ITEM_EDITING,
-  item,
+export const startItemEditing = (itemKey) => ({
+  type: ITEM_EDITING_START,
+  itemKey,
 });
 
 export const stopItemEditing = (itemKey) => ({

@@ -5,10 +5,10 @@ import { ListItem } from '../models/listItem';
 import {
   ITEM_ADD,
   ITEM_DELETE,
-  ITEM_EDITING,
   ITEM_SAVE,
   ITEM_VALUE_CHANGED,
   ITEM_EDITING_STOP,
+  ITEM_EDITING_START,
 } from '../utils/constants';
 import { getIdentifier } from '../utils/uuidService';
 
@@ -23,8 +23,8 @@ export const items = (state = OrderedMap(), action) => {
     case ITEM_DELETE:
       return state.delete(action.itemKey);
 
-    case ITEM_EDITING:
-      return state.mergeIn([action.item.todo.key, 'isBeingEdited'], !action.item.isBeingEdited);
+    case ITEM_EDITING_START:
+      return state.mergeIn([action.itemKey, 'isBeingEdited'], true);
 
     case ITEM_EDITING_STOP:
       return stopEditing(state, action.itemKey);

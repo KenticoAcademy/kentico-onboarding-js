@@ -1,15 +1,15 @@
 import { connect } from 'react-redux';
 
 import { ListItemDisplay as ListItemDisplayComponent } from '../components/ListItemDisplay';
-import { toggleItemEditing } from '../actions';
+import { startItemEditing } from '../actions';
 
-const mapStateToProps = (state, ownProps) => ({
-  item: ownProps.item,
-  bullet: ownProps.bullet,
+const mapStateToProps = (state, { bullet, itemValue }) => ({
+  itemValue,
+  bullet,
 });
 
-const mapDispatchToProps = (dispatch, { item }) => ({
-  onItemEdit: () => dispatch(toggleItemEditing(item)),
+const mapDispatchToProps = (dispatch, { itemKey }) => ({
+  onItemEdit: () => dispatch(startItemEditing(itemKey)),
 });
 
 export const ListItemDisplay = connect(mapStateToProps, mapDispatchToProps)(ListItemDisplayComponent);

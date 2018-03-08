@@ -24,7 +24,8 @@ export class ListItem extends React.PureComponent {
 
     let listItem = (
       <ListItemDisplay
-        item={item}
+        itemValue={itemValue}
+        itemKey={itemKey}
         bullet={bullet}
       />
     );
