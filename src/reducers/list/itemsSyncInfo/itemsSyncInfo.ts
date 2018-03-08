@@ -16,9 +16,9 @@ import { OrderedMap } from 'immutable';
 import { Guid } from '../../../models/Guid';
 import { ItemsSyncInfoState } from '../../../models/state/ItemsSyncInfoState';
 import { SyncOperation } from '../../../models/enums/SyncOperation';
-import { itemSyncInfoArrayToOrderedMap } from '../../../utils/itemSyncInfoArrayToOrderedMap';
 import { IListItem } from '../../../models/interfaces/IListItem';
 import { IItemSyncInfo } from '../../../models/interfaces/IItemSyncInfo';
+import { arrayToOrderedMap } from '../../../utils/arrayToOrderedMap';
 
 const setSyncState = (state: ItemsSyncInfoState, { payload: { itemSyncInfo } }: IAction): ItemsSyncInfoState =>
   itemSyncInfo ?
@@ -48,11 +48,14 @@ const itemDeleted = (state: ItemsSyncInfoState, { payload: { id } }: IAction): I
   state.delete(id);
 
 const syncAllItems = ({ payload: { items } }: IAction): ItemsSyncInfoState =>
-  itemSyncInfoArrayToOrderedMap(items.map(({ id }: IListItem): IItemSyncInfo => ({
-    id,
-    syncState: SyncState.Synced,
-    operation: SyncOperation.Default,
-  })));
+  arrayToOrderedMap(
+    items.map(({ id }: IListItem): IItemSyncInfo => ({
+      id,
+      syncState: SyncState.Synced,
+      operation: SyncOperation.Default,
+    })),
+    ItemSyncInfo,
+  );
 
 const syncFailed = (state: ItemsSyncInfoState, { payload: { id } }: IAction): ItemsSyncInfoState =>
   state.update(id, itemSyncInfo =>

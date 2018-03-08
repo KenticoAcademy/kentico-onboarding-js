@@ -1,10 +1,10 @@
 import { IListItem } from '../../src/models/interfaces/IListItem';
 import { ListItem } from '../../src/models/classes/ListItem';
-import { listItemsArrayToOrderedMap } from '../../src/utils/listItemsArrayToOrderedMap';
 import { OrderedMap } from 'immutable';
 import { Guid } from '../../src/models/Guid';
+import { arrayToOrderedMap } from '../../src/utils/arrayToOrderedMap';
 
-describe('listItemsArrayToOrderedMap', () => {
+describe('arrayToOrderedMap', () => {
   it('will create OrderedMap from array of 2 ListItems', () => {
     const listItem1 = new ListItem({
       id: 'fakeId',
@@ -24,7 +24,7 @@ describe('listItemsArrayToOrderedMap', () => {
       [listItem2.id]: listItem2,
     });
 
-    const result = listItemsArrayToOrderedMap(listItems);
+    const result = arrayToOrderedMap(listItems, ListItem);
 
     expect(result)
       .toEqual(expectedResult);

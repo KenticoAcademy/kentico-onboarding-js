@@ -4,7 +4,7 @@ import * as ActionTypes from '../../../constants/actionTypes';
 import { ItemsState } from '../../../models/state/ItemsState';
 import { IAction } from '../../../models/interfaces/IAction';
 import { Guid } from '../../../models/Guid';
-import { listItemsArrayToOrderedMap } from '../../../utils/listItemsArrayToOrderedMap';
+import { arrayToOrderedMap } from '../../../utils/arrayToOrderedMap';
 
 const addNewItem = (state: ItemsState, { payload: { id, text } }: IAction): ItemsState => {
   const newItem = new ListItem({
@@ -46,7 +46,7 @@ const closeItem = (state: ItemsState, { payload: { id } }: IAction): ItemsState 
     }));
 
 const fetchItems = (action: IAction): ItemsState =>
-  listItemsArrayToOrderedMap(action.payload.items);
+  arrayToOrderedMap(action.payload.items, ListItem);
 
 const initialState = OrderedMap<Guid, ListItem>();
 
