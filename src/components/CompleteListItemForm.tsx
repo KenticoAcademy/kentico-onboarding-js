@@ -103,48 +103,47 @@ export class CompleteListItemForm extends React.PureComponent<ICompleteListItemF
 
     return (
       <div>
-        <HotKeys
-          {...{className: 'row'}}
-          handlers={handlers}
-        >
-          <label className="col-form-label pl-3">
-            {`${this.props.itemNumber}. `}
-          </label>
-          <div className="input-group col">
-            <input
-              className="form-control col-md-6 rounded"
-              type="text"
-              value={text}
-              placeholder="Item name cannot be empty"
-              onChange={this._onInputChange}
-              autoFocus={true}
-              ref={this._setInputRef}
-            />
+        <HotKeys handlers={handlers}>
+          <div className="row">
+            <label className="col-form-label pl-3">
+              {`${this.props.itemNumber}. `}
+            </label>
+            <div className="input-group col">
+              <input
+                className="form-control col-md-6 rounded"
+                type="text"
+                value={text}
+                placeholder="Item name cannot be empty"
+                onChange={this._onInputChange}
+                autoFocus={true}
+                ref={this._setInputRef}
+              />
 
-            <button
-              className="btn btn-primary ml-3"
-              onClick={this._onSave}
-              disabled={!enableSaveButton}
-              title="Saves new text which cannot be empty"
-            >
-              Save
-            </button>
+              <button
+                className="btn btn-primary ml-3"
+                onClick={this._onSave}
+                disabled={!enableSaveButton}
+                title="Saves new text which cannot be empty"
+              >
+                Save
+              </button>
 
-            <button
-              className="btn btn-secondary ml-2"
-              onClick={onCancel}
-              title="Drops unsaved changes"
-            >
-              Cancel
-            </button>
+              <button
+                className="btn btn-secondary ml-2"
+                onClick={onCancel}
+                title="Drops unsaved changes"
+              >
+                Cancel
+              </button>
 
-            <button
-              className="btn btn-danger ml-2"
-              onClick={onDelete}
-              title="Removes item from list"
-            >
-              Delete
-            </button>
+              <button
+                className="btn btn-danger ml-2"
+                onClick={onDelete}
+                title="Removes item from list"
+              >
+                Delete
+              </button>
+            </div>
           </div>
         </HotKeys>
       </div>

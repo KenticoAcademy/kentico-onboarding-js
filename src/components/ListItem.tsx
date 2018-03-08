@@ -27,17 +27,13 @@ export const listItemPropTypes = {
   item: PropTypes.shape({
     isBeingEdited: PropTypes.bool.isRequired,
   }),
-  itemSyncInfo: PropTypes.object,
+  itemSyncInfo: PropTypes.object.isRequired,
 };
 
 export class ListItem extends React.PureComponent<IListItemProps, IListItemState> {
   static displayName = 'ListItem';
 
   static propTypes = listItemPropTypes;
-
-  static defaultProps = {
-    itemSyncInfo: undefined,
-  };
 
   constructor(props: IListItemProps) {
     super(props);

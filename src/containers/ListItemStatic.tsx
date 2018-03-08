@@ -6,7 +6,6 @@ import {
   IListItemStaticCallbackProps,
   IListItemStaticOwnProps,
   ListItemStatic as ListItemStaticComponent,
-  listItemStaticDefaultProps,
   listItemStaticPropTypes,
 } from '../components/ListItemStatic';
 import { Dispatch } from 'redux';
@@ -25,6 +24,5 @@ const ListItemStatic: ComponentClass<IListItemStaticOwnProps> = connect(
 )(ListItemStaticComponent);
 
 ListItemStatic.propTypes = listItemStaticPropTypes;
-ListItemStatic.defaultProps = listItemStaticDefaultProps;
 
 export { ListItemStatic };

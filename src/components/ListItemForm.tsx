@@ -24,13 +24,6 @@ export const listItemFormPropTypes = {
   }).isRequired,
   selectionRangeStarts: PropTypes.number.isRequired,
   selectionRangeEnds: PropTypes.number.isRequired,
-  itemSyncInfo: PropTypes.shape({
-    syncState: PropTypes.string.isRequired,
-  }),
-};
-
-const defaultProps = {
-  itemSyncInfo: undefined,
 };
 
 const ListItemForm: React.SFC<IListItemFormProps> = ({ itemSyncInfo, ...props }) =>
@@ -40,9 +33,9 @@ const ListItemForm: React.SFC<IListItemFormProps> = ({ itemSyncInfo, ...props })
 
 ListItemForm.propTypes = {
   ...listItemFormPropTypes,
-  itemSyncInfo: PropTypes.object,
+  itemSyncInfo: PropTypes.shape({
+    syncState: PropTypes.string.isRequired,
+  }).isRequired,
 };
-
-ListItemForm.defaultProps = defaultProps;
 
 export { ListItemForm };
