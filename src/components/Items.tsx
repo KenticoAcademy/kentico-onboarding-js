@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import * as classNames from 'classnames';
 import { ListItem } from '../containers/ListItem';
 import { IItemSyncInfo } from '../models/interfaces/IItemSyncInfo';
 import { SyncState } from '../models/enums/SyncState';
@@ -22,8 +23,10 @@ export class Items extends React.PureComponent<IItemsDataProps> {
     return (
       <div>
         {this.props.itemsSyncInfo.map((itemSyncInfo, index) => {
-          const syncPending = itemSyncInfo.syncState === SyncState.Pending;
-          const className = `list-group-item${syncPending ? ' disabled' : ''}`;
+          const className = classNames(
+            'list-group-item',
+            { disabled: itemSyncInfo.syncState === SyncState.Pending }
+          );
 
           return (
             <li
