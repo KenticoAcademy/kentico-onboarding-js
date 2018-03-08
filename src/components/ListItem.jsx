@@ -7,44 +7,31 @@ import { ListItemEditor } from '../containers/ListItemEditor';
 import { ListItemDisplay } from '../containers/ListItemDisplay';
 import { ListItem as ListItemModel } from '../models/listItem';
 
-export class ListItem extends React.PureComponent {
-  static displayName = 'ListItem';
-
-  static propTypes = {
-    item: PropTypes.instanceOf(ListItemModel).isRequired,
-    itemKey: PropTypes.string.isRequired,
-    itemValue: PropTypes.string.isRequired,
-    bullet: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number,
-    ]).isRequired,
-  };
-
-  render() {
-    const { isBeingEdited, itemValue, itemKey, bullet } = this.props;
-
-    let listItem = (
+export const ListItem = ({ isBeingEdited, itemValue, itemKey, bullet }) => {
+  return (
+    isBeingEdited ?
+      <ListItemEditor
+        itemValue={itemValue}
+        itemKey={itemKey}
+        bullet={bullet}
+      /> :
       <ListItemDisplay
         itemValue={itemValue}
         itemKey={itemKey}
         bullet={bullet}
       />
-    );
+  );
+};
 
-    if (isBeingEdited) {
-      listItem = (
-        <ListItemEditor
-          itemValue={itemValue}
-          itemKey={itemKey}
-          bullet={bullet}
-        />
-      );
-    }
+ListItem.displayName = 'ListItem';
 
-    return (
-      <div>
-        {listItem}
-      </div>
-    );
-  }
-}
+ListItem.propTypes = {
+  item: PropTypes.instanceOf(ListItemModel).isRequired,
+  itemKey: PropTypes.string.isRequired,
+  itemValue: PropTypes.string.isRequired,
+  isBeingEdited: PropTypes.bool.isRequired,
+  bullet: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]).isRequired,
+};
