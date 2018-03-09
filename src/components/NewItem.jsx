@@ -7,20 +7,18 @@ export class NewItem extends React.PureComponent {
   static displayName = 'NewItem';
 
   static propTypes = {
-    onAddItem: PropTypes.func.isRequired,
-    onValueChange: PropTypes.func.isRequired,
-    processKeyboardShorts: PropTypes.func.isRequired,
+    addItem: PropTypes.func.isRequired,
+    handleValueChange: PropTypes.func.isRequired,
+    handleKeyboardShortcuts: PropTypes.func.isRequired,
     isInputValid: PropTypes.bool.isRequired,
   };
 
-  _handleChange = (event) => this.props.onValueChange(event.target.value);
+  _handleChange = (event) => this.props.handleValueChange(event.target.value);
 
-  _handleKeyUp = (event) => this.props.processKeyboardShorts(event.key, event.target.itemValue);
-
-  _addItem = () => this.props.onAddItem(this.props.itemValue);
+  _handleKeyUp = (event) => this.props.handleKeyboardShortcuts(event.key, event.target.itemValue);
 
   render() {
-    const { itemValue, isInputValid } = this.props;
+    const { itemValue, isInputValid, addItem } = this.props;
 
     return (
       <div className="row">
@@ -37,7 +35,7 @@ export class NewItem extends React.PureComponent {
             <button
               type="button"
               className="btn btn-default"
-              onClick={this._addItem}
+              onClick={() => addItem(itemValue)}
               disabled={!isInputValid}
             > Add
             </button>

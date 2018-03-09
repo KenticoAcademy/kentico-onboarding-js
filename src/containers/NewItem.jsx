@@ -14,9 +14,9 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onAddItem: itemValue => dispatch(addItem(itemValue)),
-  onValueChange: itemValue => dispatch(changeValue(itemValue)),
-  processKeyboardShorts: (inputKey, itemValue) => {
+  addItem: itemValue => dispatch(addItem(itemValue)),
+  handleValueChange: itemValue => dispatch(changeValue(itemValue)),
+  handleKeyboardShortcuts: (inputKey, itemValue) => {
     if (inputKey === 'Enter' && isInputValid(itemValue)) {
       dispatch(addItem(itemValue));
     }
