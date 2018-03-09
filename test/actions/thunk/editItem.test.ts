@@ -1,7 +1,8 @@
 import { editItemFactory } from '../../../src/actions/thunk/editItemFactory';
 import {
-  assertThatDispatchWasCalledWithArgumentsInGiveOrder,
+  dispatch,
   fakeFunction,
+  getFirstArgumentOfCalls,
   httpClientFailure,
   httpClientSuccessFactory,
 } from './thunkTestsUtils';
@@ -30,9 +31,14 @@ describe('editItemAsync will call dispatch with', () => {
       saveItemChangesFailed: fakeFunction,
     });
 
-    const dispatchableAction = saveNewText(actionParams);
+    return saveNewText(actionParams)(dispatch)
+      .then(() => {
+        const callArguments = getFirstArgumentOfCalls(dispatch);
 
-    return assertThatDispatchWasCalledWithArgumentsInGiveOrder(dispatchableAction, expectedActions);
+        expect(callArguments)
+          .toEqual(expectedActions);
+      })
+      .catch(fakeFunction);
   });
 
   it('saveItemChangesRequest and saveItemChangesFailed actions', () => {
@@ -51,8 +57,13 @@ describe('editItemAsync will call dispatch with', () => {
       saveItemChangesConfirm: fakeFunction,
     });
 
-    const dispatchableAction = saveNewText(actionParams);
+    return saveNewText(actionParams)(dispatch)
+      .then(() => {
+        const callArguments = getFirstArgumentOfCalls(dispatch);
 
-    return assertThatDispatchWasCalledWithArgumentsInGiveOrder(dispatchableAction, expectedActions);
+        expect(callArguments)
+          .toEqual(expectedActions);
+      })
+      .catch(fakeFunction);
   });
 });

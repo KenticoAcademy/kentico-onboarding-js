@@ -27,24 +27,11 @@ export const httpClientFailure: IHttpClient = ({
 export const fakeFunction = jest.fn();
 export const dispatch = jest.fn();
 
-const resetDispatch = () =>
+export const resetDispatch = () =>
   dispatch.mockReset();
 
-const getFirstArgumentOfCalls = <T>(mockedFunction: Mock<T>): T[] =>
+export const getFirstArgumentOfCalls = <T>(mockedFunction: Mock<T>): T[] =>
   mockedFunction
     .mock
     .calls
     .map(call => call[0]);
-
-export const assertThatDispatchWasCalledWithArgumentsInGiveOrder = (dispatchableAction: (dispatch: Mock<{}>) => Promise<any>, expectedActions: string[]) => {
-  resetDispatch();
-
-  return dispatchableAction(dispatch)
-    .then(() => {
-      const callArguments = getFirstArgumentOfCalls(dispatch);
-
-      expect(callArguments)
-        .toEqual(expectedActions);
-    })
-    .catch(fakeFunction);
-};

@@ -1,7 +1,8 @@
 import { deleteItemFactory } from '../../../src/actions/thunk/deleteItemFactory';
 import {
-  assertThatDispatchWasCalledWithArgumentsInGiveOrder,
+  dispatch,
   fakeFunction,
+  getFirstArgumentOfCalls,
   httpClientFailure,
   httpClientSuccessFactory,
 } from './thunkTestsUtils';
@@ -28,9 +29,14 @@ describe('deleteItem will call dispatch with', () => {
       deleteItemFailed: fakeFunction,
     });
 
-    const dispatchableAction = deleteItem(actionParams);
+    return deleteItem(actionParams)(dispatch)
+      .then(() => {
+        const callArguments = getFirstArgumentOfCalls(dispatch);
 
-    return assertThatDispatchWasCalledWithArgumentsInGiveOrder(dispatchableAction, expectedActions);
+        expect(callArguments)
+          .toEqual(expectedActions);
+      })
+      .catch(fakeFunction);
   });
 
   it('deleteItemRequest and deleteItemFailed actions', () => {
@@ -49,8 +55,13 @@ describe('deleteItem will call dispatch with', () => {
       deleteItemConfirm: fakeFunction,
     });
 
-    const dispatchableAction = deleteItem(actionParams);
+    return deleteItem(actionParams)(dispatch)
+      .then(() => {
+        const callArguments = getFirstArgumentOfCalls(dispatch);
 
-    return assertThatDispatchWasCalledWithArgumentsInGiveOrder(dispatchableAction, expectedActions);
+        expect(callArguments)
+          .toEqual(expectedActions);
+      })
+      .catch(fakeFunction);
   });
 });

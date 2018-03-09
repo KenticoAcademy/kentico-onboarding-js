@@ -2,8 +2,9 @@ import { IListItem } from '../../../src/models/interfaces/IListItem';
 import { ListItem } from '../../../src/models/classes/ListItem';
 import { postItemFactory } from '../../../src/actions/thunk/postItemFactory';
 import {
-  assertThatDispatchWasCalledWithArgumentsInGiveOrder,
+  dispatch,
   fakeFunction,
+  getFirstArgumentOfCalls,
   httpClientFailure,
   httpClientSuccessFactory,
 } from './thunkTestsUtils';
@@ -32,9 +33,14 @@ describe('postItem will call dispatch with', () => {
       addNewItemFailed: fakeFunction,
     });
 
-    const dispatchableAction = postItem(actionParams);
+    return postItem(actionParams)(dispatch)
+      .then(() => {
+        const callArguments = getFirstArgumentOfCalls(dispatch);
 
-    return assertThatDispatchWasCalledWithArgumentsInGiveOrder(dispatchableAction, expectedActions);
+        expect(callArguments)
+          .toEqual(expectedActions);
+      })
+      .catch(fakeFunction);
   });
 
   it('addNewItem and addNewItemFailed actions', () => {
@@ -54,8 +60,13 @@ describe('postItem will call dispatch with', () => {
       createNewId: fakeFunction,
     });
 
-    const dispatchableAction = postItem(actionParams);
+    return postItem(actionParams)(dispatch)
+      .then(() => {
+        const callArguments = getFirstArgumentOfCalls(dispatch);
 
-    return assertThatDispatchWasCalledWithArgumentsInGiveOrder(dispatchableAction, expectedActions);
+        expect(callArguments)
+          .toEqual(expectedActions);
+      })
+      .catch(fakeFunction);
   });
 });

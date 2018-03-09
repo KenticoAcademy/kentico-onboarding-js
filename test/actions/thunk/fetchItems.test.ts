@@ -1,10 +1,11 @@
 import { ListItem } from '../../../src/models/classes/ListItem';
 import { fetchItemsFactory } from '../../../src/actions/thunk/fetchItemsFactory';
 import {
-  assertThatDispatchWasCalledWithArgumentsInGiveOrder,
   fakeFunction,
   httpClientSuccessFactory,
   httpClientFailure,
+  dispatch,
+  getFirstArgumentOfCalls,
 } from './thunkTestsUtils';
 
 const uri = '';
@@ -30,9 +31,14 @@ describe('fetchItems will call dispatch with', () => {
       fetchFailed: fakeFunction,
     });
 
-    const dispatchableAction = fetchItems();
+    return fetchItems()(dispatch)
+      .then(() => {
+        const callArguments = getFirstArgumentOfCalls(dispatch);
 
-    return assertThatDispatchWasCalledWithArgumentsInGiveOrder(dispatchableAction, expectedActions);
+        expect(callArguments)
+          .toEqual(expectedActions);
+      })
+      .catch(fakeFunction);
   });
 
   it('requestItems and fetchFailed actions', () => {
@@ -51,8 +57,13 @@ describe('fetchItems will call dispatch with', () => {
       receiveItems: fakeFunction,
     });
 
-    const dispatchableAction = fetchItems();
+    return fetchItems()(dispatch)
+      .then(() => {
+        const callArguments = getFirstArgumentOfCalls(dispatch);
 
-    return assertThatDispatchWasCalledWithArgumentsInGiveOrder(dispatchableAction, expectedActions);
+        expect(callArguments)
+          .toEqual(expectedActions);
+      })
+      .catch(fakeFunction);
   });
 });
