@@ -9,7 +9,7 @@ const mapStateToProps = (state, { bullet, itemValue }) => ({
 });
 
 const mapDispatchToProps = (dispatch, { itemKey }) => ({
-  onItemEdit: () => dispatch(startItemEditing(itemKey)),
+  startEditing: () => dispatch(startItemEditing(itemKey)),
 });
 
 export const ListItemDisplay = connect(mapStateToProps, mapDispatchToProps)(ListItemDisplayComponent);
