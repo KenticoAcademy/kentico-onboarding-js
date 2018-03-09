@@ -2,40 +2,25 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { isInputValid } from '../utils/validationService';
 
 export class NewItem extends React.PureComponent {
   static displayName = 'NewItem';
 
   static propTypes = {
     onAddItem: PropTypes.func.isRequired,
+    onValueChange: PropTypes.func.isRequired,
+    processKeyboardShorts: PropTypes.func.isRequired,
+    isInputValid: PropTypes.bool.isRequired,
   };
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      itemValue: '',
-    };
-  }
+  _handleChange = (event) => this.props.onValueChange(event.target.value);
 
-  _handleChange = (event) => this.setState({ itemValue: event.target.value });
+  _handleKeyUp = (event) => this.props.processKeyboardShorts(event.key, event.target.itemValue);
 
-  _handleKeyUp = (event) => {
-    if (event.key === 'Enter' && isInputValid(this.state.itemValue)) {
-      this._addItem();
-    }
-    else if (event.key === 'Escape') {
-      this.setState({ itemValue: '' });
-    }
-  };
-
-  _addItem = () => {
-    this.props.onAddItem(this.state.itemValue);
-    this.setState({ itemValue: '' });
-  };
+  _addItem = () => this.props.onAddItem(this.props.itemValue);
 
   render() {
-    const { itemValue } = this.state;
+    const { itemValue, isInputValid } = this.props;
 
     return (
       <div className="row">
@@ -46,14 +31,14 @@ export class NewItem extends React.PureComponent {
             placeholder="What is on your mind ... ?"
             value={itemValue}
             onChange={this._handleChange}
-            onKeyUp={this._handleKeyUp}
+            onKeyDown={this._handleKeyUp}
           />
           <span className="input-group-btn">
             <button
               type="button"
               className="btn btn-default"
               onClick={this._addItem}
-              disabled={!isInputValid(itemValue)}
+              disabled={!isInputValid}
             > Add
             </button>
           </span>
