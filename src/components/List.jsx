@@ -8,6 +8,7 @@ import { getIdentifier } from '../utils/uuidService';
 
 import { NewItem } from './NewItem';
 import { ListItem } from './ListItem';
+import { Item } from '../models/item';
 import { ToDoItem } from '../models/toDoItem';
 
 export class List extends React.PureComponent {
@@ -19,25 +20,30 @@ export class List extends React.PureComponent {
 
   _addItem = (itemValue) => {
     const key = getIdentifier();
-    const toDoItem = new ToDoItem({
-      key,
-      value: itemValue,
+    const item = new Item({
+      todo: new ToDoItem({
+        key,
+        value: itemValue,
+      }),
     });
 
-    this.setState(prevState => ({ items: prevState.items.set(key, toDoItem) }));
+    this.setState(prevState => ({ items: prevState.items.set(key, item) }));
   };
 
-  _saveItem = (item, updatedValue) => this.setState(prevState => ({ items: prevState.items.mergeIn([item.key, 'value'], updatedValue) }));
+  _saveItem = (item, updatedValue) => this.setState(prevState => ({
+    items: prevState.items.mergeIn([item.todo.key], {
+      todo: item.todo.merge({ value: updatedValue }),
+    }),
+  }));
 
-  _deleteItem = (item) => this.setState(prevState => ({ items: prevState.items.delete(item.key) }));
+  _deleteItem = (item) => this.setState(prevState => ({ items: prevState.items.delete(item.todo.key) }));
 
   render() {
     const list = this.state.items.valueSeq()
       .map((item, index) => (
-        <div className="list-group-item" key={item.key}>
+        <div className="list-group-item" key={item.todo.key}>
           <ListItem
-            item={item}
-            bullet={index + 1}
+            item={item.set('bullet', index + 1)}
             onSave={this._saveItem}
             onDelete={this._deleteItem}
           />

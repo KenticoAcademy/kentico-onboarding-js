@@ -5,17 +5,13 @@ import PropTypes from 'prop-types';
 
 import { ListItemEditor } from './ListItemEditor';
 import { ListItemDisplay } from './ListItemDisplay';
-import { ToDoItem } from '../models/toDoItem';
+import { Item } from '../models/item';
 
 export class ListItem extends React.PureComponent {
   static displayName = 'ListItem';
 
   static propTypes = {
-    item: PropTypes.instanceOf(ToDoItem).isRequired,
-    bullet: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number,
-    ]).isRequired,
+    item: PropTypes.instanceOf(Item).isRequired,
     onDelete: PropTypes.func.isRequired,
     onSave: PropTypes.func.isRequired,
   };
@@ -41,7 +37,7 @@ export class ListItem extends React.PureComponent {
   };
 
   render() {
-    const { item: { value }, bullet } = this.props;
+    const { item: { todo: { value }, bullet } } = this.props;
 
     let listItem = (
       <ListItemDisplay
