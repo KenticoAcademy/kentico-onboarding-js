@@ -15,7 +15,7 @@ export class NewItem extends React.PureComponent {
 
   _handleChange = (event) => this.props.handleValueChange(event.target.value);
 
-  _handleKeyUp = (event) => this.props.handleKeyboardShortcuts(event.key, event.target.itemValue);
+  _handleKeyDown = (event) => this.props.handleKeyboardShortcuts(event.key, event.target.value);
 
   render() {
     const { itemValue, isInputValid, addItem } = this.props;
@@ -29,7 +29,7 @@ export class NewItem extends React.PureComponent {
             placeholder="What is on your mind ... ?"
             value={itemValue}
             onChange={this._handleChange}
-            onKeyDown={this._handleKeyUp}
+            onKeyDown={this._handleKeyDown}
           />
           <span className="input-group-btn">
             <button
