@@ -7,6 +7,12 @@ import { SyncOperation } from '../models/enums/SyncOperation';
 import { INewItem } from '../models/interfaces/INewItem';
 import { IUpdatedItem } from '../models/interfaces/IUpdatedItem';
 import { IFetchedItem } from '../models/interfaces/IFetchedItem';
+import {
+  REVERT_ADD,
+  REVERT_DELETE,
+  REVERT_DELETE_AFTER_MODIFY_FAILED,
+  REVERT_MODIFY,
+} from '../constants/actionTypes';
 
 export const addNewItemRequest = ({ id, text }: INewItem): IAction => ({
   type: ActionTypes.ADD_NEW_ITEM_REQUEST,
@@ -108,4 +114,32 @@ export const itemSyncFailed = (id: Guid): IAction => ({
   payload: {
     id,
   }
+});
+
+export const revertDelete = (id: Guid): IAction => ({
+  type: REVERT_DELETE,
+  payload: {
+    id,
+  },
+});
+
+export const revertAdd = (id: Guid): IAction => ({
+  type: REVERT_ADD,
+  payload: {
+    id,
+  },
+});
+
+export const revertModify = (id: Guid): IAction => ({
+  type: REVERT_MODIFY,
+  payload: {
+    id,
+  },
+});
+
+export const revertDeleteAfterFailedModify = (id: Guid): IAction => ({
+  type: REVERT_DELETE_AFTER_MODIFY_FAILED,
+  payload: {
+    id,
+  },
 });

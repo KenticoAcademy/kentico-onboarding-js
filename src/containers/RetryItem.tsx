@@ -51,6 +51,11 @@ const getRetryAction = ({ id, text, syncedText }: IListItem, itemSyncInfo: IItem
         id,
       });
 
+    case SyncOperation.DeleteAfterFailedModify:
+      return deleteItemAsync({
+        id,
+      });
+
     default:
       return () => undefined;
   }

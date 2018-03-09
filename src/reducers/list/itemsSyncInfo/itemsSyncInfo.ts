@@ -9,6 +9,10 @@ import {
   ITEM_SYNC_FAILED,
   SAVE_ITEM_CHANGES_CONFIRM,
   DELETE_UNSAVED_ITEM,
+  REVERT_ADD,
+  REVERT_MODIFY,
+  REVERT_DELETE,
+  REVERT_DELETE_AFTER_MODIFY_FAILED,
 } from '../../../constants/actionTypes';
 import { SyncState } from '../../../models/enums/SyncState';
 import { ItemSyncInfo } from '../../../models/classes/ItemSyncInfo';
@@ -57,6 +61,18 @@ const syncAllItems = ({ payload: { items } }: IAction): ItemsSyncInfoState =>
     ItemSyncInfo,
   );
 
+const revertOperation = (state: ItemsSyncInfoState, { payload: { id } }: IAction): ItemsSyncInfoState =>
+  state.update(id, itemSyncInfo => itemSyncInfo.with({
+    syncState: SyncState.Synced,
+    operation: SyncOperation.Default,
+  }));
+
+const revertDeleteAfterFailedModify = (state: ItemsSyncInfoState, { payload: { id } }: IAction): ItemsSyncInfoState =>
+  state.update(id, itemSyncInfo => itemSyncInfo.with({
+    syncState: SyncState.Unsynced,
+    operation: SyncOperation.Modify,
+  }));
+
 const syncFailed = (state: ItemsSyncInfoState, { payload: { id } }: IAction): ItemsSyncInfoState =>
   state.update(id, itemSyncInfo =>
     itemSyncInfo.with({
@@ -78,7 +94,13 @@ export const itemsSyncInfo = (state = initialState, action: IAction): ItemsSyncI
       return addedItemConfirmed(state, action);
     case DELETE_ITEM_CONFIRM:
     case DELETE_UNSAVED_ITEM:
+    case REVERT_ADD:
       return itemDeleted(state, action);
+    case REVERT_MODIFY:
+    case REVERT_DELETE:
+      return revertOperation(state, action);
+    case REVERT_DELETE_AFTER_MODIFY_FAILED:
+      return revertDeleteAfterFailedModify(state, action);
     case RECEIVE_ITEMS:
       return syncAllItems(action);
     default:

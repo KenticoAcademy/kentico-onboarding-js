@@ -3,4 +3,5 @@ export enum SyncOperation {
   Add = 'Add',
   Delete = 'Delete',
   Modify = 'Modify',
+  DeleteAfterFailedModify = 'DeleteAfterFailedModify',
 }

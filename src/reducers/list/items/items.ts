@@ -68,6 +68,12 @@ const setSyncedText = (state: ItemsState, { payload: { id } }: IAction): ItemsSt
       syncedText: item.text,
     }));
 
+const revertModify = (state: ItemsState, { payload: { id } }: IAction): ItemsState =>
+  state.update(id, item =>
+    item.with({
+      text: item.syncedText,
+    }));
+
 const initialState = OrderedMap<Guid, ListItem>();
 
 export const items = (state = initialState, action: IAction): ItemsState => {
@@ -80,6 +86,7 @@ export const items = (state = initialState, action: IAction): ItemsState => {
       return confirmAddedItem(state, action);
     case ActionTypes.DELETE_ITEM_CONFIRM:
     case ActionTypes.DELETE_UNSAVED_ITEM:
+    case ActionTypes.REVERT_ADD:
       return deleteItem(state, action);
     case ActionTypes.SAVE_ITEM_CHANGES_REQUEST:
       return saveItemChanges(state, action);
@@ -89,6 +96,8 @@ export const items = (state = initialState, action: IAction): ItemsState => {
       return closeItem(state, action);
     case ActionTypes.SAVE_ITEM_CHANGES_CONFIRM:
       return setSyncedText(state, action);
+    case ActionTypes.REVERT_MODIFY:
+      return revertModify(state, action);
     case ActionTypes.RECEIVE_ITEMS:
       return fetchItems(action);
     default:

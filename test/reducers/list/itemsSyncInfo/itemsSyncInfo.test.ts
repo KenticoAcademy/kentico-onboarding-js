@@ -7,7 +7,11 @@ import {
   itemSyncFailed,
   saveItemChangesConfirm,
   receiveItems,
-  saveItemChangesRequest
+  saveItemChangesRequest,
+  revertAdd,
+  revertModify,
+  revertDelete,
+  revertDeleteAfterFailedModify,
 } from '../../../../src/actions';
 import { IListItem } from '../../../../src/models/interfaces/IListItem';
 import { itemsSyncInfo } from '../../../../src/reducers/list/itemsSyncInfo/itemsSyncInfo';
@@ -57,7 +61,7 @@ describe('itemsSyncInfo', () => {
       .toEqual(expectedState);
   });
 
-  [deleteItemConfirm, deleteUnsavedItem]
+  [deleteItemConfirm, deleteUnsavedItem, revertAdd]
     .forEach(actionCreator =>
       it('will delete item sync info with existing id', () => {
         const itemSyncInfo1 = new ItemSyncInfo({
@@ -305,5 +309,64 @@ describe('itemsSyncInfo', () => {
 
     expect(result)
       .toBe(expectedState);
+  });
+
+  [{ actionCreator: revertModify, operation: SyncOperation.Modify }, { actionCreator: revertDelete, operation: SyncOperation.Delete }]
+    .forEach(argument =>
+      it('will change sync state to synced and operation to default', () => {
+        const itemSyncInfo = new ItemSyncInfo({
+          id: '1',
+          operation: argument.operation,
+          syncState: SyncState.Unsynced,
+        });
+
+        const newItemSyncInfo = new ItemSyncInfo({
+          id: '1',
+          operation: SyncOperation.Default,
+          syncState: SyncState.Synced,
+        });
+
+        const initialState = OrderedMap<Guid, ItemSyncInfo>({
+          [itemSyncInfo.id]: itemSyncInfo,
+        });
+        deepFreeze(initialState);
+
+        const expectedState = OrderedMap<Guid, ItemSyncInfo>({
+          [newItemSyncInfo.id]: newItemSyncInfo,
+        });
+
+        const action = argument.actionCreator(itemSyncInfo.id);
+        const result = itemsSyncInfo(initialState, action);
+
+        expect(result)
+          .toEqual(expectedState);
+      }));
+
+  it('will change sync operation to modify', () => {
+    const itemSyncInfo = new ItemSyncInfo({
+      operation: SyncOperation.DeleteAfterFailedModify,
+      syncState: SyncState.Unsynced,
+      id: 'id',
+    });
+    const newItemSyncInfo = new ItemSyncInfo({
+      id: 'id',
+      operation: SyncOperation.Modify,
+      syncState: SyncState.Unsynced,
+    });
+
+    const initialState = OrderedMap<Guid, ItemSyncInfo>({
+      [itemSyncInfo.id]: itemSyncInfo,
+    });
+    deepFreeze(initialState);
+
+    const expectedState = OrderedMap<Guid, ItemSyncInfo>({
+      [newItemSyncInfo.id]: newItemSyncInfo,
+    });
+
+    const action = revertDeleteAfterFailedModify(itemSyncInfo.id);
+    const result = itemsSyncInfo(initialState, action);
+
+    expect(result)
+      .toEqual(expectedState);
   });
 });

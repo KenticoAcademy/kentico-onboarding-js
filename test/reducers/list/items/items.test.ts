@@ -178,7 +178,7 @@ describe('items', () => {
       .toEqual(initialState);
   });
 
-  [actions.deleteItemConfirm, actions.deleteUnsavedItem]
+  [actions.deleteItemConfirm, actions.deleteUnsavedItem, actions.revertAdd]
     .forEach(actionCreator =>
       it('will delete item with { id: test } from state', () => {
         const expectedId = 'test';
@@ -386,6 +386,35 @@ describe('items', () => {
     });
 
     const closeItemAction = actions.saveItemChangesConfirm(oldListItem.id);
+    const result = items(initialState, closeItemAction);
+
+    expect(result)
+      .toEqual(expectedState);
+  });
+
+  it('will set items synced text to the old value', () => {
+    const oldListItem = new ListItem({
+      id: 'id',
+      text: 'newText',
+      syncedText: 'oldText',
+      isBeingEdited: false,
+    });
+    const newListItem = new ListItem({
+      id: 'id',
+      text: 'oldText',
+      syncedText: 'oldText',
+      isBeingEdited: false,
+    });
+    const initialState = OrderedMap<Guid, ListItem>({
+      [oldListItem.id]: oldListItem,
+    });
+    deepFreeze(initialState);
+
+    const expectedState = OrderedMap<Guid, ListItem>({
+      [newListItem.id]: newListItem,
+    });
+
+    const closeItemAction = actions.revertModify(oldListItem.id);
     const result = items(initialState, closeItemAction);
 
     expect(result)
