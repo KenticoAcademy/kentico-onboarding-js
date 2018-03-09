@@ -4,6 +4,8 @@ import { PureComponent } from 'react';
 import { List } from '../containers/List';
 
 export class App extends PureComponent {
+  static displayName = 'App';
+
   render() {
     return (
       <div>
