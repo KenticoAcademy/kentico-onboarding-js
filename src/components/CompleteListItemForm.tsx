@@ -7,6 +7,7 @@ import {
   IListItemFormOwnProps,
   listItemFormPropTypes
 } from './ListItemForm';
+import { SyncState } from '../models/enums/SyncState';
 
 export interface ICompleteListItemFormCallbackProps {
   readonly onSave: (text: string) => void;
@@ -64,6 +65,9 @@ export class CompleteListItemForm extends React.PureComponent<ICompleteListItemF
   _textChanged = (newText: string): boolean =>
     this.props.item.text !== newText;
 
+  _isSynced = () =>
+    this.props.itemSyncInfo.syncState === SyncState.Synced;
+
   _onEnterPress = (): void => {
     const { text } = this.state;
 
@@ -73,7 +77,7 @@ export class CompleteListItemForm extends React.PureComponent<ICompleteListItemF
   };
 
   _onSave = (): void => {
-    if (this._textChanged(this.state.text)) {
+    if (!this._isSynced() || this._textChanged(this.state.text)) {
       this._submitNewItemText();
     } else {
       this.props.onCancel();

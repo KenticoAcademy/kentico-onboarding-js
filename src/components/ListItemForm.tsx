@@ -11,9 +11,6 @@ export interface IListItemFormOwnProps {
   readonly itemNumber: number;
   readonly selectionRangeStarts: number;
   readonly selectionRangeEnds: number;
-}
-
-interface IListItemFormProps extends IListItemFormOwnProps {
   readonly itemSyncInfo: IItemSyncInfo;
 }
 
@@ -24,18 +21,17 @@ export const listItemFormPropTypes = {
   }).isRequired,
   selectionRangeStarts: PropTypes.number.isRequired,
   selectionRangeEnds: PropTypes.number.isRequired,
-};
-
-const ListItemForm: React.SFC<IListItemFormProps> = ({ itemSyncInfo, ...props }) =>
-  itemSyncInfo.syncState === SyncState.Synced ?
-    <SyncedListItemForm { ...props } /> :
-    <UnsyncedListItemForm { ...props } itemSyncInfo={itemSyncInfo} />;
-
-ListItemForm.propTypes = {
-  ...listItemFormPropTypes,
   itemSyncInfo: PropTypes.shape({
     syncState: PropTypes.string.isRequired,
+    operation: PropTypes.string.isRequired,
   }).isRequired,
 };
+
+const ListItemForm: React.SFC<IListItemFormOwnProps> = (props) =>
+  props.itemSyncInfo.syncState === SyncState.Synced ?
+    <SyncedListItemForm { ...props } /> :
+    <UnsyncedListItemForm { ...props } />;
+
+ListItemForm.propTypes = listItemFormPropTypes;
 
 export { ListItemForm };

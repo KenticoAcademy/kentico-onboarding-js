@@ -1,4 +1,3 @@
-import * as PropTypes from 'prop-types';
 import {
   ComponentClass,
   connect,
@@ -9,7 +8,6 @@ import {
   changeItemOpenState,
   deleteUnsavedItem,
 } from '../actions';
-import { IItemSyncInfo } from '../models/interfaces/IItemSyncInfo';
 import {
   CompleteListItemForm as CompleteListItemFormComponent,
   ICompleteListItemFormCallbackProps
@@ -18,25 +16,25 @@ import {
   IListItemFormOwnProps,
   listItemFormPropTypes
 } from '../components/ListItemForm';
-import { editItemAsync } from '../actions/thunk';
+import {
+  editItemAsync,
+  postItemAsync,
+} from '../actions/thunk';
 import { IAppState } from '../models/state/IAppState';
 
-const propTypes = {
-  ...listItemFormPropTypes,
-  itemSyncInfo: PropTypes.object.isRequired,
-};
-
-export interface IUnsyncedListItemContainerProps extends IListItemFormOwnProps {
-  readonly itemSyncInfo: IItemSyncInfo;
-}
-
-const mapDispatchToProps = (dispatch: Dispatch<IAppState>,  { item: { id }, itemSyncInfo }: IUnsyncedListItemContainerProps): ICompleteListItemFormCallbackProps => ({
+const mapDispatchToProps = (dispatch: Dispatch<IAppState>,  { item: { id }, itemSyncInfo }: IListItemFormOwnProps): ICompleteListItemFormCallbackProps => ({
   onSave: (newText: string) =>
-    dispatch(
-      editItemAsync({
-        text: newText,
-        id,
-      })),
+    itemSyncInfo.operation === SyncOperation.Add ?
+      dispatch(
+        postItemAsync({
+          text: newText,
+          givenId: id,
+        })) :
+      dispatch(
+        editItemAsync({
+          text: newText,
+          id,
+        })),
   onDelete: itemSyncInfo.operation === SyncOperation.Add ?
     () => dispatch(
       deleteUnsavedItem(id)) :
@@ -46,11 +44,11 @@ const mapDispatchToProps = (dispatch: Dispatch<IAppState>,  { item: { id }, item
       changeItemOpenState(id)),
 });
 
-const UnsyncedListItemForm: ComponentClass<IUnsyncedListItemContainerProps> = connect(
+const UnsyncedListItemForm: ComponentClass<IListItemFormOwnProps> = connect(
   undefined,
   mapDispatchToProps,
 )(CompleteListItemFormComponent);
 
-UnsyncedListItemForm.propTypes = propTypes;
+UnsyncedListItemForm.propTypes = listItemFormPropTypes;
 
 export { UnsyncedListItemForm };
