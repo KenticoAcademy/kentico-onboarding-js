@@ -22,7 +22,7 @@ export class List extends React.PureComponent {
     const toDoItem = new ToDoItem({
       key,
       value: itemValue,
-    }, 'toDo');
+    });
 
     this.setState(prevState => ({ items: prevState.items.set(key, toDoItem) }));
   };
