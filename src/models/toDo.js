@@ -2,7 +2,9 @@ import { Record } from 'immutable';
 
 import { getEmptyIdentifier } from '../utils/uuidService';
 
-export const ToDo = Record({
+const defaultData = {
   key: getEmptyIdentifier(),
   value: '',
-}, 'toDo');
+};
+
+export const ToDo = Record(defaultData, 'toDo');

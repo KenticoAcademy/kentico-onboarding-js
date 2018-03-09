@@ -1,7 +1,9 @@
 import { Record } from 'immutable';
 import { ToDo } from './toDo';
 
-export const Item = Record({
+const defaultData = {
   todo: new ToDo(),
   bullet: '',
-}, 'item');
+};
+
+export const Item = Record(defaultData, 'item');
