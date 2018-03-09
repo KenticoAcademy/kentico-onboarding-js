@@ -1,7 +1,7 @@
 import { Record } from 'immutable';
-import { ToDoItem } from './toDoItem';
+import { ToDo } from './toDo';
 
 export const Item = Record({
-  todo: new ToDoItem(),
+  todo: new ToDo(),
   bullet: '',
 }, 'item');

@@ -9,7 +9,7 @@ import { getIdentifier } from '../utils/uuidService';
 import { NewItem } from './NewItem';
 import { ListItem } from './ListItem';
 import { Item } from '../models/item';
-import { ToDoItem } from '../models/toDoItem';
+import { ToDo } from '../models/toDo';
 
 export class List extends React.PureComponent {
   static displayName = 'List';
@@ -21,7 +21,7 @@ export class List extends React.PureComponent {
   _addItem = (itemValue) => {
     const key = getIdentifier();
     const item = new Item({
-      todo: new ToDoItem({
+      todo: new ToDo({
         key,
         value: itemValue,
       }),
