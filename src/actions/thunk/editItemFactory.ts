@@ -21,7 +21,6 @@ export const editItemFactory = (dependencies: IEditItemFactoryDependencies) =>
     (dispatch: Dispatch<IAction>) => {
       const updatedItem = {
         text,
-        isBeingEdited: false,
         id,
       };
 

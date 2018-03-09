@@ -11,7 +11,6 @@ interface IFetchItemsFactoryDependencies {
   readonly fetchFailed: () => IAction;
 }
 
-
 export const fetchItemsFactory = ({ uri, ...dependencies }: IFetchItemsFactoryDependencies) =>
   () =>
     (dispatch: Dispatch<IAction>) => {
