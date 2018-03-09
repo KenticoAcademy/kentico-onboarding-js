@@ -20,6 +20,7 @@ import { SyncState } from '../../../../src/models/enums/SyncState';
 import deepFreeze = require('deep-freeze');
 import { IAddedItemConfirmed } from '../../../../src/models/interfaces/IAddedItemConfirmed';
 import { IAction } from '../../../../src/models/interfaces/IAction';
+import { IUpdatedItem } from '../../../../src/models/interfaces/IUpdatedItem';
 
 describe('itemsSyncInfo', () => {
   it('will create item sync info for all fetched items', () => {
@@ -116,6 +117,7 @@ describe('itemsSyncInfo', () => {
         id: newId,
         isBeingEdited: false,
         text: '',
+        syncedText: '',
       },
     };
     const action = addNewItemConfirm(actionParams);
@@ -260,7 +262,12 @@ describe('itemsSyncInfo', () => {
       [itemSyncInfo2.id]: itemSyncInfo2Modified,
     });
 
-    const action = saveItemChangesRequest(itemSyncInfo2.id, '.');
+    const actionParams: IUpdatedItem = {
+      id: itemSyncInfo2.id,
+      text: '.',
+      syncedText: '.',
+    };
+    const action = saveItemChangesRequest(actionParams);
     const result = itemsSyncInfo(initialState, action);
 
     expect(result)

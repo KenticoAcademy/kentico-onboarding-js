@@ -7,10 +7,12 @@ import {
   httpClientSuccessFactory,
 } from './thunkTestsUtils';
 import { defaultUuid } from '../../../src/constants/defaultUuid';
+import { IUpdatedItem } from '../../../src/models/interfaces/IUpdatedItem';
 
-const actionParams = {
+const actionParams: IUpdatedItem = {
   id: defaultUuid,
   text: '',
+  syncedText: '',
 };
 const uri = '';
 

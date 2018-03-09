@@ -1,11 +1,12 @@
 import { IAction } from '../models/interfaces/IAction';
 import * as ActionTypes from '../constants/actionTypes';
 import { Guid } from '../models/Guid';
-import { IListItem } from '../models/interfaces/IListItem';
 import { IAddedItemConfirmed } from '../models/interfaces/IAddedItemConfirmed';
 import { SyncState } from '../models/enums/SyncState';
 import { SyncOperation } from '../models/enums/SyncOperation';
 import { INewItem } from '../models/interfaces/INewItem';
+import { IUpdatedItem } from '../models/interfaces/IUpdatedItem';
+import { IFetchedItem } from '../models/interfaces/IFetchedItem';
 
 export const addNewItemRequest = ({ id, text }: INewItem): IAction => ({
   type: ActionTypes.ADD_NEW_ITEM_REQUEST,
@@ -47,13 +48,12 @@ export const deleteItemConfirm = (id: Guid): IAction => ({
   },
 });
 
-export const saveItemChangesRequest = (id: Guid, text: string): IAction => ({
+export const saveItemChangesRequest = (item: IUpdatedItem): IAction => ({
   type: ActionTypes.SAVE_ITEM_CHANGES_REQUEST,
   payload: {
-    id,
-    text,
+    item,
     itemSyncInfo: {
-      id,
+      id: item.id,
       operation: SyncOperation.Modify,
       syncState: SyncState.Pending,
     },
@@ -63,6 +63,7 @@ export const saveItemChangesRequest = (id: Guid, text: string): IAction => ({
 export const saveItemChangesConfirm = (id: Guid): IAction => ({
   type: ActionTypes.SAVE_ITEM_CHANGES_CONFIRM,
   payload: {
+    id,
     itemSyncInfo: {
       id,
       operation: SyncOperation.Modify,
@@ -90,7 +91,7 @@ export const requestItems = (): IAction => ({
   payload: undefined,
 });
 
-export const receiveItems = (items: IListItem[]): IAction => ({
+export const receiveItems = (items: IFetchedItem[]): IAction => ({
   type: ActionTypes.RECEIVE_ITEMS,
   payload: {
     items,

@@ -17,6 +17,7 @@ export interface IListItemFormOwnProps {
 export const listItemFormPropTypes = {
   itemNumber: PropTypes.number.isRequired,
   item: PropTypes.shape({
+    id: PropTypes.string.isRequired,
     text: PropTypes.string.isRequired,
   }).isRequired,
   selectionRangeStarts: PropTypes.number.isRequired,

@@ -4,9 +4,10 @@ import * as deepFreeze from 'deep-freeze';
 import { items } from '../../../../src/reducers/list/items/items';
 import * as actions from '../../../../src/actions/actionCreators';
 import { Guid } from '../../../../src/models/Guid';
-import { IListItem } from '../../../../src/models/interfaces/IListItem';
 import { IAddedItemConfirmed } from '../../../../src/models/interfaces/IAddedItemConfirmed';
 import { IAction } from '../../../../src/models/interfaces/IAction';
+import { IUpdatedItem } from '../../../../src/models/interfaces/IUpdatedItem';
+import { IFetchedItem } from '../../../../src/models/interfaces/IFetchedItem';
 
 describe('items', () => {
   it('will add ListItem model to state with specific text', () => {
@@ -97,6 +98,7 @@ describe('items', () => {
         id: expectedId,
         text: 'something',
         isBeingEdited: true,
+        syncedText: '',
       }),
     });
     deepFreeze(initialState);
@@ -110,7 +112,12 @@ describe('items', () => {
       }),
     });
 
-    const changeItemTextAction = actions.saveItemChangesRequest(expectedId, expectedNewText);
+    const actionParams: IUpdatedItem = {
+      id: expectedId,
+      text: expectedNewText,
+      syncedText: expectedNewText,
+    };
+    const changeItemTextAction = actions.saveItemChangesRequest(actionParams);
     const result = items(initialState, changeItemTextAction);
 
     expect(result)
@@ -210,22 +217,28 @@ describe('items', () => {
   it('will receive items and populate state', () => {
     const initialState = undefined;
 
-    const listItem1 = new ListItem({
+    const listItem1: IFetchedItem = {
       id: 'fakeId',
       text: 'whatever',
-    });
-    const listItem2 = new ListItem({
+    };
+    const listItem2: IFetchedItem = {
       id: 'fakeId2',
       text: 'something else',
-    });
-    const fakeItems: IListItem[] = [
+    };
+    const fakeItems: IFetchedItem[] = [
       listItem1,
       listItem2,
     ];
 
     const expectedState = OrderedMap<Guid, ListItem>({
-      [listItem1.id]: listItem1,
-      [listItem2.id]: listItem2,
+      [listItem1.id]: new ListItem({
+        ...listItem1,
+        syncedText: listItem1.text,
+        }),
+      [listItem2.id]: new ListItem({
+        ...listItem2,
+        syncedText: listItem2.text,
+      }),
     });
 
     const receiveItemsAction = actions.receiveItems(fakeItems);
@@ -245,6 +258,7 @@ describe('items', () => {
     const listItem1New = new ListItem({
       id: newId,
       text: 'whatever',
+      syncedText: 'whatever',
     });
     const listItem2 = new ListItem({
       id: 'fakeId',
@@ -267,6 +281,7 @@ describe('items', () => {
         id: newId,
         text: listItem1Old.text,
         isBeingEdited: false,
+        syncedText: listItem1Old.syncedText,
       },
     };
     const confirmAddedItemAction = actions.addNewItemConfirm(actionParams);
@@ -346,5 +361,34 @@ describe('items', () => {
 
     expect(result)
       .toBe(expectedState);
+  });
+
+  it('will set items synced text to the new value', () => {
+    const oldListItem = new ListItem({
+      id: 'id',
+      text: 'newText',
+      syncedText: 'oldText',
+      isBeingEdited: false,
+    });
+    const newListItem = new ListItem({
+      id: 'id',
+      text: 'newText',
+      syncedText: 'newText',
+      isBeingEdited: false,
+    });
+    const initialState = OrderedMap<Guid, ListItem>({
+      [oldListItem.id]: oldListItem,
+    });
+    deepFreeze(initialState);
+
+    const expectedState = OrderedMap<Guid, ListItem>({
+      [newListItem.id]: newListItem,
+    });
+
+    const closeItemAction = actions.saveItemChangesConfirm(oldListItem.id);
+    const result = items(initialState, closeItemAction);
+
+    expect(result)
+      .toEqual(expectedState);
   });
 });

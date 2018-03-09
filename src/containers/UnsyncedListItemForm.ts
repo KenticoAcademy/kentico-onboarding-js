@@ -14,7 +14,7 @@ import {
 } from '../components/CompleteListItemForm';
 import {
   IListItemFormOwnProps,
-  listItemFormPropTypes
+  listItemFormPropTypes,
 } from '../components/ListItemForm';
 import {
   editItemAsync,
@@ -22,7 +22,7 @@ import {
 } from '../actions/thunk';
 import { IAppState } from '../models/state/IAppState';
 
-const mapDispatchToProps = (dispatch: Dispatch<IAppState>,  { item: { id }, itemSyncInfo }: IListItemFormOwnProps): ICompleteListItemFormCallbackProps => ({
+const mapDispatchToProps = (dispatch: Dispatch<IAppState>,  { item: { id, syncedText }, itemSyncInfo }: IListItemFormOwnProps): ICompleteListItemFormCallbackProps => ({
   onSave: (newText: string) =>
     itemSyncInfo.operation === SyncOperation.Add ?
       dispatch(
@@ -32,6 +32,7 @@ const mapDispatchToProps = (dispatch: Dispatch<IAppState>,  { item: { id }, item
         })) :
       dispatch(
         editItemAsync({
+          syncedText,
           text: newText,
           id,
         })),

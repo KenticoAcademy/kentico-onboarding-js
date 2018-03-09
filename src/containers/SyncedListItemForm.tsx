@@ -13,14 +13,15 @@ import { IAppState } from '../models/state/IAppState';
 import { changeItemOpenState } from '../actions';
 import {
   IListItemFormOwnProps,
-  listItemFormPropTypes
+  listItemFormPropTypes,
 } from '../components/ListItemForm';
 
-const mapDispatchToProps = (dispatch: Dispatch<IAppState>, { item: { id } }: IListItemFormOwnProps): ICompleteListItemFormCallbackProps => ({
+const mapDispatchToProps = (dispatch: Dispatch<IAppState>, { item: { id, syncedText } }: IListItemFormOwnProps): ICompleteListItemFormCallbackProps => ({
   onSave: (text: string) =>
     dispatch(
       editItemAsync({
         text,
+        syncedText,
         id,
       })),
   onDelete: () =>

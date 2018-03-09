@@ -31,7 +31,7 @@ const propTypes = {
   }).isRequired,
 };
 
-const getRetryAction = ({ id, text }: IListItem, itemSyncInfo: IItemSyncInfo) => {
+const getRetryAction = ({ id, text, syncedText }: IListItem, itemSyncInfo: IItemSyncInfo) => {
   switch (itemSyncInfo.operation) {
     case SyncOperation.Add:
       return postItemAsync({
@@ -43,6 +43,7 @@ const getRetryAction = ({ id, text }: IListItem, itemSyncInfo: IItemSyncInfo) =>
       return editItemAsync({
         id,
         text,
+        syncedText,
       });
 
     case SyncOperation.Delete:

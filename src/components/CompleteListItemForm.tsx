@@ -10,7 +10,7 @@ import {
 import { SyncState } from '../models/enums/SyncState';
 
 export interface ICompleteListItemFormCallbackProps {
-  readonly onSave: (text: string) => void;
+  readonly onSave: (newText: string) => void;
   readonly onCancel: () => void;
   readonly onDelete: () => void;
 }
@@ -56,7 +56,7 @@ export class CompleteListItemForm extends React.PureComponent<ICompleteListItemF
   });
 
   _submitNewItemText = (): void => {
-    const { onSave } = this.props;
+    const { onSave }   = this.props;
     const { text } = this.state;
 
     onSave(text);
