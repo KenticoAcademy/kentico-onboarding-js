@@ -6,6 +6,7 @@ import {
 } from '../../../../src/actions';
 import deepFreeze = require('deep-freeze');
 import { fetchItemsState } from '../../../../src/reducers/list/fetchItemsState/fetchItemsState';
+import { IAction } from '../../../../src/models/interfaces/IAction';
 
 describe('fetchItemsState', () => {
   it('will change fetch items state to Requested', () => {
@@ -54,6 +55,46 @@ describe('fetchItemsState', () => {
     const expectedState = FetchItemsState.REQUESTED;
 
     const action = requestItems();
+    const result = fetchItemsState(initialState, action);
+
+    expect(result)
+      .toBe(expectedState);
+  });
+
+  it('will change fetch items state to Failed from undefined', () => {
+    const initialState = undefined;
+    const expectedState = FetchItemsState.FAILED;
+
+    const action = fetchFailed();
+    const result = fetchItemsState(initialState, action);
+
+    expect(result)
+      .toBe(expectedState);
+  });
+
+  it('will not modify fetch items state', () => {
+    const initialState = FetchItemsState.RECEIVED;
+    deepFreeze(initialState);
+    const expectedState = initialState;
+
+    const action: IAction = {
+      payload: undefined,
+      type: 'test_typpe',
+    };
+    const result = fetchItemsState(initialState, action);
+
+    expect(result)
+      .toBe(expectedState);
+  });
+
+  it('will set state to Initial', () => {
+    const initialState = undefined;
+    const expectedState = FetchItemsState.INITIAL;
+
+    const action: IAction = {
+      payload: undefined,
+      type: 'test_typpe',
+    };
     const result = fetchItemsState(initialState, action);
 
     expect(result)

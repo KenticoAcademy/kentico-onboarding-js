@@ -19,6 +19,7 @@ import { SyncOperation } from '../../../../src/models/enums/SyncOperation';
 import { SyncState } from '../../../../src/models/enums/SyncState';
 import deepFreeze = require('deep-freeze');
 import { IAddedItemConfirmed } from '../../../../src/models/interfaces/IAddedItemConfirmed';
+import { IAction } from '../../../../src/models/interfaces/IAction';
 
 describe('itemsSyncInfo', () => {
   it('will create item sync info for all fetched items', () => {
@@ -264,5 +265,38 @@ describe('itemsSyncInfo', () => {
 
     expect(result)
       .toEqual(expectedState);
+  });
+
+  it('will not modify state', () => {
+    const initialState = OrderedMap<Guid, ItemSyncInfo>({
+      '1': new ItemSyncInfo(),
+      '2': new ItemSyncInfo(),
+    });
+    deepFreeze(initialState);
+
+    const expectedState = initialState;
+
+    const action: IAction = {
+      type: 'testType',
+      payload: null,
+    };
+    const result = itemsSyncInfo(initialState, action);
+
+    expect(result)
+      .toBe(expectedState);
+  });
+
+  it('will set items sync info to empty ordered map', () => {
+    const initialState = undefined;
+    const expectedState = OrderedMap<Guid, ItemSyncInfo>();
+
+    const action: IAction = {
+      type: 'testType',
+      payload: null,
+    };
+    const result = itemsSyncInfo(initialState, action);
+
+    expect(result)
+      .toBe(expectedState);
   });
 });

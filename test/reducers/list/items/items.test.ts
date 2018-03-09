@@ -6,6 +6,7 @@ import * as actions from '../../../../src/actions/actionCreators';
 import { Guid } from '../../../../src/models/Guid';
 import { IListItem } from '../../../../src/models/interfaces/IListItem';
 import { IAddedItemConfirmed } from '../../../../src/models/interfaces/IAddedItemConfirmed';
+import { IAction } from '../../../../src/models/interfaces/IAction';
 
 describe('items', () => {
   it('will add ListItem model to state with specific text', () => {
@@ -170,39 +171,41 @@ describe('items', () => {
       .toEqual(initialState);
   });
 
-  it('will delete item with { id: test } from state', () => {
-    const expectedId = 'test';
-    const expectedText = 'also whatever';
-    const otherId = 'other-id';
+  [actions.deleteItemConfirm, actions.deleteUnsavedItem]
+    .forEach(actionCreator =>
+      it('will delete item with { id: test } from state', () => {
+        const expectedId = 'test';
+        const expectedText = 'also whatever';
+        const otherId = 'other-id';
 
-    const initialState = OrderedMap<Guid, ListItem>({
-      [expectedId]: new ListItem({
-        id: expectedId,
-        text: 'whatever',
-        isBeingEdited: true,
-      }),
-      [otherId]: new ListItem({
-        id: otherId,
-        text: expectedText,
-        isBeingEdited: false,
-      }),
-    });
-    deepFreeze(initialState);
+        const initialState = OrderedMap<Guid, ListItem>({
+          [expectedId]: new ListItem({
+            id: expectedId,
+            text: 'whatever',
+            isBeingEdited: true,
+          }),
+          [otherId]: new ListItem({
+            id: otherId,
+            text: expectedText,
+            isBeingEdited: false,
+          }),
+        });
+        deepFreeze(initialState);
 
-    const expectedState = OrderedMap<Guid, ListItem>({
-      [otherId]: new ListItem({
-        id: otherId,
-        text: expectedText,
-        isBeingEdited: false,
-      }),
-    });
+        const expectedState = OrderedMap<Guid, ListItem>({
+          [otherId]: new ListItem({
+            id: otherId,
+            text: expectedText,
+            isBeingEdited: false,
+          }),
+        });
 
-    const deleteItemAction = actions.deleteItemConfirm(expectedId);
-    const result = items(initialState, deleteItemAction);
+        const deleteItemAction = actionCreator(expectedId);
+        const result = items(initialState, deleteItemAction);
 
-    expect(result)
-      .toEqual(expectedState);
-  });
+        expect(result)
+          .toEqual(expectedState);
+      }));
 
   it('will receive items and populate state', () => {
     const initialState = undefined;
@@ -329,5 +332,19 @@ describe('items', () => {
 
     expect(result)
       .toEqual(expectedState);
+  });
+
+  it('will set items to empty ordered map', () => {
+    const initialState = undefined;
+    const expectedState = OrderedMap<Guid, ListItem>();
+
+    const action: IAction = {
+      type: 'testType',
+      payload: null,
+    };
+    const result = items(initialState, action);
+
+    expect(result)
+      .toBe(expectedState);
   });
 });
