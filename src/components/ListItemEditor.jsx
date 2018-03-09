@@ -20,18 +20,12 @@ export class ListItemEditor extends React.PureComponent {
     onDelete: PropTypes.func.isRequired,
     onCancel: PropTypes.func.isRequired,
     onItemValueChange: PropTypes.func.isRequired,
+    handleKeyboardShortcuts: PropTypes.func.isRequired,
   };
 
   _handleInputChange = (event) => this.props.onItemValueChange(event.target.value);
 
-  _handleInputKeyUp = (event) => {
-    if (event.key === 'Enter' && isInputValid(this.state.itemValue)) {
-      this._saveItem();
-    }
-    else if (event.key === 'Escape') {
-      this.props.onCancel();
-    }
-  };
+  _handleInputKeyDown = (event) => this.props.handleKeyboardShortcuts(event.key, event.target.value);
 
   _saveItem = () => this.props.onSave(this.props.itemValue);
 
@@ -48,7 +42,7 @@ export class ListItemEditor extends React.PureComponent {
           className="form-control"
           value={itemValue}
           onChange={this._handleInputChange}
-          onKeyUp={this._handleInputKeyUp}
+          onKeyDown={this._handleInputKeyDown}
           autoFocus
         />
         <span className="input-group-btn">
