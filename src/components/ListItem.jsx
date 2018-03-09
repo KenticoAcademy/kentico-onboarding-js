@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 import { ListItemEditor } from '../containers/ListItemEditor';
 import { ListItemDisplay } from '../containers/ListItemDisplay';
-import { ListItem as ListItemModel } from '../models/listItem';
+import { Item } from '../models/item';
 
 export const ListItem = ({ isBeingEdited, itemValue, itemKey, bullet }) => {
   return (
@@ -26,7 +26,7 @@ export const ListItem = ({ isBeingEdited, itemValue, itemKey, bullet }) => {
 ListItem.displayName = 'ListItem';
 
 ListItem.propTypes = {
-  item: PropTypes.instanceOf(ListItemModel).isRequired,
+  item: PropTypes.instanceOf(Item).isRequired,
   itemKey: PropTypes.string.isRequired,
   itemValue: PropTypes.string.isRequired,
   isBeingEdited: PropTypes.bool.isRequired,

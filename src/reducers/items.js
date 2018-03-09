@@ -1,7 +1,7 @@
 import { OrderedMap } from 'immutable';
 
-import { ToDoItem } from '../models/toDoItem';
-import { ListItem } from '../models/listItem';
+import { ToDo } from '../models/toDo';
+import { Item } from '../models/item';
 import {
   ITEM_ADD,
   ITEM_DELETE,
@@ -48,12 +48,12 @@ const stopEditing = (state, key) => {
 
 const addItem = (state, value) => {
   const key = getIdentifier();
-  const todo = new ToDoItem({
+  const todo = new ToDo({
     key,
     value,
   });
 
-  return state.set(key, new ListItem({
+  return state.set(key, new Item({
     todo,
     changeableValue: value,
     isBeingEdited: false,
