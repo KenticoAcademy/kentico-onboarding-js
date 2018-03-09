@@ -26,7 +26,7 @@ export const editItemFactory = (dependencies: IEditItemFactoryDependencies) =>
 
       dispatch(dependencies.saveItemChangesRequest(id, text));
 
-      return dependencies.httpClient.patch(dependencies.uri + id, updatedItem)
+      return dependencies.httpClient.put(dependencies.uri + id, updatedItem)
         .then(() => dispatch(dependencies.saveItemChangesConfirm(id)))
         .catch(() => dispatch(dependencies.saveItemChangesFailed(id)));
     };
