@@ -3,34 +3,31 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { isInputValid } from '../utils/validationService';
-
 export class ListItemEditor extends React.PureComponent {
   static displayName = 'ListItemEditor';
 
   static propTypes = {
     itemKey: PropTypes.string.isRequired,
     itemValue: PropTypes.string.isRequired,
+    isInputValid: PropTypes.bool.isRequired,
     bullet: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.number,
     ]).isRequired,
 
-    onSave: PropTypes.func.isRequired,
-    onDelete: PropTypes.func.isRequired,
-    onCancel: PropTypes.func.isRequired,
-    onItemValueChange: PropTypes.func.isRequired,
+    saveItem: PropTypes.func.isRequired,
+    deleteItem: PropTypes.func.isRequired,
+    cancelItemEditing: PropTypes.func.isRequired,
+    handleItemValueChange: PropTypes.func.isRequired,
     handleKeyboardShortcuts: PropTypes.func.isRequired,
   };
 
-  _handleInputChange = (event) => this.props.onItemValueChange(event.target.value);
+  _handleInputChange = (event) => this.props.handleItemValueChange(event.target.value);
 
   _handleInputKeyDown = (event) => this.props.handleKeyboardShortcuts(event.key, event.target.value);
 
-  _saveItem = () => this.props.onSave(this.props.itemValue);
-
   render() {
-    const { onCancel, onDelete, bullet, itemValue } = this.props;
+    const { cancelItemEditing, deleteItem, saveItem, bullet, itemValue, isInputValid } = this.props;
 
     return (
       <div className="input-group">
@@ -49,20 +46,20 @@ export class ListItemEditor extends React.PureComponent {
           <button
             type="button"
             className="btn btn-primary"
-            onClick={this._saveItem}
-            disabled={!isInputValid(itemValue)}
+            onClick={() => saveItem(itemValue)}
+            disabled={!isInputValid}
           > Save
           </button>
           <button
             type="button"
             className="btn btn-default"
-            onClick={onCancel}
+            onClick={cancelItemEditing}
           > Cancel
           </button>
           <button
             type="button"
             className="btn btn-danger"
-            onClick={onDelete}
+            onClick={deleteItem}
           > Delete
           </button>
         </span>

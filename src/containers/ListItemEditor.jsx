@@ -14,13 +14,14 @@ import { isInputValid } from '../utils/validationService';
 const mapStateToProps = (state, { itemValue, bullet }) => ({
   itemValue,
   bullet,
+  isInputValid: isInputValid(itemValue),
 });
 
 const mapDispatchToProps = (dispatch, { itemKey }) => ({
-  onCancel: () => dispatch(stopItemEditing(itemKey)),
-  onDelete: () => dispatch(deleteItem(itemKey)),
-  onSave: (itemValue) => dispatch(saveItem(itemKey, itemValue)),
-  onItemValueChange: (itemValue) => dispatch(changeItemValue(itemKey, itemValue)),
+  cancelItemEditing: () => dispatch(stopItemEditing(itemKey)),
+  deleteItem: () => dispatch(deleteItem(itemKey)),
+  saveItem: (itemValue) => dispatch(saveItem(itemKey, itemValue)),
+  handleItemValueChange: (itemValue) => dispatch(changeItemValue(itemKey, itemValue)),
   handleKeyboardShortcuts: (inputKey, itemValue) => {
     if (inputKey === 'Enter' && isInputValid(itemValue)) {
       dispatch(saveItem(itemKey, itemValue));
