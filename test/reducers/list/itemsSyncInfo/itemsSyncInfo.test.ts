@@ -369,4 +369,60 @@ describe('itemsSyncInfo', () => {
     expect(result)
       .toEqual(expectedState);
   });
+
+  it('will change sync operation to deleteAfterFailedModify', () => {
+    const itemSyncInfo = new ItemSyncInfo({
+      operation: SyncOperation.Modify,
+      syncState: SyncState.Unsynced,
+      id: 'id',
+    });
+    const newItemSyncInfo = new ItemSyncInfo({
+      id: 'id',
+      operation: SyncOperation.DeleteAfterFailedModify,
+      syncState: SyncState.Pending,
+    });
+
+    const initialState = OrderedMap<Guid, ItemSyncInfo>({
+      [itemSyncInfo.id]: itemSyncInfo,
+    });
+    deepFreeze(initialState);
+
+    const expectedState = OrderedMap<Guid, ItemSyncInfo>({
+      [newItemSyncInfo.id]: newItemSyncInfo,
+    });
+
+    const action = deleteItemRequest(itemSyncInfo.id);
+    const result = itemsSyncInfo(initialState, action);
+
+    expect(result)
+      .toEqual(expectedState);
+  });
+
+  it('will change sync state to unsync', () => {
+    const itemSyncInfo = new ItemSyncInfo({
+      operation: SyncOperation.DeleteAfterFailedModify,
+      syncState: SyncState.Pending,
+      id: 'id',
+    });
+    const newItemSyncInfo = new ItemSyncInfo({
+      id: 'id',
+      operation: SyncOperation.DeleteAfterFailedModify,
+      syncState: SyncState.Unsynced,
+    });
+
+    const initialState = OrderedMap<Guid, ItemSyncInfo>({
+      [itemSyncInfo.id]: itemSyncInfo,
+    });
+    deepFreeze(initialState);
+
+    const expectedState = OrderedMap<Guid, ItemSyncInfo>({
+      [newItemSyncInfo.id]: newItemSyncInfo,
+    });
+
+    const action = itemSyncFailed(itemSyncInfo.id);
+    const result = itemsSyncInfo(initialState, action);
+
+    expect(result)
+      .toEqual(expectedState);
+  });
 });
