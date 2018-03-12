@@ -6,7 +6,6 @@ import {
 
 export const item = (state, action) => {
   switch (action.type) {
-
     case ITEM_EDITING_START:
       return state.mergeIn([action.itemKey], { isBeingEdited: true });
 

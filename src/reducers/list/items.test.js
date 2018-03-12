@@ -9,7 +9,6 @@ import {
   saveItem,
 } from '../../actions/listActions';
 import { getIdentifier } from '../../utils/uuidService';
-import { ITEM_ADD } from '../../utils/constants';
 
 describe('items reducer works correctly', () => {
   it('ITEM_ADD returns map with correct item', () => {
