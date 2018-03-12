@@ -29,13 +29,6 @@ describe('items reducer works correctly', () => {
   it('ITEM_SAVE updates correct item in map', () => {
     const savedText = 'save item';
     const key = getIdentifier();
-    let expected = new OrderedMap();
-    expected = expected.set(key, new Item({
-      key,
-      value: savedText,
-      isBeingEdited: false,
-      changeableValue: savedText,
-    }));
 
     let state = new OrderedMap();
     const mapItem = new Item({
@@ -43,6 +36,7 @@ describe('items reducer works correctly', () => {
       value: 'add item',
     });
     state = state.set(key, mapItem);
+    const expected = state.mergeIn([key], { value: savedText, changeableValue: savedText });
 
     const action = saveItem(key, savedText);
     const actual = items(state, action);
