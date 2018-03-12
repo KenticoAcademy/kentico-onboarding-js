@@ -1,4 +1,4 @@
-import { getIdentifier, getEmptyIdentifier } from '../src/utils/uuidService';
+import { getIdentifier, getEmptyIdentifier } from './uuidService';
 
 describe('UUID Generator works correctly', () => {
   it('has GUID format v4', () => {
