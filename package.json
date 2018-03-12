@@ -55,6 +55,7 @@
   },
   "dependencies": {
     "bootstrap": "^3.3.7",
+    "fast-memoize": "^2.3.0",
     "immutable": "^3.8.2",
     "prop-types": "^15.6.0",
     "react": "^15.6.1",
