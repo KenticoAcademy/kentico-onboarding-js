@@ -24,6 +24,12 @@ import { IListItem } from '../../../models/interfaces/IListItem';
 import { IItemSyncInfo } from '../../../models/interfaces/IItemSyncInfo';
 import { arrayToOrderedMap } from '../../../utils/arrayToOrderedMap';
 
+const requiresSpecialFlag = (oldItemSyncInfo: IItemSyncInfo, newItemSyncInfo: IItemSyncInfo) =>
+  oldItemSyncInfo.syncState === SyncState.Unsynced
+  && (oldItemSyncInfo.operation === SyncOperation.Modify
+      || oldItemSyncInfo.operation === SyncOperation.DeleteAfterFailedModify)
+  && newItemSyncInfo.operation === SyncOperation.Delete;
+
 const setSyncState = (state: ItemsSyncInfoState, { payload: { itemSyncInfo } }: IAction): ItemsSyncInfoState =>
   itemSyncInfo ?
     state.update(
@@ -32,7 +38,7 @@ const setSyncState = (state: ItemsSyncInfoState, { payload: { itemSyncInfo } }: 
         id: itemSyncInfo.id,
       }),
       syncInfo => syncInfo.with({
-        operation: itemSyncInfo.operation,
+        operation: requiresSpecialFlag(syncInfo, itemSyncInfo) ? SyncOperation.DeleteAfterFailedModify : itemSyncInfo.operation,
         syncState: itemSyncInfo.syncState,
       })) :
     state;
