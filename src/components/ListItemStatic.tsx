@@ -6,6 +6,7 @@ import { SyncState } from '../models/enums/SyncState';
 import { RetryItem } from '../containers/RetryItem';
 import { SyncOperation } from '../models/enums/SyncOperation';
 import { ClipLoader } from 'react-spinners';
+import { Revert } from '../containers/Revert';
 
 export interface IListItemStaticCallbackProps {
   readonly onItemOpened: () => void;
@@ -77,7 +78,12 @@ export class ListItemStatic extends React.PureComponent<IListItemStaticProps> {
         break;
 
       case SyncState.Unsynced:
-        syncingComponent = <RetryItem item={item} itemSyncInfo={itemSyncInfo} />;
+        syncingComponent = (
+          <div>
+            <RetryItem item={item} itemSyncInfo={itemSyncInfo} />
+            <Revert syncOperation={itemSyncInfo.operation} id={item.id} />
+          </div>
+        );
         break;
 
       default:
