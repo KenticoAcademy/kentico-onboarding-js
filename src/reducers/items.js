@@ -1,6 +1,5 @@
 import { OrderedMap } from 'immutable';
 
-import { ToDo } from '../models/toDo';
 import { Item } from '../models/item';
 import {
   ITEM_ADD,
@@ -18,7 +17,11 @@ export const items = (state = OrderedMap(), action) => {
       return addItem(state, action.itemValue);
 
     case ITEM_SAVE:
-      return saveItem(state, action.itemKey, action.updatedValue);
+      return state.mergeIn([action.itemKey], {
+        value: action.updatedValue,
+        changeableValue: action.updatedValue,
+        isBeingEdited: false,
+      });
 
     case ITEM_DELETE:
       return state.delete(action.itemKey);
@@ -38,34 +41,21 @@ export const items = (state = OrderedMap(), action) => {
 };
 
 const stopEditing = (state, key) => {
-  const todo = state.get(key).todo;
+  const item = state.get(key);
 
   return state.mergeIn([key], {
+    changeableValue: item.value,
     isBeingEdited: false,
-    changeableValue: todo.value,
   });
 };
 
 const addItem = (state, value) => {
   const key = getIdentifier();
-  const todo = new ToDo({
-    key,
-    value,
-  });
 
   return state.set(key, new Item({
-    todo,
+    key,
+    value,
     changeableValue: value,
     isBeingEdited: false,
   }));
-};
-
-const saveItem = (state, key, updatedValue) => {
-  const toDo = state.get(key).todo;
-
-  return state.mergeIn([key], {
-    todo: toDo.merge({ value: updatedValue }),
-    changeableValue: updatedValue,
-    isBeingEdited: false,
-  });
 };

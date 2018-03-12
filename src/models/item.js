@@ -1,9 +1,10 @@
 import { Record } from 'immutable';
 
-import { ToDo } from './toDo';
+import { getEmptyIdentifier } from '../utils/uuidService';
 
 const defaultData = {
-  todo: new ToDo(),
+  key: getEmptyIdentifier(),
+  value: '',
   isBeingEdited: false,
   changeableValue: '',
 };
