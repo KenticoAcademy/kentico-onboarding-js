@@ -4,7 +4,7 @@ import {
   IFetchCallbackProps,
   IFetchDataProps
 } from '../../components/todo-list/FetchedItems';
-import { fetchItems } from '../../actions/index';
+import { fetchItems } from '../../actions';
 import { IAction } from '../../actions/IAction';
 import { IAppState } from '../../models/IAppState';
 import { closeFetchError } from '../../actions/actionCreators';

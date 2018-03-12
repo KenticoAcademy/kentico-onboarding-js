@@ -1,7 +1,10 @@
 import * as PropTypes from 'prop-types';
 import { connect, Dispatch } from 'react-redux';
-import { EditedItem, IEditedItemCallbackProps } from '../../components/todo-list/EditedItem';
-import { deleteFromServer, putItem } from '../../actions/index';
+import {
+  EditedItem,
+  IEditedItemCallbackProps
+} from '../../components/todo-list/EditedItem';
+import { deleteFromServer, putItem } from '../../actions';
 import { IAppState } from '../../models/IAppState';
 import { IndexedItem } from '../../models/IndexedItem';
 import { IAction } from '../../actions/IAction';

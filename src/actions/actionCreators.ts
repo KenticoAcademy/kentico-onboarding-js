@@ -4,17 +4,17 @@ import {
   TODO_LIST_ITEM_EDIT,
   TODO_LIST_ITEM_CANCEL_EDIT,
   TODO_LIST_ITEM_INSERT,
-  ITEM_POST_SUCCESS,
-  ITEM_PUT_SUCCESS,
-  ITEM_DELETE_SUCCESS,
-  ITEM_PUT_ERROR,
-  ITEM_DELETE_ERROR,
-  CLOSE_ITEM_ERROR,
-  ITEM_POST_ERROR,
-  ITEMS_FETCH_SUCCESS,
+  POST_ITEM_SUCCESS,
+  PUT_ITEM_SUCCESS,
+  DELETE_ITEM_SUCCESS,
+  PUT_ITEM_ERROR,
+  DELETE_ITEM_ERROR,
+  CLOSE_PUT_DELETE_ERROR,
+  POST_ITEM_ERROR,
+  FETCH_ITEMS_SUCCESS,
   CLOSE_FETCH_ERROR,
   CLOSE_POST_ERROR,
-  ITEMS_FETCH_ERROR
+  FETCH_ITEMS_ERROR
 } from '../constants/actionTypes';
 import { Uuid } from '../utils/generateId';
 import { IAction } from './IAction';
@@ -36,7 +36,7 @@ export const insertItem =
 
 export const postSuccess =
   (args: { newId: Uuid, id: Uuid, text: string, isSynchronized: boolean }): IAction => ({
-    type: ITEM_POST_SUCCESS,
+    type: POST_ITEM_SUCCESS,
     payload: {
       newId: args.newId,
       id: args.id,
@@ -46,7 +46,7 @@ export const postSuccess =
   });
 
 export const postError = (id: Uuid, errorMessage: string): IAction => ({
-  type: ITEM_POST_ERROR,
+  type: POST_ITEM_ERROR,
   payload: {
     id,
     errorMessage
@@ -62,14 +62,14 @@ export const updateItem = (args: { id: Uuid, text: string }): IAction => ({
 });
 
 export const putSuccess = (id: Uuid): IAction => ({
-  type: ITEM_PUT_SUCCESS,
+  type: PUT_ITEM_SUCCESS,
   payload: {
     id
   }
 });
 
 export const putError = (args: ErrorActionArgs): IAction => ({
-  type: ITEM_PUT_ERROR,
+  type: PUT_ITEM_ERROR,
   payload: {
     id: args.id,
     message: args.message
@@ -84,14 +84,14 @@ export const deleteItem = (id: Uuid): IAction => ({
 });
 
 export const deleteSuccess = (id: Uuid): IAction => ({
-  type: ITEM_DELETE_SUCCESS,
+  type: DELETE_ITEM_SUCCESS,
   payload: {
     id
   }
 });
 
 export const deleteError = (args: ErrorActionArgs): IAction => ({
-  type: ITEM_DELETE_ERROR,
+  type: DELETE_ITEM_ERROR,
   payload: {
     id: args.id,
     message: args.message
@@ -113,30 +113,27 @@ export const cancelItemEditing = (id: Uuid): IAction => ({
 });
 
 export const closeItemError = (id: Uuid): IAction => ({
-  type: CLOSE_ITEM_ERROR,
+  type: CLOSE_PUT_DELETE_ERROR,
   payload: {
     id,
   }
 });
 
 export const fetchSuccess = (): IAction => ({
-  type: ITEMS_FETCH_SUCCESS,
-  payload: undefined
+  type: FETCH_ITEMS_SUCCESS
 });
 
 export const fetchError = (errorText: string): IAction => ({
-  type: ITEMS_FETCH_ERROR,
+  type: FETCH_ITEMS_ERROR,
   payload: {
     errorText
   }
 });
 
 export const closeFetchError = (): IAction => ({
-  type: CLOSE_FETCH_ERROR,
-  payload: undefined
+  type: CLOSE_FETCH_ERROR
 });
 
 export const closePostError = (): IAction => ({
-  type: CLOSE_POST_ERROR,
-  payload: undefined
+  type: CLOSE_POST_ERROR
 });

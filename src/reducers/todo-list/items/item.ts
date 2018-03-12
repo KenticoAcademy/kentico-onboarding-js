@@ -2,8 +2,8 @@ import {
   TODO_LIST_ITEM_UPDATE,
   TODO_LIST_ITEM_INSERT,
   TODO_LIST_ITEM_EDIT,
-  TODO_LIST_ITEM_CANCEL_EDIT, ITEM_POST_SUCCESS, ITEM_PUT_SUCCESS, TODO_LIST_ITEM_DELETE,
-  ITEM_PUT_ERROR, ITEM_DELETE_ERROR, CLOSE_ITEM_ERROR,
+  TODO_LIST_ITEM_CANCEL_EDIT, POST_ITEM_SUCCESS, PUT_ITEM_SUCCESS, TODO_LIST_ITEM_DELETE,
+  PUT_ITEM_ERROR, DELETE_ITEM_ERROR, CLOSE_PUT_DELETE_ERROR,
 } from '../../../constants/actionTypes';
 import { ListItem } from '../../../models/ListItem';
 import { IAction } from '../../../actions/IAction';
@@ -27,7 +27,7 @@ export const item = (previousState: ListItem, action: IAction): ListItem => {
         isSynchronized: action.payload.isSynchronized
       });
 
-    case ITEM_POST_SUCCESS:
+    case POST_ITEM_SUCCESS:
       return new ListItem({
         id: action.payload.newId,
         text: action.payload.text,
@@ -46,7 +46,7 @@ export const item = (previousState: ListItem, action: IAction): ListItem => {
       return previousState.with(updatedItem);
     }
 
-    case ITEM_PUT_SUCCESS: {
+    case PUT_ITEM_SUCCESS: {
       const updatedItem = {
         isSynchronized: true,
         errorMessage: ''
@@ -55,7 +55,7 @@ export const item = (previousState: ListItem, action: IAction): ListItem => {
       return previousState.with(updatedItem);
     }
 
-    case ITEM_PUT_ERROR: {
+    case PUT_ITEM_ERROR: {
       const updatedItem = {
         isSynchronized: true,
         text: previousState.backupText,
@@ -74,7 +74,7 @@ export const item = (previousState: ListItem, action: IAction): ListItem => {
       return previousState.with(updatedItem);
     }
 
-    case ITEM_DELETE_ERROR: {
+    case DELETE_ITEM_ERROR: {
       const updatedItem = {
         isSynchronized: true,
         errorMessage: action.payload.message
@@ -83,7 +83,7 @@ export const item = (previousState: ListItem, action: IAction): ListItem => {
       return previousState.with(updatedItem);
     }
 
-    case CLOSE_ITEM_ERROR: {
+    case CLOSE_PUT_DELETE_ERROR: {
       const updatedItem = {
         errorMessage: ''
       };

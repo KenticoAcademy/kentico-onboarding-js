@@ -8,7 +8,7 @@ describe('delete item tests', () => {
   const dispatch = jest.fn(input => input);
   const id = 'a378ffaa-75fa-4117-a57b-84da0a3c975a';
 
-  it('creates ITEM_DELETE_SUCCESS after successful DELETE request', (done) => {
+  it('creates DELETE_ITEM_SUCCESS after successful DELETE request', (done) => {
     deleteSuccess.mock.calls.length = 0;
     const axiosDelete = (_id: string) =>
       Promise.resolve({
@@ -33,7 +33,7 @@ describe('delete item tests', () => {
       .catch(err => console.log(err));
   });
 
-  it('creates ITEM_DELETE_ERROR after unsuccessful DELETE request', (done) => {
+  it('creates DELETE_ITEM_ERROR after unsuccessful DELETE request', (done) => {
     deleteError.mock.calls.length = 0;
     const axiosDelete = (_id: string) =>
       Promise.reject({

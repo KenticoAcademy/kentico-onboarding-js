@@ -7,7 +7,7 @@ describe('put item tests', () => {
   const putError = jest.fn();
   const dispatch = jest.fn(input => input);
 
-  it('creates ITEM_PUT_SUCCESS after successful PUT request', (done) => {
+  it('creates PUT_ITEM_SUCCESS after successful PUT request', (done) => {
     putSuccess.mock.calls.length = 0;
     const updatedItem = {
       id: '9a0b391a-2a57-4be1-8179-7271b5e8cdc3',
@@ -36,7 +36,7 @@ describe('put item tests', () => {
       .catch(err => console.log(err));
   });
 
-  it('creates ITEM_PUT_SUCCESS with correct arguments after successful PUT request', (done) => {
+  it('creates PUT_ITEM_SUCCESS with correct arguments after successful PUT request', (done) => {
     putSuccess.mock.calls.length = 0;
     const updatedItem = {
       id: '9a0b391a-2a57-4be1-8179-7271b5e8cdc3',
@@ -65,7 +65,7 @@ describe('put item tests', () => {
       .catch(err => console.log(err));
   });
 
-  it('creates ITEM_PUT_ERROR after unsuccessful PUT request', (done) => {
+  it('creates PUT_ITEM_ERROR after unsuccessful PUT request', (done) => {
     putError.mock.calls.length = 0;
     const errorMessage = 'Bad Request';
     const updatedItem = {

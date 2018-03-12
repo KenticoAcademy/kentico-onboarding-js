@@ -16,7 +16,7 @@ describe('fetch items tests', () => {
     isSynchronized: true
   };
 
-  it('creates TODO_LIST_ITEM_INSERT, ITEMS_FETCH_SUCCESS on correct GET request', (done) => {
+  it('creates TODO_LIST_ITEM_INSERT, FETCH_ITEMS_SUCCESS on correct GET request', (done) => {
     insertItem.mock.calls.length = 0;
     fetchSuccess.mock.calls.length = 0;
     const items = [{
@@ -87,7 +87,7 @@ describe('fetch items tests', () => {
       .catch(err => console.log(err));
   });
 
-  it('creates ITEMS_FETCH_ERROR after GET request failure', (done) => {
+  it('creates FETCH_ITEMS_ERROR after GET request failure', (done) => {
     fetchError.mock.calls.length = 0;
     const axiosFetch = () =>
       Promise.reject({

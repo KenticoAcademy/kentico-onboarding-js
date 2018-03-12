@@ -10,7 +10,7 @@ describe('post item tests', () => {
   const postError = jest.fn();
   const insertItem = jest.fn();
 
-  it('creates ITEM_POST_SUCCESS on correct POST request', (done) => {
+  it('creates POST_ITEM_SUCCESS on correct POST request', (done) => {
     const generateId = jest.fn();
     postSuccess.mock.calls.length = 0;
     const fetchedTestItem = {
@@ -45,7 +45,7 @@ describe('post item tests', () => {
       .catch(err => console.log(err));
   });
 
-  it('creates ITEM_POST_SUCCESS with correct arguments', (done) => {
+  it('creates POST_ITEM_SUCCESS with correct arguments', (done) => {
     postSuccess.mock.calls.length = 0;
     const generateId = jest.fn(() => postTestItem.id);
     const fetchedTestItem = {
@@ -83,7 +83,7 @@ describe('post item tests', () => {
       .catch(err => console.log(err));
   });
 
-  it('creates ITEM_POST_ERROR on POST request failure', (done) => {
+  it('creates POST_ITEM_ERROR on POST request failure', (done) => {
     const generateId = jest.fn();
     postError.mock.calls.length = 0;
     const axiosPost = (_data: {text: string}) =>

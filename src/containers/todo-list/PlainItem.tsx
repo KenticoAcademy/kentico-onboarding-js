@@ -1,6 +1,9 @@
 import * as PropTypes from 'prop-types';
 import { connect, Dispatch } from 'react-redux';
-import { IPlainItemCallbackProps, PlainItem } from '../../components/todo-list/PlainItem';
+import {
+  IPlainItemCallbackProps,
+  PlainItem
+} from '../../components/todo-list/PlainItem';
 import {
   closeItemError,
   editItem,
