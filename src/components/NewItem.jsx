@@ -2,23 +2,40 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { isInputValid } from '../utils/validationService';
 
 export class NewItem extends React.PureComponent {
   static displayName = 'NewItem';
 
   static propTypes = {
     addItem: PropTypes.func.isRequired,
-    handleValueChange: PropTypes.func.isRequired,
-    handleKeyboardShortcuts: PropTypes.func.isRequired,
-    isInputValid: PropTypes.bool.isRequired,
   };
 
-  _handleChange = (event) => this.props.handleValueChange(event.target.value);
+  constructor(props) {
+    super(props);
+    this.state = {
+      itemValue: '',
+    };
+  }
 
-  _handleKeyDown = (event) => this.props.handleKeyboardShortcuts(event.key, event.target.value);
+  _handleChange = (event) => this.setState({ itemValue: event.target.value });
+
+  _handleKeyDown = (event) => {
+    if (event.key === 'Enter' && isInputValid(this.state.itemValue)) {
+      this._addItem();
+    }
+    else if (event.key === 'Escape') {
+      this.setState({ itemValue: '' });
+    }
+  };
+
+  _addItem = () => {
+    this.props.addItem(this.state.itemValue);
+    this.setState({ itemValue: '' });
+  };
 
   render() {
-    const { itemValue, isInputValid, addItem } = this.props;
+    const { itemValue } = this.state;
 
     return (
       <div className="row">
@@ -35,8 +52,8 @@ export class NewItem extends React.PureComponent {
             <button
               type="button"
               className="btn btn-default"
-              onClick={() => addItem(itemValue)}
-              disabled={!isInputValid}
+              onClick={this._addItem}
+              disabled={!isInputValid(itemValue)}
             > Add
             </button>
           </span>
