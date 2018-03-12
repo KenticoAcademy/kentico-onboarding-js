@@ -9,5 +9,5 @@ export const Revert: React.SFC<IRevertCallbackProps> = ({ revertAction }) =>
     className="btn btn-danger"
     onClick={revertAction}
   >
-    Revert action
+    Revert
   </button>;

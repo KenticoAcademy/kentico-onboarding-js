@@ -18,6 +18,7 @@ import {
   editItemAsync
 } from '../actions/thunk';
 import { IAppState } from '../models/state/IAppState';
+import { retryMessages } from '../constants/retryMessages';
 
 export interface IRetryItemContainerProps {
   readonly item: IListItem;
@@ -69,7 +70,7 @@ const mapDispatchToProps = (dispatch: Dispatch<IAppState>,  { item, itemSyncInfo
 
 const mergeProps = (_: undefined, { retryAction }: IRetryCallbackProps, { itemSyncInfo }: IRetryItemContainerProps): IRetryProps => ({
   retryAction,
-  description: `${itemSyncInfo.operation} failed`,
+  description: retryMessages[itemSyncInfo.operation],
 });
 
 const RetryItem: ComponentClass<IRetryItemContainerProps> = connect(

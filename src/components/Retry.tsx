@@ -22,7 +22,7 @@ const Retry: React.SFC<IRetryProps> = ({ retryAction, description }) =>
         className="btn btn-primary"
         onClick={retryAction}
       >
-        Try again
+        Retry
       </button>
     </div>
   </div>;

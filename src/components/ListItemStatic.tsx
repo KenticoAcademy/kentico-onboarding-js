@@ -79,8 +79,10 @@ export class ListItemStatic extends React.PureComponent<IListItemStaticProps> {
 
       case SyncState.Unsynced:
         syncingComponent = (
-          <div>
-            <RetryItem item={item} itemSyncInfo={itemSyncInfo} />
+          <div className="form-inline">
+            <div className="mr-2">
+              <RetryItem item={item} itemSyncInfo={itemSyncInfo} />
+            </div>
             <Revert syncOperation={itemSyncInfo.operation} id={item.id} />
           </div>
         );
@@ -99,7 +101,7 @@ export class ListItemStatic extends React.PureComponent<IListItemStaticProps> {
         <div onMouseUp={this._onMouseUp}>
           {text}
         </div>
-        <div className="ml-5">
+        <div className="ml-3">
           {syncingComponent}
         </div>
       </div>
