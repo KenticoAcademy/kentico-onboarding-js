@@ -3,12 +3,12 @@ import { IPostStatus } from './IPostStatus';
 
 const emptyStatus: IPostStatus = {
   hasError: false,
-  errorMessage: ''
+  message: ''
 };
 
 export class PostStatus extends Record(emptyStatus) implements IPostStatus {
   hasError: boolean;
-  errorMessage: string;
+  message: string;
 
   constructor(params?: Partial<IPostStatus>) {
     params ? super(params) : super();

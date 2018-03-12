@@ -15,8 +15,8 @@ interface IProps {
 }
 
 const mapDispatchToProps = (dispatch: Dispatch<IAppState>, ownProps: IProps): IEditedItemCallbackProps => ({
-  onUpdateItem: (text: string): Promise<void | IAction> => dispatch(putItem({id: ownProps.item.id, text})),
-  onDeleteItem: (): Promise<void | IAction> => dispatch(deleteFromServer(ownProps.item.id)),
+  onUpdateItem: (text: string): Promise<IAction> => dispatch(putItem({id: ownProps.item.id, text})),
+  onDeleteItem: (): Promise<IAction> => dispatch(deleteFromServer(ownProps.item.id)),
   onEditStop: (): IAction => dispatch(cancelItemEditing(ownProps.item.id)),
 });
 

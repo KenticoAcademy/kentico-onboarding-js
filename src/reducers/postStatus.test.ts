@@ -18,12 +18,12 @@ describe('postStatus reducer', () => {
   });
 
   it('sets flags correctly on failed request with errorMessage', () => {
-    const errorMessage = '400 Bad Request';
+    const message = '400 Bad Request';
     const id = 'ccda6054-f30d-4ee9-98b9-f6351ef9794c';
-    const errorAction = postError(id, errorMessage);
+    const errorAction = postError({id, message});
     const expectedState = new PostStatus({
       hasError: true,
-      errorMessage
+      message
     });
 
     const newState = postStatus(expectedState, errorAction);

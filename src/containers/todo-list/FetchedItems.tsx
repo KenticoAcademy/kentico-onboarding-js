@@ -15,7 +15,7 @@ const mapStateToProps = (state: IAppState): IFetchDataProps => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<IAppState>): IFetchCallbackProps => ({
-  onFetchItems: (): Promise<void | IAction> => dispatch(fetchItems()),
+  onFetchItems: (): Promise<IAction> => dispatch(fetchItems()),
   onFetchErrorClose: (): IAction => dispatch(closeFetchError())
 });
 

@@ -16,7 +16,7 @@ describe('fetch items tests', () => {
     isSynchronized: true
   };
 
-  it('creates TODO_LIST_ITEM_INSERT, FETCH_ITEMS_SUCCESS on correct GET request', (done) => {
+  it('creates TODO_LIST_ITEM_INSERT, FETCH_ITEMS_SUCCESS on correct GET request', async () => {
     insertItem.mock.calls.length = 0;
     fetchSuccess.mock.calls.length = 0;
     const items = [{
@@ -43,16 +43,13 @@ describe('fetch items tests', () => {
         axiosFetch
       });
 
-    fetchItems()(dispatch)
-      .then(() => {
-        expect(insertItem.mock.calls.length).toEqual(items.length);
-        expect(fetchSuccess.mock.calls.length).toBe(1);
-        done();
-      })
-      .catch(err => console.log(err));
+    await fetchItems()(dispatch);
+
+    expect(insertItem.mock.calls.length).toEqual(items.length);
+    expect(fetchSuccess.mock.calls.length).toBe(1);
   });
 
-  it('creates TODO_LIST_ITEM_INSERT with correct arguments', (done) => {
+  it('creates TODO_LIST_ITEM_INSERT with correct arguments', async () => {
     insertItem.mock.calls.length = 0;
     const items = [{
       id: fetchedTestItem0.id,
@@ -78,16 +75,13 @@ describe('fetch items tests', () => {
         axiosFetch
       });
 
-    fetchItems()(dispatch)
-      .then(() => {
-        expect(insertItem.mock.calls[0][0]).toEqual(fetchedTestItem0);
-        expect(insertItem.mock.calls[1][0]).toEqual(fetchedTestItem1);
-        done();
-      })
-      .catch(err => console.log(err));
+    await fetchItems()(dispatch);
+
+    expect(insertItem.mock.calls[0][0]).toEqual(fetchedTestItem0);
+    expect(insertItem.mock.calls[1][0]).toEqual(fetchedTestItem1);
   });
 
-  it('creates FETCH_ITEMS_ERROR after GET request failure', (done) => {
+  it('creates FETCH_ITEMS_ERROR after GET request failure', async () => {
     fetchError.mock.calls.length = 0;
     const axiosFetch = () =>
       Promise.reject({
@@ -107,11 +101,8 @@ describe('fetch items tests', () => {
         axiosFetch
       });
 
-    fetchItems()(dispatch)
-      .then(() => {
-        expect(fetchError.mock.calls.length).toBe(1);
-        done();
-      })
-      .catch(err => console.log(err));
+    await fetchItems()(dispatch);
+
+    expect(fetchError.mock.calls.length).toBe(1);
   });
 });

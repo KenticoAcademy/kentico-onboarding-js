@@ -1,7 +1,4 @@
-import {
-  AxiosResponse,
-  AxiosError
-} from 'axios';
+import { AxiosResponse } from 'axios';
 import { Dispatch } from 'react-redux';
 import { IAppState } from '../../models/IAppState';
 import { IAction } from '../IAction';
@@ -17,25 +14,20 @@ interface IDeleteDependencies {
 
 export const deleteItemFactory =
   ({deleteItem, deleteSuccess, deleteError, axiosDelete}: IDeleteDependencies) =>
-    (id: Uuid) => (dispatch: Dispatch<IAppState>): Promise<void | IAction> => {
+    (id: Uuid) => async (dispatch: Dispatch<IAppState>): Promise<IAction> => {
       dispatch(deleteItem(id));
 
-      return axiosDelete(id)
-        .then(() => dispatch(deleteSuccess(id)))
-        .catch((error: AxiosError) => {
-          const errorResponse = error.response;
-          if (errorResponse !== undefined) {
-            dispatch(deleteError(
-              {
-                id,
-                message: OPERATION_FAILED
-              }));
-          } else {
-            dispatch(deleteError(
-              {
-                id,
-                message: NO_CONNECTION
-              }));
-          }
-        });
+      try {
+        await axiosDelete(id);
+
+        return dispatch(deleteSuccess(id));
+      } catch (error) {
+        const errorResponse = error.response;
+        const message =
+          errorResponse === undefined
+            ? NO_CONNECTION
+            : OPERATION_FAILED;
+
+        return dispatch(deleteError({id, message}));
+      }
     };

@@ -12,7 +12,7 @@ import { closePostError } from '../../actions/actionCreators';
 const mapStateToProps = (state: IAppState): IListDataProps => ({
   ids: getItemIds(state),
   postError: state.postStatus.hasError,
-  errorMessage: state.postStatus.errorMessage
+  message: state.postStatus.message
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<IAppState>): IListCallbackProps => ({

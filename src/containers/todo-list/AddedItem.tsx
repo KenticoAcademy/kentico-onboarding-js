@@ -8,7 +8,7 @@ import { IAppState } from '../../models/IAppState';
 import { IAction } from '../../actions/IAction';
 
 const mapDispatchToProps = (dispatch: Dispatch<IAppState>): IAddedItemCallbackProps => ({
-  onAddItem: (text: string): Promise<void | IAction> => dispatch(postItem(text)),
+  onAddItem: (text: string): Promise<IAction> => dispatch(postItem(text)),
 });
 
 const enhancer = connect(undefined, mapDispatchToProps);

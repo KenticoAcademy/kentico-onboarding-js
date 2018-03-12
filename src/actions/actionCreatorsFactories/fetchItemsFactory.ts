@@ -1,7 +1,4 @@
-import {
-  AxiosResponse,
-  AxiosError,
-} from 'axios';
+import { AxiosResponse } from 'axios';
 import { IAppState } from '../../models/IAppState';
 import { Dispatch } from 'react-redux';
 import { Uuid } from '../../utils/generateId';
@@ -24,20 +21,24 @@ interface IPostDependencies {
 
 export const fetchItemsFactory =
   ({insertItem, fetchSuccess, fetchError, axiosFetch}: IPostDependencies) =>
-    () => (dispatch: Dispatch<IAppState>): Promise<void | IAction> =>
-      axiosFetch()
-        .then((response: AxiosResponse) => response.data.map((item: FetchedItem) =>
+    () => async (dispatch: Dispatch<IAppState>): Promise<IAction> => {
+      try {
+        const response = await axiosFetch();
+        response.data.map((item: FetchedItem) =>
           dispatch(insertItem({
             text: item.text,
             id: item.id,
             isSynchronized: true
-          }))))
-        .then(() => dispatch(fetchSuccess()))
-        .catch((error: AxiosError) => {
-          const errorResponse = error.response;
-          if (errorResponse !== undefined) {
-            dispatch(fetchError(errorResponse.status + ' ' + errorResponse.statusText));
-          } else {
-            dispatch(fetchError(NO_CONNECTION));
-          }
-        });
+          })));
+
+        return dispatch(fetchSuccess());
+      } catch (error) {
+        const errorResponse = error.response;
+        const message =
+          errorResponse === undefined
+            ? NO_CONNECTION
+            : `${errorResponse.status} ${errorResponse.statusText}`;
+
+        return dispatch(fetchError(message));
+      }
+    };

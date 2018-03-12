@@ -45,11 +45,11 @@ export const postSuccess =
     }
   });
 
-export const postError = (id: Uuid, errorMessage: string): IAction => ({
+export const postError = (args: ErrorActionArgs): IAction => ({
   type: POST_ITEM_ERROR,
   payload: {
-    id,
-    errorMessage
+    id: args.id,
+    message: args.message
   }
 });
 

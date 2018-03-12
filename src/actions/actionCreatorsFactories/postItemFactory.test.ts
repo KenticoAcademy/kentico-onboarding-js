@@ -10,7 +10,7 @@ describe('post item tests', () => {
   const postError = jest.fn();
   const insertItem = jest.fn();
 
-  it('creates POST_ITEM_SUCCESS on correct POST request', (done) => {
+  it('creates POST_ITEM_SUCCESS on correct POST request', async () => {
     const generateId = jest.fn();
     postSuccess.mock.calls.length = 0;
     const fetchedTestItem = {
@@ -37,15 +37,12 @@ describe('post item tests', () => {
         axiosPost
       });
 
-    postItem(postTestItem.text)(dispatch)
-      .then(() => {
-        expect(postSuccess.mock.calls.length).toBe(1);
-        done();
-      })
-      .catch(err => console.log(err));
+    await postItem(postTestItem.text)(dispatch);
+
+    expect(postSuccess.mock.calls.length).toBe(1);
   });
 
-  it('creates POST_ITEM_SUCCESS with correct arguments', (done) => {
+  it('creates POST_ITEM_SUCCESS with correct arguments', async () => {
     postSuccess.mock.calls.length = 0;
     const generateId = jest.fn(() => postTestItem.id);
     const fetchedTestItem = {
@@ -72,18 +69,15 @@ describe('post item tests', () => {
         axiosPost
       });
 
-    postItem(postTestItem.text)(dispatch)
-      .then(() => {
-        expect(postSuccess.mock.calls[0][0].newId).toEqual(fetchedTestItem.id);
-        expect(postSuccess.mock.calls[0][0].id).toEqual(postTestItem.id);
-        expect(postSuccess.mock.calls[0][0].text).toEqual(fetchedTestItem.text);
-        expect(postSuccess.mock.calls[0][0].isSynchronized).toEqual(true);
-        done();
-      })
-      .catch(err => console.log(err));
+    await postItem(postTestItem.text)(dispatch);
+
+    expect(postSuccess.mock.calls[0][0].newId).toEqual(fetchedTestItem.id);
+    expect(postSuccess.mock.calls[0][0].id).toEqual(postTestItem.id);
+    expect(postSuccess.mock.calls[0][0].text).toEqual(fetchedTestItem.text);
+    expect(postSuccess.mock.calls[0][0].isSynchronized).toEqual(true);
   });
 
-  it('creates POST_ITEM_ERROR on POST request failure', (done) => {
+  it('creates POST_ITEM_ERROR on POST request failure', async () => {
     const generateId = jest.fn();
     postError.mock.calls.length = 0;
     const axiosPost = (_data: {text: string}) =>
@@ -105,11 +99,8 @@ describe('post item tests', () => {
         axiosPost
       });
 
-    postItem(postTestItem.text)(dispatch)
-      .then(() => {
-        expect(postError.mock.calls.length).toBe(1);
-        done();
-      })
-      .catch(err => console.log(err));
+    await postItem(postTestItem.text)(dispatch);
+
+    expect(postError.mock.calls.length).toBe(1);
   });
 });

@@ -10,7 +10,7 @@ import { IAction } from '../../actions/IAction';
 export interface IListDataProps {
   readonly ids: Seq.Indexed<Uuid>;
   readonly postError: boolean;
-  readonly errorMessage: string;
+  readonly message: string;
 }
 
 export interface IListCallbackProps {
@@ -46,7 +46,7 @@ export class List extends React.PureComponent<IListDataProps & IListCallbackProp
             }
             {(this.props.postError)
               ? <Error
-                errorMessage={this.props.errorMessage}
+                errorMessage={this.props.message}
                 onCloseError={this.props.onPostErrorClose}
               />
               : <span />

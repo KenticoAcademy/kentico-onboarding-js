@@ -8,7 +8,7 @@ describe('delete item tests', () => {
   const dispatch = jest.fn(input => input);
   const id = 'a378ffaa-75fa-4117-a57b-84da0a3c975a';
 
-  it('creates DELETE_ITEM_SUCCESS after successful DELETE request', (done) => {
+  it('creates DELETE_ITEM_SUCCESS after successful DELETE request', async () => {
     deleteSuccess.mock.calls.length = 0;
     const axiosDelete = (_id: string) =>
       Promise.resolve({
@@ -25,15 +25,12 @@ describe('delete item tests', () => {
       axiosDelete
     });
 
-    deleteFromServer(id)(dispatch)
-      .then(() => {
-        expect(deleteSuccess.mock.calls.length).toEqual(1);
-        done();
-      })
-      .catch(err => console.log(err));
+    await deleteFromServer(id)(dispatch);
+
+    expect(deleteSuccess.mock.calls.length).toEqual(1);
   });
 
-  it('creates DELETE_ITEM_ERROR after unsuccessful DELETE request', (done) => {
+  it('creates DELETE_ITEM_ERROR after unsuccessful DELETE request', async () => {
     deleteError.mock.calls.length = 0;
     const axiosDelete = (_id: string) =>
       Promise.reject({
@@ -52,11 +49,9 @@ describe('delete item tests', () => {
       axiosDelete
     });
 
-    deleteFromServer(id)(dispatch)
-      .then(() => {
-        expect(deleteError.mock.calls.length).toEqual(1);
-        expect(deleteError.mock.calls[0][0].message).toEqual(OPERATION_FAILED);
-        done();
-      });
+    await deleteFromServer(id)(dispatch);
+
+    expect(deleteError.mock.calls.length).toEqual(1);
+    expect(deleteError.mock.calls[0][0].message).toEqual(OPERATION_FAILED);
   });
 });
