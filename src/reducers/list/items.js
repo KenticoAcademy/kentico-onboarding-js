@@ -15,7 +15,7 @@ import { getIdentifier } from '../../utils/uuidService';
 export const items = (state = OrderedMap(), action) => {
   switch (action.type) {
     case ITEM_ADD:
-      return addItem(state, action.itemValue);
+      return addItem(state, action.updatedValue);
 
     case ITEM_SAVE:
       return state.mergeIn([action.itemKey], {

@@ -4,9 +4,9 @@ import {
   ITEM_DELETE,
 } from '../utils/constants';
 
-export const addItem = (itemValue) => ({
+export const addItem = (updatedValue) => ({
   type: ITEM_ADD,
-  itemValue,
+  updatedValue,
 });
 
 export const saveItem = (itemKey, updatedValue) => ({
