@@ -18,16 +18,26 @@ export class ListItemEditor extends React.PureComponent {
     saveItem: PropTypes.func.isRequired,
     deleteItem: PropTypes.func.isRequired,
     cancelItemEditing: PropTypes.func.isRequired,
-    handleItemValueChange: PropTypes.func.isRequired,
-    handleKeyboardShortcuts: PropTypes.func.isRequired,
+    onChange: PropTypes.func.isRequired,
   };
 
-  _handleInputChange = (event) => this.props.handleItemValueChange(event.target.value);
+  _handleInputChange = (event) => this.props.onChange(event.target.value);
 
-  _handleInputKeyDown = (event) => this.props.handleKeyboardShortcuts(event.key, event.target.value);
+  _handleInputKeyDown = (event) => {
+    const { itemValue, itemKey, isInputValid, saveItem, cancelItemEditing } = this.props;
+
+    if (event.key === 'Enter' && isInputValid) {
+      saveItem(itemKey, itemValue);
+    }
+    else if (event.key === 'Escape') {
+      cancelItemEditing(itemKey);
+    }
+  };
+
+  _saveItem = () => this.props.saveItem(this.props.itemValue);
 
   render() {
-    const { cancelItemEditing, deleteItem, saveItem, bullet, itemValue, isInputValid } = this.props;
+    const { cancelItemEditing, deleteItem, bullet, itemValue, isInputValid } = this.props;
 
     return (
       <div className="input-group">
@@ -46,7 +56,7 @@ export class ListItemEditor extends React.PureComponent {
           <button
             type="button"
             className="btn btn-primary"
-            onClick={() => saveItem(itemValue)}
+            onClick={this._saveItem}
             disabled={!isInputValid}
           > Save
           </button>
