@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 
 import { ListItemEditor } from '../containers/ListItemEditor';
 import { ListItemDisplay } from '../containers/ListItemDisplay';
-import { Item } from '../models/item';
 
 export const ListItem = ({ item: { isBeingEdited, changeableValue }, itemKey, bullet }) => {
   return (
@@ -26,7 +25,10 @@ export const ListItem = ({ item: { isBeingEdited, changeableValue }, itemKey, bu
 ListItem.displayName = 'ListItem';
 
 ListItem.propTypes = {
-  item: PropTypes.instanceOf(Item).isRequired,
+  item: PropTypes.shape({
+    isBeingEdited: PropTypes.bool,
+    changeableValue: PropTypes.string,
+  }).isRequired,
   itemKey: PropTypes.string.isRequired,
   bullet: PropTypes.oneOfType([
     PropTypes.string,
