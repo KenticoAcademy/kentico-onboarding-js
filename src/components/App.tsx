@@ -2,8 +2,7 @@ import '../sticky-footer.css';
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { FetchedItems } from '../containers/todo-list/FetchedItems';
-
-const Loading = require('react-loading-animation');
+import { PulseLoader } from 'react-spinners';
 
 export interface IAppDataProps {
   readonly isFetching: boolean;
@@ -45,7 +44,9 @@ export class App extends React.PureComponent<IAppDataProps> {
           </div>
 
           <section id="app-content">
-            <Loading isLoading={this.props.isFetching}/>
+            <div className="text-center">
+              <PulseLoader loading={this.props.isFetching}/>
+            </div>
             <FetchedItems />
           </section>
         </div>
