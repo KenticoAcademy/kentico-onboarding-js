@@ -1,15 +1,23 @@
 import { deleteItemFactory } from './deleteItemFactory';
 import { OPERATION_FAILED } from '../../constants/connection';
 
-describe('delete item tests', () => {
-  const deleteItem = jest.fn();
-  const deleteSuccess = jest.fn();
-  const deleteError = jest.fn();
-  const dispatch = jest.fn(input => input);
-  const id = 'a378ffaa-75fa-4117-a57b-84da0a3c975a';
+const deleteItemName = 'deleteItem';
+const deleteSuccessName = 'deleteSuccess';
+const deleteErrorName = 'deleteError';
+const deleteItem = jest.fn(() => deleteItemName);
+const deleteSuccess = jest.fn(() => deleteSuccessName);
+const deleteError = jest.fn(() => deleteErrorName);
+const dispatch = jest.fn(input => input);
+const id = 'a378ffaa-75fa-4117-a57b-84da0a3c975a';
 
-  it('creates DELETE_ITEM_SUCCESS after successful DELETE request', async () => {
-    deleteSuccess.mock.calls.length = 0;
+beforeEach(() => {
+  deleteItem.mock.calls.length = 0;
+  deleteError.mock.calls.length = 0;
+  dispatch.mock.calls.length = 0;
+});
+
+describe('delete item tests', () => {
+  it('dispatches TODO_LIST_ITEM_DELETE, DELETE_ITEM_SUCCESS after successful DELETE request', async () => {
     const axiosDelete = (_id: string) =>
       Promise.resolve({
         data: undefined,
@@ -27,7 +35,8 @@ describe('delete item tests', () => {
 
     await deleteFromServer(id)(dispatch);
 
-    expect(deleteSuccess.mock.calls.length).toEqual(1);
+    expect(dispatch.mock.calls[0][0]).toEqual(deleteItemName);
+    expect(dispatch.mock.calls[1][0]).toEqual(deleteSuccessName);
   });
 
   it('creates DELETE_ITEM_ERROR after unsuccessful DELETE request', async () => {
@@ -51,7 +60,7 @@ describe('delete item tests', () => {
 
     await deleteFromServer(id)(dispatch);
 
-    expect(deleteError.mock.calls.length).toEqual(1);
+    expect(dispatch.mock.calls[1][0]).toEqual(deleteErrorName);
     expect(deleteError.mock.calls[0][0].message).toEqual(OPERATION_FAILED);
   });
 });

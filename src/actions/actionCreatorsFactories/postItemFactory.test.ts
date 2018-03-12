@@ -1,18 +1,27 @@
 import { postItemFactory } from './postItemFactory';
 
+const postSuccessName = 'postSuccess';
+const postErrorName = 'postError';
+const insertItemName = 'insertItem';
+const postSuccess = jest.fn(() => postSuccessName);
+const dispatch = jest.fn(input => input);
+const postError = jest.fn(() => postErrorName);
+const insertItem = jest.fn(() => insertItemName);
+
+beforeEach(() => {
+  postSuccess.mock.calls.length = 0;
+  postError.mock.calls.length = 0;
+  dispatch.mock.calls.length = 0;
+});
+
 describe('post item tests', () => {
   const postTestItem = {
     id: 'e1f5c5e4-7f5e-4aa0-9e52-117cc8267f12',
     text: 'item'
   };
-  const postSuccess = jest.fn();
-  const dispatch = jest.fn(input => input);
-  const postError = jest.fn();
-  const insertItem = jest.fn();
 
-  it('creates POST_ITEM_SUCCESS on correct POST request', async () => {
+  it('dispatches TODO_LIST_ITEM_INSERT, POST_ITEM_SUCCESS on correct POST request', async () => {
     const generateId = jest.fn();
-    postSuccess.mock.calls.length = 0;
     const fetchedTestItem = {
       id: 'e1f5c5e4-7f5e-4aa0-9e52-117cc8267f13',
       text: 'item'
@@ -39,11 +48,11 @@ describe('post item tests', () => {
 
     await postItem(postTestItem.text)(dispatch);
 
-    expect(postSuccess.mock.calls.length).toBe(1);
+    expect(dispatch.mock.calls[0][0]).toEqual(insertItemName);
+    expect(dispatch.mock.calls[1][0]).toEqual(postSuccessName);
   });
 
   it('creates POST_ITEM_SUCCESS with correct arguments', async () => {
-    postSuccess.mock.calls.length = 0;
     const generateId = jest.fn(() => postTestItem.id);
     const fetchedTestItem = {
       id: 'e1f5c5e4-7f5e-4aa0-9e52-117cc8267f13',
@@ -77,9 +86,8 @@ describe('post item tests', () => {
     expect(postSuccess.mock.calls[0][0].isSynchronized).toEqual(true);
   });
 
-  it('creates POST_ITEM_ERROR on POST request failure', async () => {
+  it('dispatches POST_ITEM_ERROR on POST request failure', async () => {
     const generateId = jest.fn();
-    postError.mock.calls.length = 0;
     const axiosPost = (_data: {text: string}) =>
       Promise.reject({
         response: {
@@ -101,6 +109,6 @@ describe('post item tests', () => {
 
     await postItem(postTestItem.text)(dispatch);
 
-    expect(postError.mock.calls.length).toBe(1);
+    expect(dispatch.mock.calls[1][0]).toEqual(postErrorName);
   });
 });

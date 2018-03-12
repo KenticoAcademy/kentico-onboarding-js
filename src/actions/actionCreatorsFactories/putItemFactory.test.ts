@@ -1,14 +1,22 @@
 import { putItemFactory } from './putItemFactory';
 import { Uuid } from '../../utils/generateId';
 
-describe('put item tests', () => {
-  const updateItem = jest.fn();
-  const putSuccess = jest.fn();
-  const putError = jest.fn();
-  const dispatch = jest.fn(input => input);
+const updateItemName = 'updateItem';
+const putSuccessName = 'putSuccess';
+const putErrorName = 'putError';
+const updateItem = jest.fn(() => updateItemName);
+const putSuccess = jest.fn(() => putSuccessName);
+const putError = jest.fn(() => putErrorName);
+const dispatch = jest.fn(input => input);
 
-  it('creates PUT_ITEM_SUCCESS after successful PUT request', async () => {
-    putSuccess.mock.calls.length = 0;
+beforeEach(() => {
+  putSuccess.mock.calls.length = 0;
+  putError.mock.calls.length = 0;
+  dispatch.mock.calls.length = 0;
+});
+
+describe('put item tests', () => {
+  it('dispatches TODO_LIST_ITEM_UPDATE, PUT_ITEM_SUCCESS after successful PUT request', async () => {
     const updatedItem = {
       id: '9a0b391a-2a57-4be1-8179-7271b5e8cdc3',
       text: 'updatedText',
@@ -30,11 +38,11 @@ describe('put item tests', () => {
 
     await putItem({id: updatedItem.id, text: updatedItem.text})(dispatch);
 
-    expect(putSuccess.mock.calls.length).toEqual(1);
+    expect(dispatch.mock.calls[0][0]).toEqual(updateItemName);
+    expect(dispatch.mock.calls[1][0]).toEqual(putSuccessName);
   });
 
-  it('creates PUT_ITEM_SUCCESS with correct arguments after successful PUT request', async () => {
-    putSuccess.mock.calls.length = 0;
+  it('dispatches PUT_ITEM_SUCCESS with correct arguments after successful PUT request', async () => {
     const updatedItem = {
       id: '9a0b391a-2a57-4be1-8179-7271b5e8cdc3',
       text: 'updatedText',
@@ -59,8 +67,7 @@ describe('put item tests', () => {
     expect(putSuccess.mock.calls[0][0]).toEqual(updatedItem.id);
   });
 
-  it('creates PUT_ITEM_ERROR after unsuccessful PUT request', async () => {
-    putError.mock.calls.length = 0;
+  it('dispatches PUT_ITEM_ERROR after unsuccessful PUT request', async () => {
     const errorMessage = 'Bad Request';
     const updatedItem = {
       id: '9a0b391a-2a57-4be1-8179-7271b5e8cdc3',
@@ -85,7 +92,7 @@ describe('put item tests', () => {
 
     await putItem({id: updatedItem.id, text: updatedItem.text})(dispatch);
 
-    expect(putError.mock.calls.length).toEqual(1);
+    expect(dispatch.mock.calls[1][0]).toEqual(putErrorName);
     expect(putError.mock.calls[0][0]).toEqual({
       id: updatedItem.id,
       message: errorMessage
