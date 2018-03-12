@@ -17,6 +17,7 @@ import {
   listItemFormPropTypes,
 } from '../components/ListItemForm';
 import {
+  deleteItemAsync,
   editItemAsync,
   postItemAsync,
 } from '../actions/thunk';
@@ -39,7 +40,8 @@ const mapDispatchToProps = (dispatch: Dispatch<IAppState>,  { item: { id, synced
   onDelete: itemSyncInfo.operation === SyncOperation.Add ?
     () => dispatch(
       deleteUnsavedItem(id)) :
-    () => null,
+    () => dispatch(
+      deleteItemAsync({ id })),
   onCancel: () =>
     dispatch(
       changeItemOpenState(id)),

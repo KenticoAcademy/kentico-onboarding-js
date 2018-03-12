@@ -45,7 +45,7 @@ export class ListItemStatic extends React.PureComponent<IListItemStaticProps> {
   _onMouseUp = (): void => {
     const { onTextSelection, onItemOpened, item, itemSyncInfo: { syncState, operation } } = this.props;
 
-    if (syncState === SyncState.Pending || (syncState === SyncState.Unsynced && operation === SyncOperation.Delete)) {
+    if (syncState === SyncState.Pending || (syncState === SyncState.Unsynced && (operation === SyncOperation.Delete ||  operation === SyncOperation.DeleteAfterFailedModify))) {
       return undefined;
     }
 
