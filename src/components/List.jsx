@@ -12,7 +12,6 @@ export class List extends React.PureComponent {
       .map((item, index) => (
         <div className="list-group-item" key={item[0]}>
           <ListItem
-            item={item[1]}
             itemKey={item[0]}
             bullet={index + 1}
           />

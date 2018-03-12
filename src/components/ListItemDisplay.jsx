@@ -13,7 +13,6 @@ export const ListItemDisplay = ({ itemValue, bullet, startEditing }) => (
 ListItemDisplay.displayName = 'ListItemDisplay';
 
 ListItemDisplay.propTypes = {
-  itemKey: PropTypes.string.isRequired,
   itemValue: PropTypes.string.isRequired,
   bullet: PropTypes.oneOfType([
     PropTypes.string,

@@ -2,6 +2,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { isInputValid } from '../utils/validationService';
 
 export class ListItemEditor extends React.PureComponent {
   static displayName = 'ListItemEditor';
@@ -9,7 +10,6 @@ export class ListItemEditor extends React.PureComponent {
   static propTypes = {
     itemKey: PropTypes.string.isRequired,
     itemValue: PropTypes.string.isRequired,
-    isInputValid: PropTypes.bool.isRequired,
     bullet: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.number,
@@ -24,9 +24,9 @@ export class ListItemEditor extends React.PureComponent {
   _handleInputChange = (event) => this.props.onChange(event.target.value);
 
   _handleInputKeyDown = (event) => {
-    const { itemValue, itemKey, isInputValid, saveItem, cancelItemEditing } = this.props;
+    const { itemValue, itemKey, saveItem, cancelItemEditing } = this.props;
 
-    if (event.key === 'Enter' && isInputValid) {
+    if (event.key === 'Enter' && isInputValid(itemValue)) {
       saveItem(itemKey, itemValue);
     }
     else if (event.key === 'Escape') {
@@ -37,7 +37,7 @@ export class ListItemEditor extends React.PureComponent {
   _saveItem = () => this.props.saveItem(this.props.itemValue);
 
   render() {
-    const { cancelItemEditing, deleteItem, bullet, itemValue, isInputValid } = this.props;
+    const { cancelItemEditing, deleteItem, bullet, itemValue } = this.props;
 
     return (
       <div className="input-group">
@@ -57,7 +57,7 @@ export class ListItemEditor extends React.PureComponent {
             type="button"
             className="btn btn-primary"
             onClick={this._saveItem}
-            disabled={!isInputValid}
+            disabled={!isInputValid(itemValue)}
           > Save
           </button>
           <button
