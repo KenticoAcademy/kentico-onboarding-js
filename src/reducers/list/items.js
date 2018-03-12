@@ -1,6 +1,7 @@
 import { OrderedMap } from 'immutable';
 
-import { Item } from '../models/item';
+import { Item } from '../../models/item';
+import { item } from './item';
 import {
   ITEM_ADD,
   ITEM_DELETE,
@@ -8,8 +9,8 @@ import {
   ITEM_VALUE_CHANGED,
   ITEM_EDITING_STOP,
   ITEM_EDITING_START,
-} from '../utils/constants';
-import { getIdentifier } from '../utils/uuidService';
+} from '../../utils/constants';
+import { getIdentifier } from '../../utils/uuidService';
 
 export const items = (state = OrderedMap(), action) => {
   switch (action.type) {
@@ -27,26 +28,13 @@ export const items = (state = OrderedMap(), action) => {
       return state.delete(action.itemKey);
 
     case ITEM_EDITING_START:
-      return state.mergeIn([action.itemKey], { isBeingEdited: true });
-
     case ITEM_EDITING_STOP:
-      return stopEditing(state, action.itemKey);
-
     case ITEM_VALUE_CHANGED:
-      return state.mergeIn([action.itemKey], { changeableValue: action.updatedValue });
+      return item(state, action);
 
     default:
       return state;
   }
-};
-
-const stopEditing = (state, key) => {
-  const item = state.get(key);
-
-  return state.mergeIn([key], {
-    changeableValue: item.value,
-    isBeingEdited: false,
-  });
 };
 
 const addItem = (state, value) => {
