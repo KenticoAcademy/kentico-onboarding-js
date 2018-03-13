@@ -86,7 +86,7 @@ describe('post item tests', () => {
     expect(postSuccess.mock.calls[0][0].isSynchronized).toEqual(true);
   });
 
-  it('dispatches POST_ITEM_ERROR on POST request failure', async () => {
+  it('dispatches TODO_LIST_ITEM_INSERT, POST_ITEM_ERROR on POST request failure', async () => {
     const generateId = jest.fn();
     const axiosPost = (_data: {text: string}) =>
       Promise.reject({
@@ -109,6 +109,7 @@ describe('post item tests', () => {
 
     await postItem(postTestItem.text)(dispatch);
 
+    expect(dispatch.mock.calls[0][0]).toEqual(insertItemName);
     expect(dispatch.mock.calls[1][0]).toEqual(postErrorName);
   });
 });

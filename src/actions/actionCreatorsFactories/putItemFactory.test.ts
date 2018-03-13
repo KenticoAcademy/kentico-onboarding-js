@@ -67,7 +67,7 @@ describe('put item tests', () => {
     expect(putSuccess.mock.calls[0][0]).toEqual(updatedItem.id);
   });
 
-  it('dispatches PUT_ITEM_ERROR after unsuccessful PUT request', async () => {
+  it('dispatches TODO_LIST_ITEM_UPDATE, PUT_ITEM_ERROR after unsuccessful PUT request', async () => {
     const errorMessage = 'Bad Request';
     const updatedItem = {
       id: '9a0b391a-2a57-4be1-8179-7271b5e8cdc3',
@@ -92,6 +92,7 @@ describe('put item tests', () => {
 
     await putItem({id: updatedItem.id, text: updatedItem.text})(dispatch);
 
+    expect(dispatch.mock.calls[0][0]).toEqual(updateItemName);
     expect(dispatch.mock.calls[1][0]).toEqual(putErrorName);
     expect(putError.mock.calls[0][0]).toEqual({
       id: updatedItem.id,

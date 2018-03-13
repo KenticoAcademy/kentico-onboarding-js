@@ -39,7 +39,7 @@ describe('delete item tests', () => {
     expect(dispatch.mock.calls[1][0]).toEqual(deleteSuccessName);
   });
 
-  it('creates DELETE_ITEM_ERROR after unsuccessful DELETE request', async () => {
+  it('dispatches TODO_LIST_ITEM_DELETE, DELETE_ITEM_ERROR after unsuccessful DELETE request', async () => {
     deleteError.mock.calls.length = 0;
     const axiosDelete = (_id: string) =>
       Promise.reject({
@@ -60,6 +60,7 @@ describe('delete item tests', () => {
 
     await deleteFromServer(id)(dispatch);
 
+    expect(dispatch.mock.calls[0][0]).toEqual(deleteItemName);
     expect(dispatch.mock.calls[1][0]).toEqual(deleteErrorName);
     expect(deleteError.mock.calls[0][0].message).toEqual(OPERATION_FAILED);
   });
