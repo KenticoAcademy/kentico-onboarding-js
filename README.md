@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/RadoslavK/kentico-onboarding-js.svg?branch=feature%2Ftask-5)](https://travis-ci.org/RadoslavK/kentico-onboarding-js)
+
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
 # kentico-onboarding-js
