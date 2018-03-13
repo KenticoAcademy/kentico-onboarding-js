@@ -1,4 +1,4 @@
-import memoize from 'fast-memoize';
+import mem from 'mem';
 
-const memorized = memoize(seq => seq);
+const memorized = mem(seq => seq);
 export const selectKeys = (items) => memorized(items.keySeq());
