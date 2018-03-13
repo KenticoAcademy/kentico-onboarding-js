@@ -12,72 +12,65 @@ import { getIdentifier } from '../../utils/uuidService';
 
 describe('items reducer works correctly', () => {
   it('ITEM_EDITING_START sets edited flag to correct item', () => {
-    const key = getIdentifier();
-
-    let state = new OrderedMap();
-    const mapItem = new Item({
-      key,
-      value: 'save item',
+    const originalItem = new Item({
+      value: 'test',
       isBeingEdited: false,
+      changeableValue: 'test',
     });
-    state = state.set(key, mapItem);
-    const expected = state.mergeIn([key], { isBeingEdited: true });
+    const expected = originalItem.merge({ isBeingEdited: true });
 
-    const action = startItemEditing(key);
-    const actual = item(state, action);
+    const action = startItemEditing(originalItem.key);
+    const actual = item(originalItem, action);
 
     expect(actual).toEqual(expected);
   });
 
   it('ITEM_EDITING_STOP un-sets edited flag to correct item', () => {
-    const changeableValue = 'save item';
-    const key = getIdentifier();
-
-    let state = new OrderedMap();
-    const mapItem = new Item({
-      key,
-      value: changeableValue,
+    const originalItem = new Item({
+      value: 'test',
       isBeingEdited: true,
-      changeableValue: 'save item changed',
+      changeableValue: 'change test',
     });
-    state = state.set(key, mapItem);
-    const expected = state.mergeIn([key], { isBeingEdited: false, changeableValue });
+    const expected = originalItem.merge({
+      changeableValue: originalItem.value,
+      isBeingEdited: false,
+    });
 
-    const action = stopItemEditing(key);
-    const actual = item(state, action);
+    const action = stopItemEditing(originalItem.key);
+    const actual = item(originalItem, action);
 
     expect(actual).toEqual(expected);
   });
 
   it('ITEM_VALUE_CHANGED changes correct item', () => {
     const changeableValue = 'changed item';
-    const key = getIdentifier();
 
-    let state = new OrderedMap();
-    const mapItem = new Item({
-      key,
-      value: 'save item',
+    const originalItem = new Item({
+      value: 'test',
       isBeingEdited: true,
-      changeableValue: 'save item',
+      changeableValue: 'change test',
     });
-    state = state.set(key, mapItem);
-    const expected = state.mergeIn([key], { changeableValue });
+    const expected = originalItem.merge({ changeableValue });
 
-    const action = changeItemValue(key, changeableValue);
-    const actual = item(state, action);
+    const action = changeItemValue(originalItem.key, changeableValue);
+    const actual = item(originalItem, action);
 
     expect(actual).toEqual(expected);
   });
 
-  it('undefined action returns state', () => {
-    const key = getIdentifier();
+  it('undefined action returns new state', () => {
+    const action = { type: undefined };
+    const actual = item(undefined, action);
 
-    let expected = new OrderedMap();
-    const mapItem = new Item({
-      key,
-      value: 'add item',
+    expect(actual).toEqual(Item());
+  });
+
+  it('undefined action returns previous state', () => {
+    const expected = new Item({
+      isBeingEdited: true,
+      value: 'test',
+      changeableValue: 'change test',
     });
-    expected = expected.set(key, mapItem);
 
     const action = { type: undefined };
     const actual = item(expected, action);

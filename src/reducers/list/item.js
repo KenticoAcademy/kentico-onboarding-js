@@ -4,27 +4,23 @@ import {
   ITEM_EDITING_START,
 } from '../../utils/constants';
 
-export const item = (state, action) => {
+import { Item } from '../../models/item';
+
+export const item = (state = Item(), action) => {
   switch (action.type) {
     case ITEM_EDITING_START:
-      return state.mergeIn([action.itemKey], { isBeingEdited: true });
+      return state.merge({ isBeingEdited: true });
 
     case ITEM_EDITING_STOP:
-      return stopEditing(state, action.itemKey);
+      return state.merge({
+        changeableValue: state.value,
+        isBeingEdited: false,
+      });
 
     case ITEM_VALUE_CHANGED:
-      return state.mergeIn([action.itemKey], { changeableValue: action.updatedValue });
+      return state.merge({ changeableValue: action.updatedValue });
 
     default:
       return state;
   }
-};
-
-const stopEditing = (state, key) => {
-  const currentItem = state.get(key);
-
-  return state.mergeIn([key], {
-    changeableValue: currentItem.value,
-    isBeingEdited: false,
-  });
 };

@@ -30,7 +30,7 @@ export const items = (state = OrderedMap(), action) => {
     case ITEM_EDITING_START:
     case ITEM_EDITING_STOP:
     case ITEM_VALUE_CHANGED:
-      return item(state, action);
+      return state.mergeIn([action.itemKey], item(state.get(action.itemKey), action));
 
     default:
       return state;
