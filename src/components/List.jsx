@@ -1,65 +1,54 @@
 // components/List.jsx
 
 import React from 'react';
+
+import { OrderedMap } from 'immutable';
+
 import { getIdentifier } from '../utils/uuidService';
 
 import { NewItem } from './NewItem';
 import { ListItem } from './ListItem';
+import { Item } from '../models/item';
+import { ToDo } from '../models/toDo';
 
 export class List extends React.PureComponent {
   static displayName = 'List';
 
   state = {
-    items: [],
+    items: OrderedMap(),
   };
 
-  _addItem = (itemValue) => this.setState(prevState => ({
-    items: [
-      ...prevState.items,
-      {
-        key: getIdentifier(),
+  _addItem = (itemValue) => {
+    const key = getIdentifier();
+    const item = new Item({
+      todo: new ToDo({
+        key,
         value: itemValue,
-      },
-    ],
+      }),
+    });
+
+    this.setState(prevState => ({ items: prevState.items.set(key, item) }));
+  };
+
+  _saveItem = (item, updatedValue) => this.setState(prevState => ({
+    items: prevState.items.mergeIn([item.todo.key], {
+      todo: item.todo.merge({ value: updatedValue }),
+    }),
   }));
 
-  _saveItem = (item, updatedValue) => {
-    const newItems = this.state.items
-      .map(itemInList => (itemInList.key === item.key
-          ? {
-            key: item.key,
-            value: updatedValue,
-          }
-          : itemInList
-      ));
-
-    this.setState({ items: newItems });
-  };
-
-  _deleteItem = (item) => {
-    const newItems = this.state.items
-      .filter(arrayItem => arrayItem.key !== item.key);
-    this.setState({ items: newItems });
-  };
+  _deleteItem = (item) => this.setState(prevState => ({ items: prevState.items.delete(item.todo.key) }));
 
   render() {
-    const list = this.state.items
-      .map((item, index) => {
-        const itemWithBullet = {
-          ...item,
-          bullet: index + 1,
-        };
-
-        return (
-          <div className="list-group-item" key={item.key}>
-            <ListItem
-              item={itemWithBullet}
-              onSave={this._saveItem}
-              onDelete={this._deleteItem}
-            />
-          </div>
-        );
-      });
+    const list = this.state.items.valueSeq()
+      .map((item, index) => (
+        <div className="list-group-item" key={item.todo.key}>
+          <ListItem
+            item={item.set('bullet', index + 1)}
+            onSave={this._saveItem}
+            onDelete={this._deleteItem}
+          />
+        </div>
+      ));
 
     return (
       <div className="row">

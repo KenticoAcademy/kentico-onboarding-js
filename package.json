@@ -55,6 +55,7 @@
   },
   "dependencies": {
     "bootstrap": "^3.3.7",
+    "immutable": "^3.8.2",
     "prop-types": "^15.6.0",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
@@ -71,7 +72,7 @@
       "src/**/*.{js,jsx,ts,tsx}"
     ],
     "setupFiles": [
-      "<rootDir>\\config\\polyfills.js"
+      "<rootDir>/config/polyfills.js"
     ],
     "testPathIgnorePatterns": [
       "<rootDir>[/\\\\](build|docs|node_modules|dist)[/\\\\]"
@@ -79,10 +80,10 @@
     "testEnvironment": "node",
     "testURL": "http://localhost",
     "transform": {
-      "^.+\\.(ts|tsx)$": "<rootDir>\\node_modules\\ts-jest\\preprocessor.js",
+      "^.+\\.(ts|tsx)$": "<rootDir>/node_modules/ts-jest/preprocessor.js",
       "^.+\\.(js|jsx)$": "<rootDir>/node_modules/babel-jest",
-      "^.+\\.css$": "<rootDir>\\config\\jest\\cssTransform.js",
-      "^(?!.*\\.(js|jsx|css|json)$)": "<rootDir>\\config\\jest\\fileTransform.js"
+      "^.+\\.css$": "<rootDir>/config/jest/cssTransform.js",
+      "^(?!.*\\.(js|jsx|css|json)$)": "<rootDir>/config/jest/fileTransform.js"
     },
     "transformIgnorePatterns": [
       "[/\\\\]node_modules[/\\\\].+\\.(js|jsx)$"
