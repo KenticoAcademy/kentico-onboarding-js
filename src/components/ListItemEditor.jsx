@@ -27,7 +27,7 @@ export class ListItemEditor extends React.PureComponent {
     const { itemValue, itemKey, saveItem, cancelItemEditing } = this.props;
 
     if (event.key === 'Enter' && isInputValid(itemValue)) {
-      saveItem(itemKey, itemValue);
+      saveItem(itemValue);
     }
     else if (event.key === 'Escape') {
       cancelItemEditing(itemKey);
