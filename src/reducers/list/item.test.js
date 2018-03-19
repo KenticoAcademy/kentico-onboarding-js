@@ -4,11 +4,29 @@ import { Item } from '../../models/item';
 import { item } from './item';
 import {
   changeItemValue,
+  saveItem,
   startItemEditing,
   stopItemEditing,
 } from '../../actions/actionCreators';
+import { getIdentifier } from '../../utils/getIdentifier';
 
 describe('items reducer works correctly', () => {
+  it('ITEM_SAVE updates correct item in map', () => {
+    const savedText = 'save item';
+    const key = getIdentifier();
+
+    const mapItem = new Item({
+      key,
+      value: 'add item',
+    });
+    const expected = mapItem.merge({ value: savedText, temporaryValue: savedText });
+
+    const action = saveItem(key, savedText);
+    const actual = item(mapItem, action);
+
+    expect(actual).toEqual(expected);
+  });
+
   it('ITEM_EDITING_START sets edited flag to correct item', () => {
     const originalItem = new Item({
       value: 'test',

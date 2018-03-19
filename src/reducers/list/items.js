@@ -21,16 +21,10 @@ export const items = (state = OrderedMap(), action) => {
         isBeingEdited: false,
       }));
 
-    case ITEM_SAVE:
-      return state.mergeIn([action.payload.itemKey], {
-        value: action.payload.updatedValue,
-        temporaryValue: action.payload.updatedValue,
-        isBeingEdited: false,
-      });
-
     case ITEM_DELETE:
       return state.delete(action.payload.itemKey);
 
+    case ITEM_SAVE:
     case ITEM_EDITING_START:
     case ITEM_EDITING_STOP:
     case ITEM_VALUE_CHANGED:
