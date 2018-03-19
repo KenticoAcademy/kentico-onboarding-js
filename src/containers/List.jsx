@@ -4,7 +4,7 @@ import { selectKeys } from '../selectors/memoryKeysSelector';
 import { List as ListComponent } from '../components/List';
 
 const mapStateToProps = (state) => ({
-  items: selectKeys(state.items),
+  itemKeys: selectKeys(state.items),
 });
 
 export const List = connect(mapStateToProps)(ListComponent);

@@ -41,16 +41,16 @@ describe('items reducer works correctly', () => {
   });
 
   it('ITEM_VALUE_CHANGED changes correct item', () => {
-    const changeableValue = 'changed item';
+    const temporaryValue = 'changed item';
 
     const originalItem = new Item({
       value: 'test',
       isBeingEdited: true,
       temporaryValue: 'change test',
     });
-    const expected = originalItem.merge({ changeableValue: temporaryValue });
+    const expected = originalItem.merge({ temporaryValue });
 
-    const action = changeItemValue(originalItem.key, changeableValue);
+    const action = changeItemValue(originalItem.key, temporaryValue);
     const actual = item(originalItem, action);
 
     expect(actual).toEqual(expected);
