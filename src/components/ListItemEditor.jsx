@@ -8,12 +8,13 @@ export class ListItemEditor extends React.PureComponent {
   static displayName = 'ListItemEditor';
 
   static propTypes = {
-    itemKey: PropTypes.string.isRequired,
-    itemValue: PropTypes.string.isRequired,
-    bullet: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number,
-    ]).isRequired,
+    item: PropTypes.shape({
+      bullet: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number,
+      ]).isRequired,
+      temporaryValue: PropTypes.string,
+    }).isRequired,
 
     saveItem: PropTypes.func.isRequired,
     deleteItem: PropTypes.func.isRequired,
@@ -21,23 +22,36 @@ export class ListItemEditor extends React.PureComponent {
     onChange: PropTypes.func.isRequired,
   };
 
-  _handleInputChange = (event) => this.props.onChange(event.target.value);
+  _handleChange = (event) => this.props.onChange(event.target.value);
 
-  _handleInputKeyDown = (event) => {
-    const { itemValue, itemKey, saveItem, cancelItemEditing } = this.props;
+  _handleKeyDown = (event) => {
+    const {
+      item: {
+        temporaryValue,
+      },
+      saveItem,
+      cancelItemEditing,
+    } = this.props;
 
-    if (event.key === 'Enter' && isInputValid(itemValue)) {
-      saveItem(itemValue);
+    if (event.key === 'Enter' && isInputValid(temporaryValue)) {
+      saveItem(temporaryValue);
     }
     else if (event.key === 'Escape') {
-      cancelItemEditing(itemKey);
+      cancelItemEditing();
     }
   };
 
-  _saveItem = () => this.props.saveItem(this.props.itemValue);
+  _saveItem = () => this.props.saveItem(this.props.item.temporaryValue);
 
   render() {
-    const { cancelItemEditing, deleteItem, bullet, itemValue } = this.props;
+    const {
+      item: {
+        bullet,
+        temporaryValue,
+      },
+      cancelItemEditing,
+      deleteItem,
+    } = this.props;
 
     return (
       <div className="input-group">
@@ -47,9 +61,9 @@ export class ListItemEditor extends React.PureComponent {
         <input
           type="text"
           className="form-control"
-          value={itemValue}
-          onChange={this._handleInputChange}
-          onKeyDown={this._handleInputKeyDown}
+          value={temporaryValue}
+          onChange={this._handleChange}
+          onKeyDown={this._handleKeyDown}
           autoFocus
         />
         <span className="input-group-btn">
@@ -57,20 +71,23 @@ export class ListItemEditor extends React.PureComponent {
             type="button"
             className="btn btn-primary"
             onClick={this._saveItem}
-            disabled={!isInputValid(itemValue)}
-          > Save
+            disabled={!isInputValid(temporaryValue)}
+          >
+            Save
           </button>
           <button
             type="button"
             className="btn btn-default"
             onClick={cancelItemEditing}
-          > Cancel
+          >
+            Cancel
           </button>
           <button
             type="button"
             className="btn btn-danger"
             onClick={deleteItem}
-          > Delete
+          >
+            Delete
           </button>
         </span>
       </div>

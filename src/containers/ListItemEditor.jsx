@@ -8,11 +8,11 @@ import {
   changeItemValue,
 } from '../actions/actionCreators';
 
-const mapDispatchToProps = (dispatch, { itemKey }) => ({
-  cancelItemEditing: () => dispatch(stopItemEditing(itemKey)),
-  deleteItem: () => dispatch(deleteItem(itemKey)),
-  saveItem: (itemValue) => dispatch(saveItem(itemKey, itemValue)),
-  onChange: (itemValue) => dispatch(changeItemValue(itemKey, itemValue)),
+const mapDispatchToProps = (dispatch, { item: { key } }) => ({
+  cancelItemEditing: () => dispatch(stopItemEditing(key)),
+  deleteItem: () => dispatch(deleteItem(key)),
+  saveItem: (itemValue) => dispatch(saveItem(key, itemValue)),
+  onChange: (itemValue) => dispatch(changeItemValue(key, itemValue)),
 });
 
 export const ListItemEditor = connect(null, mapDispatchToProps)(ListItemEditorComponent);
