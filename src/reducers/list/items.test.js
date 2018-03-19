@@ -21,7 +21,7 @@ describe('items reducer works correctly', () => {
     const expected = new Item({
       value: testValue,
       isBeingEdited: false,
-      changeableValue: testValue,
+      temporaryValue: testValue,
     });
 
     const action = addItem(testValue);
@@ -41,7 +41,7 @@ describe('items reducer works correctly', () => {
       value: 'add item',
     });
     state = state.set(key, mapItem);
-    const expected = state.mergeIn([key], { value: savedText, changeableValue: savedText });
+    const expected = state.mergeIn([key], { value: savedText, temporaryValue: savedText });
 
     const action = saveItem(key, savedText);
     const actual = items(state, action);
@@ -93,12 +93,12 @@ describe('items reducer works correctly', () => {
       key,
       value: changeableValue,
       isBeingEdited: true,
-      changeableValue: 'save item changed',
+      temporaryValue: 'save item changed',
     });
     state = state.set(key, mapItem);
     const expected = state.mergeIn([key], {
       isBeingEdited: false,
-      changeableValue,
+      changeableValue: temporaryValue,
     });
 
     const action = stopItemEditing(key);
@@ -116,10 +116,10 @@ describe('items reducer works correctly', () => {
       key,
       value: 'save item',
       isBeingEdited: true,
-      changeableValue: 'save item',
+      temporaryValue: 'save item',
     });
     state = state.set(key, mapItem);
-    const expected = state.mergeIn([key], { changeableValue });
+    const expected = state.mergeIn([key], { changeableValue: temporaryValue });
 
     const action = changeItemValue(key, changeableValue);
     const actual = items(state, action);

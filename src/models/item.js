@@ -6,7 +6,7 @@ const defaultData = {
   key: getEmptyIdentifier(),
   value: '',
   isBeingEdited: false,
-  changeableValue: '',
+  temporaryValue: '',
 };
 
 export const Item = Record(defaultData, 'item');

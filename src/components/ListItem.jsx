@@ -27,7 +27,7 @@ ListItem.displayName = 'ListItem';
 ListItem.propTypes = {
   item: PropTypes.shape({
     isBeingEdited: PropTypes.bool,
-    changeableValue: PropTypes.string,
+    temporaryValue: PropTypes.string,
   }).isRequired,
   itemKey: PropTypes.string.isRequired,
   bullet: PropTypes.oneOfType([

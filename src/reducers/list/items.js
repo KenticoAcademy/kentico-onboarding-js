@@ -15,22 +15,22 @@ import { getIdentifier } from '../../utils/uuidService';
 export const items = (state = OrderedMap(), action) => {
   switch (action.type) {
     case ITEM_ADD:
-      return addItem(state, action.updatedValue);
+      return addItem(state, action.payload.newValue);
 
     case ITEM_SAVE:
-      return state.mergeIn([action.itemKey], {
-        value: action.updatedValue,
-        changeableValue: action.updatedValue,
+      return state.mergeIn([action.payload.itemKey], {
+        value: action.payload.newValue,
+        changeableValue: action.payload.newValue,
         isBeingEdited: false,
       });
 
     case ITEM_DELETE:
-      return state.delete(action.itemKey);
+      return state.delete(action.payload.itemKey);
 
     case ITEM_EDITING_START:
     case ITEM_EDITING_STOP:
     case ITEM_VALUE_CHANGED:
-      return state.mergeIn([action.itemKey], item(state.get(action.itemKey), action));
+      return state.mergeIn([action.payload.itemKey], item(state.get(action.payload.itemKey), action));
 
     default:
       return state;
@@ -43,7 +43,7 @@ const addItem = (state, value) => {
   return state.set(key, new Item({
     key,
     value,
-    changeableValue: value,
+    temporaryValue: value,
     isBeingEdited: false,
   }));
 };

@@ -13,12 +13,12 @@ export const item = (state = Item(), action) => {
 
     case ITEM_EDITING_STOP:
       return state.merge({
-        changeableValue: state.value,
+        temporaryValue: state.value,
         isBeingEdited: false,
       });
 
     case ITEM_VALUE_CHANGED:
-      return state.merge({ changeableValue: action.updatedValue });
+      return state.merge({ temporaryValue: action.payload.newValue });
 
     default:
       return state;

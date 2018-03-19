@@ -6,16 +6,22 @@ import {
 
 export const startItemEditing = (itemKey) => ({
   type: ITEM_EDITING_START,
-  itemKey,
+  payload: {
+    itemKey,
+  },
 });
 
 export const stopItemEditing = (itemKey) => ({
   type: ITEM_EDITING_STOP,
-  itemKey,
+  payload: {
+    itemKey,
+  },
 });
 
 export const changeItemValue = (itemKey, updatedValue) => ({
   type: ITEM_VALUE_CHANGED,
-  itemKey,
-  updatedValue,
+  payload: {
+    itemKey,
+    newValue: updatedValue,
+  },
 });

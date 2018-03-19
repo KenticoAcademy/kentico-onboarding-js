@@ -15,7 +15,7 @@ describe('items reducer works correctly', () => {
     const originalItem = new Item({
       value: 'test',
       isBeingEdited: false,
-      changeableValue: 'test',
+      temporaryValue: 'test',
     });
     const expected = originalItem.merge({ isBeingEdited: true });
 
@@ -29,10 +29,10 @@ describe('items reducer works correctly', () => {
     const originalItem = new Item({
       value: 'test',
       isBeingEdited: true,
-      changeableValue: 'change test',
+      temporaryValue: 'change test',
     });
     const expected = originalItem.merge({
-      changeableValue: originalItem.value,
+      temporaryValue: originalItem.value,
       isBeingEdited: false,
     });
 
@@ -48,9 +48,9 @@ describe('items reducer works correctly', () => {
     const originalItem = new Item({
       value: 'test',
       isBeingEdited: true,
-      changeableValue: 'change test',
+      temporaryValue: 'change test',
     });
-    const expected = originalItem.merge({ changeableValue });
+    const expected = originalItem.merge({ changeableValue: temporaryValue });
 
     const action = changeItemValue(originalItem.key, changeableValue);
     const actual = item(originalItem, action);
@@ -69,7 +69,7 @@ describe('items reducer works correctly', () => {
     const expected = new Item({
       isBeingEdited: true,
       value: 'test',
-      changeableValue: 'change test',
+      temporaryValue: 'change test',
     });
 
     const action = { type: undefined };

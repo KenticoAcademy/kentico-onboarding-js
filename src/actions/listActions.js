@@ -4,18 +4,24 @@ import {
   ITEM_DELETE,
 } from '../utils/constants';
 
-export const addItem = (updatedValue) => ({
+export const addItem = (newValue) => ({
   type: ITEM_ADD,
-  updatedValue,
+  payload: {
+    newValue,
+  },
 });
 
 export const saveItem = (itemKey, updatedValue) => ({
   type: ITEM_SAVE,
-  itemKey,
-  updatedValue,
+  payload: {
+    itemKey,
+    newValue: updatedValue,
+  },
 });
 
 export const deleteItem = (itemKey) => ({
   type: ITEM_DELETE,
-  itemKey,
+  payload: {
+    itemKey,
+  },
 });
