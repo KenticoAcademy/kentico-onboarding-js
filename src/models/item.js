@@ -1,9 +1,9 @@
 import { Record } from 'immutable';
 
-import { getEmptyIdentifier } from '../utils/uuidService';
+import { GUID_EMPTY } from '../constants/constants';
 
 const defaultData = {
-  key: getEmptyIdentifier(),
+  key: GUID_EMPTY,
   value: '',
   isBeingEdited: false,
   temporaryValue: '',

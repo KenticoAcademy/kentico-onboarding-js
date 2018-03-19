@@ -1,4 +1,4 @@
-import { getIdentifier, getEmptyIdentifier } from './uuidService';
+import { getIdentifier } from './uuidService';
 
 describe('UUID Generator works correctly', () => {
   it('has GUID format v4', () => {
@@ -11,10 +11,5 @@ describe('UUID Generator works correctly', () => {
     const uuids = Array.apply(null, Array(100)).map(() => getIdentifier());
     const filteredSet = new Set(uuids);
     expect(uuids.length === filteredSet.size).toBe(true);
-  });
-
-  it('generates empty GUID', () => {
-    const emptyUuid = getEmptyIdentifier();
-    expect(emptyUuid === '00000000-0000-0000-0000-000000000000').toBe(true);
   });
 });
