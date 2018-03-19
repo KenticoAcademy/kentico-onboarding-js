@@ -18,7 +18,7 @@ export const item = (state = Item(), action) => {
       });
 
     case ITEM_VALUE_CHANGED:
-      return state.merge({ temporaryValue: action.payload.newValue });
+      return state.merge({ temporaryValue: action.payload.updatedValue });
 
     default:
       return state;

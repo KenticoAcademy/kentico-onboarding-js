@@ -1,7 +1,7 @@
 import {
   ITEM_SAVE,
   ITEM_DELETE,
-} from '../constants/actionTypes';
+} from '../../constants/actionTypes';
 
 export const saveItem = (itemKey, updatedValue) => ({
   type: ITEM_SAVE,

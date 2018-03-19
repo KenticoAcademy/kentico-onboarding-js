@@ -6,7 +6,7 @@ import {
   changeItemValue,
   startItemEditing,
   stopItemEditing,
-} from '../../actions/itemActions';
+} from '../../actions/actionCreators';
 
 describe('items reducer works correctly', () => {
   it('ITEM_EDITING_START sets edited flag to correct item', () => {
