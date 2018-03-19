@@ -6,16 +6,16 @@ import PropTypes from 'prop-types';
 import { ListItemEditor } from '../containers/ListItemEditor';
 import { ListItemDisplay } from '../containers/ListItemDisplay';
 
-export const ListItem = ({ item: { isBeingEdited, changeableValue }, itemKey, bullet }) => {
+export const ListItem = ({ item: { isBeingEdited, temporaryValue }, itemKey, bullet }) => {
   return (
     isBeingEdited ?
       <ListItemEditor
-        itemValue={changeableValue}
+        itemValue={temporaryValue}
         itemKey={itemKey}
         bullet={bullet}
       /> :
       <ListItemDisplay
-        itemValue={changeableValue}
+        itemValue={temporaryValue}
         itemKey={itemKey}
         bullet={bullet}
       />

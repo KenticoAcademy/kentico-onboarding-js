@@ -20,7 +20,7 @@ export const items = (state = OrderedMap(), action) => {
     case ITEM_SAVE:
       return state.mergeIn([action.payload.itemKey], {
         value: action.payload.newValue,
-        changeableValue: action.payload.newValue,
+        temporaryValue: action.payload.newValue,
         isBeingEdited: false,
       });
 
