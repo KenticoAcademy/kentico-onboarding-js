@@ -9,7 +9,7 @@ import {
   ITEM_VALUE_CHANGED,
   ITEM_EDITING_STOP,
   ITEM_EDITING_START,
-} from '../../utils/constants';
+} from '../../constants/actionTypes';
 import { getIdentifier } from '../../utils/uuidService';
 
 export const items = (state = OrderedMap(), action) => {

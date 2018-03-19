@@ -2,7 +2,7 @@ import {
   ITEM_VALUE_CHANGED,
   ITEM_EDITING_STOP,
   ITEM_EDITING_START,
-} from '../../utils/constants';
+} from '../../constants/actionTypes';
 
 import { Item } from '../../models/item';
 

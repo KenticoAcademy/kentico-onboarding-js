@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import { selectKeys } from '../utils/memoryKeysSelector';
+import { selectKeys } from '../selectors/memoryKeysSelector';
 import { List as ListComponent } from '../components/List';
 
 const mapStateToProps = (state) => ({

@@ -1,5 +1,4 @@
 import React from 'react';
-import { OrderedMap } from 'immutable';
 
 import { Item } from '../../models/item';
 import { item } from './item';
@@ -8,7 +7,6 @@ import {
   startItemEditing,
   stopItemEditing,
 } from '../../actions/itemActions';
-import { getIdentifier } from '../../utils/uuidService';
 
 describe('items reducer works correctly', () => {
   it('ITEM_EDITING_START sets edited flag to correct item', () => {

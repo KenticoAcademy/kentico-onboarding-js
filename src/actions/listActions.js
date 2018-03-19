@@ -2,7 +2,7 @@ import {
   ITEM_ADD,
   ITEM_SAVE,
   ITEM_DELETE,
-} from '../utils/constants';
+} from '../constants/actionTypes';
 
 export const addItem = (newValue) => ({
   type: ITEM_ADD,
