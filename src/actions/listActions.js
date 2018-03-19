@@ -1,21 +1,13 @@
 import {
-  ITEM_ADD,
   ITEM_SAVE,
   ITEM_DELETE,
 } from '../constants/actionTypes';
-
-export const addItem = (newValue) => ({
-  type: ITEM_ADD,
-  payload: {
-    newValue,
-  },
-});
 
 export const saveItem = (itemKey, updatedValue) => ({
   type: ITEM_SAVE,
   payload: {
     itemKey,
-    newValue: updatedValue,
+    updatedValue,
   },
 });
 

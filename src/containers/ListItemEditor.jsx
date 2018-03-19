@@ -4,11 +4,9 @@ import { ListItemEditor as ListItemEditorComponent } from '../components/ListIte
 import {
   deleteItem,
   saveItem,
-} from '../actions/listActions';
-import {
   stopItemEditing,
   changeItemValue,
-} from '../actions/itemActions';
+} from '../actions/actionCreators';
 
 const mapDispatchToProps = (dispatch, { itemKey }) => ({
   cancelItemEditing: () => dispatch(stopItemEditing(itemKey)),

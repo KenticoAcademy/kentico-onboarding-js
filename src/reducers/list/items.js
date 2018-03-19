@@ -10,17 +10,21 @@ import {
   ITEM_EDITING_STOP,
   ITEM_EDITING_START,
 } from '../../constants/actionTypes';
-import { getIdentifier } from '../../utils/uuidService';
 
 export const items = (state = OrderedMap(), action) => {
   switch (action.type) {
     case ITEM_ADD:
-      return addItem(state, action.payload.newValue);
+      return state.set(action.payload.itemKey, new Item({
+        key: action.payload.itemKey,
+        value: action.payload.newValue,
+        temporaryValue: action.payload.newValue,
+        isBeingEdited: false,
+      }));
 
     case ITEM_SAVE:
       return state.mergeIn([action.payload.itemKey], {
-        value: action.payload.newValue,
-        temporaryValue: action.payload.newValue,
+        value: action.payload.updatedValue,
+        temporaryValue: action.payload.updatedValue,
         isBeingEdited: false,
       });
 
@@ -35,15 +39,4 @@ export const items = (state = OrderedMap(), action) => {
     default:
       return state;
   }
-};
-
-const addItem = (state, value) => {
-  const key = getIdentifier();
-
-  return state.set(key, new Item({
-    key,
-    value,
-    temporaryValue: value,
-    isBeingEdited: false,
-  }));
 };

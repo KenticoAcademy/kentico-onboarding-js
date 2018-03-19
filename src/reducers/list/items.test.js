@@ -7,15 +7,34 @@ import {
   addItem,
   deleteItem,
   saveItem,
-} from '../../actions/listActions';
-import { getIdentifier } from '../../utils/uuidService';
-import {
   changeItemValue,
   startItemEditing,
   stopItemEditing,
-} from '../../actions/itemActions';
+} from '../../actions/actionCreators';
+import { addItemFactory } from '../../actions/listActions/addItemFactory';
+import { getIdentifier } from '../../utils/uuidService';
 
 describe('items reducer works correctly', () => {
+  it('ITEM_ADD with mocked factory returns map with correct item', () => {
+    const key = getIdentifier();
+    const fakeIdGenerator = () => key;
+    const addFactory = addItemFactory(fakeIdGenerator);
+
+    const testValue = 'add item';
+    const expected = new Item({
+      key,
+      value: testValue,
+      isBeingEdited: false,
+      temporaryValue: testValue,
+    });
+
+    const action = addFactory(testValue);
+    const newList = items(undefined, action);
+    const actual = newList.first();
+
+    expect(actual).toEqual(expected);
+  });
+
   it('ITEM_ADD returns map with correct item', () => {
     const testValue = 'add item';
     const expected = new Item({
@@ -98,7 +117,7 @@ describe('items reducer works correctly', () => {
     state = state.set(key, mapItem);
     const expected = state.mergeIn([key], {
       isBeingEdited: false,
-      changeableValue: temporaryValue,
+      temporaryValue: changeableValue,
     });
 
     const action = stopItemEditing(key);
@@ -119,7 +138,7 @@ describe('items reducer works correctly', () => {
       temporaryValue: 'save item',
     });
     state = state.set(key, mapItem);
-    const expected = state.mergeIn([key], { changeableValue: temporaryValue });
+    const expected = state.mergeIn([key], { temporaryValue: changeableValue });
 
     const action = changeItemValue(key, changeableValue);
     const actual = items(state, action);
