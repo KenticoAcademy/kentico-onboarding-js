@@ -1,4 +1,4 @@
-import { getIdentifier } from '../utils/uuidService';
+import { getIdentifier } from '../utils/getIdentifier';
 import { addItemFactory } from './listActions/addItemFactory';
 
 export const addItem = addItemFactory(getIdentifier);

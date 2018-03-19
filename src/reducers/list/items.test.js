@@ -12,7 +12,7 @@ import {
   stopItemEditing,
 } from '../../actions/actionCreators';
 import { addItemFactory } from '../../actions/listActions/addItemFactory';
-import { getIdentifier } from '../../utils/uuidService';
+import { getIdentifier } from '../../utils/getIdentifier';
 
 describe('items reducer works correctly', () => {
   it('ITEM_ADD with mocked factory returns map with correct item', () => {
