@@ -18,7 +18,7 @@ export class ListItemEditor extends React.PureComponent {
 
     saveItem: PropTypes.func.isRequired,
     deleteItem: PropTypes.func.isRequired,
-    cancelItemEditing: PropTypes.func.isRequired,
+    onCancelEdit: PropTypes.func.isRequired,
     onChange: PropTypes.func.isRequired,
   };
 
@@ -30,14 +30,14 @@ export class ListItemEditor extends React.PureComponent {
         temporaryValue,
       },
       saveItem,
-      cancelItemEditing,
+      onCancelEdit,
     } = this.props;
 
     if (event.key === 'Enter' && isInputValid(temporaryValue)) {
       saveItem(temporaryValue);
     }
     else if (event.key === 'Escape') {
-      cancelItemEditing();
+      onCancelEdit();
     }
   };
 
@@ -49,7 +49,7 @@ export class ListItemEditor extends React.PureComponent {
         bullet,
         temporaryValue,
       },
-      cancelItemEditing,
+      onCancelEdit,
       deleteItem,
     } = this.props;
 
@@ -78,7 +78,7 @@ export class ListItemEditor extends React.PureComponent {
           <button
             type="button"
             className="btn btn-default"
-            onClick={cancelItemEditing}
+            onClick={onCancelEdit}
           >
             Cancel
           </button>

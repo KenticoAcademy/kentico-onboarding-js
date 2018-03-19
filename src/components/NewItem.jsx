@@ -13,6 +13,7 @@ export class NewItem extends React.PureComponent {
 
   constructor(props) {
     super(props);
+
     this.state = {
       itemValue: '',
     };

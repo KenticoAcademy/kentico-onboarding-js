@@ -4,7 +4,7 @@ import { ListItemDisplay as ListItemDisplayComponent } from '../components/ListI
 import { startItemEditing } from '../actions/actionCreators';
 
 const mapDispatchToProps = (dispatch, { item: { key } }) => ({
-  startEditing: () => dispatch(startItemEditing(key)),
+  onEdit: () => dispatch(startItemEditing(key)),
 });
 
 export const ListItemDisplay = connect(null, mapDispatchToProps)(ListItemDisplayComponent);

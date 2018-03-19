@@ -9,7 +9,7 @@ import {
 } from '../actions/actionCreators';
 
 const mapDispatchToProps = (dispatch, { item: { key } }) => ({
-  cancelItemEditing: () => dispatch(stopItemEditing(key)),
+  onCancelEdit: () => dispatch(stopItemEditing(key)),
   deleteItem: () => dispatch(deleteItem(key)),
   saveItem: (itemValue) => dispatch(saveItem(key, itemValue)),
   onChange: (itemValue) => dispatch(changeItemValue(key, itemValue)),
