@@ -1,9 +1,10 @@
 // components/List.jsx
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { ListItem } from '../containers/ListItem';
-import PropTypes from 'prop-types';
+import { NewItem } from '../containers/NewItem';
 
 export const List = ({ itemKeys }) => {
   const listOfKeys = itemKeys.map((key, index) => (
@@ -16,12 +17,15 @@ export const List = ({ itemKeys }) => {
   ));
 
   return (
-    <div className="row">
-      <div className="col-sm-12 col-md-offset-2 col-md-8">
-        <div className="list-group">
-          {listOfKeys}
+    <div>
+      <div className="row">
+        <div className="col-sm-12 col-md-offset-2 col-md-8">
+          <div className="list-group">
+            {listOfKeys}
+          </div>
         </div>
       </div>
+      <NewItem />
     </div>
   );
 };

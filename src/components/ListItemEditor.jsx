@@ -2,6 +2,8 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Shortcuts } from 'react-shortcuts';
+
 import { isInputValid } from '../utils/validationService';
 
 export class ListItemEditor extends React.PureComponent {
@@ -24,20 +26,30 @@ export class ListItemEditor extends React.PureComponent {
 
   _handleChange = (event) => this.props.onChange(event.target.value);
 
-  _handleKeyDown = (event) => {
+  _handleShortcuts = (action) => {
     const {
       item: {
         temporaryValue,
       },
       saveItem,
+      deleteItem,
       onCancelEdit,
     } = this.props;
 
-    if (event.key === 'Enter' && isInputValid(temporaryValue)) {
-      saveItem(temporaryValue);
-    }
-    else if (event.key === 'Escape') {
-      onCancelEdit();
+    switch (action) {
+      case 'ITEM_EDIT_CONFIRM':
+        if (isInputValid(temporaryValue)) {
+          saveItem(temporaryValue);
+        }
+        break;
+      case 'ITEM_EDIT_CANCEL':
+        onCancelEdit();
+        break;
+      case 'ITEM_DELETE':
+        deleteItem();
+        break;
+      default:
+        break;
     }
   };
 
@@ -54,43 +66,44 @@ export class ListItemEditor extends React.PureComponent {
     } = this.props;
 
     return (
-      <div className="input-group">
-        <span className="input-group-addon">
-          {bullet}
-        </span>
-        <input
-          type="text"
-          className="form-control"
-          value={temporaryValue}
-          onChange={this._handleChange}
-          onKeyDown={this._handleKeyDown}
-          autoFocus
-        />
-        <span className="input-group-btn">
-          <button
-            type="button"
-            className="btn btn-primary"
-            onClick={this._saveItem}
-            disabled={!isInputValid(temporaryValue)}
-          >
-            Save
-          </button>
-          <button
-            type="button"
-            className="btn btn-default"
-            onClick={onCancelEdit}
-          >
-            Cancel
-          </button>
-          <button
-            type="button"
-            className="btn btn-danger"
-            onClick={deleteItem}
-          >
-            Delete
-          </button>
-        </span>
-      </div>
+      <Shortcuts name="NewItem" handler={this._handleShortcuts}>
+        <div className="input-group">
+          <span className="input-group-addon">
+            {bullet}
+          </span>
+          <input
+            type="text"
+            className="form-control"
+            value={temporaryValue}
+            onChange={this._handleChange}
+            autoFocus
+          />
+          <span className="input-group-btn">
+            <button
+              type="button"
+              className="btn btn-primary"
+              onClick={this._saveItem}
+              disabled={!isInputValid(temporaryValue)}
+            >
+              Save
+            </button>
+            <button
+              type="button"
+              className="btn btn-default"
+              onClick={onCancelEdit}
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              className="btn btn-danger"
+              onClick={deleteItem}
+            >
+              Delete
+            </button>
+          </span>
+        </div>
+      </Shortcuts>
     );
   }
 }

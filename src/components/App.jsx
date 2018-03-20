@@ -1,9 +1,22 @@
 import '../styles/sticky-footer.css';
 import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
+import { ShortcutManager } from 'react-shortcuts';
+
 import { List } from '../containers/List';
-import { NewItem } from '../containers/NewItem';
+import { keymap } from '../constants/keymap';
+
+const shortcutManager = new ShortcutManager(keymap);
 
 export class App extends PureComponent {
+  static childContextTypes = {
+    shortcuts: PropTypes.object.isRequired,
+  };
+
+  getChildContext() {
+    return { shortcuts: shortcutManager };
+  }
+
   render() {
     return (
       <div>
@@ -14,7 +27,6 @@ export class App extends PureComponent {
 
           <section id="app-content">
             <List />
-            <NewItem />
           </section>
         </div>
         <footer className="footer">
