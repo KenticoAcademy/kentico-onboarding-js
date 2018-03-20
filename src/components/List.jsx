@@ -5,8 +5,9 @@ import PropTypes from 'prop-types';
 
 import { ListItem } from '../containers/ListItem';
 import { NewItem } from '../containers/NewItem';
+import { ListGroupActions } from '../containers/ListGroupActions';
 
-export const List = ({ itemKeys }) => {
+export const List = ({ itemKeys, editedItems }) => {
   const listOfKeys = itemKeys.map((key, index) => (
     <div className="list-group-item" key={key}>
       <ListItem
@@ -18,14 +19,19 @@ export const List = ({ itemKeys }) => {
 
   return (
     <div>
-      <div className="row">
-        <div className="col-sm-12 col-md-offset-2 col-md-8">
+      <div className="col-sm-12 col-md-offset-2 col-md-8">
+        <div className="row">
+          <NewItem />
+        </div>
+        <div className="row">
           <div className="list-group">
             {listOfKeys}
           </div>
         </div>
+        <ListGroupActions
+          editedItems={editedItems}
+        />
       </div>
-      <NewItem />
     </div>
   );
 };
@@ -34,4 +40,5 @@ List.displayName = 'List';
 
 List.propTypes = {
   itemKeys: PropTypes.arrayOf(PropTypes.string).isRequired,
+  editedItems: PropTypes.array.isRequired,
 };

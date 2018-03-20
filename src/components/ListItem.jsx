@@ -6,8 +6,7 @@ import PropTypes from 'prop-types';
 import { ListItemEditor } from '../containers/ListItemEditor';
 import { ListItemDisplay } from '../containers/ListItemDisplay';
 
-export const ListItem = ({ item }) => {
-  return (
+export const ListItem = ({ item }) => (
     item.isBeingEdited ?
       <ListItemEditor
         item={item}
@@ -15,8 +14,7 @@ export const ListItem = ({ item }) => {
       <ListItemDisplay
         item={item}
       />
-  );
-};
+);
 
 ListItem.displayName = 'ListItem';
 

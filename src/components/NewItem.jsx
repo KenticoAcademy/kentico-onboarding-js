@@ -49,25 +49,23 @@ export class NewItem extends React.PureComponent {
 
     return (
       <Shortcuts name="NewItem" handler={this._handleShortcuts}>
-        <div className="row">
-          <div className="input-group">
-            <input
-              type="text"
-              className="form-control"
-              placeholder="What is on your mind ... ?"
-              value={itemValue}
-              onChange={this._handleChange}
-            />
-            <span className="input-group-btn">
-              <button
-                type="button"
-                className="btn btn-default"
-                onClick={this._addItem}
-                disabled={!isInputValid(itemValue)}
-              > Add
-              </button>
-            </span>
-          </div>
+        <div className="input-group">
+          <input
+            type="text"
+            className="form-control"
+            placeholder="What is on your mind ... ?"
+            value={itemValue}
+            onChange={this._handleChange}
+          />
+          <span className="input-group-btn">
+            <button
+              type="button"
+              className="btn btn-default"
+              onClick={this._addItem}
+              disabled={!isInputValid(itemValue)}
+            > Add
+            </button>
+          </span>
         </div>
       </Shortcuts>
     );
