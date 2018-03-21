@@ -18,10 +18,11 @@ describe('items reducer works correctly', () => {
     const mapItem = new Item({
       key,
       value: 'add item',
+      temporaryValue: savedText,
     });
-    const expected = mapItem.merge({ value: savedText, temporaryValue: savedText });
+    const expected = mapItem.merge({ value: savedText });
 
-    const action = saveItem(key, savedText);
+    const action = saveItem(key);
     const actual = item(mapItem, action);
 
     expect(actual).toEqual(expected);

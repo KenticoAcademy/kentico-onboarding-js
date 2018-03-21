@@ -6,11 +6,10 @@ import {
   ITEM_EDITING_STOP_ALL,
 } from '../../constants/actionTypes';
 
-export const saveItem = (itemKey, updatedValue) => ({
+export const saveItem = (itemKey) => ({
   type: ITEM_SAVE,
   payload: {
     itemKey,
-    updatedValue,
   },
 });
 

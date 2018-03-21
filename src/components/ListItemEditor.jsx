@@ -53,8 +53,6 @@ export class ListItemEditor extends React.PureComponent {
     }
   };
 
-  _saveItem = () => this.props.saveItem(this.props.item.temporaryValue);
-
   render() {
     const {
       item: {
@@ -63,6 +61,7 @@ export class ListItemEditor extends React.PureComponent {
       },
       onCancelEdit,
       deleteItem,
+      saveItem,
     } = this.props;
 
     return (
@@ -82,7 +81,7 @@ export class ListItemEditor extends React.PureComponent {
             <button
               type="button"
               className="btn btn-primary"
-              onClick={this._saveItem}
+              onClick={saveItem}
               disabled={!isInputValid(temporaryValue)}
             >
               Save

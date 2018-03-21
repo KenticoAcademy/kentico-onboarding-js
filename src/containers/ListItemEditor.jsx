@@ -11,7 +11,7 @@ import {
 const mapDispatchToProps = (dispatch, { item: { key } }) => ({
   onCancelEdit: () => dispatch(stopItemEditing(key)),
   deleteItem: () => dispatch(deleteItem(key)),
-  saveItem: (itemValue) => dispatch(saveItem(key, itemValue)),
+  saveItem: () => dispatch(saveItem(key)),
   onChange: (itemValue) => dispatch(changeItemValue(key, itemValue)),
 });
 
