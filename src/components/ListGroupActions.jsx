@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export const ListGroupActions = ({ saveAll, cancelAll, deleteAll, selectedKeys }) => (
+export const ListGroupActions = ({ saveAll, cancelAll, deleteSelected, selectedKeys }) => (
   (selectedKeys.length > 1) && (
     <div className="row">
       <div className="btn-group">
@@ -22,7 +22,7 @@ export const ListGroupActions = ({ saveAll, cancelAll, deleteAll, selectedKeys }
         <button
           type="button"
           className="btn btn-danger"
-          onClick={deleteAll}
+          onClick={deleteSelected}
         >
           Delete Selected
         </button>
@@ -36,5 +36,5 @@ ListGroupActions.propTypes = {
   selectedKeys: PropTypes.arrayOf(PropTypes.string).isRequired,
   saveAll: PropTypes.func.isRequired,
   cancelAll: PropTypes.func.isRequired,
-  deleteAll: PropTypes.func.isRequired,
+  deleteSelected: PropTypes.func.isRequired,
 };

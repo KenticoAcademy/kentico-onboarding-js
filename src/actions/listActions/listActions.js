@@ -1,7 +1,8 @@
 import {
   ITEM_SAVE,
-  ITEM_SAVE_ALL,
   ITEM_DELETE,
+  ITEM_SAVE_ALL,
+  ITEM_DELETE_ALL,
 } from '../../constants/actionTypes';
 
 export const saveItem = (itemKey, updatedValue) => ({
@@ -12,6 +13,13 @@ export const saveItem = (itemKey, updatedValue) => ({
   },
 });
 
+export const deleteItem = (itemKey) => ({
+  type: ITEM_DELETE,
+  payload: {
+    itemKey,
+  },
+});
+
 export const saveItems = (selectedKeys) => ({
   type: ITEM_SAVE_ALL,
   payload: {
@@ -19,9 +27,9 @@ export const saveItems = (selectedKeys) => ({
   },
 });
 
-export const deleteItem = (itemKey) => ({
-  type: ITEM_DELETE,
+export const deleteItems = (selectedKeys) => ({
+  type: ITEM_DELETE_ALL,
   payload: {
-    itemKey,
+    selectedKeys,
   },
 });
