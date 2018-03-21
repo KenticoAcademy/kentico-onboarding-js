@@ -6,10 +6,13 @@ import { items } from './items';
 import {
   addItem,
   deleteItem,
+  deleteItems,
   saveItem,
+  saveItems,
   changeItemValue,
   startItemEditing,
   stopItemEditing,
+  cancelItemsEditing,
 } from '../../actions/actionCreators';
 import { addItemFactory } from '../../actions/listActions/addItemFactory';
 import { getIdentifier } from '../../utils/getIdentifier';
@@ -58,11 +61,39 @@ describe('items reducer works correctly', () => {
     const mapItem = new Item({
       key,
       value: 'add item',
+      temporaryValue: savedText,
     });
     state = state.set(key, mapItem);
-    const expected = state.mergeIn([key], { value: savedText, temporaryValue: savedText });
+    const expected = state.mergeIn([key], { value: savedText });
 
     const action = saveItem(key, savedText);
+    const actual = items(state, action);
+
+    expect(actual).toEqual(expected);
+  });
+
+  it('ITEM_SAVE_ALL updates correct items in map', () => {
+    const savedText = 'save item';
+    const key1 = getIdentifier();
+    const key2 = getIdentifier();
+
+    let state = new OrderedMap();
+    const mapItem1 = new Item({
+      key: key1,
+      value: 'add item',
+      temporaryValue: savedText,
+    });
+    const mapItem2 = new Item({
+      key: key2,
+      value: 'add item',
+      temporaryValue: savedText,
+    });
+    state = state.set(key1, mapItem1);
+    state = state.set(key2, mapItem2);
+    state = state.mergeIn([key1], { value: savedText });
+    const expected = state.mergeIn([key2], { value: savedText });
+
+    const action = saveItems([key1, key2]);
     const actual = items(state, action);
 
     expect(actual).toEqual(expected);
@@ -80,6 +111,35 @@ describe('items reducer works correctly', () => {
     state = state.set(key, mapItem);
 
     const action = deleteItem(key);
+    const actual = items(state, action);
+
+    expect(actual).toEqual(expected);
+  });
+
+  it('ITEM_DELETE_ALL deletes correct items in map', () => {
+    const key1 = getIdentifier();
+    const key2 = getIdentifier();
+    const key3 = getIdentifier();
+
+    let state = new OrderedMap();
+    const mapItem1 = new Item({
+      key: key1,
+      value: 'add item',
+    });
+    const mapItem2 = new Item({
+      key: key2,
+      value: 'add item',
+    });
+    const mapItem3 = new Item({
+      key: key3,
+      value: 'add item',
+    });
+    state = state.set(key1, mapItem1);
+    state = state.set(key2, mapItem2);
+    state = state.set(key3, mapItem3);
+
+    const expected = new OrderedMap().set(key2, mapItem2);
+    const action = deleteItems([key1, key3]);
     const actual = items(state, action);
 
     expect(actual).toEqual(expected);
@@ -103,7 +163,7 @@ describe('items reducer works correctly', () => {
     expect(actual).toEqual(expected);
   });
 
-  it('ITEM_EDITING_STOP return state with edited flag on correct item', () => {
+  it('ITEM_EDITING_STOP returns state with edited flag on correct item', () => {
     const changeableValue = 'save item';
     const key = getIdentifier();
 
@@ -121,6 +181,41 @@ describe('items reducer works correctly', () => {
     });
 
     const action = stopItemEditing(key);
+    const actual = items(state, action);
+
+    expect(actual).toEqual(expected);
+  });
+
+  it('ITEM_EDITING_STOP_ALL returns state with edited flag on correct items', () => {
+    const changeableValue = 'save item';
+    const key1 = getIdentifier();
+    const key2 = getIdentifier();
+
+    let state = new OrderedMap();
+    const mapItem1 = new Item({
+      key: key1,
+      value: changeableValue,
+      isBeingEdited: true,
+      temporaryValue: 'save item changed',
+    });
+    const mapItem2 = new Item({
+      key: key2,
+      value: changeableValue,
+      isBeingEdited: true,
+      temporaryValue: 'save item changed',
+    });
+    state = state.set(key1, mapItem1);
+    state = state.set(key2, mapItem2);
+    state = state.mergeIn([key1], {
+      isBeingEdited: false,
+      temporaryValue: changeableValue,
+    });
+    const expected = state.mergeIn([key2], {
+      isBeingEdited: false,
+      temporaryValue: changeableValue,
+    });
+
+    const action = cancelItemsEditing([key1, key2]);
     const actual = items(state, action);
 
     expect(actual).toEqual(expected);
