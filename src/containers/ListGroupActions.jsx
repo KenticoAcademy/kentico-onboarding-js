@@ -4,11 +4,12 @@ import { ListGroupActions as ListGroupActionsComponent } from '../components/Lis
 import {
   saveItems,
   deleteItems,
+  cancelItemsEditing,
 } from '../actions/actionCreators';
 
 const mapDispatchToProps = (dispatch, { selectedKeys }) => ({
-  saveAll: () => dispatch(saveItems(selectedKeys)),
-  cancelAll: () => undefined,
+  saveSelected: () => dispatch(saveItems(selectedKeys)),
+  cancelSelected: () => dispatch(cancelItemsEditing(selectedKeys)),
   deleteSelected: () => dispatch(deleteItems(selectedKeys)),
 });
 

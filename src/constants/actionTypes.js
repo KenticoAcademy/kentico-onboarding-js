@@ -8,3 +8,4 @@ export const ITEM_EDITING_STOP = 'STOP_EDITING';
 
 export const ITEM_SAVE_ALL = 'ITEM_SAVE_ALL';
 export const ITEM_DELETE_ALL = 'ITEM_DELETE_ALL';
+export const ITEM_EDITING_STOP_ALL = 'ITEM_EDITING_STOP_ALL';

@@ -1,21 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export const ListGroupActions = ({ saveAll, cancelAll, deleteSelected, selectedKeys }) => (
+export const ListGroupActions = ({ saveSelected, cancelSelected, deleteSelected, selectedKeys }) => (
   (selectedKeys.length > 1) && (
     <div className="row">
       <div className="btn-group">
         <button
           type="button"
           className="btn btn-primary"
-          onClick={saveAll}
+          onClick={saveSelected}
         >
           Save Selected
         </button>
         <button
           type="button"
           className="btn btn-default"
-          onClick={cancelAll}
+          onClick={cancelSelected}
         >
           Cancel Selected
         </button>
@@ -34,7 +34,7 @@ ListGroupActions.displayName = 'ListGroupActions';
 
 ListGroupActions.propTypes = {
   selectedKeys: PropTypes.arrayOf(PropTypes.string).isRequired,
-  saveAll: PropTypes.func.isRequired,
-  cancelAll: PropTypes.func.isRequired,
+  saveSelected: PropTypes.func.isRequired,
+  cancelSelected: PropTypes.func.isRequired,
   deleteSelected: PropTypes.func.isRequired,
 };

@@ -2,7 +2,10 @@ import { OrderedMap } from 'immutable';
 
 import { Item } from '../../models/item';
 import { item } from './item';
-import { saveItems } from './itemsActions';
+import {
+  saveItems,
+  cancelItemsEditing,
+} from './itemsActions';
 import {
   ITEM_ADD,
   ITEM_DELETE,
@@ -12,6 +15,7 @@ import {
   ITEM_VALUE_CHANGED,
   ITEM_EDITING_STOP,
   ITEM_EDITING_START,
+  ITEM_EDITING_STOP_ALL,
 } from '../../constants/actionTypes';
 
 export const items = (state = OrderedMap(), action) => {
@@ -38,6 +42,9 @@ export const items = (state = OrderedMap(), action) => {
 
     case ITEM_DELETE_ALL:
       return action.payload.selectedKeys.reduce((newState, key) => newState.delete(key), state);
+
+    case ITEM_EDITING_STOP_ALL:
+      return cancelItemsEditing(state, action.payload.selectedKeys);
 
     default:
       return state;
