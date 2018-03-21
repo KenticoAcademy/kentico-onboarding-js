@@ -57,13 +57,12 @@ describe('items reducer works correctly', () => {
     const savedText = 'save item';
     const key = getIdentifier();
 
-    let state = new OrderedMap();
     const mapItem = new Item({
       key,
       value: 'add item',
       temporaryValue: savedText,
     });
-    state = state.set(key, mapItem);
+    const state = new OrderedMap().set(key, mapItem);
     const expected = state.mergeIn([key], { value: savedText });
 
     const action = saveItem(key, savedText);
@@ -77,21 +76,24 @@ describe('items reducer works correctly', () => {
     const key1 = getIdentifier();
     const key2 = getIdentifier();
 
-    let state = new OrderedMap();
     const mapItem1 = new Item({
       key: key1,
       value: 'add item',
       temporaryValue: savedText,
+      isBeingEdited: true,
     });
     const mapItem2 = new Item({
       key: key2,
       value: 'add item',
       temporaryValue: savedText,
+      isBeingEdited: true,
     });
-    state = state.set(key1, mapItem1);
-    state = state.set(key2, mapItem2);
-    state = state.mergeIn([key1], { value: savedText });
-    const expected = state.mergeIn([key2], { value: savedText });
+    const state = new OrderedMap()
+      .set(key1, mapItem1)
+      .set(key2, mapItem2);
+    const expected = state
+      .mergeIn([key1], { value: savedText, isBeingEdited: false })
+      .mergeIn([key2], { value: savedText, isBeingEdited: false });
 
     const action = saveItems([key1, key2]);
     const actual = items(state, action);
@@ -103,12 +105,11 @@ describe('items reducer works correctly', () => {
     const key = getIdentifier();
     const expected = new OrderedMap();
 
-    let state = new OrderedMap();
     const mapItem = new Item({
       key,
       value: 'add item',
     });
-    state = state.set(key, mapItem);
+    const state = new OrderedMap().set(key, mapItem);
 
     const action = deleteItem(key);
     const actual = items(state, action);
@@ -121,7 +122,6 @@ describe('items reducer works correctly', () => {
     const key2 = getIdentifier();
     const key3 = getIdentifier();
 
-    let state = new OrderedMap();
     const mapItem1 = new Item({
       key: key1,
       value: 'add item',
@@ -134,11 +134,13 @@ describe('items reducer works correctly', () => {
       key: key3,
       value: 'add item',
     });
-    state = state.set(key1, mapItem1);
-    state = state.set(key2, mapItem2);
-    state = state.set(key3, mapItem3);
+    const state = new OrderedMap()
+      .set(key1, mapItem1)
+      .set(key2, mapItem2)
+      .set(key3, mapItem3);
+    const expected = new OrderedMap()
+      .set(key2, mapItem2);
 
-    const expected = new OrderedMap().set(key2, mapItem2);
     const action = deleteItems([key1, key3]);
     const actual = items(state, action);
 
@@ -148,13 +150,12 @@ describe('items reducer works correctly', () => {
   it('ITEM_EDITING_START sets edited flag to correct item', () => {
     const key = getIdentifier();
 
-    let state = new OrderedMap();
     const mapItem = new Item({
       key,
       value: 'save item',
       isBeingEdited: false,
     });
-    state = state.set(key, mapItem);
+    const state = new OrderedMap().set(key, mapItem);
     const expected = state.mergeIn([key], { isBeingEdited: true });
 
     const action = startItemEditing(key);
@@ -191,7 +192,6 @@ describe('items reducer works correctly', () => {
     const key1 = getIdentifier();
     const key2 = getIdentifier();
 
-    let state = new OrderedMap();
     const mapItem1 = new Item({
       key: key1,
       value: changeableValue,
@@ -204,16 +204,12 @@ describe('items reducer works correctly', () => {
       isBeingEdited: true,
       temporaryValue: 'save item changed',
     });
-    state = state.set(key1, mapItem1);
-    state = state.set(key2, mapItem2);
-    state = state.mergeIn([key1], {
-      isBeingEdited: false,
-      temporaryValue: changeableValue,
-    });
-    const expected = state.mergeIn([key2], {
-      isBeingEdited: false,
-      temporaryValue: changeableValue,
-    });
+    const state = new OrderedMap()
+      .set(key1, mapItem1)
+      .set(key2, mapItem2);
+    const expected = state
+      .mergeIn([key1], { isBeingEdited: false, temporaryValue: changeableValue })
+      .mergeIn([key2], { isBeingEdited: false, temporaryValue: changeableValue });
 
     const action = cancelItemsEditing([key1, key2]);
     const actual = items(state, action);
@@ -225,14 +221,13 @@ describe('items reducer works correctly', () => {
     const changeableValue = 'changed item';
     const key = getIdentifier();
 
-    let state = new OrderedMap();
     const mapItem = new Item({
       key,
       value: 'save item',
       isBeingEdited: true,
       temporaryValue: 'save item',
     });
-    state = state.set(key, mapItem);
+    const state = new OrderedMap().set(key, mapItem);
     const expected = state.mergeIn([key], { temporaryValue: changeableValue });
 
     const action = changeItemValue(key, changeableValue);
@@ -251,12 +246,11 @@ describe('items reducer works correctly', () => {
   it('undefined action returns previous state', () => {
     const key = getIdentifier();
 
-    let expected = new OrderedMap();
     const mapItem = new Item({
       key,
       value: 'add item',
     });
-    expected = expected.set(key, mapItem);
+    const expected = new OrderedMap().set(key, mapItem);
 
     const action = { type: undefined };
     const actual = items(expected, action);

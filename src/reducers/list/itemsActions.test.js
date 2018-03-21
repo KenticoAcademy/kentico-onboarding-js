@@ -30,9 +30,9 @@ describe('items help actions works correctly', () => {
     const state = new OrderedMap()
       .set(key1, mapItem1)
       .set(key2, mapItem2);
-    const expected = new OrderedMap()
-      .set(key1, mapItem1.merge({ value: savedText, isBeingEdited: false }))
-      .set(key2, mapItem2.merge({ value: savedText, isBeingEdited: false }));
+    const expected = state
+      .mergeIn([key1], { isBeingEdited: false, value: savedText })
+      .mergeIn([key2], { isBeingEdited: false, value: savedText });
 
     const actual = saveItems(state, [key1, key2]);
 
@@ -60,9 +60,9 @@ describe('items help actions works correctly', () => {
     const state = new OrderedMap()
       .set(key1, mapItem1)
       .set(key2, mapItem2);
-    const expected = new OrderedMap()
-      .set(key1, mapItem1.merge({ temporaryValue: originalText, isBeingEdited: false }))
-      .set(key2, mapItem2.merge({ temporaryValue: originalText, isBeingEdited: false }));
+    const expected = state
+      .mergeIn([key1], { isBeingEdited: false, temporaryValue: originalText })
+      .mergeIn([key2], { isBeingEdited: false, temporaryValue: originalText });
 
     const actual = cancelItemsEditing(state, [key1, key2]);
 
