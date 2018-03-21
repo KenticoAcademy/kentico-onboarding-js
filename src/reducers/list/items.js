@@ -2,10 +2,12 @@ import { OrderedMap } from 'immutable';
 
 import { Item } from '../../models/item';
 import { item } from './item';
+import { saveItems } from './itemsActions';
 import {
   ITEM_ADD,
   ITEM_DELETE,
   ITEM_SAVE,
+  ITEM_SAVE_ALL,
   ITEM_VALUE_CHANGED,
   ITEM_EDITING_STOP,
   ITEM_EDITING_START,
@@ -29,6 +31,9 @@ export const items = (state = OrderedMap(), action) => {
     case ITEM_EDITING_STOP:
     case ITEM_VALUE_CHANGED:
       return state.mergeIn([action.payload.itemKey], item(state.get(action.payload.itemKey), action));
+
+    case ITEM_SAVE_ALL:
+      return saveItems(state, action.payload.selectedKeys);
 
     default:
       return state;

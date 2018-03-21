@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export const ListGroupActions = ({ isGroupVisible, saveAll, cancelAll, deleteAll }) => (
-  isGroupVisible ?
+export const ListGroupActions = ({ saveAll, cancelAll, deleteAll, selectedKeys }) => (
+  (selectedKeys.length > 1) && (
     <div className="row">
       <div className="btn-group">
         <button
@@ -27,14 +27,13 @@ export const ListGroupActions = ({ isGroupVisible, saveAll, cancelAll, deleteAll
           Delete Selected
         </button>
       </div>
-    </div> :
-    <div className="row" />
+    </div>)
 );
 
 ListGroupActions.displayName = 'ListGroupActions';
 
 ListGroupActions.propTypes = {
-  isGroupVisible: PropTypes.bool.isRequired,
+  selectedKeys: PropTypes.arrayOf(PropTypes.string).isRequired,
   saveAll: PropTypes.func.isRequired,
   cancelAll: PropTypes.func.isRequired,
   deleteAll: PropTypes.func.isRequired,

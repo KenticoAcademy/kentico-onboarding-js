@@ -22,6 +22,10 @@ export class NewItem extends React.PureComponent {
   }
 
   _handleShortcuts = (action) => {
+    /* const x = {
+      'ITEM_EDIT_CONFIRM': (state) => if (isInputValid(state.itemValue)) {
+      this._addItem();
+    } */
     switch (action) {
       case 'ITEM_EDIT_CONFIRM':
         if (isInputValid(this.state.itemValue)) {

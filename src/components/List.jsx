@@ -7,7 +7,7 @@ import { ListItem } from '../containers/ListItem';
 import { NewItem } from '../containers/NewItem';
 import { ListGroupActions } from '../containers/ListGroupActions';
 
-export const List = ({ itemKeys, editedItems }) => {
+export const List = ({ itemKeys, selectedKeys }) => {
   const listOfKeys = itemKeys.map((key, index) => (
     <div className="list-group-item" key={key}>
       <ListItem
@@ -29,7 +29,7 @@ export const List = ({ itemKeys, editedItems }) => {
           </div>
         </div>
         <ListGroupActions
-          editedItems={editedItems}
+          selectedKeys={selectedKeys}
         />
       </div>
     </div>
@@ -40,5 +40,5 @@ List.displayName = 'List';
 
 List.propTypes = {
   itemKeys: PropTypes.arrayOf(PropTypes.string).isRequired,
-  editedItems: PropTypes.array.isRequired,
+  selectedKeys: PropTypes.arrayOf(PropTypes.string).isRequired,
 };

@@ -5,7 +5,10 @@ import { List as ListComponent } from '../components/List';
 
 const mapStateToProps = (state) => ({
   itemKeys: selectKeys(state.list.items).toArray(),
-  editedItems: selectItems(state.list.items).filter(item => item.isBeingEdited).toArray(),
+  selectedKeys: selectItems(state.list.items)
+    .filter(item => item.isBeingEdited)
+    .map(item => item.key)
+    .toArray(),
 });
 
 export const List = connect(mapStateToProps)(ListComponent);
