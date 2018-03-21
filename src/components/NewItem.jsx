@@ -21,31 +21,25 @@ export class NewItem extends React.PureComponent {
     };
   }
 
-  _handleShortcuts = (action) => {
-    /* const x = {
-      'ITEM_EDIT_CONFIRM': (state) => if (isInputValid(state.itemValue)) {
-      this._addItem();
-    } */
-    switch (action) {
-      case 'ITEM_EDIT_CONFIRM':
-        if (isInputValid(this.state.itemValue)) {
-          this._addItem();
-        }
-        break;
-      case 'ITEM_EDIT_CANCEL':
-      case 'ITEM_DELETE':
-        this.setState({ itemValue: '' });
-        break;
-      default:
-        break;
-    }
-  };
+  _shortCuts = ({
+    'ITEM_EDIT_CONFIRM': () => {
+      if (isInputValid(this.state.itemValue)) {
+        this._addItem();
+      }
+    },
+    'ITEM_EDIT_CANCEL': this._clearItemValue,
+    'ITEM_DELETE': this._clearItemValue,
+  });
+
+  _clearItemValue = () => this.setState({ itemValue: '' });
+
+  _handleShortcuts = (action) => this._shortCuts[action]();
 
   _handleChange = (event) => this.setState({ itemValue: event.target.value });
 
   _addItem = () => {
     this.props.addItem(this.state.itemValue);
-    this.setState({ itemValue: '' });
+    this._clearItemValue();
   };
 
   render() {

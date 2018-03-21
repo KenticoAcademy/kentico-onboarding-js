@@ -24,34 +24,19 @@ export class ListItemEditor extends React.PureComponent {
     onChange: PropTypes.func.isRequired,
   };
 
+  _shortCuts = ({
+    'ITEM_EDIT_CONFIRM': ({ item: { temporaryValue }, saveItem }) => {
+      if (isInputValid(temporaryValue)) {
+        saveItem(temporaryValue);
+      }
+    },
+    'ITEM_EDIT_CANCEL': ({ onCancelEdit }) => onCancelEdit(),
+    'ITEM_DELETE': ({ deleteItem }) => deleteItem(),
+  });
+
   _handleChange = (event) => this.props.onChange(event.target.value);
 
-  _handleShortcuts = (action) => {
-    const {
-      item: {
-        temporaryValue,
-      },
-      saveItem,
-      deleteItem,
-      onCancelEdit,
-    } = this.props;
-
-    switch (action) {
-      case 'ITEM_EDIT_CONFIRM':
-        if (isInputValid(temporaryValue)) {
-          saveItem(temporaryValue);
-        }
-        break;
-      case 'ITEM_EDIT_CANCEL':
-        onCancelEdit();
-        break;
-      case 'ITEM_DELETE':
-        deleteItem();
-        break;
-      default:
-        break;
-    }
-  };
+  _handleShortcuts = (action) => this._shortCuts[action](this.props);
 
   render() {
     const {
