@@ -5,6 +5,11 @@ import PropTypes from 'prop-types';
 import { Shortcuts } from 'react-shortcuts';
 
 import { isInputValid } from '../utils/validationService';
+import {
+  ITEM_EDIT_CONFIRM,
+  ITEM_EDIT_CANCEL,
+  ITEM_DELETE,
+} from '../constants/constants';
 
 export class ListItemEditor extends React.PureComponent {
   static displayName = 'ListItemEditor';
@@ -25,13 +30,13 @@ export class ListItemEditor extends React.PureComponent {
   };
 
   _shortCuts = ({
-    'ITEM_EDIT_CONFIRM': ({ item: { temporaryValue }, saveItem }) => {
+    [ITEM_EDIT_CONFIRM]: ({ item: { temporaryValue }, saveItem }) => {
       if (isInputValid(temporaryValue)) {
         saveItem(temporaryValue);
       }
     },
-    'ITEM_EDIT_CANCEL': ({ onCancelEdit }) => onCancelEdit(),
-    'ITEM_DELETE': ({ deleteItem }) => deleteItem(),
+    [ITEM_EDIT_CANCEL]: ({ onCancelEdit }) => onCancelEdit(),
+    [ITEM_DELETE]: ({ deleteItem }) => deleteItem(),
   });
 
   _handleChange = (event) => this.props.onChange(event.target.value);

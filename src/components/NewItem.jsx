@@ -5,6 +5,11 @@ import PropTypes from 'prop-types';
 import { Shortcuts } from 'react-shortcuts';
 
 import { isInputValid } from '../utils/validationService';
+import {
+  ITEM_EDIT_CONFIRM,
+  ITEM_EDIT_CANCEL,
+  ITEM_DELETE,
+} from '../constants/constants';
 
 export class NewItem extends React.PureComponent {
   static displayName = 'NewItem';
@@ -22,13 +27,13 @@ export class NewItem extends React.PureComponent {
   }
 
   _shortCuts = ({
-    'ITEM_EDIT_CONFIRM': () => {
+    [ITEM_EDIT_CONFIRM]: () => {
       if (isInputValid(this.state.itemValue)) {
         this._addItem();
       }
     },
-    'ITEM_EDIT_CANCEL': this._clearItemValue,
-    'ITEM_DELETE': this._clearItemValue,
+    [ITEM_EDIT_CANCEL]: this._clearItemValue,
+    [ITEM_DELETE]: this._clearItemValue,
   });
 
   _clearItemValue = () => this.setState({ itemValue: '' });
