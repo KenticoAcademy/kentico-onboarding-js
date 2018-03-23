@@ -32,7 +32,7 @@ export class ListItemEditor extends React.PureComponent {
   _shortCuts = ({
     [ITEM_EDIT_CONFIRM]: ({ item: { temporaryValue }, saveItem }) => {
       if (isInputValid(temporaryValue)) {
-        saveItem(temporaryValue);
+        saveItem();
       }
     },
     [ITEM_EDIT_CANCEL]: ({ onCancelEdit }) => onCancelEdit(),
