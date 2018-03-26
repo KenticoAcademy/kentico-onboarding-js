@@ -11,29 +11,24 @@ export class List extends PureComponent {
     this.state = {
       items: [],
     };
-
-    this._createItem = this._createItem.bind(this);
-    this._addItem = this._addItem.bind(this);
-    this.onItemDelete = this.onItemDelete.bind(this);
-    this.onItemUpdate = this.onItemUpdate.bind(this);
   }
 
-  _createItem(itemText, itemId) {
+  _createItem = (itemText, itemId) => {
     const id = itemId === undefined ? Uuid() : itemId;
 
     return {
       text: itemText,
       id,
     };
-  }
+  };
 
-  _addItem(itemText) {
+  _addItem = (itemText) => {
     this.setState({
       items: this.state.items.concat([this._createItem(itemText)]),
     });
-  }
+  };
 
-  onItemDelete(itemId) {
+  onItemDelete = (itemId) => {
     this.setState(prevState => {
       const newItems = prevState.items.slice();
       const index = newItems.findIndex(x => x.id === itemId);
@@ -41,9 +36,9 @@ export class List extends PureComponent {
 
       return { items: newItems };
     });
-  }
+  };
 
-  onItemUpdate(itemId, newText) {
+  onItemUpdate = (itemId, newText) => {
     this.setState(prevState => {
       const newItems = prevState.items.slice();
       const index = newItems.findIndex(x => x.id === itemId);
@@ -51,7 +46,7 @@ export class List extends PureComponent {
 
       return { items: newItems };
     });
-  }
+  };
 
   render() {
     const listItems = this.state.items.map((item, index) => {

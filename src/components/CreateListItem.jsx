@@ -1,24 +1,20 @@
 import React, { PureComponent } from 'react';
 
-
 export class CreateListItem extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
       newItemText: '',
     };
-
-    this._inputChange = this._inputChange.bind(this);
-    this._inputSubmit = this._inputSubmit.bind(this);
   }
 
-  _inputChange(e) {
+  _inputChange = (e) => {
     this.setState({
       newItemText: e.target.value,
     });
-  }
+  };
 
-  _inputSubmit(e) {
+  _inputSubmit = (e) => {
     e.preventDefault();
 
     if (this.props.onSubmit !== undefined) {
@@ -27,7 +23,7 @@ export class CreateListItem extends PureComponent {
     this.setState({
       newItemText: '',
     });
-  }
+  };
 
   render() {
     return (

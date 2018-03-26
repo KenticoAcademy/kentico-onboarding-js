@@ -9,56 +9,51 @@ export class ListItem extends PureComponent {
       inEditMode: false,
       originalText: props.text,
     };
-
-    this._inputChange = this._inputChange.bind(this);
-    this._setEditMode = this._setEditMode.bind(this);
-    this._saveOriginalState = this._saveOriginalState.bind(this);
-    this._restoreOriginalState = this._restoreOriginalState.bind(this);
   }
 
-  _setEditMode(editMode) {
+  _setEditMode = (editMode) => {
     this.setState({
       inEditMode: editMode,
     });
-  }
+  };
 
-  _saveOriginalState() {
+  _saveOriginalState = () => {
     this.setState(prevState => {
       return { originalText: prevState.text };
     });
 
     this._setEditMode(true);
-  }
+  };
 
-  _restoreOriginalState(e) {
+  _restoreOriginalState = (e) => {
     e.preventDefault();
     this.setState(prevState => {
       return { text: prevState.originalText };
     });
 
     this._setEditMode(false);
-  }
+  };
 
-  _inputChange(e) {
+  _inputChange = (e) => {
     this.setState({
       text: e.target.value,
     });
-  }
+  };
 
-  _deleteItem(e) {
+  _deleteItem = (e) => {
     e.preventDefault();
     if (this.props.onDelete !== undefined) {
       this.props.onDelete(this.state.id);
     }
-  }
+  };
 
-  _updateItem(e) {
+  _updateItem = (e) => {
     e.preventDefault();
 
     if (this.props.onChange !== undefined) {
       this.props.onChange(this.state.id, this.state.text);
     }
-  }
+  };
 
   render() {
     return (
@@ -72,7 +67,7 @@ export class ListItem extends PureComponent {
             <button type="submit" className="btn btn-secondary" onClick={(e) => this._restoreOriginalState(e)}>Cancel</button>
             <button type="submit" className="btn btn-danger" onClick={(e) => this._deleteItem(e)}>Delete</button>
           </span>)
-        : (<span onClick={this._saveOriginalState}>{this.state.text}</span>
+          : (<span onClick={this._saveOriginalState}>{this.state.text}</span>
           )}
       </li>
     );
