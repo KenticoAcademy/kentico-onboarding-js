@@ -12,40 +12,39 @@ export class List extends PureComponent {
     items: [],
   };
 
-  _createItem = (itemText, itemId) => ({
-    text: itemText,
-    id: itemId || Uuid(),
-  });
+  _addItem = itemText => {
+    const newItem = {
+      text: itemText,
+      id: Uuid(),
+    };
 
-  _addItem = (itemText) => {
-    this.setState({
-      items: this.state.items.concat([this._createItem(itemText)]),
-    });
+    this.setState(prevState => ({
+      items: [
+        ...prevState.items,
+        newItem,
+      ],
+    }));
   };
 
-  onItemDelete = (itemId) => {
-    this.setState(prevState => {
-      const newItems = prevState.items.slice();
-      const index = newItems.findIndex(x => x.id === itemId);
-      newItems.splice(index, 1);
+  _deleteItem = (itemId) =>
+    this.setState(prevState => ({
+      items: prevState.items.filter(item => item.id !== itemId),
+    }));
 
-      return { items: newItems };
-    });
-  };
-
-  onItemUpdate = (itemId, newText) => {
-    this.setState(prevState => {
-      const newItems = prevState.items.slice();
-      const index = newItems.findIndex(x => x.id === itemId);
-      newItems.splice(index, 1, this._createItem(newText));
-
-      return { items: newItems };
-    });
-  };
+  _updateItem = (itemId, newText) =>
+    this.setState(prevState => ({
+      items: prevState.items.map(item => (
+        item.id !== itemId
+          ? item
+          : {
+            ...item,
+            text: newText,
+          })),
+    }));
 
   render() {
     const listItems = this.state.items.map((item, index) => {
-      return <ListItem id={item.id} number={index} key={item.id} text={item.text} onChange={this.onItemUpdate} onDelete={this.onItemDelete} />;
+      return <ListItem id={item.id} number={index} key={item.id} text={item.text} onChange={this._updateItem} onDelete={this._deleteItem} />;
     });
 
     return (
