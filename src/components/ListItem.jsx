@@ -60,6 +60,8 @@ export class ListItem extends PureComponent {
   _updateItem = (e) => {
     e.preventDefault();
     this.props.onChange(this.state.id, this.state.text);
+
+    this._setEditMode(false);
   };
 
   render() {
