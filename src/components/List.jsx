@@ -8,12 +8,9 @@ import { CreateListItem } from './CreateListItem';
 export class List extends PureComponent {
   static displayName = 'List';
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      items: [],
-    };
-  }
+  state = {
+    items: [],
+  };
 
   _createItem = (itemText, itemId) => ({
     text: itemText,

@@ -8,12 +8,9 @@ export class CreateListItem extends PureComponent {
     onSubmit: PropTypes.func.isRequired,
   };
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      newItemText: '',
-    };
-  }
+  state = {
+    newItemText: '',
+  };
 
   _inputChange = (e) => {
     this.setState({
