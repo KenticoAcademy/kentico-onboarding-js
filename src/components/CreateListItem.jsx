@@ -1,6 +1,13 @@
 import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 
 export class CreateListItem extends PureComponent {
+  static displayName = 'CreateListItem';
+
+  static propTypes = {
+    onSubmit: PropTypes.func.isRequired,
+  };
+
   constructor(props) {
     super(props);
     this.state = {
@@ -16,10 +23,8 @@ export class CreateListItem extends PureComponent {
 
   _inputSubmit = (e) => {
     e.preventDefault();
+    this.props.onSubmit(this.state.newItemText);
 
-    if (this.props.onSubmit !== undefined) {
-      this.props.onSubmit(this.state.newItemText);
-    }
     this.setState({
       newItemText: '',
     });

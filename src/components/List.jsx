@@ -6,6 +6,8 @@ import { ListItem } from './ListItem.jsx';
 import { CreateListItem } from './CreateListItem';
 
 export class List extends PureComponent {
+  static displayName = 'List';
+
   constructor(props) {
     super(props);
     this.state = {
@@ -13,14 +15,10 @@ export class List extends PureComponent {
     };
   }
 
-  _createItem = (itemText, itemId) => {
-    const id = itemId === undefined ? Uuid() : itemId;
-
-    return {
-      text: itemText,
-      id,
-    };
-  };
+  _createItem = (itemText, itemId) => ({
+    text: itemText,
+    id: itemId || Uuid(),
+  });
 
   _addItem = (itemText) => {
     this.setState({

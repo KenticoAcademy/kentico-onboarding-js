@@ -1,6 +1,15 @@
 import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 
 export class ListItem extends PureComponent {
+  static displayName = 'ListItem';
+
+  static propTypes = {
+    text: PropTypes.string,
+    id: PropTypes.string,
+    onDelete: PropTypes.func.isRequired,
+  };
+
   constructor(props) {
     super(props);
     this.state = {
@@ -42,17 +51,12 @@ export class ListItem extends PureComponent {
 
   _deleteItem = (e) => {
     e.preventDefault();
-    if (this.props.onDelete !== undefined) {
-      this.props.onDelete(this.state.id);
-    }
+    this.props.onDelete(this.state.id);
   };
 
   _updateItem = (e) => {
     e.preventDefault();
-
-    if (this.props.onChange !== undefined) {
-      this.props.onChange(this.state.id, this.state.text);
-    }
+    this.props.onChange(this.state.id, this.state.text);
   };
 
   render() {
