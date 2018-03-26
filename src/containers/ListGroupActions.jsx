@@ -1,16 +1,24 @@
 import { connect } from 'react-redux';
 
-import { ListGroupActions as ListGroupActionsComponent } from '../components/ListGroupActions';
 import {
   saveItems,
   deleteItems,
   cancelItemsEditing,
 } from '../actions/actionCreators';
+import { ListGroupActions as ListGroupActionsComponent } from '../components/ListGroupActions';
+import { selectItems } from '../selectors/memorySelector';
 
-const mapDispatchToProps = (dispatch, { selectedKeys }) => ({
-  saveSelected: () => dispatch(saveItems(selectedKeys)),
-  cancelSelected: () => dispatch(cancelItemsEditing(selectedKeys)),
-  deleteSelected: () => dispatch(deleteItems(selectedKeys)),
+const mapStateToProps = (state) => ({
+  selectedKeys: selectItems(state.list.items)
+    .filter(item => item.isBeingEdited)
+    .map(item => item.key)
+    .toArray(),
 });
 
-export const ListGroupActions = connect(null, mapDispatchToProps)(ListGroupActionsComponent);
+const mapDispatchToProps = (dispatch) => ({
+  saveSelected: (selectedKeys) => dispatch(saveItems(selectedKeys)),
+  cancelSelected: (selectedKeys) => dispatch(cancelItemsEditing(selectedKeys)),
+  deleteSelected: (selectedKeys) => dispatch(deleteItems(selectedKeys)),
+});
+
+export const ListGroupActions = connect(mapStateToProps, mapDispatchToProps)(ListGroupActionsComponent);
