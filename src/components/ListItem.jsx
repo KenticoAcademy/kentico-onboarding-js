@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import { enableUniqueIds } from 'react-html-id';
 
 export class ListItem extends PureComponent {
   static displayName = 'ListItem';
@@ -18,6 +19,8 @@ export class ListItem extends PureComponent {
       inEditMode: false,
       originalText: props.text,
     };
+
+    enableUniqueIds(this);
   }
 
   _setEditMode = (editMode) => {
@@ -65,8 +68,8 @@ export class ListItem extends PureComponent {
         <span>{this.props.number}. </span>
         {this.state.inEditMode ? (
           <span className="form-group">
-            <label htmlFor="itemText" />
-            <input type="text" className="form-control" id="itemText" value={this.state.text} onChange={this._inputChange} />
+            <label htmlFor={this.nextUniqueId()} />
+            <input type="text" className="form-control" id={this.lastUniqueId()} value={this.state.text} onChange={this._inputChange} />
             <button type="submit" className="btn btn-primary" onClick={(e) => this._updateItem(e)}>Save</button>
             <button type="submit" className="btn btn-secondary" onClick={(e) => this._restoreOriginalState(e)}>Cancel</button>
             <button type="submit" className="btn btn-danger" onClick={(e) => this._deleteItem(e)}>Delete</button>

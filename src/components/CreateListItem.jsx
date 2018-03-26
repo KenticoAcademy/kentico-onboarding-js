@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import { enableUniqueIds } from 'react-html-id';
 
 export class CreateListItem extends PureComponent {
   static displayName = 'CreateListItem';
@@ -8,17 +9,22 @@ export class CreateListItem extends PureComponent {
     onSubmit: PropTypes.func.isRequired,
   };
 
-  state = {
-    newItemText: '',
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      newItemText: '',
+    };
 
-  _inputChange = (e) => {
+    enableUniqueIds(this);
+  }
+
+  _updateItemText = (e) => {
     this.setState({
       newItemText: e.target.value,
     });
   };
 
-  _inputSubmit = (e) => {
+  _submitItemText = (e) => {
     e.preventDefault();
     this.props.onSubmit(this.state.newItemText);
 
@@ -31,9 +37,9 @@ export class CreateListItem extends PureComponent {
     return (
       <li className="list-group-item">
         <span className="form-group">
-          <label htmlFor="newItemText" />
-          <input type="text" className="form-control" value={this.state.newItemText} onChange={this._inputChange} />
-          <button type="button" className="btn btn-secondary" onClick={this._inputSubmit}>Add</button>
+          <label htmlFor={this.nextUniqueId()} />
+          <input type="text" className="form-control" id={this.lastUniqueId()} value={this.state.newItemText} onChange={this._updateItemText} />
+          <button type="button" className="btn btn-secondary" onClick={this._submitItemText}>Add</button>
         </span>
       </li>
     );
