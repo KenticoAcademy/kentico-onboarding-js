@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import Uuid from 'uuid/v4';
 import assignment from './../../assignment.gif';
 
 import { ListItem } from './ListItem.jsx';
@@ -11,26 +12,19 @@ export class List extends PureComponent {
       items: [],
     };
 
-    this._generateGuid = this._generateGuid.bind(this);
     this._createItem = this._createItem.bind(this);
     this._addItem = this._addItem.bind(this);
     this.onItemDelete = this.onItemDelete.bind(this);
     this.onItemUpdate = this.onItemUpdate.bind(this);
   }
 
-  _generateGuid() {
-    function s4() {
-      return Math.floor((1 + Math.random()) * 0x10000)
-        .toString(16)
-        .substring(1);
-    }
-    return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
-  }
-
   _createItem(itemText, itemId) {
-    const id = itemId === undefined ? this._generateGuid() : itemId;
+    const id = itemId === undefined ? Uuid() : itemId;
 
-    return { id, text: itemText };
+    return {
+      text: itemText,
+      id,
+    };
   }
 
   _addItem(itemText) {
@@ -63,7 +57,6 @@ export class List extends PureComponent {
     const listItems = this.state.items.map((item, index) => {
       return <ListItem id={item.id} number={index} key={item.id} text={item.text} onChange={this.onItemUpdate} onDelete={this.onItemDelete} />;
     });
-
 
     return (
       <div>
