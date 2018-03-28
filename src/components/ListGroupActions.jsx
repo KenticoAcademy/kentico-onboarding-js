@@ -18,10 +18,8 @@ export class ListGroupActions extends React.PureComponent {
   _deleteSelected = () => this.props.deleteSelected(this.props.selectedKeys);
 
   render() {
-    const { selectedKeys } = this.props;
-
     return (
-      (selectedKeys.length > 1) ? (
+      (this.props.selectedKeys.length > 1) ? (
         <div className="row">
           <div className="btn-group">
             <button

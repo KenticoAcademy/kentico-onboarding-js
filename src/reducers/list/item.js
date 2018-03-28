@@ -5,21 +5,23 @@ import {
   ITEM_EDITING_START,
   ITEM_SAVE,
 } from '../../constants/actionTypes';
-import {
-  saveItem,
-  cancelItemEditing,
-} from './itemActions';
 
 export const item = (state = Item(), action) => {
   switch (action.type) {
     case ITEM_SAVE:
-      return saveItem(state);
+      return state.merge({
+        value: state.temporaryValue,
+        isBeingEdited: false,
+      });
 
     case ITEM_EDITING_START:
       return state.merge({ isBeingEdited: true });
 
     case ITEM_EDITING_STOP:
-      return cancelItemEditing(state);
+      return state.merge({
+        temporaryValue: state.value,
+        isBeingEdited: false,
+      });
 
     case ITEM_VALUE_CHANGED:
       return state.merge({ temporaryValue: action.payload.updatedValue });
