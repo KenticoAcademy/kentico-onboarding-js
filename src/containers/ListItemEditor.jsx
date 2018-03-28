@@ -6,7 +6,7 @@ import {
   saveItem,
   stopItemEditing,
   changeItemValue,
-} from '../actions/actionCreators';
+} from '../actions';
 
 const mapDispatchToProps = (dispatch, { item: { key } }) => ({
   onCancelEdit: () => dispatch(stopItemEditing(key)),

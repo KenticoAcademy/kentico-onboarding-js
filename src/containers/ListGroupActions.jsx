@@ -4,7 +4,7 @@ import {
   saveItems,
   deleteItems,
   cancelItemsEditing,
-} from '../actions/actionCreators';
+} from '../actions';
 import { ListGroupActions as ListGroupActionsComponent } from '../components/ListGroupActions';
 import { getMemoizedValues } from '../selectors/memorySelector';
 
