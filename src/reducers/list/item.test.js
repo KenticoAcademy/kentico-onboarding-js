@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { Item } from '../../models/item';
 import { item } from './item';
 import {
@@ -7,13 +5,12 @@ import {
   saveItem,
   startItemEditing,
   stopItemEditing,
-} from '../../actions/actionCreators';
-import { getIdentifier } from '../../utils/getIdentifier';
+} from '../../actions';
 
 describe('items reducer works correctly', () => {
   it('ITEM_SAVE updates correct item in map', () => {
     const savedText = 'save item';
-    const key = getIdentifier();
+    const key = 'idX';
 
     const mapItem = new Item({
       key,

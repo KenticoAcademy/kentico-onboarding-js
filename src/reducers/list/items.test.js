@@ -1,4 +1,3 @@
-import React from 'react';
 import { OrderedMap } from 'immutable';
 
 import { Item } from '../../models/item';
@@ -13,15 +12,13 @@ import {
   startItemEditing,
   stopItemEditing,
   cancelItemsEditing,
-} from '../../actions/actionCreators';
+} from '../../actions';
 import { addItemFactory } from '../../actions/listActions/addItemFactory';
-import { getIdentifier } from '../../utils/getIdentifier';
 
 describe('items reducer works correctly', () => {
   it('ITEM_ADD with mocked factory returns map with correct item', () => {
-    const key = getIdentifier();
-    const fakeIdGenerator = () => key;
-    const addFactory = addItemFactory(fakeIdGenerator);
+    const key = 'idX';
+    const addItemActionCreator = addItemFactory(() => key);
 
     const testValue = 'add item';
     const expected = new Item({
@@ -31,7 +28,7 @@ describe('items reducer works correctly', () => {
       temporaryValue: testValue,
     });
 
-    const action = addFactory(testValue);
+    const action = addItemActionCreator(testValue);
     const newList = items(undefined, action);
     const actual = newList.first();
 
@@ -46,8 +43,8 @@ describe('items reducer works correctly', () => {
       temporaryValue: testValue,
     });
 
-    const action = addItem(testValue);
-    const newList = items(undefined, action);
+    const addAction = addItem(testValue);
+    const newList = items(undefined, addAction);
     const actual = newList.first();
 
     expect(actual).toEqual(expected.merge({ key: actual.key }));
@@ -55,7 +52,7 @@ describe('items reducer works correctly', () => {
 
   it('ITEM_SAVE updates correct item in map', () => {
     const savedText = 'save item';
-    const key = getIdentifier();
+    const key = 'idX';
 
     const mapItem = new Item({
       key,
@@ -73,8 +70,8 @@ describe('items reducer works correctly', () => {
 
   it('ITEM_SAVE_ALL updates correct items in map', () => {
     const savedText = 'save item';
-    const key1 = getIdentifier();
-    const key2 = getIdentifier();
+    const key1 = 'idX';
+    const key2 = 'idY';
 
     const mapItem1 = new Item({
       key: key1,
@@ -102,7 +99,7 @@ describe('items reducer works correctly', () => {
   });
 
   it('ITEM_DELETE deletes correct item in map', () => {
-    const key = getIdentifier();
+    const key = 'idX';
     const expected = new OrderedMap();
 
     const mapItem = new Item({
@@ -118,9 +115,9 @@ describe('items reducer works correctly', () => {
   });
 
   it('ITEM_DELETE_ALL deletes correct items in map', () => {
-    const key1 = getIdentifier();
-    const key2 = getIdentifier();
-    const key3 = getIdentifier();
+    const key1 = 'idX';
+    const key2 = 'idY';
+    const key3 = 'idZ';
 
     const mapItem1 = new Item({
       key: key1,
@@ -148,7 +145,7 @@ describe('items reducer works correctly', () => {
   });
 
   it('ITEM_EDITING_START sets edited flag to correct item', () => {
-    const key = getIdentifier();
+    const key = 'idX';
 
     const mapItem = new Item({
       key,
@@ -166,7 +163,7 @@ describe('items reducer works correctly', () => {
 
   it('ITEM_EDITING_STOP returns state with edited flag on correct item', () => {
     const changeableValue = 'save item';
-    const key = getIdentifier();
+    const key = 'idX';
 
     let state = new OrderedMap();
     const mapItem = new Item({
@@ -189,8 +186,8 @@ describe('items reducer works correctly', () => {
 
   it('ITEM_EDITING_STOP_ALL returns state with edited flag on correct items', () => {
     const changeableValue = 'save item';
-    const key1 = getIdentifier();
-    const key2 = getIdentifier();
+    const key1 = 'idX';
+    const key2 = 'idY';
 
     const mapItem1 = new Item({
       key: key1,
@@ -219,7 +216,7 @@ describe('items reducer works correctly', () => {
 
   it('ITEM_VALUE_CHANGED changes correct item', () => {
     const changeableValue = 'changed item';
-    const key = getIdentifier();
+    const key = 'idX';
 
     const mapItem = new Item({
       key,
@@ -244,7 +241,7 @@ describe('items reducer works correctly', () => {
   });
 
   it('undefined action returns previous state', () => {
-    const key = getIdentifier();
+    const key = 'idX';
 
     const mapItem = new Item({
       key,
