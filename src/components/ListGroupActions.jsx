@@ -5,7 +5,7 @@ export class ListGroupActions extends React.PureComponent {
   static displayName = 'ListGroupActions';
 
   static propTypes = {
-    selectedKeys: PropTypes.array.isRequired,
+    selectedKeys: PropTypes.arrayOf(PropTypes.string).isRequired,
     saveSelected: PropTypes.func.isRequired,
     cancelSelected: PropTypes.func.isRequired,
     deleteSelected: PropTypes.func.isRequired,

@@ -1,7 +1,7 @@
 import mem from 'mem';
 
-const memoizedKeys = mem(seq => seq);
-export const selectKeys = (items) => memoizedKeys(items.keySeq());
+const arraySequence = sequence => sequence.toArray();
 
-const memoizedValues = mem(seq => seq);
-export const selectItems = (items) => memoizedValues(items.valueSeq());
+export const getMemoizedKeys = mem(arraySequence);
+
+export const getMemoizedValues = mem(arraySequence);

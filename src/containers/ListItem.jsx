@@ -1,15 +1,11 @@
 import { connect } from 'react-redux';
 
 import { ListItem as ListItemComponent } from '../components/ListItem';
-import { ItemViewModel } from '../models/itemViewModel';
+import { createMemoizedViewModel } from '../models/itemViewModel';
 
-const mapStateToProps = (state, { itemKey, bullet }) => ({
-  item: new ItemViewModel(
-    state
-      .list
-      .items
-      .get(itemKey)
-      .toJS(),
+const mapStateToProps = ({ list }, { itemKey, bullet }) => ({
+  item: createMemoizedViewModel(list.items
+      .get(itemKey),
     bullet),
 });
 

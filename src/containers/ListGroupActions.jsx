@@ -6,13 +6,12 @@ import {
   cancelItemsEditing,
 } from '../actions/actionCreators';
 import { ListGroupActions as ListGroupActionsComponent } from '../components/ListGroupActions';
-import { selectItems } from '../selectors/memorySelector';
+import { getMemoizedValues } from '../selectors/memorySelector';
 
-const mapStateToProps = (state) => ({
-  selectedKeys: selectItems(state.list.items)
+const mapStateToProps = ({ list }) => ({
+  selectedKeys: getMemoizedValues(list.items.valueSeq()
     .filter(item => item.isBeingEdited)
-    .map(item => item.key)
-    .toArray(),
+    .map(item => item.key)),
 });
 
 const mapDispatchToProps = (dispatch) => ({

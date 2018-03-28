@@ -1,27 +1,27 @@
 import { OrderedMap } from 'immutable';
 
 import {
-  selectItems,
-  selectKeys,
+  getMemoizedValues,
+  getMemoizedKeys,
 } from './memorySelector';
 
 describe('OrderedMap is memoized correctly', () => {
-  it('selectKeys returns one sequence for different OrderMap', () => {
+  it('getMemoizedKeys returns one sequence for different OrderMap', () => {
     const map1 = new OrderedMap({ 1: 'xxx', 2: 'yyy' });
     const map2 = new OrderedMap({ 1: 'xxx', 2: 'yyy' });
 
-    const keys1 = selectKeys(map1);
-    const keys2 = selectKeys(map2);
+    const keys1 = getMemoizedKeys(map1.keySeq());
+    const keys2 = getMemoizedKeys(map2.keySeq());
 
     expect(keys1).toBe(keys2);
   });
 
-  it('selectItems returns one sequence for different OrderMap', () => {
+  it('getMemoizedValues returns one sequence for different OrderMap', () => {
     const map1 = new OrderedMap({ 1: 'xxx', 2: 'yyy' });
     const map2 = new OrderedMap({ 1: 'xxx', 2: 'yyy' });
 
-    const keys1 = selectItems(map1);
-    const keys2 = selectItems(map2);
+    const keys1 = getMemoizedValues(map1.valueSeq());
+    const keys2 = getMemoizedValues(map2.valueSeq());
 
     expect(keys1).toBe(keys2);
   });
