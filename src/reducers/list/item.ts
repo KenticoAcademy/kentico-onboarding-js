@@ -1,30 +1,26 @@
-import { Item } from '../../models/item';
-import {
-  ITEM_VALUE_CHANGED,
-  ITEM_EDITING_STOP,
-  ITEM_EDITING_START,
-  ITEM_SAVE,
-} from '../../constants/actionTypes';
+import { Item } from '../../models/Item';
+import { actionTypes } from '../../constants/actionTypes';
+import { IAction } from '../../@types/IAction';
 
-export const item = (state = Item(), action) => {
+export const item = (state = new Item(), action: IAction): Item => {
   switch (action.type) {
-    case ITEM_SAVE:
-      return state.merge({
+    case actionTypes.ITEM_SAVE:
+      return state.with({
         value: state.temporaryValue,
         isBeingEdited: false,
       });
 
-    case ITEM_EDITING_START:
-      return state.merge({ isBeingEdited: true });
+    case actionTypes.ITEM_EDITING_START:
+      return state.with({ isBeingEdited: true });
 
-    case ITEM_EDITING_STOP:
-      return state.merge({
+    case actionTypes.ITEM_EDITING_STOP:
+      return state.with({
         temporaryValue: state.value,
         isBeingEdited: false,
       });
 
-    case ITEM_VALUE_CHANGED:
-      return state.merge({ temporaryValue: action.payload.updatedValue });
+    case actionTypes.ITEM_VALUE_CHANGED:
+      return state.with({ temporaryValue: action.payload.updatedValue });
 
     default:
       return state;
