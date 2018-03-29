@@ -43,9 +43,17 @@ export class List extends PureComponent {
     }));
 
   render() {
-    const listItems = this.state.items.map((item, index) => {
-      return <ListItem id={item.id} number={index} key={item.id} text={item.text} onChange={this._updateItem} onDelete={this._deleteItem} />;
-    });
+    const listItems = this.state.items.map((item, index) =>
+      <li className="list-group-item">
+        <span>{index + 1}. </span>
+        <ListItem
+          id={item.id}
+          key={item.id}
+          text={item.text}
+          onChange={this._updateItem}
+          onDelete={this._deleteItem}
+        />
+      </li>);
 
     return (
       <div>
