@@ -3,6 +3,7 @@
   "version": "2.0.0",
   "private": true,
   "devDependencies": {
+    "@types/immutable": "^3.8.7",
     "@types/jest": "^18.1.1",
     "@types/node": "^7.0.39",
     "@types/react": "^15.6.0",
@@ -54,6 +55,7 @@
     "whatwg-fetch": "^1.0.0"
   },
   "dependencies": {
+    "@types/mem": "^1.1.2",
     "@types/uuid": "^3.4.3",
     "bootstrap": "^3.3.7",
     "immutable": "^3.8.2",

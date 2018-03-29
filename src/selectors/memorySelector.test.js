@@ -3,7 +3,7 @@ import { OrderedMap } from 'immutable';
 import {
   getMemoizedValues,
   getMemoizedKeys,
-} from './memorySelector';
+} from './memorySelector.ts';
 
 describe('OrderedMap is memoized correctly', () => {
   it('getMemoizedKeys returns one sequence for different OrderMap', () => {
