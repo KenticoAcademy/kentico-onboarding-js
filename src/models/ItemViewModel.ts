@@ -1,6 +1,9 @@
-import mem from 'mem';
+import * as mem from 'mem';
 
-const getViewModel = (itemValues, bullet) => ({
+import { Item } from './Item';
+import { IItemViewModel } from './IItemViewModel';
+
+const getViewModel = (itemValues: Item, bullet: string): IItemViewModel => ({
   ...itemValues.toJS(),
   bullet,
 });
