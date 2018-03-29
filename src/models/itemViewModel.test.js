@@ -1,5 +1,5 @@
-import { createMemoizedViewModel } from '../models/itemViewModel';
-import { Item } from './item';
+import { createMemoizedViewModel } from './ItemViewModel.ts';
+import { Item } from './Item.ts';
 
 describe('ViewModel is memoized correctly', () => {
   it('createMemoizedViewModel returns memoized item', () => {
