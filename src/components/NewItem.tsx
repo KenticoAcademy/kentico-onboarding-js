@@ -1,24 +1,33 @@
 // components/NewItem.jsx
 
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
 import { Shortcuts } from 'react-shortcuts';
 
 import { isInputValid } from '../utils/validationService';
+import { IAction } from '../@types/IAction';
 import {
   ITEM_EDIT_CONFIRM,
   ITEM_EDIT_CANCEL,
   ITEM_DELETE,
 } from '../constants/constants';
 
-export class NewItem extends React.PureComponent {
+export interface INewItemState {
+  itemValue: string;
+}
+
+export interface INewItemProps {
+  readonly addItem: (value: string) => IAction;
+}
+
+export class NewItem extends React.PureComponent<INewItemProps, INewItemState> {
   static displayName = 'NewItem';
 
   static propTypes = {
     addItem: PropTypes.func.isRequired,
   };
 
-  constructor(props) {
+  constructor(props: INewItemProps) {
     super(props);
 
     this.state = {
@@ -26,25 +35,29 @@ export class NewItem extends React.PureComponent {
     };
   }
 
-  _shortCuts = ({
-    [ITEM_EDIT_CONFIRM]: () => {
-      if (isInputValid(this.state.itemValue)) {
-        this._addItem();
-      }
-    },
-    [ITEM_EDIT_CANCEL]: this._clearItemValue,
-    [ITEM_DELETE]: this._clearItemValue,
-  });
+  _clearItemValue = (): void => this.setState({ itemValue: '' });
 
-  _clearItemValue = () => this.setState({ itemValue: '' });
+  _handleShortcuts = (action: string): void => {
+    switch (action) {
+      case ITEM_EDIT_CONFIRM:
+        if (isInputValid(this.state.itemValue)) {
+          this._addItem();
+        }
+        break;
+      case ITEM_EDIT_CANCEL:
+      case ITEM_DELETE:
+        this._clearItemValue();
+        break;
+      default:
+        break;
+    }
+  };
 
-  _handleShortcuts = (action) => this._shortCuts[action]();
+  _handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => this.setState({ itemValue: event.target.value });
 
-  _handleChange = (event) => this.setState({ itemValue: event.target.value });
-
-  _addItem = () => {
+  _addItem = (): void => {
     this.props.addItem(this.state.itemValue);
-    this._clearItemValue();
+    this.setState({ itemValue: '' });
   };
 
   render() {
@@ -74,4 +87,3 @@ export class NewItem extends React.PureComponent {
     );
   }
 }
-

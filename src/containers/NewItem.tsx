@@ -1,10 +1,15 @@
-import { connect } from 'react-redux';
+import { connect, Dispatch } from 'react-redux';
 
+import {
+  NewItem as NewItemComponent,
+  INewItemProps,
+} from '../components/NewItem';
 import { addItem } from '../actions';
-import { NewItem as NewItemComponent } from '../components/NewItem';
+import { IAction } from '../@types/IAction';
 
-const mapDispatchToProps = (dispatch) => ({
-  addItem: itemValue => dispatch(addItem(itemValue)),
-});
+const mapDispatchToProps =
+  (dispatch: Dispatch<IAction>): INewItemProps => ({
+    addItem: (itemValue: string) => dispatch(addItem(itemValue)),
+  });
 
 export const NewItem = connect(null, mapDispatchToProps)(NewItemComponent);
