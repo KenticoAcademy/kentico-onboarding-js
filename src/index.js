@@ -1,17 +1,18 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import './styles/index.css';
-import { application } from './reducers';
+import { application } from './reducers/index.ts';
 
-import { App } from './components/App.jsx';
+import { App } from './components/App.tsx';
 
 const store = createStore(
   application,
-  window.devToolsExtension ? window.devToolsExtension() : f => f,
+  composeWithDevTools(),
 );
 
 ReactDOM.render(
