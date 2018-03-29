@@ -54,6 +54,7 @@
     "whatwg-fetch": "^1.0.0"
   },
   "dependencies": {
+    "@types/uuid": "^3.4.3",
     "bootstrap": "^3.3.7",
     "immutable": "^3.8.2",
     "mem": "^3.0.0",

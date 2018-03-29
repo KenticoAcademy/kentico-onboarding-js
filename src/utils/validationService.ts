@@ -1,3 +1,1 @@
-export function isInputValid(input) {
-  return !!input;
-}
+export const isInputValid = (input: string): boolean => !!input;
