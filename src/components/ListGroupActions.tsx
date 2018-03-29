@@ -1,25 +1,42 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
 
-export class ListGroupActions extends React.PureComponent {
+import { IAction } from '../@types/IAction';
+import { key } from '../@types/key';
+
+export interface IListGroupActionsStateProps {
+  readonly selectedKeys: Array<key>;
+}
+
+export interface IListGroupActionsDispatchProps {
+  readonly saveSelected: (selectedKeys: Array<key>) => IAction;
+  readonly cancelSelected: (selectedKeys: Array<key>) => IAction;
+  readonly deleteSelected: (selectedKeys: Array<key>) => IAction;
+}
+
+interface IListGroupActionsProps extends IListGroupActionsStateProps, IListGroupActionsDispatchProps {}
+
+export class ListGroupActions extends React.PureComponent<IListGroupActionsProps> {
   static displayName = 'ListGroupActions';
 
   static propTypes = {
-    selectedKeys: PropTypes.arrayOf(PropTypes.string).isRequired,
+    selectedKeys: PropTypes.array.isRequired,
     saveSelected: PropTypes.func.isRequired,
     cancelSelected: PropTypes.func.isRequired,
     deleteSelected: PropTypes.func.isRequired,
   };
 
-  _saveSelected = () => this.props.saveSelected(this.props.selectedKeys);
+  _saveSelected = (): IAction => this.props.saveSelected(this.props.selectedKeys);
 
-  _cancelSelected = () => this.props.cancelSelected(this.props.selectedKeys);
+  _cancelSelected = (): IAction => this.props.cancelSelected(this.props.selectedKeys);
 
-  _deleteSelected = () => this.props.deleteSelected(this.props.selectedKeys);
+  _deleteSelected = (): IAction => this.props.deleteSelected(this.props.selectedKeys);
 
   render() {
+    const { selectedKeys } = this.props;
+
     return (
-      (this.props.selectedKeys.length > 1) ? (
+      (selectedKeys.length > 1) ? (
         <div className="row">
           <div className="btn-group">
             <button
