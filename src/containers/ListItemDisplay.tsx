@@ -1,10 +1,16 @@
-import { connect } from 'react-redux';
+import { connect, Dispatch } from 'react-redux';
 
-import { ListItemDisplay as ListItemDisplayComponent } from '../components/ListItemDisplay';
+import {
+  IListItemDisplayDispatchProps,
+  IListItemDisplayOriginalProps,
+  ListItemDisplay as ListItemDisplayComponent,
+} from '../components/ListItemDisplay';
 import { startItemEditing } from '../actions';
+import { IAction } from '../@types/IAction';
 
-const mapDispatchToProps = (dispatch, { item: { key } }) => ({
-  onEdit: () => dispatch(startItemEditing(key)),
-});
+const mapDispatchToProps =
+  (dispatch: Dispatch<IAction>, ownProps: IListItemDisplayOriginalProps): IListItemDisplayDispatchProps => ({
+    onEdit: () => dispatch(startItemEditing(ownProps.item.key)),
+  });
 
 export const ListItemDisplay = connect(null, mapDispatchToProps)(ListItemDisplayComponent);
