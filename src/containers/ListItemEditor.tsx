@@ -1,18 +1,24 @@
-import { connect } from 'react-redux';
+import { connect, Dispatch } from 'react-redux';
 
-import { ListItemEditor as ListItemEditorComponent } from '../components/ListItemEditor';
+import {
+  IListItemEditorDispatchProps,
+  IListItemOriginalProps,
+  ListItemEditor as ListItemEditorComponent,
+} from '../components/ListItemEditor';
 import {
   deleteItem,
   saveItem,
   stopItemEditing,
   changeItemValue,
 } from '../actions';
+import { IAction } from '../@types/IAction';
 
-const mapDispatchToProps = (dispatch, { item: { key } }) => ({
-  onCancelEdit: () => dispatch(stopItemEditing(key)),
-  deleteItem: () => dispatch(deleteItem(key)),
-  saveItem: () => dispatch(saveItem(key)),
-  onChange: (itemValue) => dispatch(changeItemValue(key, itemValue)),
-});
+const mapDispatchToProps =
+  (dispatch: Dispatch<IAction>, { item: { key }}: IListItemOriginalProps): IListItemEditorDispatchProps => ({
+    onCancelEdit: () => dispatch(stopItemEditing(key)),
+    deleteItem: () => dispatch(deleteItem(key)),
+    saveItem: () => dispatch(saveItem(key)),
+    onChange: (itemValue: string) => dispatch(changeItemValue(key, itemValue)),
+  });
 
 export const ListItemEditor = connect(null, mapDispatchToProps)(ListItemEditorComponent);

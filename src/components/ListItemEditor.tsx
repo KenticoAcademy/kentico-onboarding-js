@@ -1,26 +1,38 @@
 // components/ListItemEditor.jsx
 
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
 import { Shortcuts } from 'react-shortcuts';
 
 import { isInputValid } from '../utils/validationService';
+import { IAction } from '../@types/IAction';
+import { IItemViewModel } from '../models/IItemViewModel';
 import {
   ITEM_EDIT_CONFIRM,
   ITEM_EDIT_CANCEL,
   ITEM_DELETE,
 } from '../constants/constants';
 
-export class ListItemEditor extends React.PureComponent {
+export interface IListItemOriginalProps {
+  readonly item: IItemViewModel;
+}
+
+export interface IListItemEditorDispatchProps {
+  readonly saveItem: () => IAction;
+  readonly deleteItem: () => IAction;
+  readonly onCancelEdit: () => IAction;
+  readonly onChange: (value: string) => IAction;
+}
+
+interface ListItemEditorProps extends IListItemOriginalProps, IListItemEditorDispatchProps {}
+
+export class ListItemEditor extends React.PureComponent<ListItemEditorProps> {
   static displayName = 'ListItemEditor';
 
   static propTypes = {
     item: PropTypes.shape({
-      bullet: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.number,
-      ]).isRequired,
-      temporaryValue: PropTypes.string,
+      bullet: PropTypes.string.isRequired,
+      temporaryValue: PropTypes.string.isRequired,
     }).isRequired,
 
     saveItem: PropTypes.func.isRequired,
@@ -30,18 +42,18 @@ export class ListItemEditor extends React.PureComponent {
   };
 
   _shortCuts = ({
-    [ITEM_EDIT_CONFIRM]: ({ item: { temporaryValue }, saveItem }) => {
+    [ITEM_EDIT_CONFIRM]: ({ item: { temporaryValue }, saveItem }: ListItemEditorProps) => {
       if (isInputValid(temporaryValue)) {
         saveItem();
       }
     },
-    [ITEM_EDIT_CANCEL]: ({ onCancelEdit }) => onCancelEdit(),
-    [ITEM_DELETE]: ({ deleteItem }) => deleteItem(),
+    [ITEM_EDIT_CANCEL]: ({ onCancelEdit }: IListItemEditorDispatchProps) => onCancelEdit(),
+    [ITEM_DELETE]: ({ deleteItem }: IListItemEditorDispatchProps) => deleteItem(),
   });
 
-  _handleChange = (event) => this.props.onChange(event.target.value);
+  _handleChange = (event: React.ChangeEvent<HTMLInputElement>): IAction => this.props.onChange(event.target.value);
 
-  _handleShortcuts = (action) => this._shortCuts[action](this.props);
+  _handleShortcuts = (action: string): void => this._shortCuts[action](this.props);
 
   render() {
     const {
@@ -55,7 +67,7 @@ export class ListItemEditor extends React.PureComponent {
     } = this.props;
 
     return (
-      <Shortcuts name="NewItem" handler={this._handleShortcuts}>
+      <Shortcuts name="ListItemEditor" handler={this._handleShortcuts}>
         <div className="input-group">
           <span className="input-group-addon">
             {bullet}
