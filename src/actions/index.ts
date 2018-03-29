@@ -1,6 +1,6 @@
 import { getIdentifier } from '../utils/getIdentifier';
-import { addItemFactory } from './listActions/addItemFactory';
+import { addItemFactory } from './factories/addItemFactory';
 
 export const addItem = addItemFactory(getIdentifier);
-export * from './listActions/listActions';
-export * from './itemActions/itemActions';
+export * from './creators/listActions';
+export * from './creators/itemActions';

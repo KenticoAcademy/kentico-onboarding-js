@@ -1,25 +1,23 @@
-import {
-  ITEM_EDITING_START,
-  ITEM_EDITING_STOP,
-  ITEM_VALUE_CHANGED,
-} from '../../constants/actionTypes';
+import { actionTypes } from '../../constants/actionTypes';
+import { key } from '../../@types/key';
+import { IAction } from '../../@types/IAction';
 
-export const startItemEditing = (itemKey) => ({
-  type: ITEM_EDITING_START,
+export const startItemEditing = (itemKey: key): IAction => ({
+  type: actionTypes.ITEM_EDITING_START,
   payload: {
     itemKey,
   },
 });
 
-export const stopItemEditing = (itemKey) => ({
-  type: ITEM_EDITING_STOP,
+export const stopItemEditing = (itemKey: key): IAction => ({
+  type: actionTypes.ITEM_EDITING_STOP,
   payload: {
     itemKey,
   },
 });
 
-export const changeItemValue = (itemKey, updatedValue) => ({
-  type: ITEM_VALUE_CHANGED,
+export const changeItemValue = (itemKey: key, updatedValue: string): IAction => ({
+  type: actionTypes.ITEM_VALUE_CHANGED,
   payload: {
     itemKey,
     updatedValue,

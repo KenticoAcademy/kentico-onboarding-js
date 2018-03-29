@@ -1,44 +1,40 @@
 import { Map } from 'immutable';
 
-import {
-  ITEM_SAVE,
-  ITEM_DELETE,
-  ITEM_SAVE_ALL,
-  ITEM_DELETE_ALL,
-  ITEM_EDITING_STOP_ALL,
-} from '../../constants/actionTypes';
-import { stopItemEditing } from '../itemActions/itemActions';
+import { actionTypes } from '../../constants/actionTypes';
+import { key } from '../../@types/key';
+import { IAction } from '../../@types/IAction';
+import { stopItemEditing } from './itemActions';
 
-export const saveItem = (itemKey) => ({
-  type: ITEM_SAVE,
+export const saveItem = (itemKey: key): IAction => ({
+  type: actionTypes.ITEM_SAVE,
   payload: {
     itemKey,
   },
 });
 
-export const saveItems = (selectedKeys) => ({
-  type: ITEM_SAVE_ALL,
+export const saveItems = (selectedKeys: Array<key>): IAction => ({
+  type: actionTypes.ITEM_SAVE_ALL,
   payload: {
     actions: Map(selectedKeys.map(key => [key, saveItem(key)])),
   },
 });
 
-export const deleteItem = (itemKey) => ({
-  type: ITEM_DELETE,
+export const deleteItem = (itemKey: key): IAction => ({
+  type: actionTypes.ITEM_DELETE,
   payload: {
     itemKey,
   },
 });
 
-export const deleteItems = (selectedKeys) => ({
-  type: ITEM_DELETE_ALL,
+export const deleteItems = (selectedKeys: Array<key>): IAction => ({
+  type: actionTypes.ITEM_DELETE_ALL,
   payload: {
     selectedKeys,
   },
 });
 
-export const cancelItemsEditing = (selectedKeys) => ({
-  type: ITEM_EDITING_STOP_ALL,
+export const cancelItemsEditing = (selectedKeys: Array<key>): IAction => ({
+  type: actionTypes.ITEM_EDITING_STOP_ALL,
   payload: {
     actions: Map(selectedKeys.map(key => [key, stopItemEditing(key)])),
   },
