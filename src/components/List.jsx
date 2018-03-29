@@ -51,17 +51,21 @@ export class List extends PureComponent {
       <div>
         <div className="row">
           <div className="col-sm-12">
-            <img src={assignment} alt="assignment" className="img--assignment" />
+            <img
+              src={assignment}
+              alt="assignment"
+              className="img--assignment"
+            />
           </div>
         </div>
         <div className="row">
           <div className="col-sm-12 col-md-12">
-            <form className="form-inline">
+            <div className="form-inline">
               <ul className="list-group">
                 {listItems}
                 <CreateListItem onSubmit={this._addItem} />
               </ul>
-            </form>
+            </div>
           </div>
         </div>
       </div>
