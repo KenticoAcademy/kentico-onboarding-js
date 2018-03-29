@@ -1,4 +1,4 @@
 import { v4 as getV4Identifier } from 'uuid';
-import { key } from '../@types/key';
+import { Key } from '../@types/Key';
 
-export const getIdentifier = (): key => getV4Identifier();
+export const getIdentifier = (): Key => getV4Identifier();

@@ -1,5 +1,3 @@
-// components/NewItem.jsx
-
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { Shortcuts } from 'react-shortcuts';

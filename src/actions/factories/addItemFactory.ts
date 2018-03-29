@@ -1,8 +1,8 @@
 import { actionTypes } from '../../constants/actionTypes';
 import { IAction } from '../../@types/IAction';
-import { key } from '../../@types/key';
+import { Key } from '../../@types/Key';
 
-export const addItemFactory = (generateItemKey: () => key) => (newValue: string): IAction => ({
+export const addItemFactory = (generateItemKey: () => Key) => (newValue: string): IAction => ({
   type: actionTypes.ITEM_ADD,
   payload: {
     itemKey: generateItemKey(),

@@ -3,10 +3,10 @@ import { OrderedMap } from 'immutable';
 import { Item } from '../../models/Item';
 import { item as itemReducer } from './item';
 import { actionTypes } from '../../constants/actionTypes';
-import { key } from '../../@types/key';
+import { Key } from '../../@types/Key';
 import { IAction } from '../../@types/IAction';
 
-export const items = (state = OrderedMap<key, Item>(), action: IAction): OrderedMap<key, Item> => {
+export const items = (state = OrderedMap<Key, Item>(), action: IAction): OrderedMap<Key, Item> => {
   switch (action.type) {
     case actionTypes.ITEM_ADD:
       return state.set(action.payload.itemKey, new Item({
@@ -28,14 +28,14 @@ export const items = (state = OrderedMap<key, Item>(), action: IAction): Ordered
     case actionTypes.ITEM_SAVE_ALL:
     case actionTypes.ITEM_EDITING_STOP_ALL:
       return state.map(
-        (item: Item, key: key) => {
+        (item: Item, key: Key) => {
           return action.payload.actions.has(key)
             ? itemReducer(item, action.payload.actions.get(key))
             : item;
         }).toOrderedMap();
 
     case actionTypes.ITEM_DELETE_ALL:
-      return action.payload.selectedKeys.reduce((newState: OrderedMap<key, Item>, key: key) => newState.delete(key), state);
+      return action.payload.selectedKeys.reduce((newState: OrderedMap<Key, Item>, key: Key) => newState.delete(key), state);
 
     default:
       return state;

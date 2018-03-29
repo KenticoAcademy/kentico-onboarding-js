@@ -4,18 +4,18 @@ import {
   IListItemStateProps,
   ListItem as ListItemComponent,
 } from '../components/ListItem';
-import { createMemoizedViewModel } from '../models/ItemViewModel';
+import { createMemoizedBulletItem } from '../selectors/memorySelector';
 import { IState } from '../store/IState';
-import { key } from '../@types/key';
+import { Key } from '../@types/Key';
 
 interface IOwnProps {
-  readonly itemKey: key;
+  readonly itemKey: Key;
   readonly bullet: string;
 }
 
 const mapStateToProps =
   ({ list: { items }}: IState, { itemKey, bullet }: IOwnProps): IListItemStateProps => ({
-    item: createMemoizedViewModel(items.get(itemKey), bullet),
+    item: createMemoizedBulletItem(items.get(itemKey), bullet),
   });
 
 export const ListItem = connect(mapStateToProps)(ListItemComponent);

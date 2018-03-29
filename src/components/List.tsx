@@ -1,20 +1,18 @@
-// components/List.jsx
-
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 
 import { ListItem } from '../containers/ListItem';
 import { NewItem } from '../containers/NewItem';
 import { ListGroupActions } from '../containers/ListGroupActions';
-import { key } from '../@types/key';
+import { Key } from '../@types/Key';
 
 export interface IListStateProps {
-  readonly itemKeys: Array<key>;
+  readonly itemKeys: Array<Key>;
 }
 
 export const List: React.StatelessComponent<IListStateProps>
   = ({ itemKeys }) => {
-  const listOfKeys = itemKeys.map((key, index) => (
+  const listOfKeys = itemKeys.reverse().map((key, index) => (
     <div className="list-group-item" key={key}>
       <ListItem
         itemKey={key}

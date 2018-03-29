@@ -1,9 +1,9 @@
 import { OrderedMap } from 'immutable';
 import { Item } from '../models/Item';
-import { key } from '../@types/key';
+import { Key } from '../@types/Key';
 
 interface IListStore {
-  items: OrderedMap<key, Item>;
+  items: OrderedMap<Key, Item>;
 }
 
 export interface IState {
