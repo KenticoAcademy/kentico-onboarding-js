@@ -18,8 +18,8 @@ interface IListItemProps extends IListItemDataProps, IListItemOwnProps {
 }
 
 interface IListItemState {
-  selectionRangeStarts: number;
-  selectionRangeEnds: number;
+  readonly selectionRangeStarts: number;
+  readonly selectionRangeEnds: number;
 }
 
 export const listItemPropTypes = {

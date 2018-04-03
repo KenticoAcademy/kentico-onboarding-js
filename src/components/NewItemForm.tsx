@@ -9,7 +9,7 @@ export interface INewItemFormCallbackProps {
 }
 
 interface INewItemFormState {
-  newItemText: string;
+  readonly newItemText: string;
 }
 
 export class NewItemForm extends React.PureComponent<INewItemFormCallbackProps, INewItemFormState> {

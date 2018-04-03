@@ -19,7 +19,7 @@ interface ICompleteListItemFormProps extends ICompleteListItemFormCallbackProps,
 }
 
 interface ICompleteListItemFormState {
-  text: string;
+  readonly text: string;
 }
 
 export class CompleteListItemForm extends React.PureComponent<ICompleteListItemFormProps, ICompleteListItemFormState> {
