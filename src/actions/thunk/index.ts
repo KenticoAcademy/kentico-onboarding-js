@@ -1,15 +1,3 @@
-import {
-  addNewItemConfirm,
-  addNewItemRequest,
-  deleteItemConfirm,
-  deleteItemRequest,
-  fetchFailed,
-  itemSyncFailed,
-  receiveItems,
-  requestItems,
-  saveItemChangesConfirm,
-  saveItemChangesRequest,
-} from '../actionCreators';
 import { fetchItemsFactory } from './fetchItemsFactory';
 import {
   IPostItemActionParams,
@@ -33,35 +21,18 @@ import { itemCollection } from '../../constants/backendUris';
 
 const uri = itemCollection;
 
-export const fetchItemsAsync: IThunkActionWithoutParams = fetchItemsFactory({
+const commonDependencies = {
   uri,
   httpClient,
-  requestItems,
-  receiveItems,
-  fetchFailed,
-});
+};
+
+export const fetchItemsAsync: IThunkActionWithoutParams = fetchItemsFactory(commonDependencies);
 
 export const postItemAsync: IThunkAction<IPostItemActionParams> = postItemFactory({
-  uri,
-  httpClient,
+  ...commonDependencies,
   createNewId,
-  addNewItemRequest,
-  addNewItemConfirm,
-  addNewItemFailed: itemSyncFailed,
 });
 
-export const deleteItemAsync: IThunkAction<IDeleteItemActionParams> = deleteItemFactory({
-  uri,
-  httpClient,
-  deleteItemRequest,
-  deleteItemConfirm,
-  deleteItemFailed: itemSyncFailed,
-});
+export const deleteItemAsync: IThunkAction<IDeleteItemActionParams> = deleteItemFactory(commonDependencies);
 
-export const editItemAsync: IThunkAction<IEditItemActionParams> = editItemFactory({
-  uri,
-  httpClient,
-  saveItemChangesRequest,
-  saveItemChangesConfirm,
-  saveItemChangesFailed: itemSyncFailed,
-});
+export const editItemAsync: IThunkAction<IEditItemActionParams> = editItemFactory(commonDependencies);

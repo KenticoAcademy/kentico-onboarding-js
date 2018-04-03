@@ -3,16 +3,17 @@ import { Dispatch } from 'redux';
 import { IAction } from '../../models/interfaces/IAction';
 import { IHttpClient } from '../../models/interfaces/IHttpClient';
 import { Guid } from '../../models/Guid';
-import { IAddedItemConfirmed } from '../../models/interfaces/IAddedItemConfirmed';
 import { INewItem } from '../../models/interfaces/INewItem';
+import {
+  addNewItemConfirm,
+  addNewItemRequest,
+  itemSyncFailed as addNewItemFailed,
+} from '../actionCreators';
 
 interface IPostItemFactoryDependencies {
   readonly uri: string;
   readonly httpClient: IHttpClient;
   readonly createNewId: () => Guid;
-  readonly addNewItemRequest: (item: INewItem) => IAction;
-  readonly addNewItemConfirm: (addedItemConfirmation: IAddedItemConfirmed) => IAction;
-  readonly addNewItemFailed: (id: Guid) => IAction;
 }
 
 export interface IPostItemActionParams {
@@ -29,16 +30,16 @@ export const postItemFactory = (dependencies: IPostItemFactoryDependencies) =>
         text,
       };
 
-      dispatch(dependencies.addNewItemRequest(newItem));
+      dispatch(addNewItemRequest(newItem));
 
       return dependencies.httpClient.post<IListItem>(
         dependencies.uri,
         {
           text,
         })
-        .then(updatedItem => dispatch(dependencies.addNewItemConfirm({
+        .then(updatedItem => dispatch(addNewItemConfirm({
           oldId: id,
           updatedItem,
         })))
-        .catch(() => dispatch(dependencies.addNewItemFailed(id)));
+        .catch(() => dispatch(addNewItemFailed(id)));
     };

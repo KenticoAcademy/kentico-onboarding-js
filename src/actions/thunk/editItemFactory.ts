@@ -3,13 +3,15 @@ import { Dispatch } from 'redux';
 import { IAction } from '../../models/interfaces/IAction';
 import { IHttpClient } from '../../models/interfaces/IHttpClient';
 import { IUpdatedItem } from '../../models/interfaces/IUpdatedItem';
+import {
+  itemSyncFailed as saveItemChangesFailed,
+  saveItemChangesConfirm,
+  saveItemChangesRequest,
+} from '../actionCreators';
 
 interface IEditItemFactoryDependencies {
   readonly uri: string;
   readonly httpClient: IHttpClient;
-  readonly saveItemChangesRequest: (item: IUpdatedItem) => IAction;
-  readonly saveItemChangesConfirm: (id: Guid) => IAction;
-  readonly saveItemChangesFailed: (id: Guid) => IAction;
 }
 
 export interface IEditItemActionParams {
@@ -26,12 +28,12 @@ export const editItemFactory = (dependencies: IEditItemFactoryDependencies) =>
         text,
         syncedText,
       };
-      dispatch(dependencies.saveItemChangesRequest(updatedItem));
+      dispatch(saveItemChangesRequest(updatedItem));
 
       return dependencies.httpClient.put(dependencies.uri + id, {
         id,
         text,
       })
-        .then(() => dispatch(dependencies.saveItemChangesConfirm(id)))
-        .catch(() => dispatch(dependencies.saveItemChangesFailed(id)));
+        .then(() => dispatch(saveItemChangesConfirm(id)))
+        .catch(() => dispatch(saveItemChangesFailed(id)));
     };
