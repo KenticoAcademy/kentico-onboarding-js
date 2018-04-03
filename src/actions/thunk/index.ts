@@ -15,15 +15,15 @@ import {
   IThunkAction,
   IThunkActionWithoutParams,
 } from '../../models/interfaces/IThunkAction';
-import { httpClient } from '../../models/classes/AxiosHttpClient';
 import { createNewId } from '../../utils/createNewId';
 import { itemCollection } from '../../constants/backendUris';
+import { createAxiosHttpClient } from '../../utils/createAxiosHttpClient';
 
 const uri = itemCollection;
 
 const commonDependencies = {
   uri,
-  httpClient,
+  httpClient: createAxiosHttpClient(),
 };
 
 export const fetchItemsAsync: IThunkActionWithoutParams = fetchItemsFactory(commonDependencies);
