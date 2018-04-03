@@ -3,7 +3,7 @@ import { OrderedMap } from 'immutable';
 import { Guid } from '../models/Guid';
 import { IHasConstructor } from '../models/interfaces/IHasConstructor';
 
-export const arrayToOrderedMap = <Item extends IHasId, TargetType>(items: Item[], TargetCreator: IHasConstructor<Item, TargetType>) =>
-  OrderedMap<Guid, TargetType>(items.map(item =>
+export const arrayToOrderedMap = <TItem extends IHasId, TTargetType>(items: TItem[], TargetCreator: IHasConstructor<TItem, TTargetType>) =>
+  OrderedMap<Guid, TTargetType>(items.map(item =>
     [item.id, new TargetCreator(item)],
   ));
