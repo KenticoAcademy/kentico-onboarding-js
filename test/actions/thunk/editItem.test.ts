@@ -1,13 +1,16 @@
 import { editItemFactory } from '../../../src/actions/thunk/editItemFactory';
 import {
-  dispatch,
-  fakeFunction,
-  getFirstArgumentOfCalls,
+  getDispatchedActionTypes,
   httpClientFailure,
   httpClientSuccessFactory,
 } from './thunkTestsUtils';
 import { defaultUuid } from '../../../src/constants/defaultUuid';
 import { IUpdatedItem } from '../../../src/models/interfaces/IUpdatedItem';
+import {
+  ITEM_SYNC_FAILED,
+  SAVE_ITEM_CHANGES_CONFIRM,
+  SAVE_ITEM_CHANGES_REQUEST,
+} from '../../../src/constants/actionTypes';
 
 const actionParams: IUpdatedItem = {
   id: defaultUuid,
@@ -18,54 +21,44 @@ const uri = '';
 
 describe('editItemAsync will call dispatch with', () => {
   it('saveItemChangesRequest and saveItemChangesConfirm actions', () => {
-    const expectedActions = [
-      'saveItemChangesRequest',
-      'saveItemChangesConfirm',
+    const expectedActionTypes = [
+      SAVE_ITEM_CHANGES_REQUEST,
+      SAVE_ITEM_CHANGES_CONFIRM,
     ];
     const httpClient = httpClientSuccessFactory();
-    const saveItemChangesRequest = jest.fn(() => expectedActions[0]);
-    const saveItemChangesConfirm = jest.fn(() => expectedActions[1]);
     const saveNewText = editItemFactory({
       uri,
       httpClient,
-      saveItemChangesRequest,
-      saveItemChangesConfirm,
-      saveItemChangesFailed: fakeFunction,
     });
+    const dispatch = jest.fn();
 
     return saveNewText(actionParams)(dispatch)
       .then(() => {
-        const callArguments = getFirstArgumentOfCalls(dispatch);
+        const callArguments = getDispatchedActionTypes(dispatch);
 
         expect(callArguments)
-          .toEqual(expectedActions);
-      })
-      .catch(fakeFunction);
+          .toEqual(expectedActionTypes);
+      });
   });
 
   it('saveItemChangesRequest and saveItemChangesFailed actions', () => {
-    const expectedActions = [
-      'saveItemChangesRequest',
-      'saveItemChangesFailed',
+    const expectedActionTypes = [
+      SAVE_ITEM_CHANGES_REQUEST,
+      ITEM_SYNC_FAILED,
     ];
     const httpClient = httpClientFailure;
-    const saveItemChangesRequest = jest.fn(() => expectedActions[0]);
-    const saveItemChangesFailed = jest.fn(() => expectedActions[1]);
     const saveNewText = editItemFactory({
       uri,
       httpClient,
-      saveItemChangesRequest,
-      saveItemChangesFailed,
-      saveItemChangesConfirm: fakeFunction,
     });
+    const dispatch = jest.fn();
 
     return saveNewText(actionParams)(dispatch)
       .then(() => {
-        const callArguments = getFirstArgumentOfCalls(dispatch);
+        const callArguments = getDispatchedActionTypes(dispatch);
 
         expect(callArguments)
-          .toEqual(expectedActions);
-      })
-      .catch(fakeFunction);
+          .toEqual(expectedActionTypes);
+      });
   });
 });

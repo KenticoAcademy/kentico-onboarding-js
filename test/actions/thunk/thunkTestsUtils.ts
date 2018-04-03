@@ -25,13 +25,9 @@ export const httpClientFailure: IHttpClient = ({
 });
 
 export const fakeFunction = jest.fn();
-export const dispatch = jest.fn();
 
-export const resetDispatch = () =>
-  dispatch.mockReset();
-
-export const getFirstArgumentOfCalls = <T>(mockedFunction: Mock<T>): T[] =>
-  mockedFunction
+export const getDispatchedActionTypes = <T>(mockedThunkAction: Mock<T>): string[] =>
+  mockedThunkAction
     .mock
     .calls
-    .map(call => call[0]);
+    .map(call => call[0].type);

@@ -1,69 +1,62 @@
 import { ListItem } from '../../../src/models/classes/ListItem';
 import { fetchItemsFactory } from '../../../src/actions/thunk/fetchItemsFactory';
 import {
-  fakeFunction,
   httpClientSuccessFactory,
   httpClientFailure,
-  dispatch,
-  getFirstArgumentOfCalls,
+  getDispatchedActionTypes,
 } from './thunkTestsUtils';
+import {
+  FETCH_FAILED,
+  RECEIVE_ITEMS,
+  REQUEST_ITEMS,
+} from '../../../src/constants/actionTypes';
 
 const uri = '';
 
 describe('fetchItems will call dispatch with', () => {
   it('requestItems and receiveItems actions', () => {
-    const expectedActions = [
-      'requestItems',
-      'receiveItems',
+    const expectedActionTypes = [
+      REQUEST_ITEMS,
+      RECEIVE_ITEMS,
     ];
 
     const items = [
       new ListItem(),
     ];
     const httpClient = httpClientSuccessFactory(items);
-    const requestItems = jest.fn(() => expectedActions[0]);
-    const receiveItems = jest.fn(() => expectedActions[1]);
     const fetchItems = fetchItemsFactory({
       uri,
       httpClient,
-      requestItems,
-      receiveItems,
-      fetchFailed: fakeFunction,
     });
+    const dispatch = jest.fn();
 
     return fetchItems()(dispatch)
       .then(() => {
-        const callArguments = getFirstArgumentOfCalls(dispatch);
+        const callArguments = getDispatchedActionTypes(dispatch);
 
         expect(callArguments)
-          .toEqual(expectedActions);
-      })
-      .catch(fakeFunction);
+          .toEqual(expectedActionTypes);
+      });
   });
 
   it('requestItems and fetchFailed actions', () => {
-    const expectedActions = [
-      'requestItems',
-      'fetchFailed',
+    const expectedActionTypes = [
+      REQUEST_ITEMS,
+      FETCH_FAILED,
     ];
     const httpClient = httpClientFailure;
-    const requestItems = jest.fn(() => expectedActions[0]);
-    const fetchFailed = jest.fn(() => expectedActions[1]);
     const fetchItems = fetchItemsFactory({
       uri,
       httpClient,
-      requestItems,
-      fetchFailed,
-      receiveItems: fakeFunction,
     });
+    const dispatch = jest.fn();
 
     return fetchItems()(dispatch)
       .then(() => {
-        const callArguments = getFirstArgumentOfCalls(dispatch);
+        const callArguments = getDispatchedActionTypes(dispatch);
 
         expect(callArguments)
-          .toEqual(expectedActions);
-      })
-      .catch(fakeFunction);
+          .toEqual(expectedActionTypes);
+      });
   });
 });
