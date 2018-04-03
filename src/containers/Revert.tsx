@@ -16,6 +16,7 @@ import {
   revertModify,
 } from '../actions';
 import { Guid } from '../models/Guid';
+import { emptyAction } from '../constants/emptyAction';
 
 interface IRevertContainerProps {
   readonly syncOperation: SyncOperation;
@@ -33,10 +34,7 @@ const getRevertOperation = (operation: SyncOperation, id: Guid) => {
     case SyncOperation.Add:
       return revertAdd(id);
     default:
-      return ({
-        type: 'Empty',
-        payload: undefined,
-      });
+      return emptyAction;
   }
 };
 
