@@ -66,27 +66,26 @@ export class NewItemForm extends React.PureComponent<INewItemFormCallbackProps, 
     };
 
     return (
-      <HotKeys
-        {...{ className: 'row' }}
-        handlers={handlers}
-      >
-        <div className="input-group col">
-          <input
-            className="form-control col-md-6 rounded"
-            type="text"
-            placeholder="Item name cannot be empty"
-            value={newItemText}
-            onChange={this._onInputChange}
-            autoFocus={true}
-          />
-          <button
-            className="btn btn-primary ml-3"
-            onClick={this._submitItemText}
-            disabled={!enableAddButton}
-            title="Adds new item to list. Text cannot be empty"
-          >
-            Add
-          </button>
+      <HotKeys handlers={handlers}>
+        <div className="row">
+          <div className="input-group col">
+            <input
+              className="form-control col-md-6 rounded"
+              type="text"
+              placeholder="Item name cannot be empty"
+              value={newItemText}
+              onChange={this._onInputChange}
+              autoFocus={true}
+            />
+            <button
+              className="btn btn-primary ml-3"
+              onClick={this._submitItemText}
+              disabled={!enableAddButton}
+              title="Adds new item to list. Text cannot be empty"
+            >
+              Add
+            </button>
+          </div>
         </div>
       </HotKeys>
     );
