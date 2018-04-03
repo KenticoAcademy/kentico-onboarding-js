@@ -7,8 +7,8 @@ import {
 import { IAppState } from '../models/state/IAppState';
 import { keySeqToArray } from '../utils/keySeqToArray';
 
-const mapStateToProps = (state: IAppState): IItemsDataProps => ({
-  itemsSyncInfo: keySeqToArray(state.list.itemsSyncInfo.valueSeq()),
+const mapStateToProps = ({ list }: IAppState): IItemsDataProps => ({
+  itemsSyncInfo: keySeqToArray(list.itemsSyncInfo.valueSeq()),
 });
 
 export const Items: ComponentClass = connect(

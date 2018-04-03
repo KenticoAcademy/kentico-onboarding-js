@@ -16,23 +16,28 @@ import {
   listItemFormPropTypes,
 } from '../components/ListItemForm';
 
-const mapDispatchToProps = (dispatch: Dispatch<IAppState>, { item: { id, syncedText } }: IListItemFormOwnProps): ICompleteListItemFormCallbackProps => ({
-  onSave: (text: string) =>
-    dispatch(
-      editItemAsync({
-        text,
-        syncedText,
-        id,
-      })),
-  onDelete: () =>
-    dispatch(
-      deleteItemAsync({
-        id,
-      })),
-  onCancel: () =>
-    dispatch(
-      changeItemOpenState(id)),
-});
+const mapDispatchToProps = (dispatch: Dispatch<IAppState>, { item }: IListItemFormOwnProps): ICompleteListItemFormCallbackProps => {
+  const { syncedText, id } = item;
+
+  return {
+    onSave: (text: string) =>
+      dispatch(
+        editItemAsync({
+          text,
+          syncedText,
+          id,
+        }))
+    ,
+    onDelete: () =>
+      dispatch(
+        deleteItemAsync({
+          id,
+        })),
+    onCancel: () =>
+      dispatch(
+        changeItemOpenState(id)),
+  };
+};
 
 const SyncedListItemForm: ComponentClass<IListItemFormOwnProps> = connect(
   null,

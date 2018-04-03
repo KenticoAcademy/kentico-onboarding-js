@@ -12,10 +12,10 @@ import { Dispatch } from 'redux';
 import { changeItemOpenState } from '../actions';
 import { IAction } from '../models/interfaces/IAction';
 
-const mapDispatchToProps = (dispatch: Dispatch<IAction>, { item: { id } }: IListItemStaticOwnProps): IListItemStaticCallbackProps => ({
+const mapDispatchToProps = (dispatch: Dispatch<IAction>, { item }: IListItemStaticOwnProps): IListItemStaticCallbackProps => ({
   onItemOpened: () =>
     dispatch(
-      changeItemOpenState(id)),
+      changeItemOpenState(item.id)),
 });
 
 const ListItemStatic: ComponentClass<IListItemStaticOwnProps> = connect(

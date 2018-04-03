@@ -23,29 +23,36 @@ import {
 } from '../actions/thunk';
 import { IAppState } from '../models/state/IAppState';
 
-const mapDispatchToProps = (dispatch: Dispatch<IAppState>,  { item: { id, syncedText }, itemSyncInfo }: IListItemFormOwnProps): ICompleteListItemFormCallbackProps => ({
-  onSave: (newText: string) =>
-    itemSyncInfo.operation === SyncOperation.Add ?
+const mapDispatchToProps = (dispatch: Dispatch<IAppState>,  { item, itemSyncInfo }: IListItemFormOwnProps): ICompleteListItemFormCallbackProps => {
+  const { syncedText, id } = item;
+
+  return {
+    onSave: (newText: string) =>
+      itemSyncInfo.operation
+      === SyncOperation.Add
+        ? dispatch(
+          postItemAsync({
+            text: newText,
+            givenId: id,
+          }))
+        : dispatch(
+          editItemAsync({
+            syncedText,
+            text: newText,
+            id,
+          }))
+    ,
+    onDelete: itemSyncInfo.operation
+    === SyncOperation.Add
+      ? () => dispatch(
+        deleteUnsavedItem(id))
+      : () => dispatch(
+        deleteItemAsync({ id })),
+    onCancel: () =>
       dispatch(
-        postItemAsync({
-          text: newText,
-          givenId: id,
-        })) :
-      dispatch(
-        editItemAsync({
-          syncedText,
-          text: newText,
-          id,
-        })),
-  onDelete: itemSyncInfo.operation === SyncOperation.Add ?
-    () => dispatch(
-      deleteUnsavedItem(id)) :
-    () => dispatch(
-      deleteItemAsync({ id })),
-  onCancel: () =>
-    dispatch(
-      changeItemOpenState(id)),
-});
+        changeItemOpenState(id)),
+  };
+};
 
 const UnsyncedListItemForm: ComponentClass<IListItemFormOwnProps> = connect(
   undefined,

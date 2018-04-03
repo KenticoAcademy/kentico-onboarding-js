@@ -31,10 +31,10 @@ const confirmAddedItem = (state: ItemsState, { payload: { oldId, updatedItem } }
 const deleteItem = (state: ItemsState, { payload: { id } }: IAction): ItemsState =>
   state.delete(id);
 
-const saveItemChanges = (state: ItemsState, { payload: { item: { id, text } } }: IAction): ItemsState =>
-  state.update(id, item =>
-    item.with({
-      text,
+const saveItemChanges = (state: ItemsState, { payload: { item } }: IAction): ItemsState =>
+  state.update(item.id, originalItem =>
+    originalItem.with({
+      text: item.text,
       isBeingEdited: false,
     }));
 

@@ -8,8 +8,8 @@ import { IAppState } from '../models/state/IAppState';
 import { Dispatch } from 'redux';
 import { fetchItemsAsync } from '../actions/thunk';
 
-const mapStateToProps = (state: IAppState): IListDataProps => ({
-  fetchItemsState: state.list.fetchItemsState,
+const mapStateToProps = ({ list }: IAppState): IListDataProps => ({
+  fetchItemsState: list.fetchItemsState,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<IAppState>) => ({

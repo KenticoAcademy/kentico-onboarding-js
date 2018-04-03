@@ -43,12 +43,12 @@ const setSyncState = (state: ItemsSyncInfoState, { payload: { itemSyncInfo } }: 
       })) :
     state;
 
-const addedItemConfirmed = (state: ItemsSyncInfoState, { payload: { oldId, updatedItem: { id: newId } } }: IAction): ItemsSyncInfoState =>
+const addedItemConfirmed = (state: ItemsSyncInfoState, { payload: { oldId, updatedItem } }: IAction): ItemsSyncInfoState =>
   state
     .set(
-      newId,
+      updatedItem.id,
       new ItemSyncInfo({
-        id: newId,
+        id: updatedItem.id,
         syncState: SyncState.Synced,
         operation: SyncOperation.Add,
       }))

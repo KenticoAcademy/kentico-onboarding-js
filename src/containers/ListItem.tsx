@@ -13,8 +13,8 @@ interface IListItemContainerDataProps extends IListItemOwnProps {
   readonly itemId: Guid;
 }
 
-const mapStateToProps = (state: IAppState, { itemId }: IListItemContainerDataProps): IListItemDataProps => ({
-  item: state.list.items.get(itemId),
+const mapStateToProps = ({ list }: IAppState, { itemId }: IListItemContainerDataProps): IListItemDataProps => ({
+  item: list.items.get(itemId),
 });
 
 const ListItem: ComponentClass<IListItemContainerDataProps> = connect(
