@@ -17,6 +17,7 @@
     "@types/redux": "^3.6.31",
     "@types/redux-logger": "^3.0.5",
     "@types/redux-thunk": "^2.1.32",
+    "@types/uuid": "^3.4.3",
     "autoprefixer": "^6.7.7",
     "awesome-typescript-loader": "^3.4.1",
     "babel-core": "^6.26.0",
@@ -80,7 +81,8 @@
     "redux": "^3.7.2",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.2.0",
-    "ts-jest": "^19.0.14"
+    "ts-jest": "^19.0.14",
+    "uuid": "^3.2.1"
   },
   "scripts": {
     "start": "node scripts/start.js",

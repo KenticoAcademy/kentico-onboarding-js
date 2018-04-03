@@ -15,7 +15,7 @@ import {
   IThunkAction,
   IThunkActionWithoutParams,
 } from '../../models/interfaces/IThunkAction';
-import { createNewId } from '../../utils/createNewId';
+import  * as createNewId from 'uuid/v4';
 import { itemCollection } from '../../constants/backendUris';
 import { createAxiosHttpClient } from '../../utils/createAxiosHttpClient';
 

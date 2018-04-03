@@ -1,4 +1,4 @@
-import { createNewId } from '../../src/utils/createNewId';
+import * as createNewId from 'uuid/v4';
 
 describe('createNewId', () => {
   it('will create unique id when called 2 times', () => {
