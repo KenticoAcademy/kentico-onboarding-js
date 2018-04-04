@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { UnsyncedListItemForm } from '../containers/UnsyncedListItemForm';
+import { DesyncedListItemForm } from '../containers/DesyncedListItemForm';
 import { SyncedListItemForm } from '../containers/SyncedListItemForm';
 import { IListItem } from '../models/interfaces/IListItem';
 import { IItemSyncInfo } from '../models/interfaces/IItemSyncInfo';
@@ -31,7 +31,7 @@ export const listItemFormPropTypes = {
 const ListItemForm: React.SFC<IListItemFormOwnProps> = (props) =>
   props.itemSyncInfo.syncState === SyncState.Synced ?
     <SyncedListItemForm { ...props } /> :
-    <UnsyncedListItemForm { ...props } />;
+    <DesyncedListItemForm { ...props } />;
 
 ListItemForm.propTypes = listItemFormPropTypes;
 

@@ -51,11 +51,11 @@ const mapDispatchToProps = (dispatch: Dispatch<IAppState>,  { item, itemSyncInfo
   };
 };
 
-const UnsyncedListItemForm: ComponentClass<IListItemFormOwnProps> = connect(
+const DesyncedListItemForm: ComponentClass<IListItemFormOwnProps> = connect(
   undefined,
   mapDispatchToProps,
 )(CompleteListItemFormComponent);
 
-UnsyncedListItemForm.propTypes = listItemFormPropTypes;
+DesyncedListItemForm.propTypes = listItemFormPropTypes;
 
-export { UnsyncedListItemForm };
+export { DesyncedListItemForm };

@@ -168,7 +168,7 @@ describe('itemsSyncInfo', () => {
       .toEqual(expectedState);
   });
 
-  it('will change item sync info to Unsynced', () => {
+  it('will change item sync info to Desynced', () => {
     const id = 'id';
     const itemSyncInfo = new ItemSyncInfo({
       id,
@@ -178,7 +178,7 @@ describe('itemsSyncInfo', () => {
     const itemSyncInfoFailed = new ItemSyncInfo({
       id,
       operation: SyncOperation.Delete,
-      syncState: SyncState.Unsynced,
+      syncState: SyncState.Desynced,
     });
     const initialState = OrderedMap<Guid, ItemSyncInfo>({
       [id]: itemSyncInfo,
@@ -317,7 +317,7 @@ describe('itemsSyncInfo', () => {
         const itemSyncInfo = new ItemSyncInfo({
           id: '1',
           operation: argument.operation,
-          syncState: SyncState.Unsynced,
+          syncState: SyncState.Desynced,
         });
 
         const newItemSyncInfo = new ItemSyncInfo({
@@ -345,13 +345,13 @@ describe('itemsSyncInfo', () => {
   it('will change sync operation to modify', () => {
     const itemSyncInfo = new ItemSyncInfo({
       operation: SyncOperation.DeleteAfterFailedModify,
-      syncState: SyncState.Unsynced,
+      syncState: SyncState.Desynced,
       id: 'id',
     });
     const newItemSyncInfo = new ItemSyncInfo({
       id: 'id',
       operation: SyncOperation.Modify,
-      syncState: SyncState.Unsynced,
+      syncState: SyncState.Desynced,
     });
 
     const initialState = OrderedMap<Guid, ItemSyncInfo>({
@@ -373,7 +373,7 @@ describe('itemsSyncInfo', () => {
   it('will change sync operation to deleteAfterFailedModify', () => {
     const itemSyncInfo = new ItemSyncInfo({
       operation: SyncOperation.Modify,
-      syncState: SyncState.Unsynced,
+      syncState: SyncState.Desynced,
       id: 'id',
     });
     const newItemSyncInfo = new ItemSyncInfo({
@@ -398,7 +398,7 @@ describe('itemsSyncInfo', () => {
       .toEqual(expectedState);
   });
 
-  it('will change sync state to unsync', () => {
+  it('will change synced state to desynced', () => {
     const itemSyncInfo = new ItemSyncInfo({
       operation: SyncOperation.DeleteAfterFailedModify,
       syncState: SyncState.Pending,
@@ -407,7 +407,7 @@ describe('itemsSyncInfo', () => {
     const newItemSyncInfo = new ItemSyncInfo({
       id: 'id',
       operation: SyncOperation.DeleteAfterFailedModify,
-      syncState: SyncState.Unsynced,
+      syncState: SyncState.Desynced,
     });
 
     const initialState = OrderedMap<Guid, ItemSyncInfo>({

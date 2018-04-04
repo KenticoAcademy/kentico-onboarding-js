@@ -25,7 +25,7 @@ import { IItemSyncInfo } from '../../../models/interfaces/IItemSyncInfo';
 import { arrayToOrderedMap } from '../../../utils/arrayToOrderedMap';
 
 const requiresSpecialFlag = (oldItemSyncInfo: IItemSyncInfo, newItemSyncInfo: IItemSyncInfo) =>
-  oldItemSyncInfo.syncState === SyncState.Unsynced
+  oldItemSyncInfo.syncState === SyncState.Desynced
   && (oldItemSyncInfo.operation === SyncOperation.Modify
       || oldItemSyncInfo.operation === SyncOperation.DeleteAfterFailedModify)
   && newItemSyncInfo.operation === SyncOperation.Delete;
@@ -75,14 +75,14 @@ const revertOperation = (state: ItemsSyncInfoState, { payload: { id } }: IAction
 
 const revertDeleteAfterFailedModify = (state: ItemsSyncInfoState, { payload: { id } }: IAction): ItemsSyncInfoState =>
   state.update(id, itemSyncInfo => itemSyncInfo.with({
-    syncState: SyncState.Unsynced,
+    syncState: SyncState.Desynced,
     operation: SyncOperation.Modify,
   }));
 
 const syncFailed = (state: ItemsSyncInfoState, { payload: { id } }: IAction): ItemsSyncInfoState =>
   state.update(id, itemSyncInfo =>
     itemSyncInfo.with({
-      syncState: SyncState.Unsynced,
+      syncState: SyncState.Desynced,
     }));
 
 const initialState: ItemsSyncInfoState = OrderedMap<Guid, ItemSyncInfo>();

@@ -45,7 +45,7 @@ export class ListItemStatic extends React.PureComponent<IListItemStaticProps> {
   _onMouseUp = (): void => {
     const { onTextSelection, onItemOpened, item, itemSyncInfo: { syncState, operation } } = this.props;
 
-    if (syncState === SyncState.Pending || (syncState === SyncState.Unsynced && (operation === SyncOperation.Delete ||  operation === SyncOperation.DeleteAfterFailedModify))) {
+    if (syncState === SyncState.Pending || (syncState === SyncState.Desynced && (operation === SyncOperation.Delete ||  operation === SyncOperation.DeleteAfterFailedModify))) {
       return undefined;
     }
 
@@ -77,7 +77,7 @@ export class ListItemStatic extends React.PureComponent<IListItemStaticProps> {
         syncingComponent = <ClipLoader color="#17a2b8" />;
         break;
 
-      case SyncState.Unsynced:
+      case SyncState.Desynced:
         syncingComponent = (
           <div className="form-inline">
             <div className="mr-2">
