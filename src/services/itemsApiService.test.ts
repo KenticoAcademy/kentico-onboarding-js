@@ -96,12 +96,19 @@ describe('getItem works correctly', () => {
 });
 
 describe('postItem works correctly', () => {
-  it('calls correct url and returns json result', () => {
-    const json = { x: 123, y: 987 };
-    const urlFetch = (url: string) => {
+  it('calls correct url, creates http options correctly', () => {
+    const text = 'new';
+    const expected = {
+      method: 'POST',
+      body: JSON.stringify(text),
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    };
+    const urlFetch = (url: string, options: any) => {
       return new Promise<Response>((resolve: any) => {
         if (url === ITEMS_API_URL) {
-          resolve({ ok: true, json: () => json });
+          resolve({ ok: true, json: () => options });
         }
       });
     };
@@ -109,7 +116,7 @@ describe('postItem works correctly', () => {
     const service = new ItemsApiService(urlFetch);
 
     service.postItem('new')
-      .then((result) => expect(result).toBe(json));
+      .then((result) => expect(result).toBe(expected));
   });
 
   it('throws error on reject', () => {
@@ -142,20 +149,27 @@ describe('postItem works correctly', () => {
 });
 
 describe('putItem works correctly', () => {
-  it('calls correct url and returns json result', () => {
-    const json = { x: 123, y: 987 };
-    const urlFetch = (url: string) => {
+  it('calls correct url, creates http options correctly', () => {
+    const text = 'updated';
+    const expected = {
+      method: 'PUT',
+      body: JSON.stringify(text),
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    };
+    const urlFetch = (url: string, options: any) => {
       return new Promise<Response>((resolve: any) => {
         if (url === ITEMS_API_URL + GUID_EMPTY) {
-          resolve({ ok: true, json: () => json });
+          resolve({ ok: true, json: () => options });
         }
       });
     };
 
     const service = new ItemsApiService(urlFetch);
 
-    service.putItem(GUID_EMPTY, 'update')
-      .then((result) => expect(result).toBe(json));
+    service.putItem(GUID_EMPTY, text)
+      .then((result) => expect(result).toBe(expected));
   });
 
   it('throws error on reject', () => {
@@ -188,12 +202,12 @@ describe('putItem works correctly', () => {
 });
 
 describe('deleteItem works correctly', () => {
-  it('calls correct url and returns json result', () => {
-    const json = { x: 123, y: 987 };
-    const urlFetch = (url: string) => {
+  it('calls correct url, creates http options correctly', () => {
+    const expected = { method: 'DELETE' };
+    const urlFetch = (url: string, options: any) => {
       return new Promise<Response>((resolve: any) => {
         if (url === ITEMS_API_URL + GUID_EMPTY) {
-          resolve({ ok: true, json: () => json });
+          resolve({ ok: true, json: () => options });
         }
       });
     };
@@ -201,7 +215,7 @@ describe('deleteItem works correctly', () => {
     const service = new ItemsApiService(urlFetch);
 
     service.deleteItem(GUID_EMPTY)
-      .then((result) => expect(result).toBe(json));
+      .then((result) => expect(result).toBe(expected));
   });
 
   it('throws error on reject', () => {
