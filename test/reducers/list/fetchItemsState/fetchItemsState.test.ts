@@ -2,8 +2,8 @@ import { FetchItemsState } from '../../../../src/models/enums/FetchItemsState';
 import {
   fetchFailed,
   receiveItems,
-  requestItems
-} from '../../../../src/actions';
+  requestItems,
+} from '../../../../src/actions/thunk/fetchItemsFactory';
 import deepFreeze = require('deep-freeze');
 import { fetchItemsState } from '../../../../src/reducers/list/fetchItemsState/fetchItemsState';
 import { IAction } from '../../../../src/models/interfaces/IAction';

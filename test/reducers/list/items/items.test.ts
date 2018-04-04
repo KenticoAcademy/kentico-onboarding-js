@@ -2,12 +2,30 @@ import { OrderedMap } from 'immutable';
 import { ListItem } from '../../../../src/models/classes/ListItem';
 import * as deepFreeze from 'deep-freeze';
 import { items } from '../../../../src/reducers/list/items/items';
-import * as actions from '../../../../src/actions/actionCreators';
 import { Guid } from '../../../../src/models/Guid';
 import { IAddedItemConfirmed } from '../../../../src/models/interfaces/IAddedItemConfirmed';
 import { IAction } from '../../../../src/models/interfaces/IAction';
 import { IUpdatedItem } from '../../../../src/models/interfaces/IUpdatedItem';
 import { IFetchedItem } from '../../../../src/models/interfaces/IFetchedItem';
+import {
+  addNewItemConfirm,
+  addNewItemRequest,
+} from '../../../../src/actions/thunk/postItemFactory';
+import {
+  changeItemOpenState,
+  deleteUnsavedItem,
+  revertAdd,
+  revertModify,
+} from '../../../../src/actions';
+import {
+  saveItemChangesConfirm,
+  saveItemChangesRequest,
+} from '../../../../src/actions/thunk/editItemFactory';
+import {
+  deleteItemConfirm,
+  deleteItemRequest,
+} from '../../../../src/actions/thunk/deleteItemFactory';
+import { receiveItems } from '../../../../src/actions/thunk/fetchItemsFactory';
 
 describe('items', () => {
   it('will add ListItem model to state with specific text', () => {
@@ -30,7 +48,7 @@ describe('items', () => {
       isBeingEdited: false,
       uri: '',
     };
-    const addNewItemAction = actions.addNewItemRequest(newItem);
+    const addNewItemAction = addNewItemRequest(newItem);
     const result = items(initialState, addNewItemAction);
 
     expect(result)
@@ -54,7 +72,7 @@ describe('items', () => {
       isBeingEdited: false,
       uri: '',
     };
-    const addNewItemAction = actions.addNewItemRequest(newItem);
+    const addNewItemAction = addNewItemRequest(newItem);
     const result = items(undefined, addNewItemAction);
 
     expect(result)
@@ -82,7 +100,7 @@ describe('items', () => {
       }),
     });
 
-    const selectItemTextAction = actions.changeItemOpenState(expectedId);
+    const selectItemTextAction = changeItemOpenState(expectedId);
     const result = items(initialState, selectItemTextAction);
 
     expect(result)
@@ -117,7 +135,7 @@ describe('items', () => {
       text: expectedNewText,
       syncedText: expectedNewText,
     };
-    const changeItemTextAction = actions.saveItemChangesRequest(actionParams);
+    const changeItemTextAction = saveItemChangesRequest(actionParams);
     const result = items(initialState, changeItemTextAction);
 
     expect(result)
@@ -145,7 +163,7 @@ describe('items', () => {
       }),
     });
 
-    const cancelItemChangesAction = actions.changeItemOpenState(expectedId);
+    const cancelItemChangesAction = changeItemOpenState(expectedId);
     const result = items(initialState, cancelItemChangesAction);
 
     expect(result)
@@ -178,7 +196,7 @@ describe('items', () => {
       .toEqual(initialState);
   });
 
-  [actions.deleteItemConfirm, actions.deleteUnsavedItem, actions.revertAdd]
+  [deleteItemConfirm, deleteUnsavedItem, revertAdd]
     .forEach(actionCreator =>
       it('will delete item with { id: test } from state', () => {
         const expectedId = 'test';
@@ -241,7 +259,7 @@ describe('items', () => {
       }),
     });
 
-    const receiveItemsAction = actions.receiveItems(fakeItems);
+    const receiveItemsAction = receiveItems(fakeItems);
     const result = items(initialState, receiveItemsAction);
 
     expect(result)
@@ -284,7 +302,7 @@ describe('items', () => {
         syncedText: listItem1Old.syncedText,
       },
     };
-    const confirmAddedItemAction = actions.addNewItemConfirm(actionParams);
+    const confirmAddedItemAction = addNewItemConfirm(actionParams);
     const result = items(initialState, confirmAddedItemAction);
 
     expect(result)
@@ -313,7 +331,7 @@ describe('items', () => {
       [listItemClosed.id]: listItemClosed,
     });
 
-    const closeItemAction = actions.deleteItemRequest(id);
+    const closeItemAction = deleteItemRequest(id);
     const result = items(initialState, closeItemAction);
 
     expect(result)
@@ -342,7 +360,7 @@ describe('items', () => {
       [listItemSame.id]: listItemSame,
     });
 
-    const closeItemAction = actions.deleteItemRequest(id);
+    const closeItemAction = deleteItemRequest(id);
     const result = items(initialState, closeItemAction);
 
     expect(result)
@@ -385,7 +403,7 @@ describe('items', () => {
       [newListItem.id]: newListItem,
     });
 
-    const closeItemAction = actions.saveItemChangesConfirm(oldListItem.id);
+    const closeItemAction = saveItemChangesConfirm(oldListItem.id);
     const result = items(initialState, closeItemAction);
 
     expect(result)
@@ -414,7 +432,7 @@ describe('items', () => {
       [newListItem.id]: newListItem,
     });
 
-    const closeItemAction = actions.revertModify(oldListItem.id);
+    const closeItemAction = revertModify(oldListItem.id);
     const result = items(initialState, closeItemAction);
 
     expect(result)

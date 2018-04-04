@@ -1,13 +1,6 @@
 import {
-  addNewItemRequest,
-  deleteItemRequest,
-  addNewItemConfirm,
-  deleteItemConfirm,
   deleteUnsavedItem,
   itemSyncFailed,
-  saveItemChangesConfirm,
-  receiveItems,
-  saveItemChangesRequest,
   revertAdd,
   revertModify,
   revertDelete,
@@ -25,6 +18,19 @@ import deepFreeze = require('deep-freeze');
 import { IAddedItemConfirmed } from '../../../../src/models/interfaces/IAddedItemConfirmed';
 import { IAction } from '../../../../src/models/interfaces/IAction';
 import { IUpdatedItem } from '../../../../src/models/interfaces/IUpdatedItem';
+import { receiveItems } from '../../../../src/actions/thunk/fetchItemsFactory';
+import {
+  deleteItemConfirm,
+  deleteItemRequest,
+} from '../../../../src/actions/thunk/deleteItemFactory';
+import {
+  addNewItemConfirm,
+  addNewItemRequest,
+} from '../../../../src/actions/thunk/postItemFactory';
+import {
+  saveItemChangesConfirm,
+  saveItemChangesRequest,
+} from '../../../../src/actions/thunk/editItemFactory';
 
 describe('itemsSyncInfo', () => {
   it('will create item sync info for all fetched items', () => {
