@@ -203,11 +203,11 @@ describe('putItem works correctly', () => {
 
 describe('deleteItem works correctly', () => {
   it('calls correct url, creates http options correctly', () => {
-    const expected = { method: 'DELETE' };
+    const expected = {method: 'DELETE'};
     const urlFetch = (url: string, options: any) => {
       return new Promise<Response>((resolve: any) => {
         if (url === ITEMS_API_URL + GUID_EMPTY) {
-          resolve({ ok: true, json: () => options });
+          resolve({ok: true, json: () => options});
         }
       });
     };
@@ -236,7 +236,7 @@ describe('deleteItem works correctly', () => {
     const error = 'reject error';
     const urlFetch = () => {
       return new Promise<Response>((resolve: any) => {
-        resolve({ ok: false, statusText: error });
+        resolve({ok: false, statusText: error});
       });
     };
 
