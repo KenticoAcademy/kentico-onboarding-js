@@ -1,8 +1,8 @@
 import { FetchItemsState } from '../../../../src/models/enums/FetchItemsState';
 import {
-  fetchFailed,
-  receiveItems,
-  requestItems,
+  notifyFailedItemsFetching,
+  receiveFetchedItems,
+  startFetchingItems,
 } from '../../../../src/actions/thunk/fetchItemsFactory';
 import deepFreeze = require('deep-freeze');
 import { fetchItemsState } from '../../../../src/reducers/list/fetchItemsState/fetchItemsState';
@@ -15,7 +15,7 @@ describe('fetchItemsState', () => {
 
     const expectedState = FetchItemsState.REQUESTED;
 
-    const action = requestItems();
+    const action = startFetchingItems();
     const result = fetchItemsState(initialState, action);
 
     expect(result)
@@ -28,7 +28,7 @@ describe('fetchItemsState', () => {
 
     const expectedState = FetchItemsState.RECEIVED;
 
-    const action = receiveItems([]);
+    const action = receiveFetchedItems([]);
     const result = fetchItemsState(initialState, action);
 
     expect(result)
@@ -41,7 +41,7 @@ describe('fetchItemsState', () => {
 
     const expectedState = FetchItemsState.FAILED;
 
-    const action = fetchFailed();
+    const action = notifyFailedItemsFetching();
     const result = fetchItemsState(initialState, action);
 
     expect(result)
@@ -54,7 +54,7 @@ describe('fetchItemsState', () => {
 
     const expectedState = FetchItemsState.REQUESTED;
 
-    const action = requestItems();
+    const action = startFetchingItems();
     const result = fetchItemsState(initialState, action);
 
     expect(result)
@@ -65,7 +65,7 @@ describe('fetchItemsState', () => {
     const initialState = undefined;
     const expectedState = FetchItemsState.FAILED;
 
-    const action = fetchFailed();
+    const action = notifyFailedItemsFetching();
     const result = fetchItemsState(initialState, action);
 
     expect(result)

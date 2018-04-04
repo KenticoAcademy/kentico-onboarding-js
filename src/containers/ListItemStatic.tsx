@@ -9,13 +9,13 @@ import {
   listItemStaticPropTypes,
 } from '../components/ListItemStatic';
 import { Dispatch } from 'redux';
-import { changeItemOpenState } from '../actions';
+import { toggleItem } from '../actions';
 import { IAction } from '../models/interfaces/IAction';
 import { SyncState } from '../models/enums/SyncState';
 import { SyncOperation } from '../models/enums/SyncOperation';
 
 const mapDispatchToProps = (dispatch: Dispatch<IAction>, { item }: IListItemStaticOwnProps): IListItemStaticCallbackProps => ({
-  onItemOpened: () => dispatch(changeItemOpenState(item.id)),
+  onItemOpened: () => dispatch(toggleItem(item.id)),
 });
 
 const mergeProps = (_: undefined, dispatchProps: IListItemStaticCallbackProps, ownProps: IListItemStaticOwnProps) => ({

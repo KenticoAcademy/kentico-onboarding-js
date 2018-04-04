@@ -8,7 +8,7 @@ import { arrayToOrderedMap } from '../../../utils/arrayToOrderedMap';
 import { IListItem } from '../../../models/interfaces/IListItem';
 import { IFetchedItem } from '../../../models/interfaces/IFetchedItem';
 
-const addNewItem = (state: ItemsState, { payload: { id, text } }: IAction): ItemsState => {
+const addItem = (state: ItemsState, { payload: { id, text } }: IAction): ItemsState => {
   const newItem = new ListItem({
     id,
     text,
@@ -31,14 +31,14 @@ const confirmAddedItem = (state: ItemsState, { payload: { oldId, updatedItem } }
 const deleteItem = (state: ItemsState, { payload: { id } }: IAction): ItemsState =>
   state.delete(id);
 
-const saveItemChanges = (state: ItemsState, { payload: { item } }: IAction): ItemsState =>
+const updateItem = (state: ItemsState, { payload: { item } }: IAction): ItemsState =>
   state.update(item.id, originalItem =>
     originalItem.with({
       text: item.text,
       isBeingEdited: false,
     }));
 
-const changeItemOpenState = (state: ItemsState, { payload: { id } }: IAction): ItemsState =>
+const toggleItem = (state: ItemsState, { payload: { id } }: IAction): ItemsState =>
   state.update(id, item =>
     item.with({
       isBeingEdited: !item.isBeingEdited,
@@ -68,7 +68,7 @@ const setSyncedText = (state: ItemsState, { payload: { id } }: IAction): ItemsSt
       syncedText: item.text,
     }));
 
-const revertModify = (state: ItemsState, { payload: { id } }: IAction): ItemsState =>
+const revertUpdate = (state: ItemsState, { payload: { id } }: IAction): ItemsState =>
   state.update(id, item =>
     item.with({
       text: item.syncedText,
@@ -81,7 +81,7 @@ export const items = (state = initialState, action: IAction): ItemsState => {
 
   switch (type) {
     case ActionTypes.ITEM_ADD_START:
-      return addNewItem(state, action);
+      return addItem(state, action);
     case ActionTypes.ITEM_ADD_SUCCESS:
       return confirmAddedItem(state, action);
     case ActionTypes.ITEM_DELETE_SUCCESS:
@@ -89,15 +89,15 @@ export const items = (state = initialState, action: IAction): ItemsState => {
     case ActionTypes.ITEM_ADD_REVERT:
       return deleteItem(state, action);
     case ActionTypes.ITEM_UPDATE_START:
-      return saveItemChanges(state, action);
+      return updateItem(state, action);
     case ActionTypes.ITEM_TOGGLE:
-      return changeItemOpenState(state, action);
+      return toggleItem(state, action);
     case ActionTypes.ITEM_DELETE_START:
       return closeItem(state, action);
     case ActionTypes.ITEM_UPDATE_SUCCESS:
       return setSyncedText(state, action);
     case ActionTypes.ITEM_UPDATE_REVERT:
-      return revertModify(state, action);
+      return revertUpdate(state, action);
     case ActionTypes.ITEMS_FETCH_SUCCESS:
       return fetchItems(action);
     default:

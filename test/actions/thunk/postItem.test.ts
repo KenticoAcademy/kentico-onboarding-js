@@ -1,6 +1,6 @@
 import { IListItem } from '../../../src/models/interfaces/IListItem';
 import { ListItem } from '../../../src/models/classes/ListItem';
-import { postItemFactory } from '../../../src/actions/thunk/postItemFactory';
+import { addItemFactory } from '../../../src/actions/thunk/addItemFactory';
 import {
   fakeFunction,
   getDispatchedActionTypes,
@@ -19,14 +19,14 @@ const actionParams = {
 const uri = '';
 
 describe('postItem will call dispatch with', () => {
-  it('addNewItemRequest and addNewItemConfirm actions', () => {
+  it('requestItemAddition and confirmItemAddition actions', () => {
     const expectedActionTypes = [
       ITEM_ADD_START,
       ITEM_ADD_SUCCESS,
     ];
     const createdItem: IListItem = new ListItem({});
     const httpClient = httpClientSuccessFactory(createdItem);
-    const postItem = postItemFactory({
+    const postItem = addItemFactory({
       uri,
       httpClient,
       createNewId: fakeFunction,
@@ -48,7 +48,7 @@ describe('postItem will call dispatch with', () => {
       ITEM_SYNC_FAILED,
     ];
     const httpClient = httpClientFailure;
-    const postItem = postItemFactory({
+    const postItem = addItemFactory({
       uri,
       httpClient,
       createNewId: fakeFunction,

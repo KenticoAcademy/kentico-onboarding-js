@@ -15,14 +15,14 @@ export const deleteUnsavedItem = (id: Guid): IAction => ({
   }
 });
 
-export const changeItemOpenState = (id: Guid): IAction => ({
+export const toggleItem = (id: Guid): IAction => ({
   type: ActionTypes.ITEM_TOGGLE,
   payload: {
     id,
   }
 });
 
-export const itemSyncFailed = (id: Guid): IAction => ({
+export const desyncItem = (id: Guid): IAction => ({
   type: ActionTypes.ITEM_SYNC_FAILED,
   payload: {
     id,
@@ -44,14 +44,14 @@ export const revertAdd = (id: Guid): IAction => ({
   },
 });
 
-export const revertModify = (id: Guid): IAction => ({
+export const revertUpdate = (id: Guid): IAction => ({
   type: ITEM_UPDATE_REVERT,
   payload: {
     id,
   },
 });
 
-export const revertDeleteAfterFailedModify = (id: Guid): IAction => ({
+export const revertDeleteAfterFailedUpdate = (id: Guid): IAction => ({
   type: ITEM_DELETE_AFTER_UPDATE_REVERT,
   payload: {
     id,

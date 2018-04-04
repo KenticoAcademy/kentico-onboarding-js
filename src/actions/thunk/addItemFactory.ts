@@ -4,13 +4,13 @@ import { IAction } from '../../models/interfaces/IAction';
 import { IHttpClient } from '../../models/interfaces/IHttpClient';
 import { Guid } from '../../models/Guid';
 import { INewItem } from '../../models/interfaces/INewItem';
-import { itemSyncFailed as addNewItemFailed } from '../actionCreators';
+import { desyncItem } from '../actionCreators';
 import { IAddedItemConfirmed } from '../../models/interfaces/IAddedItemConfirmed';
 import { SyncOperation } from '../../models/enums/SyncOperation';
 import { SyncState } from '../../models/enums/SyncState';
 import * as ActionTypes from '../../constants/actionTypes';
 
-export const addNewItemRequest = ({ id, text }: INewItem): IAction => ({
+export const requestItemAddition = ({ id, text }: INewItem): IAction => ({
   type: ActionTypes.ITEM_ADD_START,
   payload: {
     id,
@@ -23,7 +23,7 @@ export const addNewItemRequest = ({ id, text }: INewItem): IAction => ({
   },
 });
 
-export const addNewItemConfirm = ({ oldId, updatedItem }: IAddedItemConfirmed) => ({
+export const confirmItemAddition = ({ oldId, updatedItem }: IAddedItemConfirmed) => ({
   type: ActionTypes.ITEM_ADD_SUCCESS,
   payload: {
     oldId,
@@ -31,19 +31,19 @@ export const addNewItemConfirm = ({ oldId, updatedItem }: IAddedItemConfirmed) =
   },
 });
 
-interface IPostItemFactoryDependencies {
+interface IAddItemFactoryDependencies {
   readonly uri: string;
   readonly httpClient: IHttpClient;
   readonly createNewId: () => Guid;
 }
 
-export interface IPostItemActionParams {
+export interface IAddItemActionParams {
   readonly text: string;
   readonly givenId?: Guid;
 }
 
-export const postItemFactory = (dependencies: IPostItemFactoryDependencies) =>
-  ({ text, givenId }: IPostItemActionParams) =>
+export const addItemFactory = (dependencies: IAddItemFactoryDependencies) =>
+  ({ text, givenId }: IAddItemActionParams) =>
     (dispatch: Dispatch<IAction>) => {
       const id = givenId || dependencies.createNewId();
       const newItem: INewItem = {
@@ -51,16 +51,16 @@ export const postItemFactory = (dependencies: IPostItemFactoryDependencies) =>
         text,
       };
 
-      dispatch(addNewItemRequest(newItem));
+      dispatch(requestItemAddition(newItem));
 
       return dependencies.httpClient.post<IListItem>(
         dependencies.uri,
         {
           text,
         })
-        .then(updatedItem => dispatch(addNewItemConfirm({
+        .then(updatedItem => dispatch(confirmItemAddition({
           oldId: id,
           updatedItem,
         })))
-        .catch(() => dispatch(addNewItemFailed(id)));
+        .catch(() => dispatch(desyncItem(id)));
     };

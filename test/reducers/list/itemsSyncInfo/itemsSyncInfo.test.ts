@@ -1,10 +1,10 @@
 import {
   deleteUnsavedItem,
-  itemSyncFailed,
+  desyncItem,
   revertAdd,
-  revertModify,
+  revertUpdate,
   revertDelete,
-  revertDeleteAfterFailedModify,
+  revertDeleteAfterFailedUpdate,
 } from '../../../../src/actions';
 import { IListItem } from '../../../../src/models/interfaces/IListItem';
 import { itemsSyncInfo } from '../../../../src/reducers/list/itemsSyncInfo/itemsSyncInfo';
@@ -18,19 +18,19 @@ import deepFreeze = require('deep-freeze');
 import { IAddedItemConfirmed } from '../../../../src/models/interfaces/IAddedItemConfirmed';
 import { IAction } from '../../../../src/models/interfaces/IAction';
 import { IUpdatedItem } from '../../../../src/models/interfaces/IUpdatedItem';
-import { receiveItems } from '../../../../src/actions/thunk/fetchItemsFactory';
+import { receiveFetchedItems } from '../../../../src/actions/thunk/fetchItemsFactory';
 import {
-  deleteItemConfirm,
-  deleteItemRequest,
+  confirmItemDeletion,
+  requestItemDeletion,
 } from '../../../../src/actions/thunk/deleteItemFactory';
 import {
-  addNewItemConfirm,
-  addNewItemRequest,
-} from '../../../../src/actions/thunk/postItemFactory';
+  confirmItemAddition,
+  requestItemAddition,
+} from '../../../../src/actions/thunk/addItemFactory';
 import {
-  saveItemChangesConfirm,
-  saveItemChangesRequest,
-} from '../../../../src/actions/thunk/editItemFactory';
+  confirmItemUpdate,
+  requestItemUpdate,
+} from '../../../../src/actions/thunk/updateItemFactory';
 
 describe('itemsSyncInfo', () => {
   it('will create item sync info for all fetched items', () => {
@@ -60,14 +60,14 @@ describe('itemsSyncInfo', () => {
       }),
     });
 
-    const action = receiveItems(items);
+    const action = receiveFetchedItems(items);
     const result = itemsSyncInfo(initialState, action);
 
     expect(result)
       .toEqual(expectedState);
   });
 
-  [deleteItemConfirm, deleteUnsavedItem, revertAdd]
+  [confirmItemDeletion, deleteUnsavedItem, revertAdd]
     .forEach(actionCreator =>
       it('will delete item sync info with existing id', () => {
         const itemSyncInfo1 = new ItemSyncInfo({
@@ -130,7 +130,7 @@ describe('itemsSyncInfo', () => {
         syncedText: '',
       },
     };
-    const action = addNewItemConfirm(actionParams);
+    const action = confirmItemAddition(actionParams);
     const result = itemsSyncInfo(initialState, action);
 
     expect(result)
@@ -167,7 +167,7 @@ describe('itemsSyncInfo', () => {
       [itemSyncInfo2.id]: itemSyncInfo2,
     });
 
-    const action = saveItemChangesConfirm(itemSyncInfo1.id);
+    const action = confirmItemUpdate(itemSyncInfo1.id);
     const result = itemsSyncInfo(initialState, action);
 
     expect(result)
@@ -195,7 +195,7 @@ describe('itemsSyncInfo', () => {
       [id]: itemSyncInfoFailed,
     });
 
-    const action = itemSyncFailed(id);
+    const action = desyncItem(id);
     const result = itemsSyncInfo(initialState, action);
 
     expect(result)
@@ -218,7 +218,7 @@ describe('itemsSyncInfo', () => {
     const mockItem = new ListItem({
       id,
     });
-    const action = addNewItemRequest(mockItem);
+    const action = requestItemAddition(mockItem);
     const result = itemsSyncInfo(initialState, action);
 
     expect(result)
@@ -246,7 +246,7 @@ describe('itemsSyncInfo', () => {
       [id]: itemSyncInfoPending,
     });
 
-    const action = deleteItemRequest(id);
+    const action = requestItemDeletion(id);
     const result = itemsSyncInfo(initialState, action);
 
     expect(result.keySeq())
@@ -277,7 +277,7 @@ describe('itemsSyncInfo', () => {
       text: '.',
       syncedText: '.',
     };
-    const action = saveItemChangesRequest(actionParams);
+    const action = requestItemUpdate(actionParams);
     const result = itemsSyncInfo(initialState, action);
 
     expect(result)
@@ -317,7 +317,7 @@ describe('itemsSyncInfo', () => {
       .toBe(expectedState);
   });
 
-  [{ actionCreator: revertModify, operation: SyncOperation.Modify }, { actionCreator: revertDelete, operation: SyncOperation.Delete }]
+  [{ actionCreator: revertUpdate, operation: SyncOperation.Modify }, { actionCreator: revertDelete, operation: SyncOperation.Delete }]
     .forEach(argument =>
       it('will change sync state to synced and operation to default', () => {
         const itemSyncInfo = new ItemSyncInfo({
@@ -369,7 +369,7 @@ describe('itemsSyncInfo', () => {
       [newItemSyncInfo.id]: newItemSyncInfo,
     });
 
-    const action = revertDeleteAfterFailedModify(itemSyncInfo.id);
+    const action = revertDeleteAfterFailedUpdate(itemSyncInfo.id);
     const result = itemsSyncInfo(initialState, action);
 
     expect(result)
@@ -397,7 +397,7 @@ describe('itemsSyncInfo', () => {
       [newItemSyncInfo.id]: newItemSyncInfo,
     });
 
-    const action = deleteItemRequest(itemSyncInfo.id);
+    const action = requestItemDeletion(itemSyncInfo.id);
     const result = itemsSyncInfo(initialState, action);
 
     expect(result)
@@ -425,7 +425,7 @@ describe('itemsSyncInfo', () => {
       [newItemSyncInfo.id]: newItemSyncInfo,
     });
 
-    const action = itemSyncFailed(itemSyncInfo.id);
+    const action = desyncItem(itemSyncInfo.id);
     const result = itemsSyncInfo(initialState, action);
 
     expect(result)

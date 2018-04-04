@@ -16,7 +16,7 @@ const actionParams = {
 const uri = '';
 
 describe('deleteItem will call dispatch with', () => {
-  it('deleteItemRequest and deleteItemConfirm actions', () => {
+  it('requestItemDeletion and confirmItemDeletion actions', () => {
     const expectedActionTypes = [
       ITEM_DELETE_START,
       ITEM_DELETE_SUCCESS,
@@ -37,7 +37,7 @@ describe('deleteItem will call dispatch with', () => {
       });
   });
 
-  it('deleteItemRequest and deleteItemFailed actions', () => {
+  it('requestItemDeletion and deleteItemFailed actions', () => {
     const expectedActionTypes = [
       ITEM_DELETE_START,
       ITEM_SYNC_FAILED,

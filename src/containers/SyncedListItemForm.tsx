@@ -7,10 +7,10 @@ import {
 import { Dispatch } from 'redux';
 import {
   deleteItemAsync,
-  editItemAsync,
+  updateItemAsync,
 } from '../actions/thunk';
 import { IAppState } from '../models/state/IAppState';
-import { changeItemOpenState } from '../actions';
+import { toggleItem } from '../actions';
 import {
   IListItemFormOwnProps,
   listItemFormPropTypes,
@@ -20,7 +20,7 @@ const mapDispatchToProps = (dispatch: Dispatch<IAppState>, { item }: IListItemFo
   const { syncedText, id } = item;
 
   return {
-    onSave: (text: string) => dispatch(editItemAsync({
+    onSave: (text: string) => dispatch(updateItemAsync({
       text,
       syncedText,
       id,
@@ -28,7 +28,7 @@ const mapDispatchToProps = (dispatch: Dispatch<IAppState>, { item }: IListItemFo
     onDelete: () => dispatch(deleteItemAsync({
       id,
     })),
-    onCancel: () => dispatch(changeItemOpenState(id)),
+    onCancel: () => dispatch(toggleItem(id)),
   };
 };
 

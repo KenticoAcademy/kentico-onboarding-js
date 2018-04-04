@@ -1,4 +1,4 @@
-import { editItemFactory } from '../../../src/actions/thunk/editItemFactory';
+import { updateItemFactory } from '../../../src/actions/thunk/updateItemFactory';
 import {
   getDispatchedActionTypes,
   httpClientFailure,
@@ -19,14 +19,14 @@ const actionParams: IUpdatedItem = {
 };
 const uri = '';
 
-describe('editItemAsync will call dispatch with', () => {
-  it('saveItemChangesRequest and saveItemChangesConfirm actions', () => {
+describe('updateItemAsync will call dispatch with', () => {
+  it('requestItemUpdate and confirmItemUpdate actions', () => {
     const expectedActionTypes = [
       ITEM_UPDATE_START,
       ITEM_UPDATE_SUCCESS,
     ];
     const httpClient = httpClientSuccessFactory();
-    const saveNewText = editItemFactory({
+    const saveNewText = updateItemFactory({
       uri,
       httpClient,
     });
@@ -41,13 +41,13 @@ describe('editItemAsync will call dispatch with', () => {
       });
   });
 
-  it('saveItemChangesRequest and saveItemChangesFailed actions', () => {
+  it('requestItemUpdate and saveItemChangesFailed actions', () => {
     const expectedActionTypes = [
       ITEM_UPDATE_START,
       ITEM_SYNC_FAILED,
     ];
     const httpClient = httpClientFailure;
-    const saveNewText = editItemFactory({
+    const saveNewText = updateItemFactory({
       uri,
       httpClient,
     });

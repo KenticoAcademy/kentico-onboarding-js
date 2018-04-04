@@ -1,16 +1,16 @@
 import { fetchItemsFactory } from './fetchItemsFactory';
 import {
-  IPostItemActionParams,
-  postItemFactory,
-} from './postItemFactory';
+  IAddItemActionParams,
+  addItemFactory,
+} from './addItemFactory';
 import {
   deleteItemFactory,
   IDeleteItemActionParams,
 } from './deleteItemFactory';
 import {
-  IEditItemActionParams,
-  editItemFactory,
-} from './editItemFactory';
+  IUpdateItemActionParams,
+  updateItemFactory,
+} from './updateItemFactory';
 import {
   IThunkAction,
   IThunkActionWithoutParams,
@@ -28,11 +28,11 @@ const commonDependencies = {
 
 export const fetchItemsAsync: IThunkActionWithoutParams = fetchItemsFactory(commonDependencies);
 
-export const postItemAsync: IThunkAction<IPostItemActionParams> = postItemFactory({
+export const addItemAsync: IThunkAction<IAddItemActionParams> = addItemFactory({
   ...commonDependencies,
   createNewId,
 });
 
 export const deleteItemAsync: IThunkAction<IDeleteItemActionParams> = deleteItemFactory(commonDependencies);
 
-export const editItemAsync: IThunkAction<IEditItemActionParams> = editItemFactory(commonDependencies);
+export const updateItemAsync: IThunkAction<IUpdateItemActionParams> = updateItemFactory(commonDependencies);

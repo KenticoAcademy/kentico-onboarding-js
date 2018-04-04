@@ -14,8 +14,8 @@ import { IItemSyncInfo } from '../models/interfaces/IItemSyncInfo';
 import { SyncOperation } from '../models/enums/SyncOperation';
 import {
   deleteItemAsync,
-  postItemAsync,
-  editItemAsync
+  addItemAsync,
+  updateItemAsync
 } from '../actions/thunk';
 import { IAppState } from '../models/state/IAppState';
 import { getRetryMessage } from '../utils/getRetryMessage';
@@ -35,13 +35,13 @@ const propTypes = {
 const getRetryAction = ({ id, text, syncedText }: IListItem, itemSyncInfo: IItemSyncInfo) => {
   switch (itemSyncInfo.operation) {
     case SyncOperation.Add:
-      return postItemAsync({
+      return addItemAsync({
         text,
         givenId: id,
       });
 
     case SyncOperation.Modify:
-      return editItemAsync({
+      return updateItemAsync({
         id,
         text,
         syncedText,

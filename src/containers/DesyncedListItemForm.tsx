@@ -5,7 +5,7 @@ import {
 } from 'react-redux';
 import { SyncOperation } from '../models/enums/SyncOperation';
 import {
-  changeItemOpenState,
+  toggleItem,
   deleteUnsavedItem,
 } from '../actions';
 import {
@@ -18,8 +18,8 @@ import {
 } from '../components/ListItemForm';
 import {
   deleteItemAsync,
-  editItemAsync,
-  postItemAsync,
+  updateItemAsync,
+  addItemAsync,
 } from '../actions/thunk';
 import { IAppState } from '../models/state/IAppState';
 
@@ -29,17 +29,17 @@ const mapDispatchToProps = (dispatch: Dispatch<IAppState>,  { item, itemSyncInfo
 
   if (addingFailed) {
     return {
-      onSave: (newText: string) => dispatch(postItemAsync({
+      onSave: (newText: string) => dispatch(addItemAsync({
         text: newText,
         givenId: id,
       })),
       onDelete: () => dispatch(deleteUnsavedItem(id)),
-      onCancel: () => dispatch(changeItemOpenState(id)),
+      onCancel: () => dispatch(toggleItem(id)),
     };
   }
 
   return {
-    onSave: (newText: string) => dispatch(editItemAsync({
+    onSave: (newText: string) => dispatch(updateItemAsync({
       syncedText,
       text: newText,
       id,
@@ -47,7 +47,7 @@ const mapDispatchToProps = (dispatch: Dispatch<IAppState>,  { item, itemSyncInfo
     onDelete: () => dispatch(deleteItemAsync({
       id,
     })),
-    onCancel: () => dispatch(changeItemOpenState(id)),
+    onCancel: () => dispatch(toggleItem(id)),
   };
 };
 

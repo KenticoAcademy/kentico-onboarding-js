@@ -43,7 +43,7 @@ const setSyncState = (state: ItemsSyncInfoState, { payload: { itemSyncInfo } }: 
       })) :
     state;
 
-const addedItemConfirmed = (state: ItemsSyncInfoState, { payload: { oldId, updatedItem } }: IAction): ItemsSyncInfoState =>
+const confirmAddedItem = (state: ItemsSyncInfoState, { payload: { oldId, updatedItem } }: IAction): ItemsSyncInfoState =>
   state
     .set(
       updatedItem.id,
@@ -79,7 +79,7 @@ const revertDeleteAfterFailedModify = (state: ItemsSyncInfoState, { payload: { i
     operation: SyncOperation.Modify,
   }));
 
-const syncFailed = (state: ItemsSyncInfoState, { payload: { id } }: IAction): ItemsSyncInfoState =>
+const desyncItem = (state: ItemsSyncInfoState, { payload: { id } }: IAction): ItemsSyncInfoState =>
   state.update(id, itemSyncInfo =>
     itemSyncInfo.with({
       syncState: SyncState.Desynced,
@@ -95,9 +95,9 @@ export const itemsSyncInfo = (state = initialState, action: IAction): ItemsSyncI
     case ITEM_UPDATE_SUCCESS:
       return setSyncState(state, action);
     case ITEM_SYNC_FAILED:
-      return syncFailed(state, action);
+      return desyncItem(state, action);
     case ITEM_ADD_SUCCESS:
-      return addedItemConfirmed(state, action);
+      return confirmAddedItem(state, action);
     case ITEM_DELETE_SUCCESS:
     case UNSAVED_ITEM_DELETE:
     case ITEM_ADD_REVERT:

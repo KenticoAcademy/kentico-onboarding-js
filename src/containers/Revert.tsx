@@ -12,8 +12,8 @@ import { SyncOperation } from '../models/enums/SyncOperation';
 import {
   revertAdd,
   revertDelete,
-  revertDeleteAfterFailedModify,
-  revertModify,
+  revertDeleteAfterFailedUpdate,
+  revertUpdate,
 } from '../actions';
 import { Guid } from '../models/Guid';
 import { emptyAction } from '../constants/emptyAction';
@@ -26,11 +26,11 @@ interface IRevertContainerProps {
 const getRevertOperation = (operation: SyncOperation, id: Guid) => {
   switch (operation) {
     case SyncOperation.Modify:
-      return revertModify(id);
+      return revertUpdate(id);
     case SyncOperation.Delete:
       return revertDelete(id);
     case SyncOperation.DeleteAfterFailedModify:
-      return revertDeleteAfterFailedModify(id);
+      return revertDeleteAfterFailedUpdate(id);
     case SyncOperation.Add:
       return revertAdd(id);
     default:

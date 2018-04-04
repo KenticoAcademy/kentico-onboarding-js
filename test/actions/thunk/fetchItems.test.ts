@@ -14,7 +14,7 @@ import {
 const uri = '';
 
 describe('fetchItems will call dispatch with', () => {
-  it('requestItems and receiveItems actions', () => {
+  it('startFetchingItems and receiveFetchedItems actions', () => {
     const expectedActionTypes = [
       ITEMS_FETCH_START,
       ITEMS_FETCH_SUCCESS,
@@ -39,7 +39,7 @@ describe('fetchItems will call dispatch with', () => {
       });
   });
 
-  it('requestItems and fetchFailed actions', () => {
+  it('startFetchingItems and notifyFailedItemsFetching actions', () => {
     const expectedActionTypes = [
       ITEMS_FETCH_START,
       ITEMS_FETCH_FAILED,

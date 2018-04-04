@@ -4,19 +4,19 @@ import { IHttpClient } from '../../models/interfaces/IHttpClient';
 import { IFetchedItem } from '../../models/interfaces/IFetchedItem';
 import * as ActionTypes from '../../constants/actionTypes';
 
-export const requestItems = (): IAction => ({
+export const startFetchingItems = (): IAction => ({
   type: ActionTypes.ITEMS_FETCH_START,
   payload: undefined,
 });
 
-export const receiveItems = (items: IFetchedItem[]): IAction => ({
+export const receiveFetchedItems = (items: IFetchedItem[]): IAction => ({
   type: ActionTypes.ITEMS_FETCH_SUCCESS,
   payload: {
     items,
   }
 });
 
-export const fetchFailed = (): IAction => ({
+export const notifyFailedItemsFetching = (): IAction => ({
   type: ActionTypes.ITEMS_FETCH_FAILED,
   payload: undefined,
 });
@@ -29,9 +29,9 @@ interface IFetchItemsFactoryDependencies {
 export const fetchItemsFactory = ({ uri, ...dependencies }: IFetchItemsFactoryDependencies) =>
   () =>
     (dispatch: Dispatch<IAction>) => {
-      dispatch(requestItems());
+      dispatch(startFetchingItems());
 
       return dependencies.httpClient.get<IFetchedItem[]>(uri)
-        .then(items => dispatch(receiveItems(items)))
-        .catch(() => dispatch(fetchFailed()));
+        .then(items => dispatch(receiveFetchedItems(items)))
+        .catch(() => dispatch(notifyFailedItemsFetching()));
     };
