@@ -1,37 +1,40 @@
+import { IListItem } from '../../../src/models/interfaces/IListItem';
 import { ListItem } from '../../../src/models/classes/ListItem';
-import { fetchItemsFactory } from '../../../src/actions/thunk/fetchItemsFactory';
+import { addItemFactory } from '../../../src/actions/thunk/addItemFactory';
 import {
-  httpClientSuccessFactory,
-  httpClientFailure,
+  fakeFunction,
   getDispatchedActionTypes,
+  httpClientFailure,
+  httpClientSuccessFactory,
 } from './thunkTestsUtils';
 import {
-  ITEMS_FETCH_FAILED,
-  ITEMS_FETCH_SUCCESS,
-  ITEMS_FETCH_START,
+  ITEM_ADD_SUCCESS,
+  ITEM_ADD_START,
+  ITEM_SYNC_FAILED,
 } from '../../../src/constants/actionTypes';
 
+const actionParams = {
+  text: '',
+};
 const uri = '';
 
-describe('fetchItems', () => {
+describe('addItem', () => {
   describe('successful request will dispatch', () => {
-    it('startFetchingItems and receiveFetchedItems actions', () => {
+    it('requestItemAddition and confirmItemAddition actions', () => {
       const expectedActionTypes = [
-        ITEMS_FETCH_START,
-        ITEMS_FETCH_SUCCESS,
+        ITEM_ADD_START,
+        ITEM_ADD_SUCCESS,
       ];
-
-      const items = [
-        new ListItem(),
-      ];
-      const httpClient = httpClientSuccessFactory(items);
-      const fetchItems = fetchItemsFactory({
+      const createdItem: IListItem = new ListItem({});
+      const httpClient = httpClientSuccessFactory(createdItem);
+      const postItem = addItemFactory({
         uri,
         httpClient,
+        createNewId: fakeFunction,
       });
       const dispatch = jest.fn();
 
-      return fetchItems()(dispatch)
+      return postItem(actionParams)(dispatch)
         .then(() => {
           const callArguments = getDispatchedActionTypes(dispatch);
 
@@ -42,19 +45,20 @@ describe('fetchItems', () => {
   });
 
   describe('failed request will dispatch', () => {
-    it('startFetchingItems and notifyFailedItemsFetching actions', () => {
+    it('addNewItem and addNewItemFailed actions', () => {
       const expectedActionTypes = [
-        ITEMS_FETCH_START,
-        ITEMS_FETCH_FAILED,
+        ITEM_ADD_START,
+        ITEM_SYNC_FAILED,
       ];
       const httpClient = httpClientFailure;
-      const fetchItems = fetchItemsFactory({
+      const postItem = addItemFactory({
         uri,
         httpClient,
+        createNewId: fakeFunction,
       });
       const dispatch = jest.fn();
 
-      return fetchItems()(dispatch)
+      return postItem(actionParams)(dispatch)
         .then(() => {
           const callArguments = getDispatchedActionTypes(dispatch);
 

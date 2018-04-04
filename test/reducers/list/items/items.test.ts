@@ -28,414 +28,439 @@ import {
 import { receiveFetchedItems } from '../../../../src/actions/thunk/fetchItemsFactory';
 
 describe('items', () => {
-  it('will add ListItem model to state with specific text', () => {
-    const initialState = OrderedMap<Guid, ListItem>();
-    deepFreeze(initialState);
+  describe('requestItemAddition', () => {
+    it('will add ListItem model to state', () => {
+      const initialState = OrderedMap<Guid, ListItem>();
+      deepFreeze(initialState);
 
-    const expectedId = 'test';
-    const expectedText = 'text';
+      const expectedId = 'test';
+      const expectedText = 'text';
 
-    const expectedState = OrderedMap<Guid, ListItem>({
-      [expectedId]: new ListItem({
+      const expectedState = OrderedMap<Guid, ListItem>({
+        [expectedId]: new ListItem({
+          id: expectedId,
+          text: expectedText,
+        }),
+      });
+
+      const newItem = {
         id: expectedId,
         text: expectedText,
-      }),
+        isBeingEdited: false,
+        uri: '',
+      };
+      const addNewItemAction = requestItemAddition(newItem);
+      const result = items(initialState, addNewItemAction);
+
+      expect(result)
+        .toEqual(expectedState);
     });
 
-    const newItem = {
-      id: expectedId,
-      text: expectedText,
-      isBeingEdited: false,
-      uri: '',
-    };
-    const addNewItemAction = requestItemAddition(newItem);
-    const result = items(initialState, addNewItemAction);
+    it('will initialize state with ListItem model', () => {
+      const expectedId = 'test';
+      const expectedText = 'text';
 
-    expect(result)
-      .toEqual(expectedState);
+      const expectedState = OrderedMap<Guid, ListItem>({
+        [expectedId]: new ListItem({
+          id: expectedId,
+          text: expectedText,
+        }),
+      });
+
+      const newItem = {
+        id: expectedId,
+        text: expectedText,
+        isBeingEdited: false,
+        uri: '',
+      };
+      const addNewItemAction = requestItemAddition(newItem);
+      const result = items(undefined, addNewItemAction);
+
+      expect(result)
+        .toEqual(expectedState);
+    });
   });
 
-  it('will add ListItem model to undefined state', () => {
-    const expectedId = 'test';
-    const expectedText = 'text';
+  describe('toggleItem', () => {
+    it('will open ListItem for editing', () => {
+      const expectedId = 'test';
+      const expectedText = 'text';
 
-    const expectedState = OrderedMap<Guid, ListItem>({
-      [expectedId]: new ListItem({
-        id: expectedId,
-        text: expectedText,
-      }),
+      const initialState = OrderedMap<Guid, ListItem>({
+        [expectedId]: new ListItem({
+          id: expectedId,
+          text: expectedText,
+        }),
+      });
+      deepFreeze(initialState);
+
+      const expectedState = OrderedMap<Guid, ListItem>({
+        [expectedId]: new ListItem({
+          id: expectedId,
+          text: expectedText,
+          isBeingEdited: true,
+        }),
+      });
+
+      const selectItemTextAction = toggleItem(expectedId);
+      const result = items(initialState, selectItemTextAction);
+
+      expect(result)
+        .toEqual(expectedState);
     });
 
-    const newItem = {
-      id: expectedId,
-      text: expectedText,
-      isBeingEdited: false,
-      uri: '',
-    };
-    const addNewItemAction = requestItemAddition(newItem);
-    const result = items(undefined, addNewItemAction);
+    it('will cancel changes and put ListItem in { isBeingEdited: false } state', () => {
+      const expectedId = 'test';
+      const expectedText = 'whatever';
 
-    expect(result)
-      .toEqual(expectedState);
+      const initialState = OrderedMap<Guid, ListItem>({
+        [expectedId]: new ListItem({
+          id: expectedId,
+          text: expectedText,
+          isBeingEdited: true,
+        }),
+      });
+      deepFreeze(initialState);
+
+      const expectedState = OrderedMap<Guid, ListItem>({
+        [expectedId]: new ListItem({
+          id: expectedId,
+          text: expectedText,
+          isBeingEdited: false,
+        }),
+      });
+
+      const cancelItemChangesAction = toggleItem(expectedId);
+      const result = items(initialState, cancelItemChangesAction);
+
+      expect(result)
+        .toEqual(expectedState);
+    });
   });
 
+  describe('requestItemUpdate', () => {
+    it('will change item text to \'something else\'', () => {
+      const expectedId = 'test';
+      const expectedNewText = 'something else';
 
-  it('will open ListItem for editing', () => {
-    const expectedId = 'test';
-    const expectedText = 'text';
+      const initialState = OrderedMap<Guid, ListItem>({
+        [expectedId]: new ListItem({
+          id: expectedId,
+          text: 'something',
+          isBeingEdited: true,
+          syncedText: '',
+        }),
+      });
+      deepFreeze(initialState);
 
-    const initialState = OrderedMap<Guid, ListItem>({
-      [expectedId]: new ListItem({
-        id: expectedId,
-        text: expectedText,
-      }),
-    });
-    deepFreeze(initialState);
+      const expectedState = OrderedMap<Guid, ListItem>({
 
-    const expectedState = OrderedMap<Guid, ListItem>({
-      [expectedId]: new ListItem({
-        id: expectedId,
-        text: expectedText,
-        isBeingEdited: true,
-      }),
-    });
+        [expectedId]: new ListItem({
+          id: expectedId,
+          text: expectedNewText,
+          isBeingEdited: false,
+        }),
+      });
 
-    const selectItemTextAction = toggleItem(expectedId);
-    const result = items(initialState, selectItemTextAction);
-
-    expect(result)
-      .toEqual(expectedState);
-  });
-
-  it('will change item text to \'something else\'', () => {
-    const expectedId = 'test';
-    const expectedNewText = 'something else';
-
-    const initialState = OrderedMap<Guid, ListItem>({
-      [expectedId]: new ListItem({
-        id: expectedId,
-        text: 'something',
-        isBeingEdited: true,
-        syncedText: '',
-      }),
-    });
-    deepFreeze(initialState);
-
-    const expectedState = OrderedMap<Guid, ListItem>({
-
-      [expectedId]: new ListItem({
+      const actionParams: IUpdatedItem = {
         id: expectedId,
         text: expectedNewText,
-        isBeingEdited: false,
-      }),
+        syncedText: expectedNewText,
+      };
+      const changeItemTextAction = requestItemUpdate(actionParams);
+      const result = items(initialState, changeItemTextAction);
+
+      expect(result)
+        .toEqual(expectedState);
     });
-
-    const actionParams: IUpdatedItem = {
-      id: expectedId,
-      text: expectedNewText,
-      syncedText: expectedNewText,
-    };
-    const changeItemTextAction = requestItemUpdate(actionParams);
-    const result = items(initialState, changeItemTextAction);
-
-    expect(result)
-      .toEqual(expectedState);
   });
 
-  it('will cancel changes and put ListItem in { isBeingEdited: false } state', () => {
-    const expectedId = 'test';
-    const expectedText = 'whatever';
+  describe('undefined action', () => {
+    it('will not modify state', () => {
 
-    const initialState = OrderedMap<Guid, ListItem>({
-      [expectedId]: new ListItem({
-        id: expectedId,
-        text: expectedText,
-        isBeingEdited: true,
-      }),
+      const initialState = OrderedMap<Guid, ListItem>({
+        '0': new ListItem({
+          id: '0',
+          text: 'text',
+          isBeingEdited: true,
+        }),
+        '1': new ListItem({
+          id: '1',
+          text: 'text2',
+          isBeingEdited: false,
+        }),
+      });
+      deepFreeze(initialState);
+
+      const undefinedAction = {
+        type: 'UNKNOWN',
+        payload: 'whatever',
+      };
+      const result = items(initialState, undefinedAction);
+
+      expect(result)
+        .toEqual(initialState);
     });
-    deepFreeze(initialState);
-
-    const expectedState = OrderedMap<Guid, ListItem>({
-      [expectedId]: new ListItem({
-        id: expectedId,
-        text: expectedText,
-        isBeingEdited: false,
-      }),
-    });
-
-    const cancelItemChangesAction = toggleItem(expectedId);
-    const result = items(initialState, cancelItemChangesAction);
-
-    expect(result)
-      .toEqual(expectedState);
   });
 
-  it('will execute undefined action', () => {
+  [
+    { name: 'confirmItemDeletion', creator: confirmItemDeletion },
+    { name: 'deleteUnsavedItem', creator: deleteUnsavedItem },
+    { name: 'revertAdd', creator: revertAdd },
+  ]
+    .forEach(action =>
+      describe(action.name, () => {
+        it('will delete item with { id: test } from state', () => {
+          const expectedId = 'test';
+          const expectedText = 'also whatever';
+          const otherId = 'other-id';
 
-    const initialState = OrderedMap<Guid, ListItem>({
-      '0': new ListItem({
-        id: '0',
-        text: 'text',
-        isBeingEdited: true,
-      }),
-      '1': new ListItem({
-        id: '1',
-        text: 'text2',
-        isBeingEdited: false,
-      }),
-    });
-    deepFreeze(initialState);
+          const initialState = OrderedMap<Guid, ListItem>({
+            [ expectedId ]: new ListItem({
+              id: expectedId,
+              text: 'whatever',
+              isBeingEdited: true,
+            }),
+            [ otherId ]: new ListItem({
+              id: otherId,
+              text: expectedText,
+              isBeingEdited: false,
+            }),
+          });
+          deepFreeze(initialState);
 
-    const undefinedAction = {
-      type: 'UNKNOWN',
-      payload: 'whatever',
-    };
-    const result = items(initialState, undefinedAction);
+          const expectedState = OrderedMap<Guid, ListItem>({
+            [ otherId ]: new ListItem({
+              id: otherId,
+              text: expectedText,
+              isBeingEdited: false,
+            }),
+          });
 
-    expect(result)
-      .toEqual(initialState);
-  });
+          const deleteItemAction = action.creator(expectedId);
+          const result = items(initialState, deleteItemAction);
 
-  [confirmItemDeletion, deleteUnsavedItem, revertAdd]
-    .forEach(actionCreator =>
-      it('will delete item with { id: test } from state', () => {
-        const expectedId = 'test';
-        const expectedText = 'also whatever';
-        const otherId = 'other-id';
-
-        const initialState = OrderedMap<Guid, ListItem>({
-          [expectedId]: new ListItem({
-            id: expectedId,
-            text: 'whatever',
-            isBeingEdited: true,
-          }),
-          [otherId]: new ListItem({
-            id: otherId,
-            text: expectedText,
-            isBeingEdited: false,
-          }),
+          expect(result)
+            .toEqual(expectedState);
         });
-        deepFreeze(initialState);
-
-        const expectedState = OrderedMap<Guid, ListItem>({
-          [otherId]: new ListItem({
-            id: otherId,
-            text: expectedText,
-            isBeingEdited: false,
-          }),
-        });
-
-        const deleteItemAction = actionCreator(expectedId);
-        const result = items(initialState, deleteItemAction);
-
-        expect(result)
-          .toEqual(expectedState);
       }));
 
-  it('will receive items and populate state', () => {
-    const initialState = undefined;
+  describe('receiveFetchedItems', () => {
+    it('will receive items and populate state', () => {
+      const initialState = undefined;
 
-    const listItem1: IFetchedItem = {
-      id: 'fakeId',
-      text: 'whatever',
-    };
-    const listItem2: IFetchedItem = {
-      id: 'fakeId2',
-      text: 'something else',
-    };
-    const fakeItems: IFetchedItem[] = [
-      listItem1,
-      listItem2,
-    ];
+      const listItem1: IFetchedItem = {
+        id: 'fakeId',
+        text: 'whatever',
+      };
+      const listItem2: IFetchedItem = {
+        id: 'fakeId2',
+        text: 'something else',
+      };
+      const fakeItems: IFetchedItem[] = [
+        listItem1,
+        listItem2,
+      ];
 
-    const expectedState = OrderedMap<Guid, ListItem>({
-      [listItem1.id]: new ListItem({
-        ...listItem1,
-        syncedText: listItem1.text,
+      const expectedState = OrderedMap<Guid, ListItem>({
+        [listItem1.id]: new ListItem({
+          ...listItem1,
+          syncedText: listItem1.text,
         }),
-      [listItem2.id]: new ListItem({
-        ...listItem2,
-        syncedText: listItem2.text,
-      }),
+        [listItem2.id]: new ListItem({
+          ...listItem2,
+          syncedText: listItem2.text,
+        }),
+      });
+
+      const receiveItemsAction = receiveFetchedItems(fakeItems);
+      const result = items(initialState, receiveItemsAction);
+
+      expect(result)
+        .toEqual(expectedState);
     });
-
-    const receiveItemsAction = receiveFetchedItems(fakeItems);
-    const result = items(initialState, receiveItemsAction);
-
-    expect(result)
-      .toEqual(expectedState);
   });
 
-  it('will replace old item with the same item containing updated id', () => {
-    const oldId = 'oldId';
-    const newId = 'newId';
-    const listItem1Old = new ListItem({
-      id: oldId,
-      text: 'whatever',
-    });
-    const listItem1New = new ListItem({
-      id: newId,
-      text: 'whatever',
-      syncedText: 'whatever',
-    });
-    const listItem2 = new ListItem({
-      id: 'fakeId',
-      text: 'something else',
-    });
-    const initialState = OrderedMap<Guid, ListItem>({
-      [listItem1Old.id]: listItem1Old,
-      [listItem2.id]: listItem2,
-    });
-    deepFreeze(initialState);
-
-    const expectedState = OrderedMap<Guid, ListItem>({
-      [listItem2.id]: listItem2,
-      [listItem1New.id]: listItem1New,
-    });
-
-    const actionParams: IAddedItemConfirmed = {
-      oldId,
-      updatedItem: {
+  describe('confirmItemAddition', () => {
+    it('will replace old item with the same item containing updated id', () => {
+      const oldId = 'oldId';
+      const newId = 'newId';
+      const listItem1Old = new ListItem({
+        id: oldId,
+        text: 'whatever',
+      });
+      const listItem1New = new ListItem({
         id: newId,
-        text: listItem1Old.text,
+        text: 'whatever',
+        syncedText: 'whatever',
+      });
+      const listItem2 = new ListItem({
+        id: 'fakeId',
+        text: 'something else',
+      });
+      const initialState = OrderedMap<Guid, ListItem>({
+        [listItem1Old.id]: listItem1Old,
+        [listItem2.id]: listItem2,
+      });
+      deepFreeze(initialState);
+
+      const expectedState = OrderedMap<Guid, ListItem>({
+        [listItem2.id]: listItem2,
+        [listItem1New.id]: listItem1New,
+      });
+
+      const actionParams: IAddedItemConfirmed = {
+        oldId,
+        updatedItem: {
+          id: newId,
+          text: listItem1Old.text,
+          isBeingEdited: false,
+          syncedText: listItem1Old.syncedText,
+        },
+      };
+      const confirmAddedItemAction = confirmItemAddition(actionParams);
+      const result = items(initialState, confirmAddedItemAction);
+
+      expect(result)
+        .toEqual(expectedState);
+    });
+  });
+
+  describe('requestItemDeletion', () => {
+    it('will change isBeingEdited value to false', () => {
+      const id = 'id';
+      const listItem = new ListItem({
+        id,
+        text: 'whatever',
+        isBeingEdited: true,
+      });
+      const listItemClosed = new ListItem({
+        id,
+        text: 'whatever',
         isBeingEdited: false,
-        syncedText: listItem1Old.syncedText,
-      },
-    };
-    const confirmAddedItemAction = confirmItemAddition(actionParams);
-    const result = items(initialState, confirmAddedItemAction);
+      });
 
-    expect(result)
-      .toEqual(expectedState);
+      const initialState = OrderedMap<Guid, ListItem>({
+        [listItem.id]: listItem,
+      });
+      deepFreeze(initialState);
+
+      const expectedState = OrderedMap<Guid, ListItem>({
+        [listItemClosed.id]: listItemClosed,
+      });
+
+      const closeItemAction = requestItemDeletion(id);
+      const result = items(initialState, closeItemAction);
+
+      expect(result)
+        .toEqual(expectedState);
+    });
+
+    it('will keep isBeingEdited value as false', () => {
+      const id = 'id';
+      const listItem = new ListItem({
+        id,
+        text: 'whatever',
+        isBeingEdited: false,
+      });
+      const listItemSame = new ListItem({
+        id,
+        text: 'whatever',
+        isBeingEdited: false,
+      });
+
+      const initialState = OrderedMap<Guid, ListItem>({
+        [listItem.id]: listItem,
+      });
+      deepFreeze(initialState);
+
+      const expectedState = OrderedMap<Guid, ListItem>({
+        [listItemSame.id]: listItemSame,
+      });
+
+      const closeItemAction = requestItemDeletion(id);
+      const result = items(initialState, closeItemAction);
+
+      expect(result)
+        .toEqual(expectedState);
+    });
   });
 
-  it('will change isBeingEdited value to false', () => {
-    const id = 'id';
-    const listItem = new ListItem({
-      id,
-      text: 'whatever',
-      isBeingEdited: true,
-    });
-    const listItemClosed = new ListItem({
-      id,
-      text: 'whatever',
-      isBeingEdited: false,
-    });
+  describe('undefined action', () => {
+    it('will set items to empty ordered map if undefined', () => {
+      const initialState = undefined;
+      const expectedState = OrderedMap<Guid, ListItem>();
 
-    const initialState = OrderedMap<Guid, ListItem>({
-      [listItem.id]: listItem,
+      const action: IAction = {
+        type: 'testType',
+        payload: null,
+      };
+      const result = items(initialState, action);
+
+      expect(result)
+        .toBe(expectedState);
     });
-    deepFreeze(initialState);
-
-    const expectedState = OrderedMap<Guid, ListItem>({
-      [listItemClosed.id]: listItemClosed,
-    });
-
-    const closeItemAction = requestItemDeletion(id);
-    const result = items(initialState, closeItemAction);
-
-    expect(result)
-      .toEqual(expectedState);
   });
 
-  it('will not change item value isBeingEdited', () => {
-    const id = 'id';
-    const listItem = new ListItem({
-      id,
-      text: 'whatever',
-      isBeingEdited: false,
-    });
-    const listItemSame = new ListItem({
-      id,
-      text: 'whatever',
-      isBeingEdited: false,
-    });
+  describe('confirmItemUpdate', () => {
+    it('will set items synced text to the new value', () => {
+      const oldListItem = new ListItem({
+        id: 'id',
+        text: 'newText',
+        syncedText: 'oldText',
+        isBeingEdited: false,
+      });
+      const newListItem = new ListItem({
+        id: 'id',
+        text: 'newText',
+        syncedText: 'newText',
+        isBeingEdited: false,
+      });
+      const initialState = OrderedMap<Guid, ListItem>({
+        [oldListItem.id]: oldListItem,
+      });
+      deepFreeze(initialState);
 
-    const initialState = OrderedMap<Guid, ListItem>({
-      [listItem.id]: listItem,
+      const expectedState = OrderedMap<Guid, ListItem>({
+        [newListItem.id]: newListItem,
+      });
+
+      const closeItemAction = confirmItemUpdate(oldListItem.id);
+      const result = items(initialState, closeItemAction);
+
+      expect(result)
+        .toEqual(expectedState);
     });
-    deepFreeze(initialState);
-
-    const expectedState = OrderedMap<Guid, ListItem>({
-      [listItemSame.id]: listItemSame,
-    });
-
-    const closeItemAction = requestItemDeletion(id);
-    const result = items(initialState, closeItemAction);
-
-    expect(result)
-      .toEqual(expectedState);
   });
 
-  it('will set items to empty ordered map', () => {
-    const initialState = undefined;
-    const expectedState = OrderedMap<Guid, ListItem>();
+  describe('revertUpdate', () => {
+    it('will set items synced text to the old value', () => {
+      const oldListItem = new ListItem({
+        id: 'id',
+        text: 'newText',
+        syncedText: 'oldText',
+        isBeingEdited: false,
+      });
+      const newListItem = new ListItem({
+        id: 'id',
+        text: 'oldText',
+        syncedText: 'oldText',
+        isBeingEdited: false,
+      });
+      const initialState = OrderedMap<Guid, ListItem>({
+        [oldListItem.id]: oldListItem,
+      });
+      deepFreeze(initialState);
 
-    const action: IAction = {
-      type: 'testType',
-      payload: null,
-    };
-    const result = items(initialState, action);
+      const expectedState = OrderedMap<Guid, ListItem>({
+        [newListItem.id]: newListItem,
+      });
 
-    expect(result)
-      .toBe(expectedState);
-  });
+      const closeItemAction = revertUpdate(oldListItem.id);
+      const result = items(initialState, closeItemAction);
 
-  it('will set items synced text to the new value', () => {
-    const oldListItem = new ListItem({
-      id: 'id',
-      text: 'newText',
-      syncedText: 'oldText',
-      isBeingEdited: false,
+      expect(result)
+        .toEqual(expectedState);
     });
-    const newListItem = new ListItem({
-      id: 'id',
-      text: 'newText',
-      syncedText: 'newText',
-      isBeingEdited: false,
-    });
-    const initialState = OrderedMap<Guid, ListItem>({
-      [oldListItem.id]: oldListItem,
-    });
-    deepFreeze(initialState);
-
-    const expectedState = OrderedMap<Guid, ListItem>({
-      [newListItem.id]: newListItem,
-    });
-
-    const closeItemAction = confirmItemUpdate(oldListItem.id);
-    const result = items(initialState, closeItemAction);
-
-    expect(result)
-      .toEqual(expectedState);
-  });
-
-  it('will set items synced text to the old value', () => {
-    const oldListItem = new ListItem({
-      id: 'id',
-      text: 'newText',
-      syncedText: 'oldText',
-      isBeingEdited: false,
-    });
-    const newListItem = new ListItem({
-      id: 'id',
-      text: 'oldText',
-      syncedText: 'oldText',
-      isBeingEdited: false,
-    });
-    const initialState = OrderedMap<Guid, ListItem>({
-      [oldListItem.id]: oldListItem,
-    });
-    deepFreeze(initialState);
-
-    const expectedState = OrderedMap<Guid, ListItem>({
-      [newListItem.id]: newListItem,
-    });
-
-    const closeItemAction = revertUpdate(oldListItem.id);
-    const result = items(initialState, closeItemAction);
-
-    expect(result)
-      .toEqual(expectedState);
   });
 });
