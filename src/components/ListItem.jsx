@@ -36,19 +36,24 @@ export class ListItem extends PureComponent {
   };
 
   render() {
-    return (<li className="list-group-item">
-      <span>{this.props.number}. </span>
-      {this.state.inEditMode ? <ListItemEditor
+    const itemEditor = (
+      <ListItemEditor
         id={this.props.id}
         text={this.props.text}
         onDelete={this.props.onDelete}
         onChange={this._changeItem}
         onCancel={this._toggleEditMode}
-      />
-        : <ListItemDisplay
-          onClick={this._toggleEditMode}
-          text={this.props.text}
-        />}
-    </li>);
+      />);
+    const itemDisplay = (
+      <ListItemDisplay
+        onClick={this._toggleEditMode}
+        text={this.props.text}
+      />);
+
+    return (
+      <li className="list-group-item">
+        <span>{this.props.number}. </span>
+        {this.state.inEditMode ? itemEditor : itemDisplay}
+      </li>);
   }
 }
