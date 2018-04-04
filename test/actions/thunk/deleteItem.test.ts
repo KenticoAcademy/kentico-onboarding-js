@@ -5,8 +5,8 @@ import {
   httpClientSuccessFactory,
 } from './thunkTestsUtils';
 import {
-  DELETE_ITEM_CONFIRM,
-  DELETE_ITEM_REQUEST,
+  ITEM_DELETE_SUCCESS,
+  ITEM_DELETE_START,
   ITEM_SYNC_FAILED,
 } from '../../../src/constants/actionTypes';
 
@@ -18,8 +18,8 @@ const uri = '';
 describe('deleteItem will call dispatch with', () => {
   it('deleteItemRequest and deleteItemConfirm actions', () => {
     const expectedActionTypes = [
-      DELETE_ITEM_REQUEST,
-      DELETE_ITEM_CONFIRM,
+      ITEM_DELETE_START,
+      ITEM_DELETE_SUCCESS,
     ];
     const httpClient = httpClientSuccessFactory();
     const deleteItem = deleteItemFactory({
@@ -39,7 +39,7 @@ describe('deleteItem will call dispatch with', () => {
 
   it('deleteItemRequest and deleteItemFailed actions', () => {
     const expectedActionTypes = [
-      DELETE_ITEM_REQUEST,
+      ITEM_DELETE_START,
       ITEM_SYNC_FAILED,
     ];
     const httpClient = httpClientFailure;

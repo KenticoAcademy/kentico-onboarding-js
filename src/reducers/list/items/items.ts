@@ -80,25 +80,25 @@ export const items = (state = initialState, action: IAction): ItemsState => {
   const { type } = action;
 
   switch (type) {
-    case ActionTypes.ADD_NEW_ITEM_REQUEST:
+    case ActionTypes.ITEM_ADD_START:
       return addNewItem(state, action);
-    case ActionTypes.ADD_NEW_ITEM_CONFIRM:
+    case ActionTypes.ITEM_ADD_SUCCESS:
       return confirmAddedItem(state, action);
-    case ActionTypes.DELETE_ITEM_CONFIRM:
-    case ActionTypes.DELETE_UNSAVED_ITEM:
-    case ActionTypes.REVERT_ADD:
+    case ActionTypes.ITEM_DELETE_SUCCESS:
+    case ActionTypes.UNSAVED_ITEM_DELETE:
+    case ActionTypes.ITEM_ADD_REVERT:
       return deleteItem(state, action);
-    case ActionTypes.SAVE_ITEM_CHANGES_REQUEST:
+    case ActionTypes.ITEM_UPDATE_START:
       return saveItemChanges(state, action);
-    case ActionTypes.CHANGE_ITEM_OPEN_STATE:
+    case ActionTypes.ITEM_TOGGLE:
       return changeItemOpenState(state, action);
-    case ActionTypes.DELETE_ITEM_REQUEST:
+    case ActionTypes.ITEM_DELETE_START:
       return closeItem(state, action);
-    case ActionTypes.SAVE_ITEM_CHANGES_CONFIRM:
+    case ActionTypes.ITEM_UPDATE_SUCCESS:
       return setSyncedText(state, action);
-    case ActionTypes.REVERT_MODIFY:
+    case ActionTypes.ITEM_UPDATE_REVERT:
       return revertModify(state, action);
-    case ActionTypes.RECEIVE_ITEMS:
+    case ActionTypes.ITEMS_FETCH_SUCCESS:
       return fetchItems(action);
     default:
       return state;

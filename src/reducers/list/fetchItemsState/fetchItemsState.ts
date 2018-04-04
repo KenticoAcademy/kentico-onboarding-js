@@ -1,20 +1,20 @@
 import { FetchItemsState } from '../../../models/enums/FetchItemsState';
 import { IAction } from '../../../models/interfaces/IAction';
 import {
-  FETCH_FAILED,
-  REQUEST_ITEMS,
-  RECEIVE_ITEMS,
+  ITEMS_FETCH_FAILED,
+  ITEMS_FETCH_START,
+  ITEMS_FETCH_SUCCESS,
 } from '../../../constants/actionTypes';
 
 export const fetchItemsState = (state = FetchItemsState.INITIAL, action: IAction): FetchItemsState => {
   switch (action.type) {
-    case REQUEST_ITEMS:
+    case ITEMS_FETCH_START:
       return FetchItemsState.REQUESTED;
 
-    case RECEIVE_ITEMS:
+    case ITEMS_FETCH_SUCCESS:
       return FetchItemsState.RECEIVED;
 
-    case FETCH_FAILED:
+    case ITEMS_FETCH_FAILED:
       return FetchItemsState.FAILED;
 
     default:

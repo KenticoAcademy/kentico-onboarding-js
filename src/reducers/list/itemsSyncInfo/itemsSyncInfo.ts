@@ -1,18 +1,18 @@
 import { IAction } from '../../../models/interfaces/IAction';
 import {
-  ADD_NEW_ITEM_CONFIRM,
-  RECEIVE_ITEMS,
-  SAVE_ITEM_CHANGES_REQUEST,
-  DELETE_ITEM_REQUEST,
-  ADD_NEW_ITEM_REQUEST,
-  DELETE_ITEM_CONFIRM,
+  ITEM_ADD_SUCCESS,
+  ITEMS_FETCH_SUCCESS,
+  ITEM_UPDATE_START,
+  ITEM_DELETE_START,
+  ITEM_ADD_START,
+  ITEM_DELETE_SUCCESS,
   ITEM_SYNC_FAILED,
-  SAVE_ITEM_CHANGES_CONFIRM,
-  DELETE_UNSAVED_ITEM,
-  REVERT_ADD,
-  REVERT_MODIFY,
-  REVERT_DELETE,
-  REVERT_DELETE_AFTER_MODIFY_FAILED,
+  ITEM_UPDATE_SUCCESS,
+  UNSAVED_ITEM_DELETE,
+  ITEM_ADD_REVERT,
+  ITEM_UPDATE_REVERT,
+  ITEM_DELETE_REVERT,
+  ITEM_DELETE_AFTER_UPDATE_REVERT,
 } from '../../../constants/actionTypes';
 import { SyncState } from '../../../models/enums/SyncState';
 import { ItemSyncInfo } from '../../../models/classes/ItemSyncInfo';
@@ -89,25 +89,25 @@ const initialState: ItemsSyncInfoState = OrderedMap<Guid, ItemSyncInfo>();
 
 export const itemsSyncInfo = (state = initialState, action: IAction): ItemsSyncInfoState => {
   switch (action.type) {
-    case ADD_NEW_ITEM_REQUEST:
-    case DELETE_ITEM_REQUEST:
-    case SAVE_ITEM_CHANGES_REQUEST:
-    case SAVE_ITEM_CHANGES_CONFIRM:
+    case ITEM_ADD_START:
+    case ITEM_DELETE_START:
+    case ITEM_UPDATE_START:
+    case ITEM_UPDATE_SUCCESS:
       return setSyncState(state, action);
     case ITEM_SYNC_FAILED:
       return syncFailed(state, action);
-    case ADD_NEW_ITEM_CONFIRM:
+    case ITEM_ADD_SUCCESS:
       return addedItemConfirmed(state, action);
-    case DELETE_ITEM_CONFIRM:
-    case DELETE_UNSAVED_ITEM:
-    case REVERT_ADD:
+    case ITEM_DELETE_SUCCESS:
+    case UNSAVED_ITEM_DELETE:
+    case ITEM_ADD_REVERT:
       return itemDeleted(state, action);
-    case REVERT_MODIFY:
-    case REVERT_DELETE:
+    case ITEM_UPDATE_REVERT:
+    case ITEM_DELETE_REVERT:
       return revertOperation(state, action);
-    case REVERT_DELETE_AFTER_MODIFY_FAILED:
+    case ITEM_DELETE_AFTER_UPDATE_REVERT:
       return revertDeleteAfterFailedModify(state, action);
-    case RECEIVE_ITEMS:
+    case ITEMS_FETCH_SUCCESS:
       return syncAllItems(action);
     default:
       return state;

@@ -8,14 +8,14 @@ import { INewItem } from '../models/interfaces/INewItem';
 import { IUpdatedItem } from '../models/interfaces/IUpdatedItem';
 import { IFetchedItem } from '../models/interfaces/IFetchedItem';
 import {
-  REVERT_ADD,
-  REVERT_DELETE,
-  REVERT_DELETE_AFTER_MODIFY_FAILED,
-  REVERT_MODIFY,
+  ITEM_ADD_REVERT,
+  ITEM_DELETE_REVERT,
+  ITEM_DELETE_AFTER_UPDATE_REVERT,
+  ITEM_UPDATE_REVERT,
 } from '../constants/actionTypes';
 
 export const addNewItemRequest = ({ id, text }: INewItem): IAction => ({
-  type: ActionTypes.ADD_NEW_ITEM_REQUEST,
+  type: ActionTypes.ITEM_ADD_START,
   payload: {
     id,
     text,
@@ -28,7 +28,7 @@ export const addNewItemRequest = ({ id, text }: INewItem): IAction => ({
 });
 
 export const addNewItemConfirm = ({ oldId, updatedItem }: IAddedItemConfirmed) => ({
-  type: ActionTypes.ADD_NEW_ITEM_CONFIRM,
+  type: ActionTypes.ITEM_ADD_SUCCESS,
   payload: {
     oldId,
     updatedItem,
@@ -36,7 +36,7 @@ export const addNewItemConfirm = ({ oldId, updatedItem }: IAddedItemConfirmed) =
 });
 
 export const deleteItemRequest = (id: Guid): IAction => ({
-  type: ActionTypes.DELETE_ITEM_REQUEST,
+  type: ActionTypes.ITEM_DELETE_START,
   payload: {
     id,
     itemSyncInfo: {
@@ -48,14 +48,14 @@ export const deleteItemRequest = (id: Guid): IAction => ({
 });
 
 export const deleteItemConfirm = (id: Guid): IAction => ({
-  type: ActionTypes.DELETE_ITEM_CONFIRM,
+  type: ActionTypes.ITEM_DELETE_SUCCESS,
   payload: {
     id,
   },
 });
 
 export const saveItemChangesRequest = (item: IUpdatedItem): IAction => ({
-  type: ActionTypes.SAVE_ITEM_CHANGES_REQUEST,
+  type: ActionTypes.ITEM_UPDATE_START,
   payload: {
     item,
     itemSyncInfo: {
@@ -67,7 +67,7 @@ export const saveItemChangesRequest = (item: IUpdatedItem): IAction => ({
 });
 
 export const saveItemChangesConfirm = (id: Guid): IAction => ({
-  type: ActionTypes.SAVE_ITEM_CHANGES_CONFIRM,
+  type: ActionTypes.ITEM_UPDATE_SUCCESS,
   payload: {
     id,
     itemSyncInfo: {
@@ -79,33 +79,33 @@ export const saveItemChangesConfirm = (id: Guid): IAction => ({
 });
 
 export const deleteUnsavedItem = (id: Guid): IAction => ({
-  type: ActionTypes.DELETE_UNSAVED_ITEM,
+  type: ActionTypes.UNSAVED_ITEM_DELETE,
   payload: {
     id,
   }
 });
 
 export const changeItemOpenState = (id: Guid): IAction => ({
-  type: ActionTypes.CHANGE_ITEM_OPEN_STATE,
+  type: ActionTypes.ITEM_TOGGLE,
   payload: {
     id,
   }
 });
 
 export const requestItems = (): IAction => ({
-  type: ActionTypes.REQUEST_ITEMS,
+  type: ActionTypes.ITEMS_FETCH_START,
   payload: undefined,
 });
 
 export const receiveItems = (items: IFetchedItem[]): IAction => ({
-  type: ActionTypes.RECEIVE_ITEMS,
+  type: ActionTypes.ITEMS_FETCH_SUCCESS,
   payload: {
     items,
   }
 });
 
 export const fetchFailed = (): IAction => ({
-  type: ActionTypes.FETCH_FAILED,
+  type: ActionTypes.ITEMS_FETCH_FAILED,
   payload: undefined,
 });
 
@@ -117,28 +117,28 @@ export const itemSyncFailed = (id: Guid): IAction => ({
 });
 
 export const revertDelete = (id: Guid): IAction => ({
-  type: REVERT_DELETE,
+  type: ITEM_DELETE_REVERT,
   payload: {
     id,
   },
 });
 
 export const revertAdd = (id: Guid): IAction => ({
-  type: REVERT_ADD,
+  type: ITEM_ADD_REVERT,
   payload: {
     id,
   },
 });
 
 export const revertModify = (id: Guid): IAction => ({
-  type: REVERT_MODIFY,
+  type: ITEM_UPDATE_REVERT,
   payload: {
     id,
   },
 });
 
 export const revertDeleteAfterFailedModify = (id: Guid): IAction => ({
-  type: REVERT_DELETE_AFTER_MODIFY_FAILED,
+  type: ITEM_DELETE_AFTER_UPDATE_REVERT,
   payload: {
     id,
   },

@@ -8,8 +8,8 @@ import {
   httpClientSuccessFactory,
 } from './thunkTestsUtils';
 import {
-  ADD_NEW_ITEM_CONFIRM,
-  ADD_NEW_ITEM_REQUEST,
+  ITEM_ADD_SUCCESS,
+  ITEM_ADD_START,
   ITEM_SYNC_FAILED,
 } from '../../../src/constants/actionTypes';
 
@@ -21,8 +21,8 @@ const uri = '';
 describe('postItem will call dispatch with', () => {
   it('addNewItemRequest and addNewItemConfirm actions', () => {
     const expectedActionTypes = [
-      ADD_NEW_ITEM_REQUEST,
-      ADD_NEW_ITEM_CONFIRM,
+      ITEM_ADD_START,
+      ITEM_ADD_SUCCESS,
     ];
     const createdItem: IListItem = new ListItem({});
     const httpClient = httpClientSuccessFactory(createdItem);
@@ -44,7 +44,7 @@ describe('postItem will call dispatch with', () => {
 
   it('addNewItem and addNewItemFailed actions', () => {
     const expectedActionTypes = [
-      ADD_NEW_ITEM_REQUEST,
+      ITEM_ADD_START,
       ITEM_SYNC_FAILED,
     ];
     const httpClient = httpClientFailure;

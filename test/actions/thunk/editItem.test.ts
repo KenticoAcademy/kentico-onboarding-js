@@ -8,8 +8,8 @@ import { defaultUuid } from '../../../src/constants/defaultUuid';
 import { IUpdatedItem } from '../../../src/models/interfaces/IUpdatedItem';
 import {
   ITEM_SYNC_FAILED,
-  SAVE_ITEM_CHANGES_CONFIRM,
-  SAVE_ITEM_CHANGES_REQUEST,
+  ITEM_UPDATE_SUCCESS,
+  ITEM_UPDATE_START,
 } from '../../../src/constants/actionTypes';
 
 const actionParams: IUpdatedItem = {
@@ -22,8 +22,8 @@ const uri = '';
 describe('editItemAsync will call dispatch with', () => {
   it('saveItemChangesRequest and saveItemChangesConfirm actions', () => {
     const expectedActionTypes = [
-      SAVE_ITEM_CHANGES_REQUEST,
-      SAVE_ITEM_CHANGES_CONFIRM,
+      ITEM_UPDATE_START,
+      ITEM_UPDATE_SUCCESS,
     ];
     const httpClient = httpClientSuccessFactory();
     const saveNewText = editItemFactory({
@@ -43,7 +43,7 @@ describe('editItemAsync will call dispatch with', () => {
 
   it('saveItemChangesRequest and saveItemChangesFailed actions', () => {
     const expectedActionTypes = [
-      SAVE_ITEM_CHANGES_REQUEST,
+      ITEM_UPDATE_START,
       ITEM_SYNC_FAILED,
     ];
     const httpClient = httpClientFailure;

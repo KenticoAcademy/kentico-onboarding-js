@@ -6,9 +6,9 @@ import {
   getDispatchedActionTypes,
 } from './thunkTestsUtils';
 import {
-  FETCH_FAILED,
-  RECEIVE_ITEMS,
-  REQUEST_ITEMS,
+  ITEMS_FETCH_FAILED,
+  ITEMS_FETCH_SUCCESS,
+  ITEMS_FETCH_START,
 } from '../../../src/constants/actionTypes';
 
 const uri = '';
@@ -16,8 +16,8 @@ const uri = '';
 describe('fetchItems will call dispatch with', () => {
   it('requestItems and receiveItems actions', () => {
     const expectedActionTypes = [
-      REQUEST_ITEMS,
-      RECEIVE_ITEMS,
+      ITEMS_FETCH_START,
+      ITEMS_FETCH_SUCCESS,
     ];
 
     const items = [
@@ -41,8 +41,8 @@ describe('fetchItems will call dispatch with', () => {
 
   it('requestItems and fetchFailed actions', () => {
     const expectedActionTypes = [
-      REQUEST_ITEMS,
-      FETCH_FAILED,
+      ITEMS_FETCH_START,
+      ITEMS_FETCH_FAILED,
     ];
     const httpClient = httpClientFailure;
     const fetchItems = fetchItemsFactory({
