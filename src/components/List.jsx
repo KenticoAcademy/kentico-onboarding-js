@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
-import Uuid from 'uuid/v4';
 import assignment from './../../assignment.gif';
 
+import { UniqueIdentifier } from '../utils/UniqueIdentifier.jsx';
 import { ListItem } from './ListItem.jsx';
 import { CreateListItem } from './CreateListItem';
 
@@ -15,7 +15,7 @@ export class List extends PureComponent {
   _addItem = itemText => {
     const newItem = {
       text: itemText,
-      id: Uuid(),
+      id: UniqueIdentifier.generateUniqueId(),
     };
 
     this.setState(prevState => ({
