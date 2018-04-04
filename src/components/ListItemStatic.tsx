@@ -4,12 +4,15 @@ import { IListItem } from '../models/interfaces/IListItem';
 import { IItemSyncInfo } from '../models/interfaces/IItemSyncInfo';
 import { SyncState } from '../models/enums/SyncState';
 import { RetryItem } from '../containers/RetryItem';
-import { SyncOperation } from '../models/enums/SyncOperation';
 import { ClipLoader } from 'react-spinners';
 import { Revert } from '../containers/Revert';
 
 export interface IListItemStaticCallbackProps {
   readonly onItemOpened: () => void;
+}
+
+export interface IListItemStaticDataProps {
+  readonly isClickable: boolean;
 }
 
 export interface IListItemStaticOwnProps {
@@ -19,7 +22,7 @@ export interface IListItemStaticOwnProps {
   readonly itemSyncInfo: IItemSyncInfo;
 }
 
-export interface IListItemStaticProps extends IListItemStaticCallbackProps, IListItemStaticOwnProps {
+export interface IListItemStaticProps extends IListItemStaticCallbackProps, IListItemStaticOwnProps, IListItemStaticDataProps {
 }
 
 export const listItemStaticPropTypes = {
@@ -40,12 +43,13 @@ export class ListItemStatic extends React.PureComponent<IListItemStaticProps> {
   static propTypes = {
     ...listItemStaticPropTypes,
     onItemOpened: PropTypes.func.isRequired,
+    isClickable: PropTypes.bool.isRequired,
   };
 
   _onMouseUp = (): void => {
-    const { onTextSelection, onItemOpened, item, itemSyncInfo: { syncState, operation } } = this.props;
+    const { onTextSelection, onItemOpened, item, isClickable } = this.props;
 
-    if (syncState === SyncState.Pending || (syncState === SyncState.Desynced && (operation === SyncOperation.Delete ||  operation === SyncOperation.DeleteAfterFailedModify))) {
+    if (!isClickable) {
       return undefined;
     }
 
