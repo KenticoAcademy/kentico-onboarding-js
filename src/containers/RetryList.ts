@@ -14,8 +14,7 @@ import {
 import { IAppState } from '../models/state/IAppState';
 
 const mapDispatchToProps = (dispatch: Dispatch<IAppState>): IRetryCallbackProps => ({
-  retryAction: () =>
-    dispatch(fetchItemsAsync()),
+  retryAction: () => dispatch(fetchItemsAsync()),
 });
 
 const mergeProps = (_: undefined, { retryAction }: IRetryCallbackProps): IRetryProps => ({

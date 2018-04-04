@@ -20,22 +20,15 @@ const mapDispatchToProps = (dispatch: Dispatch<IAppState>, { item }: IListItemFo
   const { syncedText, id } = item;
 
   return {
-    onSave: (text: string) =>
-      dispatch(
-        editItemAsync({
-          text,
-          syncedText,
-          id,
-        }))
-    ,
-    onDelete: () =>
-      dispatch(
-        deleteItemAsync({
-          id,
-        })),
-    onCancel: () =>
-      dispatch(
-        changeItemOpenState(id)),
+    onSave: (text: string) => dispatch(editItemAsync({
+      text,
+      syncedText,
+      id,
+    })),
+    onDelete: () => dispatch(deleteItemAsync({
+      id,
+    })),
+    onCancel: () => dispatch(changeItemOpenState(id)),
   };
 };
 

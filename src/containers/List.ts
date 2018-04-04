@@ -13,9 +13,7 @@ const mapStateToProps = ({ list }: IAppState): IListDataProps => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<IAppState>) => ({
-  fetchItems: () =>
-    dispatch(
-      fetchItemsAsync()),
+  fetchItems: () => dispatch(fetchItemsAsync()),
 });
 
 export const List: ComponentClass = connect(

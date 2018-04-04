@@ -13,9 +13,7 @@ import { changeItemOpenState } from '../actions';
 import { IAction } from '../models/interfaces/IAction';
 
 const mapDispatchToProps = (dispatch: Dispatch<IAction>, { item }: IListItemStaticOwnProps): IListItemStaticCallbackProps => ({
-  onItemOpened: () =>
-    dispatch(
-      changeItemOpenState(item.id)),
+  onItemOpened: () => dispatch(changeItemOpenState(item.id)),
 });
 
 const ListItemStatic: ComponentClass<IListItemStaticOwnProps> = connect(

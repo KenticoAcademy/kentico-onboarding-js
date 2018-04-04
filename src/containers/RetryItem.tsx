@@ -63,9 +63,7 @@ const getRetryAction = ({ id, text, syncedText }: IListItem, itemSyncInfo: IItem
 };
 
 const mapDispatchToProps = (dispatch: Dispatch<IAppState>,  { item, itemSyncInfo }: IRetryItemContainerProps): IRetryCallbackProps => ({
-  retryAction: () =>
-    dispatch(
-      getRetryAction(item, itemSyncInfo)),
+  retryAction: () => dispatch(getRetryAction(item, itemSyncInfo)),
 });
 
 const mergeProps = (_: undefined, { retryAction }: IRetryCallbackProps, { itemSyncInfo }: IRetryItemContainerProps): IRetryProps => ({

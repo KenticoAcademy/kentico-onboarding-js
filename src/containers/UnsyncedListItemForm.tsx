@@ -25,32 +25,29 @@ import { IAppState } from '../models/state/IAppState';
 
 const mapDispatchToProps = (dispatch: Dispatch<IAppState>,  { item, itemSyncInfo }: IListItemFormOwnProps): ICompleteListItemFormCallbackProps => {
   const { syncedText, id } = item;
+  const addingFailed = itemSyncInfo.operation === SyncOperation.Add;
+
+  if (addingFailed) {
+    return {
+      onSave: (newText: string) => dispatch(postItemAsync({
+        text: newText,
+        givenId: id,
+      })),
+      onDelete: () => dispatch(deleteUnsavedItem(id)),
+      onCancel: () => dispatch(changeItemOpenState(id)),
+    };
+  }
 
   return {
-    onSave: (newText: string) =>
-      itemSyncInfo.operation
-      === SyncOperation.Add
-        ? dispatch(
-          postItemAsync({
-            text: newText,
-            givenId: id,
-          }))
-        : dispatch(
-          editItemAsync({
-            syncedText,
-            text: newText,
-            id,
-          }))
-    ,
-    onDelete: itemSyncInfo.operation
-    === SyncOperation.Add
-      ? () => dispatch(
-        deleteUnsavedItem(id))
-      : () => dispatch(
-        deleteItemAsync({ id })),
-    onCancel: () =>
-      dispatch(
-        changeItemOpenState(id)),
+    onSave: (newText: string) => dispatch(editItemAsync({
+      syncedText,
+      text: newText,
+      id,
+    })),
+    onDelete: () => dispatch(deleteItemAsync({
+      id,
+    })),
+    onCancel: () => dispatch(changeItemOpenState(id)),
   };
 };
 

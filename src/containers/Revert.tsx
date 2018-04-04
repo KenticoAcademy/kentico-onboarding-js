@@ -39,8 +39,7 @@ const getRevertOperation = (operation: SyncOperation, id: Guid) => {
 };
 
 const mapDispatchToProps = (dispatch: Dispatch<IAppState>, { syncOperation, id }: IRevertContainerProps): IRevertCallbackProps => ({
-  revertAction: () =>
-    dispatch(getRevertOperation(syncOperation, id)),
+  revertAction: () => dispatch(getRevertOperation(syncOperation, id)),
 });
 
 export const Revert: ComponentClass<IRevertContainerProps> = connect(
