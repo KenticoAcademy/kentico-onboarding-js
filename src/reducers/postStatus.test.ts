@@ -20,7 +20,7 @@ describe('postStatus reducer', () => {
   it('sets flags correctly on failed request with errorMessage', () => {
     const message = '400 Bad Request';
     const id = 'ccda6054-f30d-4ee9-98b9-f6351ef9794c';
-    const errorAction = postError({id, message});
+    const errorAction = postError(id, message);
     const expectedState = new PostStatus({
       hasError: true,
       message
@@ -32,12 +32,13 @@ describe('postStatus reducer', () => {
   });
 
   it('sets flags correctly on successful request', () => {
-    const successfulAction = postSuccess({
-      newId: '123',
-      id: '234',
-      text: 'bla',
-      isSynchronized: true
-    });
+    const successfulAction = postSuccess(
+      '123',
+      {
+        id: '234',
+        text: 'bla',
+        isSynchronized: true
+      });
     const stateWithError = new PostStatus({
       hasError: true,
     });

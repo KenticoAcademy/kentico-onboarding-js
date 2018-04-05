@@ -22,8 +22,8 @@ export const axiosFetchFactory = (axios: IAxiosGet, url: string) =>
     axios.get(url);
 
 export const axiosPostFactory = (axios: IAxiosPost, url: string) =>
-  (data: { text: string }): Promise<AxiosResponse> =>
-    axios.post(url, data);
+  (text: string): Promise<AxiosResponse> =>
+    axios.post(url, {text});
 
 export const axiosPutFactory = (axios: IAxiosPut, url: string) =>
   (data: { id: Uuid, text: string }): Promise<AxiosResponse> =>

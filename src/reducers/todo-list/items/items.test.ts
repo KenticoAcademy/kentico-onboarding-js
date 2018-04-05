@@ -90,12 +90,13 @@ describe('items reducers', () => {
 
     const newState: OrderedMap<Uuid, ListItem> = items(
       twoItemsState,
-      postSuccess({
-        newId: idFromServer,
-        id: plainItem1.id,
-        text: plainItem1.text,
-        isSynchronized: true
-      })
+      postSuccess(
+        idFromServer,
+        {
+          id: plainItem1.id,
+          text: plainItem1.text,
+          isSynchronized: true
+        })
     ).toJS();
 
     expect(newState).toEqual(expectedState);
@@ -198,10 +199,10 @@ describe('items reducers', () => {
 
     const newState: OrderedMap<Uuid, ListItem> = items(
       twoItemsState,
-      actions.deleteError({
-        id: plainItem1.id,
-        message: errorMessage
-      }),
+      actions.deleteError(
+        plainItem1.id,
+        errorMessage
+      ),
     ).toJS();
 
     expect(newState).toEqual(expectedState);
@@ -328,10 +329,10 @@ describe('items reducers', () => {
 
     const newState: OrderedMap<Uuid, ListItem> = items(
       twoItemsState,
-      actions.putError({
-        id: plainItem2.id,
-        message: errorMessage
-      })
+      actions.putError(
+        plainItem2.id,
+        errorMessage
+      )
     ).toJS();
 
     expect(newState).toEqual(expectedState);

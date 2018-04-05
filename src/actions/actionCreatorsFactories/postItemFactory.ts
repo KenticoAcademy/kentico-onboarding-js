@@ -5,22 +5,12 @@ import { IAction } from '../IAction';
 import { Uuid } from '../../utils/generateId';
 import { NO_CONNECTION } from '../../constants/connection';
 
-interface InsertItemArguments {
-  text: string;
-  id: Uuid;
-  isSynchronized: boolean;
-}
-
-interface PostSuccessArguments extends InsertItemArguments {
-  newId: Uuid;
-}
-
 interface IPostDependencies {
-  readonly postSuccess: (args: PostSuccessArguments) => IAction;
-  readonly postError: (args: { id: Uuid, message: string }) => IAction;
-  readonly insertItem: (args: InsertItemArguments) => IAction;
+  readonly postSuccess: (newId: Uuid, item: { id: Uuid, text: string, isSynchronized: boolean }) => IAction;
+  readonly postError: (id: Uuid, message: string) => IAction;
+  readonly insertItem: (item: {text: string, id: Uuid, isSynchronized: boolean}) => IAction;
   readonly generateId: () => Uuid;
-  readonly axiosPost: (data: { text: string }) => Promise<AxiosResponse>;
+  readonly axiosPost: (text: string) => Promise<AxiosResponse>;
 }
 
 export const postItemFactory =
@@ -35,14 +25,16 @@ export const postItemFactory =
         }));
 
         try {
-          const response = await axiosPost({text});
+          const response = await axiosPost(text);
 
-          return dispatch(postSuccess({
-            newId: response.data.id,
-            id: tempId,
-            text: response.data.text,
-            isSynchronized: true
-          }));
+          return dispatch(postSuccess(
+            response.data.id,
+            {
+              id: tempId,
+              text: response.data.text,
+              isSynchronized: true
+            }
+          ));
         } catch (error) {
           const errorResponse = error.response;
           const message =
@@ -50,6 +42,6 @@ export const postItemFactory =
               ? NO_CONNECTION
               : `${errorResponse.status} ${errorResponse.statusText}`;
 
-          return dispatch(postError({id: tempId, message}));
+          return dispatch(postError(tempId, message));
         }
       };

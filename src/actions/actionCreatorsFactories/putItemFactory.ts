@@ -5,29 +5,26 @@ import { IAction } from '../IAction';
 import { IAppState } from '../../models/IAppState';
 import { NO_CONNECTION } from '../../constants/connection';
 
-interface UpdateItemArguments {
+interface IUpdateDependencies {
+  readonly updateItem: (item: UpdateItem) => IAction;
+  readonly putSuccess: (id: Uuid) => IAction;
+  readonly putError: (id: Uuid, message: string) => IAction;
+  readonly axiosPut: (item: UpdateItem) => Promise<AxiosResponse>;
+}
+
+export interface UpdateItem {
   id: Uuid;
   text: string;
 }
 
-interface IUpdateDependencies {
-  readonly updateItem: (args: UpdateItemArguments) => IAction;
-  readonly putSuccess: (id: Uuid) => IAction;
-  readonly putError: (args: { id: Uuid, message: string }) => IAction;
-  readonly axiosPut: (data: { id: Uuid, text: string }) => Promise<AxiosResponse>;
-}
-
 export const putItemFactory =
   ({updateItem, putSuccess, putError, axiosPut}: IUpdateDependencies) =>
-    ({id, text}: { id: Uuid, text: string }) =>
+    (item: UpdateItem) =>
       async (dispatch: Dispatch<IAppState>): Promise<IAction> => {
-        dispatch(updateItem({
-          id,
-          text
-        }));
+        dispatch(updateItem(item));
 
         try {
-          const response = await axiosPut({id, text});
+          const response = await axiosPut(item);
 
           return dispatch(putSuccess(response.data.id));
         } catch (error) {
@@ -36,6 +33,6 @@ export const putItemFactory =
               ? NO_CONNECTION
               : error.response.statusText;
 
-          return dispatch(putError({id, message}));
+          return dispatch(putError(item.id, message));
         }
       };

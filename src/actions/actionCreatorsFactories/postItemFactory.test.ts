@@ -26,7 +26,7 @@ describe('post item tests', () => {
       id: 'e1f5c5e4-7f5e-4aa0-9e52-117cc8267f13',
       text: 'item'
     };
-    const axiosPost = (_data: {text: string}) =>
+    const axiosPost = (_text: string) =>
       Promise.resolve({
         data: [{
           id: fetchedTestItem.id,
@@ -58,7 +58,7 @@ describe('post item tests', () => {
       id: 'e1f5c5e4-7f5e-4aa0-9e52-117cc8267f13',
       text: 'item'
     };
-    const axiosPost = (_data: {text: string}) =>
+    const axiosPost = (_text: string) =>
       Promise.resolve({
         data: {
           id: fetchedTestItem.id,
@@ -88,7 +88,7 @@ describe('post item tests', () => {
 
   it('dispatches TODO_LIST_ITEM_INSERT, POST_ITEM_ERROR on POST request failure', async () => {
     const generateId = jest.fn();
-    const axiosPost = (_data: {text: string}) =>
+    const axiosPost = (_text: string) =>
       Promise.reject({
         response: {
           data: undefined,

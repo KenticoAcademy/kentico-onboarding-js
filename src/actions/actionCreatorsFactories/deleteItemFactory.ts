@@ -8,7 +8,7 @@ import { NO_CONNECTION, OPERATION_FAILED } from '../../constants/connection';
 interface IDeleteDependencies {
   readonly deleteItem: (id: Uuid) => IAction;
   readonly deleteSuccess: (id: Uuid) => IAction;
-  readonly deleteError: (args: { id: Uuid, message: string }) => IAction;
+  readonly deleteError: (id: Uuid, message: string) => IAction;
   readonly axiosDelete: (id: Uuid) => Promise<AxiosResponse>;
 }
 
@@ -28,6 +28,6 @@ export const deleteItemFactory =
             ? NO_CONNECTION
             : OPERATION_FAILED;
 
-        return dispatch(deleteError({id, message}));
+        return dispatch(deleteError(id, message));
       }
     };

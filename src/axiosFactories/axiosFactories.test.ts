@@ -36,11 +36,9 @@ describe('Axios factories tests', () => {
       post
     };
     const url = '/test/url';
-    const postItem = {
-      text: 'text'
-    };
+    const text = 'text';
 
-    axiosPostFactory(axios, url)(postItem);
+    axiosPostFactory(axios, url)(text);
 
     expect(post.mock.calls.length).toEqual(1);
   });
@@ -51,14 +49,14 @@ describe('Axios factories tests', () => {
       post
     };
     const url = '/test/url';
-    const postItem = {
+    const data = {
       text: 'text'
     };
 
-    axiosPostFactory(axios, url)(postItem);
+    axiosPostFactory(axios, url)(data.text);
 
     expect(post.mock.calls[0][0]).toEqual(url);
-    expect(post.mock.calls[0][1]).toEqual(postItem);
+    expect(post.mock.calls[0][1]).toEqual(data);
   });
 
   it ('invokes put with url in axiosPutFactory', () => {

@@ -13,7 +13,7 @@ interface FetchedItem {
 }
 
 interface IPostDependencies {
-  readonly insertItem: (args: { text: string, id: Uuid, isSynchronized: boolean }) => IAction;
+  readonly insertItem: (item: { text: string, id: Uuid, isSynchronized: boolean }) => IAction;
   readonly fetchSuccess: () => IAction;
   readonly fetchError: (errorText: string) => IAction;
   readonly axiosFetch: () => Promise<AxiosResponse>;

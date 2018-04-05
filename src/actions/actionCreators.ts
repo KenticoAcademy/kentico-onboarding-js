@@ -18,47 +18,34 @@ import {
 } from '../constants/actionTypes';
 import { Uuid } from '../utils/generateId';
 import { IAction } from './IAction';
-
-interface ErrorActionArgs {
-  id: Uuid;
-  message: string;
-}
+import { UpdateItem } from './actionCreatorsFactories/putItemFactory';
 
 export const insertItem =
-  (args: { text: string, id: Uuid, isSynchronized: boolean }): IAction => ({
+  (item: {text: string, id: Uuid, isSynchronized: boolean}): IAction => ({
     type: TODO_LIST_ITEM_INSERT,
-    payload: {
-      id: args.id,
-      text: args.text,
-      isSynchronized: args.isSynchronized
-    },
+    payload: item,
   });
 
 export const postSuccess =
-  (args: { newId: Uuid, id: Uuid, text: string, isSynchronized: boolean }): IAction => ({
+  (newId: Uuid, item: {id: Uuid, text: string, isSynchronized: boolean}): IAction => ({
     type: POST_ITEM_SUCCESS,
     payload: {
-      newId: args.newId,
-      id: args.id,
-      text: args.text,
-      isSynchronized: args.isSynchronized
+      newId,
+      ...item
     }
   });
 
-export const postError = (args: ErrorActionArgs): IAction => ({
+export const postError = (id: Uuid, message: string): IAction => ({
   type: POST_ITEM_ERROR,
   payload: {
-    id: args.id,
-    message: args.message
+    id,
+    message
   }
 });
 
-export const updateItem = (args: { id: Uuid, text: string }): IAction => ({
+export const updateItem = (item: UpdateItem): IAction => ({
   type: TODO_LIST_ITEM_UPDATE,
-  payload: {
-    id: args.id,
-    text: args.text
-  },
+  payload: item,
 });
 
 export const putSuccess = (id: Uuid): IAction => ({
@@ -68,11 +55,11 @@ export const putSuccess = (id: Uuid): IAction => ({
   }
 });
 
-export const putError = (args: ErrorActionArgs): IAction => ({
+export const putError = (id: Uuid, message: string): IAction => ({
   type: PUT_ITEM_ERROR,
   payload: {
-    id: args.id,
-    message: args.message
+    id,
+    message
   }
 });
 
@@ -90,11 +77,11 @@ export const deleteSuccess = (id: Uuid): IAction => ({
   }
 });
 
-export const deleteError = (args: ErrorActionArgs): IAction => ({
+export const deleteError = (id: Uuid, message: string): IAction => ({
   type: DELETE_ITEM_ERROR,
   payload: {
-    id: args.id,
-    message: args.message
+    id,
+    message
   }
 });
 
