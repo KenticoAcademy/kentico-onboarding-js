@@ -9,39 +9,37 @@ export interface IItemsDataProps {
   readonly itemsSyncInfo: IItemSyncInfo[];
 }
 
-export class Items extends React.PureComponent<IItemsDataProps> {
-  static displayName = 'Items';
+const propTypes = {
+  itemsSyncInfo: PropTypes.arrayOf(PropTypes.shape({
+    syncState: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
+  })).isRequired,
+};
 
-  static propTypes = {
-    itemsSyncInfo: PropTypes.arrayOf(PropTypes.shape({
-      syncState: PropTypes.string.isRequired,
-      id: PropTypes.string.isRequired,
-    })).isRequired,
-  };
+const Items: React.SFC<IItemsDataProps> = ({ itemsSyncInfo }) =>
+  <div>
+    {itemsSyncInfo.map((itemSyncInfo, index) => {
+      const className = classNames(
+        'list-group-item',
+        { disabled: itemSyncInfo.syncState === SyncState.Pending }
+      );
 
-  render() {
-    return (
-      <div>
-        {this.props.itemsSyncInfo.map((itemSyncInfo, index) => {
-          const className = classNames(
-            'list-group-item',
-            { disabled: itemSyncInfo.syncState === SyncState.Pending }
-          );
+      return (
+        <li
+          className={className}
+          key={itemSyncInfo.id}
+        >
+          <ListItem
+            itemId={itemSyncInfo.id}
+            itemNumber={index + 1}
+            itemSyncInfo={itemSyncInfo}
+          />
+        </li>
+      );
+    })}
+  </div>;
 
-          return (
-            <li
-              className={className}
-              key={itemSyncInfo.id}
-            >
-              <ListItem
-                itemId={itemSyncInfo.id}
-                itemNumber={index + 1}
-                itemSyncInfo={itemSyncInfo}
-              />
-            </li>
-          );
-        })}
-      </div>
-    );
-  }
-}
+Items.displayName = 'Items';
+Items.propTypes = propTypes;
+
+export { Items };
