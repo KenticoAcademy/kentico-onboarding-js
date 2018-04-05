@@ -2,8 +2,8 @@ import {
   TODO_LIST_ITEM_UPDATE,
   TODO_LIST_ITEM_INSERT,
   TODO_LIST_ITEM_EDIT,
-  TODO_LIST_ITEM_CANCEL_EDIT, POST_ITEM_SUCCESS, PUT_ITEM_SUCCESS, TODO_LIST_ITEM_DELETE,
-  PUT_ITEM_ERROR, DELETE_ITEM_ERROR, CLOSE_PUT_DELETE_ERROR,
+  TODO_LIST_ITEM_CANCEL_EDIT, ITEM_INSERT_SUCCEEDED, ITEM_UPDATE_SUCCEEDED, TODO_LIST_ITEM_DELETE,
+  ITEM_UPDATE_FAILED, ITEM_DELETION_FAILED, ITEM_ERROR_CLOSE,
 } from '../../../constants/actionTypes';
 import { ListItem } from '../../../models/ListItem';
 import { IAction } from '../../../actions/IAction';
@@ -27,7 +27,7 @@ export const item = (previousState: ListItem, action: IAction): ListItem => {
         isSynchronized: action.payload.isSynchronized
       });
 
-    case POST_ITEM_SUCCESS:
+    case ITEM_INSERT_SUCCEEDED:
       return new ListItem({
         id: action.payload.newId,
         text: action.payload.text,
@@ -46,7 +46,7 @@ export const item = (previousState: ListItem, action: IAction): ListItem => {
       return previousState.with(updatedItem);
     }
 
-    case PUT_ITEM_SUCCESS: {
+    case ITEM_UPDATE_SUCCEEDED: {
       const updatedItem = {
         isSynchronized: true,
         errorMessage: ''
@@ -55,7 +55,7 @@ export const item = (previousState: ListItem, action: IAction): ListItem => {
       return previousState.with(updatedItem);
     }
 
-    case PUT_ITEM_ERROR: {
+    case ITEM_UPDATE_FAILED: {
       const updatedItem = {
         isSynchronized: true,
         text: previousState.backupText,
@@ -74,7 +74,7 @@ export const item = (previousState: ListItem, action: IAction): ListItem => {
       return previousState.with(updatedItem);
     }
 
-    case DELETE_ITEM_ERROR: {
+    case ITEM_DELETION_FAILED: {
       const updatedItem = {
         isSynchronized: true,
         errorMessage: action.payload.message
@@ -83,7 +83,7 @@ export const item = (previousState: ListItem, action: IAction): ListItem => {
       return previousState.with(updatedItem);
     }
 
-    case CLOSE_PUT_DELETE_ERROR: {
+    case ITEM_ERROR_CLOSE: {
       const updatedItem = {
         errorMessage: ''
       };

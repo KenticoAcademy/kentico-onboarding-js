@@ -5,8 +5,8 @@ import { IAction } from '../IAction';
 import { Uuid } from '../../utils/generateId';
 import { NO_CONNECTION } from '../../constants/connection';
 import {
-  POST_ITEM_ERROR,
-  POST_ITEM_SUCCESS,
+  ITEM_INSERT_FAILED,
+  ITEM_INSERT_SUCCEEDED,
   TODO_LIST_ITEM_INSERT
 } from '../../constants/actionTypes';
 
@@ -21,17 +21,17 @@ export const insertItem =
     payload: item,
   });
 
-export const postSuccess =
+export const postSucceeded =
   (newId: Uuid, item: {id: Uuid, text: string, isSynchronized: boolean}): IAction => ({
-    type: POST_ITEM_SUCCESS,
+    type: ITEM_INSERT_SUCCEEDED,
     payload: {
       newId,
       ...item
     }
   });
 
-export const postError = (id: Uuid, message: string): IAction => ({
-  type: POST_ITEM_ERROR,
+export const postFailed = (id: Uuid, message: string): IAction => ({
+  type: ITEM_INSERT_FAILED,
   payload: {
     id,
     message
@@ -52,7 +52,7 @@ export const postItemFactory =
         try {
           const response = await axiosPost(text);
 
-          return dispatch(postSuccess(
+          return dispatch(postSucceeded(
             response.data.id,
             {
               id: tempId,
@@ -67,6 +67,6 @@ export const postItemFactory =
               ? NO_CONNECTION
               : `${errorResponse.status} ${errorResponse.statusText}`;
 
-          return dispatch(postError(tempId, message));
+          return dispatch(postFailed(tempId, message));
         }
       };

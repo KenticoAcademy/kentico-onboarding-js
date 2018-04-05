@@ -1,5 +1,5 @@
 import { postItemFactory } from './postItemFactory';
-import { POST_ITEM_ERROR, POST_ITEM_SUCCESS, TODO_LIST_ITEM_INSERT } from '../../constants/actionTypes';
+import { ITEM_INSERT_FAILED, ITEM_INSERT_SUCCEEDED, TODO_LIST_ITEM_INSERT } from '../../constants/actionTypes';
 
 const dispatch = jest.fn(input => input);
 
@@ -14,7 +14,7 @@ describe('post item tests', () => {
   };
   const generateId = jest.fn(() => postTestItem.id);
 
-  it('dispatches TODO_LIST_ITEM_INSERT, POST_ITEM_SUCCESS on correct POST request', async () => {
+  it('dispatches TODO_LIST_ITEM_INSERT, ITEM_INSERT_SUCCEEDED on correct POST request', async () => {
     const fetchedTestItem = {
       id: 'e1f5c5e4-7f5e-4aa0-9e52-117cc8267f13',
       text: 'item'
@@ -38,8 +38,8 @@ describe('post item tests', () => {
         isSynchronized: false,
       }
     };
-    const postItemSuccess = {
-      type: POST_ITEM_SUCCESS,
+    const postItemSucceeded = {
+      type: ITEM_INSERT_SUCCEEDED,
       payload: {
         newId: fetchedTestItem.id,
         ...postTestItem,
@@ -50,10 +50,10 @@ describe('post item tests', () => {
     await postItem(postTestItem.text)(dispatch);
 
     expect(dispatch.mock.calls[0][0]).toEqual(insertItem);
-    expect(dispatch.mock.calls[1][0]).toEqual(postItemSuccess);
+    expect(dispatch.mock.calls[1][0]).toEqual(postItemSucceeded);
   });
 
-  it('dispatches TODO_LIST_ITEM_INSERT, POST_ITEM_ERROR on POST request failure', async () => {
+  it('dispatches TODO_LIST_ITEM_INSERT, ITEM_INSERT_FAILED on POST request failure', async () => {
     const axiosPost = (_text: string) =>
       Promise.reject({
         response: {
@@ -76,8 +76,8 @@ describe('post item tests', () => {
         isSynchronized: false,
       }
     };
-    const postItemError = {
-      type: POST_ITEM_ERROR,
+    const postItemFailed = {
+      type: ITEM_INSERT_FAILED,
       payload: {
         id: postTestItem.id,
         message: '400 Bad Request'
@@ -87,6 +87,6 @@ describe('post item tests', () => {
     await postItem(postTestItem.text)(dispatch);
 
     expect(dispatch.mock.calls[0][0]).toEqual(insertItem);
-    expect(dispatch.mock.calls[1][0]).toEqual(postItemError);
+    expect(dispatch.mock.calls[1][0]).toEqual(postItemFailed);
   });
 });

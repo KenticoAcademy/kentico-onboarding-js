@@ -1,9 +1,9 @@
 import {
   TODO_LIST_ITEM_EDIT,
   TODO_LIST_ITEM_CANCEL_EDIT,
-  CLOSE_PUT_DELETE_ERROR,
-  CLOSE_FETCH_ERROR,
-  CLOSE_POST_ERROR} from '../constants/actionTypes';
+  ITEM_ERROR_CLOSE,
+  ITEMS_FETCH_ERROR_CLOSE,
+  ITEM_INSERT_ERROR_CLOSE} from '../constants/actionTypes';
 import { Uuid } from '../utils/generateId';
 import { IAction } from './IAction';
 
@@ -22,16 +22,16 @@ export const cancelItemEditing = (id: Uuid): IAction => ({
 });
 
 export const closeItemError = (id: Uuid): IAction => ({
-  type: CLOSE_PUT_DELETE_ERROR,
+  type: ITEM_ERROR_CLOSE,
   payload: {
     id,
   }
 });
 
 export const closeFetchError = (): IAction => ({
-  type: CLOSE_FETCH_ERROR
+  type: ITEMS_FETCH_ERROR_CLOSE
 });
 
 export const closePostError = (): IAction => ({
-  type: CLOSE_POST_ERROR
+  type: ITEM_INSERT_ERROR_CLOSE
 });

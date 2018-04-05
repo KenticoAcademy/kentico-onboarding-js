@@ -8,8 +8,8 @@ import {
   OPERATION_FAILED
 } from '../../constants/connection';
 import {
-  DELETE_ITEM_ERROR,
-  DELETE_ITEM_SUCCESS,
+  ITEM_DELETION_FAILED,
+  ITEM_DELETION_SUCCEEDED,
   TODO_LIST_ITEM_DELETE
 } from '../../constants/actionTypes';
 
@@ -24,15 +24,15 @@ export const deleteItem = (id: Uuid): IAction => ({
   },
 });
 
-export const deleteSuccess = (id: Uuid): IAction => ({
-  type: DELETE_ITEM_SUCCESS,
+export const deletionSucceeded = (id: Uuid): IAction => ({
+  type: ITEM_DELETION_SUCCEEDED,
   payload: {
     id
   }
 });
 
-export const deleteError = (id: Uuid, message: string): IAction => ({
-  type: DELETE_ITEM_ERROR,
+export const deletionFailed = (id: Uuid, message: string): IAction => ({
+  type: ITEM_DELETION_FAILED,
   payload: {
     id,
     message
@@ -47,7 +47,7 @@ export const deleteItemFactory =
       try {
         await axiosDelete(id);
 
-        return dispatch(deleteSuccess(id));
+        return dispatch(deletionSucceeded(id));
       } catch (error) {
         const errorResponse = error.response;
         const message =
@@ -55,6 +55,6 @@ export const deleteItemFactory =
             ? NO_CONNECTION
             : OPERATION_FAILED;
 
-        return dispatch(deleteError(id, message));
+        return dispatch(deletionFailed(id, message));
       }
     };

@@ -6,8 +6,8 @@ import { IAction } from '../IAction';
 import { NO_CONNECTION } from '../../constants/connection';
 import { insertItem } from './postItemFactory';
 import {
-  FETCH_ITEMS_ERROR,
-  FETCH_ITEMS_SUCCESS
+  ITEMS_FETCH_FAILED,
+  ITEMS_FETCH_SUCCEEDED
 } from '../../constants/actionTypes';
 
 interface IFetchedItem {
@@ -21,12 +21,12 @@ interface IPostDependencies {
   readonly axiosFetch: () => Promise<AxiosResponse>;
 }
 
-export const fetchSuccess = (): IAction => ({
-  type: FETCH_ITEMS_SUCCESS
+export const fetchSucceeded = (): IAction => ({
+  type: ITEMS_FETCH_SUCCEEDED
 });
 
-export const fetchError = (errorText: string): IAction => ({
-  type: FETCH_ITEMS_ERROR,
+export const fetchFailed = (errorText: string): IAction => ({
+  type: ITEMS_FETCH_FAILED,
   payload: {
     errorText
   }
@@ -44,7 +44,7 @@ export const fetchItemsFactory =
             isSynchronized: true
           })));
 
-        return dispatch(fetchSuccess());
+        return dispatch(fetchSucceeded());
       } catch (error) {
         const errorResponse = error.response;
         const message =
@@ -52,6 +52,6 @@ export const fetchItemsFactory =
             ? NO_CONNECTION
             : `${errorResponse.status} ${errorResponse.statusText}`;
 
-        return dispatch(fetchError(message));
+        return dispatch(fetchFailed(message));
       }
     };

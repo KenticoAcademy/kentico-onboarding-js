@@ -1,5 +1,5 @@
 import { fetchItemsFactory } from './fetchItemsFactory';
-import { FETCH_ITEMS_ERROR, FETCH_ITEMS_SUCCESS } from '../../constants/actionTypes';
+import { ITEMS_FETCH_FAILED, ITEMS_FETCH_SUCCEEDED } from '../../constants/actionTypes';
 
 const dispatch = jest.fn(input => input);
 
@@ -19,7 +19,7 @@ describe('fetch items tests', () => {
     isSynchronized: true
   };
 
-  it('dispatches TODO_LIST_ITEM_INSERT, FETCH_ITEMS_SUCCESS on correct GET request', async () => {
+  it('dispatches TODO_LIST_ITEM_INSERT, ITEMS_FETCH_SUCCEEDED on correct GET request', async () => {
     const items = [{
       Id: fetchedTestItem0.id,
       Text: fetchedTestItem0.text
@@ -36,18 +36,17 @@ describe('fetch items tests', () => {
         headers: undefined,
         config: {},
       });
-    const fetchItems = fetchItemsFactory(
-      {
+    const fetchItems = fetchItemsFactory({
         axiosFetch
       });
-    const fetchSuccess = {
-      type: FETCH_ITEMS_SUCCESS
+    const fetchSucceeded = {
+      type: ITEMS_FETCH_SUCCEEDED
     };
 
     await fetchItems()(dispatch);
 
     expect(dispatch.mock.calls.length).toEqual(items.length + 1);
-    expect(dispatch.mock.calls[items.length][0]).toEqual(fetchSuccess);
+    expect(dispatch.mock.calls[items.length][0]).toEqual(fetchSucceeded);
   });
 
   it('creates TODO_LIST_ITEM_INSERT with correct arguments', async () => {
@@ -67,8 +66,7 @@ describe('fetch items tests', () => {
         headers: undefined,
         config: {},
       });
-    const fetchItems = fetchItemsFactory(
-      {
+    const fetchItems = fetchItemsFactory({
         axiosFetch
       });
 
@@ -78,7 +76,7 @@ describe('fetch items tests', () => {
     expect(dispatch.mock.calls[1][0].payload).toEqual(fetchedTestItem1);
   });
 
-  it('dispatches FETCH_ITEMS_ERROR after GET request failure', async () => {
+  it('dispatches ITEMS_FETCH_FAILED after GET request failure', async () => {
     const axiosFetch = () =>
       Promise.reject({
         response: {
@@ -89,12 +87,11 @@ describe('fetch items tests', () => {
           config: {}
         }
       });
-    const fetchItems = fetchItemsFactory(
-      {
+    const fetchItems = fetchItemsFactory({
         axiosFetch
       });
-    const fetchError = {
-      type: FETCH_ITEMS_ERROR,
+    const fetchFailed = {
+      type: ITEMS_FETCH_FAILED,
       payload: {
         errorText: '404 Not Found'
       }
@@ -102,6 +99,6 @@ describe('fetch items tests', () => {
 
     await fetchItems()(dispatch);
 
-    expect(dispatch.mock.calls[0][0]).toEqual(fetchError);
+    expect(dispatch.mock.calls[0][0]).toEqual(fetchFailed);
   });
 });

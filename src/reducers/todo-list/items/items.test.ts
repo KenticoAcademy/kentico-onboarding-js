@@ -5,16 +5,16 @@ import {
 import { items } from './items';
 import { ListItem } from '../../../models/ListItem';
 import { Uuid } from '../../../utils/generateId';
-import { insertItem, postSuccess } from '../../../actions/actionCreatorsFactories/postItemFactory';
+import { insertItem, postSucceeded } from '../../../actions/actionCreatorsFactories/postItemFactory';
 import {
-  putError,
-  putSuccess,
+  putFailed,
+  putSucceeded,
   updateItem
 } from '../../../actions/actionCreatorsFactories/putItemFactory';
 import {
-  deleteError,
+  deletionFailed,
   deleteItem,
-  deleteSuccess
+  deletionSucceeded
 } from '../../../actions/actionCreatorsFactories/deleteItemFactory';
 
 describe('items reducers', () => {
@@ -72,7 +72,7 @@ describe('items reducers', () => {
     expect(newState).toEqual(expectedState);
   });
 
-  it('should update item\'s id after POST_ITEM_SUCCESS action', () => {
+  it('should update item\'s id after ITEM_INSERT_SUCCEEDED action', () => {
     const idFromServer = '4061431b-40b1-4c24-a99b-8dc505e879ed';
     const twoItemsState: OrderedMap<Uuid, ListItem> = OrderedMap([
       [
@@ -100,7 +100,7 @@ describe('items reducers', () => {
 
     const newState: OrderedMap<Uuid, ListItem> = items(
       twoItemsState,
-      postSuccess(
+      postSucceeded(
         idFromServer,
         {
           id: plainItem1.id,
@@ -165,7 +165,7 @@ describe('items reducers', () => {
     expect(newState).toEqual(expectedState);
   });
 
-  it('should delete record after DELETE_ITEM_SUCCESS action', () => {
+  it('should delete record after ITEM_DELETION_SUCCEEDED action', () => {
     const twoItemsState: OrderedMap<Uuid, ListItem> = OrderedMap([
       [
         plainItem1.id,
@@ -180,13 +180,13 @@ describe('items reducers', () => {
 
     const newState: OrderedMap<Uuid, ListItem> = items(
       twoItemsState,
-      deleteSuccess(plainItem1.id),
+      deletionSucceeded(plainItem1.id),
     ).toJS();
 
     expect(newState).toEqual(expectedState);
   });
 
-  it('should add error message to item after DELETE_ITEM_ERROR action', () => {
+  it('should add error message to item after ITEM_DELETION_FAILED action', () => {
     const errorMessage = 'this time it is really bad';
     const twoItemsState: OrderedMap<Uuid, ListItem> = OrderedMap([
       [
@@ -209,7 +209,7 @@ describe('items reducers', () => {
 
     const newState: OrderedMap<Uuid, ListItem> = items(
       twoItemsState,
-      deleteError(
+      deletionFailed(
         plainItem1.id,
         errorMessage
       ),
@@ -284,7 +284,7 @@ describe('items reducers', () => {
     expect(newState).toEqual(expectedState);
   });
 
-  it('should update correct item after PUT_ITEM_SUCCESS action accordingly', () => {
+  it('should update correct item after ITEM_UPDATE_SUCCEEDED action accordingly', () => {
     const twoItemsState: OrderedMap<Uuid, ListItem> = OrderedMap([
       [
         plainItem1.id,
@@ -305,13 +305,13 @@ describe('items reducers', () => {
 
     const newState: OrderedMap<Uuid, ListItem> = items(
       twoItemsState,
-      putSuccess(plainItem2.id)
+      putSucceeded(plainItem2.id)
     );
 
     expect(newState).toEqual(expectedState);
   });
 
-  it('should revert item back after PUT_ITEM_ERROR action', () => {
+  it('should revert item back after ITEM_UPDATE_FAILED action', () => {
     const errorMessage = 'something went really wrong';
     const backupText = 'some intelligent backup text';
     const twoItemsState: OrderedMap<Uuid, ListItem> = OrderedMap([
@@ -339,7 +339,7 @@ describe('items reducers', () => {
 
     const newState: OrderedMap<Uuid, ListItem> = items(
       twoItemsState,
-      putError(
+      putFailed(
         plainItem2.id,
         errorMessage
       )
@@ -348,7 +348,7 @@ describe('items reducers', () => {
     expect(newState).toEqual(expectedState);
   });
 
-  it('should delete item\'s error message after CLOSE_PUT_DELETE_ERROR action', () => {
+  it('should delete item\'s error message after ITEM_ERROR_CLOSE action', () => {
     const errorMessage = 'something went really wrong';
     const twoItemsState: OrderedMap<Uuid, ListItem> = OrderedMap([
       [

@@ -1,8 +1,8 @@
 import { deleteItemFactory } from './deleteItemFactory';
 import { OPERATION_FAILED } from '../../constants/connection';
 import {
-  DELETE_ITEM_ERROR,
-  DELETE_ITEM_SUCCESS,
+  ITEM_DELETION_FAILED,
+  ITEM_DELETION_SUCCEEDED,
   TODO_LIST_ITEM_DELETE
 } from '../../constants/actionTypes';
 
@@ -14,7 +14,7 @@ beforeEach(() => {
 });
 
 describe('delete item tests', () => {
-  it('dispatches TODO_LIST_ITEM_DELETE, DELETE_ITEM_SUCCESS after successful DELETE request', async () => {
+  it('dispatches TODO_LIST_ITEM_DELETE, ITEM_DELETION_SUCCEEDED after successful DELETE request', async () => {
     const axiosDelete = (_id: string) =>
       Promise.resolve({
         data: undefined,
@@ -32,8 +32,8 @@ describe('delete item tests', () => {
         id
       }
     };
-    const deleteSuccess = {
-      type: DELETE_ITEM_SUCCESS,
+    const deletionSucceeded = {
+      type: ITEM_DELETION_SUCCEEDED,
       payload: {
         id
       }
@@ -42,10 +42,10 @@ describe('delete item tests', () => {
     await deleteFromServer(id)(dispatch);
 
     expect(dispatch.mock.calls[0][0]).toEqual(deleteItem);
-    expect(dispatch.mock.calls[1][0]).toEqual(deleteSuccess);
+    expect(dispatch.mock.calls[1][0]).toEqual(deletionSucceeded);
   });
 
-  it('dispatches TODO_LIST_ITEM_DELETE, DELETE_ITEM_ERROR after unsuccessful DELETE request', async () => {
+  it('dispatches TODO_LIST_ITEM_DELETE, ITEM_DELETION_FAILED after unsuccessful DELETE request', async () => {
     const axiosDelete = (_id: string) =>
       Promise.reject({
         response: {
@@ -65,8 +65,8 @@ describe('delete item tests', () => {
         id
       }
     };
-    const deleteErrorItem = {
-      type: DELETE_ITEM_ERROR,
+    const deletionFailed = {
+      type: ITEM_DELETION_FAILED,
       payload: {
         id,
         message: OPERATION_FAILED
@@ -76,6 +76,6 @@ describe('delete item tests', () => {
     await deleteFromServer(id)(dispatch);
 
     expect(dispatch.mock.calls[0][0]).toEqual(deleteItem);
-    expect(dispatch.mock.calls[1][0]).toEqual(deleteErrorItem);
+    expect(dispatch.mock.calls[1][0]).toEqual(deletionFailed);
   });
 });
