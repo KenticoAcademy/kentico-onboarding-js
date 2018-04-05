@@ -10,36 +10,47 @@ export interface IListStateProps {
   readonly itemKeys: Array<Key>;
 }
 
-export const List: React.StatelessComponent<IListStateProps>
-  = ({ itemKeys }) => {
-  const listOfKeys = itemKeys.reverse().map((key, index) => (
-    <div className="list-group-item" key={key}>
-      <ListItem
-        itemKey={key}
-        bullet={(index + 1).toString()}
-      />
-    </div>
-  ));
+export interface IListDispatchProps {
+  readonly getItems: () => void;
+}
+interface IListProps extends IListStateProps, IListDispatchProps {}
 
-  return (
-    <div>
-      <div className="col-sm-12 col-md-offset-2 col-md-8">
-        <div className="row">
-          <NewItem />
-        </div>
-        <div className="row">
-          <div className="list-group">
-            {listOfKeys}
-          </div>
-        </div>
-        <ListGroupActions />
+export class List extends React.PureComponent<IListProps> {
+  static displayName = 'List';
+
+  static propTypes = {
+    itemKeys: PropTypes.array.isRequired,
+    getItems: PropTypes.func.isRequired,
+  };
+
+  componentDidMount() {
+    this.props.getItems();
+  }
+
+  render() {
+    const listOfKeys = this.props.itemKeys.reverse().map((key, index) => (
+      <div className="list-group-item" key={key}>
+        <ListItem
+          itemKey={key}
+          bullet={(index + 1).toString()}
+        />
       </div>
-    </div>
-  );
-};
+    ));
 
-List.displayName = 'List';
-
-List.propTypes = {
-  itemKeys: PropTypes.array.isRequired,
-};
+    return (
+      <div>
+        <div className="col-sm-12 col-md-offset-2 col-md-8">
+          <div className="row">
+            <NewItem />
+          </div>
+          <div className="row">
+            <div className="list-group">
+              {listOfKeys}
+            </div>
+          </div>
+          <ListGroupActions />
+        </div>
+      </div>
+    );
+  }
+}

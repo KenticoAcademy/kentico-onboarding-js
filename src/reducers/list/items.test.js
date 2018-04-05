@@ -14,6 +14,7 @@ import {
   cancelItemsEditing,
 } from '../../actions/index.ts';
 import { addItemFactory } from '../../actions/factories/addItemFactory.ts';
+import { getItemsSuccess } from '../../actions';
 
 describe('items reducer works correctly', () => {
   it('ITEM_ADD with mocked factory returns map with correct item', () => {
@@ -229,6 +230,34 @@ describe('items reducer works correctly', () => {
 
     const action = changeItemValue(key, changeableValue);
     const actual = items(state, action);
+
+    expect(actual).toEqual(expected);
+  });
+
+  it('ITEMS_GET_SUCCESS maps array of Items to new state', () => {
+    const key1 = 'idX';
+    const key2 = 'idY';
+    const key3 = 'idZ';
+
+    const mapItem1 = new Item({
+      key: key1,
+      value: 'idX item',
+    });
+    const mapItem2 = new Item({
+      key: key2,
+      value: 'idY item',
+    });
+    const mapItem3 = new Item({
+      key: key3,
+      value: 'idZ item',
+    });
+    const expected = new OrderedMap()
+      .set(key1, mapItem1)
+      .set(key2, mapItem2)
+      .set(key3, mapItem3);
+
+    const action = getItemsSuccess([mapItem1, mapItem2, mapItem3]);
+    const actual = items(undefined, action);
 
     expect(actual).toEqual(expected);
   });

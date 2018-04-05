@@ -5,3 +5,5 @@ export const ITEM_EDIT_CANCEL = 'ITEM_EDIT_CANCEL';
 export const ITEM_DELETE = 'ITEM_DELETE';
 
 export const ITEMS_API_URL = 'api/v1.0/todos/';
+
+export const ERROR_GET_ITEMS = 'Could not get items from server';

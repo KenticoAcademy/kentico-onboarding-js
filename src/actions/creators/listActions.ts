@@ -4,6 +4,8 @@ import { actionTypes } from '../../constants/actionTypes';
 import { Key } from '../../@types/Key';
 import { IAction } from '../../@types/IAction';
 import { stopItemEditing } from './itemActions';
+import { IServerItem } from '../../models/IServerItem';
+import { Item } from '../../models/Item';
 
 export const saveItem = (itemKey: Key): IAction => ({
   type: actionTypes.ITEM_SAVE,
@@ -38,4 +40,23 @@ export const cancelItemsEditing = (selectedKeys: Array<Key>): IAction => ({
   payload: {
     actions: Map(selectedKeys.map(key => [key, stopItemEditing(key)])),
   },
+});
+
+export const getItemsSuccess = (serverItems: Array<IServerItem>): IAction => ({
+  type: actionTypes.ITEMS_GET_SUCCESS,
+  payload: {
+    items: serverItems.map((item: IServerItem) => new Item({
+      key: item.id,
+      value: item.text,
+      temporaryValue: item.text,
+    }))
+  }
+});
+
+
+export const getItemsFailed = (error: string): IAction => ({
+  type: actionTypes.ITEMS_GET_FAILED,
+  payload: {
+    error,
+  }
 });

@@ -37,6 +37,9 @@ export const items = (state = OrderedMap<Key, Item>(), action: IAction): Ordered
     case actionTypes.ITEM_DELETE_ALL:
       return action.payload.selectedKeys.reduce((newState: OrderedMap<Key, Item>, key: Key) => newState.delete(key), state);
 
+    case actionTypes.ITEMS_GET_SUCCESS:
+      return action.payload.items.reduce((newState: OrderedMap<Key, Item>, item: Item) => newState.set(item.key, item), OrderedMap<Key, Item>());
+
     default:
       return state;
   }

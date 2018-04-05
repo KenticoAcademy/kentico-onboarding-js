@@ -1,16 +1,26 @@
-import { ITEMS_API_URL } from '../constants/constants';
+import { ERROR_GET_ITEMS, ITEMS_API_URL } from '../constants/constants';
 import { Key } from '../@types/Key';
+import * as _fetch from 'isomorphic-fetch';
+import { IServerItem } from '../models/IServerItem';
 
-export class ItemsApiService {
-  private _fetchService: typeof fetch;
+export class IItemsApiService {
+  readonly getItems: () => Promise<Array<IServerItem>>;
+  readonly getItem: (key: Key) => Promise<Response>;
+  readonly postItem: (itemValue: string) => Promise<Response>;
+  readonly putItem: (key: Key, itemValue: string) => Promise<Response>;
+  readonly deleteItem: (key: Key) => Promise<Response>;
+}
 
-  constructor(fetchService: typeof fetch = fetch) {
-    this._fetchService = fetchService;
+export class ItemsApiService implements IItemsApiService {
+  private _fetchService: typeof _fetch;
+
+  constructor(fetchService: typeof _fetch) {
+     this._fetchService = fetchService;
   }
 
   getItems = () => this._fetchService(ITEMS_API_URL)
-    .catch(error => {
-      throw new Error(error);
+    .catch(() => {
+      throw new Error(ERROR_GET_ITEMS);
     })
     .then(response => this._processResponse(response));
 
