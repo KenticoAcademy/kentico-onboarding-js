@@ -2,9 +2,8 @@ import { fetchStatus } from './fetchStatus';
 import { FetchStatus } from '../models/FetchStatus';
 import {
   closeFetchError,
-  fetchError,
-  fetchSuccess
 } from '../actions/actionCreators';
+import { fetchError, fetchSuccess } from '../actions/actionCreatorsFactories/fetchItemsFactory';
 
 describe('fetchStatus reducer', () => {
   const UNKNOWN_ACTION = 'UNKNOWN_ACTION';

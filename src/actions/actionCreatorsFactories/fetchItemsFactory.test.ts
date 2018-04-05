@@ -1,17 +1,9 @@
 import { fetchItemsFactory } from './fetchItemsFactory';
+import { FETCH_ITEMS_ERROR, FETCH_ITEMS_SUCCESS } from '../../constants/actionTypes';
 
-const insertItemName = 'insertItem';
-const fetchSuccessName = 'fetchSuccess';
-const fetchErrorName = 'fetchError';
-const insertItem = jest.fn(() => insertItemName);
-const fetchSuccess = jest.fn(() => fetchSuccessName);
-const fetchError = jest.fn(() => fetchErrorName);
 const dispatch = jest.fn(input => input);
 
 beforeEach(() => {
-  insertItem.mock.calls.length = 0;
-  fetchSuccess.mock.calls.length = 0;
-  fetchError.mock.calls.length = 0;
   dispatch.mock.calls.length = 0;
 });
 
@@ -46,16 +38,16 @@ describe('fetch items tests', () => {
       });
     const fetchItems = fetchItemsFactory(
       {
-        insertItem,
-        fetchSuccess,
-        fetchError,
         axiosFetch
       });
+    const fetchSuccess = {
+      type: FETCH_ITEMS_SUCCESS
+    };
 
     await fetchItems()(dispatch);
 
-    expect(insertItem.mock.calls.length).toEqual(items.length);
-    expect(dispatch.mock.calls[items.length][0]).toEqual(fetchSuccessName);
+    expect(dispatch.mock.calls.length).toEqual(items.length + 1);
+    expect(dispatch.mock.calls[items.length][0]).toEqual(fetchSuccess);
   });
 
   it('creates TODO_LIST_ITEM_INSERT with correct arguments', async () => {
@@ -77,16 +69,13 @@ describe('fetch items tests', () => {
       });
     const fetchItems = fetchItemsFactory(
       {
-        insertItem,
-        fetchSuccess,
-        fetchError,
         axiosFetch
       });
 
     await fetchItems()(dispatch);
 
-    expect(insertItem.mock.calls[0][0]).toEqual(fetchedTestItem0);
-    expect(insertItem.mock.calls[1][0]).toEqual(fetchedTestItem1);
+    expect(dispatch.mock.calls[0][0].payload).toEqual(fetchedTestItem0);
+    expect(dispatch.mock.calls[1][0].payload).toEqual(fetchedTestItem1);
   });
 
   it('dispatches FETCH_ITEMS_ERROR after GET request failure', async () => {
@@ -102,14 +91,17 @@ describe('fetch items tests', () => {
       });
     const fetchItems = fetchItemsFactory(
       {
-        insertItem,
-        fetchSuccess,
-        fetchError,
         axiosFetch
       });
+    const fetchError = {
+      type: FETCH_ITEMS_ERROR,
+      payload: {
+        errorText: '404 Not Found'
+      }
+    };
 
     await fetchItems()(dispatch);
 
-    expect(dispatch.mock.calls[0][0]).toEqual(fetchErrorName);
+    expect(dispatch.mock.calls[0][0]).toEqual(fetchError);
   });
 });

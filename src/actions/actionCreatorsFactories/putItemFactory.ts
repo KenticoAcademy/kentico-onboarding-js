@@ -4,21 +4,43 @@ import { Uuid } from '../../utils/generateId';
 import { IAction } from '../IAction';
 import { IAppState } from '../../models/IAppState';
 import { NO_CONNECTION } from '../../constants/connection';
+import {
+  PUT_ITEM_ERROR,
+  PUT_ITEM_SUCCESS,
+  TODO_LIST_ITEM_UPDATE
+} from '../../constants/actionTypes';
 
 interface IUpdateDependencies {
-  readonly updateItem: (item: UpdateItem) => IAction;
-  readonly putSuccess: (id: Uuid) => IAction;
-  readonly putError: (id: Uuid, message: string) => IAction;
   readonly axiosPut: (item: UpdateItem) => Promise<AxiosResponse>;
 }
+
+export const putSuccess = (id: Uuid): IAction => ({
+  type: PUT_ITEM_SUCCESS,
+  payload: {
+    id
+  }
+});
+
+export const putError = (id: Uuid, message: string): IAction => ({
+  type: PUT_ITEM_ERROR,
+  payload: {
+    id,
+    message
+  }
+});
 
 export interface UpdateItem {
   id: Uuid;
   text: string;
 }
 
+export const updateItem = (item: UpdateItem): IAction => ({
+  type: TODO_LIST_ITEM_UPDATE,
+  payload: item,
+});
+
 export const putItemFactory =
-  ({updateItem, putSuccess, putError, axiosPut}: IUpdateDependencies) =>
+  ({axiosPut}: IUpdateDependencies) =>
     (item: UpdateItem) =>
       async (dispatch: Dispatch<IAppState>): Promise<IAction> => {
         dispatch(updateItem(item));

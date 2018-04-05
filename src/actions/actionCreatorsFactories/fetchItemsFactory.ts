@@ -4,6 +4,11 @@ import { Dispatch } from 'react-redux';
 import { Uuid } from '../../utils/generateId';
 import { IAction } from '../IAction';
 import { NO_CONNECTION } from '../../constants/connection';
+import { insertItem } from './postItemFactory';
+import {
+  FETCH_ITEMS_ERROR,
+  FETCH_ITEMS_SUCCESS
+} from '../../constants/actionTypes';
 
 interface FetchedItem {
   text: string;
@@ -13,14 +18,22 @@ interface FetchedItem {
 }
 
 interface IPostDependencies {
-  readonly insertItem: (item: { text: string, id: Uuid, isSynchronized: boolean }) => IAction;
-  readonly fetchSuccess: () => IAction;
-  readonly fetchError: (errorText: string) => IAction;
   readonly axiosFetch: () => Promise<AxiosResponse>;
 }
 
+export const fetchSuccess = (): IAction => ({
+  type: FETCH_ITEMS_SUCCESS
+});
+
+export const fetchError = (errorText: string): IAction => ({
+  type: FETCH_ITEMS_ERROR,
+  payload: {
+    errorText
+  }
+});
+
 export const fetchItemsFactory =
-  ({insertItem, fetchSuccess, fetchError, axiosFetch}: IPostDependencies) =>
+  ({axiosFetch}: IPostDependencies) =>
     () => async (dispatch: Dispatch<IAppState>): Promise<IAction> => {
       try {
         const response = await axiosFetch();

@@ -3,9 +3,19 @@ import {
   OrderedMap,
 } from 'immutable';
 import { items } from './items';
-import { insertItem, postSuccess, putSuccess } from '../../../actions/actionCreators';
 import { ListItem } from '../../../models/ListItem';
 import { Uuid } from '../../../utils/generateId';
+import { insertItem, postSuccess } from '../../../actions/actionCreatorsFactories/postItemFactory';
+import {
+  putError,
+  putSuccess,
+  updateItem
+} from '../../../actions/actionCreatorsFactories/putItemFactory';
+import {
+  deleteError,
+  deleteItem,
+  deleteSuccess
+} from '../../../actions/actionCreatorsFactories/deleteItemFactory';
 
 describe('items reducers', () => {
   const plainItem1 = {
@@ -170,7 +180,7 @@ describe('items reducers', () => {
 
     const newState: OrderedMap<Uuid, ListItem> = items(
       twoItemsState,
-      actions.deleteSuccess(plainItem1.id),
+      deleteSuccess(plainItem1.id),
     ).toJS();
 
     expect(newState).toEqual(expectedState);
@@ -199,7 +209,7 @@ describe('items reducers', () => {
 
     const newState: OrderedMap<Uuid, ListItem> = items(
       twoItemsState,
-      actions.deleteError(
+      deleteError(
         plainItem1.id,
         errorMessage
       ),
@@ -228,7 +238,7 @@ describe('items reducers', () => {
 
     const newState: OrderedMap<Uuid, ListItem> = items(
       singleItemState,
-      actions.deleteItem(plainItem1.id)
+      deleteItem(plainItem1.id)
     );
 
     expect(newState).toEqual(expectedState);
@@ -265,7 +275,7 @@ describe('items reducers', () => {
 
     const newState: OrderedMap<Uuid, ListItem> = items(
       twoItemsState,
-      actions.updateItem({
+      updateItem({
         id: plainItem1.id,
         text: updatedText,
       }),
@@ -329,7 +339,7 @@ describe('items reducers', () => {
 
     const newState: OrderedMap<Uuid, ListItem> = items(
       twoItemsState,
-      actions.putError(
+      putError(
         plainItem2.id,
         errorMessage
       )

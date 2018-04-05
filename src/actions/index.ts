@@ -1,17 +1,4 @@
 import axios from 'axios';
-import {
-  deleteItem,
-  deleteSuccess,
-  insertItem,
-  deleteError,
-  putError,
-  postSuccess,
-  putSuccess,
-  updateItem,
-  fetchError,
-  postError,
-  fetchSuccess
-} from './actionCreators';
 import { generateId } from '../utils/generateId';
 import { deleteItemFactory } from './actionCreatorsFactories/deleteItemFactory';
 import { putItemFactory } from './actionCreatorsFactories/putItemFactory';
@@ -32,35 +19,19 @@ const axiosPost = axiosPostFactory(axios, url);
 const axiosPut = axiosPutFactory(axios, url);
 const axiosDelete = axiosDeleteFactory(axios, url);
 
-export const fetchItems = fetchItemsFactory(
-  {
-    insertItem,
-    fetchSuccess,
-    fetchError,
-    axiosFetch
-  });
+export const fetchItems = fetchItemsFactory({
+  axiosFetch
+});
 
-export const postItem = postItemFactory(
-  {
-    insertItem,
-    generateId,
-    postSuccess,
-    postError,
-    axiosPost
-  });
+export const postItem = postItemFactory({
+  generateId,
+  axiosPost
+});
 
-export const putItem = putItemFactory(
-  {
-    updateItem,
-    putSuccess,
-    putError,
-    axiosPut
-  });
+export const putItem = putItemFactory({
+  axiosPut
+});
 
-export const deleteFromServer = deleteItemFactory(
-  {
-    deleteItem,
-    deleteSuccess,
-    deleteError,
-    axiosDelete
-  });
+export const deleteFromServer = deleteItemFactory({
+  axiosDelete
+});

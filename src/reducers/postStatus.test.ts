@@ -1,6 +1,7 @@
 import { PostStatus } from '../models/PostStatus';
 import { postStatus } from './postStatus';
-import { closePostError, postError, postSuccess } from '../actions/actionCreators';
+import { closePostError } from '../actions/actionCreators';
+import { postError, postSuccess } from '../actions/actionCreatorsFactories/postItemFactory';
 
 describe('postStatus reducer', () => {
   const UNKNOWN_ACTION = 'UNKNOWN_ACTION';
