@@ -1,4 +1,4 @@
-import { list } from './list/list';
+import { list } from './list/index';
 import { IAppState } from '../models/state/IAppState';
 import { combineReducers } from '../utils/combineReducers';
 

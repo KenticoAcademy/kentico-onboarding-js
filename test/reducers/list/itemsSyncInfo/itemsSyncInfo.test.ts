@@ -7,7 +7,7 @@ import {
   revertDeleteAfterFailedUpdate,
 } from '../../../../src/actions';
 import { IListItem } from '../../../../src/models/interfaces/IListItem';
-import { itemsSyncInfo } from '../../../../src/reducers/list/itemsSyncInfo/itemsSyncInfo';
+import { itemsSyncInfo } from '../../../../src/reducers/list/itemsSyncInfo/index';
 import { OrderedMap } from 'immutable';
 import { Uuid } from '../../../../src/models/Uuid';
 import { ItemSyncInfo } from '../../../../src/models/classes/ItemSyncInfo';

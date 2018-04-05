@@ -1,7 +1,7 @@
 import { OrderedMap } from 'immutable';
 import { ListItem } from '../../../../src/models/classes/ListItem';
 import * as deepFreeze from 'deep-freeze';
-import { items } from '../../../../src/reducers/list/items/items';
+import { items } from '../../../../src/reducers/list/items/index';
 import { Uuid } from '../../../../src/models/Uuid';
 import { IAddedItemConfirmed } from '../../../../src/models/interfaces/IAddedItemConfirmed';
 import { IAction } from '../../../../src/models/interfaces/IAction';

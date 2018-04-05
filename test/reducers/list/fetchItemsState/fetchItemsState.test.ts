@@ -5,7 +5,7 @@ import {
   startFetchingItems,
 } from '../../../../src/actions/thunk/fetchItemsFactory';
 import deepFreeze = require('deep-freeze');
-import { fetchItemsState } from '../../../../src/reducers/list/fetchItemsState/fetchItemsState';
+import { fetchItemsState } from '../../../../src/reducers/list/fetchItemsState';
 import { IAction } from '../../../../src/models/interfaces/IAction';
 
 describe('fetchItemsState', () => {
