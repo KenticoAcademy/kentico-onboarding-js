@@ -4,12 +4,12 @@ export const getRetryMessage = (operation: SyncOperation) => {
   switch (operation) {
     case SyncOperation.Add:
       return 'Add failed';
-    case SyncOperation.DeleteAfterFailedModify:
+    case SyncOperation.DeleteAfterFailedUpdate:
       return 'Delete failed';
     case SyncOperation.Delete:
       return 'Delete failed';
-    case SyncOperation.Modify:
-      return 'Modify failed';
+    case SyncOperation.Update:
+      return 'Update failed';
     default:
       return '';
   }

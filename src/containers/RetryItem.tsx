@@ -40,7 +40,7 @@ const getRetryAction = ({ id, text, syncedText }: IListItem, itemSyncInfo: IItem
         givenId: id,
       });
 
-    case SyncOperation.Modify:
+    case SyncOperation.Update:
       return updateItemAsync({
         id,
         text,
@@ -52,7 +52,7 @@ const getRetryAction = ({ id, text, syncedText }: IListItem, itemSyncInfo: IItem
         id,
       });
 
-    case SyncOperation.DeleteAfterFailedModify:
+    case SyncOperation.DeleteAfterFailedUpdate:
       return deleteItemAsync({
         id,
       });

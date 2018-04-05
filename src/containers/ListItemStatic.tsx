@@ -28,7 +28,7 @@ const mergeProps = (_: undefined, dispatchProps: IListItemStaticCallbackProps, o
         ownProps.itemSyncInfo.syncState === SyncState.Desynced
         && (
           ownProps.itemSyncInfo.operation === SyncOperation.Delete
-          || ownProps.itemSyncInfo.operation === SyncOperation.DeleteAfterFailedModify
+          || ownProps.itemSyncInfo.operation === SyncOperation.DeleteAfterFailedUpdate
         )
       )
     ),

@@ -25,11 +25,11 @@ interface IRevertContainerProps {
 
 const getRevertOperation = (operation: SyncOperation, id: Guid) => {
   switch (operation) {
-    case SyncOperation.Modify:
+    case SyncOperation.Update:
       return revertUpdate(id);
     case SyncOperation.Delete:
       return revertDelete(id);
-    case SyncOperation.DeleteAfterFailedModify:
+    case SyncOperation.DeleteAfterFailedUpdate:
       return revertDeleteAfterFailedUpdate(id);
     case SyncOperation.Add:
       return revertAdd(id);

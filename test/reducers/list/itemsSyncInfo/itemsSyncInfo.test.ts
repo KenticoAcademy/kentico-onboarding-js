@@ -151,12 +151,12 @@ describe('itemsSyncInfo', () => {
     it('will change item sync info to Synced', () => {
       const itemSyncInfo1 = new ItemSyncInfo({
         id: '1',
-        operation: SyncOperation.Modify,
+        operation: SyncOperation.Update,
         syncState: SyncState.Pending,
       });
       const itemSyncInfo1Succeeded = new ItemSyncInfo({
         id: '1',
-        operation: SyncOperation.Modify,
+        operation: SyncOperation.Update,
         syncState: SyncState.Synced,
       });
       const itemSyncInfo2 = new ItemSyncInfo({
@@ -246,7 +246,7 @@ describe('itemsSyncInfo', () => {
       const id = 'id';
       const itemSyncInfo = new ItemSyncInfo({
         id,
-        operation: SyncOperation.Modify,
+        operation: SyncOperation.Update,
         syncState: SyncState.Synced,
       });
       const itemSyncInfoPending = new ItemSyncInfo({
@@ -276,7 +276,7 @@ describe('itemsSyncInfo', () => {
       const itemSyncInfo1 = new ItemSyncInfo();
       const itemSyncInfo2 = new ItemSyncInfo();
       const itemSyncInfo2Modified = new ItemSyncInfo({
-        operation: SyncOperation.Modify,
+        operation: SyncOperation.Update,
         syncState: SyncState.Pending,
         id: itemSyncInfo2.id,
       });
@@ -340,7 +340,7 @@ describe('itemsSyncInfo', () => {
   });
 
   [
-    { actionName: 'revertUpdate', actionCreator: revertUpdate, initialOperation: SyncOperation.Modify },
+    { actionName: 'revertUpdate', actionCreator: revertUpdate, initialOperation: SyncOperation.Update },
     { actionName: 'revertDelete', actionCreator: revertDelete, initialOperation: SyncOperation.Delete },
   ]
     .forEach(argument =>
@@ -376,15 +376,15 @@ describe('itemsSyncInfo', () => {
       }));
 
   describe('revertDeleteAfterFailedUpdate', () => {
-    it('will change sync operation to modify', () => {
+    it('will change sync operation to update', () => {
       const itemSyncInfo = new ItemSyncInfo({
-        operation: SyncOperation.DeleteAfterFailedModify,
+        operation: SyncOperation.DeleteAfterFailedUpdate,
         syncState: SyncState.Desynced,
         id: 'id',
       });
       const newItemSyncInfo = new ItemSyncInfo({
         id: 'id',
-        operation: SyncOperation.Modify,
+        operation: SyncOperation.Update,
         syncState: SyncState.Desynced,
       });
 
@@ -408,13 +408,13 @@ describe('itemsSyncInfo', () => {
   describe('requestItemDeletion', () => {
     it('will change sync operation to deleteAfterFailedModify', () => {
       const itemSyncInfo = new ItemSyncInfo({
-        operation: SyncOperation.Modify,
+        operation: SyncOperation.Update,
         syncState: SyncState.Desynced,
         id: 'id',
       });
       const newItemSyncInfo = new ItemSyncInfo({
         id: 'id',
-        operation: SyncOperation.DeleteAfterFailedModify,
+        operation: SyncOperation.DeleteAfterFailedUpdate,
         syncState: SyncState.Pending,
       });
 
@@ -438,13 +438,13 @@ describe('itemsSyncInfo', () => {
   describe('desyncItem', () => {
     it('will change synced state to desynced', () => {
       const itemSyncInfo = new ItemSyncInfo({
-        operation: SyncOperation.DeleteAfterFailedModify,
+        operation: SyncOperation.DeleteAfterFailedUpdate,
         syncState: SyncState.Pending,
         id: 'id',
       });
       const newItemSyncInfo = new ItemSyncInfo({
         id: 'id',
-        operation: SyncOperation.DeleteAfterFailedModify,
+        operation: SyncOperation.DeleteAfterFailedUpdate,
         syncState: SyncState.Desynced,
       });
 

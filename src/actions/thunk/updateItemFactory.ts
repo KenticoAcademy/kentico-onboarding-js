@@ -14,7 +14,7 @@ export const requestItemUpdate = (item: IUpdatedItem): IAction => ({
     item,
     itemSyncInfo: {
       id: item.id,
-      operation: SyncOperation.Modify,
+      operation: SyncOperation.Update,
       syncState: SyncState.Pending,
     },
   },
@@ -26,7 +26,7 @@ export const confirmItemUpdate = (id: Guid): IAction => ({
     id,
     itemSyncInfo: {
       id,
-      operation: SyncOperation.Modify,
+      operation: SyncOperation.Update,
       syncState: SyncState.Synced,
     },
   }

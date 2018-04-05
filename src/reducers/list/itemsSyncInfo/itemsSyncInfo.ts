@@ -26,8 +26,8 @@ import { arrayToOrderedMap } from '../../../utils/arrayToOrderedMap';
 
 const requiresSpecialFlag = (oldItemSyncInfo: IItemSyncInfo, newItemSyncInfo: IItemSyncInfo) =>
   oldItemSyncInfo.syncState === SyncState.Desynced
-  && (oldItemSyncInfo.operation === SyncOperation.Modify
-      || oldItemSyncInfo.operation === SyncOperation.DeleteAfterFailedModify)
+  && (oldItemSyncInfo.operation === SyncOperation.Update
+      || oldItemSyncInfo.operation === SyncOperation.DeleteAfterFailedUpdate)
   && newItemSyncInfo.operation === SyncOperation.Delete;
 
 const setSyncState = (state: ItemsSyncInfoState, { payload: { itemSyncInfo } }: IAction): ItemsSyncInfoState =>
@@ -38,7 +38,7 @@ const setSyncState = (state: ItemsSyncInfoState, { payload: { itemSyncInfo } }: 
         id: itemSyncInfo.id,
       }),
       syncInfo => syncInfo.with({
-        operation: requiresSpecialFlag(syncInfo, itemSyncInfo) ? SyncOperation.DeleteAfterFailedModify : itemSyncInfo.operation,
+        operation: requiresSpecialFlag(syncInfo, itemSyncInfo) ? SyncOperation.DeleteAfterFailedUpdate : itemSyncInfo.operation,
         syncState: itemSyncInfo.syncState,
       })) :
     state;
@@ -73,10 +73,10 @@ const revertOperation = (state: ItemsSyncInfoState, { payload: { id } }: IAction
     operation: SyncOperation.Default,
   }));
 
-const revertDeleteAfterFailedModify = (state: ItemsSyncInfoState, { payload: { id } }: IAction): ItemsSyncInfoState =>
+const revertDeleteAfterFailedUpdate = (state: ItemsSyncInfoState, { payload: { id } }: IAction): ItemsSyncInfoState =>
   state.update(id, itemSyncInfo => itemSyncInfo.with({
     syncState: SyncState.Desynced,
-    operation: SyncOperation.Modify,
+    operation: SyncOperation.Update,
   }));
 
 const desyncItem = (state: ItemsSyncInfoState, { payload: { id } }: IAction): ItemsSyncInfoState =>
@@ -106,7 +106,7 @@ export const itemsSyncInfo = (state = initialState, action: IAction): ItemsSyncI
     case ITEM_DELETE_REVERT:
       return revertOperation(state, action);
     case ITEM_DELETE_AFTER_UPDATE_REVERT:
-      return revertDeleteAfterFailedModify(state, action);
+      return revertDeleteAfterFailedUpdate(state, action);
     case ITEMS_FETCH_SUCCESS:
       return syncAllItems(action);
     default:
