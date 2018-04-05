@@ -24,7 +24,7 @@ import { IListItem } from '../../../models/interfaces/IListItem';
 import { IItemSyncInfo } from '../../../models/interfaces/IItemSyncInfo';
 import { arrayToOrderedMap } from '../../../utils/arrayToOrderedMap';
 
-const requiresSpecialFlag = (oldItemSyncInfo: IItemSyncInfo, newItemSyncInfo: IItemSyncInfo) =>
+const deleteHasFailedAfterFailedUpdate = (oldItemSyncInfo: IItemSyncInfo, newItemSyncInfo: IItemSyncInfo) =>
   oldItemSyncInfo.syncState === SyncState.Desynced
   && (oldItemSyncInfo.operation === SyncOperation.Update
       || oldItemSyncInfo.operation === SyncOperation.DeleteAfterFailedUpdate)
@@ -38,7 +38,7 @@ const setSyncState = (state: ItemsSyncInfoState, { payload: { itemSyncInfo } }: 
         id: itemSyncInfo.id,
       }),
       syncInfo => syncInfo.with({
-        operation: requiresSpecialFlag(syncInfo, itemSyncInfo) ? SyncOperation.DeleteAfterFailedUpdate : itemSyncInfo.operation,
+        operation: deleteHasFailedAfterFailedUpdate(syncInfo, itemSyncInfo) ? SyncOperation.DeleteAfterFailedUpdate : itemSyncInfo.operation,
         syncState: itemSyncInfo.syncState,
       })) :
     state;
