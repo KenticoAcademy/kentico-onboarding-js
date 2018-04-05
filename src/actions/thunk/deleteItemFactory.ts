@@ -1,4 +1,4 @@
-import { Guid } from '../../models/Guid';
+import { Uuid } from '../../models/Uuid';
 import { Dispatch } from 'redux';
 import { IAction } from '../../models/interfaces/IAction';
 import { IHttpClient } from '../../models/interfaces/IHttpClient';
@@ -7,7 +7,7 @@ import { SyncOperation } from '../../models/enums/SyncOperation';
 import { SyncState } from '../../models/enums/SyncState';
 import * as ActionTypes from '../../constants/actionTypes';
 
-export const requestItemDeletion = (id: Guid): IAction => ({
+export const requestItemDeletion = (id: Uuid): IAction => ({
   type: ActionTypes.ITEM_DELETE_START,
   payload: {
     id,
@@ -19,7 +19,7 @@ export const requestItemDeletion = (id: Guid): IAction => ({
   }
 });
 
-export const confirmItemDeletion = (id: Guid): IAction => ({
+export const confirmItemDeletion = (id: Uuid): IAction => ({
   type: ActionTypes.ITEM_DELETE_SUCCESS,
   payload: {
     id,
@@ -32,7 +32,7 @@ interface IDeleteItemFactoryDependencies {
 }
 
 export interface IDeleteItemActionParams {
-  readonly id: Guid;
+  readonly id: Uuid;
 }
 
 export const deleteItemFactory = (dependencies: IDeleteItemFactoryDependencies) =>

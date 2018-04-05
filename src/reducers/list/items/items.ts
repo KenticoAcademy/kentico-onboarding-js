@@ -3,7 +3,7 @@ import { ListItem } from '../../../models/classes/ListItem';
 import * as ActionTypes from '../../../constants/actionTypes';
 import { ItemsState } from '../../../models/state/ItemsState';
 import { IAction } from '../../../models/interfaces/IAction';
-import { Guid } from '../../../models/Guid';
+import { Uuid } from '../../../models/Uuid';
 import { arrayToOrderedMap } from '../../../utils/arrayToOrderedMap';
 import { IListItem } from '../../../models/interfaces/IListItem';
 import { IFetchedItem } from '../../../models/interfaces/IFetchedItem';
@@ -74,7 +74,7 @@ const revertUpdate = (state: ItemsState, { payload: { id } }: IAction): ItemsSta
       text: item.syncedText,
     }));
 
-const initialState = OrderedMap<Guid, ListItem>();
+const initialState = OrderedMap<Uuid, ListItem>();
 
 export const items = (state = initialState, action: IAction): ItemsState => {
   const { type } = action;

@@ -1,5 +1,5 @@
-import { Guid } from '../Guid';
+import { Uuid } from '../Uuid';
 
 export interface IHasId {
-  id: Guid;
+  id: Uuid;
 }

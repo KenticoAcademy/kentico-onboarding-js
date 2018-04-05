@@ -9,7 +9,7 @@ import {
 import { IListItem } from '../../../../src/models/interfaces/IListItem';
 import { itemsSyncInfo } from '../../../../src/reducers/list/itemsSyncInfo/itemsSyncInfo';
 import { OrderedMap } from 'immutable';
-import { Guid } from '../../../../src/models/Guid';
+import { Uuid } from '../../../../src/models/Uuid';
 import { ItemSyncInfo } from '../../../../src/models/classes/ItemSyncInfo';
 import { ListItem } from '../../../../src/models/classes/ListItem';
 import { SyncOperation } from '../../../../src/models/enums/SyncOperation';
@@ -48,7 +48,7 @@ describe('itemsSyncInfo', () => {
         item2,
       ];
 
-      const expectedState = OrderedMap<Guid, ItemSyncInfo>({
+      const expectedState = OrderedMap<Uuid, ItemSyncInfo>({
         [item1.id]: new ItemSyncInfo({
           id: item1.id,
           operation: SyncOperation.Default,
@@ -87,14 +87,14 @@ describe('itemsSyncInfo', () => {
             id: '3',
           });
 
-          const initialState = OrderedMap<Guid, ItemSyncInfo>({
+          const initialState = OrderedMap<Uuid, ItemSyncInfo>({
             [itemSyncInfo1.id]: itemSyncInfo1,
             [itemSyncInfo2.id]: itemSyncInfo2,
             [itemSyncInfo3.id]: itemSyncInfo3,
           });
           deepFreeze(initialState);
 
-          const expectedState = OrderedMap<Guid, ItemSyncInfo>({
+          const expectedState = OrderedMap<Uuid, ItemSyncInfo>({
             [itemSyncInfo1.id]: itemSyncInfo1,
             [itemSyncInfo3.id]: itemSyncInfo3,
           });
@@ -121,12 +121,12 @@ describe('itemsSyncInfo', () => {
         syncState: SyncState.Synced,
         operation: SyncOperation.Add,
       });
-      const initialState = OrderedMap<Guid, ItemSyncInfo>({
+      const initialState = OrderedMap<Uuid, ItemSyncInfo>({
         [oldId]: itemSyncInfo,
       });
       deepFreeze(initialState);
 
-      const expectedState = OrderedMap<Guid, ItemSyncInfo>({
+      const expectedState = OrderedMap<Uuid, ItemSyncInfo>({
         [newId]: itemSyncInfoConfirmed,
       });
 
@@ -165,14 +165,14 @@ describe('itemsSyncInfo', () => {
       const itemSyncInfo3 = new ItemSyncInfo({
         id: '3'
       });
-      const initialState = OrderedMap<Guid, ItemSyncInfo>({
+      const initialState = OrderedMap<Uuid, ItemSyncInfo>({
         [itemSyncInfo1.id]: itemSyncInfo1,
         [itemSyncInfo3.id]: itemSyncInfo3,
         [itemSyncInfo2.id]: itemSyncInfo2,
       });
       deepFreeze(initialState);
 
-      const expectedState = OrderedMap<Guid, ItemSyncInfo>({
+      const expectedState = OrderedMap<Uuid, ItemSyncInfo>({
         [itemSyncInfo1Succeeded.id]: itemSyncInfo1Succeeded,
         [itemSyncInfo3.id]: itemSyncInfo3,
         [itemSyncInfo2.id]: itemSyncInfo2,
@@ -199,12 +199,12 @@ describe('itemsSyncInfo', () => {
         operation: SyncOperation.Delete,
         syncState: SyncState.Desynced,
       });
-      const initialState = OrderedMap<Guid, ItemSyncInfo>({
+      const initialState = OrderedMap<Uuid, ItemSyncInfo>({
         [id]: itemSyncInfo,
       });
       deepFreeze(initialState);
 
-      const expectedState = OrderedMap<Guid, ItemSyncInfo>({
+      const expectedState = OrderedMap<Uuid, ItemSyncInfo>({
         [id]: itemSyncInfoFailed,
       });
 
@@ -219,10 +219,10 @@ describe('itemsSyncInfo', () => {
   describe('requestItemAddition', () => {
     it('will add new item sync info', () => {
       const id = 'id';
-      const initialState = OrderedMap<Guid, ItemSyncInfo>();
+      const initialState = OrderedMap<Uuid, ItemSyncInfo>();
       deepFreeze(initialState);
 
-      const expectedState = OrderedMap<Guid, ItemSyncInfo>({
+      const expectedState = OrderedMap<Uuid, ItemSyncInfo>({
         [id]: new ItemSyncInfo({
           id,
           operation: SyncOperation.Add,
@@ -254,12 +254,12 @@ describe('itemsSyncInfo', () => {
         operation: SyncOperation.Delete,
         syncState: SyncState.Pending,
       });
-      const initialState = OrderedMap<Guid, ItemSyncInfo>({
+      const initialState = OrderedMap<Uuid, ItemSyncInfo>({
         [id]: itemSyncInfo,
       });
       deepFreeze(initialState);
 
-      const expectedState = OrderedMap<Guid, ItemSyncInfo>({
+      const expectedState = OrderedMap<Uuid, ItemSyncInfo>({
         [id]: itemSyncInfoPending,
       });
 
@@ -280,13 +280,13 @@ describe('itemsSyncInfo', () => {
         syncState: SyncState.Pending,
         id: itemSyncInfo2.id,
       });
-      const initialState = OrderedMap<Guid, ItemSyncInfo>({
+      const initialState = OrderedMap<Uuid, ItemSyncInfo>({
         [itemSyncInfo1.id]: itemSyncInfo1,
         [itemSyncInfo2.id]: itemSyncInfo2,
       });
       deepFreeze(initialState);
 
-      const expectedState = OrderedMap<Guid, ItemSyncInfo>({
+      const expectedState = OrderedMap<Uuid, ItemSyncInfo>({
         [itemSyncInfo1.id]: itemSyncInfo1,
         [itemSyncInfo2.id]: itemSyncInfo2Modified,
       });
@@ -306,7 +306,7 @@ describe('itemsSyncInfo', () => {
 
   describe('undefined action', () => {
     it('will not modify state', () => {
-      const initialState = OrderedMap<Guid, ItemSyncInfo>({
+      const initialState = OrderedMap<Uuid, ItemSyncInfo>({
         '1': new ItemSyncInfo(),
         '2': new ItemSyncInfo(),
       });
@@ -326,7 +326,7 @@ describe('itemsSyncInfo', () => {
 
     it('will set items sync info to empty ordered map if undefined', () => {
       const initialState = undefined;
-      const expectedState = OrderedMap<Guid, ItemSyncInfo>();
+      const expectedState = OrderedMap<Uuid, ItemSyncInfo>();
 
       const action: IAction = {
         type: 'testType',
@@ -358,12 +358,12 @@ describe('itemsSyncInfo', () => {
             syncState: SyncState.Synced,
           });
 
-          const initialState = OrderedMap<Guid, ItemSyncInfo>({
+          const initialState = OrderedMap<Uuid, ItemSyncInfo>({
             [itemSyncInfo.id]: itemSyncInfo,
           });
           deepFreeze(initialState);
 
-          const expectedState = OrderedMap<Guid, ItemSyncInfo>({
+          const expectedState = OrderedMap<Uuid, ItemSyncInfo>({
             [newItemSyncInfo.id]: newItemSyncInfo,
           });
 
@@ -388,12 +388,12 @@ describe('itemsSyncInfo', () => {
         syncState: SyncState.Desynced,
       });
 
-      const initialState = OrderedMap<Guid, ItemSyncInfo>({
+      const initialState = OrderedMap<Uuid, ItemSyncInfo>({
         [itemSyncInfo.id]: itemSyncInfo,
       });
       deepFreeze(initialState);
 
-      const expectedState = OrderedMap<Guid, ItemSyncInfo>({
+      const expectedState = OrderedMap<Uuid, ItemSyncInfo>({
         [newItemSyncInfo.id]: newItemSyncInfo,
       });
 
@@ -418,12 +418,12 @@ describe('itemsSyncInfo', () => {
         syncState: SyncState.Pending,
       });
 
-      const initialState = OrderedMap<Guid, ItemSyncInfo>({
+      const initialState = OrderedMap<Uuid, ItemSyncInfo>({
         [itemSyncInfo.id]: itemSyncInfo,
       });
       deepFreeze(initialState);
 
-      const expectedState = OrderedMap<Guid, ItemSyncInfo>({
+      const expectedState = OrderedMap<Uuid, ItemSyncInfo>({
         [newItemSyncInfo.id]: newItemSyncInfo,
       });
 
@@ -448,12 +448,12 @@ describe('itemsSyncInfo', () => {
         syncState: SyncState.Desynced,
       });
 
-      const initialState = OrderedMap<Guid, ItemSyncInfo>({
+      const initialState = OrderedMap<Uuid, ItemSyncInfo>({
         [itemSyncInfo.id]: itemSyncInfo,
       });
       deepFreeze(initialState);
 
-      const expectedState = OrderedMap<Guid, ItemSyncInfo>({
+      const expectedState = OrderedMap<Uuid, ItemSyncInfo>({
         [newItemSyncInfo.id]: newItemSyncInfo,
       });
 

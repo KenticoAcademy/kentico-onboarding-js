@@ -15,15 +15,15 @@ import {
   revertDeleteAfterFailedUpdate,
   revertUpdate,
 } from '../actions';
-import { Guid } from '../models/Guid';
+import { Uuid } from '../models/Uuid';
 import { emptyAction } from '../constants/emptyAction';
 
 interface IRevertContainerProps {
   readonly syncOperation: SyncOperation;
-  readonly id: Guid;
+  readonly id: Uuid;
 }
 
-const getRevertOperation = (operation: SyncOperation, id: Guid) => {
+const getRevertOperation = (operation: SyncOperation, id: Uuid) => {
   switch (operation) {
     case SyncOperation.Update:
       return revertUpdate(id);

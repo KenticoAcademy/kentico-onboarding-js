@@ -1,7 +1,7 @@
 import { IListItem } from '../../src/models/interfaces/IListItem';
 import { ListItem } from '../../src/models/classes/ListItem';
 import { OrderedMap } from 'immutable';
-import { Guid } from '../../src/models/Guid';
+import { Uuid } from '../../src/models/Uuid';
 import { arrayToOrderedMap } from '../../src/utils/arrayToOrderedMap';
 
 describe('arrayToOrderedMap', () => {
@@ -19,7 +19,7 @@ describe('arrayToOrderedMap', () => {
       listItem2,
     ];
 
-    const expectedResult = OrderedMap<Guid, ListItem>({
+    const expectedResult = OrderedMap<Uuid, ListItem>({
       [listItem1.id]: listItem1,
       [listItem2.id]: listItem2,
     });

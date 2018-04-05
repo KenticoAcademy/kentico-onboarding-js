@@ -1,4 +1,4 @@
-import { Guid } from '../../models/Guid';
+import { Uuid } from '../../models/Uuid';
 import { Dispatch } from 'redux';
 import { IAction } from '../../models/interfaces/IAction';
 import { IHttpClient } from '../../models/interfaces/IHttpClient';
@@ -20,7 +20,7 @@ export const requestItemUpdate = (item: IUpdatedItem): IAction => ({
   },
 });
 
-export const confirmItemUpdate = (id: Guid): IAction => ({
+export const confirmItemUpdate = (id: Uuid): IAction => ({
   type: ActionTypes.ITEM_UPDATE_SUCCESS,
   payload: {
     id,
@@ -38,7 +38,7 @@ interface IUpdateItemFactoryDependencies {
 }
 
 export interface IUpdateItemActionParams {
-  readonly id: Guid;
+  readonly id: Uuid;
   readonly text: string;
   readonly syncedText: string;
 }

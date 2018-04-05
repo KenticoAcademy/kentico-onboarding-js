@@ -1,5 +1,5 @@
 import { OrderedMap } from 'immutable';
 import { ListItem } from '../classes/ListItem';
-import { Guid } from '../Guid';
+import { Uuid } from '../Uuid';
 
-export type ItemsState = OrderedMap<Guid, ListItem>;
+export type ItemsState = OrderedMap<Uuid, ListItem>;

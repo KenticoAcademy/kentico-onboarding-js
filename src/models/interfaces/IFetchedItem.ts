@@ -1,6 +1,6 @@
-import { Guid } from '../Guid';
+import { Uuid } from '../Uuid';
 
 export interface IFetchedItem {
-  id: Guid;
+  id: Uuid;
   text: string;
 }

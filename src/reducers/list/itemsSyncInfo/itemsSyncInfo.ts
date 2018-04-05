@@ -17,7 +17,7 @@ import {
 import { SyncState } from '../../../models/enums/SyncState';
 import { ItemSyncInfo } from '../../../models/classes/ItemSyncInfo';
 import { OrderedMap } from 'immutable';
-import { Guid } from '../../../models/Guid';
+import { Uuid } from '../../../models/Uuid';
 import { ItemsSyncInfoState } from '../../../models/state/ItemsSyncInfoState';
 import { SyncOperation } from '../../../models/enums/SyncOperation';
 import { IListItem } from '../../../models/interfaces/IListItem';
@@ -85,7 +85,7 @@ const desyncItem = (state: ItemsSyncInfoState, { payload: { id } }: IAction): It
       syncState: SyncState.Desynced,
     }));
 
-const initialState: ItemsSyncInfoState = OrderedMap<Guid, ItemSyncInfo>();
+const initialState: ItemsSyncInfoState = OrderedMap<Uuid, ItemSyncInfo>();
 
 export const itemsSyncInfo = (state = initialState, action: IAction): ItemsSyncInfoState => {
   switch (action.type) {

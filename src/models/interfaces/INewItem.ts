@@ -1,6 +1,6 @@
-import { Guid } from '../Guid';
+import { Uuid } from '../Uuid';
 
 export interface INewItem {
-  id: Guid;
+  id: Uuid;
   text: string;
 }

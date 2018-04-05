@@ -1,7 +1,7 @@
-import { Guid } from '../Guid';
+import { Uuid } from '../Uuid';
 import { IListItem } from './IListItem';
 
 export interface IAddedItemConfirmed {
-  oldId: Guid;
+  oldId: Uuid;
   updatedItem: IListItem;
 }

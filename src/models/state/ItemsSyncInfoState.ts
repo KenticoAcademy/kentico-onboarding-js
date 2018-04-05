@@ -1,5 +1,5 @@
 import { OrderedMap } from 'immutable';
-import { Guid } from '../Guid';
+import { Uuid } from '../Uuid';
 import { ItemSyncInfo } from '../classes/ItemSyncInfo';
 
-export type ItemsSyncInfoState = OrderedMap<Guid, ItemSyncInfo>;
+export type ItemsSyncInfoState = OrderedMap<Uuid, ItemSyncInfo>;

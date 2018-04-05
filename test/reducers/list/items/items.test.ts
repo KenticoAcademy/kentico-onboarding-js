@@ -2,7 +2,7 @@ import { OrderedMap } from 'immutable';
 import { ListItem } from '../../../../src/models/classes/ListItem';
 import * as deepFreeze from 'deep-freeze';
 import { items } from '../../../../src/reducers/list/items/items';
-import { Guid } from '../../../../src/models/Guid';
+import { Uuid } from '../../../../src/models/Uuid';
 import { IAddedItemConfirmed } from '../../../../src/models/interfaces/IAddedItemConfirmed';
 import { IAction } from '../../../../src/models/interfaces/IAction';
 import { IUpdatedItem } from '../../../../src/models/interfaces/IUpdatedItem';
@@ -30,13 +30,13 @@ import { receiveFetchedItems } from '../../../../src/actions/thunk/fetchItemsFac
 describe('items', () => {
   describe('requestItemAddition', () => {
     it('will add ListItem model to state', () => {
-      const initialState = OrderedMap<Guid, ListItem>();
+      const initialState = OrderedMap<Uuid, ListItem>();
       deepFreeze(initialState);
 
       const expectedId = 'test';
       const expectedText = 'text';
 
-      const expectedState = OrderedMap<Guid, ListItem>({
+      const expectedState = OrderedMap<Uuid, ListItem>({
         [expectedId]: new ListItem({
           id: expectedId,
           text: expectedText,
@@ -60,7 +60,7 @@ describe('items', () => {
       const expectedId = 'test';
       const expectedText = 'text';
 
-      const expectedState = OrderedMap<Guid, ListItem>({
+      const expectedState = OrderedMap<Uuid, ListItem>({
         [expectedId]: new ListItem({
           id: expectedId,
           text: expectedText,
@@ -86,7 +86,7 @@ describe('items', () => {
       const expectedId = 'test';
       const expectedText = 'text';
 
-      const initialState = OrderedMap<Guid, ListItem>({
+      const initialState = OrderedMap<Uuid, ListItem>({
         [expectedId]: new ListItem({
           id: expectedId,
           text: expectedText,
@@ -94,7 +94,7 @@ describe('items', () => {
       });
       deepFreeze(initialState);
 
-      const expectedState = OrderedMap<Guid, ListItem>({
+      const expectedState = OrderedMap<Uuid, ListItem>({
         [expectedId]: new ListItem({
           id: expectedId,
           text: expectedText,
@@ -113,7 +113,7 @@ describe('items', () => {
       const expectedId = 'test';
       const expectedText = 'whatever';
 
-      const initialState = OrderedMap<Guid, ListItem>({
+      const initialState = OrderedMap<Uuid, ListItem>({
         [expectedId]: new ListItem({
           id: expectedId,
           text: expectedText,
@@ -122,7 +122,7 @@ describe('items', () => {
       });
       deepFreeze(initialState);
 
-      const expectedState = OrderedMap<Guid, ListItem>({
+      const expectedState = OrderedMap<Uuid, ListItem>({
         [expectedId]: new ListItem({
           id: expectedId,
           text: expectedText,
@@ -143,7 +143,7 @@ describe('items', () => {
       const expectedId = 'test';
       const expectedNewText = 'something else';
 
-      const initialState = OrderedMap<Guid, ListItem>({
+      const initialState = OrderedMap<Uuid, ListItem>({
         [expectedId]: new ListItem({
           id: expectedId,
           text: 'something',
@@ -153,7 +153,7 @@ describe('items', () => {
       });
       deepFreeze(initialState);
 
-      const expectedState = OrderedMap<Guid, ListItem>({
+      const expectedState = OrderedMap<Uuid, ListItem>({
 
         [expectedId]: new ListItem({
           id: expectedId,
@@ -178,7 +178,7 @@ describe('items', () => {
   describe('undefined action', () => {
     it('will not modify state', () => {
 
-      const initialState = OrderedMap<Guid, ListItem>({
+      const initialState = OrderedMap<Uuid, ListItem>({
         '0': new ListItem({
           id: '0',
           text: 'text',
@@ -215,7 +215,7 @@ describe('items', () => {
           const expectedText = 'also whatever';
           const otherId = 'other-id';
 
-          const initialState = OrderedMap<Guid, ListItem>({
+          const initialState = OrderedMap<Uuid, ListItem>({
             [ expectedId ]: new ListItem({
               id: expectedId,
               text: 'whatever',
@@ -229,7 +229,7 @@ describe('items', () => {
           });
           deepFreeze(initialState);
 
-          const expectedState = OrderedMap<Guid, ListItem>({
+          const expectedState = OrderedMap<Uuid, ListItem>({
             [ otherId ]: new ListItem({
               id: otherId,
               text: expectedText,
@@ -262,7 +262,7 @@ describe('items', () => {
         listItem2,
       ];
 
-      const expectedState = OrderedMap<Guid, ListItem>({
+      const expectedState = OrderedMap<Uuid, ListItem>({
         [listItem1.id]: new ListItem({
           ...listItem1,
           syncedText: listItem1.text,
@@ -298,13 +298,13 @@ describe('items', () => {
         id: 'fakeId',
         text: 'something else',
       });
-      const initialState = OrderedMap<Guid, ListItem>({
+      const initialState = OrderedMap<Uuid, ListItem>({
         [listItem1Old.id]: listItem1Old,
         [listItem2.id]: listItem2,
       });
       deepFreeze(initialState);
 
-      const expectedState = OrderedMap<Guid, ListItem>({
+      const expectedState = OrderedMap<Uuid, ListItem>({
         [listItem2.id]: listItem2,
         [listItem1New.id]: listItem1New,
       });
@@ -340,12 +340,12 @@ describe('items', () => {
         isBeingEdited: false,
       });
 
-      const initialState = OrderedMap<Guid, ListItem>({
+      const initialState = OrderedMap<Uuid, ListItem>({
         [listItem.id]: listItem,
       });
       deepFreeze(initialState);
 
-      const expectedState = OrderedMap<Guid, ListItem>({
+      const expectedState = OrderedMap<Uuid, ListItem>({
         [listItemClosed.id]: listItemClosed,
       });
 
@@ -369,12 +369,12 @@ describe('items', () => {
         isBeingEdited: false,
       });
 
-      const initialState = OrderedMap<Guid, ListItem>({
+      const initialState = OrderedMap<Uuid, ListItem>({
         [listItem.id]: listItem,
       });
       deepFreeze(initialState);
 
-      const expectedState = OrderedMap<Guid, ListItem>({
+      const expectedState = OrderedMap<Uuid, ListItem>({
         [listItemSame.id]: listItemSame,
       });
 
@@ -389,7 +389,7 @@ describe('items', () => {
   describe('undefined action', () => {
     it('will set items to empty ordered map if undefined', () => {
       const initialState = undefined;
-      const expectedState = OrderedMap<Guid, ListItem>();
+      const expectedState = OrderedMap<Uuid, ListItem>();
 
       const action: IAction = {
         type: 'testType',
@@ -416,12 +416,12 @@ describe('items', () => {
         syncedText: 'newText',
         isBeingEdited: false,
       });
-      const initialState = OrderedMap<Guid, ListItem>({
+      const initialState = OrderedMap<Uuid, ListItem>({
         [oldListItem.id]: oldListItem,
       });
       deepFreeze(initialState);
 
-      const expectedState = OrderedMap<Guid, ListItem>({
+      const expectedState = OrderedMap<Uuid, ListItem>({
         [newListItem.id]: newListItem,
       });
 
@@ -447,12 +447,12 @@ describe('items', () => {
         syncedText: 'oldText',
         isBeingEdited: false,
       });
-      const initialState = OrderedMap<Guid, ListItem>({
+      const initialState = OrderedMap<Uuid, ListItem>({
         [oldListItem.id]: oldListItem,
       });
       deepFreeze(initialState);
 
-      const expectedState = OrderedMap<Guid, ListItem>({
+      const expectedState = OrderedMap<Uuid, ListItem>({
         [newListItem.id]: newListItem,
       });
 

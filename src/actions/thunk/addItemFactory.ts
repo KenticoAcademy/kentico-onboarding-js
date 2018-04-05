@@ -2,7 +2,7 @@ import { IListItem } from '../../models/interfaces/IListItem';
 import { Dispatch } from 'redux';
 import { IAction } from '../../models/interfaces/IAction';
 import { IHttpClient } from '../../models/interfaces/IHttpClient';
-import { Guid } from '../../models/Guid';
+import { Uuid } from '../../models/Uuid';
 import { INewItem } from '../../models/interfaces/INewItem';
 import { desyncItem } from '../actionCreators';
 import { IAddedItemConfirmed } from '../../models/interfaces/IAddedItemConfirmed';
@@ -34,12 +34,12 @@ export const confirmItemAddition = ({ oldId, updatedItem }: IAddedItemConfirmed)
 interface IAddItemFactoryDependencies {
   readonly uri: string;
   readonly httpClient: IHttpClient;
-  readonly createNewId: () => Guid;
+  readonly createNewId: () => Uuid;
 }
 
 export interface IAddItemActionParams {
   readonly text: string;
-  readonly givenId?: Guid;
+  readonly givenId?: Uuid;
 }
 
 export const addItemFactory = (dependencies: IAddItemFactoryDependencies) =>

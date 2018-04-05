@@ -1,7 +1,7 @@
-import { Guid } from '../Guid';
+import { Uuid } from '../Uuid';
 
 export interface IUpdatedItem {
-  id: Guid;
+  id: Uuid;
   text: string;
   syncedText: string;
 }

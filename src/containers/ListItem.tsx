@@ -7,10 +7,10 @@ import {
   listItemPropTypes,
 } from '../components/ListItem';
 import { IAppState } from '../models/state/IAppState';
-import { Guid } from '../models/Guid';
+import { Uuid } from '../models/Uuid';
 
 interface IListItemContainerDataProps extends IListItemOwnProps {
-  readonly itemId: Guid;
+  readonly itemId: Uuid;
 }
 
 const mapStateToProps = ({ list }: IAppState, { itemId }: IListItemContainerDataProps): IListItemDataProps => ({
