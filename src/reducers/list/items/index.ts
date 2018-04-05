@@ -1,6 +1,5 @@
 import { OrderedMap } from 'immutable';
 import { ListItem } from '../../../models/classes/ListItem';
-import * as ActionTypes from '../../../constants/actionTypes';
 import { ItemsState } from '../../../models/state/ItemsState';
 import { IAction } from '../../../models/interfaces/IAction';
 import { Uuid } from '../../../models/Uuid';
@@ -14,12 +13,22 @@ import {
   toggleItemReducer,
   updateItemReducer,
 } from './item';
+import {
+  ITEM_ADD_REVERT,
+  ITEM_ADD_START,
+  ITEM_ADD_SUCCESS,
+  ITEM_DELETE_START,
+  ITEM_DELETE_SUCCESS,
+  ITEM_TOGGLE,
+  ITEM_UPDATE_REVERT,
+  ITEM_UPDATE_START,
+  ITEM_UPDATE_SUCCESS,
+  ITEMS_FETCH_SUCCESS,
+  UNSAVED_ITEM_DELETE,
+} from '../../../constants/actionTypes';
 
 const addItem = (state: ItemsState, { payload: { id, text } }: IAction): ItemsState => {
-  const newItem = new ListItem({
-    id,
-    text,
-  });
+  const newItem = new ListItem({ id, text });
 
   return state.set(id, newItem);
 };
@@ -55,7 +64,7 @@ const fetchItems = (action: IAction): ItemsState => {
 
   return arrayToOrderedMap(
     items,
-    ListItem
+    ListItem,
   );
 };
 
@@ -69,25 +78,25 @@ const initialState = OrderedMap<Uuid, ListItem>();
 
 export const items = (state = initialState, action: IAction): ItemsState => {
   switch (action.type) {
-    case ActionTypes.ITEM_ADD_START:
+    case ITEM_ADD_START:
       return addItem(state, action);
-    case ActionTypes.ITEM_ADD_SUCCESS:
+    case ITEM_ADD_SUCCESS:
       return confirmAddedItem(state, action);
-    case ActionTypes.ITEM_DELETE_SUCCESS:
-    case ActionTypes.UNSAVED_ITEM_DELETE:
-    case ActionTypes.ITEM_ADD_REVERT:
+    case ITEM_DELETE_SUCCESS:
+    case UNSAVED_ITEM_DELETE:
+    case ITEM_ADD_REVERT:
       return deleteItem(state, action);
-    case ActionTypes.ITEM_UPDATE_START:
+    case ITEM_UPDATE_START:
       return updateItem(state, action);
-    case ActionTypes.ITEM_TOGGLE:
+    case ITEM_TOGGLE:
       return toggleItem(state, action);
-    case ActionTypes.ITEM_DELETE_START:
+    case ITEM_DELETE_START:
       return closeItem(state, action);
-    case ActionTypes.ITEM_UPDATE_SUCCESS:
+    case ITEM_UPDATE_SUCCESS:
       return setSyncedText(state, action);
-    case ActionTypes.ITEM_UPDATE_REVERT:
+    case ITEM_UPDATE_REVERT:
       return revertUpdate(state, action);
-    case ActionTypes.ITEMS_FETCH_SUCCESS:
+    case ITEMS_FETCH_SUCCESS:
       return fetchItems(action);
     default:
       return state;

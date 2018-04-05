@@ -31,14 +31,15 @@ import {
 } from './syncInfo';
 
 const setSyncState = (state: ItemsSyncInfoState, { payload: { itemSyncInfo } }: IAction): ItemsSyncInfoState =>
-  itemSyncInfo ?
-    state.update(
-      itemSyncInfo.id,
-      new ItemSyncInfo({
-        id: itemSyncInfo.id,
-      }),
-      syncInfo => setSyncStateReducer(syncInfo, itemSyncInfo)) :
-    state;
+  itemSyncInfo
+    ? state.update(
+        itemSyncInfo.id,
+        new ItemSyncInfo({
+          id: itemSyncInfo.id,
+        }),
+        syncInfo => setSyncStateReducer(syncInfo, itemSyncInfo)
+      )
+    : state;
 
 const confirmAddedItem = (state: ItemsSyncInfoState, { payload: { oldId, updatedItem } }: IAction): ItemsSyncInfoState =>
   state
@@ -48,7 +49,8 @@ const confirmAddedItem = (state: ItemsSyncInfoState, { payload: { oldId, updated
         id: updatedItem.id,
         syncState: SyncState.Synced,
         operation: SyncOperation.Add,
-      }))
+      }),
+    )
     .delete(oldId);
 
 const itemDeleted = (state: ItemsSyncInfoState, { payload: { id } }: IAction): ItemsSyncInfoState =>
@@ -65,7 +67,7 @@ const syncAllItems = ({ payload: { items } }: IAction): ItemsSyncInfoState =>
   );
 
 const revertOperation = (state: ItemsSyncInfoState, { payload: { id } }: IAction): ItemsSyncInfoState =>
-  state.update(id, itemSyncInfo => revertOperationReducer(itemSyncInfo));
+  state.update(id, itemSyncInfo =>revertOperationReducer(itemSyncInfo));
 
 const revertDeleteAfterFailedUpdate = (state: ItemsSyncInfoState, { payload: { id } }: IAction): ItemsSyncInfoState =>
   state.update(id, itemSyncInfo => revertDeleteAfterFailedUpdateReducer(itemSyncInfo));

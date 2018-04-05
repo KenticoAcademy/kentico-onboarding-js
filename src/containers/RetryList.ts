@@ -6,7 +6,7 @@ import {
 import {
   Retry as RetryComponent,
   IRetryCallbackProps,
-  IRetryProps
+  IRetryProps,
 } from '../components/Retry';
 import {
   fetchItemsAsync,

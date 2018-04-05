@@ -1,7 +1,7 @@
 import { OrderedMap } from 'immutable';
 import { ListItem } from '../../../../src/models/classes/ListItem';
 import * as deepFreeze from 'deep-freeze';
-import { items } from '../../../../src/reducers/list/items/index';
+import { items } from '../../../../src/reducers/list/items';
 import { Uuid } from '../../../../src/models/Uuid';
 import { IAddedItemConfirmed } from '../../../../src/models/interfaces/IAddedItemConfirmed';
 import { IAction } from '../../../../src/models/interfaces/IAction';
@@ -29,7 +29,7 @@ import { receiveFetchedItems } from '../../../../src/actions/thunk/fetchItemsFac
 
 describe('items', () => {
   describe('requestItemAddition', () => {
-    it('will add ListItem model to state', () => {
+    it('will add new ListItem to state', () => {
       const initialState = OrderedMap<Uuid, ListItem>();
       deepFreeze(initialState);
 
@@ -56,7 +56,7 @@ describe('items', () => {
         .toEqual(expectedState);
     });
 
-    it('will initialize state with ListItem model', () => {
+    it('will initialize state with given ListItem', () => {
       const expectedId = 'test';
       const expectedText = 'text';
 
@@ -327,7 +327,7 @@ describe('items', () => {
   });
 
   describe('requestItemDeletion', () => {
-    it('will change isBeingEdited value to false', () => {
+    it('will set isBeingEdited value to false', () => {
       const id = 'id';
       const listItem = new ListItem({
         id,

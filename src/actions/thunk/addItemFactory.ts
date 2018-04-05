@@ -8,10 +8,13 @@ import { desyncItem } from '../actionCreators';
 import { IAddedItemConfirmed } from '../../models/interfaces/IAddedItemConfirmed';
 import { SyncOperation } from '../../models/enums/SyncOperation';
 import { SyncState } from '../../models/enums/SyncState';
-import * as ActionTypes from '../../constants/actionTypes';
+import {
+  ITEM_ADD_START,
+  ITEM_ADD_SUCCESS,
+} from '../../constants/actionTypes';
 
 export const requestItemAddition = ({ id, text }: INewItem): IAction => ({
-  type: ActionTypes.ITEM_ADD_START,
+  type: ITEM_ADD_START,
   payload: {
     id,
     text,
@@ -24,11 +27,8 @@ export const requestItemAddition = ({ id, text }: INewItem): IAction => ({
 });
 
 export const confirmItemAddition = ({ oldId, updatedItem }: IAddedItemConfirmed) => ({
-  type: ActionTypes.ITEM_ADD_SUCCESS,
-  payload: {
-    oldId,
-    updatedItem,
-  },
+  type: ITEM_ADD_SUCCESS,
+  payload: { oldId, updatedItem },
 });
 
 interface IAddItemFactoryDependencies {
@@ -42,22 +42,17 @@ export interface IAddItemActionParams {
   readonly givenId?: Uuid;
 }
 
-export const addItemFactory = (dependencies: IAddItemFactoryDependencies) =>
+export const addItemFactory = ({ httpClient, uri, createNewId }: IAddItemFactoryDependencies) =>
   ({ text, givenId }: IAddItemActionParams) =>
     (dispatch: Dispatch<IAction>) => {
-      const id = givenId || dependencies.createNewId();
-      const newItem: INewItem = {
-        id,
-        text,
-      };
+      const id = givenId || createNewId();
+      const newItem: INewItem = { id, text };
 
       dispatch(requestItemAddition(newItem));
 
-      return dependencies.httpClient.post<IListItem>(
-        dependencies.uri,
-        {
-          text,
-        })
+      return httpClient.post<IListItem>(
+        uri,
+        { text })
         .then(updatedItem => dispatch(confirmItemAddition({
           oldId: id,
           updatedItem,

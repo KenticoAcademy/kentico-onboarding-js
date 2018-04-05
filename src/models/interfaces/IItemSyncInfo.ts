@@ -3,7 +3,7 @@ import { Uuid } from '../Uuid';
 import { SyncOperation } from '../enums/SyncOperation';
 
 export interface IItemSyncInfo {
-  readonly id: Uuid;
-  readonly operation: SyncOperation;
-  readonly syncState: SyncState;
+  id: Uuid;
+  operation: SyncOperation;
+  syncState: SyncState;
 }

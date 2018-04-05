@@ -13,9 +13,7 @@ import {
   ITEM_SYNC_FAILED,
 } from '../../../src/constants/actionTypes';
 
-const actionParams = {
-  text: '',
-};
+const actionParams = { text: '' };
 const uri = '';
 
 describe('addItem', () => {
@@ -25,7 +23,7 @@ describe('addItem', () => {
         ITEM_ADD_START,
         ITEM_ADD_SUCCESS,
       ];
-      const createdItem: IListItem = new ListItem({});
+      const createdItem: IListItem = new ListItem();
       const httpClient = httpClientSuccessFactory(createdItem);
       const postItem = addItemFactory({
         uri,

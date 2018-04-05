@@ -1,13 +1,13 @@
 import axios, { AxiosResponse } from 'axios';
 import { IHttpClient } from '../models/interfaces/IHttpClient';
 
-const getData = <T>(res: AxiosResponse<T>) =>
+const getData = <TResponse>(res: AxiosResponse<TResponse>) =>
   res.data;
 
 export const createAxiosHttpClient = (): IHttpClient => ({
-  get<T>(url: string): Promise<T> {
+  get<TResponse>(url: string): Promise<TResponse> {
     return axios
-      .get<T>(url)
+      .get<TResponse>(url)
       .then(getData);
   },
 
@@ -17,27 +17,27 @@ export const createAxiosHttpClient = (): IHttpClient => ({
       .then(getData);
   },
 
-  post<T>(url: string, data?: any): Promise<T> {
+  post<TResponse>(url: string, data?: any): Promise<TResponse> {
     return axios
-      .post<T>(
+      .post<TResponse>(
         url,
         data
       )
       .then(getData);
   },
 
-  put<T>(url: string, data?: any): Promise<T> {
+  put<TResponse>(url: string, data?: any): Promise<TResponse> {
     return axios
-      .put<T>(
+      .put<TResponse>(
         url,
         data
       )
       .then(getData);
   },
 
-  patch<T>(url: string, data?: any): Promise<T> {
+  patch<TResponse>(url: string, data?: any): Promise<TResponse> {
     return axios
-      .patch<T>(
+      .patch<TResponse>(
         url,
         data
       )

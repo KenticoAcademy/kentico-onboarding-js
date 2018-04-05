@@ -43,20 +43,19 @@ export class CompleteListItemForm extends React.PureComponent<ICompleteListItemF
   }
 
   componentDidMount() {
-    const {
-      selectionRangeStarts,
-      selectionRangeEnds,
-    } = this.props;
-
-    this.input.setSelectionRange(selectionRangeStarts, selectionRangeEnds);
+    this.input.setSelectionRange(
+      this.props.selectionRangeStarts,
+      this.props.selectionRangeEnds,
+    );
   }
 
-  _onInputChange = (e: React.FormEvent<HTMLInputElement>): void => this.setState({
-    text: e.currentTarget.value,
-  });
+  _onInputChange = (e: React.FormEvent<HTMLInputElement>) =>
+    this.setState({
+      text: e.currentTarget.value,
+    });
 
-  _submitNewItemText = (): void => {
-    const { onSave }   = this.props;
+  _submitNewItemText = () => {
+    const { onSave } = this.props;
     const { text } = this.state;
 
     onSave(text);
@@ -68,23 +67,24 @@ export class CompleteListItemForm extends React.PureComponent<ICompleteListItemF
   _isSynced = () =>
     this.props.itemSyncInfo.syncState === SyncState.Synced;
 
-  _onEnterPress = (): void => {
-    const { text } = this.state;
-
-    if (!isTextEmpty(text)) {
+  _onEnterPress = () => {
+    if (!isTextEmpty(this.state.text)) {
       this._onSave();
     }
   };
 
-  _onSave = (): void => {
-    if (!this._isSynced() || this._textChanged(this.state.text)) {
+  _onSave = () => {
+    if (
+      !this._isSynced()
+      || this._textChanged(this.state.text)
+    ) {
       this._submitNewItemText();
     } else {
       this.props.onCancel();
     }
   };
 
-  _setInputRef = (ref: HTMLInputElement): void => {
+  _setInputRef = (ref: HTMLInputElement) => {
     this.input = ref;
   };
 
@@ -92,10 +92,7 @@ export class CompleteListItemForm extends React.PureComponent<ICompleteListItemF
     const { text } = this.state;
     const enableSaveButton = !isTextEmpty(text);
 
-    const {
-      onCancel,
-      onDelete,
-    } = this.props;
+    const { onCancel, onDelete } = this.props;
 
     const handlers = {
       [keyActions.OnEnter]: this._onEnterPress,

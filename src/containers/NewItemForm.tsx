@@ -9,9 +9,7 @@ import { addItemAsync } from '../actions/thunk';
 import { IAppState } from '../models/state/IAppState';
 
 const mapDispatchToProps = (dispatch: Dispatch<IAppState>): INewItemFormCallbackProps => ({
-  onSubmit: (text: string) => dispatch(addItemAsync({
-    text,
-  })),
+  onSubmit: (text: string) => dispatch(addItemAsync({ text })),
 });
 
 export const NewItemForm: ComponentClass = connect(

@@ -44,7 +44,7 @@ export class ListItem extends React.PureComponent<IListItemProps, IListItemState
     };
   }
 
-  _selectText = (selectionRangeStarts: number, selectionRangeEnds: number): void => {
+  _selectText = (selectionRangeStarts: number, selectionRangeEnds: number) => {
     this.setState({
       selectionRangeStarts,
       selectionRangeEnds,
@@ -52,25 +52,15 @@ export class ListItem extends React.PureComponent<IListItemProps, IListItemState
   };
 
   render() {
-    const {
-      itemNumber,
-      item,
-      itemSyncInfo,
-    } = this.props;
-
-    return item.isBeingEdited ?
+    return this.props.item.isBeingEdited ?
       <ListItemForm
-        itemNumber={itemNumber}
-        item={item}
+        { ...this.props }
         selectionRangeEnds={this.state.selectionRangeEnds}
         selectionRangeStarts={this.state.selectionRangeStarts}
-        itemSyncInfo={itemSyncInfo}
       /> :
       <ListItemStatic
-        itemNumber={itemNumber}
-        item={item}
+        { ...this.props }
         onTextSelection={this._selectText}
-        itemSyncInfo={itemSyncInfo}
       />;
   }
 }

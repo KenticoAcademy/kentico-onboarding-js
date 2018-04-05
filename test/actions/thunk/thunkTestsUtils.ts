@@ -2,31 +2,31 @@ import Mock = jest.Mock;
 import { IHttpClient } from '../../../src/models/interfaces/IHttpClient';
 
 export const httpClientSuccessFactory = <T>(body: T | {} = {}): IHttpClient => {
-  const resolver = () => Promise.resolve<any>(body);
+  const resolve = () => Promise.resolve<any>(body);
 
   return ({
-    get: resolver,
+    get: resolve,
     delete: () => Promise.resolve(),
-    post: resolver,
-    patch: resolver,
-    put: resolver,
+    post: resolve,
+    patch: resolve,
+    put: resolve,
   });
 };
 
-const rejector = () =>
+const reject = () =>
   Promise.reject({});
 
 export const httpClientFailure: IHttpClient = ({
-  get: rejector,
-  delete: rejector,
-  post: rejector,
-  patch: rejector,
-  put: rejector,
+  get: reject,
+  delete: reject,
+  post: reject,
+  patch: reject,
+  put: reject,
 });
 
 export const fakeFunction = jest.fn();
 
-export const getDispatchedActionTypes = <T>(mockedThunkAction: Mock<T>): string[] =>
+export const getDispatchedActionTypes = <TActionType>(mockedThunkAction: Mock<TActionType>): string[] =>
   mockedThunkAction
     .mock
     .calls

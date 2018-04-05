@@ -2,7 +2,7 @@ import { keySeqToArray } from '../../src/utils/keySeqToArray';
 import { Seq } from 'immutable';
 
 describe('keySeqToArray', () => {
-  it('will call keySeqToArray 2 times on the same arguments', () => {
+  it('will return the same array when called 2 times with the same arguments', () => {
     const arr = Seq.Indexed.of(1, 2, 3, 4);
 
     const result1 = keySeqToArray(arr);
@@ -12,7 +12,7 @@ describe('keySeqToArray', () => {
       .toBe(result2);
   });
 
-  it('will call keySeqToArray 2 times on different arguments', () => {
+  it('will return different arrays when called 2 times with different arguments', () => {
     const arr1 = Seq.Indexed.of(1, 2, 3, 4);
     const arr2 = arr1.take(3).toIndexedSeq();
     const result1 = keySeqToArray(arr1);

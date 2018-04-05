@@ -2,20 +2,20 @@ import * as PropTypes from 'prop-types';
 import {
   ComponentClass,
   connect,
-  Dispatch
+  Dispatch,
 } from 'react-redux';
 import { IListItem } from '../models/interfaces/IListItem';
 import {
   Retry as RetryComponent,
   IRetryCallbackProps,
-  IRetryProps
+  IRetryProps,
 } from '../components/Retry';
 import { IItemSyncInfo } from '../models/interfaces/IItemSyncInfo';
 import { SyncOperation } from '../models/enums/SyncOperation';
 import {
   deleteItemAsync,
   addItemAsync,
-  updateItemAsync
+  updateItemAsync,
 } from '../actions/thunk';
 import { IAppState } from '../models/state/IAppState';
 import { getRetryMessage } from '../utils/getRetryMessage';
@@ -48,14 +48,10 @@ const getRetryAction = ({ id, text, syncedText }: IListItem, itemSyncInfo: IItem
       });
 
     case SyncOperation.Delete:
-      return deleteItemAsync({
-        id,
-      });
+      return deleteItemAsync({ id });
 
     case SyncOperation.DeleteAfterFailedUpdate:
-      return deleteItemAsync({
-        id,
-      });
+      return deleteItemAsync({ id });
 
     default:
       return () => undefined;

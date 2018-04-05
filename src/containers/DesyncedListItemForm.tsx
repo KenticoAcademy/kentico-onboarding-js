@@ -1,7 +1,7 @@
 import {
   ComponentClass,
   connect,
-  Dispatch
+  Dispatch,
 } from 'react-redux';
 import { SyncOperation } from '../models/enums/SyncOperation';
 import {
@@ -10,7 +10,7 @@ import {
 } from '../actions';
 import {
   CompleteListItemForm as CompleteListItemFormComponent,
-  ICompleteListItemFormCallbackProps
+  ICompleteListItemFormCallbackProps,
 } from '../components/CompleteListItemForm';
 import {
   IListItemFormOwnProps,
@@ -44,9 +44,7 @@ const mapDispatchToProps = (dispatch: Dispatch<IAppState>,  { item, itemSyncInfo
       text: newText,
       id,
     })),
-    onDelete: () => dispatch(deleteItemAsync({
-      id,
-    })),
+    onDelete: () => dispatch(deleteItemAsync({ id })),
     onCancel: () => dispatch(toggleItem(id)),
   };
 };

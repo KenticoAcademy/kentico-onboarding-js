@@ -27,11 +27,12 @@ export class NewItemForm extends React.PureComponent<INewItemFormCallbackProps, 
     };
   }
 
-  _onInputChange = (e: React.FormEvent<HTMLInputElement>): void => this.setState({
-    newItemText: e.currentTarget.value,
-  });
+  _onInputChange = (e: React.FormEvent<HTMLInputElement>) =>
+    this.setState({
+      newItemText: e.currentTarget.value,
+    });
 
-  _submitItemText = (): void => {
+  _submitItemText = () => {
     const { onSubmit } = this.props;
     const { newItemText } = this.state;
 
@@ -42,7 +43,7 @@ export class NewItemForm extends React.PureComponent<INewItemFormCallbackProps, 
     });
   };
 
-  _onEnterPress = (): void => {
+  _onEnterPress = () => {
     const { newItemText } = this.state;
 
     if (!isTextEmpty(newItemText)) {
@@ -50,7 +51,7 @@ export class NewItemForm extends React.PureComponent<INewItemFormCallbackProps, 
     }
   };
 
-  _onEscPress = (): void => {
+  _onEscPress = () => {
     this.setState({
       newItemText: '',
     });

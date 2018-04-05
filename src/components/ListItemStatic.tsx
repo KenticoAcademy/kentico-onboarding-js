@@ -46,11 +46,16 @@ export class ListItemStatic extends React.PureComponent<IListItemStaticProps> {
     isClickable: PropTypes.bool.isRequired,
   };
 
-  _onMouseUp = (): void => {
-    const { onTextSelection, onItemOpened, item, isClickable } = this.props;
+  _onMouseUp = () => {
+    const {
+      onTextSelection,
+      onItemOpened,
+      item,
+      isClickable,
+    } = this.props;
 
     if (!isClickable) {
-      return undefined;
+      return;
     }
 
     const selection = window
@@ -58,9 +63,9 @@ export class ListItemStatic extends React.PureComponent<IListItemStaticProps> {
       .getRangeAt(0);
 
     const { startOffset, endOffset } = selection;
-
-
-    const correctedEndOffset = endOffset > 0 || startOffset === 0 ? endOffset : item.text.length;
+    const correctedEndOffset = endOffset > 0 || startOffset === 0
+      ? endOffset
+      : item.text.length;
 
     onTextSelection(startOffset, correctedEndOffset);
     onItemOpened();
@@ -70,7 +75,6 @@ export class ListItemStatic extends React.PureComponent<IListItemStaticProps> {
     const {
       itemNumber,
       item,
-      item: { text },
       itemSyncInfo,
     } = this.props;
 
@@ -85,9 +89,15 @@ export class ListItemStatic extends React.PureComponent<IListItemStaticProps> {
         syncingComponent = (
           <div className="form-inline">
             <div className="mr-2">
-              <RetryItem item={item} itemSyncInfo={itemSyncInfo} />
+              <RetryItem
+                item={item}
+                itemSyncInfo={itemSyncInfo}
+              />
             </div>
-            <Revert syncOperation={itemSyncInfo.operation} id={item.id} />
+            <Revert
+              syncOperation={itemSyncInfo.operation}
+              id={item.id}
+            />
           </div>
         );
         break;
@@ -103,7 +113,7 @@ export class ListItemStatic extends React.PureComponent<IListItemStaticProps> {
           {itemNumber + '.'}
         </span>
         <div onMouseUp={this._onMouseUp}>
-          {text}
+          {item.text}
         </div>
         <div className="ml-3">
           {syncingComponent}

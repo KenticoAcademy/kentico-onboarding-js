@@ -7,7 +7,7 @@ import {
   revertDeleteAfterFailedUpdate,
 } from '../../../../src/actions';
 import { IListItem } from '../../../../src/models/interfaces/IListItem';
-import { itemsSyncInfo } from '../../../../src/reducers/list/itemsSyncInfo/index';
+import { itemsSyncInfo } from '../../../../src/reducers/list/itemsSyncInfo';
 import { OrderedMap } from 'immutable';
 import { Uuid } from '../../../../src/models/Uuid';
 import { ItemSyncInfo } from '../../../../src/models/classes/ItemSyncInfo';
@@ -36,13 +36,8 @@ describe('itemsSyncInfo', () => {
   describe('receiveFetchedItems', () => {
     it('will create item sync info for all fetched items', () => {
       const initialState = undefined;
-
-      const item1 = new ListItem({
-        id: '1',
-      });
-      const item2 = new ListItem({
-        id: '2',
-      });
+      const item1 = new ListItem({ id: '1' });
+      const item2 = new ListItem({ id: '2' });
       const items: IListItem[] = [
         item1,
         item2,
@@ -77,15 +72,9 @@ describe('itemsSyncInfo', () => {
     .forEach(action =>
       describe(action.name, () => {
         it('will delete item sync info with existing id', () => {
-          const itemSyncInfo1 = new ItemSyncInfo({
-            id: '1',
-          });
-          const itemSyncInfo2 = new ItemSyncInfo({
-            id: '2',
-          });
-          const itemSyncInfo3 = new ItemSyncInfo({
-            id: '3',
-          });
+          const itemSyncInfo1 = new ItemSyncInfo({ id: '1' });
+          const itemSyncInfo2 = new ItemSyncInfo({ id: '2' });
+          const itemSyncInfo3 = new ItemSyncInfo({ id: '3' });
 
           const initialState = OrderedMap<Uuid, ItemSyncInfo>({
             [itemSyncInfo1.id]: itemSyncInfo1,
@@ -108,7 +97,7 @@ describe('itemsSyncInfo', () => {
       }));
 
   describe('confirmItemAddition', () => {
-    it('will change confirmed item to syncState synced', () => {
+    it('will change confirmed item syncState to Synced', () => {
       const oldId = 'oldId';
       const newId = 'newId';
       const itemSyncInfo = new ItemSyncInfo({
@@ -148,7 +137,7 @@ describe('itemsSyncInfo', () => {
   });
 
   describe('confirmItemUpdate', () => {
-    it('will change item sync info to Synced', () => {
+    it('will change item sync state to Synced', () => {
       const itemSyncInfo1 = new ItemSyncInfo({
         id: '1',
         operation: SyncOperation.Update,
@@ -159,12 +148,8 @@ describe('itemsSyncInfo', () => {
         operation: SyncOperation.Update,
         syncState: SyncState.Synced,
       });
-      const itemSyncInfo2 = new ItemSyncInfo({
-        id: '2'
-      });
-      const itemSyncInfo3 = new ItemSyncInfo({
-        id: '3'
-      });
+      const itemSyncInfo2 = new ItemSyncInfo({ id: '2' });
+      const itemSyncInfo3 = new ItemSyncInfo({ id: '3' });
       const initialState = OrderedMap<Uuid, ItemSyncInfo>({
         [itemSyncInfo1.id]: itemSyncInfo1,
         [itemSyncInfo3.id]: itemSyncInfo3,
@@ -187,7 +172,7 @@ describe('itemsSyncInfo', () => {
   });
 
   describe('desyncItem', () => {
-    it('will change item sync info to Desynced', () => {
+    it('will change item sync state to Desynced', () => {
       const id = 'id';
       const itemSyncInfo = new ItemSyncInfo({
         id,
@@ -230,9 +215,7 @@ describe('itemsSyncInfo', () => {
         })
       });
 
-      const mockItem = new ListItem({
-        id,
-      });
+      const mockItem = new ListItem({ id });
       const action = requestItemAddition(mockItem);
       const result = itemsSyncInfo(initialState, action);
 
@@ -242,7 +225,7 @@ describe('itemsSyncInfo', () => {
   });
 
   describe('requestItemDeletion', () => {
-    it('will change item sync info to Pending', () => {
+    it('will change item sync state to Pending', () => {
       const id = 'id';
       const itemSyncInfo = new ItemSyncInfo({
         id,
@@ -272,7 +255,7 @@ describe('itemsSyncInfo', () => {
   });
 
   describe('requestItemUpdate', () => {
-    it('will change item sync info to Pending', () => {
+    it('will change item sync state to Pending', () => {
       const itemSyncInfo1 = new ItemSyncInfo();
       const itemSyncInfo2 = new ItemSyncInfo();
       const itemSyncInfo2Modified = new ItemSyncInfo({
@@ -439,7 +422,7 @@ describe('itemsSyncInfo', () => {
   });
 
   describe('desyncItem', () => {
-    it('will change synced state to desynced', () => {
+    it('will change synced state to Desynced', () => {
       const itemSyncInfo = new ItemSyncInfo({
         operation: SyncOperation.DeleteAfterFailedUpdate,
         syncState: SyncState.Pending,

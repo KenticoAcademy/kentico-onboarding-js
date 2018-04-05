@@ -3,17 +3,28 @@ import { SyncOperation } from '../../../models/enums/SyncOperation';
 import { SyncState } from '../../../models/enums/SyncState';
 import { IItemSyncInfo } from '../../../models/interfaces/IItemSyncInfo';
 
-const deleteHasFailedAfterFailedUpdate = (oldItemSyncInfo: IItemSyncInfo, newItemSyncInfo: IItemSyncInfo) =>
-  oldItemSyncInfo.syncState === SyncState.Desynced
-  && (oldItemSyncInfo.operation === SyncOperation.Update
-  || oldItemSyncInfo.operation === SyncOperation.DeleteAfterFailedUpdate)
-  && newItemSyncInfo.operation === SyncOperation.Delete;
+const deleteHasFailedAfterFailedUpdate = (oldItemSyncInfo: IItemSyncInfo, newItemSyncInfo: IItemSyncInfo) => {
+  const isDeleteRequest = newItemSyncInfo.operation === SyncOperation.Delete;
+  const previouslyFailed = oldItemSyncInfo.syncState === SyncState.Desynced;
+  const failStackContainsUpdate =
+    oldItemSyncInfo.operation === SyncOperation.Update
+    || oldItemSyncInfo.operation === SyncOperation.DeleteAfterFailedUpdate;
 
-export const setSyncStateReducer = (itemSyncInfo: ItemSyncInfo, updatedSyncInfo: ItemSyncInfo): ItemSyncInfo =>
-  itemSyncInfo.with({
-    operation: deleteHasFailedAfterFailedUpdate(itemSyncInfo, updatedSyncInfo) ? SyncOperation.DeleteAfterFailedUpdate : updatedSyncInfo.operation,
+  return previouslyFailed
+  && failStackContainsUpdate
+  && isDeleteRequest;
+};
+
+export const setSyncStateReducer = (itemSyncInfo: ItemSyncInfo, updatedSyncInfo: ItemSyncInfo): ItemSyncInfo => {
+  const operation = deleteHasFailedAfterFailedUpdate(itemSyncInfo, updatedSyncInfo)
+    ? SyncOperation.DeleteAfterFailedUpdate
+    : updatedSyncInfo.operation;
+
+  return itemSyncInfo.with({
+    operation,
     syncState: updatedSyncInfo.syncState,
   });
+};
 
 export const revertOperationReducer = (itemSyncInfo: ItemSyncInfo): ItemSyncInfo =>
   itemSyncInfo.with({

@@ -10,9 +10,7 @@ import {
   ITEM_SYNC_FAILED,
 } from '../../../src/constants/actionTypes';
 
-const actionParams = {
-  id: '',
-};
+const actionParams = { id: '' };
 const uri = '';
 
 describe('deleteItem', () => {

@@ -12,7 +12,7 @@ describe('fetchItemsState', () => {
   describe('startFetchingItems', () => {
     [FetchItemsState.INITIAL, FetchItemsState.FAILED]
       .forEach(initialState =>
-        it('will set fetch items state to Requested', () => {
+        it('will set state to Requested', () => {
           deepFreeze(initialState);
 
           const expectedState = FetchItemsState.REQUESTED;
@@ -26,7 +26,7 @@ describe('fetchItemsState', () => {
   });
 
   describe('receiveFetchedItems', () => {
-    it('will set fetch items state to Received', () => {
+    it('will set state to Received', () => {
       const initialState = FetchItemsState.REQUESTED;
       deepFreeze(initialState);
 
@@ -41,7 +41,7 @@ describe('fetchItemsState', () => {
   });
 
   describe('notifyFailedItemsFetching', () => {
-    it('will set fetch items state to Failed', () => {
+    it('will set state to Failed', () => {
       const initialState = FetchItemsState.REQUESTED;
       deepFreeze(initialState);
 
@@ -54,7 +54,7 @@ describe('fetchItemsState', () => {
         .toBe(expectedState);
     });
 
-    it('will change fetch items state to Failed from undefined', () => {
+    it('will set state to Failed from undefined', () => {
       const initialState = undefined;
       const expectedState = FetchItemsState.FAILED;
 
@@ -67,14 +67,14 @@ describe('fetchItemsState', () => {
   });
 
   describe('undefined action', () => {
-    it('will not modify fetch items state', () => {
+    it('will not modify state', () => {
       const initialState = FetchItemsState.RECEIVED;
       deepFreeze(initialState);
       const expectedState = initialState;
 
       const action: IAction = {
         payload: undefined,
-        type: 'test_typpe',
+        type: 'test_type',
       };
       const result = fetchItemsState(initialState, action);
 
@@ -82,7 +82,7 @@ describe('fetchItemsState', () => {
         .toBe(expectedState);
     });
 
-    it('will set state to Initial if undefined', () => {
+    it('will set state to Initial from undefined', () => {
       const initialState = undefined;
       const expectedState = FetchItemsState.INITIAL;
 

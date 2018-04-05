@@ -19,20 +19,22 @@ import  * as createNewId from 'uuid/v4';
 import { itemCollection } from '../../constants/backendUris';
 import { createAxiosHttpClient } from '../../utils/createAxiosHttpClient';
 
-const uri = itemCollection;
-
 const commonDependencies = {
-  uri,
+  uri: itemCollection,
   httpClient: createAxiosHttpClient(),
 };
 
-export const fetchItemsAsync: IThunkActionWithoutParams = fetchItemsFactory(commonDependencies);
+export const fetchItemsAsync: IThunkActionWithoutParams =
+  fetchItemsFactory(commonDependencies);
 
-export const addItemAsync: IThunkAction<IAddItemActionParams> = addItemFactory({
-  ...commonDependencies,
-  createNewId,
-});
+export const addItemAsync: IThunkAction<IAddItemActionParams> =
+  addItemFactory({
+    ...commonDependencies,
+    createNewId,
+  });
 
-export const deleteItemAsync: IThunkAction<IDeleteItemActionParams> = deleteItemFactory(commonDependencies);
+export const deleteItemAsync: IThunkAction<IDeleteItemActionParams> =
+  deleteItemFactory(commonDependencies);
 
-export const updateItemAsync: IThunkAction<IUpdateItemActionParams> = updateItemFactory(commonDependencies);
+export const updateItemAsync: IThunkAction<IUpdateItemActionParams> =
+  updateItemFactory(commonDependencies);
