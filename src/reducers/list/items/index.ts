@@ -7,6 +7,13 @@ import { Uuid } from '../../../models/Uuid';
 import { arrayToOrderedMap } from '../../../utils/arrayToOrderedMap';
 import { IListItem } from '../../../models/interfaces/IListItem';
 import { IFetchedItem } from '../../../models/interfaces/IFetchedItem';
+import {
+  closeItemReducer,
+  revertUpdateReducer,
+  setSyncedTextReducer,
+  toggleItemReducer,
+  updateItemReducer,
+} from './item';
 
 const addItem = (state: ItemsState, { payload: { id, text } }: IAction): ItemsState => {
   const newItem = new ListItem({
@@ -32,23 +39,13 @@ const deleteItem = (state: ItemsState, { payload: { id } }: IAction): ItemsState
   state.delete(id);
 
 const updateItem = (state: ItemsState, { payload: { item } }: IAction): ItemsState =>
-  state.update(item.id, originalItem =>
-    originalItem.with({
-      text: item.text,
-      isBeingEdited: false,
-    }));
+  state.update(item.id, originalItem => updateItemReducer(originalItem, item));
 
 const toggleItem = (state: ItemsState, { payload: { id } }: IAction): ItemsState =>
-  state.update(id, item =>
-    item.with({
-      isBeingEdited: !item.isBeingEdited,
-    }));
+  state.update(id, item => toggleItemReducer(item));
 
 const closeItem = (state: ItemsState, { payload: { id } }: IAction): ItemsState =>
-  state.update(id, item =>
-    item.with({
-      isBeingEdited: false,
-    }));
+  state.update(id, item => closeItemReducer(item));
 
 const fetchItems = (action: IAction): ItemsState => {
   const items: IListItem[] = action.payload.items.map((item: IFetchedItem) => ({
@@ -63,23 +60,15 @@ const fetchItems = (action: IAction): ItemsState => {
 };
 
 const setSyncedText = (state: ItemsState, { payload: { id } }: IAction): ItemsState =>
-  state.update(id, item =>
-    item.with({
-      syncedText: item.text,
-    }));
+  state.update(id, item => setSyncedTextReducer(item));
 
 const revertUpdate = (state: ItemsState, { payload: { id } }: IAction): ItemsState =>
-  state.update(id, item =>
-    item.with({
-      text: item.syncedText,
-    }));
+  state.update(id, item => revertUpdateReducer(item));
 
 const initialState = OrderedMap<Uuid, ListItem>();
 
 export const items = (state = initialState, action: IAction): ItemsState => {
-  const { type } = action;
-
-  switch (type) {
+  switch (action.type) {
     case ActionTypes.ITEM_ADD_START:
       return addItem(state, action);
     case ActionTypes.ITEM_ADD_SUCCESS:
