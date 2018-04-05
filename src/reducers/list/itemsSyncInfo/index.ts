@@ -23,12 +23,12 @@ import { SyncOperation } from '../../../models/enums/SyncOperation';
 import { IListItem } from '../../../models/interfaces/IListItem';
 import { IItemSyncInfo } from '../../../models/interfaces/IItemSyncInfo';
 import { arrayToOrderedMap } from '../../../utils/arrayToOrderedMap';
-
-const deleteHasFailedAfterFailedUpdate = (oldItemSyncInfo: IItemSyncInfo, newItemSyncInfo: IItemSyncInfo) =>
-  oldItemSyncInfo.syncState === SyncState.Desynced
-  && (oldItemSyncInfo.operation === SyncOperation.Update
-      || oldItemSyncInfo.operation === SyncOperation.DeleteAfterFailedUpdate)
-  && newItemSyncInfo.operation === SyncOperation.Delete;
+import {
+  desyncItemReducer,
+  revertDeleteAfterFailedUpdateReducer,
+  revertOperationReducer,
+  setSyncStateReducer,
+} from './syncInfo';
 
 const setSyncState = (state: ItemsSyncInfoState, { payload: { itemSyncInfo } }: IAction): ItemsSyncInfoState =>
   itemSyncInfo ?
@@ -37,10 +37,7 @@ const setSyncState = (state: ItemsSyncInfoState, { payload: { itemSyncInfo } }: 
       new ItemSyncInfo({
         id: itemSyncInfo.id,
       }),
-      syncInfo => syncInfo.with({
-        operation: deleteHasFailedAfterFailedUpdate(syncInfo, itemSyncInfo) ? SyncOperation.DeleteAfterFailedUpdate : itemSyncInfo.operation,
-        syncState: itemSyncInfo.syncState,
-      })) :
+      syncInfo => setSyncStateReducer(syncInfo, itemSyncInfo)) :
     state;
 
 const confirmAddedItem = (state: ItemsSyncInfoState, { payload: { oldId, updatedItem } }: IAction): ItemsSyncInfoState =>
@@ -68,22 +65,13 @@ const syncAllItems = ({ payload: { items } }: IAction): ItemsSyncInfoState =>
   );
 
 const revertOperation = (state: ItemsSyncInfoState, { payload: { id } }: IAction): ItemsSyncInfoState =>
-  state.update(id, itemSyncInfo => itemSyncInfo.with({
-    syncState: SyncState.Synced,
-    operation: SyncOperation.Default,
-  }));
+  state.update(id, itemSyncInfo => revertOperationReducer(itemSyncInfo));
 
 const revertDeleteAfterFailedUpdate = (state: ItemsSyncInfoState, { payload: { id } }: IAction): ItemsSyncInfoState =>
-  state.update(id, itemSyncInfo => itemSyncInfo.with({
-    syncState: SyncState.Desynced,
-    operation: SyncOperation.Update,
-  }));
+  state.update(id, itemSyncInfo => revertDeleteAfterFailedUpdateReducer(itemSyncInfo));
 
 const desyncItem = (state: ItemsSyncInfoState, { payload: { id } }: IAction): ItemsSyncInfoState =>
-  state.update(id, itemSyncInfo =>
-    itemSyncInfo.with({
-      syncState: SyncState.Desynced,
-    }));
+  state.update(id, itemSyncInfo => desyncItemReducer(itemSyncInfo));
 
 const initialState: ItemsSyncInfoState = OrderedMap<Uuid, ItemSyncInfo>();
 
