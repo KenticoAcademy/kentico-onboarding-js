@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 
+import { Error } from '../containers/Error';
 import { ListItem } from '../containers/ListItem';
 import { NewItem } from '../containers/NewItem';
 import { ListGroupActions } from '../containers/ListGroupActions';
@@ -47,6 +48,7 @@ export class List extends React.PureComponent<IListProps> {
             <div className="list-group">
               {listOfKeys}
             </div>
+            <Error itemKey={undefined} />
           </div>
           <ListGroupActions />
         </div>

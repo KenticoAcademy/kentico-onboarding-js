@@ -8,6 +8,7 @@ import {
   List as ListComponent,
 } from '../components/List';
 import { IState } from '../store/IState';
+
 const mapStateToProps = ({ list }: IState): IListStateProps => ({
   itemKeys: getMemoizedKeys(list.items.keySeq()),
 });

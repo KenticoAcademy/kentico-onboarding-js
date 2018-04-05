@@ -27,21 +27,31 @@ describe('getItemsFactory works correctly', () => {
   const successMock = jest.fn();
   const failureMock = jest.fn();
 
-  it('dispatch success on resolve', () => {
-    const getItemsMoc = jest.fn(() => Promise.resolve());
-    const factory = getItemsFactory(new DummyApiService(getItemsMoc), successMock, failureMock);
+  it('dispatch success on getItems resolve with correct data', () => {
+    const itemsResolved = [1, 2, 4];
+    const getItemsMock = jest.fn(() => Promise.resolve(itemsResolved));
+    const factory = getItemsFactory(new DummyApiService(getItemsMock), successMock, failureMock);
 
     const result = factory()(dispatchMock, () => new DummyState(), {});
 
-    result.then(() => expect(dispatchMock.mock.calls).toBe(1));
+    result.then(items => {
+      expect(getItemsMock.mock.calls).toBe(1);
+      expect(dispatchMock.mock.calls).toBe(1);
+      expect(items).toBe(itemsResolved);
+    });
   });
 
-  it('dispatch error on reject', () => {
-    const getItemsMoc = jest.fn(() => Promise.reject('x'));
-    const factory = getItemsFactory(new DummyApiService(getItemsMoc), successMock, failureMock);
+  it('dispatch error on getItems reject with correct error', () => {
+    const errorMessage = 'x error';
+    const getItemsMock = jest.fn(() => Promise.reject(errorMessage));
+    const factory = getItemsFactory(new DummyApiService(getItemsMock), successMock, failureMock);
 
     const result = factory()(dispatchMock, () => new DummyState(), {});
 
-    result.catch(() => expect(dispatchMock.mock.calls).toBe(1));
+    result.catch(error => {
+      expect(getItemsMock.mock.calls).toBe(1);
+      expect(dispatchMock.mock.calls).toBe(1);
+      expect(error).toBe(errorMessage);
+    });
   });
 });
