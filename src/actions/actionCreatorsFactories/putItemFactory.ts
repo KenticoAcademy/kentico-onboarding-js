@@ -11,7 +11,7 @@ import {
 } from '../../constants/actionTypes';
 
 interface IUpdateDependencies {
-  readonly axiosPut: (item: UpdateItem) => Promise<AxiosResponse>;
+  readonly axiosPut: (item: IUpdateItem) => Promise<AxiosResponse>;
 }
 
 export const putSuccess = (id: Uuid): IAction => ({
@@ -29,19 +29,19 @@ export const putError = (id: Uuid, message: string): IAction => ({
   }
 });
 
-export interface UpdateItem {
+export interface IUpdateItem {
   id: Uuid;
   text: string;
 }
 
-export const updateItem = (item: UpdateItem): IAction => ({
+export const updateItem = (item: IUpdateItem): IAction => ({
   type: TODO_LIST_ITEM_UPDATE,
   payload: item,
 });
 
 export const putItemFactory =
   ({axiosPut}: IUpdateDependencies) =>
-    (item: UpdateItem) =>
+    (item: IUpdateItem) =>
       async (dispatch: Dispatch<IAppState>): Promise<IAction> => {
         dispatch(updateItem(item));
 

@@ -1,12 +1,12 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 
-interface OwnProps {
+interface IOwnProps {
   readonly errorMessage: string;
   readonly onCloseError: () => any;
 }
 
-const Error: React.SFC<OwnProps> = (props: OwnProps): JSX.Element =>
+const Error: React.SFC<IOwnProps> = (props: IOwnProps): JSX.Element =>
   <div className="alert alert-danger alert-dismissable fade in">
     <span
       className="glyphicon glyphicon-warning-sign"

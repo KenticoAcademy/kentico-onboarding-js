@@ -10,7 +10,7 @@ import {
   FETCH_ITEMS_SUCCESS
 } from '../../constants/actionTypes';
 
-interface FetchedItem {
+interface IFetchedItem {
   text: string;
   id: Uuid;
   createdAt: string;
@@ -37,7 +37,7 @@ export const fetchItemsFactory =
     () => async (dispatch: Dispatch<IAppState>): Promise<IAction> => {
       try {
         const response = await axiosFetch();
-        response.data.map((item: FetchedItem) =>
+        response.data.map((item: IFetchedItem) =>
           dispatch(insertItem({
             text: item.text,
             id: item.id,
