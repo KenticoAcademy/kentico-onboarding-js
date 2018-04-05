@@ -406,33 +406,36 @@ describe('itemsSyncInfo', () => {
   });
 
   describe('requestItemDeletion', () => {
-    it('will change sync operation to deleteAfterFailedModify', () => {
-      const itemSyncInfo = new ItemSyncInfo({
-        operation: SyncOperation.Update,
-        syncState: SyncState.Desynced,
-        id: 'id',
-      });
-      const newItemSyncInfo = new ItemSyncInfo({
-        id: 'id',
-        operation: SyncOperation.DeleteAfterFailedUpdate,
-        syncState: SyncState.Pending,
-      });
+    [SyncOperation.Update, SyncOperation.DeleteAfterFailedUpdate]
+      .forEach(operation =>
+        it(`will change sync operation to DeleteAfterFailedModify from ${operation}`, () => {
+          const itemSyncInfo = new ItemSyncInfo({
+            operation,
+            syncState: SyncState.Desynced,
+            id: 'id',
+          });
+          const newItemSyncInfo = new ItemSyncInfo({
+            id: 'id',
+            operation: SyncOperation.DeleteAfterFailedUpdate,
+            syncState: SyncState.Pending,
+          });
 
-      const initialState = OrderedMap<Uuid, ItemSyncInfo>({
-        [itemSyncInfo.id]: itemSyncInfo,
-      });
-      deepFreeze(initialState);
+          const initialState = OrderedMap<Uuid, ItemSyncInfo>({
+            [itemSyncInfo.id]: itemSyncInfo,
+          });
+          deepFreeze(initialState);
 
-      const expectedState = OrderedMap<Uuid, ItemSyncInfo>({
-        [newItemSyncInfo.id]: newItemSyncInfo,
-      });
+          const expectedState = OrderedMap<Uuid, ItemSyncInfo>({
+            [newItemSyncInfo.id]: newItemSyncInfo,
+          });
 
-      const action = requestItemDeletion(itemSyncInfo.id);
-      const result = itemsSyncInfo(initialState, action);
+          const action = requestItemDeletion(itemSyncInfo.id);
+          const result = itemsSyncInfo(initialState, action);
 
-      expect(result)
-        .toEqual(expectedState);
-    });
+          expect(result)
+            .toEqual(expectedState);
+        })
+      );
   });
 
   describe('desyncItem', () => {
