@@ -7,7 +7,7 @@ import { stopItemEditing } from './itemActions';
 import { IServerItem } from '../../models/IServerItem';
 import { Item } from '../../models/Item';
 
-export const saveItem = (itemKey: Key): IAction => ({
+const saveItem = (itemKey: Key): IAction => ({
   type: actionTypes.ITEM_SAVE,
   payload: {
     itemKey,
@@ -74,6 +74,21 @@ export const addItemSuccess = (serverItem: IServerItem): IAction => ({
 export const addItemFailed = (error: string): IAction => ({
   type: actionTypes.ITEM_ADD_FAILED,
   payload: {
+    error,
+  },
+});
+
+export const saveItemSuccess = (itemKey: Key): IAction => ({
+  type: actionTypes.ITEM_SAVE_SUCCESS,
+  payload: {
+    itemKey,
+  },
+});
+
+export const saveItemFailed = (itemKey: Key, error: string): IAction => ({
+  type: actionTypes.ITEM_SAVE_FAILED,
+  payload: {
+    itemKey,
     error,
   },
 });
