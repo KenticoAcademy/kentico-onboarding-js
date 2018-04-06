@@ -11,13 +11,13 @@ import {
   stopItemEditing,
   changeItemValue,
 } from '../actions';
-import { IAction } from '../@types/IAction';
+import { IState } from '../store/IState';
 
 const mapDispatchToProps =
-  (dispatch: Dispatch<IAction>, { item: { key }}: IListItemOriginalProps): IListItemEditorDispatchProps => ({
+  (dispatch: Dispatch<IState>, { item: { key, temporaryValue }}: IListItemOriginalProps): IListItemEditorDispatchProps => ({
     onCancelEdit: () => dispatch(stopItemEditing(key)),
     deleteItem: () => dispatch(deleteItem(key)),
-    saveItem: () => dispatch(saveItem(key)),
+    saveItem: () => dispatch(saveItem(key, temporaryValue)),
     onChange: (itemValue: string) => dispatch(changeItemValue(key, itemValue)),
   });
 

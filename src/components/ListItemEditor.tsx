@@ -16,7 +16,7 @@ export interface IListItemOriginalProps {
 }
 
 export interface IListItemEditorDispatchProps {
-  readonly saveItem: () => IAction;
+  readonly saveItem: () => void;
   readonly deleteItem: () => IAction;
   readonly onCancelEdit: () => IAction;
   readonly onChange: (value: string) => IAction;

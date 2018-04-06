@@ -10,6 +10,12 @@ export const item = (state = new Item(), action: IAction): Item => {
         isBeingEdited: false,
       });
 
+    case actionTypes.ITEM_SAVE_SUCCESS:
+      return state.with({
+        value: state.temporaryValue,
+        isBeingEdited: false,
+      });
+
     case actionTypes.ITEM_EDITING_START:
       return state.with({ isBeingEdited: true });
 

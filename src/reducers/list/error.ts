@@ -3,7 +3,7 @@ import { actionTypes } from '../../constants/actionTypes';
 import { ErrorComposition } from '../../models/ErrorComposition';
 import {
   ERROR_ADD_ITEM,
-  ERROR_GET_ITEMS,
+  ERROR_GET_ITEMS, ERROR_SAVE_ITEM,
 } from '../../constants/constants';
 
 export const error = (state = new ErrorComposition(), action: IAction): ErrorComposition => {
@@ -16,6 +16,11 @@ export const error = (state = new ErrorComposition(), action: IAction): ErrorCom
     case actionTypes.ITEM_ADD_FAILED:
       return state.with({
         globalError: action.payload.error ? ERROR_ADD_ITEM + ' (' + action.payload.error + ')' : ERROR_ADD_ITEM,
+      });
+
+    case actionTypes.ITEM_SAVE_FAILED:
+      return state.with({
+        itemsError: state.itemsError.set(action.payload.itemKey, ERROR_SAVE_ITEM + ' (' + action.payload.error + ')'),
       });
 
     default:
