@@ -1,10 +1,8 @@
-import { Promise } from 'es6-promise';
-
 import { ItemsApiService } from './itemsApiService';
 import { GUID_EMPTY, ITEMS_API_URL } from '../constants/constants';
 
 describe('getItems works correctly', () => {
-  it('calls correct url and returns json result', () => {
+  it('calls correct url and returns json result', async () => {
     const json = { x: 123, y: 987 };
     const urlFetch = (url: string) => {
       return new Promise<Response>((resolve: any) => {
@@ -15,73 +13,26 @@ describe('getItems works correctly', () => {
     };
 
     const service = new ItemsApiService(urlFetch);
+    const response = await service.getItems();
 
-    service.getItems()
-      .then((result) => expect(result).toBe(json));
+    expect(response).toBe(json);
   });
 
-  it('throws error on reject', () => {
+  it('throws error on reject', async () => {
     const error = 'reject error';
-    const urlFetch = () => {
-      return new Promise<Response>((reject: any) => {
-        reject(error);
-      });
-    };
+    const urlFetch = () => Promise.reject(error);
 
     const service = new ItemsApiService(urlFetch);
-
-    service.getItems()
-      .catch(result => expect(result).toBe(error));
+    try {
+      await service.getItems();
+    } catch (e) {
+      expect(e.message).toBe(error);
+    }
   });
 
-  it('throws error with statusText on not ok', () => {
+  it('throws error with statusText on not ok', async () => {
     const error = 'reject error';
-    const urlFetch = () => {
-      return new Promise<Response>((resolve: any) => {
-        resolve({ ok: false, statusText: error });
-      });
-    };
 
-    const service = new ItemsApiService(urlFetch);
-
-    service.getItems()
-      .catch(result => expect(result).toBe(error));
-  });
-});
-
-describe('getItem works correctly', () => {
-  it('calls correct url and returns json result', () => {
-    const json = { x: 123, y: 987 };
-    const urlFetch = (url: string) => {
-      return new Promise<Response>((resolve: any) => {
-        if (url === ITEMS_API_URL + GUID_EMPTY) {
-          resolve({ ok: true, json: () => json });
-        }
-      });
-    };
-
-    const service = new ItemsApiService(urlFetch);
-
-    service.getItem(GUID_EMPTY)
-      .then((result) => expect(result).toBe(json));
-  });
-
-  it('throws error on reject', () => {
-    const error = 'reject error';
-    const urlFetch = () => {
-      return new Promise<Response>((reject: any) => {
-        reject(error);
-      });
-    };
-
-    const service = new ItemsApiService(urlFetch);
-
-    service.getItems()
-      .catch(result => expect(result).toBe(error));
-  });
-
-  it('throws error with statusText on not ok', () => {
-    const error = 'reject error';
     const urlFetch = () => {
       return new Promise<Response>((resolve: any) => {
         resolve({ ok: false, statusText: error });
@@ -90,14 +41,17 @@ describe('getItem works correctly', () => {
 
     const service = new ItemsApiService(urlFetch);
 
-    service.getItem(GUID_EMPTY)
-      .catch(result => expect(result).toBe(error));
+    try {
+      await service.getItems();
+    } catch (e) {
+      expect(e.message).toBe(error);
+    }
   });
 });
 
 describe('postItem works correctly', () => {
-  it('calls correct url, creates http options correctly', () => {
-    const text = 'new';
+  it('calls correct url, creates http options correctly', async () => {
+    const text = { text: 'new' };
     const expected = {
       method: 'POST',
       body: JSON.stringify(text),
@@ -105,6 +59,7 @@ describe('postItem works correctly', () => {
         'Content-Type': 'application/json'
       },
     };
+
     const urlFetch = (url: string, options: any) => {
       return new Promise<Response>((resolve: any) => {
         if (url === ITEMS_API_URL) {
@@ -114,27 +69,27 @@ describe('postItem works correctly', () => {
     };
 
     const service = new ItemsApiService(urlFetch);
+    const result = await service.postItem('new');
 
-    service.postItem('new')
-      .then((result) => expect(result).toBe(expected));
+    expect(result).toEqual(expected);
   });
 
-  it('throws error on reject', () => {
+  it('throws error on reject', async () => {
     const error = 'reject error';
-    const urlFetch = () => {
-      return new Promise<Response>((reject: any) => {
-        reject(error);
-      });
-    };
+
+    const urlFetch = () => Promise.reject(error);
 
     const service = new ItemsApiService(urlFetch);
-
-    service.postItem('new')
-      .catch(result => expect(result).toBe(error));
+    try {
+      await service.postItem('new');
+    } catch (e) {
+      expect(e.message).toBe(error);
+    }
   });
 
-  it('throws error with statusText on not ok', () => {
+  it('throws error with statusText on not ok', async () => {
     const error = 'reject error';
+
     const urlFetch = () => {
       return new Promise<Response>((resolve: any) => {
         resolve({ ok: false, statusText: error });
@@ -142,15 +97,18 @@ describe('postItem works correctly', () => {
     };
 
     const service = new ItemsApiService(urlFetch);
-
-    service.postItem('new')
-      .catch(result => expect(result).toBe(error));
+    try {
+      await service.postItem('new');
+    } catch (e) {
+      expect(e.message).toBe(error);
+    }
   });
 });
 
 describe('putItem works correctly', () => {
-  it('calls correct url, creates http options correctly', () => {
-    const text = 'updated';
+  it('calls correct url, creates http options correctly', async () => {
+    const resolution = { ok: true };
+    const text = { text: 'updated' };
     const expected = {
       method: 'PUT',
       body: JSON.stringify(text),
@@ -158,36 +116,38 @@ describe('putItem works correctly', () => {
         'Content-Type': 'application/json'
       },
     };
+
     const urlFetch = (url: string, options: any) => {
       return new Promise<Response>((resolve: any) => {
         if (url === ITEMS_API_URL + GUID_EMPTY) {
-          resolve({ ok: true, json: () => options });
+          expect(options).toEqual(expected);
+          resolve(resolution);
         }
       });
     };
 
     const service = new ItemsApiService(urlFetch);
+    const result = await service.putItem(GUID_EMPTY, text.text);
 
-    service.putItem(GUID_EMPTY, text)
-      .then((result) => expect(result).toBe(expected));
+    expect(result).toBe(resolution);
   });
 
-  it('throws error on reject', () => {
+  it('throws error on reject', async () => {
     const error = 'reject error';
-    const urlFetch = () => {
-      return new Promise<Response>((reject: any) => {
-        reject(error);
-      });
-    };
+
+    const urlFetch = () => Promise.reject(error);
 
     const service = new ItemsApiService(urlFetch);
-
-    service.putItem(GUID_EMPTY, 'update')
-      .catch(result => expect(result).toBe(error));
+    try {
+      await service.putItem('x', 'new');
+    } catch (e) {
+      expect(e.message).toBe(error);
+    }
   });
 
-  it('throws error with statusText on not ok', () => {
+  it('throws error with statusText on not ok', async () => {
     const error = 'reject error';
+
     const urlFetch = () => {
       return new Promise<Response>((resolve: any) => {
         resolve({ ok: false, statusText: error });
@@ -195,54 +155,61 @@ describe('putItem works correctly', () => {
     };
 
     const service = new ItemsApiService(urlFetch);
-
-    service.putItem(GUID_EMPTY, 'update')
-      .catch(result => expect(result).toBe(error));
+    try {
+      await service.putItem('x', 'new');
+    } catch (e) {
+      expect(e.message).toBe(error);
+    }
   });
 });
 
 describe('deleteItem works correctly', () => {
-  it('calls correct url, creates http options correctly', () => {
-    const expected = {method: 'DELETE'};
+  it('calls correct url, creates http options correctly', async () => {
+    const expectedResolution = { ok: true };
+    const expectedOptions = { method: 'DELETE' };
+
     const urlFetch = (url: string, options: any) => {
       return new Promise<Response>((resolve: any) => {
         if (url === ITEMS_API_URL + GUID_EMPTY) {
-          resolve({ok: true, json: () => options});
+          expect(options).toEqual(expectedOptions);
+          resolve(expectedResolution);
         }
       });
     };
 
     const service = new ItemsApiService(urlFetch);
+    const result = await service.deleteItem(GUID_EMPTY);
 
-    service.deleteItem(GUID_EMPTY)
-      .then((result) => expect(result).toBe(expected));
+    expect(result).toBe(expectedResolution);
   });
 
-  it('throws error on reject', () => {
+  it('throws error on reject', async () => {
     const error = 'reject error';
-    const urlFetch = () => {
-      return new Promise<Response>((reject: any) => {
-        reject(error);
-      });
-    };
+
+    const urlFetch = () => Promise.reject(error);
 
     const service = new ItemsApiService(urlFetch);
-
-    service.deleteItem(GUID_EMPTY)
-      .catch(result => expect(result).toBe(error));
+    try {
+      await service.deleteItem('x');
+    } catch (e) {
+      expect(e.message).toEqual(error);
+    }
   });
 
-  it('throws error with statusText on not ok', () => {
+  it('throws error with statusText on not ok', async () => {
     const error = 'reject error';
+
     const urlFetch = () => {
       return new Promise<Response>((resolve: any) => {
-        resolve({ok: false, statusText: error});
+        resolve({ ok: false, statusText: error });
       });
     };
 
     const service = new ItemsApiService(urlFetch);
-
-    service.deleteItem(GUID_EMPTY)
-      .catch(result => expect(result).toBe(error));
+    try {
+      await service.deleteItem('x');
+    } catch (e) {
+      expect(e.message).toBe(error);
+    }
   });
 });

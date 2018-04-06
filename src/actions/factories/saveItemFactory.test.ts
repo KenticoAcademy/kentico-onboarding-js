@@ -1,5 +1,3 @@
-import { Promise } from 'es6-promise';
-
 import { IItemsApiService } from '../../services/itemsApiService';
 import { Key } from '../../@types/Key';
 import { IState } from '../../store/IState';
@@ -11,7 +9,6 @@ describe('saveItemFactory works correctly', () => {
 
   class DummyApiService implements IItemsApiService {
     getItems: () => Promise<Array<IServerItem>>;
-    getItem: (key: Key) => Promise<Response>;
     postItem: (itemValue: string) => Promise<IServerItem>;
     putItem: (key: Key, itemValue: string) => Promise<Response>;
     deleteItem: (key: Key) => Promise<Response>;
