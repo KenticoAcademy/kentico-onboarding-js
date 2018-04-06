@@ -14,6 +14,7 @@ import {
   stopItemEditing,
   cancelItemsEditing,
 } from '../../actions/index.ts';
+import { saveItemSuccess } from '../../actions';
 
 describe('items reducer works correctly', () => {
   it('ITEM_ADD_SUCCESS inserts new Item to state', () => {
@@ -42,7 +43,7 @@ describe('items reducer works correctly', () => {
     expect(actual.toJS()).toEqual(expected.toJS());
   });
 
-  it('ITEM_SAVE updates correct item in map', () => {
+  it('ITEM_SAVE_SUCCESS updates correct item in map', () => {
     const savedText = 'save item';
     const key = 'idX';
 
@@ -54,7 +55,7 @@ describe('items reducer works correctly', () => {
     const state = new OrderedMap().set(key, mapItem);
     const expected = state.mergeIn([key], { value: savedText });
 
-    const action = saveItem(key, savedText);
+    const action = saveItemSuccess(key);
     const actual = items(state, action);
 
     expect(actual).toEqual(expected);

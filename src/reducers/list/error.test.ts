@@ -3,10 +3,11 @@ import { OrderedMap } from 'immutable';
 import {
   addItemFailed,
   getItemsFailed,
+  saveItemFailed,
 } from '../../actions';
 import {
   ERROR_ADD_ITEM,
-  ERROR_GET_ITEMS,
+  ERROR_GET_ITEMS, ERROR_SAVE_ITEM,
 } from '../../constants/constants';
 import { ErrorComposition } from '../../models/ErrorComposition';
 import { error as errorReducer } from './error';
@@ -30,6 +31,20 @@ describe('error reducer works correctly', () => {
     const expected = state.with({ globalError: ERROR_ADD_ITEM + ' (' + errorDetail + ')' });
 
     const action = addItemFailed(errorDetail);
+    const actual = errorReducer(state, action);
+
+    expect(actual).toEqual(expected);
+  });
+
+  it('ITEM_SAVE_FAILED returns preserve state with new item error', () => {
+    const errorDetail = 'item error detail';
+    const itemError = ERROR_SAVE_ITEM + ' (' + errorDetail + ')';
+    const key = 'keyI';
+    const itemsError = OrderedMap<Key, string>().set('x', 'error')
+    const state = new ErrorComposition({ globalError: 'previous test error', itemsError: itemsError });
+    const expected = state.with({ itemsError: itemsError.set(key, itemError) });
+
+    const action = saveItemFailed(key, errorDetail);
     const actual = errorReducer(state, action);
 
     expect(actual).toEqual(expected);
