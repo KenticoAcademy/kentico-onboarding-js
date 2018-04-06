@@ -11,7 +11,7 @@ const createIndexedItem = (item: ListItem, index: number): IndexedItem =>
     text: item.text,
     isEdited: item.isEdited,
     isSynchronized: item.isSynchronized,
-    errorMessage: item.errorMessage
+    errorId: item.errorId
   });
 
 const createIndexedItemMemoized = memoize(createIndexedItem);

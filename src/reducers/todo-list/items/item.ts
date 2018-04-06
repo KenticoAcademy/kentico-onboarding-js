@@ -3,7 +3,7 @@ import {
   TODO_LIST_ITEM_INSERT,
   TODO_LIST_ITEM_EDIT,
   TODO_LIST_ITEM_CANCEL_EDIT, ITEM_INSERT_SUCCEEDED, ITEM_UPDATE_SUCCEEDED, TODO_LIST_ITEM_DELETE,
-  ITEM_UPDATE_FAILED, ITEM_DELETION_FAILED, ITEM_ERROR_CLOSE,
+  ITEM_UPDATE_FAILED, ITEM_DELETION_FAILED,
 } from '../../../constants/actionTypes';
 import { ListItem } from '../../../models/ListItem';
 import { IAction } from '../../../actions/IAction';
@@ -83,13 +83,13 @@ export const item = (previousState: ListItem, action: IAction): ListItem => {
       return previousState.with(updatedItem);
     }
 
-    case ITEM_ERROR_CLOSE: {
+    /*case ITEM_ERROR_CLOSE: {
       const updatedItem = {
         errorMessage: ''
       };
 
       return previousState.with(updatedItem);
-    }
+    }*/
 
     default:
       return previousState;

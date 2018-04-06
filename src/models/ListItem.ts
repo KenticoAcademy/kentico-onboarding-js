@@ -7,7 +7,7 @@ const emptyItem: IListItem = {
   backupText: '',
   isEdited: false,
   isSynchronized: true,
-  errorMessage: ''
+  errorId: defaultId
 };
 
 export interface IListItem {
@@ -16,7 +16,7 @@ export interface IListItem {
   readonly backupText: string;
   readonly isEdited: boolean;
   readonly isSynchronized: boolean;
-  readonly errorMessage: string;
+  readonly errorId: Uuid;
 }
 
 export class ListItem extends Record(emptyItem) implements IListItem {
@@ -25,7 +25,7 @@ export class ListItem extends Record(emptyItem) implements IListItem {
   backupText: string;
   isEdited: boolean;
   isSynchronized: boolean;
-  errorMessage: string;
+  errorId: Uuid;
 
   constructor(params?: Partial<IListItem>) {
     params ? super(params) : super();

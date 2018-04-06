@@ -32,7 +32,7 @@ export class PlainItem extends React.PureComponent<IPlainItemCallbackProps & IPl
         ? <div onClick={this.props.onEditStart}>
           {this.props.item.index + '. ' + this.props.item.text}
           <ItemError
-              errorMessage={this.props.item.errorMessage}
+              errorMessage=""
               onCloseError={this._onCloseError}
           />
         </div>

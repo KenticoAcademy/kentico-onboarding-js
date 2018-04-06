@@ -203,7 +203,6 @@ describe('items reducers', () => {
       () => new ListItem({
         ...plainItem1,
         isSynchronized: true,
-        errorMessage
       })
     ).toJS();
 
@@ -300,7 +299,6 @@ describe('items reducers', () => {
       () => new ListItem({
         ...plainItem2,
         isSynchronized: true,
-        errorMessage: ''
       }));
 
     const newState: OrderedMap<Uuid, ListItem> = items(
@@ -334,7 +332,6 @@ describe('items reducers', () => {
         isSynchronized: true,
         text: backupText,
         backupText,
-        errorMessage
       })).toJS();
 
     const newState: OrderedMap<Uuid, ListItem> = items(
@@ -349,7 +346,6 @@ describe('items reducers', () => {
   });
 
   it('should delete item\'s error message after ITEM_ERROR_CLOSE action', () => {
-    const errorMessage = 'something went really wrong';
     const twoItemsState: OrderedMap<Uuid, ListItem> = OrderedMap([
       [
         plainItem1.id,
@@ -359,7 +355,6 @@ describe('items reducers', () => {
         plainItem2.id,
         new ListItem({
           ...plainItem2,
-          errorMessage
         }),
       ],
     ]);
@@ -367,7 +362,6 @@ describe('items reducers', () => {
       plainItem2.id,
       () => new ListItem({
         ...plainItem2,
-        errorMessage: ''
       })).toJS();
 
     const newState: OrderedMap<Uuid, ListItem> = items(
