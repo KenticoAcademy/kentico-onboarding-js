@@ -8,6 +8,6 @@ export interface IAppState {
   readonly todoList: {
     readonly items: Collection<Uuid, ListItem>;
   };
-  fetchStatus: FetchStatus;
-  postStatus: PostStatus;
+  readonly fetchStatus: FetchStatus;
+  readonly postStatus: PostStatus;
 }

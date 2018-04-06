@@ -1,10 +1,14 @@
 import { Record } from 'immutable';
-import { IPostStatus } from './IPostStatus';
 
 const emptyStatus: IPostStatus = {
   hasError: false,
   message: ''
 };
+
+export interface IPostStatus {
+  readonly hasError: boolean;
+  readonly message: string;
+}
 
 export class PostStatus extends Record(emptyStatus) implements IPostStatus {
   hasError: boolean;

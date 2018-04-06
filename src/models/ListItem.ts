@@ -1,6 +1,5 @@
 import { Record } from 'immutable';
 import { defaultId, Uuid } from '../utils/generateId';
-import { IListItem } from './IListItem';
 
 const emptyItem: IListItem = {
   id: defaultId,
@@ -10,6 +9,15 @@ const emptyItem: IListItem = {
   isSynchronized: true,
   errorMessage: ''
 };
+
+export interface IListItem {
+  readonly id: Uuid;
+  readonly text: string;
+  readonly backupText: string;
+  readonly isEdited: boolean;
+  readonly isSynchronized: boolean;
+  readonly errorMessage: string;
+}
 
 export class ListItem extends Record(emptyItem) implements IListItem {
   id: Uuid;

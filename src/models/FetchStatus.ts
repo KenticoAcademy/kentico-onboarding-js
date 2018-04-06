@@ -1,11 +1,16 @@
 import { Record } from 'immutable';
-import { IFetchStatus } from './IFetchStatus';
 
 const emptyStatus: IFetchStatus = {
   isFetching: true,
   hasError: false,
   errorMessage: ''
 };
+
+export interface IFetchStatus {
+  readonly isFetching: boolean;
+  readonly hasError: boolean;
+  readonly errorMessage: string;
+}
 
 export class FetchStatus extends Record(emptyStatus) implements IFetchStatus {
   isFetching: boolean;
