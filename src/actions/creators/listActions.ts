@@ -53,10 +53,27 @@ export const getItemsSuccess = (serverItems: Array<IServerItem>): IAction => ({
   }
 });
 
-
 export const getItemsFailed = (error: string): IAction => ({
   type: actionTypes.ITEMS_GET_FAILED,
   payload: {
     error,
   }
+});
+
+export const addItemSuccess = (serverItem: IServerItem): IAction => ({
+  type: actionTypes.ITEM_ADD_SUCCESS,
+  payload: {
+    item: new Item({
+      key: serverItem.id,
+      value: serverItem.text,
+      temporaryValue: serverItem.text,
+    })
+  },
+});
+
+export const addItemFailed = (error: string): IAction => ({
+  type: actionTypes.ITEM_ADD_FAILED,
+  payload: {
+    error,
+  },
 });

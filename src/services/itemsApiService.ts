@@ -6,7 +6,7 @@ import { IServerItem } from '../models/IServerItem';
 export class IItemsApiService {
   readonly getItems: () => Promise<Array<IServerItem>>;
   readonly getItem: (key: Key) => Promise<Response>;
-  readonly postItem: (itemValue: string) => Promise<Response>;
+  readonly postItem: (itemValue: string) => Promise<IServerItem>;
   readonly putItem: (key: Key, itemValue: string) => Promise<Response>;
   readonly deleteItem: (key: Key) => Promise<Response>;
 }
@@ -32,7 +32,7 @@ export class ItemsApiService implements IItemsApiService {
 
   postItem = (itemValue: string) => this._fetchService(ITEMS_API_URL, {
       method: 'POST',
-      body: JSON.stringify(itemValue),
+      body: JSON.stringify({ Text: itemValue }),
       headers: {
         'Content-Type': 'application/json'
       },

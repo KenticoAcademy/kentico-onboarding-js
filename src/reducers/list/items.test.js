@@ -3,7 +3,8 @@ import { OrderedMap } from 'immutable';
 import { Item } from '../../models/Item.ts';
 import { items } from './items.ts';
 import {
-  addItem,
+  addItemSuccess,
+  getItemsSuccess,
   deleteItem,
   deleteItems,
   saveItem,
@@ -13,42 +14,32 @@ import {
   stopItemEditing,
   cancelItemsEditing,
 } from '../../actions/index.ts';
-import { addItemFactory } from '../../actions/factories/addItemFactory.ts';
-import { getItemsSuccess } from '../../actions';
 
 describe('items reducer works correctly', () => {
-  it('ITEM_ADD with mocked factory returns map with correct item', () => {
-    const key = 'idX';
-    const addItemActionCreator = addItemFactory(() => key);
-
-    const testValue = 'add item';
-    const expected = new Item({
-      key,
-      value: testValue,
-      isBeingEdited: false,
-      temporaryValue: testValue,
+  it('ITEM_ADD_SUCCESS inserts new Item to state', () => {
+    const serverItem = { id: 'idX', text: 'idX text' };
+    const item = new Item({
+      key: serverItem.id,
+      value: serverItem.text,
+      temporaryValue: serverItem.text,
     });
-
-    const action = addItemActionCreator(testValue);
-    const newList = items(undefined, action);
-    const actual = newList.first();
-
-    expect(actual).toEqual(expected);
-  });
-
-  it('ITEM_ADD returns map with correct item', () => {
-    const testValue = 'add item';
-    const expected = new Item({
-      value: testValue,
-      isBeingEdited: false,
-      temporaryValue: testValue,
+    const mapItemY = new Item({
+      key: 'idY',
+      value: 'idY item',
     });
+    const mapItemZ = new Item({
+      key: 'idZ',
+      value: 'idZ item',
+    });
+    const state = new OrderedMap()
+      .set(mapItemY.key, mapItemY)
+      .set(mapItemZ.key, mapItemZ);
+    const expected = state.set(serverItem.id, item);
 
-    const addAction = addItem(testValue);
-    const newList = items(undefined, addAction);
-    const actual = newList.first();
+    const action = addItemSuccess(serverItem);
+    const actual = items(state, action);
 
-    expect(actual).toEqual(expected.merge({ key: actual.key }));
+    expect(actual.toJS()).toEqual(expected.toJS());
   });
 
   it('ITEM_SAVE updates correct item in map', () => {

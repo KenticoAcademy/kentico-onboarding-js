@@ -5,10 +5,10 @@ import {
   INewItemProps,
 } from '../components/NewItem';
 import { addItem } from '../actions';
-import { IAction } from '../@types/IAction';
+import { IState } from '../store/IState';
 
 const mapDispatchToProps =
-  (dispatch: Dispatch<IAction>): INewItemProps => ({
+  (dispatch: Dispatch<IState>): INewItemProps => ({
     addItem: (itemValue: string) => dispatch(addItem(itemValue)),
   });
 

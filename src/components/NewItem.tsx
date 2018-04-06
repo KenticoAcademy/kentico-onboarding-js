@@ -3,7 +3,6 @@ import * as PropTypes from 'prop-types';
 import { Shortcuts } from 'react-shortcuts';
 
 import { isInputValid } from '../utils/validationService';
-import { IAction } from '../@types/IAction';
 import {
   ITEM_EDIT_CONFIRM,
   ITEM_EDIT_CANCEL,
@@ -15,7 +14,7 @@ export interface INewItemState {
 }
 
 export interface INewItemProps {
-  readonly addItem: (value: string) => IAction;
+  readonly addItem: (value: string) => void;
 }
 
 export class NewItem extends React.PureComponent<INewItemProps, INewItemState> {

@@ -1,11 +1,18 @@
-import { actionTypes } from '../../constants/actionTypes';
-import { IAction } from '../../@types/IAction';
-import { Key } from '../../@types/Key';
+import { Dispatch } from 'react-redux';
+import { ThunkAction } from 'redux-thunk';
 
-export const addItemFactory = (generateItemKey: () => Key) => (newValue: string): IAction => ({
-  type: actionTypes.ITEM_ADD,
-  payload: {
-    itemKey: generateItemKey(),
-    newValue,
-  },
-});
+import { IState } from '../../store/IState';
+import { IItemsApiService } from '../../services/itemsApiService';
+import { IAction } from '../../@types/IAction';
+import {
+  addItemSuccess,
+  addItemFailed,
+} from '../creators/listActions';
+
+export const addItemFactory =
+  (fetchService: IItemsApiService) =>
+    (itemValue: string): ThunkAction<Promise<IAction>, IState, {}> =>
+      (dispatch: Dispatch<IAction>): Promise<IAction> =>
+        fetchService.postItem(itemValue)
+          .then(item => dispatch(addItemSuccess(item)))
+          .catch(error => dispatch(addItemFailed(error)));
