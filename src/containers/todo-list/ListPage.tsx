@@ -3,7 +3,7 @@ import {
   ListPage,
   IFetchCallbackProps,
   IFetchDataProps
-} from '../../components/todo-list/FetchedItems';
+} from '../../components/todo-list/ListPage';
 import { fetchItems } from '../../actions';
 import { IAction } from '../../actions/IAction';
 import { IAppState } from '../../models/IAppState';

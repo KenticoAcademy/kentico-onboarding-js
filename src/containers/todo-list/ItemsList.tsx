@@ -3,7 +3,7 @@ import {
   IListCallbackProps,
   IListDataProps,
   ItemsList
-} from '../../components/todo-list/List';
+} from '../../components/todo-list/ItemsList';
 import { IAppState } from '../../models/IAppState';
 import { getItemIds } from '../../selectors/getItemIds';
 import { IAction } from '../../actions/IAction';

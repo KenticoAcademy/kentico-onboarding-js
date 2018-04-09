@@ -1,7 +1,7 @@
 import '../sticky-footer.css';
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { ListPage } from '../containers/todo-list/FetchedItems';
+import { ListPage } from '../containers/todo-list/ListPage';
 import { PulseLoader } from 'react-spinners';
 
 export interface IAppDataProps {

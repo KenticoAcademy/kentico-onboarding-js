@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ItemsList } from '../../containers/todo-list/List';
+import { ItemsList } from '../../containers/todo-list/ItemsList';
 import { Error } from './Error';
 import { IAction } from '../../actions/IAction';
 
