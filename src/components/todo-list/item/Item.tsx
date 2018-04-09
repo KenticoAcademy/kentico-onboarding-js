@@ -17,7 +17,6 @@ const Item: React.SFC<IItemDataProps> = (props: IItemDataProps): JSX.Element =>
       item={props.item}
     />;
 
-
 Item.propTypes = {
   item: PropTypes.shape({
     index: PropTypes.number.isRequired,

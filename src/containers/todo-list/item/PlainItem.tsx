@@ -5,7 +5,6 @@ import {
   PlainItem
 } from '../../../components/todo-list/item/PlainItem';
 import {
-  closeItemError,
   editItem,
 } from '../../../actions/actionCreators';
 import { IAppState } from '../../../models/IAppState';
@@ -18,7 +17,6 @@ interface IProps {
 
 const mapDispatchToProps = (dispatch: Dispatch<IAppState>, ownProps: IProps): IPlainItemCallbackProps => ({
   onEditStart: (): IAction => dispatch(editItem(ownProps.item.id)),
-  onCloseError: (): IAction => dispatch(closeItemError(ownProps.item.id))
 });
 
 const enhancer = connect(undefined, mapDispatchToProps);

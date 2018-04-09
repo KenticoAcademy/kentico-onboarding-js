@@ -4,25 +4,17 @@ import { AddedItem } from '../../containers/todo-list/item/AddedItem';
 import { Item } from '../../containers/todo-list/item/Item';
 import { Seq } from 'immutable';
 import { Uuid } from '../../utils/generateId';
-import { ListError } from './ListError';
-import { IAction } from '../../actions/IAction';
 
 export interface IListDataProps {
   readonly ids: Seq.Indexed<Uuid>;
-  readonly postError: boolean;
-  readonly message: string;
 }
 
-export interface IListCallbackProps {
-  onPostErrorClose: () => IAction;
-}
-
-export class ItemsList extends React.PureComponent<IListDataProps & IListCallbackProps> {
+export class ItemsList extends React.PureComponent<IListDataProps> {
   static propTypes = {
     ids: PropTypes.instanceOf(Seq).isRequired,
   };
 
-  constructor(props: IListDataProps & IListCallbackProps) {
+  constructor(props: IListDataProps) {
     super(props);
   }
 
@@ -43,13 +35,6 @@ export class ItemsList extends React.PureComponent<IListDataProps & IListCallbac
                   />
                 </li>,
               )
-            }
-            {(this.props.postError)
-              ? <ListError
-                errorMessage={this.props.message}
-                onRetryFetch={this.props.onPostErrorClose}
-              />
-              : <span />
             }
             <AddedItem />
           </ul>

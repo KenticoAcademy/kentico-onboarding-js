@@ -1,7 +1,9 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { IndexedItem } from '../../../models/IndexedItem';
-import { ItemError } from '../ItemError';
+import { UpdatingItem } from './UpdatingItem';
+import { defaultId } from '../../../utils/generateId';
+import { ItemError } from './ItemError';
 
 interface IPlainItemDataProps {
   readonly item: IndexedItem;
@@ -9,7 +11,6 @@ interface IPlainItemDataProps {
 
 export interface IPlainItemCallbackProps {
   readonly onEditStart: () => void;
-  readonly onCloseError: () => void;
 }
 
 export class PlainItem extends React.PureComponent<IPlainItemCallbackProps & IPlainItemDataProps> {
@@ -27,29 +28,24 @@ export class PlainItem extends React.PureComponent<IPlainItemCallbackProps & IPl
   }
 
   render(): JSX.Element {
+    const {item, onEditStart} = this.props;
     return (
-      (this.props.item.isSynchronized)
-        ? <div onClick={this.props.onEditStart}>
-          {this.props.item.index + '. ' + this.props.item.text}
-          <ItemError
-              errorMessage=""
-              onCloseError={this._onCloseError}
+      <div>
+        {!item.isSynchronized
+          ? <UpdatingItem
+            index={item.index}
+            text={item.text}
           />
-        </div>
-        : <div className="text-warning">
-          {this.props.item.index + '. ' + this.props.item.text}
-          <span
-            className="glyphicon glyphicon-hourglass pull-right"
-            aria-hidden="true"
-          >
-            Updating...
-          </span>
-        </div>
+          : <div onClick={onEditStart}>
+            {item.index + '. ' + item.text}
+            {item.errorId !== defaultId &&
+            <ItemError
+              errorMessage=""
+              onCloseError={() => console.log('')}
+            />}
+          </div>
+        }
+      </div>
     );
   }
-
-  private _onCloseError = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.stopPropagation();
-    this.props.onCloseError();
-  };
 }
