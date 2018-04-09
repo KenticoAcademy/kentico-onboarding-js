@@ -1,6 +1,6 @@
 import { connect, Dispatch } from 'react-redux';
 import {
-  FetchedItems,
+  ListPage,
   IFetchCallbackProps,
   IFetchDataProps
 } from '../../components/todo-list/FetchedItems';
@@ -21,6 +21,6 @@ const mapDispatchToProps = (dispatch: Dispatch<IAppState>): IFetchCallbackProps 
 });
 
 const enhancer = connect(mapStateToProps, mapDispatchToProps);
-const connectedComponent = enhancer(FetchedItems);
+const connectedComponent = enhancer(ListPage);
 
-export { connectedComponent as FetchedItems };
+export { connectedComponent as ListPage };

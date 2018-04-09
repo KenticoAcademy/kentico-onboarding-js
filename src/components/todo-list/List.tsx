@@ -17,7 +17,7 @@ export interface IListCallbackProps {
   onPostErrorClose: () => IAction;
 }
 
-export class List extends React.PureComponent<IListDataProps & IListCallbackProps> {
+export class ItemsList extends React.PureComponent<IListDataProps & IListCallbackProps> {
   static propTypes = {
     ids: PropTypes.instanceOf(Seq).isRequired,
   };

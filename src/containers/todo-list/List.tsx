@@ -2,7 +2,7 @@ import { connect, Dispatch } from 'react-redux';
 import {
   IListCallbackProps,
   IListDataProps,
-  List
+  ItemsList
 } from '../../components/todo-list/List';
 import { IAppState } from '../../models/IAppState';
 import { getItemIds } from '../../selectors/getItemIds';
@@ -20,6 +20,6 @@ const mapDispatchToProps = (dispatch: Dispatch<IAppState>): IListCallbackProps =
 });
 
 const enhancer = connect(mapStateToProps, mapDispatchToProps);
-const connectedComponent = enhancer(List);
+const connectedComponent = enhancer(ItemsList);
 
-export { connectedComponent as List };
+export { connectedComponent as ItemsList };
