@@ -32,22 +32,20 @@ describe('deleteItemFactory works correctly', () => {
     return result.then(() => {
       expect(deleteItemMock.mock.calls.length).toBe(1);
       expect(dispatchMock.mock.calls.length).toBe(1);
-      expect(dispatchMock.mock.calls[0][0].type).toBe(actionTypes.ITEM_SAVE_SUCCESS);
+      expect(dispatchMock.mock.calls[0][0].type).toBe(actionTypes.ITEM_DELETE_SUCCESS);
     });
   });
 
   it('dispatch error on deleteItem reject with correct error', () => {
-    const errorMessage = 'x error';
-    const deleteItemMock = jest.fn(() => Promise.reject(errorMessage));
+    const deleteItemMock = jest.fn(() => Promise.reject(''));
     const factory = deleteItemFactory(new DummyApiService(deleteItemMock));
 
     const result = factory('x')(dispatchMock, () => new DummyState(), {});
 
-    return result.catch(error => {
+    return result.catch(() => {
       expect(deleteItemMock.mock.calls.length).toBe(1);
       expect(dispatchMock.mock.calls.length).toBe(1);
-      expect(dispatchMock.mock.calls[0][0].type).toBe(actionTypes.ITEM_SAVE_FAILED);
-      expect(error).toBe(errorMessage);
+      expect(dispatchMock.mock.calls[0][0].type).toBe(actionTypes.ITEM_DELETE_FAILED);
     });
   });
 });

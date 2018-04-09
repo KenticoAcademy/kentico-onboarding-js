@@ -5,27 +5,10 @@ import {
   saveItem,
   startItemEditing,
   stopItemEditing,
+  saveItemSuccess,
 } from '../../actions/index.ts';
-import { saveItemSuccess } from '../../actions';
 
 describe('items reducer works correctly', () => {
-  it('ITEM_SAVE updates correct item in map', () => {
-    const savedText = 'save item';
-    const key = 'idX';
-
-    const mapItem = new Item({
-      key,
-      value: 'add item',
-      temporaryValue: savedText,
-    });
-    const expected = mapItem.merge({ value: savedText });
-
-    const action = saveItem(key);
-    const actual = item(mapItem, action);
-
-    expect(actual).toEqual(expected);
-  });
-
   it('ITEM_SAVE_SUCCESS updates correct item in map', () => {
     const savedText = 'save item';
     const key = 'idX';

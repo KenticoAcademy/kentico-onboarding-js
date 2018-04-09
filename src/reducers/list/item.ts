@@ -4,12 +4,6 @@ import { IAction } from '../../@types/IAction';
 
 export const item = (state = new Item(), action: IAction): Item => {
   switch (action.type) {
-    case actionTypes.ITEM_SAVE:
-      return state.with({
-        value: state.temporaryValue,
-        isBeingEdited: false,
-      });
-
     case actionTypes.ITEM_SAVE_SUCCESS:
       return state.with({
         value: state.temporaryValue,

@@ -24,32 +24,31 @@ describe('getItemsFactory works correctly', () => {
   const dispatchMock = jest.fn();
 
   it('dispatch success on getItems resolve with correct data', () => {
-    const itemsResolved = [1, 2, 4];
-    const getItemsMock = jest.fn(() => Promise.resolve(itemsResolved));
+    const itemText = 'x text';
+    const serverItem = { id: 'x', text: itemText };
+    const getItemsMock = jest.fn(() => Promise.resolve([serverItem]));
     const factory = getItemsFactory(new DummyApiService(getItemsMock));
 
     const result = factory()(dispatchMock, () => new DummyState(), {});
 
-    result.then(items => {
-      expect(getItemsMock.mock.calls).toBe(1);
-      expect(dispatchMock.mock.calls).toBe(1);
+
+    return result.then(() => {
+      expect(getItemsMock.mock.calls.length).toBe(1);
+      expect(dispatchMock.mock.calls.length).toBe(1);
       expect(dispatchMock.mock.calls[0][0].type).toBe(actionTypes.ITEMS_GET_SUCCESS);
-      expect(items).toBe(itemsResolved);
     });
   });
 
   it('dispatch error on getItems reject with correct error', () => {
-    const errorMessage = 'x error';
-    const getItemsMock = jest.fn(() => Promise.reject(errorMessage));
+    const getItemsMock = jest.fn(() => Promise.reject(''));
     const factory = getItemsFactory(new DummyApiService(getItemsMock));
 
     const result = factory()(dispatchMock, () => new DummyState(), {});
 
-    result.catch(error => {
-      expect(getItemsMock.mock.calls).toBe(1);
-      expect(dispatchMock.mock.calls).toBe(1);
+    return result.catch(() => {
+      expect(getItemsMock.mock.calls.length).toBe(1);
+      expect(dispatchMock.mock.calls.length).toBe(1);
       expect(dispatchMock.mock.calls[0][0].type).toBe(actionTypes.ITEMS_GET_FAILED);
-      expect(error).toBe(errorMessage);
     });
   });
 });

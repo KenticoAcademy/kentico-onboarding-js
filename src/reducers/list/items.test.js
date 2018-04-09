@@ -5,8 +5,6 @@ import { items } from './items.ts';
 import {
   addItemSuccess,
   getItemsSuccess,
-  deleteItems,
-  saveItems,
   changeItemValue,
   startItemEditing,
   stopItemEditing,
@@ -60,36 +58,6 @@ describe('items reducer works correctly', () => {
     expect(actual).toEqual(expected);
   });
 
-  it('ITEM_SAVE_ALL updates correct items in map', () => {
-    const savedText = 'save item';
-    const key1 = 'idX';
-    const key2 = 'idY';
-
-    const mapItem1 = new Item({
-      key: key1,
-      value: 'add item',
-      temporaryValue: savedText,
-      isBeingEdited: true,
-    });
-    const mapItem2 = new Item({
-      key: key2,
-      value: 'add item',
-      temporaryValue: savedText,
-      isBeingEdited: true,
-    });
-    const state = new OrderedMap()
-      .set(key1, mapItem1)
-      .set(key2, mapItem2);
-    const expected = state
-      .mergeIn([key1], { value: savedText, isBeingEdited: false })
-      .mergeIn([key2], { value: savedText, isBeingEdited: false });
-
-    const action = saveItems([key1, key2]);
-    const actual = items(state, action);
-
-    expect(actual).toEqual(expected);
-  });
-
   it('ITEM_DELETE_SUCCESS deletes correct item in map', () => {
     const key = 'idX';
     const expected = new OrderedMap();
@@ -101,36 +69,6 @@ describe('items reducer works correctly', () => {
     const state = new OrderedMap().set(key, mapItem);
 
     const action = deleteItemSuccess(key);
-    const actual = items(state, action);
-
-    expect(actual).toEqual(expected);
-  });
-
-  it('ITEM_DELETE_ALL deletes correct items in map', () => {
-    const key1 = 'idX';
-    const key2 = 'idY';
-    const key3 = 'idZ';
-
-    const mapItem1 = new Item({
-      key: key1,
-      value: 'add item',
-    });
-    const mapItem2 = new Item({
-      key: key2,
-      value: 'add item',
-    });
-    const mapItem3 = new Item({
-      key: key3,
-      value: 'add item',
-    });
-    const state = new OrderedMap()
-      .set(key1, mapItem1)
-      .set(key2, mapItem2)
-      .set(key3, mapItem3);
-    const expected = new OrderedMap()
-      .set(key2, mapItem2);
-
-    const action = deleteItems([key1, key3]);
     const actual = items(state, action);
 
     expect(actual).toEqual(expected);
@@ -233,21 +171,28 @@ describe('items reducer works correctly', () => {
     const mapItem1 = new Item({
       key: key1,
       value: 'idX item',
+      temporaryValue: 'idX item',
     });
     const mapItem2 = new Item({
       key: key2,
       value: 'idY item',
+      temporaryValue: 'idY item',
     });
     const mapItem3 = new Item({
       key: key3,
       value: 'idZ item',
+      temporaryValue: 'idZ item',
     });
     const expected = new OrderedMap()
       .set(key1, mapItem1)
       .set(key2, mapItem2)
       .set(key3, mapItem3);
 
-    const action = getItemsSuccess([mapItem1, mapItem2, mapItem3]);
+    const action = getItemsSuccess([
+      { id: key1, text: mapItem1.value },
+      { id: key2, text: mapItem2.value },
+      { id: key3, text: mapItem3.value },
+      ]);
     const actual = items(undefined, action);
 
     expect(actual).toEqual(expected);

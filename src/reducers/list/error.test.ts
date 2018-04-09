@@ -13,6 +13,7 @@ import {
   ERROR_ADD_ITEM,
   ERROR_GET_ITEMS,
   ERROR_SAVE_ITEM,
+  ERROR_DELETE_ITEM,
 } from '../../constants/constants';
 import { ErrorComposition } from '../../models/ErrorComposition';
 import { error as errorReducer } from './error';
@@ -58,7 +59,7 @@ describe('error reducer works correctly', () => {
 
   it('ITEM_DELETE_FAILED returns preserve state with new item error', () => {
     const errorDetail = 'item error detail';
-    const itemError = ERROR_SAVE_ITEM + ' (' + errorDetail + ')';
+    const itemError = ERROR_DELETE_ITEM + ' (' + errorDetail + ')';
     const key = 'keyI';
     const itemsError = OrderedMap<Key, string>().set('x', 'error')
     const state = new ErrorComposition({ globalError: 'previous test error', itemsError: itemsError });

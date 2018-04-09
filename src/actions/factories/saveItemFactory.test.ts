@@ -24,10 +24,13 @@ describe('saveItemFactory works correctly', () => {
   const dispatchMock = jest.fn();
 
   it('dispatch success on putItem resolve with correct data', () => {
-    const putItemMock = jest.fn(() => Promise.resolve());
+    const itemText = 'x text';
+    const key = 'x';
+    const serverItem = { id: 'x', text: itemText };
+    const putItemMock = jest.fn(() => Promise.resolve(serverItem));
     const factory = saveItemFactory(new DummyApiService(putItemMock));
 
-    const result = factory('x', 'x text')(dispatchMock, () => new DummyState(), {});
+    const result = factory(key, itemText)(dispatchMock, () => new DummyState(), {});
 
     return result.then(() => {
       expect(putItemMock.mock.calls.length).toBe(1);
@@ -37,17 +40,15 @@ describe('saveItemFactory works correctly', () => {
   });
 
   it('dispatch error on putItem reject with correct error', () => {
-    const errorMessage = 'x error';
-    const putItemMock = jest.fn(() => Promise.reject(errorMessage));
+    const putItemMock = jest.fn(() => Promise.reject(''));
     const factory = saveItemFactory(new DummyApiService(putItemMock));
 
     const result = factory('x', '')(dispatchMock, () => new DummyState(), {});
 
-    return result.catch(error => {
+    return result.catch(() => {
       expect(putItemMock.mock.calls.length).toBe(1);
       expect(dispatchMock.mock.calls.length).toBe(1);
       expect(dispatchMock.mock.calls[0][0].type).toBe(actionTypes.ITEM_SAVE_FAILED);
-      expect(error).toBe(errorMessage);
     });
   });
 });
