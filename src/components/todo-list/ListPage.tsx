@@ -1,11 +1,13 @@
 import * as React from 'react';
 import { ItemsList } from '../../containers/todo-list/ItemsList';
-import { Error } from './Error';
+import { ListError } from './Error';
 import { IAction } from '../../actions/IAction';
+import { PulseLoader } from 'react-spinners';
 
 export interface IFetchDataProps {
-  fetchFailed: boolean;
-  errorMessage: string;
+  readonly fetchFailed: boolean;
+  readonly errorMessage: string;
+  readonly isFetching: boolean;
 }
 
 export interface IFetchCallbackProps {
@@ -21,23 +23,31 @@ export class ListPage extends React.PureComponent<IFetchDataProps & IFetchCallba
   }
 
   componentDidMount() {
-    this.props.onFetchStart();
-    this.props.onFetchItems();
+    this._startLoadingItems();
   }
 
   render(): JSX.Element {
     return (
       <div className="row">
-        {!this.props.fetchFailed
-          ? <ItemsList />
-          : <div className="col-sm-12 col-md-offset-2 col-md-8">
-              <Error
-                errorMessage={this.props.errorMessage}
-                onCloseError={this.props.onFetchErrorClose}
-              />
+        {this.props.isFetching
+          ? <div className="text-center">
+            <PulseLoader loading={this.props.isFetching} />
           </div>
+          : !this.props.fetchFailed
+            ? <ItemsList />
+            : <div className="col-sm-12 col-md-offset-2 col-md-8">
+              <ListError
+                errorMessage={this.props.errorMessage}
+                onRetryFetch={this._startLoadingItems}
+              />
+            </div>
         }
       </div>
     );
   }
+
+  private _startLoadingItems = () => {
+    this.props.onFetchStart();
+    this.props.onFetchItems();
+  };
 }

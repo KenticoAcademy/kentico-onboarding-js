@@ -4,7 +4,7 @@ import { AddedItem } from '../../containers/todo-list/item/AddedItem';
 import { Item } from '../../containers/todo-list/item/Item';
 import { Seq } from 'immutable';
 import { Uuid } from '../../utils/generateId';
-import { Error } from './Error';
+import { ListError } from './Error';
 import { IAction } from '../../actions/IAction';
 
 export interface IListDataProps {
@@ -45,9 +45,9 @@ export class ItemsList extends React.PureComponent<IListDataProps & IListCallbac
               )
             }
             {(this.props.postError)
-              ? <Error
+              ? <ListError
                 errorMessage={this.props.message}
-                onCloseError={this.props.onPostErrorClose}
+                onRetryFetch={this.props.onPostErrorClose}
               />
               : <span />
             }

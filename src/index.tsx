@@ -11,7 +11,7 @@ import {
 } from 'redux';
 import { Provider } from 'react-redux';
 import { app } from './reducers/app';
-import { App } from './containers/App';
+import { App } from './components/App';
 
 interface IDevTools {
   __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: <R>(a: R) => R;

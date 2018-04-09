@@ -12,6 +12,7 @@ import { closeFetchError, startFetching } from '../../actions/actionCreators';
 const mapStateToProps = (state: IAppState): IFetchDataProps => ({
   fetchFailed: state.fetchStatus.hasError,
   errorMessage: state.fetchStatus.errorMessage,
+  isFetching: state.fetchStatus.isFetching
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<IAppState>): IFetchCallbackProps => ({

@@ -3,10 +3,10 @@ import * as PropTypes from 'prop-types';
 
 interface IOwnProps {
   readonly errorMessage: string;
-  readonly onCloseError: () => any;
+  readonly onRetryFetch: () => void;
 }
 
-const Error: React.SFC<IOwnProps> = (props: IOwnProps): JSX.Element =>
+const ListError: React.StatelessComponent<IOwnProps> = (props: IOwnProps): JSX.Element =>
   <div className="alert alert-danger alert-dismissable fade in">
     <span
       className="glyphicon glyphicon-warning-sign"
@@ -16,15 +16,17 @@ const Error: React.SFC<IOwnProps> = (props: IOwnProps): JSX.Element =>
       className="close"
       data-dismiss="alert"
       aria-label="close"
-      onClick={props.onCloseError}
-    >&times;</button>
+      onClick={props.onRetryFetch}
+    >
+      &#8634;
+    </button>
     <strong> ERROR: </strong>
     {props.errorMessage}
   </div>;
 
-Error.propTypes = {
+ListError.propTypes = {
   errorMessage: PropTypes.string.isRequired,
-  onCloseError: PropTypes.func.isRequired,
+  onRetryFetch: PropTypes.func.isRequired,
 };
 
-export { Error }
+export { ListError };
