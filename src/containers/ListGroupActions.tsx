@@ -10,7 +10,6 @@ import {
   deleteItems,
   cancelItemsEditing,
 } from '../actions';
-import { IAction } from '../@types/IAction';
 import { getMemoizedValues } from '../selectors/memorySelector';
 import { IState } from '../store/IState';
 
@@ -19,9 +18,10 @@ const mapStateToProps = ({ list }: IState): IListGroupActionsStateProps => ({
     .filter(item => item!.isBeingEdited)
     .map(item => item!.key)
     .toIndexedSeq()),
+  actionsDisabled: !list.groupActionsEnabled,
 });
 
-const mapDispatchToProps = (dispatch: Dispatch<IAction>): IListGroupActionsDispatchProps => ({
+const mapDispatchToProps = (dispatch: Dispatch<IState>): IListGroupActionsDispatchProps => ({
   saveSelected: (selectedKeys) => dispatch(saveItems(selectedKeys)),
   cancelSelected: (selectedKeys) => dispatch(cancelItemsEditing(selectedKeys)),
   deleteSelected: (selectedKeys) => dispatch(deleteItems(selectedKeys)),

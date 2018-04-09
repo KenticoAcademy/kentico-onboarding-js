@@ -7,27 +7,6 @@ import { stopItemEditing } from './itemActions';
 import { IServerItem } from '../../models/IServerItem';
 import { Item } from '../../models/Item';
 
-const saveItem = (itemKey: Key): IAction => ({
-  type: actionTypes.ITEM_SAVE,
-  payload: {
-    itemKey,
-  },
-});
-
-export const saveItems = (selectedKeys: Array<Key>): IAction => ({
-  type: actionTypes.ITEM_SAVE_ALL,
-  payload: {
-    actions: Map(selectedKeys.map(key => [key, saveItem(key)])),
-  },
-});
-
-export const deleteItems = (selectedKeys: Array<Key>): IAction => ({
-  type: actionTypes.ITEM_DELETE_ALL,
-  payload: {
-    selectedKeys,
-  },
-});
-
 export const cancelItemsEditing = (selectedKeys: Array<Key>): IAction => ({
   type: actionTypes.ITEM_EDITING_STOP_ALL,
   payload: {
@@ -99,4 +78,9 @@ export const deleteItemFailed = (itemKey: Key, error: string): IAction => ({
     itemKey,
     error,
   },
+});
+
+export const groupActionsToggle = (): IAction => ({
+  type: actionTypes.ITEMS_GROUP_ACTIONS_TOGGLE,
+  payload: { }
 });

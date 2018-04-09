@@ -6,12 +6,13 @@ import { Key } from '../@types/Key';
 
 export interface IListGroupActionsStateProps {
   readonly selectedKeys: Array<Key>;
+  readonly actionsDisabled: boolean;
 }
 
 export interface IListGroupActionsDispatchProps {
-  readonly saveSelected: (selectedKeys: Array<Key>) => IAction;
+  readonly saveSelected: (selectedKeys: Array<Key>) => void;
   readonly cancelSelected: (selectedKeys: Array<Key>) => IAction;
-  readonly deleteSelected: (selectedKeys: Array<Key>) => IAction;
+  readonly deleteSelected: (selectedKeys: Array<Key>) => void;
 }
 
 interface IListGroupActionsProps extends IListGroupActionsStateProps, IListGroupActionsDispatchProps {}
@@ -26,14 +27,14 @@ export class ListGroupActions extends React.PureComponent<IListGroupActionsProps
     deleteSelected: PropTypes.func.isRequired,
   };
 
-  _saveSelected = (): IAction => this.props.saveSelected(this.props.selectedKeys);
+  _saveSelected = () => this.props.saveSelected(this.props.selectedKeys);
 
   _cancelSelected = (): IAction => this.props.cancelSelected(this.props.selectedKeys);
 
-  _deleteSelected = (): IAction => this.props.deleteSelected(this.props.selectedKeys);
+  _deleteSelected = () => this.props.deleteSelected(this.props.selectedKeys);
 
   render() {
-    const { selectedKeys } = this.props;
+    const { selectedKeys, actionsDisabled } = this.props;
 
     return (
       (selectedKeys.length > 1) ? (
@@ -43,6 +44,7 @@ export class ListGroupActions extends React.PureComponent<IListGroupActionsProps
               type="button"
               className="btn btn-primary"
               onClick={this._saveSelected}
+              disabled={actionsDisabled}
             >
               Save Selected
             </button>
@@ -50,6 +52,7 @@ export class ListGroupActions extends React.PureComponent<IListGroupActionsProps
               type="button"
               className="btn btn-default"
               onClick={this._cancelSelected}
+              disabled={actionsDisabled}
             >
               Cancel Selected
             </button>
@@ -57,6 +60,7 @@ export class ListGroupActions extends React.PureComponent<IListGroupActionsProps
               type="button"
               className="btn btn-danger"
               onClick={this._deleteSelected}
+              disabled={actionsDisabled}
             >
               Delete Selected
             </button>
