@@ -11,6 +11,7 @@ export interface IFetchDataProps {
 export interface IFetchCallbackProps {
   readonly onFetchItems: () => void;
   readonly onFetchErrorClose: () => IAction;
+  readonly onFetchStart: () => IAction;
 }
 
 export class FetchedItems extends React.PureComponent<IFetchDataProps & IFetchCallbackProps> {
@@ -20,6 +21,7 @@ export class FetchedItems extends React.PureComponent<IFetchDataProps & IFetchCa
   }
 
   componentDidMount() {
+    this.props.onFetchStart();
     this.props.onFetchItems();
   }
 

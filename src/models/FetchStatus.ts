@@ -1,7 +1,7 @@
 import { Record } from 'immutable';
 
 const emptyStatus: IFetchStatus = {
-  isFetching: true,
+  isFetching: false,
   hasError: false,
   errorMessage: ''
 };

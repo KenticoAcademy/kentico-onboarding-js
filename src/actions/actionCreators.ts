@@ -3,7 +3,9 @@ import {
   TODO_LIST_ITEM_CANCEL_EDIT,
   ITEM_ERROR_CLOSE,
   ITEMS_FETCH_ERROR_CLOSE,
-  ITEM_INSERT_ERROR_CLOSE} from '../constants/actionTypes';
+  ITEM_INSERT_ERROR_CLOSE,
+  ITEMS_FETCH_STARTED
+} from '../constants/actionTypes';
 import { Uuid } from '../utils/generateId';
 import { IAction } from './IAction';
 
@@ -34,4 +36,8 @@ export const closeFetchError = (): IAction => ({
 
 export const closePostError = (): IAction => ({
   type: ITEM_INSERT_ERROR_CLOSE
+});
+
+export const startFetching = (): IAction => ({
+  type: ITEMS_FETCH_STARTED
 });
