@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { IndexedItem } from '../../models/IndexedItem';
-import { ItemError } from './ItemError';
+import { IndexedItem } from '../../../models/IndexedItem';
+import { ItemError } from '../ItemError';
 
 interface IPlainItemDataProps {
   readonly item: IndexedItem;

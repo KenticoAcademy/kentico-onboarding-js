@@ -1,8 +1,8 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { validateText } from '../../utils/validateText';
-import { Input } from './Input';
-import { IndexedItem } from '../../models/IndexedItem';
+import { validateText } from '../../../utils/validateText';
+import { Input } from '../Input';
+import { IndexedItem } from '../../../models/IndexedItem';
 
 export interface IEditedItemCallbackProps {
   readonly onUpdateItem: (text: string) => void;

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { AddedItem } from '../../containers/todo-list/AddedItem';
-import { Item } from '../../containers/todo-list/Item';
+import { AddedItem } from '../../containers/todo-list/item/AddedItem';
+import { Item } from '../../containers/todo-list/item/Item';
 import { Seq } from 'immutable';
 import { Uuid } from '../../utils/generateId';
 import { Error } from './Error';

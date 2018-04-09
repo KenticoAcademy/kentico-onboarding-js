@@ -3,12 +3,12 @@ import { connect, Dispatch } from 'react-redux';
 import {
   EditedItem,
   IEditedItemCallbackProps
-} from '../../components/todo-list/EditedItem';
-import { deleteFromServer, putItem } from '../../actions';
-import { IAppState } from '../../models/IAppState';
-import { IndexedItem } from '../../models/IndexedItem';
-import { IAction } from '../../actions/IAction';
-import { cancelItemEditing } from '../../actions/actionCreators';
+} from '../../../components/todo-list/item/EditedItem';
+import { deleteFromServer, putItem } from '../../../actions';
+import { IAppState } from '../../../models/IAppState';
+import { IndexedItem } from '../../../models/IndexedItem';
+import { IAction } from '../../../actions/IAction';
+import { cancelItemEditing } from '../../../actions/actionCreators';
 
 interface IProps {
   readonly item: IndexedItem;

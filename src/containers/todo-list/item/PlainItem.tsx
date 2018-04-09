@@ -3,14 +3,14 @@ import { connect, Dispatch } from 'react-redux';
 import {
   IPlainItemCallbackProps,
   PlainItem
-} from '../../components/todo-list/PlainItem';
+} from '../../../components/todo-list/item/PlainItem';
 import {
   closeItemError,
   editItem,
-} from '../../actions/actionCreators';
-import { IAppState } from '../../models/IAppState';
-import { IndexedItem } from '../../models/IndexedItem';
-import { IAction } from '../../actions/IAction';
+} from '../../../actions/actionCreators';
+import { IAppState } from '../../../models/IAppState';
+import { IndexedItem } from '../../../models/IndexedItem';
+import { IAction } from '../../../actions/IAction';
 
 interface IProps {
   readonly item: IndexedItem;

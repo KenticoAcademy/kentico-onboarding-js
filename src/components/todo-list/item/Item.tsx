@@ -1,8 +1,8 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { PlainItem } from '../../containers/todo-list/PlainItem';
-import { EditedItem } from '../../containers/todo-list/EditedItem';
-import { IndexedItem } from '../../models/IndexedItem';
+import { PlainItem } from '../../../containers/todo-list/item/PlainItem';
+import { EditedItem } from '../../../containers/todo-list/item/EditedItem';
+import { IndexedItem } from '../../../models/IndexedItem';
 
 export interface IItemDataProps {
   readonly item: IndexedItem;
