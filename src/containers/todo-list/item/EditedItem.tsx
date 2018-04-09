@@ -20,8 +20,7 @@ const mapDispatchToProps = (dispatch: Dispatch<IAppState>, ownProps: IProps): IE
   onEditStop: (): IAction => dispatch(cancelItemEditing(ownProps.item.id)),
 });
 
-const enhancer = connect(undefined, mapDispatchToProps);
-const connectedComponent = enhancer(EditedItem);
+const connectedComponent = connect(undefined, mapDispatchToProps)(EditedItem);
 
 connectedComponent.propTypes = {
   item: PropTypes.shape({

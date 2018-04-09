@@ -11,7 +11,6 @@ const mapDispatchToProps = (dispatch: Dispatch<IAppState>): IAddedItemCallbackPr
   onAddItem: (text: string): Promise<IAction> => dispatch(postItem(text)),
 });
 
-const enhancer = connect(undefined, mapDispatchToProps);
-const connectedComponent = enhancer(AddedItem);
+const connectedComponent = connect(undefined, mapDispatchToProps)(AddedItem);
 
 export { connectedComponent as AddedItem };

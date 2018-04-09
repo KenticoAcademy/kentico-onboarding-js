@@ -21,7 +21,6 @@ const mapDispatchToProps = (dispatch: Dispatch<IAppState>): IFetchCallbackProps 
   onFetchStart: (): IAction => dispatch(startFetching())
 });
 
-const enhancer = connect(mapStateToProps, mapDispatchToProps);
-const connectedComponent = enhancer(ListPage);
+const connectedComponent = connect(mapStateToProps, mapDispatchToProps)(ListPage);
 
 export { connectedComponent as ListPage };

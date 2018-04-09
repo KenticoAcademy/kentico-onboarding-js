@@ -14,8 +14,7 @@ const mapStateToProps = (state: IAppState, { id, index }: IProps): IItemDataProp
   item: getIndexedItem(state, index, id),
 });
 
-const enhancer = connect(mapStateToProps);
-const connectedComponent = enhancer(Item);
+const connectedComponent = connect(mapStateToProps)(Item);
 
 connectedComponent.propTypes = {
   id: PropTypes.string.isRequired,

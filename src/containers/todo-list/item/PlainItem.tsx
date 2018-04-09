@@ -19,8 +19,7 @@ const mapDispatchToProps = (dispatch: Dispatch<IAppState>, ownProps: IProps): IP
   onEditStart: (): IAction => dispatch(editItem(ownProps.item.id)),
 });
 
-const enhancer = connect(undefined, mapDispatchToProps);
-const connectedComponent = enhancer(PlainItem);
+const connectedComponent = connect(undefined, mapDispatchToProps)(PlainItem);
 
 connectedComponent.propTypes = {
   item: PropTypes.shape({

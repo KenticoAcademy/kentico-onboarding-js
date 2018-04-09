@@ -10,7 +10,6 @@ const mapStateToProps = (state: IAppState): IListDataProps => ({
   ids: getItemIds(state),
 });
 
-const enhancer = connect(mapStateToProps);
-const connectedComponent = enhancer(ItemsList);
+const connectedComponent = connect(mapStateToProps)(ItemsList);
 
 export { connectedComponent as ItemsList };
