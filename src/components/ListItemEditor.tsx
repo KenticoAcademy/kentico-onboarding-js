@@ -10,6 +10,7 @@ import {
   ITEM_EDIT_CANCEL,
   ITEM_DELETE,
 } from '../constants/constants';
+import { Error } from '../containers/Error';
 
 export interface IListItemOriginalProps {
   readonly item: IItemViewModel;
@@ -31,6 +32,7 @@ export class ListItemEditor extends React.PureComponent<ListItemEditorProps> {
     item: PropTypes.shape({
       bullet: PropTypes.string.isRequired,
       temporaryValue: PropTypes.string.isRequired,
+      key: PropTypes.string.isRequired,
     }).isRequired,
 
     saveItem: PropTypes.func.isRequired,
@@ -58,6 +60,7 @@ export class ListItemEditor extends React.PureComponent<ListItemEditorProps> {
       item: {
         bullet,
         temporaryValue,
+        key,
       },
       onCancelEdit,
       deleteItem,
@@ -102,6 +105,7 @@ export class ListItemEditor extends React.PureComponent<ListItemEditorProps> {
             </button>
           </span>
         </div>
+        <Error itemKey={key} />
       </Shortcuts>
     );
   }

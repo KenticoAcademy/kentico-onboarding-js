@@ -3,11 +3,12 @@ import { OrderedMap } from 'immutable';
 import {
   addItemFailed,
   getItemsFailed,
-  saveItemFailed,
+  saveItemFailed, saveItemSuccess, stopItemEditing,
 } from '../../actions';
 import {
   ERROR_ADD_ITEM,
-  ERROR_GET_ITEMS, ERROR_SAVE_ITEM,
+  ERROR_GET_ITEMS,
+  ERROR_SAVE_ITEM,
 } from '../../constants/constants';
 import { ErrorComposition } from '../../models/ErrorComposition';
 import { error as errorReducer } from './error';
@@ -50,8 +51,32 @@ describe('error reducer works correctly', () => {
     expect(actual).toEqual(expected);
   });
 
+  it('ITEM_SAVE_SUCCESS returns preserve state without specified item error', () => {
+    const key = 'keyI';
+    const itemsError = OrderedMap<Key, string>().set('x', 'error').set(key, 'error II');
+    const state = new ErrorComposition({ globalError: 'previous test error', itemsError: itemsError });
+    const expected = state.with({ itemsError: itemsError.delete(key) });
+
+    const action = saveItemSuccess(key);
+    const actual = errorReducer(state, action);
+
+    expect(actual).toEqual(expected);
+  });
+
+  it('ITEM_EDITING_STOP returns preserve state without specified item error', () => {
+    const key = 'keyI';
+    const itemsError = OrderedMap<Key, string>().set('x', 'error').set(key, 'error II');
+    const state = new ErrorComposition({ globalError: 'previous test error', itemsError: itemsError });
+    const expected = state.with({ itemsError: itemsError.delete(key) });
+
+    const action = stopItemEditing(key);
+    const actual = errorReducer(state, action);
+
+    expect(actual).toEqual(expected);
+  });
+
   it('undefined action returns default state', () => {
-    const action = { type: actionTypes.ITEM_DELETE, payload: undefined };
+    const action = { type: actionTypes.ITEM_VALUE_CHANGED, payload: undefined };
     const actual = errorReducer(undefined, action);
 
     expect(actual).toEqual(new ErrorComposition());
@@ -65,7 +90,7 @@ describe('error reducer works correctly', () => {
       itemsError: errors,
     });
 
-    const action = { type: actionTypes.ITEM_DELETE, payload: undefined };
+    const action = { type: actionTypes.ITEM_VALUE_CHANGED, payload: undefined };
     const actual = errorReducer(state, action);
 
     expect(actual).toEqual(state);
