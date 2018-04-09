@@ -1,4 +1,4 @@
-import { ItemsApiService } from './itemsApiService';
+import { itemsApiService } from './itemsApiService';
 import { GUID_EMPTY, ITEMS_API_URL } from '../constants/constants';
 
 describe('getItems works correctly', () => {
@@ -12,8 +12,7 @@ describe('getItems works correctly', () => {
       });
     };
 
-    const service = new ItemsApiService(urlFetch);
-    const response = await service.getItems();
+    const response = await itemsApiService(urlFetch).getItems();
 
     expect(response).toBe(json);
   });
@@ -22,9 +21,8 @@ describe('getItems works correctly', () => {
     const error = 'reject error';
     const urlFetch = () => Promise.reject(error);
 
-    const service = new ItemsApiService(urlFetch);
     try {
-      await service.getItems();
+      await itemsApiService(urlFetch).getItems();
     } catch (e) {
       expect(e.message).toBe(error);
     }
@@ -39,10 +37,8 @@ describe('getItems works correctly', () => {
       });
     };
 
-    const service = new ItemsApiService(urlFetch);
-
     try {
-      await service.getItems();
+      await itemsApiService(urlFetch).getItems();
     } catch (e) {
       expect(e.message).toBe(error);
     }
@@ -68,8 +64,7 @@ describe('postItem works correctly', () => {
       });
     };
 
-    const service = new ItemsApiService(urlFetch);
-    const result = await service.postItem('new');
+    const result = await itemsApiService(urlFetch).postItem('new');
 
     expect(result).toEqual(expected);
   });
@@ -79,9 +74,8 @@ describe('postItem works correctly', () => {
 
     const urlFetch = () => Promise.reject(error);
 
-    const service = new ItemsApiService(urlFetch);
     try {
-      await service.postItem('new');
+      await itemsApiService(urlFetch).postItem('new');
     } catch (e) {
       expect(e.message).toBe(error);
     }
@@ -96,9 +90,8 @@ describe('postItem works correctly', () => {
       });
     };
 
-    const service = new ItemsApiService(urlFetch);
     try {
-      await service.postItem('new');
+      await itemsApiService(urlFetch).postItem('new');
     } catch (e) {
       expect(e.message).toBe(error);
     }
@@ -126,8 +119,7 @@ describe('putItem works correctly', () => {
       });
     };
 
-    const service = new ItemsApiService(urlFetch);
-    const result = await service.putItem(GUID_EMPTY, text.text);
+    const result = await itemsApiService(urlFetch).putItem(GUID_EMPTY, text.text);
 
     expect(result).toBe(resolution);
   });
@@ -137,9 +129,8 @@ describe('putItem works correctly', () => {
 
     const urlFetch = () => Promise.reject(error);
 
-    const service = new ItemsApiService(urlFetch);
     try {
-      await service.putItem('x', 'new');
+      await itemsApiService(urlFetch).putItem('x', 'new');
     } catch (e) {
       expect(e.message).toBe(error);
     }
@@ -154,9 +145,8 @@ describe('putItem works correctly', () => {
       });
     };
 
-    const service = new ItemsApiService(urlFetch);
     try {
-      await service.putItem('x', 'new');
+      await itemsApiService(urlFetch).putItem('x', 'new');
     } catch (e) {
       expect(e.message).toBe(error);
     }
@@ -177,8 +167,7 @@ describe('deleteItem works correctly', () => {
       });
     };
 
-    const service = new ItemsApiService(urlFetch);
-    const result = await service.deleteItem(GUID_EMPTY);
+    const result = await itemsApiService(urlFetch).deleteItem(GUID_EMPTY);
 
     expect(result).toBe(expectedResolution);
   });
@@ -188,9 +177,8 @@ describe('deleteItem works correctly', () => {
 
     const urlFetch = () => Promise.reject(error);
 
-    const service = new ItemsApiService(urlFetch);
     try {
-      await service.deleteItem('x');
+      await itemsApiService(urlFetch).deleteItem('x');
     } catch (e) {
       expect(e.message).toEqual(error);
     }
@@ -205,9 +193,8 @@ describe('deleteItem works correctly', () => {
       });
     };
 
-    const service = new ItemsApiService(urlFetch);
     try {
-      await service.deleteItem('x');
+      await itemsApiService(urlFetch).deleteItem('x');
     } catch (e) {
       expect(e.message).toBe(error);
     }

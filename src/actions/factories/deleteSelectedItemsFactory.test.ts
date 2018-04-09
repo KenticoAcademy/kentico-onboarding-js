@@ -1,7 +1,5 @@
-import { IItemsApiService } from '../../services/itemsApiService';
 import { Key } from '../../@types/Key';
 import { IListStore, IState } from '../../store/IState';
-import { IServerItem } from '../../models/IServerItem';
 import { deleteSelectedItemsFactory } from './deleteSelectedItemsFactory';
 import { actionTypes } from '../../constants/actionTypes';
 import { OrderedMap } from 'immutable';
@@ -13,18 +11,6 @@ describe('saveItemFactory works correctly', () => {
     error: { } as any,
     groupActionsEnabled: true,
   });
-
-  class DummyApiService implements IItemsApiService {
-    getItems: () => Promise<Array<IServerItem>>;
-    postItem: (itemValue: string) => Promise<IServerItem>;
-    putItem: (key: Key, itemValue: string) => Promise<Response>;
-    deleteItem: (key: Key) => Promise<Response>;
-
-    constructor(deleteItemMock: (key: Key) => Promise<Response>) {
-      this.deleteItem = deleteItemMock;
-    }
-  }
-
   class DummyState implements IState {
     constructor(public list: IListStore) { }
   }
@@ -42,7 +28,7 @@ describe('saveItemFactory works correctly', () => {
 
   it('dispatch success on putItem resolves correctly two times', () => {
     const deleteItemMock = jest.fn(() => Promise.resolve());
-    const factory = deleteSelectedItemsFactory(new DummyApiService(deleteItemMock));
+    const factory = deleteSelectedItemsFactory(deleteItemMock);
     const items = OrderedMap<Key, Item>()
       .set('x', new Item({temporaryValue: 'XXX'}))
       .set('y', new Item({temporaryValue: 'YYY'}));
@@ -59,7 +45,7 @@ describe('saveItemFactory works correctly', () => {
 
   it('dispatch error on putItem resolves correctly two times', () => {
     const deleteItemMock = jest.fn(() => Promise.reject(''));
-    const factory = deleteSelectedItemsFactory(new DummyApiService(deleteItemMock));
+    const factory = deleteSelectedItemsFactory(deleteItemMock);
     const items = OrderedMap<Key, Item>()
       .set('x', new Item({temporaryValue: 'XXX'}))
       .set('y', new Item({temporaryValue: 'YYY'}));
