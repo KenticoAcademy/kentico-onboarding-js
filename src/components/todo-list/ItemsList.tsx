@@ -4,7 +4,7 @@ import { AddedItem } from '../../containers/todo-list/item/AddedItem';
 import { Item } from '../../containers/todo-list/item/Item';
 import { Seq } from 'immutable';
 import { Uuid } from '../../utils/generateId';
-import { ListError } from './Error';
+import { ListError } from './ListError';
 import { IAction } from '../../actions/IAction';
 
 export interface IListDataProps {

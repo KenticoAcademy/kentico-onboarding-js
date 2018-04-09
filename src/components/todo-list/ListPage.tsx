@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { ItemsList } from '../../containers/todo-list/ItemsList';
-import { ListError } from './Error';
+import { ListError } from './ListError';
 import { IAction } from '../../actions/IAction';
 import { PulseLoader } from 'react-spinners';
 
