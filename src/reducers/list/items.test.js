@@ -5,16 +5,15 @@ import { items } from './items.ts';
 import {
   addItemSuccess,
   getItemsSuccess,
-  deleteItem,
   deleteItems,
-  saveItem,
   saveItems,
   changeItemValue,
   startItemEditing,
   stopItemEditing,
   cancelItemsEditing,
+  deleteItemSuccess,
+  saveItemSuccess,
 } from '../../actions/index.ts';
-import { saveItemSuccess } from '../../actions';
 
 describe('items reducer works correctly', () => {
   it('ITEM_ADD_SUCCESS inserts new Item to state', () => {
@@ -91,7 +90,7 @@ describe('items reducer works correctly', () => {
     expect(actual).toEqual(expected);
   });
 
-  it('ITEM_DELETE deletes correct item in map', () => {
+  it('ITEM_DELETE_SUCCESS deletes correct item in map', () => {
     const key = 'idX';
     const expected = new OrderedMap();
 
@@ -101,7 +100,7 @@ describe('items reducer works correctly', () => {
     });
     const state = new OrderedMap().set(key, mapItem);
 
-    const action = deleteItem(key);
+    const action = deleteItemSuccess(key);
     const actual = items(state, action);
 
     expect(actual).toEqual(expected);

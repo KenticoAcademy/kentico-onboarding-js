@@ -5,6 +5,7 @@ import {
   ERROR_ADD_ITEM,
   ERROR_GET_ITEMS,
   ERROR_SAVE_ITEM,
+  ERROR_DELETE_ITEM,
 } from '../../constants/constants';
 
 export const error = (state = new ErrorComposition(), action: IAction): ErrorComposition => {
@@ -24,6 +25,12 @@ export const error = (state = new ErrorComposition(), action: IAction): ErrorCom
         itemsError: state.itemsError.set(action.payload.itemKey, ERROR_SAVE_ITEM + ' (' + action.payload.error + ')'),
       });
 
+    case actionTypes.ITEM_DELETE_FAILED:
+      return state.with({
+        itemsError: state.itemsError.set(action.payload.itemKey, ERROR_DELETE_ITEM + ' (' + action.payload.error + ')'),
+      });
+
+    case actionTypes.ITEM_DELETE_SUCCESS:
     case actionTypes.ITEM_SAVE_SUCCESS:
     case actionTypes.ITEM_EDITING_STOP:
       return state.with({

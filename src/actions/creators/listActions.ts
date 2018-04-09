@@ -21,13 +21,6 @@ export const saveItems = (selectedKeys: Array<Key>): IAction => ({
   },
 });
 
-export const deleteItem = (itemKey: Key): IAction => ({
-  type: actionTypes.ITEM_DELETE,
-  payload: {
-    itemKey,
-  },
-});
-
 export const deleteItems = (selectedKeys: Array<Key>): IAction => ({
   type: actionTypes.ITEM_DELETE_ALL,
   payload: {
@@ -87,6 +80,21 @@ export const saveItemSuccess = (itemKey: Key): IAction => ({
 
 export const saveItemFailed = (itemKey: Key, error: string): IAction => ({
   type: actionTypes.ITEM_SAVE_FAILED,
+  payload: {
+    itemKey,
+    error,
+  },
+});
+
+export const deleteItemSuccess = (itemKey: Key): IAction => ({
+  type: actionTypes.ITEM_DELETE_SUCCESS,
+  payload: {
+    itemKey,
+  },
+});
+
+export const deleteItemFailed = (itemKey: Key, error: string): IAction => ({
+  type: actionTypes.ITEM_DELETE_FAILED,
   payload: {
     itemKey,
     error,

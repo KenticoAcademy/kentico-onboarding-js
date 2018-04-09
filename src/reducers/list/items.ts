@@ -11,7 +11,7 @@ export const items = (state = OrderedMap<Key, Item>(), action: IAction): Ordered
     case actionTypes.ITEM_ADD_SUCCESS:
       return state.set(action.payload.item.key, action.payload.item);
 
-    case actionTypes.ITEM_DELETE:
+    case actionTypes.ITEM_DELETE_SUCCESS:
       return state.delete(action.payload.itemKey);
 
     case actionTypes.ITEM_SAVE:

@@ -3,7 +3,11 @@ import { OrderedMap } from 'immutable';
 import {
   addItemFailed,
   getItemsFailed,
-  saveItemFailed, saveItemSuccess, stopItemEditing,
+  saveItemFailed,
+  deleteItemFailed,
+  saveItemSuccess,
+  deleteItemSuccess,
+  stopItemEditing,
 } from '../../actions';
 import {
   ERROR_ADD_ITEM,
@@ -51,6 +55,22 @@ describe('error reducer works correctly', () => {
     expect(actual).toEqual(expected);
   });
 
+
+  it('ITEM_DELETE_FAILED returns preserve state with new item error', () => {
+    const errorDetail = 'item error detail';
+    const itemError = ERROR_SAVE_ITEM + ' (' + errorDetail + ')';
+    const key = 'keyI';
+    const itemsError = OrderedMap<Key, string>().set('x', 'error')
+    const state = new ErrorComposition({ globalError: 'previous test error', itemsError: itemsError });
+    const expected = state.with({ itemsError: itemsError.set(key, itemError) });
+
+    const action = deleteItemFailed(key, errorDetail);
+    const actual = errorReducer(state, action);
+
+    expect(actual).toEqual(expected);
+  });
+
+
   it('ITEM_SAVE_SUCCESS returns preserve state without specified item error', () => {
     const key = 'keyI';
     const itemsError = OrderedMap<Key, string>().set('x', 'error').set(key, 'error II');
@@ -58,6 +78,18 @@ describe('error reducer works correctly', () => {
     const expected = state.with({ itemsError: itemsError.delete(key) });
 
     const action = saveItemSuccess(key);
+    const actual = errorReducer(state, action);
+
+    expect(actual).toEqual(expected);
+  });
+
+  it('ITEM_DELETE_SUCCESS returns preserve state without specified item error', () => {
+    const key = 'keyI';
+    const itemsError = OrderedMap<Key, string>().set('x', 'error').set(key, 'error II');
+    const state = new ErrorComposition({ globalError: 'previous test error', itemsError: itemsError });
+    const expected = state.with({ itemsError: itemsError.delete(key) });
+
+    const action = deleteItemSuccess(key);
     const actual = errorReducer(state, action);
 
     expect(actual).toEqual(expected);
