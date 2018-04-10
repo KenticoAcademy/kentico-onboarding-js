@@ -33,6 +33,7 @@ export class ListItemEditor extends React.PureComponent<ListItemEditorProps> {
       bullet: PropTypes.string.isRequired,
       temporaryValue: PropTypes.string.isRequired,
       key: PropTypes.string.isRequired,
+      isDisabled: PropTypes.bool.isRequired,
     }).isRequired,
 
     saveItem: PropTypes.func.isRequired,
@@ -61,15 +62,18 @@ export class ListItemEditor extends React.PureComponent<ListItemEditorProps> {
         bullet,
         temporaryValue,
         key,
+        isDisabled,
       },
       onCancelEdit,
       deleteItem,
       saveItem,
     } = this.props;
 
+    const divContentClass = isDisabled ? 'input-group disabled' : 'input-group';
+
     return (
       <Shortcuts name="ListItemEditor" handler={this._handleShortcuts}>
-        <div className="input-group">
+        <div className={divContentClass}>
           <span className="input-group-addon">
             {bullet}
           </span>
