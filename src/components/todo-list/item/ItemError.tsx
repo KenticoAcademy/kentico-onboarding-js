@@ -6,7 +6,7 @@ interface IProps {
   onCloseError: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
-const ItemError: React.SFC<IProps> = (props: IProps): JSX.Element =>
+const ItemError: React.StatelessComponent<IProps> = (props: IProps) =>
   (props.errorMessage !== '')
     ? <span
       className="glyphicon glyphicon-exclamation-sign text-danger pull-right"
@@ -20,8 +20,14 @@ const ItemError: React.SFC<IProps> = (props: IProps): JSX.Element =>
         aria-label="close"
         onClick={props.onCloseError}
       >&times;</button>
+      <button
+        className="close"
+        onClick={() => alert('ebebe')}
+      >
+        &#8634;
+      </button>
     </span>
-    : <span />;
+    : null;
 
 ItemError.propTypes = {
   errorMessage: PropTypes.string,

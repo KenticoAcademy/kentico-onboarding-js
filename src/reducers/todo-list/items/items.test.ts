@@ -35,6 +35,7 @@ describe('items reducers', () => {
       item: plainItem2,
     },
   };
+  const errorId = '16b1706c-1311-418d-FFFF-d6043f2e7f1f';
 
   it('should return the initial state', () => {
     const initialState = items(undefined, unknownAction);
@@ -186,7 +187,7 @@ describe('items reducers', () => {
     expect(newState).toEqual(expectedState);
   });
 
-  it('should add error message to item after ITEM_DELETION_FAILED action', () => {
+  it('should add nonempty errorId to item after ITEM_DELETION_FAILED action', () => {
     const errorMessage = 'this time it is really bad';
     const twoItemsState: OrderedMap<Uuid, ListItem> = OrderedMap([
       [
@@ -202,6 +203,7 @@ describe('items reducers', () => {
       plainItem1.id,
       () => new ListItem({
         ...plainItem1,
+        errorId,
         isSynchronized: true,
       })
     ).toJS();
@@ -210,7 +212,10 @@ describe('items reducers', () => {
       twoItemsState,
       deletionFailed(
         plainItem1.id,
-        errorMessage
+        {
+          errorId,
+          message: errorMessage
+        }
       ),
     ).toJS();
 
@@ -320,6 +325,7 @@ describe('items reducers', () => {
       [
         plainItem2.id,
         new ListItem({
+          errorId,
           ...plainItem2,
           backupText
         }),
@@ -329,8 +335,8 @@ describe('items reducers', () => {
       plainItem2.id,
       () => new ListItem({
         ...plainItem2,
+        errorId,
         isSynchronized: true,
-        text: backupText,
         backupText,
       })).toJS();
 
@@ -338,7 +344,10 @@ describe('items reducers', () => {
       twoItemsState,
       putFailed(
         plainItem2.id,
-        errorMessage
+        {
+          errorId,
+          message: errorMessage
+        }
       )
     ).toJS();
 

@@ -30,11 +30,11 @@ export const postSucceeded =
     }
   });
 
-export const postFailed = (id: Uuid, message: string): IAction => ({
+export const postFailed = (id: Uuid, error: {errorId: Uuid, message: string}): IAction => ({
   type: ITEM_INSERT_FAILED,
   payload: {
     id,
-    message
+    ...error
   }
 });
 
@@ -67,6 +67,11 @@ export const postItemFactory =
               ? NO_CONNECTION
               : `${errorResponse.status} ${errorResponse.statusText}`;
 
-          return dispatch(postFailed(tempId, message));
+          return dispatch(postFailed(
+            tempId,
+            {
+              message,
+              errorId: generateId()
+            }));
         }
       };

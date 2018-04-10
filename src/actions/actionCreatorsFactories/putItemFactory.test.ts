@@ -1,8 +1,14 @@
 import { putItemFactory } from './putItemFactory';
 import { Uuid } from '../../utils/generateId';
-import { ITEM_UPDATE_FAILED, ITEM_UPDATE_SUCCEEDED, TODO_LIST_ITEM_UPDATE } from '../../constants/actionTypes';
+import {
+  ITEM_UPDATE_FAILED,
+  ITEM_UPDATE_SUCCEEDED,
+  TODO_LIST_ITEM_UPDATE
+} from '../../constants/actionTypes';
 
 const dispatch = jest.fn(input => input);
+const errorId = 'a378ffaa-75fa-4117-a57b-84da0a3c9732';
+const generateId = () => errorId;
 
 beforeEach(() => {
   dispatch.mock.calls.length = 0;
@@ -23,6 +29,7 @@ describe('put item tests', () => {
         config: {}
       });
     const putItem = putItemFactory({
+      generateId,
       axiosPut
     });
     const updateItem = {
@@ -59,6 +66,7 @@ describe('put item tests', () => {
         }
       });
     const putItem = putItemFactory({
+      generateId,
       axiosPut
     });
     const updateItem = {
@@ -69,6 +77,7 @@ describe('put item tests', () => {
       type: ITEM_UPDATE_FAILED,
       payload: {
         id: updatedItem.id,
+        errorId: generateId(),
         message: errorMessage,
       }
     };

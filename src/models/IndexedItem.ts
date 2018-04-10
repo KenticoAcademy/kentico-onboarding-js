@@ -7,7 +7,7 @@ const emptyIndexedItem: IIndexedItem = {
   text: '',
   isEdited: false,
   isSynchronized: false,
-  errorId: defaultId
+  errorId: null
 };
 
 export interface IIndexedItem {
@@ -16,7 +16,7 @@ export interface IIndexedItem {
   readonly text: string;
   readonly isEdited: boolean;
   readonly isSynchronized: boolean;
-  readonly errorId: Uuid;
+  readonly errorId: Uuid | null;
 }
 
 export class IndexedItem extends Record(emptyIndexedItem) implements IIndexedItem {

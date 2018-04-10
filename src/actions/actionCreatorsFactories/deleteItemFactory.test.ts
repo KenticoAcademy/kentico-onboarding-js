@@ -8,6 +8,8 @@ import {
 
 const dispatch = jest.fn(input => input);
 const id = 'a378ffaa-75fa-4117-a57b-84da0a3c975a';
+const errorId = 'a378ffaa-75fa-4117-a57b-84da0a3c9732';
+const generateId = () => errorId;
 
 beforeEach(() => {
   dispatch.mock.calls.length = 0;
@@ -24,6 +26,7 @@ describe('delete item tests', () => {
         config: {}
       });
     const deleteFromServer = deleteItemFactory({
+      generateId,
       axiosDelete
     });
     const deleteItem = {
@@ -57,6 +60,7 @@ describe('delete item tests', () => {
         },
       });
     const deleteFromServer = deleteItemFactory({
+      generateId,
       axiosDelete
     });
     const deleteItem = {
@@ -69,6 +73,7 @@ describe('delete item tests', () => {
       type: ITEM_DELETION_FAILED,
       payload: {
         id,
+        errorId: generateId(),
         message: OPERATION_FAILED
       }
     };

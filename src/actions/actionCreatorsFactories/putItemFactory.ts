@@ -11,6 +11,7 @@ import {
 } from '../../constants/actionTypes';
 
 interface IUpdateDependencies {
+  readonly generateId: () => Uuid;
   readonly axiosPut: (item: IUpdateItem) => Promise<AxiosResponse>;
 }
 
@@ -21,11 +22,11 @@ export const putSucceeded = (id: Uuid): IAction => ({
   }
 });
 
-export const putFailed = (id: Uuid, message: string): IAction => ({
+export const putFailed = (id: Uuid, error: { errorId: Uuid, message: string }): IAction => ({
   type: ITEM_UPDATE_FAILED,
   payload: {
     id,
-    message
+    ...error
   }
 });
 
@@ -40,7 +41,7 @@ export const updateItem = (item: IUpdateItem): IAction => ({
 });
 
 export const putItemFactory =
-  ({axiosPut}: IUpdateDependencies) =>
+  ({axiosPut, generateId}: IUpdateDependencies) =>
     (item: IUpdateItem) =>
       async (dispatch: Dispatch<IAppState>): Promise<IAction> => {
         dispatch(updateItem(item));
@@ -55,6 +56,12 @@ export const putItemFactory =
               ? NO_CONNECTION
               : error.response.statusText;
 
-          return dispatch(putFailed(item.id, message));
+          return dispatch(putFailed(
+            item.id,
+            {
+              errorId: generateId(),
+              message
+            })
+          );
         }
       };

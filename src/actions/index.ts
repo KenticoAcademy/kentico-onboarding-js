@@ -29,9 +29,11 @@ export const postItem = postItemFactory({
 });
 
 export const putItem = putItemFactory({
+  generateId,
   axiosPut
 });
 
 export const deleteFromServer = deleteItemFactory({
+  generateId,
   axiosDelete
 });

@@ -2,9 +2,11 @@ import * as PropTypes from 'prop-types';
 import { connect, Dispatch } from 'react-redux';
 import {
   IPlainItemCallbackProps,
+  IPlainItemDataProps,
   PlainItem
 } from '../../../components/todo-list/item/PlainItem';
 import {
+  closeItemError,
   editItem,
 } from '../../../actions/actionCreators';
 import { IAppState } from '../../../models/IAppState';
@@ -15,11 +17,18 @@ interface IProps {
   readonly item: IndexedItem;
 }
 
-const mapDispatchToProps = (dispatch: Dispatch<IAppState>, ownProps: IProps): IPlainItemCallbackProps => ({
-  onEditStart: (): IAction => dispatch(editItem(ownProps.item.id)),
+const mapStateToProps = ({error}: IAppState, {item}: IProps): IPlainItemDataProps => ({
+  errorMessage: item.errorId
+    ? error.get(item.errorId).errorMessage
+    : ''
 });
 
-const connectedComponent = connect(undefined, mapDispatchToProps)(PlainItem);
+const mapDispatchToProps = (dispatch: Dispatch<IAppState>, {item}: IProps): IPlainItemCallbackProps => ({
+  onEditStart: (): IAction => dispatch(editItem(item.id)),
+  onCloseError: (): IAction => dispatch(closeItemError(item.id))
+});
+
+const connectedComponent = connect(mapStateToProps, mapDispatchToProps)(PlainItem);
 
 connectedComponent.propTypes = {
   item: PropTypes.shape({

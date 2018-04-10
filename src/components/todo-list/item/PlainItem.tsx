@@ -2,18 +2,22 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { IndexedItem } from '../../../models/IndexedItem';
 import { UpdatingItem } from './UpdatingItem';
-import { defaultId } from '../../../utils/generateId';
 import { ItemError } from './ItemError';
 
-interface IPlainItemDataProps {
+interface IOwnProps {
   readonly item: IndexedItem;
+}
+
+export interface IPlainItemDataProps {
+  readonly errorMessage: string;
 }
 
 export interface IPlainItemCallbackProps {
   readonly onEditStart: () => void;
+  readonly onCloseError: () => void;
 }
 
-export class PlainItem extends React.PureComponent<IPlainItemCallbackProps & IPlainItemDataProps> {
+export class PlainItem extends React.PureComponent<IPlainItemDataProps & IPlainItemCallbackProps & IOwnProps> {
   static propTypes = {
     item: PropTypes.shape({
       index: PropTypes.number.isRequired,
@@ -23,12 +27,16 @@ export class PlainItem extends React.PureComponent<IPlainItemCallbackProps & IPl
     onCloseError: PropTypes.func.isRequired
   };
 
-  constructor(props: IPlainItemDataProps & IPlainItemCallbackProps) {
+  constructor(props: IOwnProps & IPlainItemDataProps & IPlainItemCallbackProps) {
     super(props);
   }
 
   render(): JSX.Element {
-    const {item, onEditStart} = this.props;
+    const {
+      item,
+      onEditStart,
+      errorMessage,
+    } = this.props;
     return (
       <div>
         {!item.isSynchronized
@@ -38,14 +46,20 @@ export class PlainItem extends React.PureComponent<IPlainItemCallbackProps & IPl
           />
           : <div onClick={onEditStart}>
             {item.index + '. ' + item.text}
-            {item.errorId !== defaultId &&
+            {console.log(item.errorId, errorMessage)}
+            {item.errorId !== null &&
             <ItemError
-              errorMessage=""
-              onCloseError={() => console.log('')}
+              errorMessage={errorMessage}
+              onCloseError={this._onCloseError}
             />}
           </div>
         }
       </div>
     );
   }
+
+  private _onCloseError = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.stopPropagation();
+    this.props.onCloseError();
+  };
 }

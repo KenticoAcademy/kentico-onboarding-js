@@ -5,6 +5,7 @@ import { Uuid } from '../../utils/generateId';
 import {
   ITEM_DELETION_FAILED,
   ITEM_DELETION_SUCCEEDED,
+  ITEM_ERROR_CLOSE,
   ITEM_INSERT_FAILED,
   ITEM_INSERT_SUCCEEDED,
   ITEM_UPDATE_FAILED,
@@ -20,15 +21,34 @@ export const error =
         return previousState.delete(action.payload.errorId);
 
       case ITEM_INSERT_FAILED:
+        return previousState.set(
+          action.payload.errorId,
+          new Error({
+            id: action.payload.errorId,
+            action: 'INSERT',
+            errorMessage: action.payload.message
+          })
+        );
       case ITEM_UPDATE_FAILED:
+        return previousState.set(
+          action.payload.errorId,
+          new Error({
+            id: action.payload.errorId,
+            action: 'UPDATE',
+            errorMessage: action.payload.message
+          })
+        );
       case ITEM_DELETION_FAILED:
         return previousState.set(
           action.payload.errorId,
           new Error({
             id: action.payload.errorId,
-            errorMessage: action.payload.errorMessage
+            errorMessage: action.payload.message
           })
         );
+      case ITEM_ERROR_CLOSE:
+        return previousState.delete(action.payload.id);
+
       default:
         return previousState;
     }

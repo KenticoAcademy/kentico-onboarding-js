@@ -15,6 +15,7 @@ import {
 
 interface IDeleteDependencies {
   readonly axiosDelete: (id: Uuid) => Promise<AxiosResponse>;
+  readonly generateId: () => Uuid;
 }
 
 export const deleteItem = (id: Uuid): IAction => ({
@@ -31,16 +32,16 @@ export const deletionSucceeded = (id: Uuid): IAction => ({
   }
 });
 
-export const deletionFailed = (id: Uuid, message: string): IAction => ({
+export const deletionFailed = (id: Uuid, error: { errorId: Uuid, message: string }): IAction => ({
   type: ITEM_DELETION_FAILED,
   payload: {
     id,
-    message
+    ...error
   }
 });
 
 export const deleteItemFactory =
-  ({axiosDelete}: IDeleteDependencies) =>
+  ({axiosDelete, generateId}: IDeleteDependencies) =>
     (id: Uuid) => async (dispatch: Dispatch<IAppState>): Promise<IAction> => {
       dispatch(deleteItem(id));
 
@@ -55,6 +56,12 @@ export const deleteItemFactory =
             ? NO_CONNECTION
             : OPERATION_FAILED;
 
-        return dispatch(deletionFailed(id, message));
+        return dispatch(deletionFailed(
+          id,
+          {
+            errorId: generateId(),
+            message
+          })
+        );
       }
     };

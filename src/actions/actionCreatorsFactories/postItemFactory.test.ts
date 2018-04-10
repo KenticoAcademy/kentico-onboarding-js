@@ -80,6 +80,7 @@ describe('post item tests', () => {
       type: ITEM_INSERT_FAILED,
       payload: {
         id: postTestItem.id,
+        errorId: postTestItem.id,
         message: '400 Bad Request'
       }
     };

@@ -4,8 +4,13 @@ import {
   TODO_LIST_ITEM_DELETE,
   TODO_LIST_ITEM_UPDATE,
   TODO_LIST_ITEM_CANCEL_EDIT,
-  TODO_LIST_ITEM_EDIT, ITEM_INSERT_SUCCEEDED, ITEM_UPDATE_SUCCEEDED, ITEM_DELETION_SUCCEEDED,
-  ITEM_UPDATE_FAILED, ITEM_DELETION_FAILED, ITEM_ERROR_CLOSE, ITEM_INSERT_FAILED,
+  TODO_LIST_ITEM_EDIT,
+  ITEM_INSERT_SUCCEEDED,
+  ITEM_UPDATE_SUCCEEDED,
+  ITEM_DELETION_SUCCEEDED,
+  ITEM_UPDATE_FAILED,
+  ITEM_DELETION_FAILED,
+  ITEM_ERROR_CLOSE, ITEM_INSERT_FAILED,
 } from '../../../constants/actionTypes';
 import { item } from './item';
 import { IAction } from '../../../actions/IAction';
@@ -21,7 +26,6 @@ export const items = (previousState: OrderedMap<Uuid, ListItem> = OrderedMap<Uui
         .update(action.payload.newId, existingItem => item(existingItem, action));
 
     case ITEM_DELETION_SUCCEEDED:
-    case ITEM_INSERT_FAILED:
       return previousState.delete(action.payload.id);
 
     case TODO_LIST_ITEM_INSERT:
@@ -29,6 +33,7 @@ export const items = (previousState: OrderedMap<Uuid, ListItem> = OrderedMap<Uui
     case TODO_LIST_ITEM_EDIT:
     case TODO_LIST_ITEM_CANCEL_EDIT:
     case TODO_LIST_ITEM_DELETE:
+    case ITEM_INSERT_FAILED:
     case ITEM_DELETION_FAILED:
     case ITEM_UPDATE_SUCCEEDED:
     case ITEM_UPDATE_FAILED:
