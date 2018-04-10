@@ -15,9 +15,38 @@ import {
   saveItemOptimistic,
   cancelItemsEditing,
   getItemsSuccess,
+  addItemOptimistic,
 } from '../../actions/index.ts';
 
 describe('items reducer works correctly', () => {
+  it('ITEM_ADD_OPTIMISTIC inserts new Item to state', () => {
+    const id = 'idX';
+    const text = 'idX text';
+    const item = new Item({
+      key: id,
+      value: text,
+      temporaryValue: text,
+      localOnly: true,
+    });
+    const mapItemY = new Item({
+      key: 'idY',
+      value: 'idY item',
+    });
+    const mapItemZ = new Item({
+      key: 'idZ',
+      value: 'idZ item',
+    });
+    const state = new OrderedMap()
+      .set(mapItemY.key, mapItemY)
+      .set(mapItemZ.key, mapItemZ);
+    const expected = state.set(id, item);
+
+    const action = addItemOptimistic(id, text);
+    const actual = items(state, action);
+
+    expect(actual.toJS()).toEqual(expected.toJS());
+  });
+
   it('ITEM_ADD_SUCCESS inserts new Item to state', () => {
     const serverItem = { id: 'idX', text: 'idX text' };
     const item = new Item({
@@ -77,7 +106,7 @@ describe('items reducer works correctly', () => {
     expect(actual).toEqual(expected);
   });
 
-  it('ITEM_DELETE_OPTIMISTIC sets disabled flag to correct item', () => {
+  it('ITEM_DELETE_OPTIMISTIC sets disabled flag to server item', () => {
     const key = 'idX';
 
     const mapItem = new Item({
@@ -86,6 +115,23 @@ describe('items reducer works correctly', () => {
     });
     const state = new OrderedMap().set(key, mapItem);
     const expected = state.mergeIn([key], { isDisabled: true });
+
+    const action = deleteItemOptimistic(key);
+    const actual = items(state, action);
+
+    expect(actual).toEqual(expected);
+  });
+
+  it('ITEM_DELETE_OPTIMISTIC deletes local item', () => {
+    const key = 'idX';
+
+    const mapItem = new Item({
+      key,
+      value: 'save item',
+      localOnly: true,
+    });
+    const state = new OrderedMap().set(key, mapItem);
+    const expected = state.delete(key);
 
     const action = deleteItemOptimistic(key);
     const actual = items(state, action);

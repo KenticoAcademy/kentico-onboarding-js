@@ -44,9 +44,10 @@ export const addItemSuccess = (serverItem: IServerItem): IAction => ({
   },
 });
 
-export const addItemFailed = (error: string): IAction => ({
+export const addItemFailed = (itemKey: Key, error: string): IAction => ({
   type: actionTypes.ITEM_ADD_FAILED,
   payload: {
+    itemKey,
     error,
   },
 });
@@ -103,4 +104,16 @@ export const groupActionsToggle = (): IAction => ({
 export const itemsLoadingToggle = (): IAction => ({
   type: actionTypes.ITEMS_LOADING_TOGGLE,
   payload: { }
+});
+
+export const addItemOptimistic = (key: Key, itemValue: string): IAction => ({
+  type: actionTypes.ITEM_ADD_OPTIMISTIC,
+  payload: {
+    item: new Item({
+      key: key,
+      value: itemValue,
+      temporaryValue: itemValue,
+      localOnly: true,
+    })
+  },
 });

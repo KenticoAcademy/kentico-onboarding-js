@@ -25,9 +25,15 @@ export const item = (state = new Item(), action: IAction): Item => {
 
     case actionTypes.ITEM_SAVE_FAILED:
     case actionTypes.ITEM_DELETE_FAILED:
-    case actionTypes.ITEM_DELETE_OPTIMISTIC:
     case actionTypes.ITEM_SAVE_OPTIMISTIC:
+    case actionTypes.ITEM_DELETE_OPTIMISTIC:
       return state.with({ isDisabled: !state.isDisabled });
+
+    case actionTypes.ITEM_ADD_FAILED:
+      return state.with({
+        isBeingEdited: true,
+        isDisabled: false,
+      });
 
     default:
       return state;

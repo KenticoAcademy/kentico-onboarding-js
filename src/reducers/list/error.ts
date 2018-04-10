@@ -19,7 +19,7 @@ export const error = (state = new ErrorComposition(), action: IAction): ErrorCom
 
     case actionTypes.ITEM_ADD_FAILED:
       return state.with({
-        globalError: action.payload.error ? ERROR_ADD_ITEM + ' (' + action.payload.error + ')' : ERROR_ADD_ITEM,
+        itemsError: state.itemsError.set(action.payload.itemKey, ERROR_ADD_ITEM + ' (' + action.payload.error + ')'),
       });
 
     case actionTypes.ITEM_SAVE_FAILED:

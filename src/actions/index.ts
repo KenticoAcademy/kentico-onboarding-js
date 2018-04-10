@@ -7,11 +7,12 @@ import { saveItemFactory } from './factories/saveItemFactory';
 import { deleteItemFactory } from './factories/deleteItemFactory';
 import { saveSelectedItemsFactory } from './factories/saveSelectedItemsFactory';
 import { deleteSelectedItemsFactory } from './factories/deleteSelectedItemsFactory';
+import { getIdentifier } from '../utils/getIdentifier';
 
 const apiService = itemsApiService(_fetch);
 
 export const getItems = getItemsFactory(apiService.getItems);
-export const addItem = addItemFactory(apiService.postItem);
+export const addItem = addItemFactory(apiService.postItem, getIdentifier);
 export const saveItem = saveItemFactory(apiService.putItem);
 export const deleteItem = deleteItemFactory(apiService.deleteItem);
 export const saveItems = saveSelectedItemsFactory(apiService.putItem);

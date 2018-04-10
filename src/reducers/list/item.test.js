@@ -9,6 +9,7 @@ import {
   deleteItemOptimistic,
   saveItemFailed,
   saveItemOptimistic,
+  addItemFailed,
 } from '../../actions/index.ts';
 
 describe('items reducer works correctly', () => {
@@ -129,6 +130,24 @@ describe('items reducer works correctly', () => {
     const expected = originalItem.merge({ isDisabled: false });
 
     const action = saveItemFailed(originalItem.key, '');
+    const actual = item(originalItem, action);
+
+    expect(actual).toEqual(expected);
+  });
+
+  it('ITEM_ADD_FAILED sets isBeingEdited flag and isDisabled flag to correct item', () => {
+    const originalItem = new Item({
+      value: 'test',
+      isBeingEdited: false,
+      temporaryValue: 'change test',
+      isDisabled: true,
+    });
+    const expected = originalItem.merge({
+      isBeingEdited: true,
+      isDisabled: false,
+    });
+
+    const action = addItemFailed(originalItem.key, '');
     const actual = item(originalItem, action);
 
     expect(actual).toEqual(expected);

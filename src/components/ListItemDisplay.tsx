@@ -14,12 +14,19 @@ export interface IListItemDisplayDispatchProps {
 interface IListItemDisplayProps extends IListItemDisplayDispatchProps, IListItemDisplayOriginalProps {}
 
 export const ListItemDisplay: React.StatelessComponent<IListItemDisplayProps>
-  = ({ item: { value, bullet }, onEdit }) => (
-  <div onClick={onEdit}>
-    {bullet}.&nbsp;
-    {value}
-  </div>
-);
+  = ({ item: { value, bullet, localOnly }, onEdit }) => {
+  const badge = localOnly
+    ? <span className="badge badge-pill progress-bar-warning pull-right">Local</span>
+    : null;
+
+  return (
+    <div onClick={onEdit}>
+      {bullet}.&nbsp;
+      {value}
+      {badge}
+    </div>
+  );
+};
 
 ListItemDisplay.displayName = 'ListItemDisplay';
 
@@ -27,6 +34,7 @@ ListItemDisplay.propTypes = {
   item: PropTypes.shape({
     bullet: PropTypes.string.isRequired,
     value: PropTypes.string,
+    localOnly: PropTypes.bool.isRequired,
   }).isRequired,
 
   onEdit: PropTypes.func.isRequired,

@@ -8,21 +8,33 @@ import { IAction } from '../../@types/IAction';
 
 export const items = (state = OrderedMap<Key, Item>(), action: IAction): OrderedMap<Key, Item> => {
   switch (action.type) {
+    case actionTypes.ITEM_ADD_OPTIMISTIC:
     case actionTypes.ITEM_ADD_SUCCESS:
       return state.set(action.payload.item.key, action.payload.item);
 
     case actionTypes.ITEM_DELETE_SUCCESS:
       return state.delete(action.payload.itemKey);
 
+    case actionTypes.ITEM_DELETE_OPTIMISTIC: {
+      const item = state.get(action.payload.itemKey);
+      if (item.localOnly) {
+        return state.delete(action.payload.itemKey);
+      }
+
+      return state.mergeIn([action.payload.itemKey], itemReducer(item, action));
+    }
+
+    case actionTypes.ITEM_ADD_FAILED:
     case actionTypes.ITEM_DELETE_FAILED:
-    case actionTypes.ITEM_DELETE_OPTIMISTIC:
     case actionTypes.ITEM_SAVE_FAILED:
     case actionTypes.ITEM_SAVE_OPTIMISTIC:
     case actionTypes.ITEM_SAVE_SUCCESS:
     case actionTypes.ITEM_EDITING_START:
     case actionTypes.ITEM_EDITING_STOP:
     case actionTypes.ITEM_VALUE_CHANGED:
-      return state.mergeIn([action.payload.itemKey], itemReducer(state.get(action.payload.itemKey), action));
+      return state.has(action.payload.itemKey)
+        ? state.mergeIn([action.payload.itemKey], itemReducer(state.get(action.payload.itemKey), action))
+        : state;
 
     case actionTypes.ITEM_EDITING_STOP_ALL:
       return state.map(

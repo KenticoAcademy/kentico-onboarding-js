@@ -32,12 +32,15 @@ describe('error reducer works correctly', () => {
     expect(actual).toEqual(expected);
   });
 
-  it('ITEM_ADD_FAILED returns new state with global error', () => {
-    const errorDetail = 'error detail';
-    const state = new ErrorComposition({ globalError: 'previous test error' });
-    const expected = state.with({ globalError: ERROR_ADD_ITEM + ' (' + errorDetail + ')' });
+  it('ITEM_ADD_FAILED returns preserve state with new item error', () => {
+    const errorDetail = 'item error detail';
+    const itemError = ERROR_ADD_ITEM + ' (' + errorDetail + ')';
+    const key = 'keyI';
+    const itemsError = OrderedMap<Key, string>().set('x', 'error');
+    const state = new ErrorComposition({ globalError: 'previous test error', itemsError: itemsError });
+    const expected = state.with({ itemsError: itemsError.set(key, itemError) });
 
-    const action = addItemFailed(errorDetail);
+    const action = addItemFailed(key, errorDetail);
     const actual = errorReducer(state, action);
 
     expect(actual).toEqual(expected);
@@ -47,7 +50,7 @@ describe('error reducer works correctly', () => {
     const errorDetail = 'item error detail';
     const itemError = ERROR_SAVE_ITEM + ' (' + errorDetail + ')';
     const key = 'keyI';
-    const itemsError = OrderedMap<Key, string>().set('x', 'error')
+    const itemsError = OrderedMap<Key, string>().set('x', 'error');
     const state = new ErrorComposition({ globalError: 'previous test error', itemsError: itemsError });
     const expected = state.with({ itemsError: itemsError.set(key, itemError) });
 
