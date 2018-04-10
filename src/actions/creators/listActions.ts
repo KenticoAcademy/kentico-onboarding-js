@@ -84,3 +84,8 @@ export const groupActionsToggle = (): IAction => ({
   type: actionTypes.ITEMS_GROUP_ACTIONS_TOGGLE,
   payload: { }
 });
+
+export const itemsLoadingToggle = (): IAction => ({
+  type: actionTypes.ITEMS_LOADING_TOGGLE,
+  payload: { }
+});

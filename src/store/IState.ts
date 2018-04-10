@@ -7,6 +7,7 @@ export interface IListStore {
   items: OrderedMap<Key, Item>;
   error: IErrorComposition;
   groupActionsEnabled: boolean;
+  dataLoaded: boolean;
 }
 
 export interface IState {
