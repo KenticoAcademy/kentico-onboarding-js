@@ -12,9 +12,9 @@ const apiService = itemsApiService(_fetch);
 
 export const getItems = getItemsFactory(apiService.getItems);
 export const addItem = addItemFactory(apiService.postItem);
-export const saveItem = saveItemFactory(apiService.postItem);
+export const saveItem = saveItemFactory(apiService.putItem);
 export const deleteItem = deleteItemFactory(apiService.deleteItem);
-export const saveItems = saveSelectedItemsFactory(apiService.postItem);
+export const saveItems = saveSelectedItemsFactory(apiService.putItem);
 export const deleteItems = deleteSelectedItemsFactory(apiService.deleteItem);
 export * from './creators/listActions';
 export * from './creators/itemActions';
