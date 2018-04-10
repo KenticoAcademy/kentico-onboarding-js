@@ -12,6 +12,10 @@ import {
   deleteItemSuccess,
   saveItemSuccess,
 } from '../../actions/index.ts';
+import {
+  deleteItemFailed,
+  deleteItemOptimistic
+} from '../../actions';
 
 describe('items reducer works correctly', () => {
   it('ITEM_ADD_SUCCESS inserts new Item to state', () => {
@@ -40,6 +44,55 @@ describe('items reducer works correctly', () => {
     expect(actual.toJS()).toEqual(expected.toJS());
   });
 
+  it('ITEM_DELETE_SUCCESS deletes correct item in map', () => {
+    const key = 'idX';
+    const expected = new OrderedMap();
+
+    const mapItem = new Item({
+      key,
+      value: 'add item',
+    });
+    const state = new OrderedMap().set(key, mapItem);
+
+    const action = deleteItemSuccess(key);
+    const actual = items(state, action);
+
+    expect(actual).toEqual(expected);
+  });
+
+  it('ITEM_DELETE_FAILED sets disabled flag to correct item', () => {
+    const key = 'idX';
+
+    const mapItem = new Item({
+      key,
+      value: 'save item',
+      isDisabled: true,
+    });
+    const state = new OrderedMap().set(key, mapItem);
+    const expected = state.mergeIn([key], { isDisabled: false });
+
+    const action = deleteItemFailed(key, '');
+    const actual = items(state, action);
+
+    expect(actual).toEqual(expected);
+  });
+
+  it('ITEM_DELETE_OPTIMISTIC sets disabled flag to correct item', () => {
+    const key = 'idX';
+
+    const mapItem = new Item({
+      key,
+      value: 'save item',
+    });
+    const state = new OrderedMap().set(key, mapItem);
+    const expected = state.mergeIn([key], { isDisabled: true });
+
+    const action = deleteItemOptimistic(key);
+    const actual = items(state, action);
+
+    expect(actual).toEqual(expected);
+  });
+
   it('ITEM_SAVE_SUCCESS updates correct item in map', () => {
     const savedText = 'save item';
     const key = 'idX';
@@ -53,22 +106,6 @@ describe('items reducer works correctly', () => {
     const expected = state.mergeIn([key], { value: savedText });
 
     const action = saveItemSuccess(key);
-    const actual = items(state, action);
-
-    expect(actual).toEqual(expected);
-  });
-
-  it('ITEM_DELETE_SUCCESS deletes correct item in map', () => {
-    const key = 'idX';
-    const expected = new OrderedMap();
-
-    const mapItem = new Item({
-      key,
-      value: 'add item',
-    });
-    const state = new OrderedMap().set(key, mapItem);
-
-    const action = deleteItemSuccess(key);
     const actual = items(state, action);
 
     expect(actual).toEqual(expected);
@@ -114,6 +151,25 @@ describe('items reducer works correctly', () => {
     expect(actual).toEqual(expected);
   });
 
+  it('ITEM_VALUE_CHANGED changes correct item', () => {
+    const changeableValue = 'changed item';
+    const key = 'idX';
+
+    const mapItem = new Item({
+      key,
+      value: 'save item',
+      isBeingEdited: true,
+      temporaryValue: 'save item',
+    });
+    const state = new OrderedMap().set(key, mapItem);
+    const expected = state.mergeIn([key], { temporaryValue: changeableValue });
+
+    const action = changeItemValue(key, changeableValue);
+    const actual = items(state, action);
+
+    expect(actual).toEqual(expected);
+  });
+
   it('ITEM_EDITING_STOP_ALL returns state with edited flag on correct items', () => {
     const changeableValue = 'save item';
     const key1 = 'idX';
@@ -139,25 +195,6 @@ describe('items reducer works correctly', () => {
       .mergeIn([key2], { isBeingEdited: false, temporaryValue: changeableValue });
 
     const action = cancelItemsEditing([key1, key2]);
-    const actual = items(state, action);
-
-    expect(actual).toEqual(expected);
-  });
-
-  it('ITEM_VALUE_CHANGED changes correct item', () => {
-    const changeableValue = 'changed item';
-    const key = 'idX';
-
-    const mapItem = new Item({
-      key,
-      value: 'save item',
-      isBeingEdited: true,
-      temporaryValue: 'save item',
-    });
-    const state = new OrderedMap().set(key, mapItem);
-    const expected = state.mergeIn([key], { temporaryValue: changeableValue });
-
-    const action = changeItemValue(key, changeableValue);
     const actual = items(state, action);
 
     expect(actual).toEqual(expected);

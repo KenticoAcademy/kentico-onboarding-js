@@ -81,6 +81,13 @@ export const deleteItemFailed = (itemKey: Key, error: string): IAction => ({
   },
 });
 
+export const deleteItemOptimistic = (itemKey: Key): IAction => ({
+  type: actionTypes.ITEM_DELETE_OPTIMISTIC,
+  payload: {
+    itemKey,
+  },
+});
+
 export const groupActionsToggle = (): IAction => ({
   type: actionTypes.ITEMS_GROUP_ACTIONS_TOGGLE,
   payload: { }

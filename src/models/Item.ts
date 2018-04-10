@@ -8,6 +8,7 @@ export interface IItem {
   readonly value: string;
   readonly isBeingEdited: boolean;
   readonly temporaryValue: string;
+  readonly isDisabled: boolean;
 }
 
 const defaultItem: IItem = {
@@ -15,6 +16,7 @@ const defaultItem: IItem = {
   value: '',
   isBeingEdited: false,
   temporaryValue: '',
+  isDisabled: false,
 };
 
 export class Item extends BaseRecord<IItem>(defaultItem, 'item') implements IItem {
@@ -22,4 +24,5 @@ export class Item extends BaseRecord<IItem>(defaultItem, 'item') implements IIte
   readonly value: string;
   readonly isBeingEdited: boolean;
   readonly temporaryValue: string;
+  readonly isDisabled: boolean;
 }

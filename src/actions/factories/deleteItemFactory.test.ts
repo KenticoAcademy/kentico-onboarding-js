@@ -12,8 +12,9 @@ describe('deleteItemFactory works correctly', () => {
 
     return result.then(() => {
       expect(deleteItemMock.mock.calls.length).toBe(1);
-      expect(dispatchMock.mock.calls.length).toBe(1);
-      expect(dispatchMock.mock.calls[0][0].type).toBe(actionTypes.ITEM_DELETE_SUCCESS);
+      expect(dispatchMock.mock.calls.length).toBe(2);
+      expect(dispatchMock.mock.calls[0][0].type).toBe(actionTypes.ITEM_DELETE_OPTIMISTIC);
+      expect(dispatchMock.mock.calls[1][0].type).toBe(actionTypes.ITEM_DELETE_SUCCESS);
     });
   });
 
@@ -25,8 +26,9 @@ describe('deleteItemFactory works correctly', () => {
 
     return result.catch(() => {
       expect(deleteItemMock.mock.calls.length).toBe(1);
-      expect(dispatchMock.mock.calls.length).toBe(1);
-      expect(dispatchMock.mock.calls[0][0].type).toBe(actionTypes.ITEM_DELETE_FAILED);
+      expect(dispatchMock.mock.calls.length).toBe(2);
+      expect(dispatchMock.mock.calls[0][0].type).toBe(actionTypes.ITEM_DELETE_OPTIMISTIC);
+      expect(dispatchMock.mock.calls[1][0].type).toBe(actionTypes.ITEM_DELETE_FAILED);
     });
   });
 });
