@@ -11,6 +11,7 @@ export const cancelItemsEditing = (selectedKeys: Array<Key>): IAction => ({
   type: actionTypes.ITEM_EDITING_STOP_ALL,
   payload: {
     actions: Map(selectedKeys.map(key => [key, stopItemEditing(key)])),
+    selectedKeys,
   },
 });
 

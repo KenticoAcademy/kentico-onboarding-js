@@ -8,6 +8,7 @@ import {
   saveItemSuccess,
   deleteItemSuccess,
   stopItemEditing,
+  cancelItemsEditing,
 } from '../../actions';
 import {
   ERROR_ADD_ITEM,
@@ -103,6 +104,18 @@ describe('error reducer works correctly', () => {
     const expected = state.with({ itemsError: itemsError.delete(key) });
 
     const action = stopItemEditing(key);
+    const actual = errorReducer(state, action);
+
+    expect(actual).toEqual(expected);
+  });
+
+  it('ITEM_EDITING_STOP_ALL returns preserve state without specified item error', () => {
+    const key = 'keyI';
+    const itemsError = OrderedMap<Key, string>().set('x', 'error').set(key, 'error II');
+    const state = new ErrorComposition({ globalError: 'previous test error', itemsError: itemsError });
+    const expected = state.with({ itemsError: itemsError.delete(key) });
+
+    const action = cancelItemsEditing([key]);
     const actual = errorReducer(state, action);
 
     expect(actual).toEqual(expected);
