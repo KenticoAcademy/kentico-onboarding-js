@@ -66,6 +66,13 @@ export const saveItemFailed = (itemKey: Key, error: string): IAction => ({
   },
 });
 
+export const saveItemOptimistic = (itemKey: Key): IAction => ({
+  type: actionTypes.ITEM_SAVE_OPTIMISTIC,
+  payload: {
+    itemKey,
+  },
+});
+
 export const deleteItemSuccess = (itemKey: Key): IAction => ({
   type: actionTypes.ITEM_DELETE_SUCCESS,
   payload: {

@@ -7,6 +7,8 @@ import {
   saveItemSuccess,
   deleteItemFailed,
   deleteItemOptimistic,
+  saveItemFailed,
+  saveItemOptimistic,
 } from '../../actions/index.ts';
 
 describe('items reducer works correctly', () => {
@@ -98,6 +100,35 @@ describe('items reducer works correctly', () => {
     const expected = originalItem.merge({ isDisabled: false });
 
     const action = deleteItemFailed(originalItem.key, '');
+    const actual = item(originalItem, action);
+
+    expect(actual).toEqual(expected);
+  });
+
+  it('ITEM_SAVE_OPTIMISTIC sets disabled flag to correct item', () => {
+    const originalItem = new Item({
+      value: 'test',
+      isBeingEdited: false,
+      temporaryValue: 'test',
+    });
+    const expected = originalItem.merge({ isDisabled: true });
+
+    const action = saveItemOptimistic(originalItem.key);
+    const actual = item(originalItem, action);
+
+    expect(actual).toEqual(expected);
+  });
+
+  it('ITEM_SAVE_FAILED sets disabled flag to correct item', () => {
+    const originalItem = new Item({
+      value: 'test',
+      isBeingEdited: false,
+      temporaryValue: 'test',
+      isDisabled: true,
+    });
+    const expected = originalItem.merge({ isDisabled: false });
+
+    const action = saveItemFailed(originalItem.key, '');
     const actual = item(originalItem, action);
 
     expect(actual).toEqual(expected);

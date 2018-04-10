@@ -4,18 +4,18 @@ import { Item } from '../../models/Item.ts';
 import { items } from './items.ts';
 import {
   addItemSuccess,
-  getItemsSuccess,
   changeItemValue,
   startItemEditing,
   stopItemEditing,
-  cancelItemsEditing,
   deleteItemSuccess,
-  saveItemSuccess,
-} from '../../actions/index.ts';
-import {
   deleteItemFailed,
-  deleteItemOptimistic
-} from '../../actions';
+  deleteItemOptimistic,
+  saveItemSuccess,
+  saveItemFailed,
+  saveItemOptimistic,
+  cancelItemsEditing,
+  getItemsSuccess,
+} from '../../actions/index.ts';
 
 describe('items reducer works correctly', () => {
   it('ITEM_ADD_SUCCESS inserts new Item to state', () => {
@@ -88,6 +88,39 @@ describe('items reducer works correctly', () => {
     const expected = state.mergeIn([key], { isDisabled: true });
 
     const action = deleteItemOptimistic(key);
+    const actual = items(state, action);
+
+    expect(actual).toEqual(expected);
+  });
+
+  it('ITEM_SAVE_FAILED sets disabled flag to correct item', () => {
+    const key = 'idX';
+
+    const mapItem = new Item({
+      key,
+      value: 'save item',
+      isDisabled: true,
+    });
+    const state = new OrderedMap().set(key, mapItem);
+    const expected = state.mergeIn([key], { isDisabled: false });
+
+    const action = saveItemFailed(key, '');
+    const actual = items(state, action);
+
+    expect(actual).toEqual(expected);
+  });
+
+  it('ITEM_SAVE_OPTIMISTIC sets disabled flag to correct item', () => {
+    const key = 'idX';
+
+    const mapItem = new Item({
+      key,
+      value: 'save item',
+    });
+    const state = new OrderedMap().set(key, mapItem);
+    const expected = state.mergeIn([key], { isDisabled: true });
+
+    const action = saveItemOptimistic(key);
     const actual = items(state, action);
 
     expect(actual).toEqual(expected);
