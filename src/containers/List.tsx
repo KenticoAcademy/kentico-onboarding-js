@@ -11,6 +11,7 @@ import { IState } from '../store/IState';
 
 const mapStateToProps = ({ list }: IState): IListStateProps => ({
   itemKeys: getMemoizedKeys(list.items.keySeq()),
+  dataLoaded: list.dataLoaded,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<IState>): IListDispatchProps => ({

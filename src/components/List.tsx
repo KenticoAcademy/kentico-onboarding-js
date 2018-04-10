@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import ReactLoading from 'react-loading';
 
 import { Error } from '../containers/Error';
 import { ListItem } from '../containers/ListItem';
@@ -9,6 +10,7 @@ import { Key } from '../@types/Key';
 
 export interface IListStateProps {
   readonly itemKeys: Array<Key>;
+  readonly dataLoaded: boolean;
 }
 
 export interface IListDispatchProps {
@@ -25,7 +27,7 @@ export class List extends React.PureComponent<IListProps> {
   };
 
   componentDidMount() {
-    this.props.getItems();
+    setTimeout(() => this.props.getItems(), 2000);
   }
 
   render() {
@@ -39,7 +41,8 @@ export class List extends React.PureComponent<IListProps> {
     ));
 
     return (
-      <div>
+      (this.props.dataLoaded)
+        ?
         <div className="col-sm-12 col-md-offset-2 col-md-8">
           <div className="row">
             <NewItem />
@@ -52,7 +55,10 @@ export class List extends React.PureComponent<IListProps> {
           </div>
           <ListGroupActions />
         </div>
-      </div>
+        :
+        <div className="loader">
+            <ReactLoading type="spinningBubbles" color="#D3D3D3" />
+        </div>
     );
   }
 }

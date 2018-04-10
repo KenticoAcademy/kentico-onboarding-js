@@ -10,6 +10,7 @@ describe('saveItemFactory works correctly', () => {
     items: items,
     error: { } as any,
     groupActionsEnabled: true,
+    dataLoaded: true,
   });
   class DummyState implements IState {
     constructor(public list: IListStore) { }

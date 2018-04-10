@@ -12,11 +12,11 @@ describe('getItemsFactory works correctly', () => {
 
     const result = factory()(dispatchMock, { } as any, {});
 
-
     return result.then(() => {
       expect(getItemsMock.mock.calls.length).toBe(1);
-      expect(dispatchMock.mock.calls.length).toBe(1);
+      expect(dispatchMock.mock.calls.length).toBe(2);
       expect(dispatchMock.mock.calls[0][0].type).toBe(actionTypes.ITEMS_GET_SUCCESS);
+      expect(dispatchMock.mock.calls[1][0].type).toBe(actionTypes.ITEMS_LOADING_TOGGLE);
     });
   });
 
@@ -28,8 +28,9 @@ describe('getItemsFactory works correctly', () => {
 
     return result.catch(() => {
       expect(getItemsMock.mock.calls.length).toBe(1);
-      expect(dispatchMock.mock.calls.length).toBe(1);
+      expect(dispatchMock.mock.calls.length).toBe(2);
       expect(dispatchMock.mock.calls[0][0].type).toBe(actionTypes.ITEMS_GET_FAILED);
+      expect(dispatchMock.mock.calls[0][0].type).toBe(actionTypes.ITEMS_LOADING_TOGGLE);
     });
   });
 });

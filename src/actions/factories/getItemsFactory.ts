@@ -6,6 +6,7 @@ import { IState } from '../../store/IState';
 import {
   getItemsFailed,
   getItemsSuccess,
+  itemsLoadingToggle,
 } from '../creators/listActions';
 import { IServerItem } from '../../models/IServerItem';
 
@@ -15,4 +16,5 @@ export const getItemsFactory =
       (dispatch: Dispatch<IAction>): Promise<IAction> =>
         getItems()
           .then(items => dispatch(getItemsSuccess(items)))
-          .catch(error => dispatch(getItemsFailed(error)));
+          .catch(error => dispatch(getItemsFailed(error)))
+          .then(() => dispatch(itemsLoadingToggle()));
