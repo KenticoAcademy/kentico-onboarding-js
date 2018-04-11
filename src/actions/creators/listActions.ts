@@ -117,3 +117,10 @@ export const addItemOptimistic = (key: Key, itemValue: string): IAction => ({
     })
   },
 });
+
+export const dismissError = (itemKey: Key | undefined): IAction => ({
+  type: actionTypes.ERROR_DISMISS,
+  payload: {
+    itemKey,
+  }
+})

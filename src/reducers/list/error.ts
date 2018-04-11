@@ -45,6 +45,18 @@ export const error = (state = new ErrorComposition(), action: IAction): ErrorCom
           .reduce((newState: OrderedMap<Key, string>, key: Key) => newState.delete(key), state.itemsError),
       });
 
+    case actionTypes.ERROR_DISMISS: {
+      if (action.payload.itemKey) {
+        return state.with({
+          itemsError: state.itemsError.delete(action.payload.itemKey),
+        });
+      }
+
+      return state.with({
+        globalError: '',
+      });
+    }
+
     default:
       return state;
   }
