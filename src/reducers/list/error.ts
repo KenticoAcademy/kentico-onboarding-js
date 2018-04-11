@@ -7,8 +7,6 @@ import {
   ERROR_SAVE_ITEM,
   ERROR_DELETE_ITEM,
 } from '../../constants/constants';
-import { OrderedMap } from 'immutable';
-import { Key } from '../../@types/Key';
 
 export const error = (state = new ErrorComposition(), action: IAction): ErrorComposition => {
   switch (action.type) {
@@ -34,15 +32,8 @@ export const error = (state = new ErrorComposition(), action: IAction): ErrorCom
 
     case actionTypes.ITEM_DELETE_SUCCESS:
     case actionTypes.ITEM_SAVE_SUCCESS:
-    case actionTypes.ITEM_EDITING_STOP:
       return state.with({
         itemsError: state.itemsError.delete(action.payload.itemKey),
-      });
-
-    case actionTypes.ITEM_EDITING_STOP_ALL:
-      return state.with({
-        itemsError: action.payload.selectedKeys
-          .reduce((newState: OrderedMap<Key, string>, key: Key) => newState.delete(key), state.itemsError),
       });
 
     case actionTypes.ERROR_DISMISS: {
