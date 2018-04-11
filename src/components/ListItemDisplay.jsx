@@ -3,20 +3,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export const ListItemDisplay = ({ itemValue, bullet, onEdit }) => (
+export const ListItemDisplay = ({ item: { value, bullet }, onEdit }) => (
   <div onClick={onEdit}>
     {bullet}.&nbsp;
-    {itemValue}
+    {value}
   </div>
 );
 
 ListItemDisplay.displayName = 'ListItemDisplay';
 
 ListItemDisplay.propTypes = {
-  itemValue: PropTypes.string.isRequired,
-  bullet: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number,
-  ]).isRequired,
+  item: PropTypes.shape({
+    bullet: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+    ]).isRequired,
+    value: PropTypes.string,
+  }).isRequired,
+
   onEdit: PropTypes.func.isRequired,
 };

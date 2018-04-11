@@ -56,9 +56,14 @@
   "dependencies": {
     "bootstrap": "^3.3.7",
     "immutable": "^3.8.2",
+    "mem": "^3.0.0",
     "prop-types": "^15.6.0",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
+    "react-redux": "^5.0.7",
+    "react-shortcuts": "^2.0.0",
+    "redux": "^3.7.2",
+    "redux-logger": "^3.0.6",
     "ts-jest": "^19.0.14",
     "uuid": "^3.2.1"
   },

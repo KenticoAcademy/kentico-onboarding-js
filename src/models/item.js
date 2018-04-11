@@ -1,9 +1,12 @@
 import { Record } from 'immutable';
-import { ToDo } from './toDo';
+
+import { GUID_EMPTY } from '../constants/constants';
 
 const defaultData = {
-  todo: new ToDo(),
-  bullet: '',
+  key: GUID_EMPTY,
+  value: '',
+  isBeingEdited: false,
+  temporaryValue: '',
 };
 
 export const Item = Record(defaultData, 'item');

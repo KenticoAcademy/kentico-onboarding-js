@@ -1,4 +1,4 @@
-import { isInputValid } from '../src/utils/validationService';
+import { isInputValid } from './validationService';
 
 describe('Input is validated correctly', () => {
   it('return true if not null', () => {

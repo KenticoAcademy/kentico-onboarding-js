@@ -2,82 +2,97 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Shortcuts } from 'react-shortcuts';
 
 import { isInputValid } from '../utils/validationService';
+import {
+  ITEM_EDIT_CONFIRM,
+  ITEM_EDIT_CANCEL,
+  ITEM_DELETE,
+} from '../constants/constants';
 
 export class ListItemEditor extends React.PureComponent {
   static displayName = 'ListItemEditor';
 
   static propTypes = {
-    itemValue: PropTypes.string.isRequired,
-    bullet: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number,
-    ]).isRequired,
-    onCancel: PropTypes.func.isRequired,
-    onUpdate: PropTypes.func.isRequired,
-    onDelete: PropTypes.func.isRequired,
+    item: PropTypes.shape({
+      bullet: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number,
+      ]).isRequired,
+      temporaryValue: PropTypes.string,
+    }).isRequired,
+
+    saveItem: PropTypes.func.isRequired,
+    deleteItem: PropTypes.func.isRequired,
+    onCancelEdit: PropTypes.func.isRequired,
+    onChange: PropTypes.func.isRequired,
   };
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      itemValue: props.itemValue,
-    };
-  }
+  _shortCuts = ({
+    [ITEM_EDIT_CONFIRM]: ({ item: { temporaryValue }, saveItem }) => {
+      if (isInputValid(temporaryValue)) {
+        saveItem();
+      }
+    },
+    [ITEM_EDIT_CANCEL]: ({ onCancelEdit }) => onCancelEdit(),
+    [ITEM_DELETE]: ({ deleteItem }) => deleteItem(),
+  });
 
-  _handleInputChange = (event) => this.setState({ itemValue: event.target.value });
+  _handleChange = (event) => this.props.onChange(event.target.value);
 
-  _handleInputKeyUp = (event) => {
-    if (event.key === 'Enter' && isInputValid(this.state.itemValue)) {
-      this._updateItem();
-    }
-    else if (event.key === 'Escape') {
-      this.props.onCancel();
-    }
-  };
-
-  _updateItem = () => this.props.onUpdate(this.state.itemValue);
+  _handleShortcuts = (action) => this._shortCuts[action](this.props);
 
   render() {
-    const { onCancel, onDelete, bullet } = this.props;
-    const { itemValue } = this.state;
+    const {
+      item: {
+        bullet,
+        temporaryValue,
+      },
+      onCancelEdit,
+      deleteItem,
+      saveItem,
+    } = this.props;
 
     return (
-      <div className="input-group">
-        <span className="input-group-addon">
-          {bullet}
-        </span>
-        <input
-          type="text"
-          className="form-control"
-          value={itemValue}
-          onChange={this._handleInputChange}
-          onKeyUp={this._handleInputKeyUp}
-          autoFocus
-        />
-        <span className="input-group-btn">
-          <button
-            type="button"
-            className="btn btn-primary"
-            onClick={this._updateItem}
-            disabled={!isInputValid(itemValue)}
-          > Save
-          </button>
-          <button
-            type="button"
-            className="btn btn-default"
-            onClick={onCancel}
-          > Cancel
-          </button>
-          <button
-            type="button"
-            className="btn btn-danger"
-            onClick={onDelete}
-          > Delete
-          </button>
-        </span>
-      </div>
+      <Shortcuts name="NewItem" handler={this._handleShortcuts}>
+        <div className="input-group">
+          <span className="input-group-addon">
+            {bullet}
+          </span>
+          <input
+            type="text"
+            className="form-control"
+            value={temporaryValue}
+            onChange={this._handleChange}
+            autoFocus
+          />
+          <span className="input-group-btn">
+            <button
+              type="button"
+              className="btn btn-primary"
+              onClick={saveItem}
+              disabled={!isInputValid(temporaryValue)}
+            >
+              Save
+            </button>
+            <button
+              type="button"
+              className="btn btn-default"
+              onClick={onCancelEdit}
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              className="btn btn-danger"
+              onClick={deleteItem}
+            >
+              Delete
+            </button>
+          </span>
+        </div>
+      </Shortcuts>
     );
   }
 }
