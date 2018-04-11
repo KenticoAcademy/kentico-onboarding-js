@@ -4,20 +4,24 @@ import { IndexedItem } from '../../../models/IndexedItem';
 import { UpdatingItem } from './UpdatingItem';
 import { ItemError } from './ItemError';
 
-interface IOwnProps {
+export interface IOwnProps {
   readonly item: IndexedItem;
 }
 
 export interface IPlainItemDataProps {
   readonly errorMessage: string;
+  readonly action: string;
 }
 
 export interface IPlainItemCallbackProps {
   readonly onEditStart: () => void;
   readonly onCloseError: () => void;
+  readonly onRetry: (action: string) => void;
 }
 
-export class PlainItem extends React.PureComponent<IPlainItemDataProps & IPlainItemCallbackProps & IOwnProps> {
+export type IPlainItemProps = IOwnProps & IPlainItemCallbackProps & IPlainItemDataProps;
+
+export class PlainItem extends React.PureComponent<IPlainItemProps> {
   static propTypes = {
     item: PropTypes.shape({
       index: PropTypes.number.isRequired,
@@ -27,7 +31,7 @@ export class PlainItem extends React.PureComponent<IPlainItemDataProps & IPlainI
     onCloseError: PropTypes.func.isRequired
   };
 
-  constructor(props: IOwnProps & IPlainItemDataProps & IPlainItemCallbackProps) {
+  constructor(props: IPlainItemProps) {
     super(props);
   }
 
@@ -46,11 +50,11 @@ export class PlainItem extends React.PureComponent<IPlainItemDataProps & IPlainI
           />
           : <div onClick={onEditStart}>
             {item.index + '. ' + item.text}
-            {console.log(item.errorId, errorMessage)}
             {item.errorId !== null &&
             <ItemError
               errorMessage={errorMessage}
               onCloseError={this._onCloseError}
+              onRetry={this._onRetry}
             />}
           </div>
         }
@@ -62,4 +66,9 @@ export class PlainItem extends React.PureComponent<IPlainItemDataProps & IPlainI
     event.stopPropagation();
     this.props.onCloseError();
   };
+
+  private _onRetry = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.stopPropagation();
+    this.props.onRetry(this.props.action);
+  }
 }

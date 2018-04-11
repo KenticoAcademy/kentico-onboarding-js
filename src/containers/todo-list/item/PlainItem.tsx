@@ -1,8 +1,10 @@
 import * as PropTypes from 'prop-types';
 import { connect, Dispatch } from 'react-redux';
 import {
+  IOwnProps,
   IPlainItemCallbackProps,
   IPlainItemDataProps,
+  IPlainItemProps,
   PlainItem
 } from '../../../components/todo-list/item/PlainItem';
 import {
@@ -10,25 +12,35 @@ import {
   editItem,
 } from '../../../actions/actionCreators';
 import { IAppState } from '../../../models/IAppState';
-import { IndexedItem } from '../../../models/IndexedItem';
 import { IAction } from '../../../actions/IAction';
+import { retry } from '../../../actions/actionCreatorsFactories/retry';
 
-interface IProps {
-  readonly item: IndexedItem;
-}
-
-const mapStateToProps = ({error}: IAppState, {item}: IProps): IPlainItemDataProps => ({
+const mapStateToProps = ({error}: IAppState, {item}: IOwnProps): IPlainItemDataProps => ({
   errorMessage: item.errorId
     ? error.get(item.errorId).errorMessage
-    : ''
+    : '',
+  action: item.errorId
+    ? error.get(item.errorId).action
+    : '',
 });
 
-const mapDispatchToProps = (dispatch: Dispatch<IAppState>, {item}: IProps): IPlainItemCallbackProps => ({
+const mapDispatchToProps = (dispatch: Dispatch<IAppState>, {item}: IOwnProps): IPlainItemCallbackProps => ({
   onEditStart: (): IAction => dispatch(editItem(item.id)),
-  onCloseError: (): IAction => dispatch(closeItemError(item.id))
+  onCloseError: (): IAction => dispatch(closeItemError(item.id)),
+  onRetry: (action: string): Promise<IAction> => dispatch(retry(action, item))
 });
 
-const connectedComponent = connect(mapStateToProps, mapDispatchToProps)(PlainItem);
+const mergeProps =
+  (stateProps: IPlainItemDataProps,
+   dispatchProps: IPlainItemCallbackProps,
+   ownProps: IOwnProps): IPlainItemProps => ({
+    ...stateProps,
+    ...dispatchProps,
+    onRetry: (): void => dispatchProps.onRetry(stateProps.action),
+    ...ownProps
+  });
+
+const connectedComponent = connect(mapStateToProps, mapDispatchToProps, mergeProps)(PlainItem);
 
 connectedComponent.propTypes = {
   item: PropTypes.shape({

@@ -25,7 +25,7 @@ export const error =
           action.payload.errorId,
           new Error({
             id: action.payload.errorId,
-            action: 'INSERT',
+            action: action.type,
             errorMessage: action.payload.message
           })
         );
@@ -34,7 +34,7 @@ export const error =
           action.payload.errorId,
           new Error({
             id: action.payload.errorId,
-            action: 'UPDATE',
+            action: action.type,
             errorMessage: action.payload.message
           })
         );
@@ -43,6 +43,7 @@ export const error =
           action.payload.errorId,
           new Error({
             id: action.payload.errorId,
+            action: action.type,
             errorMessage: action.payload.message
           })
         );

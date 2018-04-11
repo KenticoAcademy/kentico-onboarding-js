@@ -34,7 +34,8 @@ export const postFailed = (id: Uuid, error: {errorId: Uuid, message: string}): I
   type: ITEM_INSERT_FAILED,
   payload: {
     id,
-    ...error
+    ...error,
+    action: 'INSERT'
   }
 });
 

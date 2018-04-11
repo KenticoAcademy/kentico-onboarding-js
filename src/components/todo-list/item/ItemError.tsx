@@ -4,6 +4,7 @@ import * as PropTypes from 'prop-types';
 interface IProps {
   errorMessage: string;
   onCloseError: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  onRetry: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 const ItemError: React.StatelessComponent<IProps> = (props: IProps) =>
@@ -22,7 +23,7 @@ const ItemError: React.StatelessComponent<IProps> = (props: IProps) =>
       >&times;</button>
       <button
         className="close"
-        onClick={() => alert('ebebe')}
+        onClick={props.onRetry}
       >
         &#8634;
       </button>
