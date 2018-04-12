@@ -1,4 +1,4 @@
-import { connect, ComponentClass, Dispatch } from 'react-redux';
+import { connect, Dispatch } from 'react-redux';
 
 import {
   Error as ErrorComponent,
@@ -9,17 +9,17 @@ import { IState } from '../store/IState';
 import { Key } from '../@types/Key';
 import { dismissError } from '../actions';
 
-type IErrorComponentType = {
-  itemKey: Key | undefined
-};
+interface IOwnProps {
+  readonly itemKey: Key;
+}
 
-const mapStateToProps = ({ list: { error }}: IState, { itemKey }: IErrorComponentType): IErrorStateProps => ({
-  error: itemKey ? error.itemsError.get(itemKey) : error.globalError,
+const mapStateToProps = ({ list: { errors }}: IState, { itemKey }: IOwnProps): IErrorStateProps => ({
+  error: errors.get(itemKey),
   itemKey,
 });
 
-const mapDispatchToProps = (dispatch: Dispatch<IState>, { itemKey }: IErrorComponentType): IErrorDispatchProps => ({
+const mapDispatchToProps = (dispatch: Dispatch<IState>, { itemKey }: IOwnProps): IErrorDispatchProps => ({
   onDismiss: () => dispatch(dismissError(itemKey)),
 });
 
-export const Error: ComponentClass<IErrorComponentType> = connect(mapStateToProps, mapDispatchToProps)(ErrorComponent);
+export const Error = connect(mapStateToProps, mapDispatchToProps)(ErrorComponent);

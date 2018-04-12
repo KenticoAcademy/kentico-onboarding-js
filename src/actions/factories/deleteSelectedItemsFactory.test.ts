@@ -8,7 +8,7 @@ import { Item } from '../../models/Item';
 describe('saveItemFactory works correctly', () => {
   const dummyList = (items: OrderedMap<Key, Item>): IListStore => ({
     items: items,
-    error: { } as any,
+    errors: { } as any,
     groupActionsEnabled: true,
     dataLoaded: true,
   });

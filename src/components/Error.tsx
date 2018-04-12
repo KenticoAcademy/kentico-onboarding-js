@@ -5,7 +5,7 @@ import { Key } from '../@types/Key';
 
 export interface IErrorStateProps {
   readonly error: string;
-  readonly itemKey: Key | undefined;
+  readonly itemKey: Key;
 }
 
 export interface IErrorDispatchProps {

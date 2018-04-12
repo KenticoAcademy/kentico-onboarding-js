@@ -6,6 +6,7 @@ import { ListItem } from '../containers/ListItem';
 import { NewItem } from '../containers/NewItem';
 import { ListGroupActions } from '../containers/ListGroupActions';
 import { Key } from '../@types/Key';
+import { GUID_GLOBAL_ERROR } from '../constants/constants';
 
 export interface IListContentStateProps {
   readonly itemKeys: Array<Key>;
@@ -39,7 +40,7 @@ export class ListContent extends React.PureComponent<IListContentStateProps> {
           <div className="list-group">
             {listOfKeys}
           </div>
-          <Error itemKey={undefined} />
+          <Error itemKey={GUID_GLOBAL_ERROR} />
         </div>
         <ListGroupActions />
       </div>
