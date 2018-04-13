@@ -35,7 +35,8 @@ export const error =
           new Error({
             id: action.payload.errorId,
             action: action.type,
-            errorMessage: action.payload.message
+            errorMessage: action.payload.message,
+            backupText: action.payload.backupText
           })
         );
       case ITEM_DELETION_FAILED:
@@ -48,7 +49,7 @@ export const error =
           })
         );
       case ITEM_ERROR_CLOSE:
-        return previousState.delete(action.payload.id);
+        return previousState.delete(action.payload.errorId);
 
       default:
         return previousState;

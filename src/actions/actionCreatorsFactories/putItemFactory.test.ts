@@ -5,6 +5,10 @@ import {
   ITEM_UPDATE_SUCCEEDED,
   TODO_LIST_ITEM_UPDATE
 } from '../../constants/actionTypes';
+import { OrderedMap } from 'immutable';
+import { FetchStatus } from '../../models/FetchStatus';
+import { IAppState } from '../../models/IAppState';
+import { ListItem } from '../../models/ListItem';
 
 const dispatch = jest.fn(input => input);
 const errorId = 'a378ffaa-75fa-4117-a57b-84da0a3c9732';
@@ -19,8 +23,21 @@ describe('put item tests', () => {
     const updatedItem = {
       id: '9a0b391a-2a57-4be1-8179-7271b5e8cdc3',
       text: 'updatedText',
+      isSynchronized: true,
     };
-    const axiosPut = (_data: {id: Uuid, text: string}) =>
+    const mockStore: IAppState = {
+      todoList: {
+        items: OrderedMap([
+          [
+            updatedItem.id,
+            new ListItem(updatedItem)
+          ]
+        ])
+      },
+      error: OrderedMap([]),
+      fetchStatus: new FetchStatus()
+    };
+    const axiosPut = (_data: { id: Uuid, text: string }) =>
       Promise.resolve({
         data: updatedItem,
         status: 200,
@@ -43,7 +60,7 @@ describe('put item tests', () => {
       }
     };
 
-    await putItem({id: updatedItem.id, text: updatedItem.text})(dispatch);
+    await putItem({id: updatedItem.id, text: updatedItem.text, isSynchronized: true})(dispatch, () => mockStore);
 
     expect(dispatch.mock.calls[0][0]).toEqual(updateItem);
     expect(dispatch.mock.calls[1][0]).toEqual(putSucceeded);
@@ -54,8 +71,21 @@ describe('put item tests', () => {
     const updatedItem = {
       id: '9a0b391a-2a57-4be1-8179-7271b5e8cdc3',
       text: 'updatedText',
+      isSynchronized: false,
     };
-    const axiosPut = (_data: {id: Uuid, text: string}) =>
+    const mockStore: IAppState = {
+      todoList: {
+        items: OrderedMap([
+          [
+            updatedItem.id,
+            new ListItem(updatedItem)
+          ]
+        ])
+      },
+      error: OrderedMap([]),
+      fetchStatus: new FetchStatus()
+    };
+    const axiosPut = (_data: { id: Uuid, text: string }) =>
       Promise.reject({
         response: {
           data: undefined,
@@ -79,10 +109,11 @@ describe('put item tests', () => {
         id: updatedItem.id,
         errorId: generateId(),
         message: errorMessage,
+        backupText: updatedItem.text
       }
     };
 
-    await putItem(updatedItem)(dispatch);
+    await putItem(updatedItem)(dispatch, () => mockStore);
 
     expect(dispatch.mock.calls[0][0]).toEqual(updateItem);
     expect(dispatch.mock.calls[1][0]).toEqual(putFailed);

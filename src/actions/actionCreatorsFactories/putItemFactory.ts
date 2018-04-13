@@ -15,6 +15,12 @@ interface IUpdateDependencies {
   readonly axiosPut: (item: IUpdateItem) => Promise<AxiosResponse>;
 }
 
+interface IError {
+  errorId: Uuid;
+  message: string;
+  backupText: string;
+}
+
 export const putSucceeded = (id: Uuid): IAction => ({
   type: ITEM_UPDATE_SUCCEEDED,
   payload: {
@@ -22,7 +28,7 @@ export const putSucceeded = (id: Uuid): IAction => ({
   }
 });
 
-export const putFailed = (id: Uuid, error: { errorId: Uuid, message: string }): IAction => ({
+export const putFailed = (id: Uuid, error: IError): IAction => ({
   type: ITEM_UPDATE_FAILED,
   payload: {
     id,
@@ -33,6 +39,7 @@ export const putFailed = (id: Uuid, error: { errorId: Uuid, message: string }): 
 export interface IUpdateItem {
   id: Uuid;
   text: string;
+  isSynchronized: boolean;
 }
 
 export const updateItem = (item: IUpdateItem): IAction => ({
@@ -43,7 +50,11 @@ export const updateItem = (item: IUpdateItem): IAction => ({
 export const putItemFactory =
   ({axiosPut, generateId}: IUpdateDependencies) =>
     (item: IUpdateItem) =>
-      async (dispatch: Dispatch<IAppState>): Promise<IAction> => {
+      async (dispatch: Dispatch<IAppState>, getState: () => IAppState): Promise<IAction> => {
+        const itemFromState = getState().todoList.items.get(item.id);
+        const errorId = itemFromState.errorId;
+        const updateError = getState().error.get(errorId);
+
         dispatch(updateItem(item));
 
         try {
@@ -58,10 +69,18 @@ export const putItemFactory =
 
           return dispatch(putFailed(
             item.id,
-            {
-              errorId: generateId(),
-              message
-            })
+            updateError !== undefined
+              ? {
+                errorId: updateError.id,
+                message,
+                backupText: updateError.backupText,
+              }
+              : {
+                errorId: generateId(),
+                message,
+                backupText: itemFromState.text,
+              }
+            )
           );
         }
       };

@@ -8,7 +8,8 @@ import {
   ITEM_UPDATE_SUCCEEDED,
   ITEM_UPDATE_FAILED,
   ITEM_DELETION_FAILED,
-  ITEM_ERROR_CLOSE, ITEM_INSERT_FAILED,
+  ITEM_ERROR_CLOSE,
+  ITEM_INSERT_FAILED,
 } from '../../../constants/actionTypes';
 import { ListItem } from '../../../models/ListItem';
 import { IAction } from '../../../actions/IAction';
@@ -54,7 +55,7 @@ export const item = (previousState: ListItem, action: IAction): ListItem => {
         text: action.payload.text,
         backupText: previousState.text,
         isEdited: false,
-        isSynchronized: false
+        isSynchronized: action.payload.isSynchronized
       };
 
       return previousState.with(updatedItem);

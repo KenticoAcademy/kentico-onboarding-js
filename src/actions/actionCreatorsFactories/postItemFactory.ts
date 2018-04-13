@@ -16,13 +16,13 @@ interface IPostDependencies {
 }
 
 export const insertItem =
-  (item: {text: string, id: Uuid, isSynchronized: boolean}): IAction => ({
+  (item: { text: string, id: Uuid, isSynchronized: boolean }): IAction => ({
     type: TODO_LIST_ITEM_INSERT,
     payload: item,
   });
 
 export const postSucceeded =
-  (newId: Uuid, item: {id: Uuid, text: string, isSynchronized: boolean}): IAction => ({
+  (newId: Uuid, item: { id: Uuid, text: string, isSynchronized: boolean }): IAction => ({
     type: ITEM_INSERT_SUCCEEDED,
     payload: {
       newId,
@@ -30,12 +30,11 @@ export const postSucceeded =
     }
   });
 
-export const postFailed = (id: Uuid, error: {errorId: Uuid, message: string}): IAction => ({
+export const postFailed = (id: Uuid, error: { errorId: Uuid, message: string }): IAction => ({
   type: ITEM_INSERT_FAILED,
   payload: {
     id,
     ...error,
-    action: 'INSERT'
   }
 });
 

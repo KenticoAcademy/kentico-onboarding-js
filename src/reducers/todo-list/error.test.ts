@@ -13,6 +13,9 @@ describe('error reducer', () => {
   };
   const id1: Uuid = 'b84faa03-b1b0-4ef0-ABAB-f6ef805af432';
   const id2: Uuid = 'b84faa03-b1b0-4ef0-ADAC-f6ef805af400';
+  const insertErrorMessage = 'insert failed';
+  const updateErrorMessage = 'update failed';
+  const deleteErrorMessage = 'delete failed';
 
   it('should return empty ordered map for undefined state', () => {
     const initialState = error(undefined, closeInsertError);
@@ -30,7 +33,7 @@ describe('error reducer', () => {
     const previousState: OrderedMap<Uuid, Error> = OrderedMap([
       [
         id1,
-        new Error({id: id1, errorMessage: 'update failed'})
+        new Error({id: id1, errorMessage: updateErrorMessage})
       ]
     ]);
 
@@ -44,13 +47,16 @@ describe('error reducer', () => {
       type: 'ITEM_INSERT_FAILED',
       payload: {
         errorId: id2,
-        errorMessage: 'insert failed'
+        message: insertErrorMessage
       }
     };
     const previousState: OrderedMap<Uuid, Error> = OrderedMap([
       [
         id1,
-        new Error({id: id1, errorMessage: 'update failed'})
+        new Error({
+          id: id1,
+          errorMessage: updateErrorMessage,
+        })
       ]
     ]);
     const expectedState: OrderedMap<Uuid, Error> = OrderedMap([
@@ -60,7 +66,11 @@ describe('error reducer', () => {
       ],
       [
         id2,
-        new Error({id: id2, errorMessage: 'insert failed'})
+        new Error({
+          id: id2,
+          errorMessage: insertErrorMessage,
+          action: 'ITEM_INSERT_FAILED'
+        })
       ]
     ]).toJS();
 
@@ -70,27 +80,35 @@ describe('error reducer', () => {
   });
 
   it('should return previous state with new error on ITEM_UPDATE_FAILED', () => {
+    const backupText = 'backup';
+    const actionType = 'ITEM_UPDATE_FAILED';
     const updateFailed = {
-      type: 'ITEM_UPDATE_FAILED',
+      type: actionType,
       payload: {
         errorId: id2,
-        errorMessage: 'update failed'
+        message: updateErrorMessage,
+        backupText
       }
     };
     const previousState: OrderedMap<Uuid, Error> = OrderedMap([
       [
         id1,
-        new Error({id: id1, errorMessage: 'insert failed'})
+        new Error({id: id1, errorMessage: insertErrorMessage})
       ]
     ]);
     const expectedState: OrderedMap<Uuid, Error> = OrderedMap([
       [
         id1,
-        new Error({id: id1, errorMessage: 'insert failed'})
+        new Error({id: id1, errorMessage: insertErrorMessage})
       ],
       [
         id2,
-        new Error({id: id2, errorMessage: 'update failed'})
+        new Error({
+          id: id2,
+          errorMessage: updateErrorMessage,
+          action: actionType,
+          backupText
+        })
       ]
     ]).toJS();
 
@@ -104,23 +122,27 @@ describe('error reducer', () => {
       type: 'ITEM_DELETION_FAILED',
       payload: {
         errorId: id2,
-        errorMessage: 'delete failed'
+        message: 'delete failed'
       }
     };
     const previousState: OrderedMap<Uuid, Error> = OrderedMap([
       [
         id1,
-        new Error({id: id1, errorMessage: 'update failed'})
+        new Error({id: id1, errorMessage: updateErrorMessage})
       ]
     ]);
     const expectedState: OrderedMap<Uuid, Error> = OrderedMap([
       [
         id1,
-        new Error({id: id1, errorMessage: 'update failed'})
+        new Error({id: id1, errorMessage: updateErrorMessage})
       ],
       [
         id2,
-        new Error({id: id2, errorMessage: 'delete failed'})
+        new Error({
+          id: id2,
+          errorMessage: deleteErrorMessage,
+          action: 'ITEM_DELETION_FAILED'
+        })
       ]
     ]).toJS();
 
@@ -139,17 +161,17 @@ describe('error reducer', () => {
     const previousState: OrderedMap<Uuid, Error> = OrderedMap([
       [
         id1,
-        new Error({id: id1, errorMessage: 'insert failed'})
+        new Error({id: id1, errorMessage: insertErrorMessage})
       ],
       [
         id2,
-        new Error({id: id2, errorMessage: 'delete failed'})
+        new Error({id: id2, errorMessage: deleteErrorMessage})
       ]
     ]);
     const expectedState: OrderedMap<Uuid, Error> = OrderedMap([
       [
         id2,
-        new Error({id: id2, errorMessage: 'delete failed'})
+        new Error({id: id2, errorMessage: deleteErrorMessage})
       ]
     ]).toJS();
 
@@ -168,17 +190,17 @@ describe('error reducer', () => {
     const previousState: OrderedMap<Uuid, Error> = OrderedMap([
       [
         id1,
-        new Error({id: id1, errorMessage: 'update failed'})
+        new Error({id: id1, errorMessage: updateErrorMessage})
       ],
       [
         id2,
-        new Error({id: id2, errorMessage: 'insert failed'})
+        new Error({id: id2, errorMessage: insertErrorMessage})
       ]
     ]);
     const expectedState: OrderedMap<Uuid, Error> = OrderedMap([
       [
         id2,
-        new Error({id: id2, errorMessage: 'insert failed'})
+        new Error({id: id2, errorMessage: insertErrorMessage})
       ]
     ]).toJS();
 
@@ -197,17 +219,17 @@ describe('error reducer', () => {
     const previousState: OrderedMap<Uuid, Error> = OrderedMap([
       [
         id1,
-        new Error({id: id1, errorMessage: 'deletion failed'})
+        new Error({id: id1, errorMessage: deleteErrorMessage})
       ],
       [
         id2,
-        new Error({id: id2, errorMessage: 'insert failed'})
+        new Error({id: id2, errorMessage: insertErrorMessage})
       ]
     ]);
     const expectedState: OrderedMap<Uuid, Error> = OrderedMap([
       [
         id2,
-        new Error({id: id2, errorMessage: 'insert failed'})
+        new Error({id: id2, errorMessage: insertErrorMessage})
       ]
     ]).toJS();
 

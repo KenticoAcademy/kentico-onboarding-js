@@ -42,7 +42,10 @@ export const deletionFailed = (id: Uuid, error: { errorId: Uuid, message: string
 
 export const deleteItemFactory =
   ({axiosDelete, generateId}: IDeleteDependencies) =>
-    (id: Uuid) => async (dispatch: Dispatch<IAppState>): Promise<IAction> => {
+    (id: Uuid) => async (dispatch: Dispatch<IAppState>, getState: () => IAppState): Promise<IAction> => {
+      const errorId = getState().todoList.items.get(id).errorId;
+      const deleteError = getState().error.get(errorId);
+
       dispatch(deleteItem(id));
 
       try {
@@ -59,7 +62,9 @@ export const deleteItemFactory =
         return dispatch(deletionFailed(
           id,
           {
-            errorId: generateId(),
+            errorId: deleteError !== undefined
+              ? deleteError.id
+              : generateId(),
             message
           })
         );

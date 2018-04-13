@@ -282,6 +282,7 @@ describe('items reducers', () => {
       updateItem({
         id: plainItem1.id,
         text: updatedText,
+        isSynchronized: false
       }),
     ).toJS();
 
@@ -346,7 +347,8 @@ describe('items reducers', () => {
         plainItem2.id,
         {
           errorId,
-          message: errorMessage
+          message: errorMessage,
+          backupText: 'bla'
         }
       )
     ).toJS();
@@ -375,7 +377,7 @@ describe('items reducers', () => {
 
     const newState: OrderedMap<Uuid, ListItem> = items(
       twoItemsState,
-      actions.closeItemError(plainItem2.id)
+      actions.closeItemError(plainItem2.id, '123')
     ).toJS();
 
     expect(newState).toEqual(expectedState);

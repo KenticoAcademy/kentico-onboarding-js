@@ -16,7 +16,7 @@ export interface IPlainItemDataProps {
 export interface IPlainItemCallbackProps {
   readonly onEditStart: () => void;
   readonly onCloseError: () => void;
-  readonly onRetry: (action: string) => void;
+  readonly onRetry: () => void;
 }
 
 export type IPlainItemProps = IOwnProps & IPlainItemCallbackProps & IPlainItemDataProps;
@@ -69,6 +69,6 @@ export class PlainItem extends React.PureComponent<IPlainItemProps> {
 
   private _onRetry = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
-    this.props.onRetry(this.props.action);
+    this.props.onRetry();
   }
 }

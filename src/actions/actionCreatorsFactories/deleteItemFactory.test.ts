@@ -5,6 +5,10 @@ import {
   ITEM_DELETION_SUCCEEDED,
   TODO_LIST_ITEM_DELETE
 } from '../../constants/actionTypes';
+import { ListItem } from '../../models/ListItem';
+import { FetchStatus } from '../../models/FetchStatus';
+import { IAppState } from '../../models/IAppState';
+import { OrderedMap } from 'immutable';
 
 const dispatch = jest.fn(input => input);
 const id = 'a378ffaa-75fa-4117-a57b-84da0a3c975a';
@@ -25,6 +29,22 @@ describe('delete item tests', () => {
         headers: undefined,
         config: {}
       });
+    const itemToDelete = {
+      id,
+      text: 'abc'
+    };
+    const mockStore: IAppState = {
+      todoList: {
+        items: OrderedMap([
+          [
+            itemToDelete.id,
+            new ListItem(itemToDelete)
+          ]
+        ])
+      },
+      error: OrderedMap([]),
+      fetchStatus: new FetchStatus()
+    };
     const deleteFromServer = deleteItemFactory({
       generateId,
       axiosDelete
@@ -42,7 +62,7 @@ describe('delete item tests', () => {
       }
     };
 
-    await deleteFromServer(id)(dispatch);
+    await deleteFromServer(id)(dispatch, () => mockStore);
 
     expect(dispatch.mock.calls[0][0]).toEqual(deleteItem);
     expect(dispatch.mock.calls[1][0]).toEqual(deletionSucceeded);
@@ -59,6 +79,22 @@ describe('delete item tests', () => {
           config: {},
         },
       });
+    const itemToDelete = {
+      id,
+      text: 'abc'
+    };
+    const mockStore: IAppState = {
+      todoList: {
+        items: OrderedMap([
+          [
+            itemToDelete.id,
+            new ListItem(itemToDelete)
+          ]
+        ])
+      },
+      error: OrderedMap([]),
+      fetchStatus: new FetchStatus()
+    };
     const deleteFromServer = deleteItemFactory({
       generateId,
       axiosDelete
@@ -78,7 +114,7 @@ describe('delete item tests', () => {
       }
     };
 
-    await deleteFromServer(id)(dispatch);
+    await deleteFromServer(id)(dispatch, () => mockStore);
 
     expect(dispatch.mock.calls[0][0]).toEqual(deleteItem);
     expect(dispatch.mock.calls[1][0]).toEqual(deletionFailed);
