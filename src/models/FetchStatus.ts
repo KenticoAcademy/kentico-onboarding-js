@@ -1,4 +1,4 @@
-import { Record } from 'immutable';
+import { BaseRecord } from './BaseRecord';
 
 const emptyStatus: IFetchStatus = {
   isFetching: false,
@@ -12,16 +12,8 @@ export interface IFetchStatus {
   readonly errorMessage: string;
 }
 
-export class FetchStatus extends Record(emptyStatus) implements IFetchStatus {
-  isFetching: boolean;
-  hasError: boolean;
-  errorMessage: string;
-
-  constructor(params?: Partial<IFetchStatus>) {
-    params ? super(params) : super();
-  }
-
-  with(values: Partial<IFetchStatus>) {
-    return this.merge(values) as this;
-  }
+export class FetchStatus extends BaseRecord(emptyStatus) implements IFetchStatus {
+  readonly isFetching: boolean;
+  readonly hasError: boolean;
+  readonly errorMessage: string;
 }

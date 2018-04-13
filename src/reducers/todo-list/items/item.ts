@@ -41,7 +41,9 @@ export const item = (previousState: ListItem, action: IAction): ListItem => {
         isSynchronized: true
       });
 
-    case ITEM_INSERT_FAILED: {
+    case ITEM_INSERT_FAILED:
+    case ITEM_UPDATE_FAILED:
+    case ITEM_DELETION_FAILED: {
       const updatedItem = {
         isSynchronized: true,
         errorId: action.payload.errorId
@@ -70,28 +72,10 @@ export const item = (previousState: ListItem, action: IAction): ListItem => {
       return previousState.with(updatedItem);
     }
 
-    case ITEM_UPDATE_FAILED: {
-      const updatedItem = {
-        isSynchronized: true,
-        errorId: action.payload.errorId
-      };
-
-      return previousState.with(updatedItem);
-    }
-
     case TODO_LIST_ITEM_DELETE: {
       const updatedItem = {
         isEdited: false,
         isSynchronized: false
-      };
-
-      return previousState.with(updatedItem);
-    }
-
-    case ITEM_DELETION_FAILED: {
-      const updatedItem = {
-        isSynchronized: true,
-        errorId: action.payload.errorId
       };
 
       return previousState.with(updatedItem);

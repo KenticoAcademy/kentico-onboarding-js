@@ -1,5 +1,5 @@
-import { Record } from 'immutable';
 import { defaultId, Uuid } from '../utils/generateId';
+import { BaseRecord } from './BaseRecord';
 
 const emptyItem: IListItem = {
   id: defaultId,
@@ -19,19 +19,11 @@ export interface IListItem {
   readonly errorId: Uuid | null;
 }
 
-export class ListItem extends Record(emptyItem) implements IListItem {
-  id: Uuid;
-  text: string;
-  backupText: string;
-  isEdited: boolean;
-  isSynchronized: boolean;
-  errorId: Uuid;
-
-  constructor(params?: Partial<IListItem>) {
-    params ? super(params) : super();
-  }
-
-  with(values: Partial<IListItem>) {
-    return this.merge(values) as this;
-  }
+export class ListItem extends BaseRecord(emptyItem) implements IListItem {
+  readonly id: Uuid;
+  readonly text: string;
+  readonly backupText: string;
+  readonly isEdited: boolean;
+  readonly isSynchronized: boolean;
+  readonly errorId: Uuid;
 }
