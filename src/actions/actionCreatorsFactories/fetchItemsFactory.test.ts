@@ -1,5 +1,5 @@
 import { fetchItemsFactory } from './fetchItemsFactory';
-import { ITEMS_FETCH_FAILED, ITEMS_FETCH_SUCCEEDED } from '../../constants/actionTypes';
+import { ITEMS_FETCH_FAILED } from '../../constants/actionTypes';
 
 const dispatch = jest.fn(input => input);
 
@@ -19,7 +19,7 @@ describe('fetch items tests', () => {
     isSynchronized: true
   };
 
-  it('dispatches TODO_LIST_ITEM_INSERT, ITEMS_FETCH_SUCCEEDED on correct GET request', async () => {
+  it('dispatches ITEMS_FETCH_SUCCEEDED on correct GET request', async () => {
     const items = [{
       Id: fetchedTestItem0.id,
       Text: fetchedTestItem0.text
@@ -39,41 +39,16 @@ describe('fetch items tests', () => {
     const fetchItems = fetchItemsFactory({
         axiosFetch
       });
-    const fetchSucceeded = {
-      type: ITEMS_FETCH_SUCCEEDED
+    const expectedAction = {
+      type: 'ITEMS_FETCH_SUCCEEDED',
+      payload: {
+        items
+      }
     };
 
     await fetchItems()(dispatch);
 
-    expect(dispatch.mock.calls.length).toEqual(items.length + 1);
-    expect(dispatch.mock.calls[items.length][0]).toEqual(fetchSucceeded);
-  });
-
-  it('creates TODO_LIST_ITEM_INSERT with correct arguments', async () => {
-    const items = [{
-      id: fetchedTestItem0.id,
-      text: fetchedTestItem0.text
-    },
-      {
-        id: fetchedTestItem1.id,
-        text: fetchedTestItem1.text
-      }];
-    const axiosFetch = () =>
-      Promise.resolve({
-        data: items,
-        status: 200,
-        statusText: 'OK',
-        headers: undefined,
-        config: {},
-      });
-    const fetchItems = fetchItemsFactory({
-        axiosFetch
-      });
-
-    await fetchItems()(dispatch);
-
-    expect(dispatch.mock.calls[0][0].payload).toEqual(fetchedTestItem0);
-    expect(dispatch.mock.calls[1][0].payload).toEqual(fetchedTestItem1);
+    expect(dispatch.mock.calls[0][0]).toEqual(expectedAction);
   });
 
   it('dispatches ITEMS_FETCH_FAILED after GET request failure', async () => {
