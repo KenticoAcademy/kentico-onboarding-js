@@ -37,7 +37,7 @@ describe('items reducers', () => {
   };
   const errorId = '16b1706c-1311-418d-FFFF-d6043f2e7f1f';
 
-  it('should return the initial state', () => {
+  it('should return empty ordered map when state is undefined', () => {
     const initialState = items(undefined, unknownAction);
 
     expect(initialState).toEqual(OrderedMap());

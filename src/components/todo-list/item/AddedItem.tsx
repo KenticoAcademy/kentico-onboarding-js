@@ -32,7 +32,7 @@ export class AddedItem extends React.PureComponent<IAddedItemCallbackProps, ISta
       : 'New item must consist of non-empty text';
 
     return (
-      <li className="list-group-item">
+      <span>
         <div className="col-xs-4">
           <Input
             value={this.state.inputText}
@@ -50,7 +50,7 @@ export class AddedItem extends React.PureComponent<IAddedItemCallbackProps, ISta
         >
           Add
         </button>
-      </li>
+      </span>
     );
   }
 

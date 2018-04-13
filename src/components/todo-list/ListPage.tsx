@@ -29,19 +29,19 @@ export class ListPage extends React.PureComponent<IFetchDataProps & IFetchCallba
   render(): JSX.Element {
     return (
       <div className="row">
-        {this.props.isFetching
-          ? <div className="text-center">
-            <PulseLoader loading={this.props.isFetching} />
-          </div>
-          : !this.props.fetchFailed
-            ? <ItemsList />
-            : <div className="col-sm-12 col-md-offset-2 col-md-8">
-              <ListError
+        <div className="col-sm-12 col-md-offset-2 col-md-8">
+          {this.props.isFetching
+            ? <div className="text-center">
+              <PulseLoader loading={this.props.isFetching} />
+            </div>
+            : !this.props.fetchFailed
+              ? <ItemsList />
+              : <ListError
                 errorMessage={this.props.errorMessage}
                 onRetryFetch={this._startLoadingItems}
               />
-            </div>
-        }
+          }
+        </div>
       </div>
     );
   }

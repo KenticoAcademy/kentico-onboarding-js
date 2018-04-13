@@ -6,7 +6,7 @@ import { IndexedItem } from '../../../models/IndexedItem';
 
 export interface IEditedItemCallbackProps {
   readonly onUpdateItem: (text: string) => void;
-  readonly onEditStop: () => void;
+  readonly onCancelEditing: () => void;
   readonly onDeleteItem: () => void;
 }
 
@@ -27,7 +27,7 @@ export class EditedItem extends React.PureComponent<IEditedItemCallbackProps & I
     }).isRequired,
     onUpdateItem: PropTypes.func.isRequired,
     onDeleteItem: PropTypes.func.isRequired,
-    onEditStop: PropTypes.func.isRequired,
+    onCancelEditing: PropTypes.func.isRequired,
   };
 
   constructor(props: IEditedItemCallbackProps & IEditedItemDataProps) {
@@ -71,7 +71,7 @@ export class EditedItem extends React.PureComponent<IEditedItemCallbackProps & I
         <button
           type="button"
           className="btn btn-light"
-          onClick={this.props.onEditStop}
+          onClick={this.props.onCancelEditing}
         >
           Cancel
         </button>

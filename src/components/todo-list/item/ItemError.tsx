@@ -8,31 +8,29 @@ interface IProps {
 }
 
 const ItemError: React.StatelessComponent<IProps> = (props: IProps) =>
-  (props.errorMessage !== '')
-    ? <span
-      className="glyphicon glyphicon-exclamation-sign text-danger pull-right"
+  <span
+    className="glyphicon glyphicon-exclamation-sign text-danger pull-right"
+  >
+    <strong>
+      Error: {props.errorMessage}
+    </strong>
+    <button
+      className="close pull-right"
+      data-dismiss="alert"
+      aria-label="close"
+      onClick={props.onCloseError}
+    >&times;</button>
+    <button
+      className="close"
+      onClick={props.onRetry}
     >
-      <strong>
-        Error: {props.errorMessage}
-      </strong>
-      <button
-        className="close pull-right"
-        data-dismiss="alert"
-        aria-label="close"
-        onClick={props.onCloseError}
-      >&times;</button>
-      <button
-        className="close"
-        onClick={props.onRetry}
-      >
-        &#8634;
-      </button>
-    </span>
-    : null;
+      &#8634;
+    </button>
+  </span>;
 
 ItemError.propTypes = {
   errorMessage: PropTypes.string,
   onCloseError: PropTypes.func.isRequired
 };
 
-export { ItemError }
+export { ItemError };

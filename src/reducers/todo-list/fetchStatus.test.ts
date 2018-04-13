@@ -15,12 +15,25 @@ describe('fetchStatus reducer', () => {
     payload: {},
   };
 
-  it('creates initial state correctly', () => {
+  it('should return default fetch status when state is undefined ', () => {
     const defaultStatus = new FetchStatus();
 
     const initialState = fetchStatus(undefined, unknownAction);
 
     expect(initialState).toEqual(defaultStatus);
+  });
+
+  it('returns previous state on unknown action', () => {
+    const errorMessage = '400 Bad Request';
+    const expectedState = new FetchStatus({
+      isFetching: false,
+      hasError: true,
+      errorMessage
+    });
+
+    const newState = fetchStatus(expectedState, unknownAction);
+
+    expect(newState).toEqual(expectedState);
   });
 
   it('sets flags correctly on failed request with errorMessage', () => {
