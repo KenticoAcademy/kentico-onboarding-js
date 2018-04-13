@@ -10,15 +10,27 @@ import {
   ITEM_DELETION_SUCCEEDED,
   ITEM_UPDATE_FAILED,
   ITEM_DELETION_FAILED,
-  ITEM_ERROR_CLOSE, ITEM_INSERT_FAILED,
+  ITEM_ERROR_CLOSE,
+  ITEM_INSERT_FAILED,
+  ITEMS_FETCH_SUCCEEDED,
 } from '../../../constants/actionTypes';
 import { item } from './item';
 import { IAction } from '../../../actions/IAction';
 import { ListItem } from '../../../models/ListItem';
 import { Uuid } from '../../../utils/generateId';
+import { IFetchedItem } from '../../../actions/actionCreatorsFactories/fetchItemsFactory';
 
 export const items = (previousState: OrderedMap<Uuid, ListItem> = OrderedMap<Uuid, ListItem>(), action: IAction): OrderedMap<Uuid, ListItem> => {
   switch (action.type) {
+    case ITEMS_FETCH_SUCCEEDED:
+      action.payload.items.forEach((item: IFetchedItem) =>
+        previousState = previousState.set(
+          item.id,
+          new ListItem(item)
+        ));
+
+      return previousState;
+
     case ITEM_INSERT_SUCCEEDED:
       const newState = previousState.delete(action.payload.id);
 

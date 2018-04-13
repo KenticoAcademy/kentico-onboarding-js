@@ -3,7 +3,10 @@ import { FetchStatus } from '../models/FetchStatus';
 import {
   closeFetchError,
 } from '../actions/actionCreators';
-import { fetchFailed, fetchSucceeded } from '../actions/actionCreatorsFactories/fetchItemsFactory';
+import {
+  ITEMS_FETCH_FAILED,
+  ITEMS_FETCH_SUCCEEDED
+} from '../constants/actionTypes';
 
 describe('fetchStatus reducer', () => {
   const UNKNOWN_ACTION = 'UNKNOWN_ACTION';
@@ -22,7 +25,12 @@ describe('fetchStatus reducer', () => {
 
   it('sets flags correctly on failed request with errorMessage', () => {
     const errorMessage = '400 Bad Request';
-    const errorAction = fetchFailed(errorMessage);
+    const errorAction = {
+      type: ITEMS_FETCH_FAILED,
+      payload: {
+        errorText: errorMessage
+      }
+    };
     const expectedState = new FetchStatus({
       isFetching: false,
       hasError: true,
@@ -35,7 +43,9 @@ describe('fetchStatus reducer', () => {
   });
 
   it('sets flags correctly on successful', () => {
-    const successfulAction = fetchSucceeded();
+    const successfulAction = {
+      type: ITEMS_FETCH_SUCCEEDED,
+    };
     const expectedState = new FetchStatus({
       isFetching: false,
       hasError: false,

@@ -8,12 +8,12 @@ export interface IItemDataProps {
   readonly item: IndexedItem;
 }
 
-const Item: React.SFC<IItemDataProps> = (props: IItemDataProps): JSX.Element =>
-  (props.item.isEdited) ?
-    <EditedItem
+const Item: React.StatelessComponent<IItemDataProps> = (props: IItemDataProps): JSX.Element =>
+  (props.item.isEdited)
+    ? <EditedItem
       item={props.item}
-    /> :
-    <PlainItem
+    />
+    : <PlainItem
       item={props.item}
     />;
 
@@ -24,4 +24,4 @@ Item.propTypes = {
   }).isRequired,
 };
 
-export { Item }
+export { Item };
