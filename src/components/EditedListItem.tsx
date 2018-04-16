@@ -3,10 +3,14 @@ import * as PropTypes from 'prop-types';
 import { containsNoCharacters } from '../utils/containsNoCharacters';
 import { IAction } from '../actions/IAction';
 import { IItem, Item } from '../models/Item';
+import { ItemId } from '../models/ItemId';
+
+export interface IEditListItemContainerProps {
+  itemId: ItemId;
+}
 
 export interface IEditedListItemDataProps {
   item: IItem;
-  textUpdate: string;
 }
 
 export interface IEditedListItemCallbackProps {
@@ -16,9 +20,9 @@ export interface IEditedListItemCallbackProps {
   textUpdateChange: (textUpdate: string) => IAction;
 }
 
-export interface IEditedListItemProps extends IEditedListItemDataProps, IEditedListItemCallbackProps {}
+type IEditedListItemProps = IEditListItemContainerProps & IEditedListItemDataProps & IEditedListItemCallbackProps;
 
-export class EditedListItem extends React.PureComponent<IEditedListItemProps> {
+export class EditedListItem extends React.PureComponent<IEditedListItemProps>{
 
   static displayName = 'EditedListItem';
 
@@ -38,8 +42,8 @@ export class EditedListItem extends React.PureComponent<IEditedListItemProps> {
   };
 
   render() {
-    const { item, onCancel, onDelete, textUpdate, onSave } = this.props;
-    const isEmpty = containsNoCharacters(textUpdate);
+    const { item, onCancel, onDelete, onSave } = this.props;
+    const isEmpty = containsNoCharacters(item.textUpdate);
 
     return (
       <div className="input-group">
