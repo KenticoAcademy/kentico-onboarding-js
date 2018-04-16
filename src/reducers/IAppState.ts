@@ -6,5 +6,11 @@ export interface IAppState {
   items: {
     byId: OrderedMap<ItemId, Item>;
     newItemText: string;
+    status: {
+      didInvalidate: boolean,
+      isFetching: boolean,
+      lastUpdated: any,
+      errorMessage: string,
+    };
   };
 }

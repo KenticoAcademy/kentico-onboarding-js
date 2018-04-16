@@ -23,6 +23,12 @@ const defaultStateValues: IAppState = {
   items: {
     byId: OrderedMap(defaultListItems),
     newItemText: '',
+    status: {
+      isFetching: false,
+      didInvalidate: false,
+      lastUpdated: undefined,
+      errorMessage: "",
+    }
   },
 };
 

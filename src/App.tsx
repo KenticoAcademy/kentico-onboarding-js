@@ -3,8 +3,14 @@ import './balloon.css';
 import * as React from 'react';
 import { List } from './containers/List';
 import { AddNewItem } from './containers/AddNewItem';
+import * as PropTypes from 'prop-types';
 
-export const App = (): JSX.Element => (
+interface  IAppDataProps {
+  isFetching: boolean;
+  errorMessage: string;
+}
+
+const App: React.StatelessComponent<IAppDataProps> = ({ isFetching, errorMessage }) => (
   <div>
     <div className="container">
       <div className="header clearfix">
@@ -26,16 +32,37 @@ export const App = (): JSX.Element => (
 
       <section id="app-content">
         <div className="row">
-          <div className="col-sm-8">
-            <List />
-            <AddNewItem />
+          <div className="col-sm-8">{
+            errorMessage === "" ?
+            !isFetching ?
+              <div>
+                <List />
+                <AddNewItem />
+              </div> : <img src={'https://i.imgur.com/F6mBAWi.gif'} /> :
+              <div className="alert alert-danger alert-dismissible">
+                <a href="" className="close" data-dismiss="alert" aria-label="close">&#x21BA;</a>
+                <strong>{errorMessage}</strong> Try again later.
+              </div>}
           </div>
         </div>
       </section>
 
     </div>
     <footer className="footer">
-      <p>&copy; 2017 Kentico software, s.r.o</p>
+      <p>&copy; 2017 Kentico software, s.r.o
+        <br/>
+        <a href={'https://datsick35.deviantart.com'} title={'datsick35'}>&copy; točič by datsick35</a>
+      </p>
+
     </footer>
   </div>
 );
+
+App.displayName = 'App';
+
+App.propTypes = {
+  isFetching: PropTypes.bool,
+  errorMessage: PropTypes.string,
+};
+
+export {App};
