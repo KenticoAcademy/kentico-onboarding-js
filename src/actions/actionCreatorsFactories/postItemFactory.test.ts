@@ -47,13 +47,16 @@ describe('post item tests', () => {
       }
     };
 
-    await postItem(postTestItem.text)(dispatch);
-
-    expect(dispatch.mock.calls[0][0]).toEqual(insertItem);
-    expect(dispatch.mock.calls[1][0]).toEqual(postItemSucceeded);
+    postItem(postTestItem.text)(dispatch)
+      .then(() => {
+        expect(dispatch.mock.calls[0][0]).toEqual(insertItem);
+        expect(dispatch.mock.calls[1][0]).toEqual(postItemSucceeded);
+      })
+      .catch(error => fail(new Error(error)));
   });
 
   it('dispatches TODO_LIST_ITEM_INSERT, ITEM_INSERT_FAILED on POST request failure', async () => {
+    const errorMessage = 'Server connection problem';
     const axiosPost = (_text: string) =>
       Promise.reject({
         response: {
@@ -85,9 +88,11 @@ describe('post item tests', () => {
       }
     };
 
-    await postItem(postTestItem.text)(dispatch);
-
-    expect(dispatch.mock.calls[0][0]).toEqual(insertItem);
-    expect(dispatch.mock.calls[1][0]).toEqual(postItemFailed);
+    postItem(postTestItem.text)(dispatch)
+      .then(() => {
+        expect(dispatch.mock.calls[0][0]).toEqual(insertItem);
+        expect(dispatch.mock.calls[1][0]).toEqual(postItemFailed);
+      })
+      .catch(error => fail(new Error(error)));
   });
 });

@@ -46,9 +46,11 @@ describe('fetch items tests', () => {
       }
     };
 
-    await fetchItems()(dispatch);
-
-    expect(dispatch.mock.calls[0][0]).toEqual(expectedAction);
+    await fetchItems()(dispatch)
+      .then(() => {
+        expect(dispatch.mock.calls[0][0]).toEqual(expectedAction);
+      })
+      .catch(error => fail(new Error(error)));
   });
 
   it('dispatches ITEMS_FETCH_FAILED after GET request failure', async () => {
@@ -72,8 +74,10 @@ describe('fetch items tests', () => {
       }
     };
 
-    await fetchItems()(dispatch);
-
-    expect(dispatch.mock.calls[0][0]).toEqual(fetchFailed);
+    await fetchItems()(dispatch)
+      .then(() => {
+        expect(dispatch.mock.calls[0][0]).toEqual(fetchFailed);
+      })
+      .catch(error => fail(new Error(error)));
   });
 });

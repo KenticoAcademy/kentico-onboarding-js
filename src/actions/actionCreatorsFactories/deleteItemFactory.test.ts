@@ -29,22 +29,7 @@ describe('delete item tests', () => {
         headers: undefined,
         config: {}
       });
-    const itemToDelete = {
-      id,
-      text: 'abc'
-    };
-    const mockStore: IAppState = {
-      todoList: {
-        items: OrderedMap([
-          [
-            itemToDelete.id,
-            new ListItem(itemToDelete)
-          ]
-        ])
-      },
-      error: OrderedMap([]),
-      fetchStatus: new FetchStatus()
-    };
+    const getState = jest.fn();
     const deleteFromServer = deleteItemFactory({
       generateId,
       axiosDelete
@@ -62,10 +47,12 @@ describe('delete item tests', () => {
       }
     };
 
-    await deleteFromServer(id)(dispatch, () => mockStore);
-
-    expect(dispatch.mock.calls[0][0]).toEqual(deleteItem);
-    expect(dispatch.mock.calls[1][0]).toEqual(deletionSucceeded);
+    await deleteFromServer(id)(dispatch, getState)
+      .then(() => {
+        expect(dispatch.mock.calls[0][0]).toEqual(deleteItem);
+        expect(dispatch.mock.calls[1][0]).toEqual(deletionSucceeded);
+      })
+      .catch(error => fail(new Error(error)));
   });
 
   it('dispatches TODO_LIST_ITEM_DELETE, ITEM_DELETION_FAILED after unsuccessful DELETE request', async () => {
@@ -114,9 +101,11 @@ describe('delete item tests', () => {
       }
     };
 
-    await deleteFromServer(id)(dispatch, () => mockStore);
-
-    expect(dispatch.mock.calls[0][0]).toEqual(deleteItem);
-    expect(dispatch.mock.calls[1][0]).toEqual(deletionFailed);
+    await deleteFromServer(id)(dispatch, () => mockStore)
+      .then(() => {
+        expect(dispatch.mock.calls[0][0]).toEqual(deleteItem);
+        expect(dispatch.mock.calls[1][0]).toEqual(deletionFailed);
+      })
+      .catch(error => fail(new Error(error)));
   });
 });

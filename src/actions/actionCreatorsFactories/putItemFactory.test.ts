@@ -60,14 +60,20 @@ describe('put item tests', () => {
       }
     };
 
-    await putItem({id: updatedItem.id, text: updatedItem.text, isSynchronized: true})(dispatch, () => mockStore);
-
-    expect(dispatch.mock.calls[0][0]).toEqual(updateItem);
-    expect(dispatch.mock.calls[1][0]).toEqual(putSucceeded);
+    await putItem({
+      id: updatedItem.id,
+      text: updatedItem.text,
+      isSynchronized: true
+    })(dispatch, () => mockStore)
+      .then(() => {
+        expect(dispatch.mock.calls[0][0]).toEqual(updateItem);
+        expect(dispatch.mock.calls[1][0]).toEqual(putSucceeded);
+      })
+      .catch(error => fail(new Error(error)));
   });
 
   it('dispatches TODO_LIST_ITEM_UPDATE, ITEM_UPDATE_FAILED after unsuccessful PUT request', async () => {
-    const errorMessage = 'Bad Request';
+    const errorMessage = 'Server connection problem';
     const updatedItem = {
       id: '9a0b391a-2a57-4be1-8179-7271b5e8cdc3',
       text: 'updatedText',
@@ -113,9 +119,11 @@ describe('put item tests', () => {
       }
     };
 
-    await putItem(updatedItem)(dispatch, () => mockStore);
-
-    expect(dispatch.mock.calls[0][0]).toEqual(updateItem);
-    expect(dispatch.mock.calls[1][0]).toEqual(putFailed);
+    await putItem(updatedItem)(dispatch, () => mockStore)
+      .then(() => {
+        expect(dispatch.mock.calls[0][0]).toEqual(updateItem);
+        expect(dispatch.mock.calls[1][0]).toEqual(putFailed);
+      })
+      .catch(error => fail(new Error(error)));
   });
 });
