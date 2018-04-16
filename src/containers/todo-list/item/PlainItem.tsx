@@ -30,9 +30,9 @@ const mapStateToProps = ({error}: IAppState, {item}: IOwnProps): IPlainItemDataP
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<IAppState>, {item}: IOwnProps): IDispatchProps => ({
-  onEditStart: (): IAction => dispatch(editItem(item.id)),
-  onCloseError: (action: string): Promise<IAction> | IAction => dispatch(closeError(action, item)),
-  onRetry: (action: string): Promise<IAction> => dispatch(retry(action, item))
+  onEditStart: () => dispatch(editItem(item.id)),
+  onCloseError: (action: string) => dispatch(closeError(action, item)),
+  onRetry: (action: string) => dispatch(retry(action, item))
 });
 
 const mergeProps =
@@ -40,9 +40,9 @@ const mergeProps =
    dispatchProps: IDispatchProps,
    ownProps: IOwnProps): IPlainItemProps => ({
     ...stateProps,
-    onEditStart: (): IAction => dispatchProps.onEditStart(),
-    onCloseError: (): Promise<IAction> | IAction => dispatchProps.onCloseError(stateProps.action),
-    onRetry: (): Promise<IAction> => dispatchProps.onRetry(stateProps.action),
+    onEditStart: () => dispatchProps.onEditStart(),
+    onCloseError: () => dispatchProps.onCloseError(stateProps.action),
+    onRetry: () => dispatchProps.onRetry(stateProps.action),
     ...ownProps
   });
 

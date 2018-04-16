@@ -11,7 +11,7 @@ export interface IFetchDataProps {
 }
 
 export interface IFetchCallbackProps {
-  readonly onFetchItems: () => void;
+  readonly onFetchItems: () => Promise<IAction>;
   readonly onFetchErrorClose: () => IAction;
   readonly onFetchStart: () => IAction;
 }

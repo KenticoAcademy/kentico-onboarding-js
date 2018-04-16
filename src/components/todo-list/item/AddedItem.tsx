@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { validateText } from '../../../utils/validateText';
 import { Input } from '../Input';
+import { IAction } from '../../../actions/IAction';
 
 interface IState {
   readonly inputText: string;
@@ -9,7 +10,7 @@ interface IState {
 }
 
 export interface IAddedItemCallbackProps {
-  readonly onAddItem: (text: string) => void;
+  readonly onAddItem: (text: string) => Promise<IAction>;
 }
 
 export class AddedItem extends React.PureComponent<IAddedItemCallbackProps, IState> {

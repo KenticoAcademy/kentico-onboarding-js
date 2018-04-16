@@ -3,6 +3,7 @@ import * as PropTypes from 'prop-types';
 import { IndexedItem } from '../../../models/IndexedItem';
 import { UpdatingItem } from './UpdatingItem';
 import { ItemError } from './ItemError';
+import { IAction } from '../../../actions/IAction';
 
 export interface IOwnProps {
   readonly item: IndexedItem;
@@ -14,9 +15,9 @@ export interface IPlainItemDataProps {
 }
 
 export interface IPlainItemCallbackProps {
-  readonly onEditStart: () => void;
-  readonly onCloseError: () => void;
-  readonly onRetry: () => void;
+  readonly onEditStart: () => IAction;
+  readonly onCloseError: () => Promise<IAction> | IAction;
+  readonly onRetry: () => Promise<IAction>;
 }
 
 export type IPlainItemProps = IOwnProps & IPlainItemCallbackProps & IPlainItemDataProps;
