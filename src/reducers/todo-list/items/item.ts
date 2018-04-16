@@ -33,13 +33,14 @@ export const item = (previousState: ListItem, action: IAction): ListItem => {
         isSynchronized: action.payload.isSynchronized
       });
 
-    case ITEM_INSERT_SUCCEEDED:
-      return new ListItem({
+    case ITEM_INSERT_SUCCEEDED: {
+      const updatedItem = {
         id: action.payload.newId,
-        text: action.payload.text,
-        isEdited: false,
-        isSynchronized: true
-      });
+        isSynchronized: true,
+      };
+
+      return previousState.with(updatedItem);
+    }
 
     case ITEM_INSERT_FAILED:
     case ITEM_UPDATE_FAILED:

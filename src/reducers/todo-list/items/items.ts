@@ -32,10 +32,11 @@ export const items = (previousState: OrderedMap<Uuid, ListItem> = OrderedMap<Uui
       return previousState;
 
     case ITEM_INSERT_SUCCEEDED:
-      const newState = previousState.delete(action.payload.id);
+      const itemToUpdate = previousState.get(action.payload.id);
+      const updatedItem = item(itemToUpdate, action);
+      const newState = previousState.set(action.payload.newId, updatedItem);
 
-      return newState
-        .update(action.payload.newId, existingItem => item(existingItem, action));
+      return newState.delete(action.payload.id);
 
     case ITEM_DELETION_SUCCEEDED:
       return previousState.delete(action.payload.id);
