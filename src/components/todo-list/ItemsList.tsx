@@ -2,16 +2,15 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { AddedItem } from '../../containers/todo-list/item/AddedItem';
 import { Item } from '../../containers/todo-list/item/Item';
-import { Seq } from 'immutable';
 import { Uuid } from '../../utils/generateId';
 
 export interface IListDataProps {
-  readonly ids: Seq.Indexed<Uuid>;
+  readonly ids: Uuid[];
 }
 
 export class ItemsList extends React.PureComponent<IListDataProps> {
   static propTypes = {
-    ids: PropTypes.instanceOf(Seq).isRequired,
+    ids: PropTypes.arrayOf(PropTypes.string).isRequired,
   };
 
   constructor(props: IListDataProps) {

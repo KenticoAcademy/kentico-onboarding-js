@@ -2,7 +2,7 @@ import { defaultId, Uuid } from '../utils/generateId';
 import { BaseRecord } from './BaseRecord';
 
 const emptyIndexedItem: IIndexedItem = {
-  index: null,
+  index: 0,
   id: defaultId,
   text: '',
   isEdited: false,
@@ -11,7 +11,7 @@ const emptyIndexedItem: IIndexedItem = {
 };
 
 export interface IIndexedItem {
-  readonly index: number | null;
+  readonly index: number;
   readonly id: Uuid;
   readonly text: string;
   readonly isEdited: boolean;
@@ -20,7 +20,7 @@ export interface IIndexedItem {
 }
 
 export class IndexedItem extends BaseRecord(emptyIndexedItem) implements IIndexedItem {
-  readonly index: number | number;
+  readonly index: number;
   readonly id: Uuid;
   readonly text: string;
   readonly isEdited: boolean;
