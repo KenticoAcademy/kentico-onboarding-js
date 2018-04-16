@@ -42,6 +42,12 @@ export const byId: Reducer<OrderedMap<ItemId, Item>> = (state = DEFAULT_STATE, a
       }));
     }
 
+    case actionTypes.RECEIVE_ITEMS: {
+      if(!action || !action.payload || !action.payload.items ) return state;
+      const itemsArray = action.payload.items.map((item: any) => [[item.Id].toString(), new Item({ id: item.Id, text: item.Text})]);
+      return OrderedMap(itemsArray);
+    }
+
     default:
       return state;
   }
