@@ -26,4 +26,12 @@ describe('validateText', () => {
 
     expect(isStringValid).toBe(false);
   });
+
+  it('returns false for string with extra whitespaces', () => {
+    const invalidString = '  ebebe   ';
+
+    const isStringValid = validateText(invalidString);
+
+    expect(isStringValid).toBe(false);
+  });
 });
