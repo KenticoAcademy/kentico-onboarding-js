@@ -1,20 +1,20 @@
 import { actionTypes } from '../../constants/actionTypes';
 import { dataLoaded as dataLoadedReducer } from './dataLoaded';
-import { itemsLoadingToggle } from '../../actions';
+import { itemsLoading, itemsLoadingDone } from '../../actions';
 
 describe('group actions reducer works correctly', () => {
-  it('ITEMS_LOADING_TOGGLE returns true if toggled on false', () => {
-    const action = itemsLoadingToggle();
+  it('ITEMS_LOADING returns false', () => {
+    const action = itemsLoading();
+    const actual = dataLoadedReducer(false, action);
+
+    expect(actual).toEqual(false);
+  });
+
+  it('ITEMS_LOADING_DONE returns true', () => {
+    const action = itemsLoadingDone();
     const actual = dataLoadedReducer(false, action);
 
     expect(actual).toEqual(true);
-  });
-
-  it('ITEMS_LOADING_TOGGLE returns false if toggled on true', () => {
-    const action = itemsLoadingToggle();
-    const actual = dataLoadedReducer(true, action);
-
-    expect(actual).toEqual(false);
   });
 
   it('undefined action returns default state', () => {

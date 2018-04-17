@@ -40,7 +40,7 @@ export class ListContent extends React.PureComponent<IListContentStateProps> {
           <div className="list-group">
             {listOfKeys}
           </div>
-          <Error itemKey={GUID_GLOBAL_ERROR} />
+          <Error itemKey={GUID_GLOBAL_ERROR} retry={true} />
         </div>
         <ListGroupActions />
       </div>

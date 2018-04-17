@@ -101,8 +101,13 @@ export const groupActionsToggle = (): IAction => ({
   payload: { }
 });
 
-export const itemsLoadingToggle = (): IAction => ({
-  type: actionTypes.ITEMS_LOADING_TOGGLE,
+export const itemsLoading = (): IAction => ({
+  type: actionTypes.ITEMS_LOADING,
+  payload: { }
+});
+
+export const itemsLoadingDone = (): IAction => ({
+  type: actionTypes.ITEMS_LOADING_DONE,
   payload: { }
 });
 

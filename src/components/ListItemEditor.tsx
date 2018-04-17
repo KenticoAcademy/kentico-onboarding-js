@@ -109,7 +109,7 @@ export class ListItemEditor extends React.PureComponent<ListItemEditorProps> {
             </button>
           </span>
         </div>
-        <Error itemKey={key} />
+        <Error itemKey={key} retry={false} />
       </Shortcuts>
     );
   }
