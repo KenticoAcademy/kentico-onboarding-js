@@ -5,6 +5,7 @@ import { IState } from '../../store/IState';
 import { IAction } from '../../@types/IAction';
 import {
   addItemOptimistic,
+  deleteItemOptimistic,
   addItemSuccess,
   addItemFailed,
 } from '../creators/listActions';
@@ -19,6 +20,9 @@ export const addItemFactory =
         dispatch(addItemOptimistic(optimisticKey, itemValue));
 
         return postItem(itemValue)
-          .then(item => dispatch(addItemSuccess(item)))
+          .then(item => {
+            dispatch(deleteItemOptimistic(optimisticKey));
+            return dispatch(addItemSuccess(item));
+          })
           .catch(error => dispatch(addItemFailed(optimisticKey, error)));
       };

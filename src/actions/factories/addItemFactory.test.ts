@@ -15,9 +15,10 @@ describe('addItemFactory works correctly', () => {
 
     return result.then(() => {
       expect(postItemMock.mock.calls.length).toBe(1);
-      expect(dispatchMock.mock.calls.length).toBe(2);
+      expect(dispatchMock.mock.calls.length).toBe(3);
       expect(dispatchMock.mock.calls[0][0].type).toBe(actionTypes.ITEM_ADD_OPTIMISTIC);
-      expect(dispatchMock.mock.calls[1][0].type).toBe(actionTypes.ITEM_ADD_SUCCESS);
+      expect(dispatchMock.mock.calls[1][0].type).toBe(actionTypes.ITEM_DELETE_OPTIMISTIC);
+      expect(dispatchMock.mock.calls[2][0].type).toBe(actionTypes.ITEM_ADD_SUCCESS);
     });
   });
 

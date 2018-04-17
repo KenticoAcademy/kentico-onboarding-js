@@ -10,14 +10,16 @@ import {
   saveItem,
   stopItemEditing,
   changeItemValue,
+  saveLocalItem,
+  deleteLocalItem,
 } from '../actions';
 import { IState } from '../store/IState';
 
 const mapDispatchToProps =
-  (dispatch: Dispatch<IState>, { item: { key, temporaryValue }}: IListItemOriginalProps): IListItemEditorDispatchProps => ({
+  (dispatch: Dispatch<IState>, { item: { key, temporaryValue, localOnly }}: IListItemOriginalProps): IListItemEditorDispatchProps => ({
     onCancelEdit: () => dispatch(stopItemEditing(key)),
-    deleteItem: () => dispatch(deleteItem(key)),
-    saveItem: () => dispatch(saveItem(key, temporaryValue)),
+    deleteItem: () => localOnly ? dispatch(deleteLocalItem(key)) : dispatch(deleteItem(key)),
+    saveItem: () => localOnly ? dispatch(saveLocalItem(key, temporaryValue)) : dispatch(saveItem(key, temporaryValue)),
     onChange: (itemValue: string) => dispatch(changeItemValue(key, itemValue)),
   });
 
