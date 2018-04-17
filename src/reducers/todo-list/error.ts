@@ -22,34 +22,35 @@ export const error =
 
       case ITEM_INSERT_FAILED:
         return previousState.set(
-          action.payload.errorId,
+          action.payload.item.id,
           new Error({
-            id: action.payload.errorId,
+            id: action.payload.item.id,
             action: action.type,
-            errorMessage: action.payload.message
+            errorMessage: action.payload.message,
+            item: action.payload.item
           })
         );
       case ITEM_UPDATE_FAILED:
         return previousState.set(
-          action.payload.errorId,
+          action.payload.item.id,
           new Error({
-            id: action.payload.errorId,
+            id: action.payload.item.id,
             action: action.type,
             errorMessage: action.payload.message,
-            backupText: action.payload.backupText
+            item: action.payload.item
           })
         );
       case ITEM_DELETION_FAILED:
         return previousState.set(
-          action.payload.errorId,
+          action.payload.item.id,
           new Error({
-            id: action.payload.errorId,
+            id: action.payload.item.id,
             action: action.type,
             errorMessage: action.payload.message
           })
         );
       case ITEM_ERROR_CLOSE:
-        return previousState.delete(action.payload.errorId);
+        return previousState.delete(action.payload.id);
 
       default:
         return previousState;

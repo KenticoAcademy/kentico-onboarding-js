@@ -189,6 +189,11 @@ describe('items reducers', () => {
 
   it('should add nonempty errorId to item after ITEM_DELETION_FAILED action', () => {
     const errorMessage = 'this time it is really bad';
+    const itemToDelete = {
+      ...plainItem1,
+      isSynchronized: true,
+      errorId: ''
+    };
     const twoItemsState: OrderedMap<Uuid, ListItem> = OrderedMap([
       [
         plainItem1.id,
@@ -203,7 +208,7 @@ describe('items reducers', () => {
       plainItem1.id,
       () => new ListItem({
         ...plainItem1,
-        errorId,
+        errorId: plainItem1.id,
         isSynchronized: true,
       })
     ).toJS();
@@ -211,11 +216,8 @@ describe('items reducers', () => {
     const newState: OrderedMap<Uuid, ListItem> = items(
       twoItemsState,
       deletionFailed(
-        plainItem1.id,
-        {
-          errorId,
-          message: errorMessage
-        }
+        itemToDelete,
+        errorMessage
       ),
     ).toJS();
 
@@ -268,7 +270,6 @@ describe('items reducers', () => {
           text: updatedText,
           isEdited: false,
           isSynchronized: false,
-          backupText: plainItem1.text
         }),
       ],
       [
@@ -315,9 +316,13 @@ describe('items reducers', () => {
     expect(newState).toEqual(expectedState);
   });
 
-  it('should revert item back after ITEM_UPDATE_FAILED action', () => {
+  it('should add error to after ITEM_UPDATE_FAILED action', () => {
     const errorMessage = 'something went really wrong';
-    const backupText = 'some intelligent backup text';
+    const itemToUpdate = {
+      ...plainItem2,
+      errorId: '',
+      isSynchronized: false,
+    };
     const twoItemsState: OrderedMap<Uuid, ListItem> = OrderedMap([
       [
         plainItem1.id,
@@ -328,7 +333,6 @@ describe('items reducers', () => {
         new ListItem({
           errorId,
           ...plainItem2,
-          backupText
         }),
       ],
     ]);
@@ -336,20 +340,15 @@ describe('items reducers', () => {
       plainItem2.id,
       () => new ListItem({
         ...plainItem2,
-        errorId,
+        errorId: plainItem2.id,
         isSynchronized: true,
-        backupText,
       })).toJS();
 
     const newState: OrderedMap<Uuid, ListItem> = items(
       twoItemsState,
       putFailed(
-        plainItem2.id,
-        {
-          errorId,
-          message: errorMessage,
-          backupText: 'bla'
-        }
+        itemToUpdate,
+        errorMessage
       )
     ).toJS();
 
@@ -377,7 +376,7 @@ describe('items reducers', () => {
 
     const newState: OrderedMap<Uuid, ListItem> = items(
       twoItemsState,
-      actions.closeItemError(plainItem2.id, '123')
+      actions.closeItemError(plainItem2.id)
     ).toJS();
 
     expect(newState).toEqual(expectedState);

@@ -46,14 +46,16 @@ export const items = (previousState: OrderedMap<Uuid, ListItem> = OrderedMap<Uui
     case TODO_LIST_ITEM_EDIT:
     case TODO_LIST_ITEM_CANCEL_EDIT:
     case TODO_LIST_ITEM_DELETE:
-    case ITEM_INSERT_FAILED:
-    case ITEM_DELETION_FAILED:
     case ITEM_UPDATE_SUCCEEDED:
-    case ITEM_UPDATE_FAILED:
     case ITEM_ERROR_CLOSE: {
       return previousState
         .update(action.payload.id, existingItem => item(existingItem, action));
     }
+    case ITEM_INSERT_FAILED:
+    case ITEM_UPDATE_FAILED:
+    case ITEM_DELETION_FAILED:
+      return previousState
+        .update(action.payload.item.id, existingItem => item(existingItem, action));
 
     default:
       return previousState;

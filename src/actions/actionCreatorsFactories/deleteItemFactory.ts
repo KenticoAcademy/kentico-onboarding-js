@@ -12,10 +12,10 @@ import {
   ITEM_DELETION_SUCCEEDED,
   TODO_LIST_ITEM_DELETE
 } from '../../constants/actionTypes';
+import { IListItem } from '../../models/ListItem';
 
 interface IDeleteDependencies {
   readonly axiosDelete: (id: Uuid) => Promise<AxiosResponse>;
-  readonly generateId: () => Uuid;
 }
 
 export const deleteItem = (id: Uuid): IAction => ({
@@ -32,20 +32,17 @@ export const deletionSucceeded = (id: Uuid): IAction => ({
   }
 });
 
-export const deletionFailed = (id: Uuid, error: { errorId: Uuid, message: string }): IAction => ({
+export const deletionFailed = (item: IListItem, message: string): IAction => ({
   type: ITEM_DELETION_FAILED,
   payload: {
-    id,
-    ...error
+    item,
+    message
   }
 });
 
 export const deleteItemFactory =
-  ({axiosDelete, generateId}: IDeleteDependencies) =>
+  ({axiosDelete}: IDeleteDependencies) =>
     (id: Uuid) => async (dispatch: Dispatch<IAppState>, getState: () => IAppState): Promise<IAction> => {
-      const errorId = getState().todoList.items.get(id).errorId;
-      const deleteError = getState().error.get(errorId);
-
       dispatch(deleteItem(id));
 
       try {
@@ -53,6 +50,8 @@ export const deleteItemFactory =
 
         return dispatch(deletionSucceeded(id));
       } catch (error) {
+        const item = getState().todoList.items.get(id);
+
         const errorResponse = error.response;
         const message =
           errorResponse === undefined
@@ -60,13 +59,9 @@ export const deleteItemFactory =
             : OPERATION_FAILED;
 
         return dispatch(deletionFailed(
-          id,
-          {
-            errorId: deleteError !== undefined
-              ? deleteError.id
-              : generateId(),
-            message
-          })
+          item,
+          message
+          )
         );
       }
     };

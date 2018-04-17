@@ -12,8 +12,6 @@ import { OrderedMap } from 'immutable';
 
 const dispatch = jest.fn(input => input);
 const id = 'a378ffaa-75fa-4117-a57b-84da0a3c975a';
-const errorId = 'a378ffaa-75fa-4117-a57b-84da0a3c9732';
-const generateId = () => errorId;
 
 beforeEach(() => {
   dispatch.mock.calls.length = 0;
@@ -31,7 +29,6 @@ describe('delete item tests', () => {
       });
     const getState = jest.fn();
     const deleteFromServer = deleteItemFactory({
-      generateId,
       axiosDelete
     });
     const deleteItem = {
@@ -83,7 +80,6 @@ describe('delete item tests', () => {
       fetchStatus: new FetchStatus()
     };
     const deleteFromServer = deleteItemFactory({
-      generateId,
       axiosDelete
     });
     const deleteItem = {
@@ -95,8 +91,12 @@ describe('delete item tests', () => {
     const deletionFailed = {
       type: ITEM_DELETION_FAILED,
       payload: {
-        id,
-        errorId: generateId(),
+        item: new ListItem({
+          errorId: null,
+          ...itemToDelete,
+          isSynchronized: true,
+          isEdited: false
+        }),
         message: OPERATION_FAILED
       }
     };

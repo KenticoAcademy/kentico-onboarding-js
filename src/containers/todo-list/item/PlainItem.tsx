@@ -20,14 +20,14 @@ interface IDispatchProps {
   onRetry: (action: string) => Promise<IAction>;
 }
 
-const mapStateToProps = ({error}: IAppState, {item}: IOwnProps): IPlainItemDataProps => ({
-  errorMessage: item.errorId
-    ? error.get(item.errorId).errorMessage
-    : '',
-  action: item.errorId
-    ? error.get(item.errorId).action
-    : ''
-});
+const mapStateToProps = ({error}: IAppState, {item}: IOwnProps): IPlainItemDataProps => {
+  const itemError = error.get(item.id);
+
+  return ({
+    errorMessage: itemError && itemError.errorMessage,
+    action: itemError && itemError.action
+  });
+};
 
 const mapDispatchToProps = (dispatch: Dispatch<IAppState>, {item}: IOwnProps): IDispatchProps => ({
   onEditStart: () => dispatch(editItem(item.id)),

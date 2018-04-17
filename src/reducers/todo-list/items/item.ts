@@ -47,7 +47,7 @@ export const item = (previousState: ListItem, action: IAction): ListItem => {
     case ITEM_DELETION_FAILED: {
       const updatedItem = {
         isSynchronized: true,
-        errorId: action.payload.errorId
+        errorId: action.payload.item.id
       };
 
       return previousState.with(updatedItem);
@@ -56,7 +56,6 @@ export const item = (previousState: ListItem, action: IAction): ListItem => {
     case TODO_LIST_ITEM_UPDATE: {
       const updatedItem = {
         text: action.payload.text,
-        backupText: previousState.text,
         isEdited: false,
         isSynchronized: action.payload.isSynchronized
       };

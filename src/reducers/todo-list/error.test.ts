@@ -2,6 +2,7 @@ import { error } from './error';
 import { OrderedMap } from 'immutable';
 import { Uuid } from '../../utils/generateId';
 import { Error } from '../../models/Error';
+import { ListItem } from '../../models/ListItem';
 
 describe('error reducer', () => {
   const ITEM_INSERT_ERROR_CLOSE = 'ITEM_INSERT_ERROR_CLOSE';
@@ -80,14 +81,14 @@ describe('error reducer', () => {
   });
 
   it('should return previous state with new error on ITEM_UPDATE_FAILED', () => {
-    const backupText = 'backup';
     const actionType = 'ITEM_UPDATE_FAILED';
+    const item = new ListItem({id: id2, text: 'bla'});
     const updateFailed = {
       type: actionType,
       payload: {
         errorId: id2,
         message: updateErrorMessage,
-        backupText
+        item
       }
     };
     const previousState: OrderedMap<Uuid, Error> = OrderedMap([
@@ -107,7 +108,7 @@ describe('error reducer', () => {
           id: id2,
           errorMessage: updateErrorMessage,
           action: actionType,
-          backupText
+          item
         })
       ]
     ]).toJS();

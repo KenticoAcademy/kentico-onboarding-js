@@ -23,11 +23,10 @@ export const cancelItemEditing = (id: Uuid): IAction => ({
   },
 });
 
-export const closeItemError = (id: Uuid, errorId: Uuid): IAction => ({
+export const closeItemError = (id: Uuid): IAction => ({
   type: ITEM_ERROR_CLOSE,
   payload: {
     id,
-    errorId
   }
 });
 

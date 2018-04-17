@@ -13,17 +13,18 @@ export const closeError = (action: string, item: IIndexedItem) =>
         return dispatch(deletionSucceeded(item.id));
 
       case ITEM_UPDATE_FAILED:
+        console.log(item.errorId);
         dispatch(updateItem({
           id: item.id,
           text: item.errorId
-            ? getState().error.get(item.errorId).backupText
+            ? getState().error.get(item.errorId).item.text
             : item.text,
           isSynchronized: true
         }));
 
-        return dispatch(closeItemError(item.id, item.errorId || ''));
+        return dispatch(closeItemError(item.id));
 
       default:
-        return dispatch(closeItemError(item.id, item.errorId || ''));
+        return dispatch(closeItemError(item.id));
     }
   };

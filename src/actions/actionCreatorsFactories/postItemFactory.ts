@@ -3,7 +3,7 @@ import { IAppState } from '../../models/IAppState';
 import { Dispatch } from 'react-redux';
 import { IAction } from '../IAction';
 import { Uuid } from '../../utils/generateId';
-import { NO_CONNECTION } from '../../constants/connection';
+import { NO_CONNECTION, SERVER_CONNECTION_PROBLEM } from '../../constants/connection';
 import {
   ITEM_INSERT_FAILED,
   ITEM_INSERT_SUCCEEDED,
@@ -30,11 +30,11 @@ export const postSucceeded =
     }
   });
 
-export const postFailed = (id: Uuid, error: { errorId: Uuid, message: string }): IAction => ({
+export const postFailed = (item: { id: Uuid, text: string }, message: string): IAction => ({
   type: ITEM_INSERT_FAILED,
   payload: {
-    id,
-    ...error,
+    item,
+    message,
   }
 });
 
@@ -65,13 +65,9 @@ export const postItemFactory =
           const message =
             errorResponse === undefined
               ? NO_CONNECTION
-              : `${errorResponse.status} ${errorResponse.statusText}`;
+              : SERVER_CONNECTION_PROBLEM;
 
           return dispatch(postFailed(
-            tempId,
-            {
-              message,
-              errorId: generateId()
-            }));
+            {id: tempId, text}, message));
         }
       };

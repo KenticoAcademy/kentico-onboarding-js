@@ -3,7 +3,10 @@ import { IAppState } from '../../models/IAppState';
 import { Dispatch } from 'react-redux';
 import { Uuid } from '../../utils/generateId';
 import { IAction } from '../IAction';
-import { NO_CONNECTION } from '../../constants/connection';
+import {
+  NO_CONNECTION,
+  SERVER_CONNECTION_PROBLEM
+} from '../../constants/connection';
 import {
   ITEMS_FETCH_FAILED,
   ITEMS_FETCH_SUCCEEDED
@@ -46,7 +49,7 @@ export const fetchItemsFactory =
         const message =
           errorResponse === undefined
             ? NO_CONNECTION
-            : `${errorResponse.status} ${errorResponse.statusText}`;
+            : SERVER_CONNECTION_PROBLEM;
 
         return dispatch(fetchFailed(message));
       }

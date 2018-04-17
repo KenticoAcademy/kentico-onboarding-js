@@ -3,22 +3,16 @@ import { Dispatch } from 'react-redux';
 import { Uuid } from '../../utils/generateId';
 import { IAction } from '../IAction';
 import { IAppState } from '../../models/IAppState';
-import { NO_CONNECTION } from '../../constants/connection';
+import { NO_CONNECTION, SERVER_CONNECTION_PROBLEM } from '../../constants/connection';
 import {
   ITEM_UPDATE_FAILED,
   ITEM_UPDATE_SUCCEEDED,
   TODO_LIST_ITEM_UPDATE
 } from '../../constants/actionTypes';
+import { IListItem } from '../../models/ListItem';
 
 interface IUpdateDependencies {
-  readonly generateId: () => Uuid;
   readonly axiosPut: (item: IUpdateItem) => Promise<AxiosResponse>;
-}
-
-interface IError {
-  errorId: Uuid;
-  message: string;
-  backupText: string;
 }
 
 export const putSucceeded = (id: Uuid): IAction => ({
@@ -28,11 +22,11 @@ export const putSucceeded = (id: Uuid): IAction => ({
   }
 });
 
-export const putFailed = (id: Uuid, error: IError): IAction => ({
+export const putFailed = (item: IListItem, message: string): IAction => ({
   type: ITEM_UPDATE_FAILED,
   payload: {
-    id,
-    ...error
+    item,
+    message
   }
 });
 
@@ -48,13 +42,10 @@ export const updateItem = (item: IUpdateItem): IAction => ({
 });
 
 export const putItemFactory =
-  ({axiosPut, generateId}: IUpdateDependencies) =>
+  ({axiosPut}: IUpdateDependencies) =>
     (item: IUpdateItem) =>
       async (dispatch: Dispatch<IAppState>, getState: () => IAppState): Promise<IAction> => {
         const itemFromState = getState().todoList.items.get(item.id);
-        const errorId = itemFromState.errorId;
-        const updateError = getState().error.get(errorId);
-
         dispatch(updateItem(item));
 
         try {
@@ -62,25 +53,12 @@ export const putItemFactory =
 
           return dispatch(putSucceeded(response.data.id));
         } catch (error) {
+          const failedItem = getState().error.get(item.id) ? getState().error.get(item.id).item : itemFromState;
           const message =
             error.response === undefined
               ? NO_CONNECTION
-              : error.response.statusText;
+              : SERVER_CONNECTION_PROBLEM;
 
-          return dispatch(putFailed(
-            item.id,
-            updateError !== undefined
-              ? {
-                errorId: updateError.id,
-                message,
-                backupText: updateError.backupText,
-              }
-              : {
-                errorId: generateId(),
-                message,
-                backupText: itemFromState.text,
-              }
-            )
-          );
+          return dispatch(putFailed(failedItem, message));
         }
       };
