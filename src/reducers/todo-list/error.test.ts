@@ -44,10 +44,17 @@ describe('error reducer', () => {
   });
 
   it('should return previous state with new error on ITEM_INSERT_FAILED', () => {
+    const item = {
+        id: id2,
+        errorId: null,
+        isEdited: false,
+        isSynchronized: true,
+        text: ''
+      };
     const insertFailed = {
       type: 'ITEM_INSERT_FAILED',
       payload: {
-        errorId: id2,
+        item,
         message: insertErrorMessage
       }
     };
@@ -70,7 +77,8 @@ describe('error reducer', () => {
         new Error({
           id: id2,
           errorMessage: insertErrorMessage,
-          action: 'ITEM_INSERT_FAILED'
+          action: 'ITEM_INSERT_FAILED',
+          item
         })
       ]
     ]).toJS();
@@ -119,10 +127,17 @@ describe('error reducer', () => {
   });
 
   it('should return previous state with new error on ITEM_DELETE_FAILED', () => {
+    const item = {
+      id: id2,
+      errorId: null,
+      isEdited: false,
+      isSynchronized: true,
+      text: ''
+    };
     const deleteFailed = {
       type: 'ITEM_DELETION_FAILED',
       payload: {
-        errorId: id2,
+        item,
         message: 'delete failed'
       }
     };
@@ -142,7 +157,8 @@ describe('error reducer', () => {
         new Error({
           id: id2,
           errorMessage: deleteErrorMessage,
-          action: 'ITEM_DELETION_FAILED'
+          action: 'ITEM_DELETION_FAILED',
+          item
         })
       ]
     ]).toJS();

@@ -9,6 +9,7 @@ import { ListItem } from '../../models/ListItem';
 import { FetchStatus } from '../../models/FetchStatus';
 import { IAppState } from '../../models/IAppState';
 import { OrderedMap } from 'immutable';
+import { ListPageState } from '../../enums/listPageState';
 
 const dispatch = jest.fn(input => input);
 const id = 'a378ffaa-75fa-4117-a57b-84da0a3c975a';
@@ -77,7 +78,8 @@ describe('delete item tests', () => {
         ])
       },
       error: OrderedMap([]),
-      fetchStatus: new FetchStatus()
+      fetchStatus: new FetchStatus(),
+      listPageState: ListPageState.Loaded
     };
     const deleteFromServer = deleteItemFactory({
       axiosDelete

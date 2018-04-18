@@ -70,7 +70,7 @@ describe('fetch items tests', () => {
     const fetchFailed = {
       type: ITEMS_FETCH_FAILED,
       payload: {
-        errorText: '404 Not Found'
+        errorText: 'Server connection problem'
       }
     };
 

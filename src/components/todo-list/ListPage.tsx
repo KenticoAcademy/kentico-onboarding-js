@@ -3,11 +3,10 @@ import { ItemsList } from '../../containers/todo-list/ItemsList';
 import { ListError } from './ListError';
 import { IAction } from '../../actions/IAction';
 import { PulseLoader } from 'react-spinners';
+import { ListPageState } from '../../enums/listPageState';
 
 export interface IFetchDataProps {
-  readonly fetchFailed: boolean;
-  readonly errorMessage: string;
-  readonly isFetching: boolean;
+  readonly listPageState: ListPageState;
 }
 
 export interface IFetchCallbackProps {
@@ -27,17 +26,18 @@ export class ListPage extends React.PureComponent<IFetchDataProps & IFetchCallba
   }
 
   render(): JSX.Element {
+    const { listPageState } = this.props;
+
     return (
       <div className="row">
         <div className="col-sm-12 col-md-offset-2 col-md-8">
-          {this.props.isFetching
+          {listPageState === ListPageState.Loading
             ? <div className="text-center">
-              <PulseLoader loading={this.props.isFetching} />
+              <PulseLoader />
             </div>
-            : !this.props.fetchFailed
+            : listPageState === ListPageState.Loaded
               ? <ItemsList />
               : <ListError
-                errorMessage={this.props.errorMessage}
                 onRetryFetch={this._startLoadingItems}
               />
           }

@@ -46,7 +46,8 @@ export const error =
           new Error({
             id: action.payload.item.id,
             action: action.type,
-            errorMessage: action.payload.message
+            errorMessage: action.payload.message,
+            item: action.payload.item
           })
         );
       case ITEM_ERROR_CLOSE:

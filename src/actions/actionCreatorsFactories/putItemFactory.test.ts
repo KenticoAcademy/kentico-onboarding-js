@@ -9,6 +9,7 @@ import { OrderedMap } from 'immutable';
 import { FetchStatus } from '../../models/FetchStatus';
 import { IAppState } from '../../models/IAppState';
 import { ListItem } from '../../models/ListItem';
+import { ListPageState } from '../../enums/listPageState';
 
 const dispatch = jest.fn(input => input);
 
@@ -33,7 +34,8 @@ describe('put item tests', () => {
         ])
       },
       error: OrderedMap([]),
-      fetchStatus: new FetchStatus()
+      fetchStatus: new FetchStatus(),
+      listPageState: ListPageState.Loaded
     };
     const axiosPut = (_data: { id: Uuid, text: string }) =>
       Promise.resolve({
@@ -86,7 +88,8 @@ describe('put item tests', () => {
         ])
       },
       error: OrderedMap([]),
-      fetchStatus: new FetchStatus()
+      fetchStatus: new FetchStatus(),
+      listPageState: ListPageState.Loaded
     };
     const axiosPut = (_data: { id: Uuid, text: string }) =>
       Promise.reject({

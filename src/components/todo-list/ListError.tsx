@@ -1,8 +1,8 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import { SERVER_CONNECTION_PROBLEM } from '../../constants/connection';
 
 interface IOwnProps {
-  readonly errorMessage: string;
   readonly onRetryFetch: () => void;
 }
 
@@ -20,12 +20,13 @@ const ListError: React.StatelessComponent<IOwnProps> = (props: IOwnProps): JSX.E
     >
       &#8634;
     </button>
-    <strong> ERROR: </strong>
-    {props.errorMessage}
+    <strong>
+      {SERVER_CONNECTION_PROBLEM}
+    </strong>
+
   </div>;
 
 ListError.propTypes = {
-  errorMessage: PropTypes.string.isRequired,
   onRetryFetch: PropTypes.func.isRequired,
 };
 
