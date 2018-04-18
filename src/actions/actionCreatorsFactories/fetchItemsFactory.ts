@@ -4,10 +4,6 @@ import { Dispatch } from 'react-redux';
 import { Uuid } from '../../utils/generateId';
 import { IAction } from '../IAction';
 import {
-  NO_CONNECTION,
-  SERVER_CONNECTION_PROBLEM
-} from '../../constants/connection';
-import {
   ITEMS_FETCH_FAILED,
   ITEMS_FETCH_SUCCEEDED
 } from '../../constants/actionTypes';
@@ -21,6 +17,7 @@ export interface IFetchedItem {
 
 interface IPostDependencies {
   readonly axiosFetch: () => Promise<AxiosResponse>;
+  readonly getErrorMessage: (errorResponse: AxiosResponse) => string;
 }
 
 export const fetchSucceeded = (items: Array<IFetchedItem>): IAction => ({
@@ -38,18 +35,14 @@ export const fetchFailed = (errorText: string): IAction => ({
 });
 
 export const fetchItemsFactory =
-  ({axiosFetch}: IPostDependencies) =>
+  ({axiosFetch, getErrorMessage }: IPostDependencies) =>
     () => async (dispatch: Dispatch<IAppState>): Promise<IAction> => {
       try {
         const response = await axiosFetch();
 
         return dispatch(fetchSucceeded(response.data));
       } catch (error) {
-        const errorResponse = error.response;
-        const message =
-          errorResponse === undefined
-            ? NO_CONNECTION
-            : SERVER_CONNECTION_PROBLEM;
+        const message = getErrorMessage(error.response);
 
         return dispatch(fetchFailed(message));
       }

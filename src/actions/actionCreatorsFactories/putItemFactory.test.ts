@@ -19,6 +19,7 @@ beforeEach(() => {
 
 describe('put item tests', () => {
   it('dispatches TODO_LIST_ITEM_UPDATE, ITEM_UPDATE_SUCCEEDED after successful PUT request', async () => {
+    const getErrorMessage = jest.fn();
     const updatedItem = {
       id: '9a0b391a-2a57-4be1-8179-7271b5e8cdc3',
       text: 'updatedText',
@@ -46,7 +47,8 @@ describe('put item tests', () => {
         config: {}
       });
     const putItem = putItemFactory({
-      axiosPut
+      axiosPut,
+      getErrorMessage
     });
     const updateItem = {
       type: TODO_LIST_ITEM_UPDATE,
@@ -73,6 +75,7 @@ describe('put item tests', () => {
 
   it('dispatches TODO_LIST_ITEM_UPDATE, ITEM_UPDATE_FAILED after unsuccessful PUT request', async () => {
     const errorMessage = 'Server connection problem';
+    const getErrorMessage = jest.fn(() => errorMessage);
     const updatedItem = {
       id: '9a0b391a-2a57-4be1-8179-7271b5e8cdc3',
       text: 'updatedText',
@@ -102,7 +105,8 @@ describe('put item tests', () => {
         }
       });
     const putItem = putItemFactory({
-      axiosPut
+      axiosPut,
+      getErrorMessage
     });
     const updateItem = {
       type: TODO_LIST_ITEM_UPDATE,

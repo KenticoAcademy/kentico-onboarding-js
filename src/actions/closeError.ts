@@ -1,12 +1,12 @@
 import { Dispatch } from 'react-redux';
-import { ITEM_INSERT_FAILED, ITEM_UPDATE_FAILED } from '../constants/actionTypes';
+import { ITEM_DELETION_FAILED, ITEM_INSERT_FAILED, ITEM_UPDATE_FAILED } from '../constants/actionTypes';
 import { deletionSucceeded } from './actionCreatorsFactories/deleteItemFactory';
 import { closeItemError } from './actionCreators';
 import { updateItem } from './actionCreatorsFactories/putItemFactory';
-import { IIndexedItem } from '../models/IndexedItem';
 import { IAppState } from '../models/IAppState';
+import { IListItem } from '../models/ListItem';
 
-export const closeError = (action: string, item: IIndexedItem) =>
+export const closeError = (action: string, item: IListItem) =>
   (dispatch: Dispatch<IAppState>, getState: () => IAppState) => {
     switch (action) {
       case ITEM_INSERT_FAILED:
@@ -24,6 +24,7 @@ export const closeError = (action: string, item: IIndexedItem) =>
 
         return dispatch(closeItemError(item.id));
 
+      case ITEM_DELETION_FAILED:
       default:
         return dispatch(closeItemError(item.id));
     }

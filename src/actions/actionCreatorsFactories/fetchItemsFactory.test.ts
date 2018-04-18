@@ -20,6 +20,7 @@ describe('fetch items tests', () => {
   };
 
   it('dispatches ITEMS_FETCH_SUCCEEDED on correct GET request', async () => {
+    const getErrorMessage = jest.fn();
     const items = [{
       Id: fetchedTestItem0.id,
       Text: fetchedTestItem0.text
@@ -37,8 +38,9 @@ describe('fetch items tests', () => {
         config: {},
       });
     const fetchItems = fetchItemsFactory({
-        axiosFetch
-      });
+      axiosFetch,
+      getErrorMessage
+    });
     const expectedAction = {
       type: 'ITEMS_FETCH_SUCCEEDED',
       payload: {
@@ -54,19 +56,22 @@ describe('fetch items tests', () => {
   });
 
   it('dispatches ITEMS_FETCH_FAILED after GET request failure', async () => {
+    const response = {
+      data: undefined,
+      status: 404,
+      statusText: 'Not Found',
+      headers: undefined,
+      config: {}
+    };
+    const getErrorMessage = jest.fn(() => 'Server connection problem');
     const axiosFetch = () =>
       Promise.reject({
-        response: {
-          data: undefined,
-          status: 404,
-          statusText: 'Not Found',
-          headers: undefined,
-          config: {}
-        }
+        response
       });
     const fetchItems = fetchItemsFactory({
-        axiosFetch
-      });
+      axiosFetch,
+      getErrorMessage
+    });
     const fetchFailed = {
       type: ITEMS_FETCH_FAILED,
       payload: {

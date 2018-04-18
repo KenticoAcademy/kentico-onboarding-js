@@ -4,10 +4,6 @@ import { IAppState } from '../../models/IAppState';
 import { IAction } from '../IAction';
 import { Uuid } from '../../utils/generateId';
 import {
-  NO_CONNECTION,
-  OPERATION_FAILED
-} from '../../constants/connection';
-import {
   ITEM_DELETION_FAILED,
   ITEM_DELETION_SUCCEEDED,
   TODO_LIST_ITEM_DELETE
@@ -16,6 +12,7 @@ import { IListItem } from '../../models/ListItem';
 
 interface IDeleteDependencies {
   readonly axiosDelete: (id: Uuid) => Promise<AxiosResponse>;
+  readonly getErrorMessage: (errorResponse: AxiosResponse) => string;
 }
 
 export const deleteItem = (id: Uuid): IAction => ({
@@ -41,7 +38,7 @@ export const deletionFailed = (item: IListItem, message: string): IAction => ({
 });
 
 export const deleteItemFactory =
-  ({axiosDelete}: IDeleteDependencies) =>
+  ({axiosDelete, getErrorMessage}: IDeleteDependencies) =>
     (id: Uuid) => async (dispatch: Dispatch<IAppState>, getState: () => IAppState): Promise<IAction> => {
       dispatch(deleteItem(id));
 
@@ -51,12 +48,7 @@ export const deleteItemFactory =
         return dispatch(deletionSucceeded(id));
       } catch (error) {
         const item = getState().todoList.items.get(id);
-
-        const errorResponse = error.response;
-        const message =
-          errorResponse === undefined
-            ? NO_CONNECTION
-            : OPERATION_FAILED;
+        const message = getErrorMessage(error.response);
 
         return dispatch(deletionFailed(
           item,

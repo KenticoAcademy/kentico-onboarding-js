@@ -3,7 +3,6 @@ import { IAppState } from '../../models/IAppState';
 import { Dispatch } from 'react-redux';
 import { IAction } from '../IAction';
 import { Uuid } from '../../utils/generateId';
-import { NO_CONNECTION, SERVER_CONNECTION_PROBLEM } from '../../constants/connection';
 import {
   ITEM_INSERT_FAILED,
   ITEM_INSERT_SUCCEEDED,
@@ -13,6 +12,7 @@ import {
 interface IPostDependencies {
   readonly generateId: () => Uuid;
   readonly axiosPost: (text: string) => Promise<AxiosResponse>;
+  readonly getErrorMessage: (errorResponse: AxiosResponse) => string;
 }
 
 export const insertItem =
@@ -39,7 +39,7 @@ export const postFailed = (item: { id: Uuid, text: string }, message: string): I
 });
 
 export const postItemFactory =
-  ({generateId, axiosPost}: IPostDependencies) =>
+  ({generateId, axiosPost, getErrorMessage}: IPostDependencies) =>
     (text: string) =>
       async (dispatch: Dispatch<IAppState>): Promise<IAction> => {
         const tempId = generateId();
@@ -61,13 +61,14 @@ export const postItemFactory =
             }
           ));
         } catch (error) {
-          const errorResponse = error.response;
-          const message =
-            errorResponse === undefined
-              ? NO_CONNECTION
-              : SERVER_CONNECTION_PROBLEM;
+          const message = getErrorMessage(error.response);
 
           return dispatch(postFailed(
-            {id: tempId, text}, message));
+            {
+              id: tempId,
+              text
+            },
+            message
+          ));
         }
       };

@@ -1,5 +1,5 @@
 import { deleteItemFactory } from './deleteItemFactory';
-import { OPERATION_FAILED } from '../../constants/connection';
+import { SERVER_CONNECTION_PROBLEM } from '../../constants/connection';
 import {
   ITEM_DELETION_FAILED,
   ITEM_DELETION_SUCCEEDED,
@@ -20,6 +20,7 @@ beforeEach(() => {
 
 describe('delete item tests', () => {
   it('dispatches TODO_LIST_ITEM_DELETE, ITEM_DELETION_SUCCEEDED after successful DELETE request', async () => {
+    const getErrorMessage = jest.fn();
     const axiosDelete = (_id: string) =>
       Promise.resolve({
         data: undefined,
@@ -30,7 +31,8 @@ describe('delete item tests', () => {
       });
     const getState = jest.fn();
     const deleteFromServer = deleteItemFactory({
-      axiosDelete
+      axiosDelete,
+      getErrorMessage
     });
     const deleteItem = {
       type: TODO_LIST_ITEM_DELETE,
@@ -53,7 +55,9 @@ describe('delete item tests', () => {
       .catch(error => fail(new Error(error)));
   });
 
+
   it('dispatches TODO_LIST_ITEM_DELETE, ITEM_DELETION_FAILED after unsuccessful DELETE request', async () => {
+    const getErrorMessage = jest.fn(() => 'Server connection problem');
     const axiosDelete = (_id: string) =>
       Promise.reject({
         response: {
@@ -82,7 +86,8 @@ describe('delete item tests', () => {
       listPageState: ListPageState.Loaded
     };
     const deleteFromServer = deleteItemFactory({
-      axiosDelete
+      axiosDelete,
+      getErrorMessage
     });
     const deleteItem = {
       type: TODO_LIST_ITEM_DELETE,
@@ -99,7 +104,7 @@ describe('delete item tests', () => {
           isSynchronized: true,
           isEdited: false
         }),
-        message: OPERATION_FAILED
+        message: SERVER_CONNECTION_PROBLEM
       }
     };
 
@@ -110,4 +115,5 @@ describe('delete item tests', () => {
       })
       .catch(error => fail(new Error(error)));
   });
-});
+})
+;

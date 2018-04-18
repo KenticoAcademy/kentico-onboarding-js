@@ -15,6 +15,7 @@ describe('post item tests', () => {
   const generateId = jest.fn(() => postTestItem.id);
 
   it('dispatches TODO_LIST_ITEM_INSERT, ITEM_INSERT_SUCCEEDED on correct POST request', async () => {
+    const getErrorMessage = jest.fn();
     const fetchedTestItem = {
       id: 'e1f5c5e4-7f5e-4aa0-9e52-117cc8267f13',
       text: 'item'
@@ -29,7 +30,8 @@ describe('post item tests', () => {
       });
     const postItem = postItemFactory({
         generateId,
-        axiosPost
+        axiosPost,
+        getErrorMessage
       });
     const insertItem = {
       type: TODO_LIST_ITEM_INSERT,
@@ -58,6 +60,7 @@ describe('post item tests', () => {
 
   it('dispatches TODO_LIST_ITEM_INSERT, ITEM_INSERT_FAILED on POST request failure', async () => {
     const errorMessage = 'Server connection problem';
+    const getErrorMessage = jest.fn(() => errorMessage);
     const axiosPost = (_text: string) =>
       Promise.reject({
         response: {
@@ -71,7 +74,8 @@ describe('post item tests', () => {
     const postItem = postItemFactory(
       {
         generateId,
-        axiosPost
+        axiosPost,
+        getErrorMessage
       });
     const insertItem = {
       type: TODO_LIST_ITEM_INSERT,
