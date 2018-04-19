@@ -15,7 +15,7 @@ import {
   NO_CONNECTION,
   SERVER_CONNECTION_PROBLEM
 } from '../constants/connection';
-import { retryFactory } from './actionCreatorsFactories/retry';
+import { retryFactory } from './actionCreatorsFactories/retryFactory';
 
 const url = process.env.API_URL || API_URL;
 

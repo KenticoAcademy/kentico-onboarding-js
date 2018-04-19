@@ -1,5 +1,5 @@
 import { ListItem } from '../../models/ListItem';
-import { retryFactory } from './retry';
+import { retryFactory } from './retryFactory';
 
 const dispatch = jest.fn(input => input);
 
