@@ -29,4 +29,22 @@ describe('arrayToOrderedMap', () => {
     expect(result)
       .toEqual(expectedResult);
   });
+
+  it('will return the same OrderedMap from the same array of 2 ListItems', () => {
+    const listItem1 = new ListItem({
+      id: 'fakeId',
+      text: 'whatever',
+    });
+    const listItem2 = new ListItem({
+      id: 'fakeId2',
+      text: 'something else',
+    });
+    const listItems: IListItem[] = [ listItem1, listItem2 ];
+
+    const firstResult = arrayToOrderedMap(listItems, ListItem);
+    const secondResult = arrayToOrderedMap(listItems, ListItem);
+
+    expect(firstResult)
+      .toEqual(secondResult);
+  });
 });
