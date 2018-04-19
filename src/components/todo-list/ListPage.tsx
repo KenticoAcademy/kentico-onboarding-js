@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { ItemsList } from '../../containers/todo-list/ItemsList';
 import { ListError } from './ListError';
-import { IAction } from '../../actions/IAction';
 import { PulseLoader } from 'react-spinners';
 import { ListPageState } from '../../enums/listPageState';
 
@@ -10,9 +9,9 @@ export interface IFetchDataProps {
 }
 
 export interface IFetchCallbackProps {
-  readonly onFetchItems: () => Promise<IAction>;
-  readonly onFetchErrorClose: () => IAction;
-  readonly onFetchStart: () => IAction;
+  readonly onFetchItems: () => void;
+  readonly onFetchErrorClose: () => void;
+  readonly onFetchStart: () => void;
 }
 
 export class ListPage extends React.PureComponent<IFetchDataProps & IFetchCallbackProps> {

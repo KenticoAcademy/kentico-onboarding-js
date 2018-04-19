@@ -3,12 +3,11 @@ import * as PropTypes from 'prop-types';
 import { validateText } from '../../../utils/validateText';
 import { Input } from '../Input';
 import { IndexedItem } from '../../../models/IndexedItem';
-import { IAction } from '../../../actions/IAction';
 
 export interface IEditedItemCallbackProps {
-  readonly onUpdateItem: (text: string) => Promise<IAction>;
-  readonly onCancelEditing: () => IAction;
-  readonly onDeleteItem: () => Promise<IAction>;
+  readonly onUpdateItem: (text: string) => void;
+  readonly onCancelEditing: () => void;
+  readonly onDeleteItem: () => void;
 }
 
 export interface IEditedItemDataProps {

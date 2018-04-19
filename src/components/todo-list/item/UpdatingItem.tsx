@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 interface IOwnProps {
-  readonly index: number | null;
+  readonly index: number;
   readonly text: string;
 }
 
