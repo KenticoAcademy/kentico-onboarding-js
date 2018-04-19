@@ -11,8 +11,8 @@ import {
 } from '../../../actions/actionCreators';
 import { IAppState } from '../../../models/IAppState';
 import { IAction } from '../../../actions/IAction';
-import { retry } from '../../../actions/actionCreatorsFactories/retry';
 import { closeError } from '../../../actions/closeError';
+import { retry } from '../../../actions';
 
 interface IDispatchProps {
   onEditStart: () => IAction;

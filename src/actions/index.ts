@@ -15,6 +15,7 @@ import {
   NO_CONNECTION,
   SERVER_CONNECTION_PROBLEM
 } from '../constants/connection';
+import { retryFactory } from './actionCreatorsFactories/retry';
 
 const url = process.env.API_URL || API_URL;
 
@@ -47,4 +48,10 @@ export const putItem = putItemFactory({
 export const deleteFromServer = deleteItemFactory({
   axiosDelete,
   getErrorMessage
+});
+
+export const retry = retryFactory({
+  postItem,
+  putItem,
+  deleteFromServer
 });

@@ -13,7 +13,6 @@ export const closeError = (action: string, item: IListItem) =>
         return dispatch(deletionSucceeded(item.id));
 
       case ITEM_UPDATE_FAILED:
-        console.log(item.errorId);
         dispatch(updateItem({
           id: item.id,
           text: item.errorId
