@@ -15,9 +15,9 @@ import { closeError } from '../../../actions/closeError';
 import { retry } from '../../../actions';
 
 interface IDispatchProps {
-  onEditStart: () => IAction;
-  onCloseError: (action: string) => Promise<IAction> | IAction;
-  onRetry: (action: string) => Promise<IAction>;
+  readonly onEditStart: () => IAction;
+  readonly onCloseError: (action: string) => Promise<IAction> | IAction;
+  readonly onRetry: (action: string) => Promise<IAction>;
 }
 
 const mapStateToProps = ({error}: IAppState, {item}: IOwnProps): IPlainItemDataProps => {

@@ -6,7 +6,6 @@ import {
   TODO_LIST_ITEM_UPDATE
 } from '../../constants/actionTypes';
 import { OrderedMap } from 'immutable';
-import { FetchStatus } from '../../models/FetchStatus';
 import { IAppState } from '../../models/IAppState';
 import { ListItem } from '../../models/ListItem';
 import { ListPageState } from '../../enums/listPageState';
@@ -35,7 +34,6 @@ describe('put item tests', () => {
         ])
       },
       error: OrderedMap([]),
-      fetchStatus: new FetchStatus(),
       listPageState: ListPageState.Loaded
     };
     const axiosPut = (_data: { id: Uuid, text: string }) =>
@@ -61,11 +59,7 @@ describe('put item tests', () => {
       }
     };
 
-    await putItem({
-      id: updatedItem.id,
-      text: updatedItem.text,
-      isSynchronized: true
-    })(dispatch, () => mockStore)
+    await putItem(updatedItem)(dispatch, () => mockStore)
       .then(() => {
         expect(dispatch.mock.calls[0][0]).toEqual(updateItem);
         expect(dispatch.mock.calls[1][0]).toEqual(putSucceeded);
@@ -91,7 +85,6 @@ describe('put item tests', () => {
         ])
       },
       error: OrderedMap([]),
-      fetchStatus: new FetchStatus(),
       listPageState: ListPageState.Loaded
     };
     const axiosPut = (_data: { id: Uuid, text: string }) =>

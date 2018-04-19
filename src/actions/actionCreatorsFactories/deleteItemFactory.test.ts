@@ -6,7 +6,6 @@ import {
   TODO_LIST_ITEM_DELETE
 } from '../../constants/actionTypes';
 import { ListItem } from '../../models/ListItem';
-import { FetchStatus } from '../../models/FetchStatus';
 import { IAppState } from '../../models/IAppState';
 import { OrderedMap } from 'immutable';
 import { ListPageState } from '../../enums/listPageState';
@@ -82,7 +81,6 @@ describe('delete item tests', () => {
         ])
       },
       error: OrderedMap([]),
-      fetchStatus: new FetchStatus(),
       listPageState: ListPageState.Loaded
     };
     const deleteFromServer = deleteItemFactory({
@@ -115,5 +113,4 @@ describe('delete item tests', () => {
       })
       .catch(error => fail(new Error(error)));
   });
-})
-;
+});

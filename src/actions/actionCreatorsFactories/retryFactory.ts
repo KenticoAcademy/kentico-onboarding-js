@@ -4,7 +4,6 @@ import {
   ITEM_INSERT_FAILED,
   ITEM_UPDATE_FAILED
 } from '../../constants/actionTypes';
-import { deletionSucceeded } from './deleteItemFactory';
 import { IAppState } from '../../models/IAppState';
 import { IListItem } from '../../models/ListItem';
 import { IAction } from '../IAction';
@@ -12,7 +11,7 @@ import { IUpdateItem } from './putItemFactory';
 import { Uuid } from '../../utils/generateId';
 
 interface IRetryDependencies {
-  postItem: (text: string) => (dispatch: Dispatch<IAppState>) => Promise<IAction>;
+  postItem: (item: {text: string, id: Uuid}) => (dispatch: Dispatch<IAppState>) => Promise<IAction>;
   putItem: (item: IUpdateItem) =>
     (dispatch: Dispatch<IAppState>, getState: () => IAppState) => Promise<IAction>;
   deleteFromServer: (id: Uuid) =>
@@ -24,9 +23,7 @@ export const retryFactory = ({postItem, putItem, deleteFromServer}: IRetryDepend
     (dispatch: Dispatch<IAppState>) => {
       switch (action) {
         case ITEM_INSERT_FAILED:
-          dispatch(deletionSucceeded(item.id));
-
-          return dispatch(postItem(item.text));
+          return dispatch(postItem({text: item.text, id: item.id}));
 
         case ITEM_UPDATE_FAILED:
           return dispatch(putItem({
@@ -39,6 +36,6 @@ export const retryFactory = ({postItem, putItem, deleteFromServer}: IRetryDepend
           return dispatch(deleteFromServer(item.id));
 
         default:
-          return dispatch(postItem(item.text));
+          return dispatch(postItem({text: item.text, id: item.id}));
       }
     };

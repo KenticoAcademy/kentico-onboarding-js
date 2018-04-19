@@ -13,7 +13,7 @@ export interface IError {
   readonly id: Uuid;
   readonly errorMessage: string;
   readonly action: string;
-  item: IListItem;
+  readonly item: IListItem;
 }
 
 export class Error extends BaseRecord(emptyError) implements IError {

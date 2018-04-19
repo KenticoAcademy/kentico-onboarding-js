@@ -22,17 +22,17 @@ describe('post item tests', () => {
     };
     const axiosPost = (_text: string) =>
       Promise.resolve({
-        data: {...fetchedTestItem},
+        data: fetchedTestItem,
         status: 201,
         statusText: 'Created',
         headers: undefined,
         config: {},
       });
     const postItem = postItemFactory({
-        generateId,
-        axiosPost,
-        getErrorMessage
-      });
+      generateId,
+      axiosPost,
+      getErrorMessage
+    });
     const insertItem = {
       type: TODO_LIST_ITEM_INSERT,
       payload: {
@@ -49,14 +49,16 @@ describe('post item tests', () => {
       }
     };
 
-    postItem(postTestItem.text)(dispatch)
+    postItem({
+      text: postTestItem.text,
+      id: '00000000-0000-0000-0000-000000000000'
+    })(dispatch)
       .then(() => {
         expect(dispatch.mock.calls[0][0]).toEqual(insertItem);
         expect(dispatch.mock.calls[1][0]).toEqual(postItemSucceeded);
       })
       .catch(error => fail(new Error(error)));
   });
-
 
   it('dispatches TODO_LIST_ITEM_INSERT, ITEM_INSERT_FAILED on POST request failure', async () => {
     const errorMessage = 'Server connection problem';
@@ -87,12 +89,15 @@ describe('post item tests', () => {
     const postItemFailed = {
       type: ITEM_INSERT_FAILED,
       payload: {
-        item: { id: postTestItem.id, text: postTestItem.text},
+        item: {id: postTestItem.id, text: postTestItem.text},
         message: errorMessage
       }
     };
 
-    postItem(postTestItem.text)(dispatch)
+    postItem({
+      text: postTestItem.text,
+      id: '00000000-0000-0000-0000-000000000000'
+    })(dispatch)
       .then(() => {
         expect(dispatch.mock.calls[0][0]).toEqual(insertItem);
         expect(dispatch.mock.calls[1][0]).toEqual(postItemFailed);

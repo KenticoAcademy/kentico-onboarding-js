@@ -1,6 +1,5 @@
 import { closeError } from './closeError';
 import { OrderedMap } from 'immutable';
-import { FetchStatus } from '../models/FetchStatus';
 import { ListItem } from '../models/ListItem';
 import { IAppState } from '../models/IAppState';
 import { ListPageState } from '../enums/listPageState';
@@ -32,7 +31,6 @@ describe('closeError action creator', () => {
         ])
       },
       error: OrderedMap([]),
-      fetchStatus: new FetchStatus(),
       listPageState: ListPageState.Loaded
     };
     const expectedAction = {
@@ -76,7 +74,6 @@ describe('closeError action creator', () => {
           })
         ]
       ]),
-      fetchStatus: new FetchStatus(),
       listPageState: ListPageState.Loaded
     };
     const expectedAction = {
@@ -115,7 +112,6 @@ describe('closeError action creator', () => {
           })
         ]
       ]),
-      fetchStatus: new FetchStatus(),
       listPageState: ListPageState.Loaded
     };
     const expectedAction = {
@@ -152,7 +148,6 @@ describe('closeError action creator', () => {
           })
         ]
       ]),
-      fetchStatus: new FetchStatus(),
       listPageState: ListPageState.Loaded
     };
     const expectedAction = {

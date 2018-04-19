@@ -2,9 +2,9 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 
 interface IProps {
-  errorMessage: string;
-  onCloseError: (event: React.MouseEvent<HTMLButtonElement>) => void;
-  onRetry: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  readonly errorMessage: string;
+  readonly onCloseError: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  readonly onRetry: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 const ItemError: React.StatelessComponent<IProps> = (props: IProps) =>

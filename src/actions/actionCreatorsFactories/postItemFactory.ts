@@ -2,12 +2,13 @@ import { AxiosResponse } from 'axios';
 import { IAppState } from '../../models/IAppState';
 import { Dispatch } from 'react-redux';
 import { IAction } from '../IAction';
-import { Uuid } from '../../utils/generateId';
+import { defaultId, Uuid } from '../../utils/generateId';
 import {
   ITEM_INSERT_FAILED,
   ITEM_INSERT_SUCCEEDED,
   TODO_LIST_ITEM_INSERT
 } from '../../constants/actionTypes';
+import { closeItemError } from '../actionCreators';
 
 interface IPostDependencies {
   readonly generateId: () => Uuid;
@@ -40,14 +41,19 @@ export const postFailed = (item: { id: Uuid, text: string }, message: string): I
 
 export const postItemFactory =
   ({generateId, axiosPost, getErrorMessage}: IPostDependencies) =>
-    (text: string) =>
+    ({text, id}: {text: string, id: Uuid}) =>
       async (dispatch: Dispatch<IAppState>): Promise<IAction> => {
-        const tempId = generateId();
-        dispatch(insertItem({
-          text,
-          id: tempId,
-          isSynchronized: false
-        }));
+        let tempId = id;
+        if (id === defaultId) {
+          tempId = generateId();
+          dispatch(insertItem({
+            text,
+            id: tempId,
+            isSynchronized: false
+          }));
+        } else {
+          dispatch(closeItemError(tempId));
+        }
 
         try {
           const response = await axiosPost(text);

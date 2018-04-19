@@ -42,6 +42,7 @@ export class PlainItem extends React.PureComponent<IPlainItemProps> {
       onEditStart,
       errorMessage,
     } = this.props;
+
     return (
       <div>
         {!item.isSynchronized
