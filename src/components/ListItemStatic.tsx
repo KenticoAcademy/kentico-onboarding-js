@@ -1,47 +1,48 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { IListItem } from '../models/interfaces/IListItem';
 import { IItemSyncInfo } from '../models/interfaces/IItemSyncInfo';
 import { SyncState } from '../models/enums/SyncState';
 import { RetryItem } from '../containers/RetryItem';
 import { ClipLoader } from 'react-spinners';
 import { Revert } from '../containers/Revert';
+import { IListItem } from '../models/interfaces/IListItem';
 
 export interface IListItemStaticCallbackProps {
   readonly onItemOpened: () => void;
 }
 
 export interface IListItemStaticDataProps {
+  readonly item: IListItem;
   readonly isClickable: boolean;
 }
 
 export interface IListItemStaticOwnProps {
-  readonly item: IListItem;
   readonly itemNumber: number;
   readonly onTextSelection: (startOffset: number, endOffset: number) => void;
   readonly itemSyncInfo: IItemSyncInfo;
 }
 
-export interface IListItemStaticProps extends IListItemStaticCallbackProps, IListItemStaticOwnProps, IListItemStaticDataProps {
-}
-
-export const listItemStaticPropTypes = {
-  onTextSelection: PropTypes.func.isRequired,
+export const listItemStaticSharedPropTypes = {
   itemNumber: PropTypes.number.isRequired,
-  item: PropTypes.shape({
-    text: PropTypes.string.isRequired,
-  }).isRequired,
+  onTextSelection: PropTypes.func.isRequired,
   itemSyncInfo: PropTypes.shape({
     syncState: PropTypes.string.isRequired,
     operation: PropTypes.string.isRequired,
   }).isRequired,
 };
 
+export interface IListItemStaticProps extends IListItemStaticCallbackProps, IListItemStaticOwnProps, IListItemStaticDataProps {
+}
+
 export class ListItemStatic extends React.PureComponent<IListItemStaticProps> {
   static displayName = 'ListItemStatic';
 
   static propTypes = {
-    ...listItemStaticPropTypes,
+    ...listItemStaticSharedPropTypes,
+    item: PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      text: PropTypes.string.isRequired,
+    }).isRequired,
     onItemOpened: PropTypes.func.isRequired,
     isClickable: PropTypes.bool.isRequired,
   };

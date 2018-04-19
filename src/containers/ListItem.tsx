@@ -4,7 +4,7 @@ import {
   IListItemDataProps,
   IListItemOwnProps,
   ListItem as ListItemComponent,
-  listItemPropTypes,
+  listItemSharedPropTypes,
 } from '../components/ListItem';
 import { IAppState } from '../models/state/IAppState';
 import { Uuid } from '../models/Uuid';
@@ -14,13 +14,13 @@ interface IListItemContainerDataProps extends IListItemOwnProps {
 }
 
 const mapStateToProps = ({ list }: IAppState, { itemId }: IListItemContainerDataProps): IListItemDataProps => ({
-  item: list.items.get(itemId),
+  isBeingEdited: list.items.get(itemId).isBeingEdited,
 });
 
 const ListItem: ComponentClass<IListItemContainerDataProps> = connect(
   mapStateToProps,
 )(ListItemComponent);
 
-ListItem.propTypes = listItemPropTypes;
+ListItem.propTypes = listItemSharedPropTypes;
 
 export { ListItem };

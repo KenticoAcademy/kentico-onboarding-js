@@ -2,7 +2,7 @@ import '../styles/sticky-footer.css';
 import * as React from 'react';
 import { List } from '../containers/List';
 
-const App: React.SFC = () =>
+const App: React.StatelessComponent = () =>
   <div>
     <div className="container">
       <div className="header clearfix">

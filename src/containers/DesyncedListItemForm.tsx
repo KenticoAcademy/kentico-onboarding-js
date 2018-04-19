@@ -10,12 +10,10 @@ import {
 } from '../actions';
 import {
   CompleteListItemForm as CompleteListItemFormComponent,
+  completeListItemSharedPropTypes,
   ICompleteListItemFormCallbackProps,
+  ICompleteListItemFormOwnProps,
 } from '../components/CompleteListItemForm';
-import {
-  IListItemFormOwnProps,
-  listItemFormPropTypes,
-} from '../components/ListItemForm';
 import {
   deleteItemAsync,
   updateItemAsync,
@@ -23,7 +21,7 @@ import {
 } from '../actions/thunk';
 import { IAppState } from '../models/state/IAppState';
 
-const mapDispatchToProps = (dispatch: Dispatch<IAppState>,  { item, itemSyncInfo }: IListItemFormOwnProps): ICompleteListItemFormCallbackProps => {
+const mapDispatchToProps = (dispatch: Dispatch<IAppState>,  { item, itemSyncInfo }: ICompleteListItemFormOwnProps): ICompleteListItemFormCallbackProps => {
   const { syncedText, id } = item;
   const addingFailed = itemSyncInfo.operation === SyncOperation.Add;
 
@@ -49,11 +47,11 @@ const mapDispatchToProps = (dispatch: Dispatch<IAppState>,  { item, itemSyncInfo
   };
 };
 
-const DesyncedListItemForm: ComponentClass<IListItemFormOwnProps> = connect(
+const DesyncedListItemForm: ComponentClass<ICompleteListItemFormOwnProps> = connect(
   undefined,
   mapDispatchToProps,
 )(CompleteListItemFormComponent);
 
-DesyncedListItemForm.propTypes = listItemFormPropTypes;
+DesyncedListItemForm.propTypes = completeListItemSharedPropTypes;
 
 export { DesyncedListItemForm };

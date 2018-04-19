@@ -16,7 +16,6 @@ import {
   revertUpdate,
 } from '../actions';
 import { Uuid } from '../models/Uuid';
-import { emptyAction } from '../constants/emptyAction';
 
 interface IRevertContainerProps {
   readonly syncOperation: SyncOperation;
@@ -34,7 +33,7 @@ const getRevertOperation = (operation: SyncOperation, id: Uuid) => {
     case SyncOperation.Add:
       return revertAdd(id);
     default:
-      return emptyAction;
+      throw `Invalid sync operation: ${operation}`;
   }
 };
 

@@ -16,7 +16,7 @@ const propTypes = {
   })).isRequired,
 };
 
-const Items: React.SFC<IItemsDataProps> = ({ itemsSyncInfo }) =>
+const Items: React.StatelessComponent<IItemsDataProps> = ({ itemsSyncInfo }) =>
   <div>
     {itemsSyncInfo.map((itemSyncInfo, index) => {
       const className = classNames(

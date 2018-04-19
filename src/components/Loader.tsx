@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-const Loader: React.SFC = () => (
+const Loader: React.StatelessComponent = () => (
   <div>
     Items are loading...
     <div className="loader" />

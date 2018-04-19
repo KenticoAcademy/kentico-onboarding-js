@@ -3,11 +3,9 @@ import * as PropTypes from 'prop-types';
 import { HotKeys } from 'react-hotkeys';
 import { keyActions } from '../constants/keys';
 import { isTextEmpty } from '../utils/validation';
-import {
-  IListItemFormOwnProps,
-  listItemFormPropTypes
-} from './ListItemForm';
 import { SyncState } from '../models/enums/SyncState';
+import { IItemSyncInfo } from '../models/interfaces/IItemSyncInfo';
+import { IListItem } from '../models/interfaces/IListItem';
 
 export interface ICompleteListItemFormCallbackProps {
   readonly onSave: (newText: string) => void;
@@ -15,7 +13,29 @@ export interface ICompleteListItemFormCallbackProps {
   readonly onDelete: () => void;
 }
 
-interface ICompleteListItemFormProps extends ICompleteListItemFormCallbackProps, IListItemFormOwnProps {
+export interface ICompleteListItemFormOwnProps {
+  readonly item: IListItem;
+  readonly itemNumber: number;
+  readonly selectionRangeStarts: number;
+  readonly selectionRangeEnds: number;
+  readonly itemSyncInfo: IItemSyncInfo;
+}
+
+export const completeListItemSharedPropTypes = {
+  item: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    text: PropTypes.string.isRequired,
+  }).isRequired,
+  itemNumber: PropTypes.number.isRequired,
+  selectionRangeStarts: PropTypes.number.isRequired,
+  selectionRangeEnds: PropTypes.number.isRequired,
+  itemSyncInfo: PropTypes.shape({
+    syncState: PropTypes.string.isRequired,
+    operation: PropTypes.string.isRequired,
+  }).isRequired,
+};
+
+interface ICompleteListItemFormProps extends ICompleteListItemFormCallbackProps, ICompleteListItemFormOwnProps {
 }
 
 interface ICompleteListItemFormState {
@@ -26,7 +46,7 @@ export class CompleteListItemForm extends React.PureComponent<ICompleteListItemF
   static displayName = 'CompleteListItemForm';
 
   static propTypes = {
-    ...listItemFormPropTypes,
+    ...completeListItemSharedPropTypes,
     onSave: PropTypes.func.isRequired,
     onCancel: PropTypes.func.isRequired,
     onDelete: PropTypes.func.isRequired,
@@ -50,9 +70,7 @@ export class CompleteListItemForm extends React.PureComponent<ICompleteListItemF
   }
 
   _onInputChange = (e: React.FormEvent<HTMLInputElement>) =>
-    this.setState({
-      text: e.currentTarget.value,
-    });
+    this.setState({ text: e.currentTarget.value });
 
   _submitNewItemText = () => {
     const { onSave } = this.props;

@@ -11,6 +11,6 @@ export const getRetryMessage = (operation: SyncOperation) => {
     case SyncOperation.Update:
       return 'Update failed';
     default:
-      return '';
+      throw `Invalid sync operation: ${operation}`;
   }
 };

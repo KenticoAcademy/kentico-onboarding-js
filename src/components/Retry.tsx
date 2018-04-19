@@ -12,7 +12,12 @@ export interface IRetryOwnProps {
 export interface IRetryProps extends IRetryCallbackProps, IRetryOwnProps {
 }
 
-const Retry: React.SFC<IRetryProps> = ({ retryAction, description }) =>
+const propTypes = {
+  retryAction: PropTypes.func.isRequired,
+  description: PropTypes.string.isRequired,
+};
+
+const Retry: React.StatelessComponent<IRetryProps> = ({ retryAction, description }) =>
   <div className="input-group">
     <div className="p-2 text-danger">
       {description}
@@ -28,9 +33,6 @@ const Retry: React.SFC<IRetryProps> = ({ retryAction, description }) =>
   </div>;
 
 Retry.displayName = 'Retry';
-Retry.propTypes = {
-  retryAction: PropTypes.func.isRequired,
-  description: PropTypes.string.isRequired,
-};
+Retry.propTypes = propTypes;
 
 export { Retry };

@@ -1,3 +1,4 @@
+import * as PropTypes from 'prop-types';
 import {
   connect,
   ComponentClass,
@@ -7,20 +8,31 @@ import {
   IListItemStaticDataProps,
   IListItemStaticOwnProps,
   ListItemStatic as ListItemStaticComponent,
-  listItemStaticPropTypes,
+  listItemStaticSharedPropTypes,
 } from '../components/ListItemStatic';
 import { Dispatch } from 'redux';
 import { toggleItem } from '../actions';
 import { IAction } from '../models/interfaces/IAction';
 import { IAppState } from '../models/state/IAppState';
 import { isClickable } from '../utils/isClickable';
+import { Uuid } from '../models/Uuid';
 
-const mapStateToProps = (_: IAppState, { itemSyncInfo }: IListItemStaticOwnProps): IListItemStaticDataProps => ({
+interface IListItemStaticContainerProps extends IListItemStaticOwnProps {
+  readonly itemId: Uuid;
+}
+
+const propTypes = {
+  ...listItemStaticSharedPropTypes,
+  itemId: PropTypes.string.isRequired,
+};
+
+const mapStateToProps = ({ list }: IAppState, { itemSyncInfo, itemId }: IListItemStaticContainerProps): IListItemStaticDataProps => ({
   isClickable: isClickable(itemSyncInfo),
+  item: list.items.get(itemId),
 });
 
-const mapDispatchToProps = (dispatch: Dispatch<IAction>, { item }: IListItemStaticOwnProps): IListItemStaticCallbackProps => ({
-  onItemOpened: () => dispatch(toggleItem(item.id)),
+const mapDispatchToProps = (dispatch: Dispatch<IAction>, { itemId }: IListItemStaticContainerProps): IListItemStaticCallbackProps => ({
+  onItemOpened: () => dispatch(toggleItem(itemId)),
 });
 
 
@@ -29,6 +41,6 @@ const ListItemStatic: ComponentClass<IListItemStaticOwnProps> = connect(
   mapDispatchToProps,
 )(ListItemStaticComponent);
 
-ListItemStatic.propTypes = listItemStaticPropTypes;
+ListItemStatic.propTypes = propTypes;
 
 export { ListItemStatic };

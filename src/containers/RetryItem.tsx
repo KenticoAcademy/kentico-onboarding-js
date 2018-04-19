@@ -32,8 +32,8 @@ const propTypes = {
   }).isRequired,
 };
 
-const getRetryAction = ({ id, text, syncedText }: IListItem, itemSyncInfo: IItemSyncInfo) => {
-  switch (itemSyncInfo.operation) {
+const getRetryAction = ({ id, text, syncedText }: IListItem, operation: SyncOperation) => {
+  switch (operation) {
     case SyncOperation.Add:
       return addItemAsync({
         text,
@@ -54,12 +54,12 @@ const getRetryAction = ({ id, text, syncedText }: IListItem, itemSyncInfo: IItem
       return deleteItemAsync({ id });
 
     default:
-      return () => undefined;
+      throw `Invalid sync operation: ${operation}`;
   }
 };
 
 const mapDispatchToProps = (dispatch: Dispatch<IAppState>,  { item, itemSyncInfo }: IRetryItemContainerProps): IRetryCallbackProps => ({
-  retryAction: () => dispatch(getRetryAction(item, itemSyncInfo)),
+  retryAction: () => dispatch(getRetryAction(item, itemSyncInfo.operation)),
 });
 
 const mergeProps = (_: undefined, { retryAction }: IRetryCallbackProps, { itemSyncInfo }: IRetryItemContainerProps): IRetryProps => ({

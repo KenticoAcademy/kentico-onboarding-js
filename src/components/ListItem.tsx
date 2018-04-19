@@ -1,39 +1,40 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { ListItemStatic } from '../containers/ListItemStatic';
-import { IListItem } from '../models/interfaces/IListItem';
+import { ListItemForm } from '../containers/ListItemForm';
+import { Uuid } from '../models/Uuid';
 import { IItemSyncInfo } from '../models/interfaces/IItemSyncInfo';
-import { ListItemForm } from './ListItemForm';
 
 export interface IListItemDataProps {
-  readonly item: IListItem;
+  readonly isBeingEdited: boolean;
 }
 
 export interface IListItemOwnProps {
   readonly itemNumber: number;
+  readonly itemId: Uuid;
   readonly itemSyncInfo: IItemSyncInfo;
 }
 
-interface IListItemProps extends IListItemDataProps, IListItemOwnProps {
-}
+interface IListItemProps extends IListItemDataProps, IListItemOwnProps {}
 
 interface IListItemState {
   readonly selectionRangeStarts: number;
   readonly selectionRangeEnds: number;
 }
 
-export const listItemPropTypes = {
+export const listItemSharedPropTypes = {
   itemNumber: PropTypes.number.isRequired,
-  item: PropTypes.shape({
-    isBeingEdited: PropTypes.bool.isRequired,
-  }),
+  itemId: PropTypes.string.isRequired,
   itemSyncInfo: PropTypes.object.isRequired,
 };
 
 export class ListItem extends React.PureComponent<IListItemProps, IListItemState> {
   static displayName = 'ListItem';
 
-  static propTypes = listItemPropTypes;
+  static propTypes = {
+    ...listItemSharedPropTypes,
+    isBeingEdited: PropTypes.bool.isRequired,
+  };
 
   constructor(props: IListItemProps) {
     super(props);
@@ -52,14 +53,16 @@ export class ListItem extends React.PureComponent<IListItemProps, IListItemState
   };
 
   render() {
-    return this.props.item.isBeingEdited ?
-      <ListItemForm
-        { ...this.props }
+    const { isBeingEdited, ...props } = this.props;
+
+    return isBeingEdited
+      ? <ListItemForm
+        { ...props }
         selectionRangeEnds={this.state.selectionRangeEnds}
         selectionRangeStarts={this.state.selectionRangeStarts}
-      /> :
-      <ListItemStatic
-        { ...this.props }
+      />
+      : <ListItemStatic
+        { ...props }
         onTextSelection={this._selectText}
       />;
   }

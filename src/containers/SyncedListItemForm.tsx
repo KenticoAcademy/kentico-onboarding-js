@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import {
   ICompleteListItemFormCallbackProps,
   CompleteListItemForm as CompleteListItemFormComponent,
+  ICompleteListItemFormOwnProps,
+  completeListItemSharedPropTypes,
 } from '../components/CompleteListItemForm';
 import { Dispatch } from 'redux';
 import {
@@ -11,23 +13,14 @@ import {
 } from '../actions/thunk';
 import { IAppState } from '../models/state/IAppState';
 import { toggleItem } from '../actions';
-import {
-  IListItemFormOwnProps,
-  listItemFormPropTypes,
-} from '../components/ListItemForm';
+import { IListItemFormOwnProps } from '../components/ListItemForm';
 
-const mapDispatchToProps = (dispatch: Dispatch<IAppState>, { item }: IListItemFormOwnProps): ICompleteListItemFormCallbackProps => {
+const mapDispatchToProps = (dispatch: Dispatch<IAppState>, { item }: ICompleteListItemFormOwnProps): ICompleteListItemFormCallbackProps => {
   const { syncedText, id } = item;
 
   return {
-    onSave: (text: string) => dispatch(updateItemAsync({
-      text,
-      syncedText,
-      id,
-    })),
-    onDelete: () => dispatch(deleteItemAsync({
-      id,
-    })),
+    onSave: (text: string) => dispatch(updateItemAsync({ text, syncedText, id })),
+    onDelete: () => dispatch(deleteItemAsync({ id })),
     onCancel: () => dispatch(toggleItem(id)),
   };
 };
@@ -37,6 +30,6 @@ const SyncedListItemForm: ComponentClass<IListItemFormOwnProps> = connect(
   mapDispatchToProps,
 )(CompleteListItemFormComponent);
 
-SyncedListItemForm.propTypes = listItemFormPropTypes;
+SyncedListItemForm.propTypes = completeListItemSharedPropTypes;
 
 export { SyncedListItemForm };

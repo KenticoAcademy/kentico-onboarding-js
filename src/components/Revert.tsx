@@ -4,7 +4,7 @@ export interface IRevertCallbackProps {
   readonly revertAction: () => void;
 }
 
-export const Revert: React.SFC<IRevertCallbackProps> = ({ revertAction }) =>
+export const Revert: React.StatelessComponent<IRevertCallbackProps> = ({ revertAction }) =>
   <button
     className="btn btn-danger"
     onClick={revertAction}

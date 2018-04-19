@@ -2,24 +2,26 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { DesyncedListItemForm } from '../containers/DesyncedListItemForm';
 import { SyncedListItemForm } from '../containers/SyncedListItemForm';
-import { IListItem } from '../models/interfaces/IListItem';
 import { IItemSyncInfo } from '../models/interfaces/IItemSyncInfo';
 import { SyncState } from '../models/enums/SyncState';
+import { IListItem } from '../models/interfaces/IListItem';
+
+export interface IListItemFormDataProps {
+  readonly item: IListItem;
+}
 
 export interface IListItemFormOwnProps {
-  readonly item: IListItem;
   readonly itemNumber: number;
   readonly selectionRangeStarts: number;
   readonly selectionRangeEnds: number;
   readonly itemSyncInfo: IItemSyncInfo;
 }
 
-export const listItemFormPropTypes = {
+interface IListItemFormProps extends IListItemFormDataProps, IListItemFormOwnProps {}
+
+const listItemFormPropTypes = {
   itemNumber: PropTypes.number.isRequired,
-  item: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    text: PropTypes.string.isRequired,
-  }).isRequired,
+  item: PropTypes.shape({}).isRequired,
   selectionRangeStarts: PropTypes.number.isRequired,
   selectionRangeEnds: PropTypes.number.isRequired,
   itemSyncInfo: PropTypes.shape({
@@ -28,7 +30,7 @@ export const listItemFormPropTypes = {
   }).isRequired,
 };
 
-const ListItemForm: React.SFC<IListItemFormOwnProps> = (props) =>
+const ListItemForm: React.StatelessComponent<IListItemFormProps> = (props) =>
   props.itemSyncInfo.syncState === SyncState.Synced ?
     <SyncedListItemForm { ...props } /> :
     <DesyncedListItemForm { ...props } />;
