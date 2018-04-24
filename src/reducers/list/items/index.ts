@@ -50,12 +50,14 @@ export const items = (state = initialState, action: IAction): ItemsState => {
     case ITEM_ADD_REVERT: {
       return state.delete(payload.id);
     }
-    case ITEM_UPDATE_START:
+    case ITEM_UPDATE_START: {
+      return state.update(payload.item.id, originalItem => item(originalItem, action));
+    }
     case ITEM_TOGGLE:
     case ITEM_DELETE_START:
     case ITEM_UPDATE_SUCCESS:
     case ITEM_UPDATE_REVERT: {
-      return state.update(payload.id || payload.item.id, originalItem => item(originalItem, action));
+      return state.update(payload.id, originalItem => item(originalItem, action));
     }
     case ITEMS_FETCH_SUCCESS: {
       const returnedItems: IListItem[] = action.payload.items.map((item: IFetchedItem) => ({
