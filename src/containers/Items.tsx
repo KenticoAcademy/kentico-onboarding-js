@@ -5,10 +5,10 @@ import {
   Items as ItemsComponent,
 } from '../components/Items';
 import { IAppState } from '../models/state/IAppState';
-import { keySeqToArray } from '../utils/keySeqToArray';
+import { indexedSequenceToArray } from '../utils/indexedSequenceToArray';
 
 const mapStateToProps = ({ list }: IAppState): IItemsDataProps => ({
-  itemsSyncInfo: keySeqToArray(list.itemsSyncInfo.valueSeq()),
+  itemsSyncInfo: indexedSequenceToArray(list.itemsSyncInfo.valueSeq()),
 });
 
 export const Items: ComponentClass = connect(
