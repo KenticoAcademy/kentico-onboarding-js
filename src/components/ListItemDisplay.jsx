@@ -1,14 +1,13 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
-export class ListItemDisplay extends PureComponent {
-  static displayName = 'ListItemDisplay';
+const ListItemDisplay = ({ text }) => (
+  <span>{text}</span>
+);
 
-  static propTypes = {
-    text: PropTypes.string.isRequired,
-  };
+ListItemDisplay.displayName = 'ListItemDisplay';
+ListItemDisplay.propTypes = {
+  text: PropTypes.string.isRequired,
+};
 
-  render() {
-    return <span>{this.props.text}</span>;
-  }
-}
+export { ListItemDisplay };
