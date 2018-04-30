@@ -35,6 +35,13 @@ export class ListItem extends PureComponent {
     this.props.onChange(itemId, newText);
   };
 
+  _itemClick = (e) => {
+    e.preventDefault();
+    if (!this.state.inEditMode) {
+      this._toggleEditMode();
+    }
+  };
+
   render() {
     const itemEditor = (
       <ListItemEditor
@@ -46,12 +53,11 @@ export class ListItem extends PureComponent {
       />);
     const itemDisplay = (
       <ListItemDisplay
-        onClick={this._toggleEditMode}
         text={this.props.text}
       />);
 
     return (
-      <li className="list-group-item">
+      <li className="list-group-item" onClick={this._itemClick}>
         <span>{this.props.number}. </span>
         {this.state.inEditMode ? itemEditor : itemDisplay}
       </li>);
