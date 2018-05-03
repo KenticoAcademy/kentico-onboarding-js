@@ -5,15 +5,13 @@ import { Reducer } from 'redux';
 export type statusType = {
   isFetching: boolean,
   didInvalidate: boolean,
-  lastUpdated: any,
   errorMessage: string,
-}
+};
 
 const DEFAULT_VALUE: statusType = {
   isFetching: false,
   didInvalidate: false,
-  lastUpdated: undefined,
-  errorMessage: "",
+  errorMessage: '',
 };
 
 export const status: Reducer<statusType> = (state = DEFAULT_VALUE, action: IAction) => {
@@ -22,23 +20,20 @@ export const status: Reducer<statusType> = (state = DEFAULT_VALUE, action: IActi
       return {
         isFetching: true,
         didInvalidate: false,
-        lastUpdated: state.lastUpdated,
-        errorMessage: "",
+        errorMessage: '',
       };
 
     case actionTypes.RECEIVE_ITEMS:
       return {
         isFetching: false,
         didInvalidate: false,
-        lastUpdated: action.payload.receivedAt,
-        errorMessage:"",
+        errorMessage: '',
       };
 
     case actionTypes.REQUEST_FAILED:
       return {
         isFetching: false,
         didInvalidate: false,
-        lastUpdated: state.lastUpdated,
         errorMessage: action.payload.errorMessage,
       };
 
