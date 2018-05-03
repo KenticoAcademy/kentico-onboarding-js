@@ -1,13 +1,14 @@
 import { IAction } from './IAction';
 import { actionTypes } from '../constants/actionTypes';
+import { ItemId } from '../models/ItemId';
 
-export const addItemFactory: (idGenerator: () => string) => ((text: string) => IAction) =
-  idGenerator =>
-    text => ({
+export const addItem: ((id: ItemId, text: string) => IAction) =
+  (id, text) => ({
       type: actionTypes.ADD_ITEM,
       payload: {
         text,
-        id: idGenerator(),
+        id: id,
+        synchronized: false,
       },
     });
 
