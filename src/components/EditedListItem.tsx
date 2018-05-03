@@ -22,13 +22,12 @@ export interface IEditedListItemCallbackProps {
 
 type IEditedListItemProps = IEditListItemContainerProps & IEditedListItemDataProps & IEditedListItemCallbackProps;
 
-export class EditedListItem extends React.PureComponent<IEditedListItemProps>{
+export class EditedListItem extends React.PureComponent<IEditedListItemProps> {
 
   static displayName = 'EditedListItem';
 
   static propTypes = {
     item: PropTypes.instanceOf(Item),
-    textUpdate: PropTypes.string.isRequired,
     onSave: PropTypes.func.isRequired,
     onDelete: PropTypes.func.isRequired,
     onCancel: PropTypes.func.isRequired,
