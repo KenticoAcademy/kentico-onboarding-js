@@ -11,16 +11,9 @@ interface  IListDataProps {
 const List: React.StatelessComponent<IListDataProps> = ({ ids }) => (
     <div>
       {ids.map((id: ItemId, index: number) =>
-        <div
-          className="list-group-item form-inline"
-          key={id}
-        >
-          {index + 1}
-          .&nbsp;
-          <ListItem
-            id={id}
+          <ListItem key={index}
+            id={id} index={index}
           />
-        </div>
       )}
     </div>
   );
