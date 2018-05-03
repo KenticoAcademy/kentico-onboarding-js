@@ -1,68 +1,82 @@
 import './sticky-footer.css';
 import './balloon.css';
+import './index.css';
 import * as React from 'react';
 import { List } from './containers/List';
 import { AddNewItem } from './containers/AddNewItem';
 import * as PropTypes from 'prop-types';
+import Alert from 'react-s-alert';
+import { fetchItems } from './actions';
+import { IAction } from './actions/IAction';
 
-interface  IAppDataProps {
+import 'react-s-alert/dist/s-alert-default.css';
+import 'react-s-alert/dist/s-alert-css-effects/stackslide.css';
+import { Dispatch } from 'redux';
+
+interface IAppDataProps {
   isFetching: boolean;
   errorMessage: string;
+  dispatch: Dispatch<IAction>;
 }
 
-const App: React.StatelessComponent<IAppDataProps> = ({ isFetching, errorMessage }) => (
-  <div>
-    <div className="container">
-      <div className="header clearfix">
-        <h3 className="text-muted">Kentico Academy</h3>
-      </div>
+export class App extends React.PureComponent<IAppDataProps> {
 
-      <div className="jumbotron">
-        <h1>JS onboarding</h1>
-        <p className="lead">
-          We will implement simple task using
-          <a href="https://facebook.github.io/react/docs/hello-world.html">ReactJS</a> and later move on to refactor our app to use
-          <a href="https://facebook.github.io/immutable-js/">Immutable</a> and <a href="http://redux.js.org/">Redux</a>.
-        </p>
-        <p>You can find all the relevant info in git repository.</p>
-        <p>
-          <a className="btn btn-lg btn-success" href="https://github.com/Suzii/kentico-onboarding-js" role="button">Fork me on GitHub</a>
-        </p>
-      </div>
+  static displayName = 'App';
 
-      <section id="app-content">
-        <div className="row">
-          <div className="col-sm-8">{
-            errorMessage === "" ?
-            !isFetching ?
-              <div>
-                <List />
-                <AddNewItem />
-              </div> : <img src={'https://i.imgur.com/F6mBAWi.gif'} /> :
-              <div className="alert alert-danger alert-dismissible">
-                <a href="" className="close" data-dismiss="alert" aria-label="close">&#x21BA;</a>
-                <strong>{errorMessage}</strong> Try again later.
-              </div>}
-          </div>
+  static propTypes = {
+    isFetching: PropTypes.bool,
+    errorMessage: PropTypes.string,
+    dispatch: PropTypes.func,
+  };
+
+  componentDidMount() {
+    fetchItems(this.props.dispatch)();
+  }
+
+  render() {
+    return (
+      <div>
+          <Alert stack={{limit: 8}} />
+
+          <nav className="navbar navbar-default ">
+              <div className="navbar-header">
+                <img src="https://www.kentico.com/i/logos/kentico_rgb_small.png" height="50px" />
+              </div>
+              <ul className="nav navbar-nav">
+                <li>&nbsp;&nbsp;</li>
+                <li><p className="customLabel">Kentico Academy TODO App</p></li>
+                <li><a href="https://github.com/KenticoAcademy/kentico-onboarding-js">Fork me on GitHub</a></li>
+                <li><a href="#">Do nothing special</a></li>
+                <li><a href="https://www.google.cz/search?q=cats&safe=active&rlz=1C1GCEA_enCZ765CZ765&source=lnms&tbm=isch&sa=X&ved=0ahUKEwiFy5y98cPaAhUMI8AKHeS3CuoQ_AUICigB&biw=1920&bih=974">Magic</a></li>
+              </ul>
+          </nav>
+
+        <div className="container justify-content-center">
+
+          <button onClick={fetchItems(this.props.dispatch)} className="btn btn-link btn-lg">Reload items &#x21BA;</button>
+
+            <div id="app-content pagination-centered">
+              <div className="row">
+
+                <div className="col-sm-8">{
+                  this.props.errorMessage === '' ?
+                    !this.props.isFetching ?
+                      <div>
+                        <AddNewItem />
+                        <List />
+                      </div> : <img src="https://media.giphy.com/media/9wbzlCmiTbIwU/giphy.gif" className="img-circle center-block catLoader" width="200px" /> :
+                    <div className="alert alert-danger alert-dismissible">
+                      <button onClick={fetchItems(this.props.dispatch)} className="close" data-dismiss="alert" aria-label="close">&#x21BA;</button>
+                      Try again later. <strong>{this.props.errorMessage}</strong>
+                    </div>}
+                </div>
+
+              </div>
+            </div>
         </div>
-      </section>
-
-    </div>
-    <footer className="footer">
-      <p>&copy; 2017 Kentico software, s.r.o
-        <br/>
-        <a href={'https://datsick35.deviantart.com'} title={'datsick35'}>&copy; točič by datsick35</a>
-      </p>
-
-    </footer>
-  </div>
-);
-
-App.displayName = 'App';
-
-App.propTypes = {
-  isFetching: PropTypes.bool,
-  errorMessage: PropTypes.string,
-};
-
-export {App};
+          <footer className="footer">
+            <p>&copy; 2017 Kentico software, s.r.o</p>
+          </footer>
+      </div>);
+  };
+}

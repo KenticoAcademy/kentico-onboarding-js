@@ -7,5 +7,46 @@ body {
 
 .img--assignment {
   display: flex;
+}
 
+.customLabel {
+  color: orangered;
+  font-family: "Verdana";
+  font-size: 20px;
+  line-height: 50px;
+}
+
+
+.navbar .navbar-nav {
+  display: inline-block;
+  float: none;
+}
+
+.navbar .navbar-collapse {
+  text-align: center;
+}
+
+.btn-link{
+  color: orangered;
+}
+
+.catLoader {
+  -webkit-filter: saturate(300%);
+  -webkit-filter: hue-rotate(150deg);
+}
+
+
+
+.ItemDiv {
+  display: inline-block;
+  width: 94%;
+}
+
+.uneditedItemText {
+  float: none;
+  display: unset;
+}
+
+.uneditedItemMessage {
+  float: right;
 }

@@ -7,22 +7,38 @@ import { ItemId } from '../models/ItemId';
 export interface IListItemDataProps {
   id: ItemId;
   isBeingEdited: boolean;
+  synchronized: boolean;
+  index: number;
 }
 
-const ListItem: React.StatelessComponent<IListItemDataProps>  = ({ id, isBeingEdited }) => (
-    isBeingEdited ?
+const ListItem: React.StatelessComponent<IListItemDataProps>  = ({ id, isBeingEdited, index, synchronized }) => {
+
+  const classname = 'list-group-item form-inline ' + (synchronized ? '' : 'alert-danger');
+  return(
+    <div
+      className={classname}
+      key={id}
+    >
+      {index + 1}
+      .&nbsp;
+
+      {isBeingEdited ?
       <EditedListItem
         itemId={id}
       /> :
       <UneditedListItem
         itemId={id}
-      />);
+      />}
+      </div>);
+};
 
 ListItem.displayName = 'ListItem';
 
 ListItem.propTypes = {
   id: PropTypes.string.isRequired,
   isBeingEdited: PropTypes.bool.isRequired,
+  synchronized: PropTypes.bool.isRequired,
+  index: PropTypes.number.isRequired,
 };
 
 export { ListItem };

@@ -8,7 +8,7 @@ export interface IAddNewItemDataProps {
 }
 
 export interface IAddNewItemCallbackProps {
-  onAdd: (value: string) => IAction;
+  onAdd: (value: string) => Promise<IAction>;
   onNewTextChange: Function;
 }
 
