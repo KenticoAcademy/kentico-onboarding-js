@@ -7,7 +7,7 @@ import {
   toggleEditing,
   updateItemText,
 } from '../../actions/actionCreators.ts';
-import { addItemFactory } from '../../actions/addItem.ts';
+import { addItem } from '../../actions/addItem.ts';
 
 const mockId = () => '2';
 
@@ -19,9 +19,10 @@ describe('byId', () => {
         id: newId,
         text: 'tested item',
         isBeingEdited: false,
+        synchronized: false,
       }),
     });
-    const stateAfter = byId(undefined, addItemFactory(mockId)('tested item'));
+    const stateAfter = byId(undefined, addItem(mockId(), 'tested item'));
 
     expect(stateAfter).toEqual(expectedState);
   });
