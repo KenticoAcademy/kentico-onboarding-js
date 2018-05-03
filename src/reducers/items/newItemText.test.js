@@ -3,7 +3,7 @@ import {
   deleteItem,
   updateNewItemText,
 } from '../../actions/actionCreators.ts';
-import { addItemFactory } from '../../actions/addItem.ts';
+import { addItem } from '../../actions/addItem.ts';
 
 const mockId = () => '2';
 
@@ -20,7 +20,7 @@ describe('newItemText', () => {
   it('returns empty string when action type is ADD_ITEM', () => {
     const initialState = 'INITIAL_STATE';
     const expectedState = '';
-    const action = addItemFactory(mockId)('Some random sentence.');
+    const action = addItem(mockId, 'Some random sentence.');
 
     const actualState = newItemText(initialState, action);
 
