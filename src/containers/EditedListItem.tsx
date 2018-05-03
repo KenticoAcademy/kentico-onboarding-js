@@ -12,10 +12,10 @@ import {
 import { IAppState } from '../reducers/IAppState';
 import { IItem } from '../models/Item';
 import {
-  deleteItem,
   toggleEditing,
   updateItemText,
-  textUpdateChange
+  textUpdateChange,
+  deleteItem
 } from '../actions';
 
 function mapStateToProps(state: IAppState, {itemId}: IEditListItemContainerProps): IEditedListItemDataProps {
@@ -33,4 +33,3 @@ const mapDispatchToProps = (dispatch: Dispatch<IAppState>, {itemId}: IEditListIt
 });
 
 export const EditedListItem: ComponentClass<IEditListItemContainerProps> = connect(mapStateToProps, mapDispatchToProps)(EditedListItemComponent);
-
