@@ -19,3 +19,5 @@ npm-debug.log
 !.idea/codeStyleSettings.xml
 !.idea/libraries
 !.idea/inspectionProfiles
+
+.vs/*

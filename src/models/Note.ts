@@ -1,29 +1,35 @@
-import { Record } from 'immutable';
+import { AbstractRecord } from './AbstractRecord';
+import { NoteState } from '../enums/NoteState';
 
-export interface INote {
+const EMPTY_TEXT = '';
+
+export interface IServerNote {
   readonly text: string;
   readonly id: Guid;
-  readonly isEditActive: boolean;
+  readonly creationDate: Date;
+  readonly lastModificationDate: Date;
+}
+
+interface INote {
+  readonly visibleText: string;
+  readonly id: Guid;
+  readonly noteState: NoteState;
+  readonly serverSynchronizedText: string;
+  readonly errorId?: Guid;
 }
 
 const defaultNote: INote = {
-  text: '',
+  visibleText: EMPTY_TEXT,
   id: '00000000-0000-0000-0000-000000000000',
-  isEditActive: false,
+  noteState: NoteState.ACTIVE,
+  serverSynchronizedText: EMPTY_TEXT,
+  errorId: undefined,
 };
 
-export class Note extends Record(defaultNote) implements INote {
-  readonly text: string;
+export class Note extends AbstractRecord(defaultNote) implements INote {
+  readonly serverSynchronizedText: string;
+  readonly visibleText: string;
   readonly id: Guid;
-  readonly isEditActive: boolean;
-
-  constructor(params?: Partial<INote>) {
-    params
-      ? super(params)
-      : super();
-  }
-
-  with(values: Partial<INote>) {
-    return this.merge(values) as this;
-  }
+  readonly noteState: NoteState;
+  readonly errorId?: Guid;
 }

@@ -1,3 +1,6 @@
+[![Build status](https://ci.appveyor.com/api/projects/status/use2vkacox2t1w2x?svg=true)](https://ci.appveyor.com/project/kubmir/kentico-onboarding-js)
+[![Build status](https://ci.appveyor.com/api/projects/status/use2vkacox2t1w2x/branch/develop?svg=true&passingText=develop%20-%20OK)](https://ci.appveyor.com/project/kubmir/kentico-onboarding-js/branch/develop)
+
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
 # kentico-onboarding-js

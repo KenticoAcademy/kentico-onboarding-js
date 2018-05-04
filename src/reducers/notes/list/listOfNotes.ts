@@ -1,62 +1,73 @@
 import { OrderedMap } from 'immutable';
 import { Note } from '../../../models/Note';
 import {
-  ADD_NOTE,
   CANCEL_EDITING_NOTE,
-  DELETE_NOTE,
+  CANCEL_FAILED_ADD_ACTION,
+  CANCEL_FAILED_DELETE_ACTION,
+  CANCEL_FAILED_UPDATE_ACTION,
+  DELETING_NOTE_FROM_SERVER_FAILURE,
+  DELETING_NOTE_FROM_SERVER_SUCCESS,
+  LOADING_NOTES_SUCCESS,
+  SENDING_NOTE_TO_SERVER_FAILURE,
+  SENDING_NOTE_TO_SERVER_SUCCESS,
+  START_DELETING_NOTE_FROM_SERVER,
   START_EDITING_NOTE,
-  UPDATE_NOTE,
+  START_RESENDING_NOTE_TO_SERVER,
+  START_SENDING_NOTE_TO_SERVER,
+  START_UPDATING_NOTE_ON_SERVER,
+  UPDATING_NOTE_ON_SERVER_FAILURE,
+  UPDATING_NOTE_ON_SERVER_SUCCESS,
 } from '../../../constants/actionTypes';
-import { IAction } from '../../../models/IAction';
+import { IAction } from '../../../actions/IAction';
+import { note } from './note/note';
 
-const addNote = (state: OrderedMap<Guid, Note>, payload: { noteId: Guid, text: string }): OrderedMap<Guid, Note> => {
-  const { noteId, text } = payload;
-  const noteToAdd = new Note({
-    id: noteId,
-    text,
-  });
-  const newNotes = state
-    .set(noteId, noteToAdd);
+const updateNote = (state: OrderedMap<Guid, Note>, action: IAction): OrderedMap<Guid, Note> => {
+  const updatedNote = note(state.get(action.payload.noteId), action);
 
-  return newNotes;
-};
-
-const updateText = (state: OrderedMap<Guid, Note>, payload: { noteId: Guid, text: string }): OrderedMap<Guid, Note> => {
-  const { noteId, text } = payload;
-
-  return state.update(noteId, note => note.with({
-    text,
-    isEditActive: false,
-  }));
-};
-
-const deleteNote = (state: OrderedMap<Guid, Note>, payload: {noteId: Guid}): OrderedMap<Guid, Note> => {
-  const currentNotes = state
-    .delete(payload.noteId);
-
-  return currentNotes;
-};
-
-const updateEditingMode = (state: OrderedMap<Guid, Note>, payload: {noteId: Guid}, newEditingMode: boolean): OrderedMap<Guid, Note> => {
-  const { noteId } = payload;
-
-  return state.update(noteId, note => note.with({
-    isEditActive: newEditingMode,
-  }));
+  return state.update(action.payload.noteId, note => note.with(updatedNote));
 };
 
 export const listOfNotes = (state = OrderedMap<Guid, Note>(), action: IAction): OrderedMap<Guid, Note> => {
   switch (action.type) {
-    case ADD_NOTE:
-      return addNote(state, action.payload);
-    case UPDATE_NOTE:
-      return updateText(state, action.payload);
-    case DELETE_NOTE:
-      return deleteNote(state, action.payload);
+    case LOADING_NOTES_SUCCESS:
+      return OrderedMap(action.payload.notes);
+
+    case START_SENDING_NOTE_TO_SERVER: {
+      const noteToAdd = note(undefined, action);
+
+      return state.set(action.payload.noteId, noteToAdd);
+    }
+
+    case START_RESENDING_NOTE_TO_SERVER: {
+      const updatedNote = note(state.get(action.payload.localNoteId), action);
+
+      return state.update(action.payload.localNoteId, note => note.with(updatedNote));
+    }
+
+    case SENDING_NOTE_TO_SERVER_SUCCESS: {
+      const deletedNoteState = state.delete(action.payload.localNoteId);
+      const noteToAdd = note(undefined, action);
+
+      return deletedNoteState
+        .set(action.payload.noteId, noteToAdd);
+    }
+
+    case UPDATING_NOTE_ON_SERVER_SUCCESS:
     case START_EDITING_NOTE:
-      return updateEditingMode(state, action.payload, true);
     case CANCEL_EDITING_NOTE:
-      return updateEditingMode(state, action.payload, false);
+    case START_UPDATING_NOTE_ON_SERVER:
+    case START_DELETING_NOTE_FROM_SERVER:
+    case DELETING_NOTE_FROM_SERVER_FAILURE:
+    case SENDING_NOTE_TO_SERVER_FAILURE:
+    case UPDATING_NOTE_ON_SERVER_FAILURE:
+    case CANCEL_FAILED_DELETE_ACTION:
+    case CANCEL_FAILED_UPDATE_ACTION:
+      return updateNote(state, action);
+
+    case DELETING_NOTE_FROM_SERVER_SUCCESS:
+    case CANCEL_FAILED_ADD_ACTION :
+      return state.delete(action.payload.noteId);
+
     default:
       return state;
   }

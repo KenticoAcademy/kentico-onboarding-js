@@ -1,0 +1,9 @@
+.reload-button {
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.error-message {
+  font: 25px Arial;
+}
