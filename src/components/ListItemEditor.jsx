@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { enableUniqueIds } from 'react-html-id';
 
 export class ListItemEditor extends PureComponent {
   static displayName = 'ListItemEditor';
@@ -18,8 +17,6 @@ export class ListItemEditor extends PureComponent {
     this.state = {
       text: props.text,
     };
-
-    enableUniqueIds(this);
   }
 
   _changeItemText = (e) => {
@@ -46,13 +43,12 @@ export class ListItemEditor extends PureComponent {
   render() {
     return (
       <span className="form-group">
-        <label htmlFor={this.nextUniqueId()} />
         <input
           type="text"
           className="form-control"
-          id={this.lastUniqueId()}
           value={this.state.text}
           onChange={this._changeItemText}
+          aria-label="Edit item text"
         />
         <button
           type="button"

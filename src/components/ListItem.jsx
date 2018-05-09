@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { enableUniqueIds } from 'react-html-id';
 
 import { ListItemDisplay } from './ListItemDisplay';
 import { ListItemEditor } from './ListItemEditor';
@@ -20,8 +19,6 @@ export class ListItem extends PureComponent {
     this.state = {
       inEditMode: false,
     };
-
-    enableUniqueIds(this);
   }
 
   _toggleEditMode = () => {
@@ -57,7 +54,10 @@ export class ListItem extends PureComponent {
       />);
 
     return (
-      <li className="list-group-item" onClick={this._itemClick}>
+      <li
+        className="list-group-item"
+        onClick={this._itemClick}
+      >
         <span>{this.props.number}. </span>
         {this.state.inEditMode ? itemEditor : itemDisplay}
       </li>);
