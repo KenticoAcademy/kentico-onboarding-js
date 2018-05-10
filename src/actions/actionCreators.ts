@@ -37,3 +37,11 @@ export const toggleSynchronized = (id: ItemId, synchronized: boolean): IAction =
     synchronized,
   },
 });
+
+export const synchronizeItemId = (oldId: ItemId, newId: ItemId) => ({
+  type: actionTypes.SYNCHRONIZE_ITEM_ID,
+  payload: {
+    oldId,
+    newId
+  }
+});

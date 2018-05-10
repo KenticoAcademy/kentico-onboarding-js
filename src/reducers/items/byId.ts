@@ -1,4 +1,6 @@
-import { OrderedMap } from 'immutable';
+import {
+  OrderedMap
+} from 'immutable';
 import { Reducer } from 'redux';
 import { Item } from '../../models/Item';
 import {
@@ -55,6 +57,19 @@ export const byId: Reducer<OrderedMap<ItemId, Item>> = (state = DEFAULT_STATE, a
       return state.update(action.payload.id, (item) => item.with({
         errorMessage: action.payload.errorMessage,
       }));
+    }
+    case actionTypes.SYNCHRONIZE_ITEM_ID: {
+      const newState = state.mapEntries((entry) => {
+        const key: ItemId = entry ? entry[0] : null;
+        const value: Item = entry ? entry[1] : null;
+
+        if (key === action.payload.oldId) {
+          const newValue = value.with({id: action.payload.newId});
+          return [action.payload.newId, newValue];
+        }else
+          return [key, value];
+      });
+      return OrderedMap<ItemId, Item>(newState);
     }
 
     default:

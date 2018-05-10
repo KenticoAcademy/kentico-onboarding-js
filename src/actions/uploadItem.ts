@@ -3,10 +3,12 @@ import { IAction } from './IAction';
 import {
   requestFailedForItem
 } from './requestFailed';
-import { toggleSynchronized } from './actionCreators';
+import {
+  synchronizeItemId,
+  toggleSynchronized
+} from './actionCreators';
 import { addItem } from './addItem';
 import { assertAlert } from '../utils/assertAlert';
-
 
 export const uploadItem = (fetch: (id: ItemId, text: string) => Promise<Response>, generateId: () => ItemId) =>
   (dispatch: Function) => {
@@ -15,8 +17,12 @@ export const uploadItem = (fetch: (id: ItemId, text: string) => Promise<Response
       dispatch(addItem(id, text));
 
       return fetch(id, text)
-        .then(response => response.status >= 400 ? this.reject() : response)
-        .then(() => dispatch(toggleSynchronized(id, true)))
+        .then(response => response.status >= 400 ? this.reject() : response.json())
+        .then(officialId => {
+          dispatch(synchronizeItemId(id, officialId));
+          return officialId;
+        })
+        .then(officialId => dispatch(toggleSynchronized(officialId, true)))
         .then(() => assertAlert('SUCCESS', 'Uploaded item successfully'))
         .catch(() => {
           assertAlert('ERROR', 'Failed to upload item');
