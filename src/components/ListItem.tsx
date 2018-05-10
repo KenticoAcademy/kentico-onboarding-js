@@ -13,10 +13,10 @@ export interface IListItemDataProps {
 
 const ListItem: React.StatelessComponent<IListItemDataProps>  = ({ id, isBeingEdited, index, synchronized }) => {
 
-  const classname = 'list-group-item form-inline ' + (synchronized ? '' : 'alert-danger');
+  const className = 'list-group-item form-inline ' + (synchronized ? '' : 'alert-danger');
   return(
     <div
-      className={classname}
+      className={className}
       key={id}
     >
       {index + 1}

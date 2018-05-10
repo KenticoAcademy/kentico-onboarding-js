@@ -28,24 +28,6 @@ export const actionFetch = (method: string): (id?: ItemId, text?: string) => Pro
           })
         });
 
-    case 'DELETE': // TODO
-      return (id: ItemId) =>
-        fetch(apiUrl + '/' + id , {
-          method: 'DELETE',
-          headers: HEADERS,
-        });
-
-    case 'PUT': // TODO
-      return (id: ItemId, text: string) =>
-        fetch(apiUrl, {
-          method: 'PUT',
-          headers: HEADERS,
-          body: JSON.stringify({
-            'Id': id,
-            'Text': text
-          })
-        });
-
     default:
       return () => this.reject();
   }
