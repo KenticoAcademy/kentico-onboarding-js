@@ -1,33 +1,77 @@
 import React, { PureComponent } from 'react';
 import assignment from './../../assignment.gif';
 
-import { TsComponent } from './TsComponent.tsx';
+import { UniqueIdentifier } from '../utils/UniqueIdentifier.jsx';
+import { ListItem } from './ListItem.jsx';
+import { CreateListItem } from './CreateListItem';
 
 export class List extends PureComponent {
-  render() {
-    return (
-      <div className="row">
-        {/* TODO: You can delete the assignment part once you do not need it */}
-        <div className="row">
-          <div className="col-sm-12 text-center">
-            <TsComponent name="𝕱𝖆𝖓𝖈𝖞" />
-          </div>
-        </div>
+  static displayName = 'List';
 
+  state = {
+    items: [],
+  };
+
+  _addItem = itemText => {
+    const newItem = {
+      text: itemText,
+      id: UniqueIdentifier.generateUniqueId(),
+    };
+
+    this.setState(prevState => ({
+      items: [
+        ...prevState.items,
+        newItem,
+      ],
+    }));
+  };
+
+  _deleteItem = (itemId) =>
+    this.setState(prevState => ({
+      items: prevState.items.filter(item => item.id !== itemId),
+    }));
+
+  _updateItem = (itemId, newText) =>
+    this.setState(prevState => ({
+      items: prevState.items.map(item => (
+        item.id !== itemId
+          ? item
+          : {
+            ...item,
+            text: newText,
+          })),
+    }));
+
+  render() {
+    const listItems = this.state.items.map((item, index) =>
+      <ListItem
+        id={item.id}
+        key={item.id}
+        number={index + 1}
+        text={item.text}
+        onChange={this._updateItem}
+        onDelete={this._deleteItem}
+      />);
+
+    return (
+      <div>
         <div className="row">
           <div className="col-sm-12">
-            <p className="lead text-center">Desired functionality is captured in the gif image. </p>
-            <p className="lead text-center"><b>Note: </b>Try to make solution easily extensible (e.g. more displayed fields per item like
-              <code>dateCreated</code>).</p>
-            <img src={assignment} alt="assignment" className="img--assignment" />
+            <img
+              src={assignment}
+              alt="assignment"
+              className="img--assignment"
+            />
           </div>
         </div>
-
         <div className="row">
-          <div className="col-sm-12 col-md-offset-2 col-md-8">
-            <pre>
-              // TODO: implement the list here :)
-            </pre>
+          <div className="col-sm-12 col-md-12">
+            <div className="form-inline">
+              <ul className="list-group">
+                {listItems}
+                <CreateListItem onSubmit={this._addItem} />
+              </ul>
+            </div>
           </div>
         </div>
       </div>
