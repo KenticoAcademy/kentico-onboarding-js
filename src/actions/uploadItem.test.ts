@@ -8,9 +8,10 @@ describe('fetchItems', () => {
     const dispatch = jest.fn();
     await uploadItem(fetch, mockId)(dispatch)('Karel');
 
-    expect(dispatch).toHaveBeenCalledTimes(2);
+    expect(dispatch).toHaveBeenCalledTimes(3);
     expect(dispatch.mock.calls[0][0].type).toBe(actionTypes.ADD_ITEM);
-    expect(dispatch.mock.calls[1][0].type).toBe(actionTypes.TOGGLE_SYNCHRONIZED);
+    expect(dispatch.mock.calls[1][0].type).toBe(actionTypes.SYNCHRONIZE_ITEM_ID);
+    expect(dispatch.mock.calls[2][0].type).toBe(actionTypes.TOGGLE_SYNCHRONIZED);
   });
 
   test('calls request and failed action if the fetch response was unsuccessful',  async () => {
