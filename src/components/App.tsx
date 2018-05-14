@@ -8,7 +8,7 @@ import { keymap } from '../constants/keymap';
 
 const shortcutManager = new ShortcutManager(keymap);
 
-export class App extends React.PureComponent<{}> {
+export class App extends React.PureComponent {
   static childContextTypes = {
     shortcuts: PropTypes.object.isRequired,
   };
