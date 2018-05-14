@@ -3,7 +3,7 @@ import { OrderedMap } from 'immutable';
 import { Item } from '../../models/Item';
 import { item as itemReducer } from './item';
 import { actionTypes } from '../../constants/actionTypes';
-import { IAction } from '../../@types/IAction';
+import { IAction } from '../../actions/types/IAction';
 
 export const items = (state = OrderedMap<Key, Item>(), action: IAction): OrderedMap<Key, Item> => {
   switch (action.type) {

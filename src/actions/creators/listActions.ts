@@ -1,7 +1,7 @@
 import { Map } from 'immutable';
 
 import { actionTypes } from '../../constants/actionTypes';
-import { IAction } from '../../@types/IAction';
+import { IAction } from '../types/IAction';
 import { stopItemEditing } from './itemActions';
 
 export const saveItem = (itemKey: Key): IAction => ({

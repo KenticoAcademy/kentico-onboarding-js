@@ -3,7 +3,7 @@ import * as PropTypes from 'prop-types';
 import { Shortcuts } from 'react-shortcuts';
 
 import { isInputValid } from '../utils/validationService';
-import { IAction } from '../@types/IAction';
+import { IAction } from '../actions/types/IAction';
 import { IItemViewModel } from '../models/IItemViewModel';
 import {
   ITEM_EDIT_CONFIRM,

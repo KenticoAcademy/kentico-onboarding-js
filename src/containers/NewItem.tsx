@@ -6,7 +6,7 @@ import {
   INewItemState,
 } from '../components/NewItem';
 import { addItem } from '../actions';
-import { IAction } from '../@types/IAction';
+import { IAction } from '../actions/types/IAction';
 
 const mapDispatchToProps =
   (dispatch: Dispatch<IAction>): INewItemProps => ({

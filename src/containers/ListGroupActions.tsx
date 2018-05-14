@@ -10,7 +10,7 @@ import {
   deleteItems,
   cancelItemsEditing,
 } from '../actions';
-import { IAction } from '../@types/IAction';
+import { IAction } from '../actions/types/IAction';
 import { getMemoizedValues } from '../selectors/memorySelector';
 import { IState } from '../store/IState';
 

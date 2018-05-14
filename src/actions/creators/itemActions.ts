@@ -1,5 +1,5 @@
 import { actionTypes } from '../../constants/actionTypes';
-import { IAction } from '../../@types/IAction';
+import { IAction } from '../types/IAction';
 
 export const startItemEditing = (itemKey: Key): IAction => ({
   type: actionTypes.ITEM_EDITING_START,

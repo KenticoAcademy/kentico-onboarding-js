@@ -11,7 +11,7 @@ import {
   stopItemEditing,
   changeItemValue,
 } from '../actions';
-import { IAction } from '../@types/IAction';
+import { IAction } from '../actions/types/IAction';
 
 const mapDispatchToProps =
   (dispatch: Dispatch<IAction>, { item: { key }}: IListItemOriginalProps): IListItemEditorDispatchProps => ({
