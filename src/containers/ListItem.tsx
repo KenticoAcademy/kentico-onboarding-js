@@ -18,4 +18,5 @@ const mapStateToProps =
     item: createMemoizedBulletItem(items.get(itemKey), bullet),
   });
 
-export const ListItem = connect(mapStateToProps)(ListItemComponent);
+export const ListItem: React.ComponentClass<IOwnProps>
+  = connect<IListItemStateProps, undefined, IOwnProps>(mapStateToProps)(ListItemComponent);

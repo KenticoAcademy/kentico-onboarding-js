@@ -27,4 +27,5 @@ const mapDispatchToProps = (dispatch: Dispatch<IAction>): IListGroupActionsDispa
   deleteSelected: (selectedKeys) => dispatch(deleteItems(selectedKeys)),
 });
 
-export const ListGroupActions = connect(mapStateToProps, mapDispatchToProps)(ListGroupActionsComponent);
+export const ListGroupActions: React.ComponentClass
+  = connect<IListGroupActionsStateProps, IListGroupActionsDispatchProps>(mapStateToProps, mapDispatchToProps)(ListGroupActionsComponent);

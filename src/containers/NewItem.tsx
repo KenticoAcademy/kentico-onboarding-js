@@ -3,6 +3,7 @@ import { connect, Dispatch } from 'react-redux';
 import {
   NewItem as NewItemComponent,
   INewItemProps,
+  INewItemState,
 } from '../components/NewItem';
 import { addItem } from '../actions';
 import { IAction } from '../@types/IAction';
@@ -12,4 +13,5 @@ const mapDispatchToProps =
     addItem: (itemValue: string) => dispatch(addItem(itemValue)),
   });
 
-export const NewItem = connect(null, mapDispatchToProps)(NewItemComponent);
+export const NewItem: React.ComponentClass
+  = connect<INewItemState, INewItemProps>(undefined, mapDispatchToProps)(NewItemComponent);

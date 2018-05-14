@@ -11,4 +11,5 @@ const mapStateToProps = ({ list }: IState): IListStateProps => ({
   itemKeys: getMemoizedKeys(list.items.keySeq()),
 });
 
-export const List = connect(mapStateToProps)(ListComponent);
+export const List: React.ComponentClass
+  = connect<IListStateProps, undefined>(mapStateToProps)(ListComponent);

@@ -21,4 +21,5 @@ const mapDispatchToProps =
     onChange: (itemValue: string) => dispatch(changeItemValue(key, itemValue)),
   });
 
-export const ListItemEditor = connect(null, mapDispatchToProps)(ListItemEditorComponent);
+export const ListItemEditor: React.ComponentClass<IListItemOriginalProps>
+  = connect<undefined, IListItemEditorDispatchProps>(undefined, mapDispatchToProps)(ListItemEditorComponent);

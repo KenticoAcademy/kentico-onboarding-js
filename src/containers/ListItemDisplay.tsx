@@ -13,4 +13,5 @@ const mapDispatchToProps =
     onEdit: () => dispatch(startItemEditing(ownProps.item.key)),
   });
 
-export const ListItemDisplay = connect(null, mapDispatchToProps)(ListItemDisplayComponent);
+export const ListItemDisplay: React.ComponentClass<IListItemDisplayOriginalProps>
+  = connect<undefined, IListItemDisplayDispatchProps>(undefined, mapDispatchToProps)(ListItemDisplayComponent);
