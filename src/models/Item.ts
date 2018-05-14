@@ -1,7 +1,6 @@
 import { GUID_EMPTY } from '../constants/constants';
 import { IItem } from './Item';
 import { BaseRecord } from './BaseRecord';
-import { Key } from '../@types/Key';
 
 export interface IItem {
   readonly key: Key;

@@ -6,7 +6,6 @@ import {
 } from '../components/ListItem';
 import { createMemoizedBulletItem } from '../selectors/memorySelector';
 import { IState } from '../store/IState';
-import { Key } from '../@types/Key';
 
 interface IOwnProps {
   readonly itemKey: Key;

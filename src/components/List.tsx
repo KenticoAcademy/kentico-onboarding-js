@@ -4,7 +4,6 @@ import * as PropTypes from 'prop-types';
 import { ListItem } from '../containers/ListItem';
 import { NewItem } from '../containers/NewItem';
 import { ListGroupActions } from '../containers/ListGroupActions';
-import { Key } from '../@types/Key';
 
 export interface IListStateProps {
   readonly itemKeys: Array<Key>;

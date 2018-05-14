@@ -1,7 +1,6 @@
 import * as mem from 'mem';
 import { Seq } from 'immutable';
 
-import { Key } from '../@types/Key';
 import { Item } from '../models/Item';
 import { IItemViewModel } from '../models/IItemViewModel';
 

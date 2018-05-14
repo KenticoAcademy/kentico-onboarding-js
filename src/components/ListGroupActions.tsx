@@ -2,7 +2,6 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 
 import { IAction } from '../@types/IAction';
-import { Key } from '../@types/Key';
 
 export interface IListGroupActionsStateProps {
   readonly selectedKeys: Array<Key>;
