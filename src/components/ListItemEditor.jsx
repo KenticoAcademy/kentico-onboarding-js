@@ -37,7 +37,7 @@ export class ListItemEditor extends PureComponent {
 
   _cancelItemEdit = (e) => {
     e.preventDefault();
-    this.props.onCancel();
+    this.props.onCancel(this.props.id);
   };
 
   render() {

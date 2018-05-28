@@ -10,33 +10,20 @@ export class ListItem extends PureComponent {
   static propTypes = {
     text: PropTypes.string,
     id: PropTypes.string,
+    inEditMode: PropTypes.bool,
     onDelete: PropTypes.func.isRequired,
     onChange: PropTypes.func.isRequired,
-  };
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      inEditMode: false,
-    };
-  }
-
-  _toggleEditMode = () => {
-    this.setState(prevState => ({
-      inEditMode: !prevState.inEditMode,
-    }));
+    onToggle: PropTypes.func.isRequired,
   };
 
   _changeItem = (itemId, newText) => {
-    this._toggleEditMode();
+    this.props.onToggle(itemId);
     this.props.onChange(itemId, newText);
   };
 
   _itemClick = (e) => {
     e.preventDefault();
-    if (!this.state.inEditMode) {
-      this._toggleEditMode();
-    }
+    this.props.onToggle(this.props.id, true);
   };
 
   render() {
@@ -46,7 +33,7 @@ export class ListItem extends PureComponent {
         text={this.props.text}
         onDelete={this.props.onDelete}
         onChange={this._changeItem}
-        onCancel={this._toggleEditMode}
+        onCancel={this.props.onToggle}
       />);
     const itemDisplay = (
       <ListItemDisplay
@@ -59,7 +46,7 @@ export class ListItem extends PureComponent {
         onClick={this._itemClick}
       >
         <span>{this.props.number}. </span>
-        {this.state.inEditMode ? itemEditor : itemDisplay}
+        {this.props.inEditMode ? itemEditor : itemDisplay}
       </li>);
   }
 }

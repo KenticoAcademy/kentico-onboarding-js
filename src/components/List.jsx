@@ -1,56 +1,64 @@
 import React, { PureComponent } from 'react';
+import { OrderedMap } from 'immutable';
 import assignment from './../../assignment.gif';
 
-import { UniqueIdentifier } from '../utils/UniqueIdentifier.jsx';
 import { ListItem } from './ListItem.jsx';
 import { CreateListItem } from './CreateListItem';
+import { ItemData } from '../models/ListItemData.jsx';
+import { UniqueIdentifier } from '../utils/UniqueIdentifier';
 
 export class List extends PureComponent {
   static displayName = 'List';
 
   state = {
-    items: [],
+    items: OrderedMap(),
   };
 
   _addItem = itemText => {
-    const newItem = {
-      text: itemText,
+    const item = new ItemData({
       id: UniqueIdentifier.generateUniqueId(),
-    };
-
+      text: itemText,
+    });
     this.setState(prevState => ({
-      items: [
-        ...prevState.items,
-        newItem,
-      ],
+      items: prevState.items.set(item.id, item),
     }));
   };
 
-  _deleteItem = (itemId) =>
-    this.setState(prevState => ({
-      items: prevState.items.filter(item => item.id !== itemId),
+  _deleteItem = (itemId) => {
+    return this.setState(prevState => ({
+      items: prevState.items.delete(itemId),
     }));
+  };
 
-  _updateItem = (itemId, newText) =>
+  _updateItemText = (itemId, newText) => {
+    const item = new ItemData({
+      id: itemId,
+      text: newText,
+    });
     this.setState(prevState => ({
-      items: prevState.items.map(item => (
-        item.id !== itemId
-          ? item
-          : {
-            ...item,
-            text: newText,
-          })),
+      items: prevState.items.set(itemId, item),
     }));
+  };
+
+  _toggleItemEdit = (itemId, onlyTurnOn = false) => {
+    if (!onlyTurnOn || !this.state.items.get(itemId).isEdited) {
+      this.setState(prevState => ({
+        items: prevState.items.update(itemId, item => item.update('isEdited', value => !value)),
+      }));
+    }
+  };
 
   render() {
-    const listItems = this.state.items.map((item, index) =>
+    const listItems = this.state.items.valueSeq().map((item, index) =>
       <ListItem
         id={item.id}
         key={item.id}
         number={index + 1}
         text={item.text}
-        onChange={this._updateItem}
+        onChange={this._updateItemText}
         onDelete={this._deleteItem}
+        onToggle={this._toggleItemEdit}
+        inEditMode={item.isEdited}
       />);
 
     return (
