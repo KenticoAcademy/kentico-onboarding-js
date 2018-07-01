@@ -39,6 +39,7 @@
     "new-cap": 0,
     // disabled for now. We need to discuss this in a team.
     "react/no-multi-comp": 0,
+    "import/prefer-default-export": 0,
     // disabled for now. We need to discuss this in a team.
     "camelcase": 0,
     // We don't want to follow those rules.
@@ -52,6 +53,8 @@
     "max-len": 0,
     "no-debugger": 1,
     "no-restricted-syntax": 1,
-    "no-unused-vars": 1
+    "no-unused-vars": 1,
+    "linebreak-style": 0,
+    "no-console": 0,
   }
 }

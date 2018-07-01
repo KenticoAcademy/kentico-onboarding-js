@@ -64,10 +64,20 @@ ESlint and TSlint are already set-up for you, so you will see all the errors and
 
 ## Task 0
 Update your upstream solutions branch with the changes that might have happened on upstream master-v2: After cloning your repository, create `develop` and then `feature/task-0` branch (as described above).
-Merge your `master-v2` branch - that already includes all changes from `upstream/master-v2` - into task-0 branch and submit new Pull request to your solutions branch from task-0 branch.
+Merge your `master-v2` branch - that already includes all changes from `upstream/master-v2` - into task-0 branch. 
+
+Your next step is to set up a [continuous integration](https://www.atlassian.com/continuous-delivery/continuous-integration-intro) in your repository. 
+- each push of commits should trigger tests
+- status of a build should be visible as a GitHub badge in the repository (search for "status badge _your CI name_")
+- you can choose any CI service provider that is compatible with GitHub and has a free license/plan for commercial use - for example [Travis CI](https://travis-ci.org/), [AppVeyor*](https://www.appveyor.com/) or [Circle CI](https://circleci.com/)
+- commit and push your CI configuration file to your `feature/task-0` branch
+
+When you are done with merging and configuration of CI submit new Pull request to your solutions branch from task-0 branch.
 
 When your pull request gets merged into `upstream/solutions/<your-login>`, fetch new commits and merge them into your `develop` branch. Preferably use `--no-ff` option to enforce a merge commit, so it is easy to spot in the `develop` branch where a task starts and ends.
 You can then delete the `feature/task-0` branch and create a new one for the following task (`feature/task-1`).
+
+*If you use Appveyor as your CI service provider, [an issue with an exceeded limit](https://help.appveyor.com/discussions/problems/10253-maximum-allowed-artifact-storage-size-of-1000-mb-will-be-exceeded) may occur in the future - just request them to unblock your repository
 
 ## Task 1
 **Prerequisite:** JS & React sections on [wiki](https://kentico.atlassian.net/wiki/display/KA/04+-+JS-related+tutorials).
