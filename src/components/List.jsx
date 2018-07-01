@@ -1,41 +1,46 @@
-// components/List.jsx
+import React, { PureComponent } from 'react';
+import assignment from '../assignment.gif';
 
-import React from 'react';
-import PropTypes from 'prop-types';
+import { TsComponent } from './TsComponent.tsx';
 
-import { ListItem } from '../containers/ListItem';
-import { NewItem } from '../containers/NewItem';
-import { ListGroupActions } from '../containers/ListGroupActions';
-
-export const List = ({ itemKeys }) => {
-  const listOfKeys = itemKeys.map((key, index) => (
-    <div className="list-group-item" key={key}>
-      <ListItem
-        itemKey={key}
-        bullet={index + 1}
-      />
-    </div>
-  ));
-
-  return (
-    <div>
-      <div className="col-sm-12 col-md-offset-2 col-md-8">
+export class List extends PureComponent {
+  render() {
+    return (
+      <div className="row">
+        {/* TODO: You can delete the assignment part once you do not need it */}
         <div className="row">
-          <NewItem />
-        </div>
-        <div className="row">
-          <div className="list-group">
-            {listOfKeys}
+          <div className="col-sm-12 text-center">
+            <TsComponent name="𝕱𝖆𝖓𝖈𝖞" />
           </div>
         </div>
-        <ListGroupActions />
+
+        <div className="row">
+          <div className="col-sm-12">
+            <p className="lead text-center">
+              Desired functionality is captured in the gif image.
+            </p>
+            <p className="lead text-center">
+              <b>
+                Note:
+              </b>
+              Try to make solution easily extensible (e.g. more displayed fields per item like
+              <code>
+                dateCreated
+              </code>
+              ).
+            </p>
+            <img src={assignment} alt="assignment" className="img--assignment" />
+          </div>
+        </div>
+
+        <div className="row">
+          <div className="col-sm-12 col-md-offset-2 col-md-8">
+            <pre>
+              TODO: implement the list here :)
+            </pre>
+          </div>
+        </div>
       </div>
-    </div>
-  );
-};
-
-List.displayName = 'List';
-
-List.propTypes = {
-  itemKeys: PropTypes.arrayOf(PropTypes.string).isRequired,
-};
+    );
+  }
+}

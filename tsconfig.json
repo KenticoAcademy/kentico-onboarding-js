@@ -1,6 +1,14 @@
 {
   "compilerOptions": {
-    "outDir": "./dist/",
+    "baseUrl": ".",
+    "outDir": "build/dist",
+    "module": "commonjs",
+    "target": "es5",
+    "lib": ["es6", "dom"],
+    "jsx": "react",
+    "moduleResolution": "node",
+    "rootDir": "src",
+    "allowJs": true,
     "sourceMap": true,
     "noImplicitAny": true,
     "strictNullChecks": true,
@@ -10,14 +18,15 @@
     "noUnusedParameters": true,
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
-    "forceConsistentCasingInFileNames": true,
-    "module": "commonjs",
-    "target": "es5",
-    "jsx": "react"
+    "forceConsistentCasingInFileNames": true
   },
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.tsx",
-    "test/**/*.ts"
+  "exclude": [
+    "node_modules",
+    "build",
+    "scripts",
+    "acceptance-tests",
+    "webpack",
+    "jest",
+    "src/setupTests.ts"
   ]
 }

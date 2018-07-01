@@ -1,4 +1,8 @@
 {
+  "extends": [
+    "react-set-state-usage",
+    "tslint-react"
+  ],
   "rules": {
     "align": [
       true,
@@ -12,16 +16,21 @@
       true,
       "check-space"
     ],
-    "curly": false,
+    "curly": true,
     "eofline": true,
     "forin": true,
     "indent": [
       true,
       "spaces"
     ],
-    "linebreak-style": [false, "LF"],
+    "linebreak-style": false,
     "interface-name": false,
-    "jsdoc-format": true,
+    "jsdoc-format": false,
+    "jsx-alignment": false,
+    "jsx-boolean-value": [true, "never"],
+    "jsx-curly-spacing": [true, "never"],
+    "jsx-no-multiline-js": false,
+    "jsx-no-lambda": false,
     "label-position": true,
     "max-line-length": [
       true,
@@ -29,13 +38,14 @@
     ],
     "member-ordering": [
       true,
-      "public-before-private",
+      "private-before-public",
       "static-before-instance",
       "variables-before-functions"
     ],
     "no-any": false,
     "no-arg": true,
     "no-bitwise": true,
+    "no-conditional-assignment": true,
     "no-console": [
       true,
       "debug",
@@ -59,6 +69,7 @@
     },
     "no-trailing-whitespace": true,
     "no-unused-expression": true,
+    "no-for-in-array": true,
     "no-use-before-declare": true,
     "no-var-keyword": true,
     "no-var-requires": false,
@@ -69,12 +80,16 @@
       "check-else",
       "check-whitespace"
     ],
+    "object-literal-key-quotes": [true, "as-needed"],
+    "object-literal-shorthand": true,
+    "prefer-const": true,
     "quotemark": [
       true,
       "single",
       "jsx-double"
     ],
     "radix": true,
+    "react-set-state-usage": true,
     "semicolon": [
       true,
       "always",
@@ -93,7 +108,8 @@
       "member-variable-declaration"
     ],
     "typedef-whitespace": [
-      true, {
+      true,
+      {
         "call-signature": "nospace",
         "index-signature": "nospace",
         "parameter": "nospace",
@@ -112,6 +128,23 @@
       "check-operator",
       "check-separator",
       "check-type"
+    ],
+    "use-isnan": true,
+    "no-misused-new": true,
+    "no-string-throw": true,
+    "no-unsafe-finally": true,
+    "import-spacing": true,
+    "new-parens": true,
+    "no-angle-bracket-type-assertion": true,
+    "no-unnecessary-qualifier": true,
+    "no-void-expression": [true, "ignore-arrow-function-shorthand"],
+    "space-before-function-paren": [
+      true,
+      {
+        "anonymous": "always",
+        "named": "never",
+        "asyncArrow": "always"
+      }
     ]
   }
 }
