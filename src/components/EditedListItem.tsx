@@ -16,7 +16,7 @@ export interface IEditedListItemDataProps {
 export interface IEditedListItemCallbackProps {
   onDelete: () => IAction;
   onCancel: () => IAction;
-  onSave: () => IAction;
+  onSave: (textUpdate: string) => Promise<IAction>;
   textUpdateChange: (textUpdate: string) => IAction;
 }
 
@@ -34,6 +34,11 @@ export class EditedListItem extends React.PureComponent<IEditedListItemProps> {
     textUpdateChange: PropTypes.func.isRequired,
   };
 
+  _onSaveItem = (): void => {
+    const {onSave, item } = this.props;
+    onSave(item.textUpdate);
+  };
+
   _onTextChanged = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const textUpdate = e.target.value;
     const { textUpdateChange } = this.props;
@@ -41,7 +46,7 @@ export class EditedListItem extends React.PureComponent<IEditedListItemProps> {
   };
 
   render() {
-    const { item, onCancel, onDelete, onSave } = this.props;
+    const { item, onCancel, onDelete } = this.props;
     const isEmpty = containsNoCharacters(item.textUpdate);
 
     return (
@@ -58,7 +63,7 @@ export class EditedListItem extends React.PureComponent<IEditedListItemProps> {
             data-balloon-pos="up"
             className="btn btn-primary"
             disabled={isEmpty}
-            onClick={onSave}
+            onClick={this._onSaveItem}
           >
             Save
           </button>

@@ -27,6 +27,17 @@ export const actionFetch = (method: string): (id?: ItemId, text?: string) => Pro
           })
         });
 
+    case 'PUT':
+      return (id: ItemId, text: string) =>
+        fetch(apiUrl + '/' + id, {
+          method: 'PUT',
+          headers: HEADERS,
+          body: JSON.stringify({
+            'Id': id,
+            'Text': text
+          })
+        });
+
     default:
       return () => this.reject();
   }
