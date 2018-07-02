@@ -10,13 +10,13 @@ import {
 import { addItem } from './addItem';
 import { assertAlert } from '../utils/assertAlert';
 
-export const uploadItem = (fetch: (id: ItemId, text: string) => Promise<Response>, generateId: () => ItemId) =>
+export const uploadItem = (fetch: (text: string) => Promise<Response>, generateId: () => ItemId) =>
   (dispatch: Function) => {
     return (text: string): Promise<IAction> => {
       const id = generateId();
       dispatch(addItem(id, text));
 
-      return fetch(id, text)
+      return fetch(text)
         .then(response => response.status >= 400 ? this.reject() : response.json())
         .then(officialId => {
           dispatch(synchronizeItemId(id, officialId));

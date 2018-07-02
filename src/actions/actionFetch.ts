@@ -18,12 +18,11 @@ export const actionFetch = (method: string): (id?: ItemId, text?: string) => Pro
         });
 
     case 'POST':
-      return (id: ItemId, text: string) =>
+      return (text: string) =>
         fetch(apiUrl, {
           method: 'POST',
           headers: HEADERS,
           body: JSON.stringify({
-            'Id': id,
             'Text': text
           })
         });
