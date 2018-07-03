@@ -1,6 +1,6 @@
 import '../styles/sticky-footer.css';
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
 import { ShortcutManager } from 'react-shortcuts';
 
 import { List } from '../containers/List';
@@ -8,7 +8,7 @@ import { keymap } from '../constants/keymap';
 
 const shortcutManager = new ShortcutManager(keymap);
 
-export class App extends PureComponent {
+export class App extends React.PureComponent {
   static childContextTypes = {
     shortcuts: PropTypes.object.isRequired,
   };

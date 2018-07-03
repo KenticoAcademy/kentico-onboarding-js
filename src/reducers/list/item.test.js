@@ -1,11 +1,11 @@
-import { Item } from '../../models/item';
-import { item } from './item';
+import { Item } from '../../models/Item.ts';
+import { item } from './item.ts';
 import {
   changeItemValue,
   saveItem,
   startItemEditing,
   stopItemEditing,
-} from '../../actions';
+} from '../../actions/index.ts';
 
 describe('items reducer works correctly', () => {
   it('ITEM_SAVE updates correct item in map', () => {
@@ -76,7 +76,7 @@ describe('items reducer works correctly', () => {
     const action = { type: undefined };
     const actual = item(undefined, action);
 
-    expect(actual).toEqual(Item());
+    expect(actual).toEqual(new Item());
   });
 
   it('undefined action returns previous state', () => {

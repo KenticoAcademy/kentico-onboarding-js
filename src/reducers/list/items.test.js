@@ -1,7 +1,7 @@
 import { OrderedMap } from 'immutable';
 
-import { Item } from '../../models/item';
-import { items } from './items';
+import { Item } from '../../models/Item.ts';
+import { items } from './items.ts';
 import {
   addItem,
   deleteItem,
@@ -12,8 +12,8 @@ import {
   startItemEditing,
   stopItemEditing,
   cancelItemsEditing,
-} from '../../actions';
-import { addItemFactory } from '../../actions/listActions/addItemFactory';
+} from '../../actions/index.ts';
+import { addItemFactory } from '../../actions/factories/addItemFactory.ts';
 
 describe('items reducer works correctly', () => {
   it('ITEM_ADD with mocked factory returns map with correct item', () => {

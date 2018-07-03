@@ -1,18 +1,21 @@
-// components/List.jsx
-
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
 
 import { ListItem } from '../containers/ListItem';
 import { NewItem } from '../containers/NewItem';
 import { ListGroupActions } from '../containers/ListGroupActions';
 
-export const List = ({ itemKeys }) => {
-  const listOfKeys = itemKeys.map((key, index) => (
+export interface IListStateProps {
+  readonly itemKeys: Array<Key>;
+}
+
+export const List: React.StatelessComponent<IListStateProps>
+  = ({ itemKeys }) => {
+  const listOfKeys = itemKeys.reverse().map((key, index) => (
     <div className="list-group-item" key={key}>
       <ListItem
         itemKey={key}
-        bullet={index + 1}
+        bullet={(index + 1).toString()}
       />
     </div>
   ));
@@ -37,5 +40,5 @@ export const List = ({ itemKeys }) => {
 List.displayName = 'List';
 
 List.propTypes = {
-  itemKeys: PropTypes.arrayOf(PropTypes.string).isRequired,
+  itemKeys: PropTypes.array.isRequired,
 };
