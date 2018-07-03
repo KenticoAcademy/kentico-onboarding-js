@@ -58,6 +58,7 @@ export const byId: Reducer<OrderedMap<ItemId, Item>> = (state = DEFAULT_STATE, a
         errorMessage: action.payload.errorMessage,
       }));
     }
+
     case actionTypes.SYNCHRONIZE_ITEM_ID: {
       const newState = state.mapEntries((entry) => {
         const key: ItemId = entry ? entry[0] : null;
@@ -71,6 +72,11 @@ export const byId: Reducer<OrderedMap<ItemId, Item>> = (state = DEFAULT_STATE, a
       });
       return OrderedMap<ItemId, Item>(newState);
     }
+
+    case actionTypes.MODIFY_DELETING:
+      return state.update(action.payload.id, (item) => item.with({
+        isBeingDeleted: action.payload.isBeingDeleted,
+      }));
 
     default:
       return state;

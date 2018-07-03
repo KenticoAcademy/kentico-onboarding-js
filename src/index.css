@@ -35,8 +35,6 @@ body {
   -webkit-filter: hue-rotate(150deg);
 }
 
-
-
 .ItemDiv {
   display: inline-block;
   width: 94%;
@@ -49,4 +47,8 @@ body {
 
 .uneditedItemMessage {
   float: right;
+}
+
+.being-deleted {
+  background: #f2e8df;
 }

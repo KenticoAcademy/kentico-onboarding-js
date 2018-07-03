@@ -14,9 +14,8 @@ import { IItem } from '../models/Item';
 import {
   toggleEditing,
   textUpdateChange,
-  deleteItem,
 } from '../actions';
-import { updateItem } from '../actions';
+import { updateItem, removeItem } from '../actions';
 
 function mapStateToProps(state: IAppState, {itemId}: IEditListItemContainerProps): IEditedListItemDataProps {
   const item: IItem = state.items.byId.get(itemId);
@@ -26,7 +25,7 @@ function mapStateToProps(state: IAppState, {itemId}: IEditListItemContainerProps
 }
 
 const mapDispatchToProps = (dispatch: Dispatch<IAppState>, {itemId}: IEditListItemContainerProps): IEditedListItemCallbackProps => ({
-  onDelete: () => dispatch(deleteItem(itemId)),
+  onDelete: () => removeItem(dispatch)(itemId),
   onCancel: () => dispatch(toggleEditing(itemId)),
   onSave: (updatedText: string) => updateItem(dispatch)(itemId, updatedText),
   textUpdateChange: (text: string) => dispatch(textUpdateChange(itemId, text)),

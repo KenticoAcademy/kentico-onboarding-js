@@ -20,6 +20,8 @@ function mapStateToProps(state: IAppState, {id, index}: IListItemContainerProps)
       isBeingEdited: item.isBeingEdited,
       index,
       synchronized: item.synchronized,
+      errorMessage: item.errorMessage,
+      isBeingDeleted: item.isBeingDeleted,
     });
 }
 

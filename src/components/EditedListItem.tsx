@@ -14,7 +14,7 @@ export interface IEditedListItemDataProps {
 }
 
 export interface IEditedListItemCallbackProps {
-  onDelete: () => IAction;
+  onDelete: () => Promise<IAction>;
   onCancel: () => IAction;
   onSave: (textUpdate: string) => Promise<IAction>;
   textUpdateChange: (textUpdate: string) => IAction;
