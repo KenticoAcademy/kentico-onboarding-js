@@ -3,6 +3,7 @@ import { actionFetch } from './actionFetch';
 import { uploadItem } from './uploadItem';
 import { fetchItems } from './fetchItems';
 import { updateItem } from './updateItem';
+import { removeItem } from './removeItem';
 
 export * from './actionCreators';
 
@@ -14,3 +15,6 @@ export { fetchItemsInjected as fetchItems };
 
 const updateItemInjected = updateItem(actionFetch('PUT'));
 export { updateItemInjected as updateItem };
+
+const removeItemInjected = removeItem(actionFetch('DELETE'));
+export { removeItemInjected as removeItem };

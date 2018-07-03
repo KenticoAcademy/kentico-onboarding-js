@@ -38,6 +38,13 @@ export const actionFetch = (method: string): (id?: ItemId, text?: string) => Pro
           })
         });
 
+    case 'DELETE':
+      return (id: ItemId) =>
+        fetch(apiUrl + '/' + id, {
+          method: 'DELETE',
+          headers: HEADERS,
+        });
+
     default:
       return () => this.reject();
   }

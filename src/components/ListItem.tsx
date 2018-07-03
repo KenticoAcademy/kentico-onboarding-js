@@ -9,11 +9,13 @@ export interface IListItemDataProps {
   isBeingEdited: boolean;
   synchronized: boolean;
   index: number;
+  errorMessage: string;
+  isBeingDeleted: boolean;
 }
 
-const ListItem: React.StatelessComponent<IListItemDataProps>  = ({ id, isBeingEdited, index, synchronized }) => {
+const ListItem: React.StatelessComponent<IListItemDataProps>  = ({ id, isBeingEdited, index, synchronized, errorMessage, isBeingDeleted }) => {
 
-  const className = 'list-group-item form-inline ' + (synchronized ? '' : 'alert-danger');
+  const className = 'list-group-item form-inline' + (synchronized ? '' : ' alert-warning') + (!errorMessage ? '' : ' alert-danger') + (!isBeingDeleted ? '' : ' being-deleted');
   return(
     <div
       className={className}
@@ -39,6 +41,8 @@ ListItem.propTypes = {
   isBeingEdited: PropTypes.bool.isRequired,
   synchronized: PropTypes.bool.isRequired,
   index: PropTypes.number.isRequired,
+  errorMessage: PropTypes.string,
+  isBeingDeleted: PropTypes.bool.isRequired,
 };
 
 export { ListItem };

@@ -45,3 +45,11 @@ export const synchronizeItemId = (oldId: ItemId, newId: ItemId) => ({
     newId
   }
 });
+
+export const markAsBeingDeleted = (id: ItemId, isBeingDeleted: boolean) => ({
+  type: actionTypes.MODIFY_DELETING,
+  payload: {
+    id,
+    isBeingDeleted,
+  }
+});
