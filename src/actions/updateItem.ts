@@ -10,11 +10,12 @@ import {
 export const updateItem = (fetch: (id: ItemId, text: string) => Promise<Response>) =>
   (dispatch: Function) => {
     return (id: ItemId, text: string): Promise<IAction> => {
+      dispatch(toggleSynchronized(id, false));
       dispatch(updateItemText(id));
 
       return fetch(id, text)
         .then(response => response.status >= 400 ? this.reject() : response.json())
-        .then(dispatch(toggleSynchronized(id, true)))
+        .then(() => dispatch(toggleSynchronized(id, true)))
         .then(() => assertAlert('SUCCESS', 'Updated item text successfully'))
         .catch(() => {
           assertAlert('ERROR', 'Failed to update item text');
