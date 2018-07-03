@@ -18,14 +18,14 @@ export const uploadItem = (fetch: (text: string) => Promise<Response>, generateI
 
       return fetch(text)
         .then(response => response.status >= 400 ? this.reject() : response.json())
-        .then(officialId => {
-          dispatch(synchronizeItemId(id, officialId));
-          return officialId;
+        .then(itemWithOfficialId => {
+          dispatch(synchronizeItemId(id, itemWithOfficialId.Id));
+          return itemWithOfficialId.Id;
         })
         .then(officialId => dispatch(toggleSynchronized(officialId, true)))
         .then(() => assertAlert('SUCCESS', 'Uploaded item successfully'))
         .catch(() => {
-          assertAlert('ERROR', 'Failed to upload item');
+          assertAlert('ERROR', 'Failed to upload item.');
           return dispatch(requestFailedForItem(id, 'Failed to upload.'));
         });
     };

@@ -18,7 +18,6 @@ const UneditedListItem:
     return (
       <div
         className="ItemDiv"
-        onClick={onTextClick}
       >
         <div className="uneditedItemText">{item.text}</div>
         <div className="uneditedItemMessage">{item.errorMessage}</div>
