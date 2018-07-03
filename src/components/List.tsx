@@ -11,6 +11,7 @@ export interface IListStateProps {
 export interface IListDispatchProps {
   readonly getItems: () => void;
 }
+
 interface IListProps extends IListStateProps, IListDispatchProps {}
 
 export class List extends React.PureComponent<IListProps> {

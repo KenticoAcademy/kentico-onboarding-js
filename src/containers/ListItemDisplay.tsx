@@ -6,11 +6,12 @@ import {
   ListItemDisplay as ListItemDisplayComponent,
 } from '../components/ListItemDisplay';
 import { startItemEditing } from '../actions';
-import { IAction } from '../@types/IAction';
+import { IState } from '../store/IState';
 
 const mapDispatchToProps =
-  (dispatch: Dispatch<IAction>, ownProps: IListItemDisplayOriginalProps): IListItemDisplayDispatchProps => ({
+  (dispatch: Dispatch<IState>, ownProps: IListItemDisplayOriginalProps): IListItemDisplayDispatchProps => ({
     onEdit: () => dispatch(startItemEditing(ownProps.item.key)),
   });
 
-export const ListItemDisplay = connect(null, mapDispatchToProps)(ListItemDisplayComponent);
+export const ListItemDisplay: React.ComponentClass<IListItemDisplayOriginalProps>
+  = connect<undefined, IListItemDisplayDispatchProps>(undefined, mapDispatchToProps)(ListItemDisplayComponent);

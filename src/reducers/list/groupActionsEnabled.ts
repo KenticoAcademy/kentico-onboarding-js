@@ -1,4 +1,4 @@
-import { IAction } from '../../@types/IAction';
+import { IAction } from '../../actions/types/IAction';
 import { actionTypes } from '../../constants/actionTypes';
 
 export const groupActionsEnabled = (state = true, action: IAction): boolean => {

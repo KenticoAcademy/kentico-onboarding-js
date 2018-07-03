@@ -1,5 +1,4 @@
 import { OrderedMap } from 'immutable';
-
 import {
   addItemFailed,
   getItemsFailed,
@@ -15,7 +14,6 @@ import {
   ERROR_DELETE_ITEM, GUID_GLOBAL_ERROR,
 } from '../../constants/constants';
 import { error as errorReducer } from './error';
-import { Key } from '../../@types/Key';
 import { actionTypes } from '../../constants/actionTypes';
 
 describe('error reducer works correctly', () => {

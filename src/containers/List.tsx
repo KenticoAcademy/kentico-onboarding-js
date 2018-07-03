@@ -16,4 +16,5 @@ const mapDispatchToProps = (dispatch: Dispatch<IState>): IListDispatchProps => (
   getItems: () => dispatch(getItems()),
 });
 
-export const List = connect(mapStateToProps, mapDispatchToProps)(ListComponent);
+export const List: React.ComponentClass
+  = connect<IListStateProps, IListDispatchProps>(mapStateToProps, mapDispatchToProps)(ListComponent);

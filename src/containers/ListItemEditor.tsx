@@ -18,9 +18,14 @@ import { IState } from '../store/IState';
 const mapDispatchToProps =
   (dispatch: Dispatch<IState>, { item: { key, temporaryValue, localOnly }}: IListItemOriginalProps): IListItemEditorDispatchProps => ({
     onCancelEdit: () => dispatch(stopItemEditing(key)),
-    deleteItem: () => localOnly ? dispatch(deleteLocalItem(key)) : dispatch(deleteItem(key)),
-    saveItem: () => localOnly ? dispatch(saveLocalItem(key, temporaryValue)) : dispatch(saveItem(key, temporaryValue)),
+    deleteItem: () => localOnly
+      ? dispatch(deleteLocalItem(key))
+      : dispatch(deleteItem(key)),
+    saveItem: () => localOnly
+      ? dispatch(saveLocalItem(key, temporaryValue))
+      : dispatch(saveItem(key, temporaryValue)),
     onChange: (itemValue: string) => dispatch(changeItemValue(key, itemValue)),
   });
 
-export const ListItemEditor = connect(null, mapDispatchToProps)(ListItemEditorComponent);
+export const ListItemEditor: React.ComponentClass<IListItemOriginalProps>
+  = connect<undefined, IListItemEditorDispatchProps>(undefined, mapDispatchToProps)(ListItemEditorComponent);

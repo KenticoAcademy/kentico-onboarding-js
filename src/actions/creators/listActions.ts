@@ -1,8 +1,7 @@
 import { Map } from 'immutable';
 
 import { actionTypes } from '../../constants/actionTypes';
-import { Key } from '../../@types/Key';
-import { IAction } from '../../@types/IAction';
+import { IAction } from '../types/IAction';
 import { stopItemEditing } from './itemActions';
 import { IServerItem } from '../../models/IServerItem';
 import { Item } from '../../models/Item';

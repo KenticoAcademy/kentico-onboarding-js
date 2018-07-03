@@ -1,4 +1,4 @@
-import { IAction } from '../../@types/IAction';
+import { IAction } from '../../actions/types/IAction';
 import { actionTypes } from '../../constants/actionTypes';
 import {
   ERROR_ADD_ITEM,
@@ -7,7 +7,6 @@ import {
   ERROR_DELETE_ITEM,
   GUID_GLOBAL_ERROR,
 } from '../../constants/constants';
-import { Key } from '../../@types/Key';
 import { OrderedMap } from 'immutable';
 
 export const error = (state = OrderedMap<Key, string>(), action: IAction): OrderedMap<Key, string> => {

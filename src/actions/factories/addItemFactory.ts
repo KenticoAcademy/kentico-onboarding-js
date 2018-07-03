@@ -2,7 +2,7 @@ import { Dispatch } from 'react-redux';
 import { ThunkAction } from 'redux-thunk';
 
 import { IState } from '../../store/IState';
-import { IAction } from '../../@types/IAction';
+import { IAction } from '../types/IAction';
 import {
   addItemOptimistic,
   deleteItemOptimistic,
@@ -10,7 +10,6 @@ import {
   addItemFailed,
 } from '../creators/listActions';
 import { IServerItem } from '../../models/IServerItem';
-import { Key } from '../../@types/Key';
 
 export const addItemFactory =
   (postItem: (itemValue: string) => Promise<IServerItem>, generateItemKey: () => Key) =>

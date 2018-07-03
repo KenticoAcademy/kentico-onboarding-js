@@ -3,7 +3,6 @@ import * as PropTypes from 'prop-types';
 import { Shortcuts } from 'react-shortcuts';
 
 import { isInputValid } from '../utils/validationService';
-import { IAction } from '../@types/IAction';
 import { IItemViewModel } from '../models/IItemViewModel';
 import {
   ITEM_EDIT_CONFIRM,
@@ -19,8 +18,8 @@ export interface IListItemOriginalProps {
 export interface IListItemEditorDispatchProps {
   readonly saveItem: () => void;
   readonly deleteItem: () => void;
-  readonly onCancelEdit: () => IAction;
-  readonly onChange: (value: string) => IAction;
+  readonly onCancelEdit: () => void;
+  readonly onChange: (value: string) => void;
 }
 
 interface ListItemEditorProps extends IListItemOriginalProps, IListItemEditorDispatchProps {}
@@ -52,7 +51,7 @@ export class ListItemEditor extends React.PureComponent<ListItemEditorProps> {
     [ITEM_DELETE]: ({ deleteItem }: IListItemEditorDispatchProps) => deleteItem(),
   });
 
-  _handleChange = (event: React.ChangeEvent<HTMLInputElement>): IAction => this.props.onChange(event.target.value);
+  _handleChange = (event: React.ChangeEvent<HTMLInputElement>) => this.props.onChange(event.target.value);
 
   _handleShortcuts = (action: string): void => this._shortCuts[action](this.props);
 

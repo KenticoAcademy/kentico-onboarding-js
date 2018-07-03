@@ -1,4 +1,3 @@
-import { Key } from '../../@types/Key';
 import { IListStore, IState } from '../../store/IState';
 import { deleteSelectedItemsFactory } from './deleteSelectedItemsFactory';
 import { actionTypes } from '../../constants/actionTypes';

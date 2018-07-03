@@ -1,9 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 
-import { IAction } from '../@types/IAction';
-import { Key } from '../@types/Key';
-
 export interface IListGroupActionsStateProps {
   readonly selectedKeys: Array<Key>;
   readonly actionsDisabled: boolean;
@@ -11,7 +8,7 @@ export interface IListGroupActionsStateProps {
 
 export interface IListGroupActionsDispatchProps {
   readonly saveSelected: (selectedKeys: Array<Key>) => void;
-  readonly cancelSelected: (selectedKeys: Array<Key>) => IAction;
+  readonly cancelSelected: (selectedKeys: Array<Key>) => void;
   readonly deleteSelected: (selectedKeys: Array<Key>) => void;
 }
 
@@ -29,7 +26,7 @@ export class ListGroupActions extends React.PureComponent<IListGroupActionsProps
 
   _saveSelected = () => this.props.saveSelected(this.props.selectedKeys);
 
-  _cancelSelected = (): IAction => this.props.cancelSelected(this.props.selectedKeys);
+  _cancelSelected = () => this.props.cancelSelected(this.props.selectedKeys);
 
   _deleteSelected = () => this.props.deleteSelected(this.props.selectedKeys);
 

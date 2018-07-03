@@ -6,7 +6,6 @@ import {
   IErrorStateProps,
 } from '../components/Error';
 import { IState } from '../store/IState';
-import { Key } from '../@types/Key';
 import { dismissError, getItems } from '../actions';
 
 interface IOwnProps {

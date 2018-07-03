@@ -1,7 +1,7 @@
 import { Dispatch } from 'react-redux';
 import { ThunkAction } from 'redux-thunk';
 
-import { IAction } from '../../@types/IAction';
+import { IAction } from '../types/IAction';
 import { IState } from '../../store/IState';
 import {
   getItemsFailed,

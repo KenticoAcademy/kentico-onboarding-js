@@ -1,6 +1,5 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { IAction } from '../@types/IAction';
 import { IItemViewModel } from '../models/IItemViewModel';
 
 export interface IListItemDisplayOriginalProps {
@@ -8,7 +7,7 @@ export interface IListItemDisplayOriginalProps {
 }
 
 export interface IListItemDisplayDispatchProps {
-  readonly onEdit: () => IAction;
+  readonly onEdit: () => void;
 }
 
 interface IListItemDisplayProps extends IListItemDisplayDispatchProps, IListItemDisplayOriginalProps {}

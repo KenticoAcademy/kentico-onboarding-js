@@ -1,8 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 
-import { Key } from '../@types/Key';
-
 export interface IErrorStateProps {
   readonly error: string;
   readonly itemKey: Key;

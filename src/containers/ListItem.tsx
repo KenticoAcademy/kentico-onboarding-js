@@ -6,7 +6,6 @@ import {
 } from '../components/ListItem';
 import { createMemoizedBulletItem } from '../selectors/memorySelector';
 import { IState } from '../store/IState';
-import { Key } from '../@types/Key';
 
 interface IOwnProps {
   readonly itemKey: Key;
@@ -18,4 +17,5 @@ const mapStateToProps =
     item: createMemoizedBulletItem(items.get(itemKey), bullet),
   });
 
-export const ListItem = connect(mapStateToProps)(ListItemComponent);
+export const ListItem: React.ComponentClass<IOwnProps>
+  = connect<IListItemStateProps, undefined, IOwnProps>(mapStateToProps)(ListItemComponent);

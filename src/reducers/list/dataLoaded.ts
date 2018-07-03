@@ -1,5 +1,6 @@
-import { IAction } from '../../@types/IAction';
+
 import { actionTypes } from '../../constants/actionTypes';
+import { IAction } from '../../actions/types/IAction';
 
 export const dataLoaded = (state = false, action: IAction): boolean => {
   switch (action.type) {

@@ -1,5 +1,4 @@
 import { ITEMS_API_URL } from '../constants/constants';
-import { Key } from '../@types/Key';
 import * as _fetch from 'isomorphic-fetch';
 
 const checkResponse = (response: Response) => {
