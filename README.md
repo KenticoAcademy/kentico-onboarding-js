@@ -18,12 +18,12 @@ You won't be added as a contributor to this repository. You have to fork it to o
  - `cd kentico-onboarding-js` -- changes directory to cloned repo
  - `git remote add upstream git://github.com/suzii/kentico-onboarding-js` -- adds the original repository you forked from as a remote named 'upstream' so that you can receive updates by merging from it
  - `git fetch upstream` -- receive latest code from the upstream's mater 
- - `git merge upstream/master-v2` -- merge it to your own master-v2
- - You now have the latest upstream code in your local master-v2 branch
+ - `git merge upstream/master` -- merge it to your own master
+ - You now have the latest upstream code in your local master branch
  - `git checkout -b develop upstream/solutions/<your-login>` -- creates and checkouts new branch named `develop` where you can continuously work on the assignment.
  - You should keep this branch one-to-one with the upstream repository branch `solutions/<your-login>;` 
  - `git checkout -b feature/task-0` -- crates and checkouts new branch named `feature/task-0` based on `develop`. Commit all your progress on Task 0 to this branch.
- - Try to keep your `master-v2` up to date with `upstream/master-v2` and propagate the changes to all your branches.
+ - Try to keep your `master` up to date with `upstream/master` and propagate the changes to all your branches.
  
 ### Pull Requests (PR)
  - Once ready, you can submit **Pull request (PR)** to the original repository. Please, always submit the pull request to the branch which starts with `solutions/[your name or login]`. (I have to create it first, so if it's not there already, let me know.) 
@@ -34,12 +34,12 @@ You won't be added as a contributor to this repository. You have to fork it to o
  - In case you already started working on next task, just merge the changes from your develop to the next feature branch.
  - If the PR is still not merged and you want to start working on next task, checkout a new branch based on previous task
  - Repeat from step 1. for following tasks :)
- - To get your upstream branch up-to-date with upstream master-v2, please, complete **Task 0**
+ - To get your upstream branch up-to-date with upstream master, please, complete **Task 0**
  
-NOTE: Think of it as a real word repository. It can happen that you don't have rights to commit anything to `master-v2` nor `develop`. Therefore, all the changes you want to make have to be reviewed first in form of a PR to `develop`. Once the repository owner is happy with your changes, only then he merges them to `develop`. The situation here is a bit more complicated while we have multiple repositories (original + forks). Just think of your `develop` branch as if you were not allowed to make any commits to it and you can only merge from `upstream/solutions/<your-login>`.
+NOTE: Think of it as a real word repository. It can happen that you don't have rights to commit anything to `master` nor `develop`. Therefore, all the changes you want to make have to be reviewed first in form of a PR to `develop`. Once the repository owner is happy with your changes, only then he merges them to `develop`. The situation here is a bit more complicated while we have multiple repositories (original + forks). Just think of your `develop` branch as if you were not allowed to make any commits to it and you can only merge from `upstream/solutions/<your-login>`.
 
 ### Development
-**IMPORTANT:** Run `npm install` and make sure you have `eslint` and `tslint` tools enabled (in File > Settings, search for keywords). The path to `eslint` and `tslint` node packages should be in `node_modules` inside of project folder.
+**IMPORTANT:** Run `npm install --no optional` and make sure you have `eslint` and `tslint` tools enabled (in File > Settings, search for keywords). The path to `eslint` and `tslint` node packages should be in `node_modules` inside of project folder.
 
 Now you have everything git-related set-up and you can start developing... 
 Please, commit with [reasonable commit messages](http://chris.beams.io/posts/git-commit/) and always start the commit message with Jira number of your task. You can squash your commits as well. Feel free to create new branches when developing (`feature/task-1`,`2` etc.). PR should be submitted from feature branch one per task. and merge them to `develop` when you want to submit a pull request. Submit your PRs from `develop` branch.
@@ -47,7 +47,7 @@ Please, commit with [reasonable commit messages](http://chris.beams.io/posts/git
 ## How to run the project 
 **tl;dr**
 ```
-npm install
+npm install --no-optional
 npm start
 > localhost:3000/
 ```
@@ -60,11 +60,11 @@ ESlint and TSlint are already set-up for you, so you will see all the errors and
  - JavaScript file names are `lowerCamelCase`
  - one React component per file, name is `UpperCamelCase`, and has `.jsx` extension
  - use `'single quotes'` instead of `"double quotes"`
- - more Draft-specific coding rules are specified in https://kentico.atlassian.net/wiki/display/KC/Javascript+and+Typescript+Conventions
+ - more Draft-specific coding rules are specified in https://kentico.atlassian.net/wiki/x/X6_fD
 
 ## Task 0
-Update your upstream solutions branch with the changes that might have happened on upstream master-v2: After cloning your repository, create `develop` and then `feature/task-0` branch (as described above).
-Merge your `master-v2` branch - that already includes all changes from `upstream/master-v2` - into task-0 branch. 
+Update your upstream solutions branch with the changes that might have happened on upstream master: After cloning your repository, create `develop` and then `feature/task-0` branch (as described above).
+Merge your `master` branch - that already includes all changes from `upstream/master` - into task-0 branch. 
 
 Your next step is to set up a [continuous integration](https://www.atlassian.com/continuous-delivery/continuous-integration-intro) in your repository. 
 - each push of commits should trigger tests

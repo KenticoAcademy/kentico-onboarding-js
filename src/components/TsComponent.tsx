@@ -5,7 +5,7 @@ interface ITsComponentProps {
 }
 
 export class TsComponent extends React.Component<ITsComponentProps, undefined> {
-  render() {
+  render(): JSX.Element {
     return (
       <h3 className="text-danger" title="https://lingojam.com/FancyTextGenerator">
         Ⓗⓔⓛⓛⓞ ⓕⓡⓞⓜ
