@@ -14,7 +14,6 @@ export interface IEditedListItemDataProps {
 }
 
 export interface IEditedListItemCallbackProps {
-  onDelete: () => Promise<IAction>;
   onCancel: () => IAction;
   onSave: (textUpdate: string) => Promise<IAction>;
   textUpdateChange: (textUpdate: string) => IAction;
@@ -29,7 +28,6 @@ export class EditedListItem extends React.PureComponent<IEditedListItemProps> {
   static propTypes = {
     item: PropTypes.instanceOf(Item),
     onSave: PropTypes.func.isRequired,
-    onDelete: PropTypes.func.isRequired,
     onCancel: PropTypes.func.isRequired,
     textUpdateChange: PropTypes.func.isRequired,
   };
@@ -46,7 +44,7 @@ export class EditedListItem extends React.PureComponent<IEditedListItemProps> {
   };
 
   render() {
-    const { item, onCancel, onDelete } = this.props;
+    const { item, onCancel } = this.props;
     const isEmpty = containsNoCharacters(item.textUpdate);
 
     return (
@@ -61,23 +59,17 @@ export class EditedListItem extends React.PureComponent<IEditedListItemProps> {
           <button
             data-balloon={isEmpty ? 'Item name mustn\'t be empty' : null}
             data-balloon-pos="up"
-            className="btn btn-primary"
+            className="btn btn-default orange"
             disabled={isEmpty}
             onClick={this._onSaveItem}
           >
-            Save
+            {item.errorMessage ? 'Save the word again!' : 'Save the word!'}
           </button>
           <button
             className="btn btn-default"
             onClick={onCancel}
           >
-            Cancel
-          </button>
-          <button
-            className="btn btn-danger"
-            onClick={onDelete}
-          >
-            Delete
+            Do not...
           </button>
         </div>
       </div>
