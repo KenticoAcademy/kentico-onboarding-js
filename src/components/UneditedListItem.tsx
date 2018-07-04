@@ -21,24 +21,14 @@ const UneditedListItem:
       </div>
     );
   }
-  if (!item.synchronized) {
-    return (
+
+  return (
       <div
-        className="ItemDiv"
+        className="form-control-static"
       >
-        <div className="uneditedItemText">{item.text}</div>
-        <img className="uneditedItemMessage" src="https://loading.io/spinners/bluecat/lg.blue-longcat-spinner.gif" height="20px"/>
+        {item.text}
       </div>
     );
-  }
-  return (
-    <div
-      className="form-control-static"
-    >
-      {item.text}
-    </div>
-  );
-
 };
 
 UneditedListItem.displayName = 'EditedListItem';
