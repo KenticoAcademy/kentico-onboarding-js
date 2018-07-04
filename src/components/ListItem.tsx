@@ -20,6 +20,10 @@ export interface IListItemCallbackProps {
 const ListItem: React.StatelessComponent<IListItemDataProps & IListItemCallbackProps>  = ({ id, isBeingEdited, index, synchronized, errorMessage, isBeingDeleted, onDivClick}) => {
 
   const className = 'list-group-item form-inline' + (synchronized ? '' : ' alert-warning') + (!errorMessage ? '' : ' alert-danger') + (!isBeingDeleted ? '' : ' being-deleted');
+
+  if (isBeingDeleted)
+    return (null);
+
   return(
     <div
       className={className}
