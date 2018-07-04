@@ -37,7 +37,7 @@ body {
 
 .ItemDiv {
   display: inline-block;
-  width: 94%;
+  width: 97%;
 }
 
 .uneditedItemText {
@@ -50,5 +50,13 @@ body {
 }
 
 .being-deleted {
-  background: #f2e8df;
+  opacity: 0.2;
+}
+
+.orange {
+  background: #ffefdf;
+}
+
+.red-text {
+  color: #882b00;
 }

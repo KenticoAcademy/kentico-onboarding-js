@@ -19,11 +19,11 @@ export const removeItem = (fetch: (id: ItemId) => Promise<Response>) =>
       return fetch(id)
         .then(response => response.status >= 400 ? this.reject() : response)
         .then(() => dispatch(deleteItem(id)))
-        .then(() => assertAlert('SUCCESS', 'Deleted item text successfully.'))
+        .then(() => assertAlert('SUCCESS', 'Shark successfully ate item.'))
         .catch(() => {
           dispatch(toggleSynchronized(id, true));
-          assertAlert('ERROR', 'Failed to delete item.');
-          return dispatch(requestFailedForItem(id, 'Failed to delete item.'));
+          assertAlert('ERROR', 'Shark failed in eating item.');
+          return dispatch(requestFailedForItem(id, 'Shark failed in eating item.'));
         });
     };
   };

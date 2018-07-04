@@ -22,6 +22,7 @@ function mapStateToProps(state: IAppState, {id, index}: IListItemContainerProps)
   const item = state.items.byId.get(id);
   return (
     {
+      text: item.text,
       id,
       isBeingEdited: item.isBeingEdited,
       index,
