@@ -6,10 +6,16 @@ import {
 } from '../components/ListItem';
 import { IAppState } from '../reducers/IAppState';
 import { ItemId } from '../models/ItemId';
+import * as React from 'react';
+import { toggleEditing } from '../actions';
 
 export interface IListItemContainerProps {
   id: ItemId;
   index: number;
+}
+
+export interface IListItemCallbackProps {
+  onDivClick: React.MouseEventHandler<HTMLDivElement>;
 }
 
 function mapStateToProps(state: IAppState, {id, index}: IListItemContainerProps): IListItemDataProps {
@@ -25,4 +31,9 @@ function mapStateToProps(state: IAppState, {id, index}: IListItemContainerProps)
     });
 }
 
-export const ListItem: ComponentClass<IListItemContainerProps> = connect(mapStateToProps)(ListItemComponent);
+const mapDispatchToProps = (dispatch: Function, { id }: IListItemContainerProps): IListItemCallbackProps => ({
+  onDivClick: () => dispatch(toggleEditing(id)),
+});
+
+
+export const ListItem: ComponentClass<IListItemContainerProps> = connect(mapStateToProps, mapDispatchToProps)(ListItemComponent);

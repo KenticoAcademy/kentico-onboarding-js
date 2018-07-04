@@ -13,13 +13,18 @@ export interface IListItemDataProps {
   isBeingDeleted: boolean;
 }
 
-const ListItem: React.StatelessComponent<IListItemDataProps>  = ({ id, isBeingEdited, index, synchronized, errorMessage, isBeingDeleted }) => {
+export interface IListItemCallbackProps {
+  onDivClick: React.MouseEventHandler<HTMLDivElement>;
+}
+
+const ListItem: React.StatelessComponent<IListItemDataProps & IListItemCallbackProps>  = ({ id, isBeingEdited, index, synchronized, errorMessage, isBeingDeleted, onDivClick}) => {
 
   const className = 'list-group-item form-inline' + (synchronized ? '' : ' alert-warning') + (!errorMessage ? '' : ' alert-danger') + (!isBeingDeleted ? '' : ' being-deleted');
   return(
     <div
       className={className}
       key={id}
+      onClick={isBeingEdited ? undefined : onDivClick}
     >
       {index + 1}
       .&nbsp;
@@ -43,6 +48,7 @@ ListItem.propTypes = {
   index: PropTypes.number.isRequired,
   errorMessage: PropTypes.string,
   isBeingDeleted: PropTypes.bool.isRequired,
+  onDivClick: PropTypes.func.isRequired,
 };
 
 export { ListItem };
