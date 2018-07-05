@@ -1,6 +1,7 @@
 import { IAction } from './IAction';
 import { ItemId } from '../models/ItemId';
 import {
+  clearErrorMessage,
   deleteItem,
   markAsBeingDeleted,
   toggleEditing,
@@ -14,7 +15,8 @@ export const removeItem = (fetch: (id: ItemId) => Promise<Response>) =>
     return (id: ItemId): Promise<IAction> => {
       dispatch(markAsBeingDeleted(id, true));
       dispatch(toggleSynchronized(id, false));
-      dispatch(toggleEditing(id));
+      dispatch(clearErrorMessage(id));
+      dispatch(toggleEditing(id, false));
 
       return fetch(id)
         .then(response => response.status >= 400 ? this.reject() : response)

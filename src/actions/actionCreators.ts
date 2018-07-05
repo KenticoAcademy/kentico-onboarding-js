@@ -7,9 +7,12 @@ export const deleteItem = (id: ItemId): IAction => ({
   payload: {id},
 });
 
-export const toggleEditing = (id: ItemId): IAction => ({
+export const toggleEditing = (id: ItemId, edited: boolean): IAction => ({
   type: actionTypes.TOGGLE_EDITING,
-  payload: {id},
+  payload: {
+    id,
+    edited,
+  },
 });
 
 export const updateItemText = (id: ItemId): IAction => ({
@@ -53,3 +56,17 @@ export const markAsBeingDeleted = (id: ItemId, isBeingDeleted: boolean) => ({
     isBeingDeleted,
   }
 });
+
+export const clearErrorMessage = (id: ItemId) => ({
+  type: actionTypes.CLEAR_ERROR_MESSAGE,
+  payload: {
+    id,
+  }
+});
+
+  export const resetItem = (id: ItemId) => ({
+    type: actionTypes.RESET_ITEM,
+    payload: {
+      id,
+    }
+  });
