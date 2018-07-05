@@ -33,8 +33,8 @@ export const byId: Reducer<OrderedMap<ItemId, Item>> = (state = DEFAULT_STATE, a
 
     case actionTypes.TOGGLE_EDITING:
       return state.update(action.payload.id, (item) => item.with({
-        isBeingEdited: !item.isBeingEdited,
-        textUpdate: item.text,
+        isBeingEdited: action.payload.edited,
+        textUpdate: action.payload.edited ? item.text : item.textUpdate,
       }));
 
     case actionTypes.TOGGLE_SYNCHRONIZED:
@@ -58,6 +58,11 @@ export const byId: Reducer<OrderedMap<ItemId, Item>> = (state = DEFAULT_STATE, a
         errorMessage: action.payload.errorMessage,
       }));
     }
+    case actionTypes.CLEAR_ERROR_MESSAGE: {
+      return state.update(action.payload.id, (item) => item.with({
+        errorMessage: '',
+      }));
+    }
 
     case actionTypes.SYNCHRONIZE_ITEM_ID: {
       const newState = state.mapEntries((entry) => {
@@ -76,6 +81,14 @@ export const byId: Reducer<OrderedMap<ItemId, Item>> = (state = DEFAULT_STATE, a
     case actionTypes.MODIFY_DELETING:
       return state.update(action.payload.id, (item) => item.with({
         isBeingDeleted: action.payload.isBeingDeleted,
+      }));
+
+    case actionTypes.RESET_ITEM:
+      return state.update(action.payload.id, (item) => item.with({
+        isBeingEdited: false,
+        isBeingDeleted: false,
+        errorMessage: '',
+        synchronized: true,
       }));
 
     default:

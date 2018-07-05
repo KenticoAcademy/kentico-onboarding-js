@@ -37,7 +37,7 @@ body {
 
 .ItemDiv {
   display: inline-block;
-  width: 97%;
+  width: 90%;
 }
 
 .uneditedItemText {
@@ -50,7 +50,7 @@ body {
 }
 
 .being-deleted {
-  opacity: 0.2;
+  opacity: 0.5;
 }
 
 .orange {
@@ -60,3 +60,9 @@ body {
 .red-text {
   color: #882b00;
 }
+
+.synchronizing {
+  color: chocolate;
+}
+
+

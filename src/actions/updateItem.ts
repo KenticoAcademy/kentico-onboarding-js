@@ -3,6 +3,8 @@ import { assertAlert } from '../utils/assertAlert';
 import { IAction } from './IAction';
 import { requestFailedForItem } from './requestFailed';
 import {
+  clearErrorMessage,
+  toggleEditing,
   toggleSynchronized,
   updateItemText
 } from './actionCreators';
@@ -11,6 +13,8 @@ export const updateItem = (fetch: (id: ItemId, text: string) => Promise<Response
   (dispatch: Function) => {
     return (id: ItemId, text: string): Promise<IAction> => {
       dispatch(toggleSynchronized(id, false));
+      dispatch(toggleEditing(id, false));
+      dispatch(clearErrorMessage(id));
       dispatch(updateItemText(id));
 
       return fetch(id, text)
