@@ -37,7 +37,6 @@ You won't be added as a contributor to this repository. You have to fork it to o
  - To get your upstream branch up-to-date with upstream master, please, complete **Task 0**
  
 NOTE: Think of it as a real word repository. It can happen that you don't have rights to commit anything to `master` nor `develop`. Therefore, all the changes you want to make have to be reviewed first in form of a PR to `develop`. Once the repository owner is happy with your changes, only then he merges them to `develop`. The situation here is a bit more complicated while we have multiple repositories (original + forks). Just think of your `develop` branch as if you were not allowed to make any commits to it and you can only merge from `upstream/solutions/<your-login>`.
-
 ### Development
 **IMPORTANT:** Run `npm install --no optional` and make sure you have `eslint` and `tslint` tools enabled (in File > Settings, search for keywords). The path to `eslint` and `tslint` node packages should be in `node_modules` inside of project folder.
 
@@ -80,7 +79,7 @@ You can then delete the `feature/task-0` branch and create a new one for the fol
 *If you use Appveyor as your CI service provider, [an issue with an exceeded limit](https://help.appveyor.com/discussions/problems/10253-maximum-allowed-artifact-storage-size-of-1000-mb-will-be-exceeded) may occur in the future - just request them to unblock your repository
 
 ## Task 1
-**Prerequisite:** JS & React sections on [wiki](https://kentico.atlassian.net/wiki/display/KA/04+-+JS-related+tutorials).
+**Prerequisite:** JS & React sections on [wiki](https://kentico.atlassian.net/wiki/spaces/KA/pages/199525328/05+-+JS-related+tutorials).
 
 According to `assignment.gif` implement all the required functionality (keep in mind we want to be able to edit multiple list items at once). Store some pseudo-random identifier (id) for each item (use some util function for its generation, e.g: http://stackoverflow.com/questions/105034/create-guid-uuid-in-javascript)
 All the boilerplate is already there so you can dive into coding straight away. Feel free to use [Bootstrap](http://getbootstrap.com/) CSS classes. Get familiar with project structure. The entry file is `index.js`. Page layout can be found in `App.jsx`. It renders `List.jsx` in its body, where you are supposed to implement the rest of the functionality. 
@@ -91,7 +90,7 @@ Install [ImmutableJS](http://facebook.github.io/immutable-js) to your project: `
 Refactor your application; make sure that all data required for the application (apart from reasonable exceptions, e.g. current text of input fields) is stored as an `Immutable.OrderedMap` of `Immutable.Record`s within the top level component (e.g. `List.jsx`). Use IDs of the items as keys for the Map.
 
 ## Task 3
-**Prerequisite:** Go through Flux & Redux section on [wiki](https://kentico.atlassian.net/wiki/display/KA/04+-+JS-related+tutorials).
+**Prerequisite:** Go through Flux & Redux section on [wiki](https://kentico.atlassian.net/wiki/spaces/KA/pages/199525328/05+-+JS-related+tutorials).
 
 Install [ReduxJS](http://redux.js.org/), [react-redux](http://redux.js.org/docs/basics/UsageWithReact.html) and [redux-logger](https://github.com/evgenyrodionov/redux-logger) to your project: 
 ```
@@ -125,9 +124,9 @@ npm install --save-dev @types/immutable
 Read about how it works here: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 ## Task 5
-**Prerequisite:** Make sure you understand Promises & IoC (DI) - last two sections of JS sources on [wiki](https://kentico.atlassian.net/wiki/display/KA/04+-+JS-related+tutorials).
+**Prerequisite:** Make sure you understand Promises & IoC (DI) - last two sections of JS sources on [wiki](https://kentico.atlassian.net/wiki/spaces/KA/pages/199525328/05+-+JS-related+tutorials).
 
-What kind of app it would be without the server side, right? Customer hitting F5 and then getting mad about loosing all his items is not a happy customer. Have a look at [06 - CS Onboarding task](https://kentico.atlassian.net/wiki/display/KA/06+-+CS+Onboarding+task) and implement at least Tasks 0 and 1 before you move on to connect your frontend to new your brand new shiny REST API.
+What kind of app it would be without the server side, right? Customer hitting F5 and then getting mad about loosing all his items is not a happy customer. Have a look at [06 - CS Onboarding task](https://kentico.atlassian.net/wiki/spaces/KA/pages/211786539/07+-+CS+Onboarding+task) and implement at least Tasks 0 and 1 before you move on to connect your frontend to new your brand new shiny REST API.
 
 **!! IMPORTANT !!**
 Do not forget to tell the client app to [proxy your requests to the server](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#proxying-api-requests-in-development).
