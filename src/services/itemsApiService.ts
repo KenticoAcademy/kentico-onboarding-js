@@ -1,7 +1,7 @@
 import { ITEMS_API_URL } from '../constants/constants';
 import * as _fetch from 'isomorphic-fetch';
 
-const checkResponse = (response: Response) => {
+const checkResponse = (response: Response): Response => {
   if (response.ok) {
     return response;
   }
@@ -9,42 +9,35 @@ const checkResponse = (response: Response) => {
   throw new Error(response.statusText);
 };
 
+const fetchResponse = (fetchService: typeof _fetch, URL: string, configuration: RequestInit): Promise<Response> =>
+  fetchService(URL, configuration)
+    .then(response => {
+      if (!response) {
+        throw new Error('empty response');
+      }
+
+      return checkResponse(response);
+    });
+
 export const itemsApiService = (fetchService: typeof _fetch) => ({
-  getItems: () => fetchService(ITEMS_API_URL)
-      .catch(error => {
-        throw new Error(error);
-      })
-      .then(response => checkResponse(response))
+  getItems: () => fetchResponse(fetchService, ITEMS_API_URL, { method: 'GET' })
       .then(response => response.json()),
 
-  postItem: (itemValue: string) => fetchService(ITEMS_API_URL, {
+  postItem: (itemValue: string) => fetchResponse(fetchService, ITEMS_API_URL, {
       method: 'POST',
       body: JSON.stringify({ text: itemValue }),
       headers: {
         'Content-Type': 'application/json'
       },
-    })
-    .catch(error => {
-      throw new Error(error);
-    })
-    .then(response => checkResponse(response))
-    .then(response => response.json()),
+    }).then(response => response.json()),
 
-  putItem: (key: Key, itemValue: string) => fetchService(ITEMS_API_URL + key, {
+  putItem: (key: Key, itemValue: string) => fetchResponse(fetchService, ITEMS_API_URL + key, {
     method: 'PUT',
     body: JSON.stringify({ text: itemValue }),
     headers: {
       'Content-Type': 'application/json'
     },
-  })
-  .catch(error => {
-    throw new Error(error);
-  })
-  .then(response => checkResponse(response)),
+  }),
 
-   deleteItem: (key: Key) => fetchService(ITEMS_API_URL + key, { method: 'DELETE' })
-    .catch(error => {
-      throw new Error(error);
-    })
-    .then(response => checkResponse(response)),
+  deleteItem: (key: Key) => fetchResponse(fetchService, ITEMS_API_URL + key, { method: 'DELETE' }),
 });
