@@ -97,17 +97,14 @@ export const deleteItemOptimistic = (itemKey: Key): IAction => ({
 
 export const groupActionsToggle = (): IAction => ({
   type: actionTypes.ITEMS_GROUP_ACTIONS_TOGGLE,
-  payload: { }
 });
 
 export const itemsLoading = (): IAction => ({
   type: actionTypes.ITEMS_LOADING,
-  payload: { }
 });
 
 export const itemsLoadingDone = (): IAction => ({
   type: actionTypes.ITEMS_LOADING_DONE,
-  payload: { }
 });
 
 export const addItemOptimistic = (key: Key, itemValue: string): IAction => ({
@@ -122,7 +119,7 @@ export const addItemOptimistic = (key: Key, itemValue: string): IAction => ({
   },
 });
 
-export const dismissError = (itemKey: Key | undefined): IAction => ({
+export const dismissError = (itemKey?: Key): IAction => ({
   type: actionTypes.ERROR_DISMISS,
   payload: {
     itemKey,

@@ -1,5 +1,4 @@
 import { Dispatch } from 'react-redux';
-import { ThunkAction } from 'redux-thunk';
 
 import { IState } from '../../store/IState';
 import { IAction } from '../types/IAction';
@@ -11,8 +10,8 @@ import {
 
 export const saveItemFactory =
   (putItem: (key: Key, itemValue: string) => Promise<Response>) =>
-    (itemKey: Key, itemValue: string): ThunkAction<Promise<IAction>, IState, {}> =>
-      (dispatch: Dispatch<IAction>): Promise<IAction> => {
+    (itemKey: Key, itemValue: string): ThunkAction =>
+      (dispatch: Dispatch<IState>): Promise<IAction> => {
         dispatch(saveItemOptimistic(itemKey));
 
         return putItem(itemKey, itemValue)

@@ -27,7 +27,7 @@ describe('saveItemFactory works correctly', () => {
 
     const result = factory('x', '')(dispatchMock, { } as any, {});
 
-    return result.catch(() => {
+    return result.then(() => {
       expect(putItemMock.mock.calls.length).toBe(1);
       expect(dispatchMock.mock.calls.length).toBe(2);
       expect(dispatchMock.mock.calls[0][0].type).toBe(actionTypes.ITEM_SAVE_OPTIMISTIC);

@@ -5,6 +5,8 @@ describe('addItemFactory works correctly', () => {
   const dispatchMock = jest.fn();
   const generateKeyMock = jest.fn(() => 'key');
 
+  beforeEach(() => dispatchMock.mockReset());
+
   it('dispatch success on postItem resolve with correct data', () => {
     const itemText = 'x text';
     const serverItem = { id: 'x', text: itemText };
@@ -28,7 +30,8 @@ describe('addItemFactory works correctly', () => {
 
     const result = factory('')(dispatchMock, { } as any, {});
 
-    return result.catch(() => {
+    // even though error is tested, the result is in then() not in catch()
+    return result.then(() => {
       expect(postItemMock.mock.calls.length).toBe(1);
       expect(dispatchMock.mock.calls.length).toBe(2);
       expect(dispatchMock.mock.calls[0][0].type).toBe(actionTypes.ITEM_ADD_OPTIMISTIC);

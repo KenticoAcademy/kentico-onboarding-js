@@ -28,7 +28,7 @@ describe('saveLocalItemFactory works correctly', () => {
 
     const result = factory(localKey, itemText)(dispatchMock, { } as any, {});
 
-    return result.catch(() => {
+    return result.then(() => {
       expect(postItemMock.mock.calls.length).toBe(1);
       expect(dispatchMock.mock.calls.length).toBe(2);
       expect(dispatchMock.mock.calls[0][0].type).toBe(actionTypes.ITEM_SAVE_OPTIMISTIC);

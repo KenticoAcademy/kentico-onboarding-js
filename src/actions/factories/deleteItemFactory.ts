@@ -1,5 +1,4 @@
 import { Dispatch } from 'react-redux';
-import { ThunkAction } from 'redux-thunk';
 
 import { IState } from '../../store/IState';
 import { IAction } from '../types/IAction';
@@ -11,8 +10,8 @@ import {
 
 export const deleteItemFactory =
   (deleteItem: (key: Key) => Promise<Response>) =>
-    (itemKey: Key): ThunkAction<Promise<IAction>, IState, {}> =>
-      (dispatch: Dispatch<IAction>): Promise<IAction> => {
+    (itemKey: Key): ThunkAction =>
+      (dispatch: Dispatch<IState>): Promise<IAction> => {
         dispatch(deleteItemOptimistic(itemKey));
 
         return deleteItem(itemKey)
