@@ -1,6 +1,7 @@
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
-# kentico-onboarding-js
+# kentico-onboarding-js [![travis-ci](https://travis-ci.org/HanaNavratilova/kentico-onboarding-js.svg?branch=master)](https://travis-ci.org/HanaNavratilova/kentico-onboarding-js)
+
 Simple step-by-step task for Kentico Academy to learn the basics of JS, React, Redux.
 
 This project will consist of separate tasks. In the first one we will implement simple list of editable items using **ReactJS** only. In the second task we will try to refactor our code to use **ImmutableJS**. Next task will focus on managing the application state via **ReduxJS**. Then we will rewrite the whole app to **TypeScript**. Eventually, we will **connect our frontend to REST API** so that our items won't get lost after page refresh.  

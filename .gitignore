@@ -16,6 +16,6 @@ dist
 npm-debug.log
 
 .idea/*
-!.idea/codeStyleSettings.xml
 !.idea/libraries
 !.idea/inspectionProfiles
+!.idea/codeStyles
