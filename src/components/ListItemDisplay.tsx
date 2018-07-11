@@ -32,7 +32,7 @@ ListItemDisplay.displayName = 'ListItemDisplay';
 ListItemDisplay.propTypes = {
   item: PropTypes.shape({
     bullet: PropTypes.string.isRequired,
-    value: PropTypes.string,
+    value: PropTypes.string.isRequired,
     localOnly: PropTypes.bool.isRequired,
   }).isRequired,
 

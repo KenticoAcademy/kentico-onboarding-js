@@ -91,7 +91,7 @@ describe('error reducer works correctly', () => {
   });
 
   it('undefined action returns default state', () => {
-    const action = { type: actionTypes.ITEM_VALUE_CHANGED, payload: undefined };
+    const action = { type: actionTypes.ITEM_VALUE_CHANGED };
     const actual = errorReducer(undefined, action);
 
     expect(actual).toEqual(OrderedMap<Key, string>());
@@ -100,7 +100,7 @@ describe('error reducer works correctly', () => {
   it('undefined action returns previous state', () => {
     const state = OrderedMap<Key, string>().set('xy', 'error 1');
 
-    const action = { type: actionTypes.ITEM_VALUE_CHANGED, payload: undefined };
+    const action = { type: actionTypes.ITEM_VALUE_CHANGED };
     const actual = errorReducer(state, action);
 
     expect(actual).toEqual(state);

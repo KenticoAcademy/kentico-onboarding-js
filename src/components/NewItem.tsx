@@ -10,7 +10,7 @@ import {
 } from '../constants/constants';
 
 export interface INewItemState {
-  itemValue: string;
+  readonly itemValue: string;
 }
 
 export interface INewItemProps {
@@ -24,13 +24,9 @@ export class NewItem extends React.PureComponent<INewItemProps, INewItemState> {
     addItem: PropTypes.func.isRequired,
   };
 
-  constructor(props: INewItemProps) {
-    super(props);
-
-    this.state = {
-      itemValue: '',
-    };
-  }
+  static state = {
+    itemValue: '',
+  };
 
   _clearItemValue = (): void => this.setState({ itemValue: '' });
 

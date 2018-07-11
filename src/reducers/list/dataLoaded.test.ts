@@ -18,7 +18,7 @@ describe('group actions reducer works correctly', () => {
   });
 
   it('undefined action returns default state', () => {
-    const action = { type: actionTypes.ITEM_VALUE_CHANGED, payload: undefined };
+    const action = { type: actionTypes.ITEM_VALUE_CHANGED };
     const actual = dataLoadedReducer(undefined, action);
 
     expect(actual).toEqual(false);
@@ -27,7 +27,7 @@ describe('group actions reducer works correctly', () => {
   it('undefined action returns previous state', () => {
     const state = false;
 
-    const action = { type: actionTypes.ITEM_VALUE_CHANGED, payload: undefined };
+    const action = { type: actionTypes.ITEM_VALUE_CHANGED };
     const actual = dataLoadedReducer(state, action);
 
     expect(actual).toEqual(state);
