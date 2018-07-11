@@ -8,8 +8,7 @@ body {
   display: flex;
 }
 
-.loader
-{
+.loader {
   margin: 0 auto;
   width: 100px;
 }
@@ -17,4 +16,8 @@ body {
 .disabled {
   pointer-events: none;
   opacity: 0.4;
+}
+
+.floatRight {
+  float: right;
 }
