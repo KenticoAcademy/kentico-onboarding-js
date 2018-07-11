@@ -3,6 +3,7 @@ import { actionTypes } from '../../constants/actionTypes';
 
 describe('deleteItemFactory works correctly', () => {
   const dispatchMock = jest.fn();
+  beforeEach(() => dispatchMock.mockReset());
 
   it('dispatch success on deleteItem resolve with correct data', () => {
     const deleteItemMock = jest.fn(() => Promise.resolve());

@@ -3,6 +3,7 @@ import { actionTypes } from '../../constants/actionTypes';
 
 describe('saveItemFactory works correctly', () => {
   const dispatchMock = jest.fn();
+  beforeEach(() => dispatchMock.mockReset());
 
   it('dispatch success on putItem resolve with correct data', () => {
     const itemText = 'x text';

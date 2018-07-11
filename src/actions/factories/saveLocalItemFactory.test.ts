@@ -5,6 +5,7 @@ describe('saveLocalItemFactory works correctly', () => {
   const localKey = 'key';
   const itemText = 'x text';
   const dispatchMock = jest.fn();
+  beforeEach(() => dispatchMock.mockReset());
 
   it('dispatch success on postItem resolve with correct data', () => {
     const serverItem = { id: 'x', text: itemText };
