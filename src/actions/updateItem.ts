@@ -14,7 +14,7 @@ export const updateItem = (fetch: (id: ItemId, text: string) => Promise<Response
     return (id: ItemId, text: string): Promise<IAction> => {
       dispatch(toggleSynchronized(id, false));
       dispatch(toggleEditing(id, false));
-      dispatch(clearErrorMessage(id));
+      dispatch(clearErrorMessage(id, 'UPDATE'));
       dispatch(updateItemText(id));
 
       return fetch(id, text)
@@ -23,7 +23,7 @@ export const updateItem = (fetch: (id: ItemId, text: string) => Promise<Response
         .then(() => assertAlert('SUCCESS', 'Updated item text successfully'))
         .catch(() => {
           assertAlert('ERROR', 'Failed to update item text');
-          return dispatch(requestFailedForItem(id, 'Failed to update item text.'));
+          return dispatch(requestFailedForItem(id, 'UPDATE', 'Failed to update item text. '));
         });
     };
   };

@@ -15,7 +15,7 @@ export const removeItem = (fetch: (id: ItemId) => Promise<Response>) =>
     return (id: ItemId): Promise<IAction> => {
       dispatch(markAsBeingDeleted(id, true));
       dispatch(toggleSynchronized(id, false));
-      dispatch(clearErrorMessage(id));
+      dispatch(clearErrorMessage(id, 'DELETE'));
       dispatch(toggleEditing(id, false));
 
       return fetch(id)
@@ -25,7 +25,7 @@ export const removeItem = (fetch: (id: ItemId) => Promise<Response>) =>
         .catch(() => {
           dispatch(toggleSynchronized(id, true));
           assertAlert('ERROR', 'Shark failed in eating item.');
-          return dispatch(requestFailedForItem(id, 'Shark failed in eating item.'));
+          return dispatch(requestFailedForItem(id, 'DELETE', 'Shark failed in eating item.'));
         });
     };
   };

@@ -2,7 +2,9 @@ import {
   OrderedMap
 } from 'immutable';
 import { Reducer } from 'redux';
-import { Item } from '../../models/Item';
+import {
+  Item
+} from '../../models/Item';
 import {
   actionTypes
 } from '../../constants/actionTypes';
@@ -55,12 +57,13 @@ export const byId: Reducer<OrderedMap<ItemId, Item>> = (state = DEFAULT_STATE, a
 
     case actionTypes.REQUEST_FAILED_FOR_ITEM: {
       return state.update(action.payload.id, (item) => item.with({
-        errorMessage: action.payload.errorMessage,
+        errorMessages: item.errorMessages.set(action.payload.errorType, action.payload.errorMessage),
       }));
     }
+
     case actionTypes.CLEAR_ERROR_MESSAGE: {
-      return state.update(action.payload.id, (item) => item.with({
-        errorMessage: '',
+      return state.update(action.payload.id, (item: Item) => item.with({
+        errorMessages: item.errorMessages.remove(action.payload.errorType),
       }));
     }
 
@@ -87,7 +90,7 @@ export const byId: Reducer<OrderedMap<ItemId, Item>> = (state = DEFAULT_STATE, a
       return state.update(action.payload.id, (item) => item.with({
         isBeingEdited: false,
         isBeingDeleted: false,
-        errorMessage: '',
+        errorMessages: item.errorMessages.filter((_ , key) => !action.payload.errorTypes.includes(key)).toMap(),
         synchronized: true,
       }));
 

@@ -1,11 +1,11 @@
 import { ItemId } from './ItemId';
 import { BaseRecord } from './BaseRecord';
-
+import { Map } from 'immutable';
 export interface IItem {
   readonly id: ItemId;
   readonly text: string;
   readonly textUpdate: string;
-  readonly errorMessage: string;
+  readonly errorMessages: Map<string, string>;
   readonly synchronized: boolean;
   readonly isBeingEdited: boolean;
   readonly isBeingDeleted: boolean;
@@ -17,7 +17,7 @@ export const defaultItem: IItem = {
   id: emptyId,
   text: '',
   textUpdate: '',
-  errorMessage: '',
+  errorMessages: Map<string, string>(),
   synchronized: true,
   isBeingEdited: false,
   isBeingDeleted: false,
@@ -27,7 +27,7 @@ export class Item extends  BaseRecord<Item>(defaultItem, 'Item') implements IIte
   readonly id: ItemId;
   readonly text: string;
   readonly textUpdate: string;
-  readonly errorMessage: string;
+  readonly errorMessages: Map<string, string>;
   readonly synchronized: boolean;
   readonly isBeingEdited: boolean;
   readonly isBeingDeleted: boolean;

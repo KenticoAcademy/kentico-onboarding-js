@@ -4,14 +4,18 @@ import { EditedListItem } from '../containers/EditedListItem';
 import { UneditedListItem } from '../containers/UneditedListItem';
 import { ItemId } from '../models/ItemId';
 import { IAction } from '../actions/IAction';
+import {
+  Map,
+} from 'immutable';
 
 export interface IListItemDataProps {
   text: string;
+  textUpdate: string;
   id: ItemId;
   isBeingEdited: boolean;
   synchronized: boolean;
   index: number;
-  errorMessage: string;
+  errorMessages: Map<string, string>;
   isBeingDeleted: boolean;
 }
 
@@ -19,17 +23,20 @@ export interface IListItemCallbackProps {
   onDivClick: React.MouseEventHandler<HTMLDivElement>;
   onThrowAway: () => Promise<IAction>;
   onSaveAgain: (text: string) => Promise<IAction>;
+  onUploadAgain: (text: string) => Promise<IAction>;
   onRecover: () => IAction;
 }
 
 const ListItem: React.StatelessComponent<IListItemDataProps & IListItemCallbackProps>  = (
-  { id, isBeingEdited, index, synchronized, errorMessage, isBeingDeleted, onDivClick, onSaveAgain, onThrowAway, text, onRecover}) => {
+  { id, isBeingEdited, index, synchronized, errorMessages, isBeingDeleted, onDivClick, onSaveAgain, onThrowAway, textUpdate, onRecover, onUploadAgain, text}) => {
 
-  const className = 'list-group-item form-inline' + (!synchronized && !errorMessage ? ' synchronizing' : '') + (!errorMessage ? '' : ' alert-danger') + (!isBeingDeleted ? '' : ' being-deleted');
+  const className = 'list-group-item form-inline' + (!synchronized && errorMessages.size === 0 ? ' synchronizing' : '') + (errorMessages.size === 0 ? '' : ' alert-danger') + (!isBeingDeleted ? '' : ' being-deleted');
 
-  function _onSaveAgain (e: React.MouseEvent<HTMLDivElement>) {
+  function _onDoItAgain (e: React.MouseEvent<HTMLDivElement>) {
     e.stopPropagation();
-    onSaveAgain(text);
+    errorMessages.keySeq().contains('UPLOAD') ?
+      textUpdate ?  onUploadAgain(textUpdate) : onUploadAgain(text)
+       : onSaveAgain(textUpdate);
   }
 
   function _onThrowAay (e: React.MouseEvent<HTMLDivElement>) {
@@ -60,11 +67,11 @@ const ListItem: React.StatelessComponent<IListItemDataProps & IListItemCallbackP
         onClick={_onThrowAay}>
         🦈
       </div>
-      {errorMessage && !isBeingEdited && !isBeingDeleted ? <div
+      {errorMessages.size !== 0 && !isBeingEdited && !isBeingDeleted ? <div
         data-balloon={'Try again'}
         data-balloon-pos="up"
         className="uneditedItemMessage"
-        onClick={_onSaveAgain}>
+        onClick={_onDoItAgain}>
         ↺
         &nbsp;&nbsp;&nbsp;
       </div> : isBeingDeleted && synchronized ? <div
@@ -83,11 +90,12 @@ ListItem.displayName = 'ListItem';
 
 ListItem.propTypes = {
   text: PropTypes.string.isRequired,
+  textUpdate: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
   isBeingEdited: PropTypes.bool.isRequired,
   synchronized: PropTypes.bool.isRequired,
   index: PropTypes.number.isRequired,
-  errorMessage: PropTypes.string,
+  errorMessages: PropTypes.object,
   isBeingDeleted: PropTypes.bool.isRequired,
   onDivClick: PropTypes.func.isRequired,
   onSaveAgain: PropTypes.func.isRequired,

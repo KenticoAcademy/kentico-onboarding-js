@@ -63,7 +63,9 @@ export class EditedListItem extends React.PureComponent<IEditedListItemProps> {
             disabled={isEmpty}
             onClick={this._onSaveItem}
           >
-            {item.errorMessage ? 'Save the word again!' : 'Save the word!'}
+            {item.errorMessages.keySeq().contains('UPLOAD') ?
+              'Modify the word you wanted to upload!' : item.errorMessages.size !== 0 ?
+                'Save the word again!' : 'Save the word!'}
           </button>
           <button
             className="btn btn-default"

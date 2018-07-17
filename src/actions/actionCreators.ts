@@ -57,16 +57,18 @@ export const markAsBeingDeleted = (id: ItemId, isBeingDeleted: boolean) => ({
   }
 });
 
-export const clearErrorMessage = (id: ItemId) => ({
+export const clearErrorMessage = (id: ItemId, errorType: string) => ({
   type: actionTypes.CLEAR_ERROR_MESSAGE,
   payload: {
     id,
+    errorType,
   }
 });
 
-  export const resetItem = (id: ItemId) => ({
+  export const resetItem = (id: ItemId, errorTypes: string[]) => ({
     type: actionTypes.RESET_ITEM,
     payload: {
       id,
+      errorTypes,
     }
   });
