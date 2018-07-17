@@ -11,11 +11,11 @@ export interface IUneditedListItemProps extends IUneditedListItemDataProps {}
 const UneditedListItem:
   React.StatelessComponent<IUneditedListItemProps> = ({ item }) => {
 
-  if (item.errorMessage !== '') {
+  if (item.errorMessages.size !== 0) {
     return (
       <div className="ItemDiv red-text">
         <div className="uneditedItemText">{item.text}</div>
-        <div className="uneditedItemMessage">{item.errorMessage}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+        <div className="uneditedItemMessage">{item.errorMessages.valueSeq()}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
       </div>
     );
   }

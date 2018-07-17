@@ -26,7 +26,7 @@ export const uploadItem = (fetch: (text: string) => Promise<Response>, generateI
         .then(() => assertAlert('SUCCESS', 'Uploaded item successfully'))
         .catch(() => {
           assertAlert('ERROR', 'Failed to upload item.');
-          return dispatch(requestFailedForItem(id, 'Failed to upload.'));
+          return dispatch(requestFailedForItem(id, 'UPLOAD', 'Failed to upload. '));
         });
     };
   };

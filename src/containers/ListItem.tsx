@@ -11,7 +11,8 @@ import {
   removeItem,
   resetItem,
   toggleEditing,
-  updateItem
+  updateItem,
+  uploadItemAgain
 } from '../actions';
 import { IAction } from '../actions/IAction';
 
@@ -24,18 +25,20 @@ export interface IListItemCallbackProps {
   onDivClick: React.MouseEventHandler<HTMLDivElement>;
   onThrowAway: () => Promise<IAction>;
   onSaveAgain: (text: string) => Promise<IAction>;
+  onUploadAgain: (text: string) => Promise<IAction>;
   onRecover: () => IAction;
 }
 
 function mapStateToProps(state: IAppState, {id, index}: IListItemContainerProps): IListItemDataProps {
   const item = state.items.byId.get(id);
   return {
-    text: item.textUpdate,
+    text: item.text,
+    textUpdate: item.textUpdate,
     id,
     isBeingEdited: item.isBeingEdited,
     index,
     synchronized: item.synchronized,
-    errorMessage: item.errorMessage,
+    errorMessages: item.errorMessages,
     isBeingDeleted: item.isBeingDeleted,
   };
 }
@@ -44,7 +47,8 @@ const mapDispatchToProps = (dispatch: Function, { id }: IListItemContainerProps)
   onDivClick: () => dispatch(toggleEditing(id, true)),
   onThrowAway: () => removeItem(dispatch)(id),
   onSaveAgain: (text: string) => updateItem(dispatch)(id, text),
-  onRecover: () => dispatch(resetItem(id)),
+  onUploadAgain: (text: string) => uploadItemAgain(id)(dispatch)(text),
+  onRecover: () => dispatch(resetItem(id, ['DELETE'])),
 });
 
 
