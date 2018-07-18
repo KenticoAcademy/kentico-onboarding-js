@@ -82,7 +82,10 @@
     "prefer-promise-reject-errors": "off",
     "prefer-template": "off",
     "quote-props": "off",
-    "quotes": "off",
+    "quotes": [
+      "warn",
+      "single"
+    ],
     "react-functional-set-state/no-this-state-props": "error",
     "react/forbid-prop-types": "off",
     "react/jsx-boolean-value": "off",
