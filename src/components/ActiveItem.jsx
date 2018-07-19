@@ -1,14 +1,14 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
+import { ImmutableItem } from "./ImmutableItem";
+
 export class ActiveItem extends PureComponent {
   static displayName = 'ActiveItem';
 
   static propTypes = {
     index: PropTypes.number.isRequired,
-    item: PropTypes.shape({
-      text: PropTypes.string.isRequired,
-    }).isRequired,
+    item: PropTypes.instanceOf(ImmutableItem).isRequired,
     onSaveItem: PropTypes.func.isRequired,
     onCancelItem: PropTypes.func.isRequired,
     onDeleteItem: PropTypes.func.isRequired,
@@ -18,7 +18,7 @@ export class ActiveItem extends PureComponent {
     super(props);
 
     this.state = {
-      text: props.item.text,
+      text: props.item.get('text'),
     };
   }
 

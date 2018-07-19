@@ -4,15 +4,14 @@ import PropTypes from 'prop-types';
 import { ActiveItem } from './ActiveItem.jsx';
 import { InactiveItem } from './InactiveItem.jsx';
 
+import { ImmutableItem } from './ImmutableItem';
+
 export class Item extends PureComponent {
   static displayName = 'Item';
 
   static propTypes = {
     index: PropTypes.number.isRequired,
-    item: PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      text: PropTypes.string.isRequired,
-    }).isRequired,
+    item: PropTypes.instanceOf(ImmutableItem).isRequired,
     onEditItem: PropTypes.func.isRequired,
     onDeleteItem: PropTypes.func.isRequired,
   };
@@ -24,13 +23,13 @@ export class Item extends PureComponent {
   _activateItem = () => this.setState({ isActive: true });
 
   _saveItem = text => {
-    this.props.onEditItem(this.props.item.id, text);
+    this.props.onEditItem(this.props.item.get('id'), text);
     this.setState({ isActive: false });
   };
 
   _cancelItem = () => this.setState({ isActive: false });
 
-  _deleteItem = () => this.props.onDeleteItem(this.props.item.id);
+  _deleteItem = () => this.props.onDeleteItem(this.props.item.get('id'));
 
   render() {
     return (

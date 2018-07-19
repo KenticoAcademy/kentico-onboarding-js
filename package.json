@@ -6,6 +6,7 @@
     "ajv": "^6.5.1",
     "bootstrap": "^3.3.7",
     "guid": "0.0.12",
+    "immutable": "^3.8.2",
     "prop-types": "^15.6.2",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",

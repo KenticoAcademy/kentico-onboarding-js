@@ -1,60 +1,39 @@
 import React, { PureComponent } from 'react';
 import assignment from '../assignment.gif';
+import * as Immutable from 'immutable';
 
 import { TsComponent } from './TsComponent.tsx';
 import { Item } from './Item.jsx';
 import { AddItem } from './AddItem.jsx';
 
+import { ImmutableItem } from "./ImmutableItem";
 import { guid } from '../utils/guid';
 
 export class List extends PureComponent {
   static displayName = 'List';
 
   state = {
-    list: [
-      {
-        'id': guid(),
-        'text': 'fgdds',
-      }, {
-        'id': guid(),
-        'text': 'aaaaa',
-      }
-    ],
+    list: new Immutable.OrderedMap(),
   };
 
   _editItem = (id, text) => this.setState(prevState => {
-    const list = prevState.list.map(item => (
-      item.id === id
-        ? {
-          'id': id,
-          'text': text,
-        }
-        : item
-    ));
+    const item = new ImmutableItem({ id, text });
 
-    return { list };
+    return { list: prevState.list.set(id, item) };
   });
 
   _deleteItem = id => this.setState(prevState => {
-    const newList = prevState.list.filter(item => item.id !== id);
-
     return {
-      list: newList
+      list: prevState.list.delete(id)
     };
   });
 
 
   _addItem = text => this.setState(prevState => {
-    const newItem = {
-      'id': guid(),
-      'text': text,
-    };
-
+    const id = guid();
+    const newItem = new ImmutableItem({ id, text });
     return {
-      list: [
-        ...prevState.list,
-        newItem
-      ]
+      list: prevState.list.set(id, newItem)
     };
   });
 
@@ -95,9 +74,9 @@ export class List extends PureComponent {
           <div className="col-sm-12 col-md-offset-2 col-md-8">
             <ul className="list-group">
               {
-                this.state.list.map((item, index) => (
+                this.state.list.valueSeq().toArray().map((item, index) => (
                     <Item
-                      key={item.id}
+                      key={item.get('id')}
                       index={index}
                       item={item}
                       onEditItem={this._editItem}
