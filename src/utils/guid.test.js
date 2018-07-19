@@ -4,9 +4,7 @@ const uuidv1 = require('uuid/v1');
 
 const regex = RegExp(/^[a-fA-F0-9]{8}-([a-fA-F0-9]{4}-){3}[a-fA-F0-9]{12}$/);
 
-const regexVersion = (version) => {
-  return RegExp('[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-' + version + '[a-fA-F0-9]{3}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}');
-}
+const regexVersion = (version) => RegExp('[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-' + version + '[a-fA-F0-9]{3}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}');
 
 describe('guid', () => {
   it('matches regex', () => {

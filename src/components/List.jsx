@@ -6,7 +6,7 @@ import { TsComponent } from './TsComponent.tsx';
 import { Item } from './Item.jsx';
 import { AddItem } from './AddItem.jsx';
 
-import { ImmutableItem } from "./ImmutableItem";
+import { ImmutableItem } from './ImmutableItem';
 import { guid } from '../utils/guid';
 
 export class List extends PureComponent {
@@ -16,24 +16,26 @@ export class List extends PureComponent {
     list: new Immutable.OrderedMap(),
   };
 
-  _editItem = (id, text) => this.setState(prevState => {
-    const item = new ImmutableItem({ id, text });
+  _editItem = (id, text) => this.setState(prevState => ({
+    list: prevState.list.set(id, new ImmutableItem({
+      id,
+      text
+    }))
+  }));
 
-    return { list: prevState.list.set(id, item) };
-  });
-
-  _deleteItem = id => this.setState(prevState => {
-    return {
-      list: prevState.list.delete(id)
-    };
-  });
+  _deleteItem = id => this.setState(prevState => ({
+    list: prevState.list.delete(id)
+  }));
 
 
   _addItem = text => this.setState(prevState => {
     const id = guid();
-    const newItem = new ImmutableItem({ id, text });
+
     return {
-      list: prevState.list.set(id, newItem)
+      list: prevState.list.set(id, new ImmutableItem({
+        id,
+        text
+      }))
     };
   });
 
@@ -74,16 +76,18 @@ export class List extends PureComponent {
           <div className="col-sm-12 col-md-offset-2 col-md-8">
             <ul className="list-group">
               {
-                this.state.list.valueSeq().toArray().map((item, index) => (
-                    <Item
-                      key={item.get('id')}
-                      index={index}
-                      item={item}
-                      onEditItem={this._editItem}
-                      onDeleteItem={this._deleteItem}
-                    />
+                this.state.list.valueSeq()
+                  .toArray()
+                  .map((item, index) => (
+                      <Item
+                        key={item.get('id')}
+                        index={index}
+                        item={item}
+                        onEditItem={this._editItem}
+                        onDeleteItem={this._deleteItem}
+                      />
+                    )
                   )
-                )
               }
               <AddItem onAddItem={this._addItem} />
             </ul>

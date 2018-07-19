@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
-import { ImmutableItem } from "./ImmutableItem";
+import { ImmutableItem } from './ImmutableItem';
 
 export class ActiveItem extends PureComponent {
   static displayName = 'ActiveItem';

@@ -1,4 +1,4 @@
-import * as Immutable from "immutable";
+import * as Immutable from 'immutable';
 
 const item = { id: '', text: '' };
 
