@@ -1,3 +1,3 @@
-import { raw } from 'guid';
+const uuidv4 = require('uuid/v4');
 
-export const guid = () => raw();
+export const guid = () => uuidv4();

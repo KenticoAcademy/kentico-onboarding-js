@@ -6,16 +6,14 @@ describe('guid', () => {
   it('matches regex', () => {
     const testedGuid = guid();
 
-    expect(testedGuid)
-      .toMatch(regex);
+    expect(testedGuid).toMatch(regex);
   });
 
   it('is unique', () => {
     const guidArray = Array(20).fill(undefined).map(() => guid());
     const guidSet = new Set(guidArray);
 
-    expect(guidArray.length)
-      .toEqual(guidSet.size);
+    expect(guidArray.length).toEqual(guidSet.size);
   });
 });
 
