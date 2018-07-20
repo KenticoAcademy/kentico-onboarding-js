@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@types/react-redux": "^6.0.4",
     "ajv": "^6.5.1",
     "bootstrap": "^3.3.7",
     "immutable": "^3.8.2",
