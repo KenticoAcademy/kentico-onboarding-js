@@ -15,7 +15,7 @@ const createMapItem = (text) => {
   ];
 };
 
-export const getDefaultList = () => new OrderedMap([
+export const getDefaultList = () => OrderedMap([
   createMapItem('aaaaa'),
   createMapItem('asdfg'),
 ]);
