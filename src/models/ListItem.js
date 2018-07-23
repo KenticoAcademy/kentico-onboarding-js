@@ -1,5 +1,8 @@
-import * as Immutable from 'immutable';
+import { Record } from 'immutable';
 
-const item = { id: '', text: '' };
+const emptyListItem = {
+  id: '',
+  text: ''
+};
 
-export const ListItem = Immutable.Record(item);
+export const ListItem = Record(emptyListItem, 'ListItem');
