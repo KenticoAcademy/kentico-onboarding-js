@@ -6,7 +6,7 @@ import { TsComponent } from './TsComponent.tsx';
 import { Item } from './Item.jsx';
 import { AddItem } from './AddItem.jsx';
 
-import { ImmutableItem } from './ImmutableItem';
+import { ImmutableItem } from '../models/ImmutableItem';
 import { guid } from '../utils/guid';
 
 export class List extends PureComponent {

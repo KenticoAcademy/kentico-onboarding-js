@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { ActiveItem } from './ActiveItem.jsx';
 import { InactiveItem } from './InactiveItem.jsx';
 
-import { ImmutableItem } from './ImmutableItem';
+import { ImmutableItem } from '../models/ImmutableItem';
 
 export class Item extends PureComponent {
   static displayName = 'Item';

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { ImmutableItem } from './ImmutableItem';
+import { ImmutableItem } from '../models/ImmutableItem';
 
 export const InactiveItem = (props) => (
   <div onClick={props.onItemClick}>
