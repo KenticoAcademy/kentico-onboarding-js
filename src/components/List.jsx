@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react';
 import assignment from '../assignment.gif';
-import * as Immutable from 'immutable';
 
 import { TsComponent } from './TsComponent.tsx';
 import { Item } from './Item.jsx';
@@ -8,12 +7,13 @@ import { AddItem } from './AddItem.jsx';
 
 import { ListItem } from '../models/ListItem';
 import { guid } from '../utils/guid';
+import { getDefaultList } from '../utils/getDefaultList';
 
 export class List extends PureComponent {
   static displayName = 'List';
 
   state = {
-    list: new Immutable.OrderedMap(),
+    list: getDefaultList(),
   };
 
   _editItem = (id, text) => this.setState(prevState => ({
