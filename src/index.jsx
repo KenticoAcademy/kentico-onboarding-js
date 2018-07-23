@@ -5,4 +5,8 @@ import React from 'react';
 
 import { App } from './App.jsx';
 
-ReactDom.render(<App/>, document.getElementById('app-root'));
+ReactDom.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+  document.getElementById('app-root'));
