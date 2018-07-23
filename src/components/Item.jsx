@@ -23,13 +23,13 @@ export class Item extends PureComponent {
   _activateItem = () => this.setState({ isActive: true });
 
   _saveItem = text => {
-    this.props.onEditItem(this.props.item.get('id'), text);
+    this.props.onEditItem(this.props.item.id, text);
     this.setState({ isActive: false });
   };
 
   _cancelItem = () => this.setState({ isActive: false });
 
-  _deleteItem = () => this.props.onDeleteItem(this.props.item.get('id'));
+  _deleteItem = () => this.props.onDeleteItem(this.props.item.id);
 
   render() {
     return (

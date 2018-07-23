@@ -80,7 +80,7 @@ export class List extends PureComponent {
                   .toArray()
                   .map((item, index) => (
                       <Item
-                        key={item.get('id')}
+                        key={item.id}
                         index={index}
                         item={item}
                         onEditItem={this._editItem}

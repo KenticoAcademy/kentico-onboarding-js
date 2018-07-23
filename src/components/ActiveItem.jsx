@@ -18,7 +18,7 @@ export class ActiveItem extends PureComponent {
     super(props);
 
     this.state = {
-      text: props.item.get('text'),
+      text: props.item.text,
     };
   }
 

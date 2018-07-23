@@ -6,7 +6,7 @@ import { ImmutableItem } from './ImmutableItem';
 export const InactiveItem = (props) => (
   <div onClick={props.onItemClick}>
     {props.index + 1}.
-    {props.item.get('text')}
+    {props.item.text}
   </div>
 );
 
