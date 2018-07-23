@@ -2,6 +2,8 @@
   "name": "kentico-onboarding",
   "version": "0.0.1",
   "main": "src/index.jsx",
+  "license": "MIT",
+  "repository": "github:KenticoAcademy/kentico-onboarding-js",
   "scripts": {
     "build": "webpack --mode=development",
     "start": "webpack-dev-server --mode=development",
