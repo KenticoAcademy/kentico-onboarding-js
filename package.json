@@ -5,9 +5,9 @@
   "license": "MIT",
   "repository": "github:KenticoAcademy/kentico-onboarding-js",
   "scripts": {
-    "build": "webpack --mode=development",
-    "start": "webpack-dev-server --mode=development",
-    "production": "webpack -p",
+    "build": "webpack --config webpack.development.js",
+    "start": "webpack-dev-server --config webpack.development.js",
+    "production": "webpack --config webpack.production.js",
     "test": "jest --config=jest.config.js --no-cache"
   },
   "dependencies": {
@@ -44,6 +44,7 @@
     "url-loader": "^1.0.1",
     "webpack": "^4.14.0",
     "webpack-cli": "^3.0.8",
-    "webpack-dev-server": "^3.1.4"
+    "webpack-dev-server": "^3.1.4",
+    "webpack-merge": "^4.1.3"
   }
 }

@@ -1,8 +1,29 @@
 {
-  "presets": [["env", {"modules": false}], "react"],
+  "presets": [
+    [
+      "env",
+      {
+        "modules": false,
+        "targets": {
+          "node": "current",
+          "browsers": [
+            "last 2 versions",
+            "not dead",
+            "not IE > 0"
+          ]
+        }
+      }
+    ],
+    "react"
+  ],
   "env": {
     "test": {
-      "presets": [["env"], "react"]
+      "presets": [
+        [
+          "env"
+        ],
+        "react"
+      ]
     }
   }
 }

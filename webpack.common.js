@@ -3,13 +3,14 @@
 /* eslint-disable no-path-concat */
 const path = require('path');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-const mode = process.env.NODE_ENV || 'development';
 
 module.exports = {
-  entry: './src/index.jsx',
+  entry: {
+    client: './src/index.jsx'
+  },
   output: {
-    path: path.resolve(__dirname, '/build'),
-    filename: 'bundle.js'
+    path: path.resolve(__dirname, 'build'),
+    filename: '[name].js',
   },
   module: {
     rules: [
@@ -27,23 +28,28 @@ module.exports = {
         { loader: 'css-loader' }
       ] },
       { test: /\.(eot|svg|ttf|woff|woff2)/, use: [
-        { loader: 'url-loader', options: { name: 'assets/[name].[ext]', limit: 10000 } }
+        { loader: 'url-loader', options: { name: 'font-icons/[name].[ext]', limit: 10000 } }
       ] },
       { test: /\.(html|jpg|jpeg|png|ico|gif)/, use: [
         { loader: 'file-loader', options: { name: '[path][name].[ext]', context: 'public' } }
       ] }
     ]
   },
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        vendor: {
+          test: /node_modules/,
+          chunks: 'all',
+          name: 'vendor',
+        }
+      }
+    }
+  },
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx']
   },
   plugins: [
-    new CleanWebpackPlugin(['build'])
+    new CleanWebpackPlugin(['build/*'])
   ],
-  devtool: mode === 'development' ? 'eval-source-map' : null,
-  devServer: {
-    contentBase: path.resolve(__dirname, '/build'),
-    port: 3000,
-    open: true
-  }
 };
