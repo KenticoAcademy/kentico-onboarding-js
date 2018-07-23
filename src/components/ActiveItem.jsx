@@ -1,14 +1,14 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
-import { ImmutableItem } from '../models/ImmutableItem';
+import { ListItem } from '../models/ListItem';
 
 export class ActiveItem extends PureComponent {
   static displayName = 'ActiveItem';
 
   static propTypes = {
     index: PropTypes.number.isRequired,
-    item: PropTypes.instanceOf(ImmutableItem).isRequired,
+    item: PropTypes.instanceOf(ListItem).isRequired,
     onSaveItem: PropTypes.func.isRequired,
     onCancelItem: PropTypes.func.isRequired,
     onDeleteItem: PropTypes.func.isRequired,

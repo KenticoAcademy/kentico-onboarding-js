@@ -6,7 +6,7 @@ import { TsComponent } from './TsComponent.tsx';
 import { Item } from './Item.jsx';
 import { AddItem } from './AddItem.jsx';
 
-import { ImmutableItem } from '../models/ImmutableItem';
+import { ListItem } from '../models/ListItem';
 import { guid } from '../utils/guid';
 
 export class List extends PureComponent {
@@ -17,7 +17,7 @@ export class List extends PureComponent {
   };
 
   _editItem = (id, text) => this.setState(prevState => ({
-    list: prevState.list.set(id, new ImmutableItem({
+    list: prevState.list.set(id, new ListItem({
       id,
       text
     }))
@@ -32,7 +32,7 @@ export class List extends PureComponent {
     const id = guid();
 
     return {
-      list: prevState.list.set(id, new ImmutableItem({
+      list: prevState.list.set(id, new ListItem({
         id,
         text
       }))

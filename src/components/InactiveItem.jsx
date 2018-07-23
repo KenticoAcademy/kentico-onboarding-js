@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { ImmutableItem } from '../models/ImmutableItem';
+import { ListItem } from '../models/ListItem';
 
 export const InactiveItem = (props) => (
   <div onClick={props.onItemClick}>
@@ -14,6 +14,6 @@ InactiveItem.displayName = 'InactiveItem';
 
 InactiveItem.propTypes = {
   index: PropTypes.number.isRequired,
-  item: PropTypes.instanceOf(ImmutableItem).isRequired,
+  item: PropTypes.instanceOf(ListItem).isRequired,
   onItemClick: PropTypes.func.isRequired,
 };
