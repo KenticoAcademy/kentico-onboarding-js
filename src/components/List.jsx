@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import assignment from '../assignment.gif';
 
 import { TsComponent } from './TsComponent.tsx';
@@ -9,7 +9,7 @@ import { ListItem } from '../models/ListItem';
 import { guid } from '../utils/guid';
 import { getDefaultList } from '../utils/getDefaultList';
 
-export class List extends PureComponent {
+export class List extends React.PureComponent {
   static displayName = 'List';
 
   state = {
@@ -17,10 +17,15 @@ export class List extends PureComponent {
   };
 
   _editItem = (id, text) => this.setState(prevState => ({
-    list: prevState.list.set(id, new ListItem({
-      id,
-      text
-    }))
+    list: prevState
+      .list
+      .set(
+        id,
+        new ListItem({
+          id,
+          text
+        })
+      )
   }));
 
   _deleteItem = id => this.setState(prevState => ({
@@ -32,10 +37,15 @@ export class List extends PureComponent {
     const id = guid();
 
     return {
-      list: prevState.list.set(id, new ListItem({
-        id,
-        text
-      }))
+      list: prevState
+        .list
+        .set(
+          id,
+          new ListItem({
+            id,
+            text
+          })
+        )
     };
   });
 

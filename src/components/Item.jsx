@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import { ActiveItem } from './ActiveItem.jsx';
@@ -6,7 +6,7 @@ import { InactiveItem } from './InactiveItem.jsx';
 
 import { ListItem } from '../models/ListItem';
 
-export class Item extends PureComponent {
+export class Item extends React.PureComponent {
   static displayName = 'Item';
 
   static propTypes = {

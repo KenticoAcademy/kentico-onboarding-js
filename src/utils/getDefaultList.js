@@ -1,4 +1,4 @@
-import { OrderedMap } from "immutable";
+import { OrderedMap } from 'immutable';
 
 import { ListItem } from '../models/ListItem';
 import { guid } from './guid';

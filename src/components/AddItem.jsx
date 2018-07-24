@@ -1,7 +1,7 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
-export class AddItem extends PureComponent {
+export class AddItem extends React.PureComponent {
   static displayName = 'AddItemInput';
 
   static propTypes = {

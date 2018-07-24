@@ -1,9 +1,9 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import { ListItem } from '../models/ListItem';
 
-export class ActiveItem extends PureComponent {
+export class ActiveItem extends React.PureComponent {
   static displayName = 'ActiveItem';
 
   static propTypes = {
