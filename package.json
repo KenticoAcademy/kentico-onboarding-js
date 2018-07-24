@@ -8,7 +8,9 @@
     "build": "webpack --config webpack.development.js",
     "start": "webpack-dev-server --config webpack.development.js",
     "production": "webpack --config webpack.production.js",
-    "test": "jest --config=jest.config.js --no-cache"
+    "test": "jest --config=jest.config.js --no-cache",
+    "eslint": "eslint . --ext .js --ext .jsx",
+    "tslint": "tslint --project tsconfig.json -e \"./node_modules/**\" \"./**/*.ts?(x)\""
   },
   "dependencies": {
     "bootstrap": "^3.3.7",
@@ -36,10 +38,12 @@
     "extract-loader": "^2.0.1",
     "file-loader": "^1.1.11",
     "jest": "^23.4.0",
+    "react-set-state-usage": "^2.0.1",
     "ts-jest": "^23.0.0",
     "ts-loader": "^4.4.2",
     "tslint": "^5.10.0",
     "tslint-loader": "^3.6.0",
+    "tslint-react": "^3.6.0",
     "typescript": "^2.9.2",
     "url-loader": "^1.0.1",
     "webpack": "^4.14.0",

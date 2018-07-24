@@ -1,4 +1,8 @@
 {
+  "extends": [
+    "react-set-state-usage",
+    "tslint-react"
+  ],
   "rules": {
     "align": [
       true,
@@ -19,7 +23,10 @@
       true,
       "spaces"
     ],
-    "linebreak-style": [false, "LF"],
+    "linebreak-style": [
+      false,
+      "LF"
+    ],
     "interface-name": false,
     "jsdoc-format": true,
     "label-position": true,
@@ -46,11 +53,13 @@
     ],
     "no-construct": true,
     "no-debugger": true,
+    "no-default-export": true,
     "no-shadowed-variable": true,
     "no-duplicate-variable": true,
     "no-empty": true,
     "no-eval": true,
     "no-internal-module": true,
+    "no-require-imports": true,
     "no-string-literal": true,
     "no-switch-case-fall-through": true,
     "trailing-comma": {
@@ -86,14 +95,15 @@
       "allow-null-check"
     ],
     "typedef": [
-      false,
+      true,
       "call-signature",
       "parameter",
       "property-declaration",
-      "member-variable-declaration"
+      "array-destructuring"
     ],
     "typedef-whitespace": [
-      true, {
+      true,
+      {
         "call-signature": "nospace",
         "index-signature": "nospace",
         "parameter": "nospace",
