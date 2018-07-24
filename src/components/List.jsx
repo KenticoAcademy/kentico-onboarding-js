@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import * as Immutable from 'immutable';
 
 import { TsComponent } from './TsComponent.tsx';
-import { Item } from './Item.jsx';
-import { AddItem } from './AddItem.jsx';
+import { Item } from '../containers/Item.jsx';
+import { AddItem } from '../containers/AddItem.jsx';
 
 export const List = (props) => (
   <div className="row">
@@ -50,13 +50,11 @@ export const List = (props) => (
                     key={item.get('id')}
                     index={index}
                     item={item}
-                    onEditItem={props.onEditItem}
-                    onDeleteItem={props.onDeleteItem}
                   />
                 )
               )
           }
-          <AddItem onAddItem={props.onAddItem} />
+          <AddItem />
         </ul>
       </div>
     </div>
@@ -67,7 +65,4 @@ List.displayName = 'List';
 
 List.propTypes = {
   list: PropTypes.instanceOf(Immutable.OrderedMap).isRequired,
-  onAddItem: PropTypes.func.isRequired,
-  onEditItem: PropTypes.func.isRequired,
-  onDeleteItem: PropTypes.func.isRequired,
 };
