@@ -17,15 +17,7 @@ export class List extends React.PureComponent {
   };
 
   _editItem = (id, text) => this.setState(prevState => ({
-    list: prevState
-      .list
-      .set(
-        id,
-        new ListItem({
-          id,
-          text
-        })
-      )
+    list: prevState.list.mergeIn([id], { text })
   }));
 
   _deleteItem = id => this.setState(prevState => ({
