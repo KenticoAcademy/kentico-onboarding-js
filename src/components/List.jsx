@@ -1,60 +1,43 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import assignment from '../assignment.gif';
 
 import { TsComponent } from './TsComponent.tsx';
 import { Item } from './Item.jsx';
 import { AddItem } from './AddItem.jsx';
 
+import { ListItem } from '../models/ListItem';
 import { guid } from '../utils/guid';
+import { getDefaultList } from '../utils/getDefaultList';
 
-export class List extends PureComponent {
+export class List extends React.PureComponent {
   static displayName = 'List';
 
   state = {
-    list: [
-      {
-        'id': guid(),
-        'text': 'fgdds',
-      }, {
-        'id': guid(),
-        'text': 'aaaaa',
-      }
-    ],
+    list: getDefaultList(),
   };
 
-  _editItem = (id, text) => this.setState(prevState => {
-    const list = prevState.list.map(item => (
-      item.id === id
-        ? {
-          'id': id,
-          'text': text,
-        }
-        : item
-    ));
+  _editItem = (id, text) => this.setState(prevState => ({
+    list: prevState.list.mergeIn([id], { text })
+  }));
 
-    return { list };
-  });
-
-  _deleteItem = id => this.setState(prevState => {
-    const newList = prevState.list.filter(item => item.id !== id);
-
-    return {
-      list: newList
-    };
-  });
+  _deleteItem = id => this.setState(prevState => ({
+    list: prevState.list.delete(id)
+  }));
 
 
   _addItem = text => this.setState(prevState => {
-    const newItem = {
-      'id': guid(),
-      'text': text,
-    };
+    const id = guid();
 
     return {
-      list: [
-        ...prevState.list,
-        newItem
-      ]
+      list: prevState
+        .list
+        .set(
+          id,
+          new ListItem({
+            id,
+            text
+          })
+        )
     };
   });
 
@@ -95,16 +78,18 @@ export class List extends PureComponent {
           <div className="col-sm-12 col-md-offset-2 col-md-8">
             <ul className="list-group">
               {
-                this.state.list.map((item, index) => (
-                    <Item
-                      key={item.id}
-                      index={index}
-                      item={item}
-                      onEditItem={this._editItem}
-                      onDeleteItem={this._deleteItem}
-                    />
+                this.state.list.valueSeq()
+                  .toArray()
+                  .map((item, index) => (
+                      <Item
+                        key={item.id}
+                        index={index}
+                        item={item}
+                        onEditItem={this._editItem}
+                        onDeleteItem={this._deleteItem}
+                      />
+                    )
                   )
-                )
               }
               <AddItem onAddItem={this._addItem} />
             </ul>

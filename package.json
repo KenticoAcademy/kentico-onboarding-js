@@ -5,12 +5,13 @@
   "dependencies": {
     "ajv": "^6.5.1",
     "bootstrap": "^3.3.7",
-    "guid": "0.0.12",
+    "immutable": "^3.8.2",
     "prop-types": "^15.6.2",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-scripts-ts": "2.16.0",
-    "react-set-state-usage": "^2.0.1"
+    "react-set-state-usage": "^2.0.1",
+    "uuid": "^3.3.2"
   },
   "scripts": {
     "start": "react-scripts-ts start",

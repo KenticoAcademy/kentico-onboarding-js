@@ -1,18 +1,17 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import { ActiveItem } from './ActiveItem.jsx';
 import { InactiveItem } from './InactiveItem.jsx';
 
-export class Item extends PureComponent {
+import { ListItem } from '../models/ListItem';
+
+export class Item extends React.PureComponent {
   static displayName = 'Item';
 
   static propTypes = {
     index: PropTypes.number.isRequired,
-    item: PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      text: PropTypes.string.isRequired,
-    }).isRequired,
+    item: PropTypes.instanceOf(ListItem).isRequired,
     onEditItem: PropTypes.func.isRequired,
     onDeleteItem: PropTypes.func.isRequired,
   };
