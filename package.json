@@ -119,5 +119,5 @@
       "react-app"
     ]
   },
-  "proxy": "http://localhost:51200"
+  "proxy": "http://vaclavm-todolistplan.azurewebsites.net"
 }

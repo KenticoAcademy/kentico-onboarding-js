@@ -24,7 +24,7 @@ export class NewItem extends React.PureComponent<INewItemProps, INewItemState> {
     addItem: PropTypes.func.isRequired,
   };
 
-  static state = {
+  state = {
     itemValue: '',
   };
 

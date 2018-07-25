@@ -29,7 +29,7 @@ export const Error: React.StatelessComponent<IErrorProps>
 Error.displayName = 'Error';
 
 Error.propTypes = {
-  error: PropTypes.string.isRequired,
+  error: PropTypes.string,
   itemKey: PropTypes.string.isRequired,
   retry: PropTypes.bool.isRequired,
   onDismiss: PropTypes.func.isRequired,
