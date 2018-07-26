@@ -1,8 +1,20 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
 import { containsNoCharacters } from '../utils/containsNoCharacters';
+import { IAction } from '../actions/IAction';
 
-export class AddNewItem extends PureComponent {
+export interface IAddNewItemDataProps {
+  newItemText: string;
+}
+
+export interface IAddNewItemCallbackProps {
+  onAdd: (value: string) => IAction;
+  onNewTextChange: Function;
+}
+
+export interface IAddNewItemProps extends IAddNewItemDataProps, IAddNewItemCallbackProps {}
+
+export class AddNewItem extends React.PureComponent<IAddNewItemProps> {
 
   static displayName = 'AddNewItem';
 
@@ -12,12 +24,13 @@ export class AddNewItem extends PureComponent {
     onNewTextChange: PropTypes.func.isRequired,
   };
 
-  onChange = (e) => {
+  _onChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const newText = e.target.value;
-    this.props.onNewTextChange(newText);
+    const {onNewTextChange} = this.props;
+    onNewTextChange(newText);
   };
 
-  onClick = () => {
+  _onClick = () => {
     const input = this.props.newItemText;
     this.props.onAdd(input);
   };
@@ -32,17 +45,17 @@ export class AddNewItem extends PureComponent {
           <input
             className="form-control"
             type="text"
-            onChange={this.onChange}
+            onChange={this._onChange}
             value={input}
             placeholder="Type new item name..."
           />
           <div className="input-group-btn">
             <button
-              data-balloon={isEmpty ? "Item name mustn't be empty" : null}
+              data-balloon={isEmpty ? 'Item name mustn\'t be empty' : null}
               data-balloon-pos="up"
               className="btn btn-default"
               disabled={isEmpty}
-              onClick={this.onClick}
+              onClick={this._onClick}
             >
               Add
             </button>

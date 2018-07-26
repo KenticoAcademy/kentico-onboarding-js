@@ -1,18 +1,19 @@
 import { OrderedMap } from 'immutable';
-import { generateId } from '../../utils/generateId';
-import { byId } from './byId';
-import { Item } from '../../models/Item';
+import { byId } from '../../reducers/items/byId.ts';
+import { Item } from '../../models/Item.ts';
 import {
-  addItem,
   deleteItem,
   textUpdateChange,
   toggleEditing,
   updateItemText,
-} from '../../actions/actionCreators';
+} from '../../actions/actionCreators.ts';
+import { addItemFactory } from '../../actions/addItem.ts';
+
+const mockId = () => '2';
 
 describe('byId', () => {
   it('addItem returns map filled with new item with correct text and id', () => {
-    const newId = generateId();
+    const newId = mockId();
     const expectedState = new OrderedMap({
       [newId]: new Item({
         id: newId,
@@ -20,13 +21,13 @@ describe('byId', () => {
         isBeingEdited: false,
       }),
     });
-    const stateAfter = byId(undefined, addItem(newId, 'tested item'));
+    const stateAfter = byId(undefined, addItemFactory(mockId)('tested item'));
 
     expect(stateAfter).toEqual(expectedState);
   });
 
   it('updateItem returns map with item with correctly updated text and with canceled editing', () => {
-    const itemId = generateId();
+    const itemId = mockId();
     const stateBefore = new OrderedMap({
       [itemId]: new Item({
         id: itemId,
@@ -50,7 +51,7 @@ describe('byId', () => {
   });
 
   it('onDelete returns map without selected item', () => {
-    const itemId = generateId();
+    const itemId = mockId();
     const stateBefore = new OrderedMap({
       [itemId]: new Item({
         id: itemId,
@@ -66,7 +67,7 @@ describe('byId', () => {
   });
 
   it('onCancel switches isBeingEdited to opposite value than is set', () => {
-    const itemId = generateId();
+    const itemId = mockId();
 
     const stateBefore = new OrderedMap({
       [itemId]: new Item({
@@ -90,7 +91,7 @@ describe('byId', () => {
   });
 
   it('textUpdateChange returns given text in textUpdate', () => {
-    const itemId = generateId();
+    const itemId = mockId();
 
     const stateBefore = new OrderedMap({
       [itemId]: new Item({

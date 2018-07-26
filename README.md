@@ -73,7 +73,7 @@ You can then delete the `feature/task-0` branch and create a new one for the fol
 **Prerequisite:** JS & React sections on [wiki](https://kentico.atlassian.net/wiki/display/KA/04+-+JS-related+tutorials).
 
 According to `assignment.gif` implement all the required functionality (keep in mind we want to be able to edit multiple list items at once). Store some pseudo-random identifier (id) for each item (use some util function for its generation, e.g: http://stackoverflow.com/questions/105034/create-guid-uuid-in-javascript)
-All the boilerplate is already there so you can dive into coding straight away. Feel free to use [Bootstrap](http://getbootstrap.com/) CSS classes. Get familiar with project structure. The entry file is `index.js`. Page layout can be found in `App.jsx`. It renders `List.jsx` in its body, where you are supposed to implement the rest of the functionality. 
+All the boilerplate is already there so you can dive into coding straight away. Feel free to use [Bootstrap](http://getbootstrap.com/) CSS classes. Get familiar with project structure. The entry file is `index.ts`. Page layout can be found in `App.jsx`. It renders `List.jsx` in its body, where you are supposed to implement the rest of the functionality. 
 
 ## Task 2
 Install [ImmutableJS](http://facebook.github.io/immutable-js) to your project: `npm install --save immutable`.
@@ -95,7 +95,7 @@ Refactor the application to use ReduxJS.
  - Move all the state of top level component (`List.jsx`) to Redux store (state in Redux is described by reducers; use reducer composition if possible).
   - Write jest **unit tests** for your Redux logic (used TDD to write tests for actionCreators and reducers combined).
   - Implement **reducers** that react to dispatched actions and change the state accordingly.
- - In index.js:
+ - In index.ts:
   - Create instance of Redux store, pass root reducer and use logging middleware.
   - Wrap the instance of App.jsx in `<Provider>` component so that all the components can access global store (via `connect()` function).
  - Refactor `List.jsx` so that it receives the app state from Redux store as its props and passes it down to its child components. (`connect()` + `mapStateToProps()`)

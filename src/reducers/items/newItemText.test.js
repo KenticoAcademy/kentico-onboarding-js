@@ -1,13 +1,14 @@
-import { newItemText } from './newItemText';
+import { newItemText } from './newItemText.ts';
 import {
-  addItem,
   deleteItem,
   updateNewItemText,
-} from '../../actions/actionCreators';
-import { generateId } from '../../utils/generateId';
+} from '../../actions/actionCreators.ts';
+import { addItemFactory } from '../../actions/addItem.ts';
+
+const mockId = () => '2';
 
 describe('newItemText', () => {
-  it('returns text that is given in args when the action type is UPDATE_NEW_ITEM_TEXT', () => {
+  it('returns text that is given in args when the action type is UPDATE_NEW_ITEM', () => {
     const expectedState = 'Some random sentence.';
     const action = updateNewItemText(expectedState);
 
@@ -19,7 +20,7 @@ describe('newItemText', () => {
   it('returns empty string when action type is ADD_ITEM', () => {
     const initialState = 'INITIAL_STATE';
     const expectedState = '';
-    const action = addItem(generateId(), 'Some random sentence.');
+    const action = addItemFactory(mockId)('Some random sentence.');
 
     const actualState = newItemText(initialState, action);
 
