@@ -23,13 +23,11 @@ export class Item extends React.PureComponent {
   _activateItem = () => this.setState({ isActive: true });
 
   _saveItem = text => {
-    this.props.onEditItem(this.props.item.id, text);
+    this.props.onEditItem(text);
     this.setState({ isActive: false });
   };
 
   _cancelItem = () => this.setState({ isActive: false });
-
-  _deleteItem = () => this.props.onDeleteItem(this.props.item.id);
 
   render() {
     return (
@@ -42,7 +40,7 @@ export class Item extends React.PureComponent {
                 item={this.props.item}
                 onSaveItem={this._saveItem}
                 onCancelItem={this._cancelItem}
-                onDeleteItem={this._deleteItem}
+                onDeleteItem={this.props.onDeleteItem}
               />)
             : (
               <InactiveItem

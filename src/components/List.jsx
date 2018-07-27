@@ -1,7 +1,6 @@
 import React from 'react';
 import assignment from '../assignment.gif';
 import PropTypes from 'prop-types';
-import * as Immutable from 'immutable';
 
 import { TsComponent } from './TsComponent.tsx';
 import { Item } from '../containers/Item.jsx';
@@ -43,16 +42,14 @@ export const List = (props) => (
       <div className="col-sm-12 col-md-offset-2 col-md-8">
         <ul className="list-group">
           {
-            props.list.valueSeq()
-              .toArray()
-              .map((item, index) => (
-                  <Item
-                    key={item.get('id')}
-                    index={index}
-                    item={item}
-                  />
-                )
+            props.itemIds.map((key, index) => (
+                <Item
+                  key={key}
+                  index={index}
+                  id={key}
+                />
               )
+            )
           }
           <AddItem />
         </ul>
@@ -64,5 +61,5 @@ export const List = (props) => (
 List.displayName = 'List';
 
 List.propTypes = {
-  list: PropTypes.instanceOf(Immutable.OrderedMap).isRequired,
+  itemIds: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
 };

@@ -5,9 +5,14 @@ import {
   deleteItem
 } from '../actions/ListActions';
 
-const mapDispatchToProps = (dispatch) => ({
-  onEditItem: (id, text) => dispatch(editItem(id, text)),
-  onDeleteItem: (id) => dispatch(deleteItem(id)),
+const mapStateToProps = ({ list }, { id, index }) => ({
+  index,
+  item: list.get(id)
 });
 
-export const Item = connect(null, mapDispatchToProps)(ItemComponent);
+const mapDispatchToProps = (dispatch, { id }) => ({
+  onEditItem: (text) => dispatch(editItem(id, text)),
+  onDeleteItem: () => dispatch(deleteItem(id)),
+});
+
+export const Item = connect(mapStateToProps, mapDispatchToProps)(ItemComponent);
