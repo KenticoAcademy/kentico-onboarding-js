@@ -9,9 +9,9 @@
   "license": "MIT",
   "repository": "github:KenticoAcademy/kentico-onboarding-js",
   "scripts": {
-    "build": "webpack --config webpack.development.js",
-    "start": "webpack-dev-server --config webpack.development.js",
-    "produce": "webpack --config webpack.production.js",
+    "build": "webpack --progress --config webpack.development.js",
+    "start": "webpack-dev-server --progress --config webpack.development.js",
+    "produce": "webpack --progress --config webpack.production.js",
     "test": "jest --config=jest.config.js --no-cache",
     "eslint": "eslint --ignore-pattern \"/node_modules/**\" --ignore-pattern \"/build/**\" . --ext .js --ext .jsx",
     "tslint": "tslint --project tsconfig.json -e \"./node_modules/**\" \"./**/*.ts?(x)\""
