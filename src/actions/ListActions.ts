@@ -1,4 +1,4 @@
-import * as ActionType from '../actions/ActionTypes';
+import * as ActionType from './ActionTypes';
 import { guid } from '../utils/guid';
 import { addItemCreator } from './addItemCreator';
 

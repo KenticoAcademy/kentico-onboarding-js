@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { ActiveItem } from './ActiveItem.jsx';
-import { InactiveItem } from './InactiveItem.jsx';
+import { ActiveItem } from './ActiveItem.tsx';
+import { InactiveItem } from './InactiveItem.tsx';
 
 import { ListItem } from '../models/ListItem';
 
