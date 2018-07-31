@@ -6,16 +6,18 @@ import { ListItem } from '../models/ListItem';
 import { addItemCreator } from '../actions/addItemCreator';
 
 import {
-  editItem,
-  deleteItem
+  saveItem,
+  deleteItem,
+  toggleItem
 } from '../actions/ListActions';
 
-const createItem = (id, text) =>
+const createItem = (id, text, isActive) =>
   [
     id,
     new ListItem({
       id,
-      text
+      text,
+      isActive
     })
   ];
 
@@ -30,7 +32,7 @@ describe('ListReducer', () => {
 
   it('returns prevState after undefined action', () => {
     const expectedList = OrderedMap([
-      createItem('3970a0db-c877-49e1-b4d0-75e931384289', 'jdflsjk')
+      createItem('3970a0db-c877-49e1-b4d0-75e931384289', 'jdflsjk', true)
     ]);
 
     const actualList = listReducer(expectedList, { type: 'roisfhdln' });
@@ -42,10 +44,11 @@ describe('ListReducer', () => {
     const id = '669a4b7c-264c-4196-8051-7f0570ce026a';
     const text = 'aaaaa';
     const expectedList = OrderedMap([
-      createItem(id, text)
+      createItem(id, text, false)
     ]);
+    const addItem = addItemCreator(() => id);
 
-    const action = addItemCreator(() => id)(text);
+    const action = addItem(text);
     const actualList = listReducer(undefined, action);
 
     expect(actualList).toEqual(expectedList);
@@ -57,17 +60,36 @@ describe('ListReducer', () => {
 
     const defaultList = OrderedMap([
       item1,
-      createItem(id2, 'agfafdg'),
+      createItem(id2, 'agfafdg', true),
     ]);
 
     const newText = 'pooies';
 
     const expectedList = OrderedMap([
       item1,
-      createItem(id2, newText),
+      createItem(id2, newText, false),
     ]);
 
-    const action = editItem(id2, newText);
+    const action = saveItem(id2, newText);
+    const actualList = listReducer(defaultList, action);
+
+    expect(actualList).toEqual(expectedList);
+    expect(actualList).not.toBe(defaultList);
+  });
+
+  it('toggles item', () => {
+    const id = 'b0e9856e-bb17-4c0b-b65f-f5a43e81617c';
+    const text = 'aaaaa';
+
+    const defaultList = OrderedMap([
+      createItem(id, text, true),
+    ]);
+
+    const expectedList = OrderedMap([
+      createItem(id, text, false)
+    ]);
+
+    const action = toggleItem(id, false);
     const actualList = listReducer(defaultList, action);
 
     expect(actualList).toEqual(expectedList);
@@ -81,7 +103,7 @@ describe('ListReducer', () => {
 
     const defaultList = OrderedMap([
       item1,
-      createItem(id2, 'dfsxyxyc'),
+      createItem(id2, 'dfsxyxyc', true),
       item3
     ]);
 

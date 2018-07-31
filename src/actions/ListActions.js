@@ -4,11 +4,19 @@ import { addItemCreator } from './addItemCreator';
 
 export const addItem = addItemCreator(guid);
 
-export const editItem = (id, text) => ({
-  type: ActionType.EditItem,
+export const saveItem = (id, text) => ({
+  type: ActionType.SaveItem,
   payload: {
     id,
     text
+  }
+});
+
+export const toggleItem = (id, isActive) => ({
+  type: ActionType.ToggleItem,
+  payload: {
+    id,
+    isActive
   }
 });
 

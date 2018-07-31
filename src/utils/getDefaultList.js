@@ -10,7 +10,8 @@ const createMapItem = (text) => {
     id,
     new ListItem({
       id,
-      text
+      text,
+      isActive: false
     })
   ];
 };

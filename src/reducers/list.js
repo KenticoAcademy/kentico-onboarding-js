@@ -1,18 +1,22 @@
 import { OrderedMap } from 'immutable';
 import * as ActionType from '../actions/ActionTypes';
-import { ListItem } from '../models/ListItem';
+import { item } from './item';
 
 export const list = (state = OrderedMap(), action) => {
   switch (action.type) {
     case ActionType.AddItem:
-      return state.set(action.payload.id, new ListItem({
-        id: action.payload.id,
-        text: action.payload.text
-      }));
-    case ActionType.EditItem:
-      return state.mergeIn([action.payload.id], { text: action.payload.text });
+      return state.set(action.payload.id, item(null, action));
+
+    case ActionType.SaveItem:
+    case ActionType.ToggleItem: {
+      const existingItem = state.get(action.payload.id);
+      const editedItem = item(existingItem, action);
+      return state.set(action.payload.id, editedItem);
+    }
+
     case ActionType.DeleteItem:
       return state.delete(action.payload.id);
+
     default:
       return state;
   }
