@@ -1,3 +1,3 @@
-const uuidv4 = require('uuid/v4');
+import { v4 } from 'uuid';
 
-export const guid = () => uuidv4();
+export const guid = () => v4();

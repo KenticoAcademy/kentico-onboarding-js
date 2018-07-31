@@ -1,9 +1,21 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
 
-import { ListItem } from '../models/ListItem';
+import { ListItem, IListItem } from '../models/ListItem';
 
-export class ActiveItem extends React.PureComponent {
+interface IActiveItemProps {
+  index: number;
+  item: IListItem;
+  onSaveItem: (text: string) => void;
+  onCancelItem: () => void;
+  onDeleteItem: () => void;
+}
+
+interface IActiveItemState {
+  text: string;
+}
+
+export class ActiveItem extends React.PureComponent<IActiveItemProps, IActiveItemState> {
   static displayName = 'ActiveItem';
 
   static propTypes = {
@@ -14,22 +26,18 @@ export class ActiveItem extends React.PureComponent {
     onDeleteItem: PropTypes.func.isRequired,
   };
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      text: props.item.text,
-    };
-  }
+  state = {
+    text: this.props.item.text
+  };
 
   _saveInputValue = () => this.props.onSaveItem(this.state.text);
 
-  _storeInputValue = event => {
-    const text = event.target.value;
-    this.setState({ text });
+  _storeInputValue = (event: React.FormEvent<HTMLInputElement>) => {
+    const text = event.currentTarget.value;
+    this.setState(() => ({text}));
   };
 
-  render() {
+  render(): JSX.Element {
     return (
       <div className="input-group col-md-8">
         <span className="input-group-addon">

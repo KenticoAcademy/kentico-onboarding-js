@@ -9,7 +9,7 @@ import { getDefaultList } from './getDefaultList';
 
 const logger = createLogger({});
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const getPreloadedState = () => ({
   list: {
@@ -22,4 +22,3 @@ export const store = createStore(
   getPreloadedState(),
   composeEnhancers(applyMiddleware(logger))
 );
-

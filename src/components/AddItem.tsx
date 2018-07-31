@@ -1,7 +1,15 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
 
-export class AddItem extends React.PureComponent {
+interface IAddItemProps {
+  onAddItem: (text: string) => void;
+}
+
+interface IAddItemState {
+  text: string;
+}
+
+export class AddItem extends React.PureComponent<IAddItemProps, IAddItemState> {
   static displayName = 'AddItemInput';
 
   static propTypes = {
@@ -14,15 +22,15 @@ export class AddItem extends React.PureComponent {
 
   _addNewItem = () => {
     this.props.onAddItem(this.state.text);
-    this.setState({ text: '' });
+    this.setState(() => ({text: ''}));
   };
 
-  _storeInputValue = event => {
-    const text = event.target.value;
-    this.setState({ text });
+  _storeInputValue = (event: React.FormEvent<HTMLInputElement>) => {
+    const text = event.currentTarget.value;
+    this.setState(() => ({text}));
   };
 
-  render() {
+  render(): JSX.Element {
     return (
       <li className="list-group-item">
         <div className="input-group col-md-8">

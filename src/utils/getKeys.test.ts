@@ -3,10 +3,10 @@ import { OrderedMap } from 'immutable';
 
 describe('getKeys', () => {
   it('returns same reference for 2 consecutive calls with the same argument', () => {
-    const list = OrderedMap([
-      [123, '111'],
-      [-489, 'sfdgd'],
-      [854, 'dfg']
+    const list = OrderedMap<string, IListItem>([
+      [123, undefined],
+      [-489, undefined],
+      [854, undefined]
     ]);
     const expectedIds = [123, -489, 854];
 
@@ -18,14 +18,14 @@ describe('getKeys', () => {
   });
 
   it('only memoizes consecutive calls and does not fail when the number of arguments changes between calls', () => {
-    const list1 = OrderedMap([
-      [123, '111'],
-      [-489, 'sfdgd'],
-      [854, 'dfg']
+    const list1 = OrderedMap<string, IListItem>([
+      [123, undefined],
+      [-489, undefined],
+      [854, undefined]
     ]);
-    const list2 = OrderedMap([
-      [123, 'fds'],
-      [0, 'dsr']
+    const list2 = OrderedMap<string, IListItem>([
+      [123, undefined],
+      [0, undefined]
     ]);
     const expectedIds1 = [123, -489, 854];
     const expectedIds2 = [123, 0];

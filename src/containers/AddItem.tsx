@@ -1,9 +1,12 @@
+import * as React from 'react';
+import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
+
 import { AddItem as AddItemComponent } from '../components/AddItem';
 import { addItem } from '../actions/ListActions';
 
-const mapDispatchToProps = (dispatch) => ({
-  onAddItem: (text) => dispatch(addItem(text)),
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+  onAddItem: (text: string) => dispatch(addItem(text)),
 });
 
-export const AddItem = connect(null, mapDispatchToProps)(AddItemComponent);
+export const AddItem: React.ComponentClass = connect(null, mapDispatchToProps)(AddItemComponent);

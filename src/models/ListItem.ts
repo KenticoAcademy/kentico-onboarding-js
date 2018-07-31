@@ -1,9 +1,19 @@
-import { Record } from 'immutable';
+import { TypedRecord } from './TypedRecord';
 
-const emptyListItem = {
+export interface IListItem {
+  readonly id: string;
+  readonly text: string;
+  readonly isActive: boolean;
+}
+
+const emptyListItem: IListItem = {
   id: '',
   text: '',
   isActive: false
 };
 
-export const ListItem = Record(emptyListItem, 'ListItem');
+export class ListItem extends TypedRecord<ListItem, IListItem>(emptyListItem, 'ListItem') implements IListItem {
+  readonly id: string;
+  readonly text: string;
+  readonly isActive: boolean;
+}

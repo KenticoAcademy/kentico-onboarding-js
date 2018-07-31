@@ -1,9 +1,15 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
 
-import { ListItem } from '../models/ListItem';
+import { IListItem, ListItem } from '../models/ListItem';
 
-export const InactiveItem = (props) => (
+interface IInactiveItemProps {
+  index: number;
+  item: IListItem;
+  onItemClick: () => void;
+}
+
+export const InactiveItem: React.StatelessComponent<IInactiveItemProps> = (props: IInactiveItemProps) => (
   <div onClick={props.onItemClick}>
     {props.index + 1}.
     {props.item.text}

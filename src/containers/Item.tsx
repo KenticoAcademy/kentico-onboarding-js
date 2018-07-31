@@ -1,19 +1,27 @@
+import * as React from 'react';
 import { connect } from 'react-redux';
-import { Item as ItemComponent } from '../components/Item';
+import { Dispatch } from 'redux';
 import {
-  saveItem,
-  deleteItem,
-  toggleItem
-} from '../actions/ListActions';
+  Item as ItemComponent,
+  IItemStateProps,
+  IItemDispatchProps,
+  IItemOwnProps
+} from '../components/Item';
+import { saveItem, deleteItem, toggleItem } from '../actions/ListActions';
+import { IAppState } from '../interfaces/IAppState';
 
-const mapStateToProps = ({ list }, { id }) => ({
+interface IItemContainerProps extends IItemOwnProps {
+  id: string;
+}
+
+const mapStateToProps = ({list}: IAppState, {id}: IItemContainerProps): IItemStateProps => ({
   item: list.items.get(id)
 });
 
-const mapDispatchToProps = (dispatch, { id }) => ({
-  onSaveItem: (text) => dispatch(saveItem(id, text)),
+const mapDispatchToProps = (dispatch: Dispatch, {id}: IItemContainerProps): IItemDispatchProps => ({
+  onSaveItem: (text: string) => dispatch(saveItem(id, text)),
   onDeleteItem: () => dispatch(deleteItem(id)),
   onToggleItem: () => dispatch(toggleItem(id)),
 });
 
-export const Item = connect(mapStateToProps, mapDispatchToProps)(ItemComponent);
+export const Item: React.ComponentClass<IItemContainerProps> = connect(mapStateToProps, mapDispatchToProps)(ItemComponent);
