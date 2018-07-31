@@ -1,17 +1,19 @@
 import {
   createStore,
-  applyMiddleware
+  applyMiddleware,
+  compose
 } from 'redux';
 import { AppReducer } from '../reducers/AppReducer';
 import { createLogger } from 'redux-logger';
 import { getDefaultList } from './getDefaultList';
 
-//export const store = createStore(AppReducer);
-
 const logger = createLogger({});
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 export const store = createStore(
   AppReducer,
   { list: getDefaultList() },
-  applyMiddleware(logger)
+  composeEnhancers(applyMiddleware(logger))
 );
+
