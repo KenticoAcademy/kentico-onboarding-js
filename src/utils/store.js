@@ -3,7 +3,7 @@ import {
   applyMiddleware,
   compose
 } from 'redux';
-import { AppReducer } from '../reducers/AppReducer';
+import { AppReducer } from '../reducers/app';
 import { createLogger } from 'redux-logger';
 import { getDefaultList } from './getDefaultList';
 
