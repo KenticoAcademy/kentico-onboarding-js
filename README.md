@@ -1,3 +1,5 @@
+[![Build status](https://ci.appveyor.com/api/projects/status/w0h1q9dc134661xe/branch/feature/task-5?svg=true)](https://ci.appveyor.com/project/LindaLangerova/kentico-onboarding-js/branch/feature/task-5)
+
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
 # kentico-onboarding-js
