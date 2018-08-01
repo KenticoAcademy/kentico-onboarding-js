@@ -1,7 +1,7 @@
 version: 1.0.{build}
-  
+
 environment:
-  nodejs_version: "6"
+  nodejs_version: "8"
   SURGE_LOGIN: lindal@kentico.com
   SURGE_TOKEN: 0796a2bee012bddf53694a3f7a78ba6a
 
@@ -10,8 +10,8 @@ install:
   # Get the latest stable version of Node.js or io.js
   - ps: Install-Product node $env:nodejs_version
   # install modules
-  - npm install
-  
+  - npm install --no-optional
+
 #test_script:
   # Output useful info for debugging.
   #- node --version
