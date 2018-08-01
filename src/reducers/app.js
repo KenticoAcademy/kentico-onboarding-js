@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
 
-import { list } from './list';
+import { items } from './items';
 
-export const appReducer = combineReducers({ list });
+export const appReducer = combineReducers({ list: items });

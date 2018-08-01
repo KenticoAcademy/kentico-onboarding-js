@@ -1,6 +1,6 @@
 import { OrderedMap } from 'immutable';
 
-import { list as listReducer } from './list';
+import { items as listReducer } from './items';
 import { ListItem } from '../models/ListItem';
 
 import { addItemCreator } from '../actions/addItemCreator';

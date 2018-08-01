@@ -2,7 +2,7 @@ import { OrderedMap } from 'immutable';
 import * as ActionType from '../actions/ActionTypes';
 import { item } from './item';
 
-export const list = (state = OrderedMap(), action) => {
+export const items = (state = OrderedMap(), action) => {
   switch (action.type) {
     case ActionType.AddItem:
       return state.set(action.payload.id, item(null, action));
