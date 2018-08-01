@@ -1,6 +1,10 @@
 {
   "name": "lindatodoapp",
   "version": "2.0.0",
+  "engines": {
+    "node": "8.7.0",
+    "npm": "5.8.0"
+  },
   "private": true,
   "devDependencies": {
     "@types/jest": "^18.1.1",
@@ -79,7 +83,7 @@
     "build": "node scripts/build.js",
     "test": "jest",
     "deploy": "surge --project ./dist --domain lindatodoapp.surge.sh"
-    },
+  },
   "jest": {
     "collectCoverageFrom": [
       "src/**/*.{js,jsx,ts,tsx}"
