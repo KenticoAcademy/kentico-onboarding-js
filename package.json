@@ -1,5 +1,5 @@
 {
-  "name": "onboarding-task",
+  "name": "lindatodoapp",
   "version": "2.0.0",
   "private": true,
   "devDependencies": {
@@ -77,8 +77,9 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "test": "jest"
-  },
+    "test": "jest",
+    "deploy": "surge --project ./dist --domain lindatodoapp.surge.sh"
+    },
   "jest": {
     "collectCoverageFrom": [
       "src/**/*.{js,jsx,ts,tsx}"
@@ -115,5 +116,24 @@
     "presets": [
       "react-app"
     ]
-  }
+  },
+  "description": "This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lindalangerova/kentico-onboarding-js.git"
+  },
+  "author": "Linda",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lindalangerova/kentico-onboarding-js/issues"
+  },
+  "homepage": "https://github.com/lindalangerova/kentico-onboarding-js#readme",
+  "keywords": [
+    "todo",
+    "app"
+  ]
 }

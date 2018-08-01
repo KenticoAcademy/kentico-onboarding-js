@@ -1,6 +1,6 @@
-const SUBDOMAIN = '';
-const DOMAIN = 'localhost';
-const PORT = ':54816';
+const SUBDOMAIN = 'lindal-todoapp';
+const DOMAIN = '.azurewebsites.net';
+const PORT = '';
 const API = '/api/v1';
 const ENDPOINT = '/items';
 
