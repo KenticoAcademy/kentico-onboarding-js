@@ -11,9 +11,15 @@ const logger = createLogger({});
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
+const getPreloadedState = () => ({
+  list: {
+    items: getDefaultList(),
+  }
+});
+
 export const store = createStore(
   appReducer,
-  { list: getDefaultList() },
+  getPreloadedState(),
   composeEnhancers(applyMiddleware(logger))
 );
 

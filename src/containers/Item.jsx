@@ -8,7 +8,7 @@ import {
 
 const mapStateToProps = ({ list }, { id, index }) => ({
   index,
-  item: list.get(id)
+  item: list.items.get(id)
 });
 
 const mapDispatchToProps = (dispatch, { id }) => ({
