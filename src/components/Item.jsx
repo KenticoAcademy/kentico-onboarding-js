@@ -12,43 +12,31 @@ export class Item extends React.PureComponent {
   static propTypes = {
     index: PropTypes.number.isRequired,
     item: PropTypes.instanceOf(ListItem).isRequired,
-    onEditItem: PropTypes.func.isRequired,
+    onSaveItem: PropTypes.func.isRequired,
     onDeleteItem: PropTypes.func.isRequired,
+    onToggleItem: PropTypes.func.isRequired,
   };
 
-  state = {
-    isActive: false,
-  };
-
-  _activateItem = () => this.setState({ isActive: true });
-
-  _saveItem = text => {
-    this.props.onEditItem(this.props.item.id, text);
-    this.setState({ isActive: false });
-  };
-
-  _cancelItem = () => this.setState({ isActive: false });
-
-  _deleteItem = () => this.props.onDeleteItem(this.props.item.id);
+  _saveItem = text => this.props.onSaveItem(text);
 
   render() {
     return (
       <li className="list-group-item">
         {
-          this.state.isActive
+          this.props.item.isActive
             ? (
               <ActiveItem
                 index={this.props.index}
                 item={this.props.item}
                 onSaveItem={this._saveItem}
-                onCancelItem={this._cancelItem}
-                onDeleteItem={this._deleteItem}
+                onCancelItem={this.props.onToggleItem}
+                onDeleteItem={this.props.onDeleteItem}
               />)
             : (
               <InactiveItem
                 index={this.props.index}
                 item={this.props.item}
-                onItemClick={this._activateItem}
+                onItemClick={this.props.onToggleItem}
               />)
         }
       </li>

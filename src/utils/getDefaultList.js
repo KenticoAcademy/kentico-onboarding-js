@@ -10,12 +10,13 @@ const createMapItem = (text) => {
     id,
     new ListItem({
       id,
-      text
+      text,
+      isActive: false
     })
   ];
 };
 
-export const getDefaultList = () => new OrderedMap([
+export const getDefaultList = () => OrderedMap([
   createMapItem('aaaaa'),
   createMapItem('asdfg'),
 ]);
