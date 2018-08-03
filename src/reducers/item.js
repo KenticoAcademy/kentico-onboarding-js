@@ -11,7 +11,7 @@ export const item = (state = null, action) => {
       });
 
     case ActionType.ToggleItem:
-      return state.merge({ isActive: action.payload.isActive });
+      return state.merge({ isActive: !state.isActive });
 
     case ActionType.SaveItem:
       return state.merge({ text: action.payload.text, isActive: false });

@@ -89,11 +89,17 @@ describe('ListReducer', () => {
       createItem(id, text, false)
     ]);
 
-    const action = toggleItem(id, false);
-    const actualList = listReducer(defaultList, action);
+    const action1 = toggleItem(id);
+    const actualList1 = listReducer(defaultList, action1);
 
-    expect(actualList).toEqual(expectedList);
-    expect(actualList).not.toBe(defaultList);
+    const action2 = toggleItem(id);
+    const actualList2 = listReducer(actualList1, action2);
+
+    expect(actualList1).toEqual(expectedList);
+    expect(actualList1).not.toBe(defaultList);
+
+    expect(actualList2).toEqual(defaultList);
+    expect(actualList2).not.toBe(actualList1);
   });
 
   it('deletes item from state', () => {

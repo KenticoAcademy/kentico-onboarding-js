@@ -12,11 +12,10 @@ export const saveItem = (id, text) => ({
   }
 });
 
-export const toggleItem = (id, isActive) => ({
+export const toggleItem = (id) => ({
   type: ActionType.ToggleItem,
   payload: {
-    id,
-    isActive
+    id
   }
 });
 

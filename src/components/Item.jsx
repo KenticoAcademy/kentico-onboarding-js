@@ -14,8 +14,7 @@ export class Item extends React.PureComponent {
     item: PropTypes.instanceOf(ListItem).isRequired,
     onSaveItem: PropTypes.func.isRequired,
     onDeleteItem: PropTypes.func.isRequired,
-    onCancelEditingItem: PropTypes.func.isRequired,
-    onActivateItem: PropTypes.func.isRequired,
+    onToggleItem: PropTypes.func.isRequired,
   };
 
   _saveItem = text => this.props.onSaveItem(text);
@@ -30,14 +29,14 @@ export class Item extends React.PureComponent {
                 index={this.props.index}
                 item={this.props.item}
                 onSaveItem={this._saveItem}
-                onCancelItem={this.props.onCancelEditingItem}
+                onCancelItem={this.props.onToggleItem}
                 onDeleteItem={this.props.onDeleteItem}
               />)
             : (
               <InactiveItem
                 index={this.props.index}
                 item={this.props.item}
-                onItemClick={this.props.onActivateItem}
+                onItemClick={this.props.onToggleItem}
               />)
         }
       </li>

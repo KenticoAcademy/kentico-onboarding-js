@@ -6,16 +6,14 @@ import {
   toggleItem
 } from '../actions/ListActions';
 
-const mapStateToProps = ({ list }, { id, index }) => ({
-  index,
+const mapStateToProps = ({ list }, { id }) => ({
   item: list.items.get(id)
 });
 
 const mapDispatchToProps = (dispatch, { id }) => ({
   onSaveItem: (text) => dispatch(saveItem(id, text)),
   onDeleteItem: () => dispatch(deleteItem(id)),
-  onCancelEditingItem: () => dispatch(toggleItem(id, false)),
-  onActivateItem: () => dispatch(toggleItem(id, true)),
+  onToggleItem: () => dispatch(toggleItem(id)),
 });
 
 export const Item = connect(mapStateToProps, mapDispatchToProps)(ItemComponent);
