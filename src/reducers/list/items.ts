@@ -1,8 +1,8 @@
 import { OrderedMap } from 'immutable';
-import * as ActionType from '../actions/ActionTypes';
+import * as ActionType from '../../actions/ActionTypes';
 import { item } from './item';
-import { IAction } from '../interfaces/IAction';
-import { ListItem } from '../models/ListItem';
+import { IAction } from '../../interfaces/IAction';
+import { ListItem } from '../../models/ListItem';
 
 export const items = (state = OrderedMap<string, ListItem>(), action: IAction): OrderedMap<string, ListItem> => {
   switch (action.type) {

@@ -1,15 +1,15 @@
 import { OrderedMap } from 'immutable';
 
 import { items as listReducer } from './items';
-import { ListItem } from '../models/ListItem';
+import { ListItem } from '../../models/ListItem';
 
-import { addItemCreator } from '../actions/addItemCreator';
+import { addItemCreator } from '../../actions/addItemCreator';
 
 import {
   saveItem,
   deleteItem,
   toggleItem
-} from '../actions/ListActions';
+} from '../../actions/ListActions';
 
 const createItem = (id: string, text: string, isActive: boolean = false) =>
   [
