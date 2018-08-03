@@ -131,7 +131,7 @@ In this task you will use TypeScript to make you app strongly typed. Mainly intr
 **IMPORTANT:**
 - Make sure you install type definitions for all 3rd party libraries you are already using in your app (e.g. redux, react-redux, immutable, memoizee... – unless their types are already included in their pacakge). To do that, run command line this for each library with missing type definitions:
 	```
-	npm install --no-optional --save-dev @types/immutable
+	npm install --no-optional --save-dev @types/redux-logger
 	```
 	Read about how it works here: https://github.com/DefinitelyTyped/DefinitelyTyped
 - When you change type of index.jsx to TS, make sure to also change the entry point in webpack.common.js
