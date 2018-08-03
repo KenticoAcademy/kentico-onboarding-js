@@ -3,7 +3,7 @@ import {
   applyMiddleware,
   compose
 } from 'redux';
-import { appReducer } from '../reducers/app';
+import { app } from '../reducers/app';
 import { createLogger } from 'redux-logger';
 import { getDefaultList } from './getDefaultList';
 
@@ -18,7 +18,7 @@ const getPreloadedState = () => ({
 });
 
 export const store = createStore(
-  appReducer,
+  app,
   getPreloadedState(),
   composeEnhancers(applyMiddleware(logger))
 );
