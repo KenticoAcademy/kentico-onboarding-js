@@ -11,7 +11,7 @@ import {
   toggleItem
 } from '../actions/ListActions';
 
-const createItem = (id, text, isActive) =>
+const createItem = (id, text, isActive = false) =>
   [
     id,
     new ListItem({
@@ -44,7 +44,7 @@ describe('ListReducer', () => {
     const id = '669a4b7c-264c-4196-8051-7f0570ce026a';
     const text = 'aaaaa';
     const expectedList = OrderedMap([
-      createItem(id, text, false)
+      createItem(id, text)
     ]);
     const addItem = addItemCreator(() => id);
 
@@ -67,7 +67,7 @@ describe('ListReducer', () => {
 
     const expectedList = OrderedMap([
       item1,
-      createItem(id2, newText, false),
+      createItem(id2, newText),
     ]);
 
     const action = saveItem(id2, newText);
@@ -86,7 +86,7 @@ describe('ListReducer', () => {
     ]);
 
     const expectedList = OrderedMap([
-      createItem(id, text, false)
+      createItem(id, text)
     ]);
 
     const action1 = toggleItem(id);
