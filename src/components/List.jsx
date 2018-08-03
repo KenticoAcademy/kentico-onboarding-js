@@ -42,11 +42,11 @@ export const List = (props) => (
       <div className="col-sm-12 col-md-offset-2 col-md-8">
         <ul className="list-group">
           {
-            props.itemIds.map((key, index) => (
+            props.itemIds.map((itemId, index) => (
                 <Item
-                  key={key}
+                  key={itemId}
                   index={index}
-                  id={key}
+                  id={itemId}
                 />
               )
             )
