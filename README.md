@@ -1,4 +1,4 @@
-# kentico-onboarding-js
+# kentico-onboarding-js [![Build Status](https://travis-ci.org/RadekP3/kentico-onboarding-js.svg?branch=master)](https://travis-ci.org/RadekP3/kentico-onboarding-js)
 Simple step-by-step task for Kentico Academy to learn the basics of JS, React, Redux, TypeScript.
 
 This project will consist of separate tasks. In the zeroth task we will prepare repository and configure commit-based tests run.
