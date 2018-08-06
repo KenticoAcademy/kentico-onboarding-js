@@ -93,6 +93,7 @@
     "react/jsx-no-bind": "off",
     "react/jsx-no-comment-textnodes": "off",
     "react/jsx-no-target-blank": "off",
+    "react/jsx-one-expression-per-line": "off",
     "react/jsx-tag-spacing": "off",
     "react/no-array-index-key": "off",
     "react/no-children-prop": "off",

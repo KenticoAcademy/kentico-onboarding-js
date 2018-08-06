@@ -52,4 +52,7 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(['build/*'])
   ],
+  stats: {
+    colors: true,
+  },
 };
