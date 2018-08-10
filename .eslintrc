@@ -84,6 +84,7 @@
     "quote-props": "off",
     "quotes": "off",
     "react-functional-set-state/no-this-state-props": "error",
+    "react/destructuring-assignment": "off",
     "react/forbid-prop-types": "off",
     "react/jsx-boolean-value": "off",
     "react/jsx-curly-brace-presence": "off",
