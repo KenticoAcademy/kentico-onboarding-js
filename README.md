@@ -56,7 +56,7 @@ Merge your `master` branch - that already includes all changes from `upstream/ma
 
 Your next step is to set up a [continuous integration](https://www.atlassian.com/continuous-delivery/continuous-integration-intro) for your repository.
 - each push of commits should trigger tests
-- status of a build should be visible as a GitHub badge in the repository (search for "status badge _your CI name_")
+- status of a build should be visible as a GitHub badge in the repository `README.md` (search for "status badge _your CI name_")
 - you can choose any CI service provider that is compatible with GitHub and has a free license/plan for commercial use - for example [Travis CI](https://travis-ci.org/), [AppVeyor*](https://www.appveyor.com/) or [Circle CI](https://circleci.com/)
 - commit and push your CI configuration file to your `feature/task-0` branch
 
@@ -76,7 +76,7 @@ npm start
 ```
 
 ### Development
-**IMPORTANT:** Run `npm install --no-optional` and make sure you have `eslint` and `tslint` tools enabled (in File > Settings, search for keywords). The path to `eslint` and `tslint` node packages should be in `node_modules` inside of project folder.
+**IMPORTANT:** Run `npm install --no-optional` and make sure you have `eslint` and `tslint` tools enabled (WebStorm IDE -> File > Settings, search for keywords `eslint` and `tslint`). The path to `eslint` and `tslint` node packages should be in `node_modules` inside of project folder.
 
 You should use WebStorm IDE to get familiar with it. Prerequisites for running this project are node v8+ and npm v5+. (If you followed the Draft onboarding on Kentico wiki pages, you should be ready to go.)
 
