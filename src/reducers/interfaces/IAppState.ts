@@ -1,4 +1,4 @@
-import { ListItem } from '../models/ListItem';
+import { ListItem } from '../../models/ListItem';
 import { OrderedMap } from 'immutable';
 
 export interface IAppState {

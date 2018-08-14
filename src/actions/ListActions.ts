@@ -1,7 +1,7 @@
 import * as ActionType from './ActionTypes';
 import { guid } from '../utils/guid';
 import { addItemCreator } from './addItemCreator';
-import { IAction } from '../interfaces/IAction';
+import { IAction } from './IAction';
 
 export const addItem = addItemCreator(guid);
 

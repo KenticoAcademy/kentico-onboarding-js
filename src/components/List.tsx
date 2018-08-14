@@ -4,9 +4,11 @@ import * as PropTypes from 'prop-types';
 import { Item } from '../containers/Item';
 import { AddItem } from '../containers/AddItem';
 
-interface IListProps {
+export interface IListStateProps {
   itemIds: Uuid[];
 }
+
+type IListProps = IListStateProps;
 
 export const List: React.StatelessComponent<IListProps> = (props: IListProps) => (
   <div className="row">

@@ -1,9 +1,9 @@
 import * as ActionType from './ActionTypes';
-import { IAction } from '../interfaces/IAction';
+import { IAction } from './IAction';
 
-type getIdentifierType = () => Uuid;
+type IdConstructor = () => Uuid;
 
-export const addItemCreator = (getIdentifier: getIdentifierType) =>
+export const addItemCreator = (getIdentifier: IdConstructor ) =>
   (text: string): IAction => ({
     type: ActionType.AddItem,
     payload: {

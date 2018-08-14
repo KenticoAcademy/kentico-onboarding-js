@@ -1,7 +1,7 @@
 import { OrderedMap } from 'immutable';
 import * as ActionType from '../../actions/ActionTypes';
 import { item } from './item';
-import { IAction } from '../../interfaces/IAction';
+import { IAction } from '../../actions/IAction';
 import { ListItem } from '../../models/ListItem';
 
 export const items = (state = OrderedMap<Uuid, ListItem>(), action: IAction): OrderedMap<Uuid, ListItem> => {

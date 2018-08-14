@@ -2,10 +2,10 @@ import * as React from 'react';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 
-import { AddItem as AddItemComponent } from '../components/AddItem';
+import { AddItem as AddItemComponent, IAddItemDispatchProps } from '../components/AddItem';
 import { addItem } from '../actions/ListActions';
 
-const mapDispatchToProps = (dispatch: Dispatch) => ({
+const mapDispatchToProps = (dispatch: Dispatch): IAddItemDispatchProps => ({
   onAddItem: (text: string) => dispatch(addItem(text)),
 });
 

@@ -1,9 +1,11 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 
-interface IAddItemProps {
+export interface IAddItemDispatchProps {
   onAddItem: (text: string) => void;
 }
+
+export type IAddItemProps = IAddItemDispatchProps;
 
 interface IAddItemState {
   text: string;

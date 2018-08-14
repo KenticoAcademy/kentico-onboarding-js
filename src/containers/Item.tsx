@@ -8,7 +8,7 @@ import {
   IItemOwnProps
 } from '../components/Item';
 import { saveItem, deleteItem, toggleItem } from '../actions/ListActions';
-import { IAppState } from '../interfaces/IAppState';
+import { IAppState } from '../reducers/interfaces/IAppState';
 
 interface IItemContainerProps extends IItemOwnProps {
   id: Uuid;
