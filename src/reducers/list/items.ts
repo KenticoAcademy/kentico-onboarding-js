@@ -4,7 +4,7 @@ import { item } from './item';
 import { IAction } from '../../interfaces/IAction';
 import { ListItem } from '../../models/ListItem';
 
-export const items = (state = OrderedMap<string, ListItem>(), action: IAction): OrderedMap<string, ListItem> => {
+export const items = (state = OrderedMap<Uuid, ListItem>(), action: IAction): OrderedMap<Uuid, ListItem> => {
   switch (action.type) {
     case ActionType.AddItem:
       return state.set(action.payload.id, item(undefined, action));

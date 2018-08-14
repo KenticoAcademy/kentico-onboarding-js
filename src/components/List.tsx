@@ -5,7 +5,7 @@ import { Item } from '../containers/Item';
 import { AddItem } from '../containers/AddItem';
 
 interface IListProps {
-  itemIds: string[];
+  itemIds: Uuid[];
 }
 
 export const List: React.StatelessComponent<IListProps> = (props: IListProps) => (
@@ -14,7 +14,7 @@ export const List: React.StatelessComponent<IListProps> = (props: IListProps) =>
       <div className="col-sm-12 col-md-offset-2 col-md-8">
         <ul className="list-group">
           {
-            props.itemIds.map((itemId: string, index: number) => (
+            props.itemIds.map((itemId: Uuid, index: number) => (
                 <Item
                   key={itemId}
                   index={index}

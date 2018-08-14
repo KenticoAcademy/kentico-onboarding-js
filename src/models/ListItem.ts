@@ -1,7 +1,7 @@
 import { TypedRecord } from './TypedRecord';
 
 export interface IListItem {
-  readonly id: string;
+  readonly id: Uuid;
   readonly text: string;
   readonly isActive: boolean;
 }
@@ -13,7 +13,7 @@ const emptyListItem: IListItem = {
 };
 
 export class ListItem extends TypedRecord<ListItem, IListItem>(emptyListItem, 'ListItem') implements IListItem {
-  readonly id: string;
+  readonly id: Uuid;
   readonly text: string;
   readonly isActive: boolean;
 }

@@ -16,7 +16,7 @@ const createMapItem = (text: string) => {
   ];
 };
 
-export const getDefaultList = () => OrderedMap<string, ListItem>([
+export const getDefaultList = () => OrderedMap<Uuid, ListItem>([
   createMapItem('aaaaa'),
   createMapItem('asdfg'),
 ]);

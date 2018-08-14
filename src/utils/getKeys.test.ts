@@ -4,12 +4,12 @@ import { ListItem } from '../models/ListItem';
 
 describe('getKeys', () => {
   it('returns same reference for 2 consecutive calls with the same argument', () => {
-    const list = OrderedMap<string, ListItem>([
-      [123, undefined],
-      [-489, undefined],
-      [854, undefined]
+    const list = OrderedMap<Uuid, ListItem>([
+      ['123', undefined],
+      ['-489', undefined],
+      ['854', undefined]
     ]);
-    const expectedIds = [123, -489, 854];
+    const expectedIds = ['123', '-489', '854'];
 
     const actualIds = getKeys(list);
     const actualIds1 = getKeys(list);
@@ -19,17 +19,17 @@ describe('getKeys', () => {
   });
 
   it('only memoizes consecutive calls and does not fail when the number of arguments changes between calls', () => {
-    const list1 = OrderedMap<string, ListItem>([
-      [123, undefined],
-      [-489, undefined],
-      [854, undefined]
+    const list1 = OrderedMap<Uuid, ListItem>([
+      ['123', undefined],
+      ['-489', undefined],
+      ['854', undefined]
     ]);
-    const list2 = OrderedMap<string, ListItem>([
-      [123, undefined],
-      [0, undefined]
+    const list2 = OrderedMap<Uuid, ListItem>([
+      ['123', undefined],
+      ['0', undefined]
     ]);
-    const expectedIds1 = [123, -489, 854];
-    const expectedIds2 = [123, 0];
+    const expectedIds1 = ['123', '-489', '854'];
+    const expectedIds2 = ['123', '0'];
 
     const actualIds1 = getKeys(list1);
     const actualIds2 = getKeys(list2);

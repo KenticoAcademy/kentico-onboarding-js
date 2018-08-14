@@ -11,7 +11,7 @@ import {
   toggleItem
 } from '../../actions/ListActions';
 
-const createItem = (id: string, text: string, isActive: boolean = false) =>
+const createItem = (id: Uuid, text: string, isActive: boolean = false) =>
   [
     id,
     new ListItem({
@@ -23,7 +23,7 @@ const createItem = (id: string, text: string, isActive: boolean = false) =>
 
 describe('ListReducer', () => {
   it('returns default state', () => {
-    const expectedList = OrderedMap<string, ListItem>();
+    const expectedList = OrderedMap<Uuid, ListItem>();
 
     const actualList = listReducer(undefined, {type: '', payload: undefined});
 
@@ -31,7 +31,7 @@ describe('ListReducer', () => {
   });
 
   it('returns prevState after undefined action', () => {
-    const expectedList = OrderedMap<string, ListItem>([
+    const expectedList = OrderedMap<Uuid, ListItem>([
       createItem('3970a0db-c877-49e1-b4d0-75e931384289', 'text', true)
     ]);
 
@@ -43,7 +43,7 @@ describe('ListReducer', () => {
   it('adds new item', () => {
     const id = '669a4b7c-264c-4196-8051-7f0570ce026a';
     const text = 'newItemText';
-    const expectedList = OrderedMap<string, ListItem>([
+    const expectedList = OrderedMap<Uuid, ListItem>([
       createItem(id, text)
     ]);
     const addItem = addItemCreator(() => id);
@@ -58,14 +58,14 @@ describe('ListReducer', () => {
     const item1 = createItem('b0e9856e-bb17-4c0b-b65f-f5a43e81617c', 'tem1text');
     const id2 = 'c264d24b-53da-428b-8ffc-e05ad161d3fb';
 
-    const defaultList = OrderedMap<string, ListItem>([
+    const defaultList = OrderedMap<Uuid, ListItem>([
       item1,
       createItem(id2, 'oldText', true),
     ]);
 
     const newText = 'newText';
 
-    const expectedList = OrderedMap<string, ListItem>([
+    const expectedList = OrderedMap<Uuid, ListItem>([
       item1,
       createItem(id2, newText),
     ]);
@@ -81,11 +81,11 @@ describe('ListReducer', () => {
     const id = 'b0e9856e-bb17-4c0b-b65f-f5a43e81617c';
     const text = 'text';
 
-    const defaultList = OrderedMap<string, ListItem>([
+    const defaultList = OrderedMap<Uuid, ListItem>([
       createItem(id, text, true),
     ]);
 
-    const expectedList = OrderedMap<string, ListItem>([
+    const expectedList = OrderedMap<Uuid, ListItem>([
       createItem(id, text)
     ]);
 
@@ -107,13 +107,13 @@ describe('ListReducer', () => {
     const id2 = 'c264d24b-53da-428b-8ffc-e05ad161d3fb';
     const item3 = createItem('76879f15-2c73-4fed-99b2-5736da670f79', 'item3Text');
 
-    const defaultList = OrderedMap<string, ListItem>([
+    const defaultList = OrderedMap<Uuid, ListItem>([
       item1,
       createItem(id2, 'item2Text', true),
       item3
     ]);
 
-    const expectedList = OrderedMap<string, ListItem>([
+    const expectedList = OrderedMap<Uuid, ListItem>([
       item1,
       item3
     ]);
@@ -129,17 +129,17 @@ describe('ListReducer', () => {
     const id = 'b0e9856e-bb17-4c0b-b65f-f5a43e81617c';
     const text = 'oldText';
 
-    const defaultList = OrderedMap<string, ListItem>([
+    const defaultList = OrderedMap<Uuid, ListItem>([
       createItem(id, text),
     ]);
 
-    const expectedList1 = OrderedMap<string, ListItem>([
+    const expectedList1 = OrderedMap<Uuid, ListItem>([
       createItem(id, text, true)
     ]);
 
     const newText = 'newText';
 
-    const expectedList2 = OrderedMap<string, ListItem>([
+    const expectedList2 = OrderedMap<Uuid, ListItem>([
       createItem(id, newText)
     ]);
 

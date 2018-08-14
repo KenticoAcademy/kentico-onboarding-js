@@ -3,6 +3,6 @@ import { OrderedMap } from 'immutable';
 
 export interface IAppState {
   list: {
-    items: OrderedMap<string, ListItem>;
+    items: OrderedMap<Uuid, ListItem>;
   };
 }

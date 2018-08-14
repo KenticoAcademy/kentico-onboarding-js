@@ -11,7 +11,7 @@ import { saveItem, deleteItem, toggleItem } from '../actions/ListActions';
 import { IAppState } from '../interfaces/IAppState';
 
 interface IItemContainerProps extends IItemOwnProps {
-  id: string;
+  id: Uuid;
 }
 
 const mapStateToProps = ({list}: IAppState, {id}: IItemContainerProps): IItemStateProps => ({

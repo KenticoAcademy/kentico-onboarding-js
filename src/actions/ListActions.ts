@@ -5,7 +5,7 @@ import { IAction } from '../interfaces/IAction';
 
 export const addItem = addItemCreator(guid);
 
-export const saveItem = (id: string, text: string): IAction => ({
+export const saveItem = (id: Uuid, text: string): IAction => ({
   type: ActionType.SaveItem,
   payload: {
     id,
@@ -13,14 +13,14 @@ export const saveItem = (id: string, text: string): IAction => ({
   }
 });
 
-export const toggleItem = (id: string): IAction => ({
+export const toggleItem = (id: Uuid): IAction => ({
   type: ActionType.ToggleItem,
   payload: {
     id
   }
 });
 
-export const deleteItem = (id: string): IAction => ({
+export const deleteItem = (id: Uuid): IAction => ({
   type: ActionType.DeleteItem,
   payload: {
     id
