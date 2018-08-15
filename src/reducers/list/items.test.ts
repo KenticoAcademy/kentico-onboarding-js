@@ -10,6 +10,7 @@ import {
   deleteItem,
   toggleItem
 } from '../../actions/ListActions';
+import { IAction } from '../../actions/IAction';
 
 const createItem = (id: Uuid, text: string, isActive: boolean = false) =>
   [
@@ -24,8 +25,9 @@ const createItem = (id: Uuid, text: string, isActive: boolean = false) =>
 describe('ListReducer', () => {
   it('returns default state', () => {
     const expectedList = OrderedMap<Uuid, ListItem>();
+    const action: IAction = {type: '', payload: undefined};
 
-    const actualList = listReducer(undefined, {type: '', payload: undefined});
+    const actualList = listReducer(undefined, action);
 
     expect(actualList).toBe(expectedList);
   });
@@ -125,7 +127,7 @@ describe('ListReducer', () => {
     expect(actualList).not.toBe(defaultList);
   });
 
-  it('dispatch two actions and return state correctly', () => {
+  it('returns such item in its state after an accepted action that it can be mutated by a second action accepted by the reducer', () => {
     const id = 'b0e9856e-bb17-4c0b-b65f-f5a43e81617c';
     const text = 'oldText';
 

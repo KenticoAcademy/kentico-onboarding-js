@@ -17,13 +17,12 @@ export const List: React.StatelessComponent<IListProps> = (props: IListProps) =>
         <ul className="list-group">
           {
             props.itemIds.map((itemId: Uuid, index: number) => (
-                <Item
-                  key={itemId}
-                  index={index}
-                  id={itemId}
-                />
-              )
-            )
+              <Item
+                key={itemId}
+                index={index}
+                id={itemId}
+              />
+            ))
           }
           <AddItem />
         </ul>

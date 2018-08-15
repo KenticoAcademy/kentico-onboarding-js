@@ -1,7 +1,7 @@
 import { Record } from 'immutable';
 
-export const TypedRecord = <RecordType, DataType>(emptyRecord: DataType, name: string) => class extends Record(emptyRecord, name) {
-  constructor(item?: Partial<DataType>) {
+export const TypedRecord = <TRecord, TData>(emptyRecord: TData, name: string) => class extends Record(emptyRecord, name) {
+  constructor(item?: Partial<TData>) {
     if (item) {
       super(item);
     } else {
@@ -9,7 +9,7 @@ export const TypedRecord = <RecordType, DataType>(emptyRecord: DataType, name: s
     }
   }
 
-  with(item: Partial<DataType>): RecordType {
-    return super.merge(item) as any as RecordType;
+  with(item: Partial<TData>): TRecord {
+    return super.merge(item) as any as TRecord;
   }
 };

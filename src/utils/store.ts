@@ -7,6 +7,7 @@ import { app } from '../reducers/app';
 import { createLogger } from 'redux-logger';
 import { getDefaultList } from './getDefaultList';
 import { IAppState } from '../reducers/interfaces/IAppState';
+import { IAction } from '../actions/IAction';
 
 const logger = createLogger({});
 
@@ -18,7 +19,7 @@ const getPreloadedState = (): IAppState => ({
   }
 });
 
-export const store = createStore(
+export const store = createStore<IAppState, IAction, never, never>(
   app,
   getPreloadedState(),
   composeEnhancers(applyMiddleware(logger))
