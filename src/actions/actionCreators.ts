@@ -7,11 +7,11 @@ export const deleteItem = (id: ItemId): IAction => ({
   payload: {id},
 });
 
-export const toggleEditing = (id: ItemId, edited: boolean): IAction => ({
+export const toggleEditing = (id: ItemId, isBeingEdited: boolean): IAction => ({
   type: actionTypes.TOGGLE_EDITING,
   payload: {
     id,
-    edited,
+    isBeingEdited,
   },
 });
 

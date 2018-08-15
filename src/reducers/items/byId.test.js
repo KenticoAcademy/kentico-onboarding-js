@@ -12,7 +12,7 @@ import { addItem } from '../../actions/addItem.ts';
 const mockId = () => '2';
 
 describe('byId', () => {
-  it('addItem returns map filled with new item with correct text and id', () => {
+  it('returns map filled with new item with correct text and id when called addItem', () => {
     const newId = mockId();
     const expectedState = new OrderedMap({
       [newId]: new Item({
@@ -27,7 +27,7 @@ describe('byId', () => {
     expect(stateAfter).toEqual(expectedState);
   });
 
-  it('updateItem returns map with item with correctly updated text and with canceled editing', () => {
+  it('returns map with item with correctly updated text and with canceled editing when called updateItem', () => {
     const itemId = mockId();
     const stateBefore = new OrderedMap({
       [itemId]: new Item({
@@ -51,7 +51,7 @@ describe('byId', () => {
     expect(stateAfter).toEqual(expectedState);
   });
 
-  it('onDelete returns map without selected item', () => {
+  it('returns map without selected item  when called deleteItem', () => {
     const itemId = mockId();
     const stateBefore = new OrderedMap({
       [itemId]: new Item({
@@ -67,7 +67,7 @@ describe('byId', () => {
     expect(stateAfter).toEqual(expectedState);
   });
 
-  it('onCancel switches isBeingEdited to opposite value than is set', () => {
+  it('switches isBeingEdited to opposite value than is set  when called toggleEditing', () => {
     const itemId = mockId();
 
     const stateBefore = new OrderedMap({
@@ -82,16 +82,16 @@ describe('byId', () => {
         id: itemId,
         text: 'This item should obviously not be edited',
         isBeingEdited: false,
-        textUpdate: 'This item should obviously not be edited',
+        textUpdate: '',
       }),
     });
 
-    const stateAfter = byId(stateBefore, toggleEditing(itemId));
+    const stateAfter = byId(stateBefore, toggleEditing(itemId, false));
 
     expect(stateAfter).toEqual(expectedState);
   });
 
-  it('textUpdateChange returns given text in textUpdate', () => {
+  it('returns given text in textUpdate  when called textUpdateChange', () => {
     const itemId = mockId();
 
     const stateBefore = new OrderedMap({
