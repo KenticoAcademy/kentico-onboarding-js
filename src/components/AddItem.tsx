@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import { isValidText } from '../utils/isValidText';
 
 export interface IAddItemDispatchProps {
   onAddItem: (text: string) => void;
@@ -33,6 +34,8 @@ export class AddItem extends React.PureComponent<IAddItemProps, IAddItemState> {
   };
 
   render(): JSX.Element {
+    const textIsValid = isValidText(this.state.text);
+
     return (
       <li className="list-group-item">
         <div className="input-group col-md-8">
@@ -47,6 +50,7 @@ export class AddItem extends React.PureComponent<IAddItemProps, IAddItemState> {
               className="btn btn-default"
               type="submit"
               onClick={this._addNewItem}
+              disabled={!textIsValid}
             >
               Add
             </button>

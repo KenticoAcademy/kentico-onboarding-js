@@ -11,8 +11,7 @@ interface IInactiveItemProps {
 
 export const InactiveItem: React.StatelessComponent<IInactiveItemProps> = (props: IInactiveItemProps) => (
   <div onClick={props.onItemClick}>
-    {props.index + 1}.
-    {props.item.text}
+    {props.index + 1}. {props.item.text}
   </div>
 );
 

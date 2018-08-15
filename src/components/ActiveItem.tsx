@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 
 import { ListItem, IListItem } from '../models/ListItem';
+import { isValidText } from '../utils/isValidText';
 
 interface IActiveItemProps {
   index: number;
@@ -38,6 +39,8 @@ export class ActiveItem extends React.PureComponent<IActiveItemProps, IActiveIte
   };
 
   render(): JSX.Element {
+    const textIsValid = isValidText(this.state.text);
+
     return (
       <div className="input-group col-md-8">
         <span className="input-group-addon">
@@ -54,6 +57,7 @@ export class ActiveItem extends React.PureComponent<IActiveItemProps, IActiveIte
             className="btn btn-primary"
             type="submit"
             onClick={this._saveInputValue}
+            disabled={!textIsValid}
           >
             Save
           </button>

@@ -12,21 +12,19 @@ type IListProps = IListStateProps;
 
 export const List: React.StatelessComponent<IListProps> = (props: IListProps) => (
   <div className="row">
-    <div className="row">
-      <div className="col-sm-12 col-md-offset-2 col-md-8">
-        <ul className="list-group">
-          {
-            props.itemIds.map((itemId: Uuid, index: number) => (
-              <Item
-                key={itemId}
-                index={index}
-                id={itemId}
-              />
-            ))
-          }
-          <AddItem />
-        </ul>
-      </div>
+    <div className="col-sm-12 col-md-16">
+      <ul className="list-group">
+        <AddItem />
+        {
+          props.itemIds.map((itemId: Uuid, index: number) => (
+            <Item
+              key={itemId}
+              index={index}
+              id={itemId}
+            />
+          ))
+        }
+      </ul>
     </div>
   </div>
 );
