@@ -1,9 +1,9 @@
 import {
   receiveItems,
   requestItems
-} from '../../actions/fetchItems';
+} from '../../actions/thunkActions/fetchItems';
 import { status } from './status';
-import { requestFailed } from '../../actions/requestFailed';
+import { requestFailed } from '../../actions/simpleActions/requestFailed';
 
 describe('status', () => {
   it('returns status object with no error message and fetching toggled on when action type is REQUEST_ITEMS', () => {

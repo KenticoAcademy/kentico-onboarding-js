@@ -11,11 +11,9 @@ import {
 } from '../components/EditedListItem';
 import { IAppState } from '../reducers/IAppState';
 import { IItem } from '../models/Item';
-import {
-  toggleEditing,
-  textUpdateChange,
-} from '../actions';
 import { updateItem } from '../actions';
+import { toggleEditing } from '../actions/simpleActions/toggleEditing';
+import { textUpdateChange } from '../actions/simpleActions/textUpdateChange';
 
 function mapStateToProps(state: IAppState, {itemId}: IEditListItemContainerProps): IEditedListItemDataProps {
   const item: IItem = state.items.byId.get(itemId);

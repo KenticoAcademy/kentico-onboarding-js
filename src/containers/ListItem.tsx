@@ -7,14 +7,12 @@ import {
 import { IAppState } from '../reducers/IAppState';
 import { ItemId } from '../models/ItemId';
 import * as React from 'react';
-import {
-  removeItem,
-  resetItem,
-  toggleEditing,
-  updateItem,
-  uploadItemAgain
-} from '../actions';
 import { IAction } from '../actions/IAction';
+import { toggleEditing } from '../actions/simpleActions/toggleEditing';
+import { removeItem } from '../actions/index';
+import { updateItem } from '../actions/index';
+import { resetItem } from '../actions/simpleActions/resetItem';
+import { uploadItemAgain } from '../actions';
 
 export interface IListItemContainerProps {
   id: ItemId;

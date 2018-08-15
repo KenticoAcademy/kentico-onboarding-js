@@ -1,13 +1,11 @@
-import { ItemId } from '../models/ItemId';
-import { assertAlert } from '../utils/assertAlert';
-import { IAction } from './IAction';
-import { requestFailedForItem } from './requestFailed';
-import {
-  clearErrorMessage,
-  toggleEditing,
-  toggleSynchronized,
-  updateItemText
-} from './actionCreators';
+import { ItemId } from '../../models/ItemId';
+import { assertAlert } from '../../utils/assertAlert';
+import { IAction } from '../IAction';
+import { toggleSynchronized } from '../simpleActions/toggleSynchronized';
+import { clearErrorMessage } from '../simpleActions/clearErrorMessage';
+import { toggleEditing } from '../simpleActions/toggleEditing';
+import { updateItemText } from '../simpleActions/updateItemText';
+import { requestFailedForItem } from '../simpleActions/requestFailedForItem';
 
 export const updateItem = (fetch: (id: ItemId, text: string) => Promise<Response>) =>
   (dispatch: Function) => {

@@ -1,4 +1,4 @@
-import { actionTypes } from '../constants/actionTypes';
+import { actionTypes } from '../../constants/actionTypes';
 import { uploadItem } from './uploadItem';
 describe('uploadItem', () => {
   test('calls request, addItem and success action if the fetch response was successful',  async () => {

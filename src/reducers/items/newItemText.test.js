@@ -1,9 +1,7 @@
 import { newItemText } from './newItemText.ts';
-import {
-  deleteItem,
-  updateNewItemText,
-} from '../../actions/actionCreators.ts';
-import { addItem } from '../../actions/addItem.ts';
+import { addItem } from '../../actions/simpleActions/addItem.ts';
+import { updateNewItemText } from '../../actions/simpleActions/updateNewItemText.ts';
+import { deleteItem } from '../../actions/simpleActions/deleteItem.ts';
 
 const mockId = () => '2';
 

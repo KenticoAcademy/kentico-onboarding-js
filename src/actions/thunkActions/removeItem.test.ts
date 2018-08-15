@@ -1,7 +1,7 @@
-import { actionTypes } from '../constants/actionTypes';
+import { actionTypes } from '../../constants/actionTypes';
 
 import { removeItem } from './removeItem';
-import { ItemId } from '../models/ItemId';
+import { ItemId } from '../../models/ItemId';
 
 describe('removeItem', () => {
   test('calls modifiDeleting, toggleSynchronized, clearErrorMessage, toggleEditing and deleteItem actions if the fetch response was successful',  async () => {

@@ -1,14 +1,10 @@
-import { ItemId } from '../models/ItemId';
-import { IAction } from './IAction';
-import {
-  requestFailedForItem
-} from './requestFailed';
-import {
-  synchronizeItemId,
-  toggleSynchronized
-} from './actionCreators';
-import { addItem } from './addItem';
-import { assertAlert } from '../utils/assertAlert';
+import { ItemId } from '../../models/ItemId';
+import { IAction } from '../IAction';
+import { addItem } from '../simpleActions/addItem';
+import { assertAlert } from '../../utils/assertAlert';
+import { synchronizeItemId } from '../simpleActions/synchronizeItemId';
+import { toggleSynchronized } from '../simpleActions/toggleSynchronized';
+import { requestFailedForItem } from '../simpleActions/requestFailedForItem';
 
 export const uploadItem = (fetch: (text: string) => Promise<Response>, generateId: () => ItemId) =>
   (dispatch: Function) => {
