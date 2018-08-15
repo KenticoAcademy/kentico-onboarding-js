@@ -1,6 +1,6 @@
-import { actionTypes } from '../constants/actionTypes';
+import { actionTypes } from '../../constants/actionTypes';
 import { updateItem } from './updateItem';
-import { ItemId } from '../models/ItemId';
+import { ItemId } from '../../models/ItemId';
 
 describe('updateItem', () => {
   test('calls request, addItem and success action if the fetch response was successful',  async () => {

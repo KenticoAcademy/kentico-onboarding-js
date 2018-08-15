@@ -1,17 +1,15 @@
-import { IAction } from './IAction';
-import { ItemId } from '../models/ItemId';
-import {
-  clearErrorMessage,
-  deleteItem,
-  markAsBeingDeleted,
-  toggleEditing,
-  toggleSynchronized,
-} from './actionCreators';
-import { assertAlert } from '../utils/assertAlert';
-import { requestFailedForItem } from './requestFailed';
+import { IAction } from '../IAction';
+import { ItemId } from '../../models/ItemId';
+import { assertAlert } from '../../utils/assertAlert';
+import { markAsBeingDeleted } from '../simpleActions/markAsBeingDeleted';
+import { toggleSynchronized } from '../simpleActions/toggleSynchronized';
+import { clearErrorMessage } from '../simpleActions/clearErrorMessage';
+import { toggleEditing } from '../simpleActions/toggleEditing';
+import { deleteItem } from '../simpleActions/deleteItem';
+import { requestFailedForItem } from '../simpleActions/requestFailedForItem';
 
-export const removeItem = (fetch: (id: ItemId) => Promise<Response>) =>
-  (dispatch: Function) => {
+export const removeItem = (fetch: (id: ItemId) => Promise<Response>) => {
+  return (dispatch: Function) => {
     return (id: ItemId): Promise<IAction> => {
       dispatch(markAsBeingDeleted(id, true));
       dispatch(toggleSynchronized(id, false));
@@ -29,3 +27,4 @@ export const removeItem = (fetch: (id: ItemId) => Promise<Response>) =>
         });
     };
   };
+};

@@ -1,8 +1,8 @@
-import { IAction } from './IAction';
-import { actionTypes } from '../constants/actionTypes';
-import { Item } from '../models/Item';
+import { IAction } from '../IAction';
+import { actionTypes } from '../../constants/actionTypes';
+import { Item } from '../../models/Item';
 import { Dispatch } from 'redux';
-import { requestFailed } from './requestFailed';
+import { requestFailed } from '../simpleActions/requestFailed';
 
 export const requestItems = (): IAction => ({
   type: actionTypes.REQUEST_ITEMS,

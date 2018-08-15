@@ -1,12 +1,10 @@
 import { generateId } from '../utils/generateId';
 import { actionFetch } from './actionFetch';
-import { uploadItem } from './uploadItem';
-import { fetchItems } from './fetchItems';
-import { updateItem } from './updateItem';
-import { removeItem } from './removeItem';
+import { uploadItem } from './thunkActions/uploadItem';
+import { fetchItems } from './thunkActions/fetchItems';
+import { updateItem } from './thunkActions/updateItem';
+import { removeItem } from './thunkActions/removeItem';
 import { ItemId } from '../models/ItemId';
-
-export * from './actionCreators';
 
 const uploadItemInjected = uploadItem(actionFetch('POST'), generateId);
 export { uploadItemInjected as uploadItem };
