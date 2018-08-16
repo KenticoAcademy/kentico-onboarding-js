@@ -1,5 +1,6 @@
 import { ItemId } from '../models/ItemId';
 import { getApiUrl } from '../constants/url';
+import { requestMethodTypes } from '../constants/requestMethodTypes';
 
 const HEADERS = {
   'Content-Type': 'application/json',
@@ -8,14 +9,14 @@ const HEADERS = {
 
 export const applyGetFetch = (apiUrl: RequestInfo) => (): Promise<Response> =>
   fetch(apiUrl, {
-    method: 'GET',
+    method: requestMethodTypes.GET,
     mode: 'cors', redirect: 'follow',
     headers: HEADERS
   }).then(response => response.status >= 400 ? this.reject() : response);
 
 export const applyPostFetch = (apiUrl: RequestInfo) => (text: string): Promise<Response> =>
   fetch(apiUrl, {
-    method: 'POST',
+    method: requestMethodTypes.POST,
     headers: HEADERS,
     body: JSON.stringify({
       'Text': text
@@ -24,7 +25,7 @@ export const applyPostFetch = (apiUrl: RequestInfo) => (text: string): Promise<R
 
 export const applyPutFetch = (apiUrl: RequestInfo) => (id: ItemId, text: string): Promise<Response> =>
   fetch(`${apiUrl}/${id}`, {
-    method: 'PUT',
+    method: requestMethodTypes.PUT,
     headers: HEADERS,
     body: JSON.stringify({
       'Id': id,
@@ -33,8 +34,8 @@ export const applyPutFetch = (apiUrl: RequestInfo) => (id: ItemId, text: string)
   }).then(response => response.status >= 400 ? this.reject() : response);
 
 export const applyDeleteFetch = (apiUrl: RequestInfo) => (id: ItemId): Promise<Response> =>
-  fetch(`${apiUrl}'/'${id}`, {
-    method: 'DELETE',
+  fetch(`${apiUrl}/${id}`, {
+    method: requestMethodTypes.DELETE,
     headers: HEADERS,
   }).then(response => response.status >= 400 ? this.reject() : response);
 
@@ -42,13 +43,13 @@ export const applyActionFetch = (method: string): (id?: ItemId, text?: string) =
   const apiUrl: RequestInfo = getApiUrl();
 
   switch (method) {
-    case 'GET':
+    case requestMethodTypes.GET:
       return applyGetFetch(apiUrl) ;
-    case 'POST':
+    case requestMethodTypes.POST:
       return applyPostFetch(apiUrl);
-    case 'PUT':
+    case requestMethodTypes.PUT:
       return applyPutFetch(apiUrl);
-    case 'DELETE':
+    case requestMethodTypes.DELETE:
       return applyDeleteFetch(apiUrl);
 
     default:

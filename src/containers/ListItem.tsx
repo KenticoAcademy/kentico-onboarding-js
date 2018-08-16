@@ -9,10 +9,11 @@ import { ItemId } from '../models/ItemId';
 import * as React from 'react';
 import { IAction } from '../actions/IAction';
 import { toggleEditing } from '../actions/simpleActions/toggleEditing';
-import { removeItem } from '../actions/index';
-import { updateItem } from '../actions/index';
+import { removeItem } from '../actions';
+import { updateItem } from '../actions';
 import { resetItem } from '../actions/simpleActions/resetItem';
 import { uploadItemAgain } from '../actions';
+import { errorMessageTypes } from '../constants/errorMessageTypes';
 
 export interface IListItemContainerProps {
   id: ItemId;
@@ -46,7 +47,7 @@ const mapDispatchToProps = (dispatch: Function, { id }: IListItemContainerProps)
   onThrowAway: () => removeItem(dispatch)(id),
   onSaveAgain: (text: string) => updateItem(dispatch)(id, text),
   onUploadAgain: (text: string) => uploadItemAgain(id)(dispatch)(text),
-  onRecover: () => dispatch(resetItem(id, ['DELETE'])),
+  onRecover: () => dispatch(resetItem(id, [errorMessageTypes.DELETE])),
 });
 
 

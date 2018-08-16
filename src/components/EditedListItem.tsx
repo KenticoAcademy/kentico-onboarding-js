@@ -4,6 +4,7 @@ import { containsNoCharacters } from '../utils/containsNoCharacters';
 import { IAction } from '../actions/IAction';
 import { IItem, Item } from '../models/Item';
 import { ItemId } from '../models/ItemId';
+import { errorMessageTypes } from '../constants/errorMessageTypes';
 
 export interface IEditListItemContainerProps {
   itemId: ItemId;
@@ -63,7 +64,7 @@ export class EditedListItem extends React.PureComponent<IEditedListItemProps> {
             disabled={isEmpty}
             onClick={this._onSaveItem}
           >
-            {item.errorMessages.keySeq().contains('UPLOAD') ?
+            {item.errorMessages.keySeq().contains(errorMessageTypes.UPLOAD) ?
               'Modify the word you wanted to upload!' : item.errorMessages.size !== 0 ?
                 'Save the word again!' : 'Save the word!'}
           </button>
