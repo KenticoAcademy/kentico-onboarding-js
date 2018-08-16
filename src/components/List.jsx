@@ -48,11 +48,21 @@ class Board extends PureComponent {
     };
   }
 
+  createOutput = () => {
+    const data = [];
+    let position = 1;
+    for (const item of this.state.items) {
+      data.push(<Item id={item.id} text={item.text} pos={position}/>);
+      position++;
+    }
+    return data;
+  }
+
   render() {
     return (
       <div>
         <ul className="list-group">
-          {this.state.items.map((item) => <Item id={item.id} text={item.text}/>)}
+          {this.createOutput()}
           <li className="list-group-item">
             <EditItem />
           </li>
@@ -68,7 +78,7 @@ class Board extends PureComponent {
 function Item(props) {
   return (
     <li className="list-group-item" key={props.id}>
-      {props.id + ". " + props.text}
+      {props.pos + ". " + props.text}
     </li>);
 }
 
