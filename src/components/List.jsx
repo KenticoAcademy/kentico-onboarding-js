@@ -26,13 +26,89 @@ export class List extends PureComponent {
         </div>
 
         <div className="row">
-          <div className="col-sm-12 col-md-offset-2 col-md-8">
-            <pre>
-              TODO: implement the list here :)
-            </pre>
+          <div className="col-sm-12">
+            <Board />
           </div>
         </div>
       </div>
+    );
+  }
+}
+
+class Board extends PureComponent {
+  render() {
+    return (
+      <div>
+        <ul className="list-group">
+          <li className="list-group-item">
+            <EditItem />
+          </li>
+          <li className="list-group-item">1. Dapibus ac facilisis in</li>
+          <li className="list-group-item">2. Morbi leo risus</li>
+          <li className="list-group-item">3. Porta ac consectetur ac</li>
+          <li className="list-group-item">4. Vestibulum at eros</li>
+          <li className="list-group-item">
+            <AddItem />
+          </li>
+        </ul>
+      </div>
+    );
+  }
+}
+
+class AddItem extends PureComponent {
+  render() {
+    return (
+      <form className="form-inline">
+        <div className="form-group">
+          <input
+            type="text"
+            className="form-control"
+            id="text"
+          />
+          <button
+            type="button"
+            className="btn btn-primary"
+          >
+            Add
+          </button>
+        </div>
+      </form>
+    );
+  }
+}
+
+class EditItem extends PureComponent {
+  render() {
+    return (
+      <form className="form-inline">
+        <div className="form-group">
+          1.{' '}
+          <input
+            type="text"
+            className="form-control"
+            id="text"
+          />
+          <button
+            type="button"
+            className="btn btn-primary"
+          >
+            Save
+          </button>
+          <button
+            type="button"
+            className="btn btn-default"
+          >
+            Cancle
+          </button>
+          <button
+            type="button"
+            className="btn btn-danger"
+          >
+            Delete
+          </button>
+        </div>
+      </form>
     );
   }
 }
