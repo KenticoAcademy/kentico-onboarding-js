@@ -20,7 +20,7 @@ export const fetchItems = (fetch: () => Promise<Response>) =>
     (): Promise<IAction> => {
       dispatch(requestItems());
       return fetch()
-        .then(response => response.status >= 400 ? this.reject() : response.json())
+        .then(response => response.json())
         .then(items => dispatch(receiveItems(items)))
         .catch(() => dispatch(requestFailed('Failed to fetch.')));
     };

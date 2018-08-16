@@ -30,7 +30,10 @@ export interface IListItemCallbackProps {
 const ListItem: React.StatelessComponent<IListItemDataProps & IListItemCallbackProps>  = (
   { id, isBeingEdited, index, synchronized, errorMessages, isBeingDeleted, onDivClick, onSaveAgain, onThrowAway, textUpdate, onRecover, onUploadAgain, text}) => {
 
-  const className = 'list-group-item form-inline' + (!synchronized && errorMessages.size === 0 ? ' synchronizing' : '') + (errorMessages.size === 0 ? '' : ' alert-danger') + (!isBeingDeleted ? '' : ' being-deleted');
+  const className = 'list-group-item form-inline'
+    + (!synchronized && errorMessages.size === 0 ? ' synchronizing' : '')
+    + (errorMessages.size === 0 ? '' : ' alert-danger')
+    + (!isBeingDeleted ? '' : ' being-deleted');
 
   function _onDoItAgain (e: React.MouseEvent<HTMLDivElement>) {
     e.stopPropagation();
