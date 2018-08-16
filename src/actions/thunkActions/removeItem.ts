@@ -17,7 +17,6 @@ export const removeItem = (fetch: (id: ItemId) => Promise<Response>) => {
       dispatch(toggleEditing(id, false));
 
       return fetch(id)
-        .then(response => response.status >= 400 ? this.reject() : response)
         .then(() => dispatch(deleteItem(id)))
         .then(() => assertAlert('SUCCESS', 'Shark successfully ate item.'))
         .catch(() => {
