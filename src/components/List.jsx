@@ -36,17 +36,26 @@ export class List extends PureComponent {
 }
 
 class Board extends PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      items: [
+        { id: 1, text: 'Dog' },
+        { id: 2, text: 'Cat' },
+        { id: 3, text: 'Elephant' }
+      ]
+
+    };
+  }
+
   render() {
     return (
       <div>
         <ul className="list-group">
+          {this.state.items.map((item) => <Item id={item.id} text={item.text}/>)}
           <li className="list-group-item">
             <EditItem />
           </li>
-          <li className="list-group-item">1. Dapibus ac facilisis in</li>
-          <li className="list-group-item">2. Morbi leo risus</li>
-          <li className="list-group-item">3. Porta ac consectetur ac</li>
-          <li className="list-group-item">4. Vestibulum at eros</li>
           <li className="list-group-item">
             <AddItem />
           </li>
@@ -54,6 +63,13 @@ class Board extends PureComponent {
       </div>
     );
   }
+}
+
+function Item(props) {
+  return (
+    <li className="list-group-item" key={props.id}>
+      {props.id + ". " + props.text}
+    </li>);
 }
 
 class AddItem extends PureComponent {
