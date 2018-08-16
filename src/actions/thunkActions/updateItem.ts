@@ -6,13 +6,14 @@ import { clearErrorMessage } from '../simpleActions/clearErrorMessage';
 import { toggleEditing } from '../simpleActions/toggleEditing';
 import { updateItemText } from '../simpleActions/updateItemText';
 import { requestFailedForItem } from '../simpleActions/requestFailedForItem';
+import { errorMessageTypes } from '../../constants/errorMessageTypes';
 
 export const updateItem = (fetch: (id: ItemId, text: string) => Promise<Response>) =>
   (dispatch: Function) => {
     return (id: ItemId, text: string): Promise<IAction> => {
       dispatch(toggleSynchronized(id, false));
       dispatch(toggleEditing(id, false));
-      dispatch(clearErrorMessage(id, 'UPDATE'));
+      dispatch(clearErrorMessage(id, errorMessageTypes.UPDATE));
       dispatch(updateItemText(id));
 
       return fetch(id, text)
@@ -21,7 +22,7 @@ export const updateItem = (fetch: (id: ItemId, text: string) => Promise<Response
         .then(() => assertAlert('SUCCESS', 'Updated item text successfully'))
         .catch(() => {
           assertAlert('ERROR', 'Failed to update item text');
-          return dispatch(requestFailedForItem(id, 'UPDATE', 'Failed to update item text. '));
+          return dispatch(requestFailedForItem(id, errorMessageTypes.UPDATE, 'Failed to update item text. '));
         });
     };
   };

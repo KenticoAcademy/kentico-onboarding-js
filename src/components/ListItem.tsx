@@ -7,6 +7,7 @@ import { IAction } from '../actions/IAction';
 import {
   Map,
 } from 'immutable';
+import { errorMessageTypes } from '../constants/errorMessageTypes';
 
 export interface IListItemDataProps {
   text: string;
@@ -37,7 +38,7 @@ const ListItem: React.StatelessComponent<IListItemDataProps & IListItemCallbackP
 
   function _onDoItAgain (e: React.MouseEvent<HTMLDivElement>) {
     e.stopPropagation();
-    errorMessages.keySeq().contains('UPLOAD') ?
+    errorMessages.keySeq().contains(errorMessageTypes.UPLOAD) ?
       textUpdate ?  onUploadAgain(textUpdate) : onUploadAgain(text)
        : onSaveAgain(textUpdate);
   }

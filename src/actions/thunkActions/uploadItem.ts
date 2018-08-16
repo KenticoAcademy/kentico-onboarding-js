@@ -5,6 +5,7 @@ import { assertAlert } from '../../utils/assertAlert';
 import { synchronizeItemId } from '../simpleActions/synchronizeItemId';
 import { toggleSynchronized } from '../simpleActions/toggleSynchronized';
 import { requestFailedForItem } from '../simpleActions/requestFailedForItem';
+import { errorMessageTypes } from '../../constants/errorMessageTypes';
 
 export const uploadItem = (fetch: (text: string) => Promise<Response>, generateId: () => ItemId) =>
   (dispatch: Function) => {
@@ -22,7 +23,7 @@ export const uploadItem = (fetch: (text: string) => Promise<Response>, generateI
         .then(() => assertAlert('SUCCESS', 'Uploaded item successfully'))
         .catch(() => {
           assertAlert('ERROR', 'Failed to upload item.');
-          return dispatch(requestFailedForItem(id, 'UPLOAD', 'Failed to upload. '));
+          return dispatch(requestFailedForItem(id, errorMessageTypes.UPLOAD, 'Failed to upload. '));
         });
     };
   };

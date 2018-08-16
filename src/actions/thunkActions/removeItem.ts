@@ -7,13 +7,14 @@ import { clearErrorMessage } from '../simpleActions/clearErrorMessage';
 import { toggleEditing } from '../simpleActions/toggleEditing';
 import { deleteItem } from '../simpleActions/deleteItem';
 import { requestFailedForItem } from '../simpleActions/requestFailedForItem';
+import { errorMessageTypes } from '../../constants/errorMessageTypes';
 
 export const removeItem = (fetch: (id: ItemId) => Promise<Response>) => {
   return (dispatch: Function) => {
     return (id: ItemId): Promise<IAction> => {
       dispatch(markAsBeingDeleted(id, true));
       dispatch(toggleSynchronized(id, false));
-      dispatch(clearErrorMessage(id, 'DELETE'));
+      dispatch(clearErrorMessage(id, errorMessageTypes.DELETE));
       dispatch(toggleEditing(id, false));
 
       return fetch(id)
@@ -22,7 +23,7 @@ export const removeItem = (fetch: (id: ItemId) => Promise<Response>) => {
         .catch(() => {
           dispatch(toggleSynchronized(id, true));
           assertAlert('ERROR', 'Shark failed in eating item.');
-          return dispatch(requestFailedForItem(id, 'DELETE', 'Shark failed in eating item.'));
+          return dispatch(requestFailedForItem(id, errorMessageTypes.DELETE, 'Shark failed in eating item.'));
         });
     };
   };
