@@ -44,7 +44,6 @@ class Board extends PureComponent {
         { id: 2, text: 'Cat' },
         { id: 3, text: 'Elephant' }
       ]
-
     };
   }
 
@@ -73,6 +72,21 @@ function Item(props) {
 }
 
 class AddItem extends PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = { value: '' };
+
+    this._updateValue = this._updateValue.bind(this);
+  }
+
+  _addItem = () => {
+    console.log('value: ' + this.state.value);
+  }
+
+  _updateValue(event) {
+    this.setState({ value: event.target.value });
+  }
+
   render() {
     return (
       <form className="form-inline">
@@ -81,10 +95,13 @@ class AddItem extends PureComponent {
             type="text"
             className="form-control"
             id="text"
+            value={this.state.value}
+            onChange={this._updateValue}
           />
           <button
             type="button"
             className="btn btn-primary"
+            onClick={this._addItem}
           >
             Add
           </button>
@@ -115,7 +132,7 @@ class EditItem extends PureComponent {
             type="button"
             className="btn btn-default"
           >
-            Cancle
+            Cancel
           </button>
           <button
             type="button"
