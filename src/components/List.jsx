@@ -64,11 +64,22 @@ class Board extends PureComponent {
     };
   }
 
+  _delItem = (pos) => {
+    const updatedItemsArray = [...this.state.items];
+    updatedItemsArray.splice(pos - 1, 1);
+
+    console.log('Board -> _delItem() - pos: ' + pos);
+
+    this.setState(() => ({
+      items: updatedItemsArray
+    }));
+  }
+
   _editItem = (pos, text) => {
     const updatedItemsArray = [...this.state.items];
     updatedItemsArray[pos - 1].text = text;
 
-    console.log('Board -> edirItem()');
+    console.log('Board -> _editItem()');
 
     this.setState(() => ({
       items: updatedItemsArray
@@ -100,10 +111,8 @@ class Board extends PureComponent {
               text={item.text}
               pos={index + 1}
               onSave={this._editItem}
+              onDelete={this._delItem}
             />))}
-          <li className="list-group-item">
-            <EditItem />
-          </li>
           <li className="list-group-item">
             <AddItem onChange={this._addItem} />
           </li>
@@ -143,6 +152,7 @@ class Item extends PureComponent {
               text={this.props.text}
               finishEdit={this._finishEditItem}
               onSave={this.props.onSave}
+              onDelete={this.props.onDelete}
             />)
           : (
             <ShowItem
@@ -195,7 +205,7 @@ class AddItem extends PureComponent {
           />
           <button
             type="button"
-            className="btn btn-primary"
+            className="btn btn-default"
             onClick={this._addItem}
           >
             Add
@@ -212,6 +222,10 @@ class EditItem extends PureComponent {
     this.state = {
       text: this.props.text
     };
+  }
+
+  _delItem = () => {
+    this.props.onDelete(this.props.pos);
   }
 
   _saveItem = () => {
@@ -245,12 +259,14 @@ class EditItem extends PureComponent {
           <button
             type="button"
             className="btn btn-default"
+            onClick={this.props.finishEdit}
           >
             Cancel
           </button>
           <button
             type="button"
             className="btn btn-danger"
+            onClick={this._delItem}
           >
             Delete
           </button>
