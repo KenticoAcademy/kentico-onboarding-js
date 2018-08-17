@@ -43,9 +43,18 @@ class Board extends PureComponent {
         { id: 1, text: 'Dog' },
         { id: 2, text: 'Cat' },
         { id: 3, text: 'Elephant' }
-      ]
+      ],
+      counter: 4
     };
   }
+
+  _addItem = (text) => {
+    console.log('Board: Add item ' + this.state.counter + ' - ' + text);
+    this.setState(prevState => ({
+      items: [...prevState.items, { 'id': prevState.counter, 'text': text }],
+      counter: prevState.counter + 1
+    }));
+  };
 
   render() {
     return (
@@ -56,7 +65,7 @@ class Board extends PureComponent {
             <EditItem />
           </li>
           <li className="list-group-item">
-            <AddItem />
+            <AddItem onChange={this._addItem}/>
           </li>
         </ul>
       </div>
@@ -75,17 +84,16 @@ class AddItem extends PureComponent {
   constructor(props) {
     super(props);
     this.state = { value: '' };
-
-    this._updateValue = this._updateValue.bind(this);
   }
 
   _addItem = () => {
+    this.props.onChange(this.state.value);
     console.log('value: ' + this.state.value);
-  }
+  };
 
-  _updateValue(event) {
+  _updateValue = (event) => {
     this.setState({ value: event.target.value });
-  }
+  };
 
   render() {
     return (
