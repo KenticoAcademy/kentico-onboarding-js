@@ -65,8 +65,6 @@ class Board extends PureComponent {
   }
 
   _addItem = (text) => {
-    console.log('Board: Add item ' + this.state.idCnt + ' - ' + text);
-
     this.setState(prevState => ({
       items: [
         ...prevState.items,
@@ -82,9 +80,6 @@ class Board extends PureComponent {
   _editItem = (pos, text) => {
     const updatedItems = [...this.state.items];
     updatedItems[pos - 1].text = text;
-
-    console.log('Board -> _editItem()');
-
     this.setState(() => ({
       items: updatedItems
     }));
@@ -93,9 +88,6 @@ class Board extends PureComponent {
   _delItem = (pos) => {
     const updatedItems = [...this.state.items];
     updatedItems.splice(pos - 1, 1);
-
-    console.log('Board -> _delItem() - pos: ' + pos);
-
     this.setState(() => ({
       items: updatedItems
     }));
@@ -132,12 +124,10 @@ class Item extends PureComponent {
   }
 
   _startEditItem = () => {
-    console.log('Start editItem -> li: ' + this.props.id);
     this.setState({ edit: true });
   };
 
   _finishEditItem = () => {
-    console.log('Finish editItem -> li: ' + this.props.id);
     this.setState({ edit: false });
   };
 
@@ -190,7 +180,6 @@ class AddItem extends PureComponent {
 
   _addItem = () => {
     this.props.onChange(this.state.value);
-    console.log('value: ' + this.state.value);
   };
 
   render() {
