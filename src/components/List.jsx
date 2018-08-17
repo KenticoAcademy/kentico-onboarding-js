@@ -60,43 +60,44 @@ class Board extends PureComponent {
           text: 'Elephant'
         }
       ],
-      counter: 4
+      idCnt: 4
     };
   }
 
   _addItem = (text) => {
-    console.log('Board: Add item ' + this.state.counter + ' - ' + text);
+    console.log('Board: Add item ' + this.state.idCnt + ' - ' + text);
+
     this.setState(prevState => ({
       items: [
         ...prevState.items,
         {
-          'id': prevState.counter,
+          'id': prevState.idCnt,
           'text': text
         }
       ],
-      counter: prevState.counter + 1
+      idCnt: prevState.idCnt + 1
     }));
   };
 
   _editItem = (pos, text) => {
-    const updatedItemsArray = [...this.state.items];
-    updatedItemsArray[pos - 1].text = text;
+    const updatedItems = [...this.state.items];
+    updatedItems[pos - 1].text = text;
 
     console.log('Board -> _editItem()');
 
     this.setState(() => ({
-      items: updatedItemsArray
+      items: updatedItems
     }));
   }
 
   _delItem = (pos) => {
-    const updatedItemsArray = [...this.state.items];
-    updatedItemsArray.splice(pos - 1, 1);
+    const updatedItems = [...this.state.items];
+    updatedItems.splice(pos - 1, 1);
 
     console.log('Board -> _delItem() - pos: ' + pos);
 
     this.setState(() => ({
-      items: updatedItemsArray
+      items: updatedItems
     }));
   }
 
@@ -169,8 +170,8 @@ class Item extends PureComponent {
 function ShowItem(props) {
   return (
     <div
-      onClick={props.handlerClick}
       role="presentation"
+      onClick={props.handlerClick}
     >
       {props.pos + ". "}{props.text}
     </div>
