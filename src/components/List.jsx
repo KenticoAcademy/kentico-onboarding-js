@@ -49,16 +49,16 @@ class Board extends PureComponent {
       items: [
         {
           id: 1,
-          text: 'Dog'
+          text: 'Dog',
         },
         {
           id: 2,
-          text: 'Cat'
+          text: 'Cat',
         },
         {
           id: 3,
-          text: 'Elephant'
-        }
+          text: 'Elephant',
+        },
       ],
       idCnt: 4
     };
@@ -73,7 +73,7 @@ class Board extends PureComponent {
         {
           'id': prevState.idCnt,
           'text': text
-        }
+        },
       ],
       idCnt: prevState.idCnt + 1
     }));
