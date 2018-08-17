@@ -60,7 +60,7 @@ class Board extends PureComponent {
     return (
       <div>
         <ul className="list-group">
-          {this.state.items.map((item, index) => <Item id={item.id} text={item.text} pos={index + 1}/>)}
+          {this.state.items.map((item, index) => <Item key={item.id} text={item.text} pos={index + 1}/>)}
           <li className="list-group-item">
             <EditItem />
           </li>
@@ -75,7 +75,7 @@ class Board extends PureComponent {
 
 function Item(props) {
   return (
-    <li className="list-group-item" key={props.id}>
+    <li className="list-group-item">
       {props.pos + ". " + props.text}
     </li>);
 }
