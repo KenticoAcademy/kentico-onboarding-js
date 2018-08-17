@@ -12,6 +12,7 @@ export class AddItem extends PureComponent {
 
   _addItem = () => {
     this.props.onChange(this.state.value);
+    this.setState({ value: '' });
   };
 
   render() {
