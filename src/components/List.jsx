@@ -15,13 +15,20 @@ export class List extends PureComponent {
             <p className="lead text-center">
               <b>Note: </b>Try to make solution easily extensible (e.g. more displayed fields per item like <code>dateCreated</code>).
             </p>
-            <img src={assignment} alt="assignment" className="img--assignment" />
+            <img
+              src={assignment}
+              alt="assignment"
+              className="img--assignment"
+            />
           </div>
         </div>
 
         <div className="row">
           <div className="col-sm-12 text-center">
-            <TsComponent name="𝕱𝖆𝖓𝖈𝖞" invisible />
+            <TsComponent
+              name="𝕱𝖆𝖓𝖈𝖞"
+              invisible
+            />
           </div>
         </div>
 
@@ -40,9 +47,18 @@ class Board extends PureComponent {
     super(props);
     this.state = {
       items: [
-        { id: 1, text: 'Dog' },
-        { id: 2, text: 'Cat' },
-        { id: 3, text: 'Elephant' }
+        {
+          id: 1,
+          text: 'Dog'
+        },
+        {
+          id: 2,
+          text: 'Cat'
+        },
+        {
+          id: 3,
+          text: 'Elephant'
+        }
       ],
       counter: 4
     };
@@ -51,7 +67,13 @@ class Board extends PureComponent {
   _addItem = (text) => {
     console.log('Board: Add item ' + this.state.counter + ' - ' + text);
     this.setState(prevState => ({
-      items: [...prevState.items, { 'id': prevState.counter, 'text': text }],
+      items: [
+        ...prevState.items,
+        {
+          'id': prevState.counter,
+          'text': text
+        }
+      ],
       counter: prevState.counter + 1
     }));
   };
@@ -60,12 +82,18 @@ class Board extends PureComponent {
     return (
       <div>
         <ul className="list-group">
-          {this.state.items.map((item, index) => <Item key={item.id} text={item.text} pos={index + 1}/>)}
+          {this.state.items.map((item, index) => (
+            <Item
+              key={item.id}
+              id={item.id}
+              text={item.text}
+              pos={index + 1}
+            />))}
           <li className="list-group-item">
             <EditItem />
           </li>
           <li className="list-group-item">
-            <AddItem onChange={this._addItem}/>
+            <AddItem onChange={this._addItem} />
           </li>
         </ul>
       </div>
@@ -73,11 +101,47 @@ class Board extends PureComponent {
   }
 }
 
-function Item(props) {
+class Item extends PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      edit: false
+    };
+  }
+
+  _editItem = () => {
+    console.log('Pos. of click li: ' + this.props.id);
+    this.setState({ edit: true });
+  };
+
+  render() {
+    return (
+      <li
+        className="list-group-item"
+      >
+        {this.state.edit
+          ? <EditItem />
+          : (
+            <ShowItem
+              handlerClick={this._editItem}
+              pos={this.props.pos}
+              text={this.props.text}
+            />)
+        }
+      </li>
+    );
+  }
+}
+
+function ShowItem(props) {
   return (
-    <li className="list-group-item">
-      {props.pos + ". " + props.text}
-    </li>);
+    <div
+      onClick={props.handlerClick}
+      role="presentation"
+    >
+      {props.pos + ". "}{props.text}
+    </div>
+  );
 }
 
 class AddItem extends PureComponent {
