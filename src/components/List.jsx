@@ -64,28 +64,6 @@ class Board extends PureComponent {
     };
   }
 
-  _delItem = (pos) => {
-    const updatedItemsArray = [...this.state.items];
-    updatedItemsArray.splice(pos - 1, 1);
-
-    console.log('Board -> _delItem() - pos: ' + pos);
-
-    this.setState(() => ({
-      items: updatedItemsArray
-    }));
-  }
-
-  _editItem = (pos, text) => {
-    const updatedItemsArray = [...this.state.items];
-    updatedItemsArray[pos - 1].text = text;
-
-    console.log('Board -> _editItem()');
-
-    this.setState(() => ({
-      items: updatedItemsArray
-    }));
-  }
-
   _addItem = (text) => {
     console.log('Board: Add item ' + this.state.counter + ' - ' + text);
     this.setState(prevState => ({
@@ -99,6 +77,28 @@ class Board extends PureComponent {
       counter: prevState.counter + 1
     }));
   };
+
+  _editItem = (pos, text) => {
+    const updatedItemsArray = [...this.state.items];
+    updatedItemsArray[pos - 1].text = text;
+
+    console.log('Board -> _editItem()');
+
+    this.setState(() => ({
+      items: updatedItemsArray
+    }));
+  }
+
+  _delItem = (pos) => {
+    const updatedItemsArray = [...this.state.items];
+    updatedItemsArray.splice(pos - 1, 1);
+
+    console.log('Board -> _delItem() - pos: ' + pos);
+
+    this.setState(() => ({
+      items: updatedItemsArray
+    }));
+  }
 
   render() {
     return (
@@ -131,7 +131,7 @@ class Item extends PureComponent {
   }
 
   _startEditItem = () => {
-    console.log('Pos. of click li: ' + this.props.id);
+    console.log('Start editItem -> li: ' + this.props.id);
     this.setState({ edit: true });
   };
 
@@ -183,13 +183,13 @@ class AddItem extends PureComponent {
     this.state = { value: '' };
   }
 
+  _updateValue = (event) => {
+    this.setState({ value: event.target.value });
+  };
+
   _addItem = () => {
     this.props.onChange(this.state.value);
     console.log('value: ' + this.state.value);
-  };
-
-  _updateValue = (event) => {
-    this.setState({ value: event.target.value });
   };
 
   render() {
@@ -224,18 +224,18 @@ class EditItem extends PureComponent {
     };
   }
 
-  _delItem = () => {
-    this.props.onDelete(this.props.pos);
-  }
+  _textEdit = (e) => {
+    this.setState({ text: e.target.value });
+  };
 
   _saveItem = () => {
     this.props.onSave(this.props.pos, this.state.text);
     this.props.finishEdit();
   }
 
-  _textEdit = (e) => {
-    this.setState({ text: e.target.value });
-  };
+  _delItem = () => {
+    this.props.onDelete(this.props.pos);
+  }
 
   render() {
     return (
