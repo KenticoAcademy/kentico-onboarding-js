@@ -64,6 +64,17 @@ class Board extends PureComponent {
     };
   }
 
+  _editItem = (pos, text) => {
+    const updatedItemsArray = [...this.state.items];
+    updatedItemsArray[pos - 1].text = text;
+
+    console.log('Board -> edirItem()');
+
+    this.setState(() => ({
+      items: updatedItemsArray
+    }));
+  }
+
   _addItem = (text) => {
     console.log('Board: Add item ' + this.state.counter + ' - ' + text);
     this.setState(prevState => ({
@@ -88,6 +99,7 @@ class Board extends PureComponent {
               id={item.id}
               text={item.text}
               pos={index + 1}
+              onSave={this._editItem}
             />))}
           <li className="list-group-item">
             <EditItem />
@@ -109,9 +121,14 @@ class Item extends PureComponent {
     };
   }
 
-  _editItem = () => {
+  _startEditItem = () => {
     console.log('Pos. of click li: ' + this.props.id);
     this.setState({ edit: true });
+  };
+
+  _finishEditItem = () => {
+    console.log('Finish editItem -> li: ' + this.props.id);
+    this.setState({ edit: false });
   };
 
   render() {
@@ -124,10 +141,12 @@ class Item extends PureComponent {
             <EditItem
               pos={this.props.pos}
               text={this.props.text}
+              finishEdit={this._finishEditItem}
+              onSave={this.props.onSave}
             />)
           : (
             <ShowItem
-              handlerClick={this._editItem}
+              handlerClick={this._startEditItem}
               pos={this.props.pos}
               text={this.props.text}
             />)
@@ -195,6 +214,11 @@ class EditItem extends PureComponent {
     };
   }
 
+  _saveItem = () => {
+    this.props.onSave(this.props.pos, this.state.text);
+    this.props.finishEdit();
+  }
+
   _textEdit = (e) => {
     this.setState({ text: e.target.value });
   };
@@ -214,6 +238,7 @@ class EditItem extends PureComponent {
           <button
             type="button"
             className="btn btn-primary"
+            onClick={this._saveItem}
           >
             Save
           </button>
