@@ -120,7 +120,11 @@ class Item extends PureComponent {
         className="list-group-item"
       >
         {this.state.edit
-          ? <EditItem />
+          ? (
+            <EditItem
+              pos={this.props.pos}
+              text={this.props.text}
+            />)
           : (
             <ShowItem
               handlerClick={this._editItem}
@@ -184,15 +188,28 @@ class AddItem extends PureComponent {
 }
 
 class EditItem extends PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      text: this.props.text
+    };
+  }
+
+  _textEdit = (e) => {
+    this.setState({ text: e.target.value });
+  };
+
   render() {
     return (
       <form className="form-inline">
         <div className="form-group">
-          1.{' '}
+          {this.props.pos + '. '}
           <input
             type="text"
             className="form-control"
             id="text"
+            value={this.state.text}
+            onChange={this._textEdit}
           />
           <button
             type="button"
