@@ -1,5 +1,4 @@
 import './sticky-footer.css';
-import './balloon.css';
 import './index.css';
 import * as React from 'react';
 import { List } from './containers/List';
@@ -11,6 +10,7 @@ import { IAction } from './actions/IAction';
 
 import 'react-s-alert/dist/s-alert-default.css';
 import 'react-s-alert/dist/s-alert-css-effects/stackslide.css';
+import 'balloon-css/balloon.css';
 import { Dispatch } from 'redux';
 
 interface IAppDataProps {
