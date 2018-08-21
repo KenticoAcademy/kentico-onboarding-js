@@ -31,8 +31,6 @@ export interface IListItemCallbackProps {
 function mapStateToProps(state: IAppState, {id, index}: IListItemContainerProps): IListItemDataProps {
   const item = state.items.byId.get(id);
   return {
-    text: item.text,
-    textUpdate: item.textUpdate,
     id,
     isBeingEdited: item.isBeingEdited,
     index,
