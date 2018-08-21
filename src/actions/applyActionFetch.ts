@@ -7,14 +7,14 @@ const HEADERS = {
   'access-control-allow-origin': '*',
 };
 
-export const applyGetFetch = (apiUrl: RequestInfo) => (): Promise<Response> =>
+const applyGetFetch = (apiUrl: RequestInfo) => (): Promise<Response> =>
   fetch(apiUrl, {
     method: requestMethodTypes.GET,
     mode: 'cors', redirect: 'follow',
     headers: HEADERS
   }).then(response => response.status >= 400 ? this.reject() : response);
 
-export const applyPostFetch = (apiUrl: RequestInfo) => (text: string): Promise<Response> =>
+const applyPostFetch = (apiUrl: RequestInfo) => (text: string): Promise<Response> =>
   fetch(apiUrl, {
     method: requestMethodTypes.POST,
     headers: HEADERS,
@@ -23,7 +23,7 @@ export const applyPostFetch = (apiUrl: RequestInfo) => (text: string): Promise<R
     })
   }).then(response => response.status >= 400 ? this.reject() : response);
 
-export const applyPutFetch = (apiUrl: RequestInfo) => (id: ItemId, text: string): Promise<Response> =>
+const applyPutFetch = (apiUrl: RequestInfo) => (id: ItemId, text: string): Promise<Response> =>
   fetch(`${apiUrl}/${id}`, {
     method: requestMethodTypes.PUT,
     headers: HEADERS,
@@ -33,13 +33,13 @@ export const applyPutFetch = (apiUrl: RequestInfo) => (id: ItemId, text: string)
     })
   }).then(response => response.status >= 400 ? this.reject() : response);
 
-export const applyDeleteFetch = (apiUrl: RequestInfo) => (id: ItemId): Promise<Response> =>
+const applyDeleteFetch = (apiUrl: RequestInfo) => (id: ItemId): Promise<Response> =>
   fetch(`${apiUrl}/${id}`, {
     method: requestMethodTypes.DELETE,
     headers: HEADERS,
   }).then(response => response.status >= 400 ? this.reject() : response);
 
-export const applyActionFetch = (method: string): (id?: ItemId, text?: string) => Promise<Response> => {
+const applyActionFetch = (method: string): (id?: ItemId, text?: string) => Promise<Response> => {
   const apiUrl: RequestInfo = getApiUrl();
 
   switch (method) {
@@ -56,3 +56,9 @@ export const applyActionFetch = (method: string): (id?: ItemId, text?: string) =
       return this.reject;
   }
 };
+
+const applyActionFetchWithErrorHandling = (method: string) => (id?: ItemId, text?: string): Promise<Response> =>
+  applyActionFetch(method)(id, text)
+    .then(response => response.status >= 400 ? this.reject() : response);
+
+export {applyActionFetchWithErrorHandling as applyActionFetch};
