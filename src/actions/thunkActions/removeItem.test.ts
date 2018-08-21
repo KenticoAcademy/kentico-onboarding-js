@@ -1,5 +1,4 @@
 import { actionTypes } from '../../constants/actionTypes';
-
 import { removeItem } from './removeItem';
 import { ItemId } from '../../models/ItemId';
 
@@ -12,12 +11,8 @@ describe('removeItem', () => {
     const dispatch = jest.fn();
     await removeItem(fetch)(dispatch)(mockId());
 
-    expect(dispatch).toHaveBeenCalledTimes(5);
-    expect(dispatch.mock.calls[0][0].type).toBe(actionTypes.MODIFY_DELETING);
-    expect(dispatch.mock.calls[1][0].type).toBe(actionTypes.TOGGLE_SYNCHRONIZED);
-    expect(dispatch.mock.calls[2][0].type).toBe(actionTypes.CLEAR_ERROR_MESSAGE);
-    expect(dispatch.mock.calls[3][0].type).toBe(actionTypes.TOGGLE_EDITING);
-    expect(dispatch.mock.calls[4][0].type).toBe(actionTypes.DELETE_ITEM);
+    expect(dispatch).toHaveBeenCalledTimes(2);
+    expect(dispatch.mock.calls[0][0].type).toBe(actionTypes.PRE_REMOVE_ITEM);
   });
 
   test('calls request and failed action if the fetch response was unsuccessful',  async () => {
@@ -27,8 +22,7 @@ describe('removeItem', () => {
     const dispatch = jest.fn();
     await removeItem(fetch)(dispatch)(mockId());
 
-    expect(dispatch).toHaveBeenCalledTimes(6);
-    expect(dispatch.mock.calls[4][0].type).toBe(actionTypes.TOGGLE_SYNCHRONIZED);
-    expect(dispatch.mock.calls[5][0].type).toBe(actionTypes.REQUEST_FAILED_FOR_ITEM);
+    expect(dispatch).toHaveBeenCalledTimes(3);
+    expect(dispatch.mock.calls[2][0].type).toBe(actionTypes.REQUEST_FAILED_FOR_ITEM);
   });
 });

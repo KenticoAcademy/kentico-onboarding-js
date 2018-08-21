@@ -2,22 +2,16 @@ import { ItemId } from '../../models/ItemId';
 import { assertAlert } from '../../utils/assertAlert';
 import { IAction } from '../IAction';
 import { toggleSynchronized } from '../simpleActions/toggleSynchronized';
-import { clearErrorMessage } from '../simpleActions/clearErrorMessage';
-import { toggleEditing } from '../simpleActions/toggleEditing';
-import { updateItemText } from '../simpleActions/updateItemText';
 import { requestFailedForItem } from '../simpleActions/requestFailedForItem';
 import { errorMessageTypes } from '../../constants/errorMessageTypes';
+import { preUpdateItem } from '../simpleActions/preUpdateItem';
 
 export const updateItem = (fetch: (id: ItemId, text: string) => Promise<Response>) =>
   (dispatch: Function) => {
     return (id: ItemId, text: string): Promise<IAction> => {
-      dispatch(toggleSynchronized(id, false));
-      dispatch(toggleEditing(id, false));
-      dispatch(clearErrorMessage(id, errorMessageTypes.UPDATE));
-      dispatch(updateItemText(id));
+      dispatch(preUpdateItem(id));
 
       return fetch(id, text)
-        .then(response => response.status >= 400 ? this.reject() : response.json())
         .then(() => dispatch(toggleSynchronized(id, true)))
         .then(() => assertAlert('SUCCESS', 'Updated item text successfully'))
         .catch(() => {
