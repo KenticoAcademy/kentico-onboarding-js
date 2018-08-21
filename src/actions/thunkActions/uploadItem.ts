@@ -14,7 +14,7 @@ export const uploadItem = (fetch: (text: string) => Promise<Response>, generateI
       dispatch(addItem(id, text));
 
       return fetch(text)
-        .then(response => response.status >= 400 ? this.reject() : response.json())
+        .then(response => response.json())
         .then(itemWithOfficialId => {
           dispatch(synchronizeItemId(id, itemWithOfficialId.Id));
           return itemWithOfficialId.Id;
