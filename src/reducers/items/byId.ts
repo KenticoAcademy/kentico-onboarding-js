@@ -10,6 +10,7 @@ import {
 } from '../../constants/actionTypes';
 import { IAction } from '../../actions/IAction';
 import { ItemId } from '../../models/ItemId';
+import { errorMessageTypes } from '../../constants/errorMessageTypes';
 
 const DEFAULT_STATE = OrderedMap<ItemId, Item>();
 
@@ -92,6 +93,22 @@ export const byId: Reducer<OrderedMap<ItemId, Item>> = (state = DEFAULT_STATE, a
         isBeingDeleted: false,
         errorMessages: item.errorMessages.filter((_ , key) => !action.payload.errorTypes.includes(key)).toMap(),
         synchronized: true,
+      }));
+
+    case actionTypes.PRE_UPDATE_ITEM:
+      return state.update(action.payload.id, (item) => item.with({
+        synchronized: false,
+        isBeingEdited: false,
+        text: item.textUpdate,
+        errorMessages: item.errorMessages.remove(errorMessageTypes.UPLOAD),
+      }));
+
+    case actionTypes.PRE_REMOVE_ITEM:
+      return state.update(action.payload.id, (item) => item.with({
+        isBeingDeleted: true,
+        synchronized: false,
+        isBeingEdited: false,
+        errorMessages: item.errorMessages.remove(errorMessageTypes.DELETE),
       }));
 
     default:

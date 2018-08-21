@@ -11,12 +11,8 @@ describe('updateItem', () => {
     const dispatch = jest.fn();
     await updateItem(fetch)(dispatch)(mockId(), 'Karel');
 
-    expect(dispatch).toHaveBeenCalledTimes(5);
-    expect(dispatch.mock.calls[0][0].type).toBe(actionTypes.TOGGLE_SYNCHRONIZED);
-    expect(dispatch.mock.calls[1][0].type).toBe(actionTypes.TOGGLE_EDITING);
-    expect(dispatch.mock.calls[2][0].type).toBe(actionTypes.CLEAR_ERROR_MESSAGE);
-    expect(dispatch.mock.calls[3][0].type).toBe(actionTypes.UPDATE_ITEM);
-    expect(dispatch.mock.calls[4][0].type).toBe(actionTypes.TOGGLE_SYNCHRONIZED);
+    expect(dispatch).toHaveBeenCalledTimes(2);
+    expect(dispatch.mock.calls[0][0].type).toBe(actionTypes.PRE_UPDATE_ITEM);
   });
 
   test('calls request and failed action if the fetch response was unsuccessful',  async () => {
@@ -26,8 +22,8 @@ describe('updateItem', () => {
     const dispatch = jest.fn();
     await updateItem(fetch)(dispatch)(mockId(), 'Test');
 
-    expect(dispatch).toHaveBeenCalledTimes(5);
-    expect(dispatch.mock.calls[3][0].type).toBe(actionTypes.UPDATE_ITEM);
-    expect(dispatch.mock.calls[4][0].type).toBe(actionTypes.REQUEST_FAILED_FOR_ITEM);
+    expect(dispatch).toHaveBeenCalledTimes(2);
+    expect(dispatch.mock.calls[0][0].type).toBe(actionTypes.PRE_UPDATE_ITEM);
+    expect(dispatch.mock.calls[1][0].type).toBe(actionTypes.REQUEST_FAILED_FOR_ITEM);
   });
 });
