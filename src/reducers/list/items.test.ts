@@ -5,20 +5,23 @@ import { ListItem } from '../../models/ListItem';
 
 import { addItemCreator } from '../../actions/addItemCreator';
 
+import { saveItemCreator } from '../../actions/saveItemCreator';
+
 import {
-  saveItem,
   deleteItem,
   toggleItem
 } from '../../actions/ListActions';
 import { IAction } from '../../actions/IAction';
 
-const createItem = (id: Uuid, text: string, isActive: boolean = false) =>
+const createItem = (id: Uuid, text: string, isActive: boolean = false, creationTime: string = '0005-12-17 20:30:00', lastUpdateTime: string = creationTime) =>
   [
     id,
     new ListItem({
       id,
       text,
-      isActive
+      isActive,
+      creationTime,
+      lastUpdateTime
     })
   ];
 
@@ -45,10 +48,11 @@ describe('ListReducer', () => {
   it('adds new item', () => {
     const id = '669a4b7c-264c-4196-8051-7f0570ce026a';
     const text = 'newItemText';
+    const time = '2018-12-17 20:30:05';
     const expectedList = OrderedMap<Uuid, ListItem>([
-      createItem(id, text)
+      createItem(id, text, false, time)
     ]);
-    const addItem = addItemCreator(() => id);
+    const addItem = addItemCreator(() => id, () => time);
 
     const action = addItem(text);
     const actualList = listReducer(undefined, action);
@@ -59,18 +63,22 @@ describe('ListReducer', () => {
   it('edits item', () => {
     const item1 = createItem('b0e9856e-bb17-4c0b-b65f-f5a43e81617c', 'tem1text');
     const id2 = 'c264d24b-53da-428b-8ffc-e05ad161d3fb';
+    const creationTime = '1658-05-06 08:30:25';
+    const lastUpdateTime = '3000-07-10 05:48:35';
 
     const defaultList = OrderedMap<Uuid, ListItem>([
       item1,
-      createItem(id2, 'oldText', true),
+      createItem(id2, 'oldText', true, creationTime),
     ]);
 
     const newText = 'newText';
 
     const expectedList = OrderedMap<Uuid, ListItem>([
       item1,
-      createItem(id2, newText),
+      createItem(id2, newText, false, creationTime, lastUpdateTime),
     ]);
+
+    const saveItem = saveItemCreator(() => lastUpdateTime);
 
     const action = saveItem(id2, newText);
     const actualList = listReducer(defaultList, action);
@@ -130,23 +138,27 @@ describe('ListReducer', () => {
   it('returns such item in its state after an accepted action that it can be mutated by a second action accepted by the reducer', () => {
     const id = 'b0e9856e-bb17-4c0b-b65f-f5a43e81617c';
     const text = 'oldText';
+    const creationTime = '1658-05-06 08:30:25';
+    const lastUpdateTime = '3000-07-10 05:48:35';
 
     const defaultList = OrderedMap<Uuid, ListItem>([
-      createItem(id, text),
+      createItem(id, text, false, creationTime),
     ]);
 
     const expectedList1 = OrderedMap<Uuid, ListItem>([
-      createItem(id, text, true)
+      createItem(id, text, true, creationTime)
     ]);
 
     const newText = 'newText';
 
     const expectedList2 = OrderedMap<Uuid, ListItem>([
-      createItem(id, newText)
+      createItem(id, newText, false, creationTime, lastUpdateTime)
     ]);
 
     const action1 = toggleItem(id);
     const actualList1 = listReducer(defaultList, action1);
+
+    const saveItem = saveItemCreator(() => lastUpdateTime);
 
     const action2 = saveItem(id, newText);
     const actualList2 = listReducer(actualList1, action2);

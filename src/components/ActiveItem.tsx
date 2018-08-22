@@ -3,9 +3,9 @@ import * as PropTypes from 'prop-types';
 
 import { ListItem, IListItem } from '../models/ListItem';
 import { isValidText } from '../utils/isValidText';
+import { getTimeFromNow } from '../utils/getTimeFromNow';
 
 interface IActiveItemProps {
-  index: number;
   item: IListItem;
   onSaveItem: (text: string) => void;
   onCancelItem: () => void;
@@ -20,7 +20,6 @@ export class ActiveItem extends React.PureComponent<IActiveItemProps, IActiveIte
   static displayName = 'ActiveItem';
 
   static propTypes = {
-    index: PropTypes.number.isRequired,
     item: PropTypes.instanceOf(ListItem).isRequired,
     onSaveItem: PropTypes.func.isRequired,
     onCancelItem: PropTypes.func.isRequired,
@@ -45,7 +44,7 @@ export class ActiveItem extends React.PureComponent<IActiveItemProps, IActiveIte
     return (
       <a className="list-group-item list-group-item-action">
         <div className="row">
-          <strong className="col-sm-2 py-2"> {this.props.index + 1}. </strong>
+          <strong className="col-sm-2 py-2"> {getTimeFromNow(this.props.item.creationTime)} </strong>
           <div className="input-group col-md-8">
             <input
               className="form-control"

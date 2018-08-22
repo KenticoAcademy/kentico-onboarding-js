@@ -6,7 +6,7 @@ import { getKeys } from '../utils/getKeys';
 import { IAppState } from '../reducers/interfaces/IAppState';
 
 const mapStateToProps = (state: IAppState): IListStateProps => ({
-  itemIds: getKeys(state.list.items),
+  itemIds: getKeys(state.list.items).reverse(),
 });
 
 export const List: React.ComponentClass = connect(mapStateToProps)(ListComponent);

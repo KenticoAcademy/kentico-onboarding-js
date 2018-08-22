@@ -6,10 +6,6 @@ import { InactiveItem } from './InactiveItem';
 
 import { IListItem, ListItem } from '../models/ListItem';
 
-export interface IItemOwnProps {
-  index: number;
-}
-
 export interface IItemStateProps {
   item: IListItem;
 }
@@ -20,13 +16,12 @@ export interface IItemDispatchProps {
   onToggleItem: () => void;
 }
 
-type IItemProps = IItemStateProps & IItemDispatchProps & IItemOwnProps;
+type IItemProps = IItemStateProps & IItemDispatchProps;
 
 export const Item: React.StatelessComponent<IItemProps> = (props: IItemProps) => (
   props.item.isActive
     ? (
       <ActiveItem
-        index={props.index}
         item={props.item}
         onSaveItem={props.onSaveItem}
         onCancelItem={props.onToggleItem}
@@ -34,7 +29,6 @@ export const Item: React.StatelessComponent<IItemProps> = (props: IItemProps) =>
       />)
     : (
       <InactiveItem
-        index={props.index}
         item={props.item}
         onItemClick={props.onToggleItem}
       />)
@@ -43,7 +37,6 @@ export const Item: React.StatelessComponent<IItemProps> = (props: IItemProps) =>
 Item.displayName = 'Item';
 
 Item.propTypes = {
-  index: PropTypes.number.isRequired,
   item: PropTypes.instanceOf(ListItem).isRequired,
   onSaveItem: PropTypes.func.isRequired,
   onDeleteItem: PropTypes.func.isRequired,

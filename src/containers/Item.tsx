@@ -4,13 +4,12 @@ import { Dispatch } from 'redux';
 import {
   Item as ItemComponent,
   IItemStateProps,
-  IItemDispatchProps,
-  IItemOwnProps
+  IItemDispatchProps
 } from '../components/Item';
 import { saveItem, deleteItem, toggleItem } from '../actions/ListActions';
 import { IAppState } from '../reducers/interfaces/IAppState';
 
-interface IItemContainerProps extends IItemOwnProps {
+interface IItemContainerProps {
   id: Uuid;
 }
 
