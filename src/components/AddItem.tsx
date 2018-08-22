@@ -35,6 +35,7 @@ export class AddItem extends React.PureComponent<IAddItemProps, IAddItemState> {
 
   render(): JSX.Element {
     const textIsValid = isValidText(this.state.text);
+    const title = textIsValid ? undefined : 'You can\'t save an empty input :(';
 
     return (
       <li className="list-group-item">
@@ -44,17 +45,21 @@ export class AddItem extends React.PureComponent<IAddItemProps, IAddItemState> {
             type="text"
             value={this.state.text}
             onChange={this._storeInputValue}
+            placeholder="You have to write something :)"
           />
-          <span className="input-group-btn">
+          <div className="input-group-append">
             <button
-              className="btn btn-default"
+              className="btn btn-info"
               type="submit"
               onClick={this._addNewItem}
               disabled={!textIsValid}
+              data-toggle="tooltip"
+              data-placement="top"
+              title={title}
             >
               Add
             </button>
-          </span>
+          </div>
         </div>
       </li>
     );

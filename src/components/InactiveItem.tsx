@@ -10,9 +10,14 @@ interface IInactiveItemProps {
 }
 
 export const InactiveItem: React.StatelessComponent<IInactiveItemProps> = (props: IInactiveItemProps) => (
-  <div onClick={props.onItemClick}>
-    {props.index + 1}. {props.item.text}
+  <a className="list-group-item list-group-item-action" onClick={props.onItemClick}>
+  <div className="row">
+    <strong className="col-sm-2 py-2"> {props.index + 1}.  </strong>
+    <div className="py-2 ml-4 pl-1">
+        {props.item.text}
+    </div>
   </div>
+  </a>
 );
 
 InactiveItem.displayName = 'InactiveItem';

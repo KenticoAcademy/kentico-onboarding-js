@@ -40,43 +40,48 @@ export class ActiveItem extends React.PureComponent<IActiveItemProps, IActiveIte
 
   render(): JSX.Element {
     const textIsValid = isValidText(this.state.text);
+    const title = textIsValid ? undefined : 'You can\'t save an empty input :(';
 
     return (
-      <div className="input-group col-md-8">
-        <span className="input-group-addon">
-          {this.props.index + 1}.
-        </span>
-        <input
-          className="form-control"
-          type="text"
-          value={this.state.text}
-          onChange={this._storeInputValue}
-        />
-        <span className="input-group-btn">
-          <button
-            className="btn btn-primary"
-            type="submit"
-            onClick={this._saveInputValue}
-            disabled={!textIsValid}
-          >
-            Save
-          </button>
-          <button
-            className="btn btn-default"
-            type="submit"
-            onClick={this.props.onCancelItem}
-          >
-            Cancel
-          </button>
-          <button
-            className="btn btn-danger"
-            type="submit"
-            onClick={this.props.onDeleteItem}
-          >
-            Delete
-          </button>
-        </span>
-      </div>
+      <a className="list-group-item list-group-item-action">
+        <div className="row">
+          <strong className="col-sm-2 py-2"> {this.props.index + 1}. </strong>
+          <div className="input-group col-md-8">
+            <input
+              className="form-control"
+              type="text"
+              value={this.state.text}
+              onChange={this._storeInputValue}
+              placeholder="You have to write something :)"
+            />
+            <div className="input-group-append">
+              <button
+                className="btn btn-info"
+                type="submit"
+                onClick={this._saveInputValue}
+                disabled={!textIsValid}
+                title={title}
+              >
+                Save
+              </button>
+              <button
+                className="btn btn-light border border-secondary"
+                type="submit"
+                onClick={this.props.onCancelItem}
+              >
+                Cancel
+              </button>
+              <button
+                className="btn btn-danger"
+                type="submit"
+                onClick={this.props.onDeleteItem}
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      </a>
     );
   }
 }
