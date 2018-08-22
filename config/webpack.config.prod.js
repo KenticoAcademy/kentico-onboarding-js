@@ -37,10 +37,12 @@ var publicUrl = ensureSlash(homepagePathname, false);
 // Get environment variables to inject into our app.
 var env = getClientEnvironment(publicUrl);
 
+var apiHost = '"https://lindal-todoapp.azurewebsites.net/api/v1/items"';
+
 // Assert this just to be safe.
 // Development builds of React are slow and not intended for production.
 if (env['process.env'].NODE_ENV !== '"production"') {
-  throw new Error('Production builds must have NODE_ENV=production.');
+  throw new Error('Production builds must have NODE_ENV=prod.');
 }
 
 // This is the production configuration.
@@ -224,6 +226,9 @@ module.exports = {
     // having to parse `index.html`.
     new ManifestPlugin({
       fileName: 'asset-manifest.json',
+    }),
+    new webpack.DefinePlugin({
+      _API_: apiHost,
     }),
   ],
   // Some libraries import Node modules but don't use them in the browser.
