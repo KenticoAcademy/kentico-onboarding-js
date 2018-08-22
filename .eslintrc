@@ -83,7 +83,10 @@
     "prefer-promise-reject-errors": "off",
     "prefer-template": "off",
     "quote-props": "off",
-    "quotes": "off",
+    "quotes": [
+      "warn",
+      "single"
+    ],
     "react-functional-set-state/no-this-state-props": "error",
     "react/destructuring-assignment": "off",
     "react/forbid-prop-types": "off",
