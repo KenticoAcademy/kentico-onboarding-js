@@ -9,7 +9,7 @@ describe('getKeys', () => {
       ['-489', undefined],
       ['854', undefined]
     ]);
-    const expectedIds = ['123', '-489', '854'];
+    const expectedIds = ['854', '-489', '123'];
 
     const actualIds = getKeys(list);
     const actualIds1 = getKeys(list);
@@ -28,8 +28,8 @@ describe('getKeys', () => {
       ['123', undefined],
       ['0', undefined]
     ]);
-    const expectedIds1 = ['123', '-489', '854'];
-    const expectedIds2 = ['123', '0'];
+    const expectedIds1 = ['854', '-489', '123'];
+    const expectedIds2 = ['0', '123'];
 
     const actualIds1 = getKeys(list1);
     const actualIds2 = getKeys(list2);

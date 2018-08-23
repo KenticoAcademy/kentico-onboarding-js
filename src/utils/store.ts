@@ -8,6 +8,7 @@ import { createLogger } from 'redux-logger';
 import { getDefaultList } from './getDefaultList';
 import { IAppState } from '../reducers/interfaces/IAppState';
 import { IAction } from '../actions/IAction';
+import { ListSorting } from '../constants/ListSorting';
 
 const logger = createLogger({});
 
@@ -16,6 +17,7 @@ const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ||
 const getPreloadedState = (): IAppState => ({
   list: {
     items: getDefaultList(),
+    sorting: ListSorting.CreatedTime,
   }
 });
 

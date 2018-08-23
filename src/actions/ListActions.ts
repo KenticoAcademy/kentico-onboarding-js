@@ -4,6 +4,7 @@ import { addItemCreator } from './addItemCreator';
 import { IAction } from './IAction';
 import { getTime } from '../utils/getTime';
 import { saveItemCreator } from './saveItemCreator';
+import { ListSorting } from '../constants/ListSorting';
 
 export const addItem = addItemCreator(guid, getTime);
 
@@ -22,3 +23,11 @@ export const deleteItem = (id: Uuid): IAction => ({
     id
   }
 });
+
+export const setListSorting = (listView: ListSorting): IAction => ({
+  type: ActionType.SetListSorting,
+  payload: {
+    sorting: listView
+  }
+});
+
