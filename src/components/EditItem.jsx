@@ -1,6 +1,17 @@
 import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 
 export class EditItem extends PureComponent {
+  static displayName = 'EditItem';
+
+  static propTypes = {
+    text: PropTypes.string.isRequired,
+    pos: PropTypes.number.isRequired,
+    finishEdit: PropTypes.func.isRequired,
+    onSave: PropTypes.func.isRequired,
+    onDelete: PropTypes.func.isRequired,
+  };
+
   constructor(props) {
     super(props);
     this.state = {

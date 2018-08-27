@@ -4,6 +4,8 @@ import { TsComponent } from './TsComponent.tsx';
 import { Board } from './Board';
 
 export class List extends PureComponent {
+  static displayName = 'List';
+
   render() {
     return (
       <div className="row">

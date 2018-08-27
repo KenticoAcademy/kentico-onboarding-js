@@ -1,8 +1,18 @@
 import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 import { EditItem } from './EditItem';
 import { ShowItem } from './ShowItem';
 
 export class Item extends PureComponent {
+  static displayName = 'Item';
+
+  static propTypes = {
+    text: PropTypes.string.isRequired,
+    pos: PropTypes.number.isRequired,
+    onSave: PropTypes.func.isRequired,
+    onDelete: PropTypes.func.isRequired,
+  };
+
   constructor(props) {
     super(props);
     this.state = {

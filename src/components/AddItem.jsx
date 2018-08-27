@@ -1,6 +1,13 @@
 import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 
 export class AddItem extends PureComponent {
+  static displayName = 'AddItem';
+
+  static propTypes = {
+    onChange: PropTypes.func.isRequired,
+  };
+
   constructor(props) {
     super(props);
     this.state = { value: '' };

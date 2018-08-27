@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export function ShowItem(props) {
   return (
@@ -10,3 +11,10 @@ export function ShowItem(props) {
     </div>
   );
 }
+
+ShowItem.displayName = 'ShowItem';
+
+ShowItem.propTypes = {
+  pos: PropTypes.number.isRequired,
+  text: PropTypes.string.isRequired,
+};

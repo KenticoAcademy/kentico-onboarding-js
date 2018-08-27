@@ -3,6 +3,8 @@ import { Item } from './Item';
 import { AddItem } from './AddItem';
 
 export class Board extends PureComponent {
+  static displayName = 'Board';
+
   constructor(props) {
     super(props);
     this.state = {
