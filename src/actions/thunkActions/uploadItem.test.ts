@@ -1,5 +1,7 @@
 import { actionTypes } from '../../constants/actionTypes';
 import { uploadItem } from './uploadItem';
+import 'isomorphic-fetch';
+
 describe('uploadItem', () => {
   test('calls request, addItem and success action if the fetch response was successful',  async () => {
     const fetch = jest.fn().mockImplementation((text: string) => Promise.resolve(new Response('{"body": [{"Text":"' + text + '"}]}', {status: 201})));

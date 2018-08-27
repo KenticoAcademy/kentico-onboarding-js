@@ -9,7 +9,6 @@ import { App } from '../src/containers/App.ts';
 if (typeof window !== 'undefined') {
   it('renders without crashing', () => {
     const div = document.createElement('div');
-
     const store = createStore(
       root,
       applyMiddleware(thunk),
@@ -21,5 +20,6 @@ if (typeof window !== 'undefined') {
       </Provider>
       , div);
   });
+  expect.anything();
 }
 
