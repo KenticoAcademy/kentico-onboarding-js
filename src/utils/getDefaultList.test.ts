@@ -1,6 +1,7 @@
 import { OrderedMap } from 'immutable';
 
 import { getDefaultList } from './getDefaultList';
+import { ListItem } from '../models/ListItem';
 
 describe('getDefaultList', () => {
   it('returns instance of immutable ordered map', () => {
@@ -12,7 +13,7 @@ describe('getDefaultList', () => {
   it('returns correctly created items in map', () => {
     const defaultList = getDefaultList();
 
-    defaultList.forEach((item, key) => {
+    defaultList.forEach((item: ListItem, key: Uuid) => {
       expect(item.id).toEqual(key);
       expect(item.id).not.toEqual('');
       expect(item.text).not.toEqual('');

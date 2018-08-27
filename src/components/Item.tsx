@@ -1,12 +1,32 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
 
-import { ActiveItem } from './ActiveItem.jsx';
-import { InactiveItem } from './InactiveItem.jsx';
+import { ActiveItem } from './ActiveItem';
+import { InactiveItem } from './InactiveItem';
 
-import { ListItem } from '../models/ListItem';
+import { IListItem, ListItem } from '../models/ListItem';
 
-export class Item extends React.PureComponent {
+export interface IItemOwnProps {
+  index: number;
+}
+
+export interface IItemStateProps {
+  item: IListItem;
+}
+
+export interface IItemDispatchProps {
+  onSaveItem: (text: string) => void;
+  onDeleteItem: () => void;
+  onToggleItem: () => void;
+}
+
+type IItemProps = IItemStateProps & IItemDispatchProps & IItemOwnProps;
+
+interface IItemState {
+  isActive: boolean;
+}
+
+export class Item extends React.PureComponent<IItemProps, IItemState> {
   static displayName = 'Item';
 
   static propTypes = {
@@ -17,9 +37,9 @@ export class Item extends React.PureComponent {
     onToggleItem: PropTypes.func.isRequired,
   };
 
-  _saveItem = text => this.props.onSaveItem(text);
+  _saveItem = (text: string) => this.props.onSaveItem(text);
 
-  render() {
+  render(): JSX.Element {
     return (
       <li className="list-group-item">
         {
