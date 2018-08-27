@@ -15,7 +15,7 @@ describe('Input validator', () => {
 
 
   it('valid input should return true', () => {
-    let input = 'ahoj';
+    let input = 'hello';
     expect(validateInput(input)).toBeTruthy();
   });
 });
