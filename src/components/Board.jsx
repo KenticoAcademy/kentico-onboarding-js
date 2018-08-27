@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import { uuidGen } from './UuidGen';
 import { Item } from './Item';
 import { AddItem } from './AddItem';
 
@@ -10,19 +11,18 @@ export class Board extends PureComponent {
     this.state = {
       items: [
         {
-          id: 1,
+          id: uuidGen(),
           text: 'Dog',
         },
         {
-          id: 2,
+          id: uuidGen(),
           text: 'Cat',
         },
         {
-          id: 3,
+          id: uuidGen(),
           text: 'Elephant',
         },
       ],
-      idCnt: 4
     };
   }
 
@@ -31,25 +31,24 @@ export class Board extends PureComponent {
       items: [
         ...prevState.items,
         {
-          'id': prevState.idCnt,
+          'id': uuidGen(),
           'text': text
         },
       ],
-      idCnt: prevState.idCnt + 1
     }));
   };
 
-  _editItem = (pos, text) => {
+  _editItem = (uuid, text) => {
     const updatedItems = [...this.state.items];
-    updatedItems[pos - 1].text = text;
+    const pos = updatedItems.findIndex(item => item.id === uuid);
+    updatedItems[pos].text = text;
     this.setState(() => ({
       items: updatedItems
     }));
   };
 
-  _delItem = (pos) => {
-    const updatedItems = [...this.state.items];
-    updatedItems.splice(pos - 1, 1);
+  _delItem = (uuid) => {
+    const updatedItems = this.state.items.filter(item => item.id !== uuid);
     this.setState(() => ({
       items: updatedItems
     }));

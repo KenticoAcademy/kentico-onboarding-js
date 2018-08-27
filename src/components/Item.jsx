@@ -7,6 +7,7 @@ export class Item extends PureComponent {
   static displayName = 'Item';
 
   static propTypes = {
+    id: PropTypes.string.isRequired,
     text: PropTypes.string.isRequired,
     pos: PropTypes.number.isRequired,
     onSave: PropTypes.func.isRequired,
@@ -36,6 +37,7 @@ export class Item extends PureComponent {
         {this.state.edit
           ? (
             <EditItem
+              id={this.props.id}
               pos={this.props.pos}
               text={this.props.text}
               finishEdit={this._finishEditItem}
