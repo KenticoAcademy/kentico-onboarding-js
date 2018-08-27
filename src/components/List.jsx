@@ -1,34 +1,99 @@
 import React, { PureComponent } from 'react';
-import assignment from '../../public/images/assignment.gif';
 import { TsComponent } from './TsComponent.tsx';
+import { NewItem } from './NewItem';
+import { Item } from './Item';
+import { generateId } from '../utils/idGenerator';
+import { validateInput } from '../utils/inputValidator';
 
 export class List extends PureComponent {
+  static displayName = 'List';
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      items: []
+    };
+  }
+
+  _addItem = itemText => {
+    if (!(validateInput(itemText))) {
+      alert('You have to enter some text!');
+      return;
+    }
+    const newItem = {
+      id: generateId(),
+      value: itemText
+    };
+
+    this.setState(prevState => ({
+      items: {
+        ...prevState.items,
+        [newItem.id]: newItem
+      }
+    }));
+  };
+
+  _listItems = () => Object.keys(this.state.items).map((id, index) => (
+    <li
+      className="list-group-item"
+      key={id}
+    >
+      <Item
+        item={this.state.items[id]}
+        index={index + 1}
+        onEdit={this._editItem}
+        onDelete={this._deleteItem}
+      />
+    </li>)
+  );
+
+  _deleteItem = (deletedItemId) => {
+    const items = { ...this.state.items };
+    delete items[deletedItemId];
+    this.setState(() => ({
+      items
+    }));
+  };
+
+  _editItem = (id, value) => {
+    if (!(validateInput(value))) {
+      alert('You have to enter some text!');
+      return;
+    }
+    const editedItem = {
+      id,
+      value
+    };
+
+    this.setState(prevState => ({
+      items: {
+        ...prevState.items,
+        [editedItem.id]: editedItem
+      }
+    }));
+  };
+
   render() {
     return (
       <div className="row">
-        {/* TODO: You can delete the assignment part once you do not need it */}
-        <div className="row">
-          <div className="col-sm-12">
-            <p className="lead text-center">
-              Desired functionality is captured in the gif image.
-            </p>
-            <p className="lead text-center">
-              <b>Note: </b>Try to make solution easily extensible (e.g. more displayed fields per item like <code>dateCreated</code>).
-            </p>
-            <img src={assignment} alt="assignment" className="img--assignment" />
-          </div>
-        </div>
-
         <div className="row">
           <div className="col-sm-12 text-center">
-            <TsComponent name="𝕱𝖆𝖓𝖈𝖞" invisible />
+            <TsComponent
+              name="𝕱𝖆𝖓𝖈𝖞"
+              invisible
+            />
           </div>
         </div>
 
         <div className="row">
           <div className="col-sm-12 col-md-offset-2 col-md-8">
             <pre>
-              TODO: implement the list here :)
+                <ul className="list-group">
+                  {this._listItems()}
+                  <li className="list-group-item">
+                    <NewItem onAdd={this._addItem} />
+                  </li>
+                </ul>
             </pre>
           </div>
         </div>
