@@ -12,15 +12,14 @@ install:
   # install modules
   - npm install --no-optional
 
-#test_script:
-  # Output useful info for debugging.
-  #- node --version
-  #- npm --version
-  # run tests
-  #- npm test
+test:
+  assemblies:
+    except:
+      - '*\App.test.*'
 
-# Don't actually build.
-#build: off
+test_script:
+  - npm run test
+
 build_script:
   - npm run build
 
