@@ -14,12 +14,9 @@ export class Item extends PureComponent {
     onDelete: PropTypes.func.isRequired,
   };
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      edit: false
-    };
-  }
+  state = {
+    edit: false,
+  };
 
   _startEditItem = () => this.setState({ edit: true });
 

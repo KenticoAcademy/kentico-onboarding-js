@@ -8,10 +8,7 @@ export class AddItem extends PureComponent {
     onChange: PropTypes.func.isRequired,
   };
 
-  constructor(props) {
-    super(props);
-    this.state = { value: '' };
-  }
+  state = { value: '' };
 
   _updateValue = (event) => this.setState({ value: event.target.value });
 

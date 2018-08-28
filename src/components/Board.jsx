@@ -6,25 +6,22 @@ import { AddItem } from './AddItem';
 export class Board extends PureComponent {
   static displayName = 'Board';
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      items: [
-        {
-          id: uuidGen(),
-          text: 'Dog',
-        },
-        {
-          id: uuidGen(),
-          text: 'Cat',
-        },
-        {
-          id: uuidGen(),
-          text: 'Elephant',
-        },
-      ],
-    };
-  }
+  state = {
+    items: [
+      {
+        id: uuidGen(),
+        text: 'Dog',
+      },
+      {
+        id: uuidGen(),
+        text: 'Cat',
+      },
+      {
+        id: uuidGen(),
+        text: 'Elephant',
+      },
+    ],
+  };
 
   _addItem = (text) => {
     this.setState(prevState => ({

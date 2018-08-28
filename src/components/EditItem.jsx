@@ -13,12 +13,9 @@ export class EditItem extends PureComponent {
     onDelete: PropTypes.func.isRequired,
   };
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      text: this.props.text,
-    };
-  }
+  state = {
+    text: this.props.text,
+  };
 
   _textEdit = (event) => this.setState({ text: event.target.value });
 
