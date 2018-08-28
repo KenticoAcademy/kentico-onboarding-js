@@ -42,7 +42,7 @@ export class Item extends PureComponent {
             />)
           : (
             <ShowItem
-              handlerClick={this._startEditItem}
+              onEditStart={this._startEditItem}
               position={this.props.position}
               text={this.props.text}
             />)
