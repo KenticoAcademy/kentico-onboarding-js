@@ -48,9 +48,8 @@ export class Board extends PureComponent {
   };
 
   _deleteItem = (id) => {
-    const updatedItems = this.state.items.filter(item => item.id !== id);
-    this.setState(() => ({
-      items: updatedItems
+    this.setState((prevState) => ({
+      items: prevState.items.filter(item => item.id !== id)
     }));
   };
 
