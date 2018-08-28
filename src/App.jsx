@@ -1,10 +1,9 @@
 import './sticky-footer.css';
-import React, { PureComponent } from 'react';
+import React from 'react';
 import { Board } from './components/Board';
 
-export class App extends PureComponent {
-  render() {
-    return (
+export const App = () => {
+  return (
       <div>
         <div className="container">
           <div className="header clearfix">
@@ -42,6 +41,5 @@ export class App extends PureComponent {
           </p>
         </footer>
       </div>
-    );
-  }
-}
+  );
+};
