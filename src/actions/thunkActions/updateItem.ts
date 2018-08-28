@@ -4,7 +4,14 @@ import { IAction } from '../IAction';
 import { toggleSynchronized } from '../simpleActions/toggleSynchronized';
 import { requestFailedForItem } from '../simpleActions/requestFailedForItem';
 import { errorMessageTypes } from '../../constants/errorMessageTypes';
-import { preUpdateItem } from '../simpleActions/preUpdateItem';
+import { actionTypes } from '../../constants/actionTypes';
+
+export const preUpdateItem = (id: ItemId): IAction => ({
+  type: actionTypes.PRE_UPDATE_ITEM,
+  payload: {
+    id,
+  }
+});
 
 export const updateItem = (fetch: (id: ItemId, text: string) => Promise<Response>) =>
   (dispatch: Function) => {
