@@ -21,18 +21,14 @@ export class EditItem extends PureComponent {
     };
   }
 
-  _textEdit = (event) => {
-    this.setState({ text: event.target.value });
-  };
+  _textEdit = (event) => this.setState({ text: event.target.value });
 
   _saveItem = () => {
     this.props.onSave(this.state.id, this.state.text);
     this.props.finishEdit();
   };
 
-  _deleteItem = () => {
-    this.props.onDelete(this.state.id);
-  };
+  _deleteItem = () => this.props.onDelete(this.state.id);
 
   render() {
     return (

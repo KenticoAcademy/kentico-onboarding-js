@@ -21,13 +21,9 @@ export class Item extends PureComponent {
     };
   }
 
-  _startEditItem = () => {
-    this.setState({ edit: true });
-  };
+  _startEditItem = () => this.setState({ edit: true });
 
-  _finishEditItem = () => {
-    this.setState({ edit: false });
-  };
+  _finishEditItem = () => this.setState({ edit: false });
 
   render() {
     return (
