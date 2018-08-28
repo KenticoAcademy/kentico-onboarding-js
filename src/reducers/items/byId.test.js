@@ -3,7 +3,6 @@ import { byId } from '../../reducers/items/byId.ts';
 import { Item } from '../../models/Item.ts';
 import { textUpdateChange } from '../../actions/simpleActions/textUpdateChange';
 import { addItem } from '../../actions/simpleActions/addItem';
-import { updateItemText } from '../../actions/simpleActions/updateItemText';
 import { toggleEditing } from '../../actions/simpleActions/toggleEditing';
 import { deleteItem } from '../../actions/simpleActions/deleteItem';
 
@@ -21,30 +20,6 @@ describe('byId', () => {
       }),
     });
     const stateAfter = byId(undefined, addItem(mockId(), 'tested item'));
-
-    expect(stateAfter).toEqual(expectedState);
-  });
-
-  it('returns map with item with correctly updated text and with canceled editing when called updateItem', () => {
-    const itemId = mockId();
-    const stateBefore = new OrderedMap({
-      [itemId]: new Item({
-        id: itemId,
-        text: 'This item hasn\'t been updated yet',
-        isBeingEdited: true,
-        textUpdate: 'This item is already edited',
-      }),
-    });
-    const expectedState = new OrderedMap({
-      [itemId]: new Item({
-        id: itemId,
-        text: 'This item is already edited',
-        isBeingEdited: false,
-        textUpdate: 'This item is already edited',
-      }),
-    });
-
-    const stateAfter = byId(stateBefore, updateItemText(itemId));
 
     expect(stateAfter).toEqual(expectedState);
   });

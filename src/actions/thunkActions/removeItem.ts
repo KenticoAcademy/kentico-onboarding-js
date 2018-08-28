@@ -5,7 +5,14 @@ import { toggleSynchronized } from '../simpleActions/toggleSynchronized';
 import { deleteItem } from '../simpleActions/deleteItem';
 import { requestFailedForItem } from '../simpleActions/requestFailedForItem';
 import { errorMessageTypes } from '../../constants/errorMessageTypes';
-import { preRemoveItem } from '../simpleActions/preRemoveItem';
+import { actionTypes } from '../../constants/actionTypes';
+
+export const preRemoveItem = (id: ItemId): IAction => ({
+  type: actionTypes.PRE_REMOVE_ITEM,
+  payload: {
+    id,
+  }
+});
 
 export const removeItem = (fetch: (id: ItemId) => Promise<Response>) => {
   return (dispatch: Function) => {
