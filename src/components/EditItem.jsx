@@ -42,6 +42,7 @@ export class EditItem extends PureComponent {
             type="button"
             className="btn btn-primary"
             onClick={this._saveItem}
+            disabled={!this.state.text}
           >
             Save
           </button>

@@ -32,6 +32,7 @@ export class AddItem extends PureComponent {
             type="button"
             className="btn btn-default"
             onClick={this._addItem}
+            disabled={!this.state.value}
           >
             Add
           </button>
