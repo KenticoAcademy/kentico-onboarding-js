@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { uuidGenerator } from '../utils/UuidGenerator';
-import { Item } from './Item';
 import { AddItem } from './AddItem';
+import { List } from './List';
 
 export class Board extends PureComponent {
   static displayName = 'Board';
@@ -58,16 +58,11 @@ export class Board extends PureComponent {
     return (
       <div>
         <ul className="list-group">
-          {this.state.items
-            .map((item, index) => (
-            <Item
-              key={item.id}
-              id={item.id}
-              text={item.text}
-              position={index + 1}
+            <List
+              items={this.state.items}
               onSave={this._editItem}
               onDelete={this._deleteItem}
-            />))}
+            />
           <li className="list-group-item">
             <AddItem onChange={this._addItem} />
           </li>
