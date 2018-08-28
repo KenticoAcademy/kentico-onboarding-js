@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { uuidGen } from './UuidGen';
+import { uuidGen } from '../utils/UuidGen';
 import { Item } from './Item';
 import { AddItem } from './AddItem';
 
