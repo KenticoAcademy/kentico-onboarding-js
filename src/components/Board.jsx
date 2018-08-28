@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { uuidGen } from '../utils/UuidGen';
+import { uuidGenerator } from '../utils/UuidGenerator';
 import { Item } from './Item';
 import { AddItem } from './AddItem';
 
@@ -9,15 +9,15 @@ export class Board extends PureComponent {
   state = {
     items: [
       {
-        id: uuidGen(),
+        id: uuidGenerator(),
         text: 'Dog',
       },
       {
-        id: uuidGen(),
+        id: uuidGenerator(),
         text: 'Cat',
       },
       {
-        id: uuidGen(),
+        id: uuidGenerator(),
         text: 'Elephant',
       },
     ],
@@ -28,7 +28,7 @@ export class Board extends PureComponent {
       items: [
         ...prevState.items,
         {
-          'id': uuidGen(),
+          'id': uuidGenerator(),
           'text': text
         },
       ],
