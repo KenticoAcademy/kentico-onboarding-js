@@ -39,11 +39,14 @@ export class Board extends PureComponent {
   };
 
   _editItem = (id, text) => {
-    const updatedItems = [...this.state.items];
-    const pos = updatedItems.findIndex(item => item.id === id);
-    updatedItems[pos].text = text;
-    this.setState(() => ({
-      items: updatedItems
+    this.setState((prevState) => ({
+      items: prevState.items
+        .map(item => {
+          if (item.id === id) {
+            return Object.assign({}, item, { text });
+          }
+          return item;
+        })
     }));
   };
 
