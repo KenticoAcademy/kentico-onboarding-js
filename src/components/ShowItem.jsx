@@ -6,13 +6,13 @@ export const ShowItem = (props) => (
     role="presentation"
     onClick={props.handlerClick}
   >
-      {props.pos}. {props.text}
+      {props.position}. {props.text}
   </div>
 );
 
 ShowItem.displayName = 'ShowItem';
 
 ShowItem.propTypes = {
-  pos: PropTypes.number.isRequired,
+  position: PropTypes.number.isRequired,
   text: PropTypes.string.isRequired,
 };

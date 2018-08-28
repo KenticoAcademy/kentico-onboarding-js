@@ -9,7 +9,7 @@ export class Item extends PureComponent {
   static propTypes = {
     id: PropTypes.string.isRequired,
     text: PropTypes.string.isRequired,
-    pos: PropTypes.number.isRequired,
+    position: PropTypes.number.isRequired,
     onSave: PropTypes.func.isRequired,
     onDelete: PropTypes.func.isRequired,
   };
@@ -38,7 +38,7 @@ export class Item extends PureComponent {
           ? (
             <EditItem
               id={this.props.id}
-              pos={this.props.pos}
+              position={this.props.position}
               text={this.props.text}
               finishEdit={this._finishEditItem}
               onSave={this.props.onSave}
@@ -47,7 +47,7 @@ export class Item extends PureComponent {
           : (
             <ShowItem
               handlerClick={this._startEditItem}
-              pos={this.props.pos}
+              position={this.props.position}
               text={this.props.text}
             />)
         }

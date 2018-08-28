@@ -38,17 +38,17 @@ export class Board extends PureComponent {
     }));
   };
 
-  _editItem = (uuid, text) => {
+  _editItem = (id, text) => {
     const updatedItems = [...this.state.items];
-    const pos = updatedItems.findIndex(item => item.id === uuid);
+    const pos = updatedItems.findIndex(item => item.id === id);
     updatedItems[pos].text = text;
     this.setState(() => ({
       items: updatedItems
     }));
   };
 
-  _delItem = (uuid) => {
-    const updatedItems = this.state.items.filter(item => item.id !== uuid);
+  _deleteItem = (id) => {
+    const updatedItems = this.state.items.filter(item => item.id !== id);
     this.setState(() => ({
       items: updatedItems
     }));
@@ -63,9 +63,9 @@ export class Board extends PureComponent {
               key={item.id}
               id={item.id}
               text={item.text}
-              pos={index + 1}
+              position={index + 1}
               onSave={this._editItem}
-              onDelete={this._delItem}
+              onDelete={this._deleteItem}
             />))}
           <li className="list-group-item">
             <AddItem onChange={this._addItem} />

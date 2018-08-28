@@ -7,7 +7,7 @@ export class EditItem extends PureComponent {
   static propTypes = {
     id: PropTypes.string.isRequired,
     text: PropTypes.string.isRequired,
-    pos: PropTypes.number.isRequired,
+    position: PropTypes.number.isRequired,
     finishEdit: PropTypes.func.isRequired,
     onSave: PropTypes.func.isRequired,
     onDelete: PropTypes.func.isRequired,
@@ -21,8 +21,8 @@ export class EditItem extends PureComponent {
     };
   }
 
-  _textEdit = (e) => {
-    this.setState({ text: e.target.value });
+  _textEdit = (event) => {
+    this.setState({ text: event.target.value });
   };
 
   _saveItem = () => {
@@ -30,7 +30,7 @@ export class EditItem extends PureComponent {
     this.props.finishEdit();
   };
 
-  _delItem = () => {
+  _deleteItem = () => {
     this.props.onDelete(this.state.id);
   };
 
@@ -38,7 +38,7 @@ export class EditItem extends PureComponent {
     return (
       <form className="form-inline">
         <div className="form-group">
-          {this.props.pos + '. '}
+          {this.props.position + '. '}
           <input
             type="text"
             className="form-control"
@@ -63,7 +63,7 @@ export class EditItem extends PureComponent {
           <button
             type="button"
             className="btn btn-danger"
-            onClick={this._delItem}
+            onClick={this._deleteItem}
           >
             Delete
           </button>
