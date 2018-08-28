@@ -52,7 +52,8 @@ export class Board extends PureComponent {
 
   _deleteItem = (id) => {
     this.setState((prevState) => ({
-      items: prevState.items.filter(item => item.id !== id)
+      items: prevState.items
+        .filter(item => item.id !== id)
     }));
   };
 
@@ -60,7 +61,8 @@ export class Board extends PureComponent {
     return (
       <div>
         <ul className="list-group">
-          {this.state.items.map((item, index) => (
+          {this.state.items
+            .map((item, index) => (
             <Item
               key={item.id}
               id={item.id}
