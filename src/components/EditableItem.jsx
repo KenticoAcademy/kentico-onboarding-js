@@ -38,19 +38,22 @@ export class EditableItem extends PureComponent {
             type="button"
             className="btn btn-primary"
             onClick={this._saveInput}
-          >Save
+          >
+            Save
           </button>
           <button
             type="button"
             className="btn btn-default"
             onClick={this.props.onCancel}
-          >Cancel
+          >
+            Cancel
           </button>
           <button
             type="button"
             className="btn btn-danger"
             onClick={this.props.onDelete}
-          >Delete
+          >
+            Delete
           </button>
         </div>
       </div>

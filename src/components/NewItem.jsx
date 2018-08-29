@@ -36,7 +36,8 @@ export class NewItem extends PureComponent {
             type="button"
             className="btn btn-default"
             onClick={this._addItem}
-          >Add
+          >
+            Add
           </button>
         </div>
       </div>
