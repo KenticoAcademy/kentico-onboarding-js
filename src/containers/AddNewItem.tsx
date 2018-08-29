@@ -2,7 +2,7 @@ import { connect, Dispatch } from 'react-redux';
 import { ComponentClass } from 'react';
 import { AddNewItem as AddNewItemComponent, IAddNewItemCallbackProps, IAddNewItemDataProps } from '../components/AddNewItem';
 import { IAppState } from '../reducers/IAppState';
-import { uploadItem } from '../actions/index';
+import { uploadItem } from '../actions';
 import { updateNewItemText } from '../actions/simpleActions/updateNewItemText';
 
 const mapStateToProps = ({items: {newItemText}}: IAppState): IAddNewItemDataProps => ({

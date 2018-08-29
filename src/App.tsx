@@ -5,6 +5,7 @@ import { List } from './containers/List';
 import { AddNewItem } from './containers/AddNewItem';
 import * as PropTypes from 'prop-types';
 import Alert from 'react-s-alert';
+import { IAction } from './actions/IAction';
 
 import 'react-s-alert/dist/s-alert-default.css';
 import 'react-s-alert/dist/s-alert-css-effects/stackslide.css';
@@ -16,7 +17,7 @@ interface IAppDataProps {
 }
 
 export interface IAppCallbackProps {
-  fetchItems: Function;
+  fetchItemsCall: () => Promise<IAction>;
 }
 
 type IAppProps = IAppDataProps & IAppCallbackProps;
@@ -28,11 +29,12 @@ export class App extends React.PureComponent<IAppProps> {
   static propTypes = {
     isFetching: PropTypes.bool,
     errorMessage: PropTypes.string,
+    fetchItems: PropTypes.func,
   };
 
   componentDidMount() {
-    this.props.fetchItems();
-  }
+    this.props.fetchItemsCall();
+   }
 
   render() {
     return (
@@ -54,7 +56,7 @@ export class App extends React.PureComponent<IAppProps> {
 
         <div className="container justify-content-center">
 
-          <button onClick={this.props.fetchItems()} className="btn btn-link btn-lg">Reload items &#x21BA;</button>
+          <button onClick={this.props.fetchItemsCall} className="btn btn-link btn-lg">Reload items &#x21BA;</button>
 
             <div id="app-content pagination-centered">
               <div className="row">
@@ -67,7 +69,7 @@ export class App extends React.PureComponent<IAppProps> {
                         <List />
                       </div> : <img src="https://media.giphy.com/media/9wbzlCmiTbIwU/giphy.gif" className="img-circle center-block catLoader" width="200px" /> :
                     <div className="alert alert-danger alert-dismissible">
-                      <button onClick={this.props.fetchItems()} className="close" data-dismiss="alert" aria-label="close">&#x21BA;</button>
+                      <button onClick={this.props.fetchItemsCall} className="close" data-dismiss="alert" aria-label="close">&#x21BA;</button>
                       Try again later. <strong>{this.props.errorMessage}</strong>
                     </div>}
                 </div>

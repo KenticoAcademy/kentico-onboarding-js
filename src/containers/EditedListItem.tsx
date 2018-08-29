@@ -19,7 +19,7 @@ const mapStateToProps = (state: IAppState, {itemId}: IEditListItemContainerProps
   });
 
 const mapDispatchToProps = (dispatch: Dispatch<IAppState>, {itemId}: IEditListItemContainerProps): IEditedListItemCallbackProps => ({
-  onCancel: () => dispatch(toggleEditing(itemId, false)),
+  onCancel: () => dispatch(toggleEditing(itemId)),
   onSave: (updatedText: string) => updateItem(dispatch)(itemId, updatedText),
   textUpdateChange: (text: string) => dispatch(textUpdateChange(itemId, text)),
 });

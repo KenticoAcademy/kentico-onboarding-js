@@ -36,8 +36,8 @@ export const byId: Reducer<OrderedMap<ItemId, Item>> = (state = DEFAULT_STATE, a
 
     case actionTypes.TOGGLE_EDITING:
       return state.update(action.payload.id, (item) => item.with({
-        isBeingEdited: action.payload.isBeingEdited,
-        textUpdate: action.payload.isBeingEdited ? item.text : item.textUpdate,
+        textUpdate: item.isBeingEdited ? item.textUpdate : item.text,
+        isBeingEdited: !item.isBeingEdited,
       }));
 
     case actionTypes.TOGGLE_SYNCHRONIZED:

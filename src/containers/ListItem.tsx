@@ -6,9 +6,7 @@ import {
 } from '../components/ListItem';
 import { IAppState } from '../reducers/IAppState';
 import { ItemId } from '../models/ItemId';
-import * as React from 'react';
 import { IAction } from '../actions/IAction';
-import { toggleEditing } from '../actions/simpleActions/toggleEditing';
 import { removeItem } from '../actions';
 import { updateItem } from '../actions';
 import { resetItem } from '../actions/simpleActions/resetItem';
@@ -21,7 +19,6 @@ export interface IListItemContainerProps {
 }
 
 export interface IListItemCallbackProps {
-  onDivClick: React.MouseEventHandler<HTMLDivElement>;
   onThrowAway: () => Promise<IAction>;
   onSaveAgain: (text: string) => Promise<IAction>;
   onUploadAgain: (text: string) => Promise<IAction>;
@@ -41,7 +38,6 @@ const mapStateToProps = (state: IAppState, {id, index}: IListItemContainerProps)
 };
 
 const mapDispatchToProps = (dispatch: Function, { id }: IListItemContainerProps): IListItemCallbackProps => ({
-  onDivClick: () => dispatch(toggleEditing(id, true)),
   onThrowAway: () => removeItem(dispatch)(id),
   onSaveAgain: (text: string) => updateItem(dispatch)(id, text),
   onUploadAgain: (text: string) => uploadItemAgain(id)(dispatch)(text),
