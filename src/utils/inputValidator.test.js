@@ -1,22 +1,20 @@
 import { validateInput } from './inputValidator';
 
-describe('Input validator', () => {
+describe('validateInput()', () => {
 
-
-  it('empty string should return false', () => {
+  it('should return false in case of empty input', () => {
     const input = '';
     const result = validateInput(input);
     expect(result).toBeFalsy();
   });
 
-  it('multiple whitespaces should return false', () => {
+  it('should return false in case of input with multiple whitespaces', () => {
     const input = '    '
     const result = validateInput(input);
     expect(result).toBeFalsy();
   });
 
-
-  it('valid input should return true', () => {
+  it('should return true in case of valid input', () => {
     const input = 'hello';
     const result = validateInput(input);
     expect(result).toBeTruthy();
