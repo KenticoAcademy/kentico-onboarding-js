@@ -10,7 +10,7 @@ export class Item extends PureComponent {
     item: PropTypes.shape({
       id: PropTypes.string.isRequired,
       value: PropTypes.string.isRequired
-    }),
+    }).isRequired,
     onEdit: PropTypes.func.isRequired,
     onDelete: PropTypes.func.isRequired,
     index: PropTypes.number.isRequired
