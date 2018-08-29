@@ -8,15 +8,15 @@ import { validateInput } from '../utils/inputValidator';
 export class List extends PureComponent {
   static displayName = 'List';
 
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
       items: []
     };
   }
 
   _addItem = itemText => {
-    if (!(validateInput(itemText))) {
+    if (!validateInput(itemText)) {
       return;
     }
     const newItem = {
