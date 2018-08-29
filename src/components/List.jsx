@@ -25,20 +25,20 @@ export class List extends PureComponent {
     };
 
     this.setState(prevState => ({
-      items: {
+      items: [
         ...prevState.items,
-        [newItem.id]: newItem
-      }
+        newItem,
+      ]
     }));
   };
 
-  _renderListItems = () => Object.keys(this.state.items).map((id, index) => (
+  _renderListItems = () => this.state.items.map((item, index) => (
     <li
       className="list-group-item"
-      key={id}
+      key={item.id}
     >
       <Item
-        item={this.state.items[id]}
+        item={this.state.items[index]}
         index={index + 1}
         onEdit={this._editItem}
         onDelete={this._deleteItem}
@@ -47,28 +47,18 @@ export class List extends PureComponent {
   );
 
   _deleteItem = (deletedItemId) => {
-    const items = { ...this.state.items };
-    delete items[deletedItemId];
+    const currentItems = [...this.state.items];
+    const items = currentItems.filter(item => item.id !== deletedItemId);
     this.setState(() => ({
       items
     }));
   };
 
   _editItem = (id, value) => {
-    if (!(validateInput(value))) {
+    if (!validateInput(value)) {
       return;
     }
-    const editedItem = {
-      id,
-      value
-    };
-
-    this.setState(prevState => ({
-      items: {
-        ...prevState.items,
-        [editedItem.id]: editedItem
-      }
-    }));
+    this.setState(prevState => ({ items: prevState.items.map(item => (item.id !== id ? item : { ...item, value })) }));
   };
 
   render() {
