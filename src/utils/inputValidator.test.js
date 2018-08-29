@@ -4,18 +4,18 @@ describe('Input validator', () => {
 
 
   it('empty string should return false', () => {
-    let input = '';
+    const input = '';
     expect(validateInput(input)).toBeFalsy();
   });
 
   it('multiple whitespaces should return false', () => {
-    let input = '    ';
+    const input = '    ';
     expect(validateInput(input)).toBeFalsy();
   });
 
 
   it('valid input should return true', () => {
-    let input = 'hello';
+    const input = 'hello';
     expect(validateInput(input)).toBeTruthy();
   });
 });
