@@ -14,14 +14,14 @@ export interface IRetryMarkerContainerProps {
   id: ItemId;
 }
 
-function mapStateToProps(state: IAppState, {id}: IRetryMarkerContainerProps): IRetryMarkerDataProps {
+const mapStateToProps = (state: IAppState, {id}: IRetryMarkerContainerProps): IRetryMarkerDataProps => {
   const item = state.items.byId.get(id);
   return {
     text: item.text,
     textUpdate: item.textUpdate,
     errorMessages: item.errorMessages,
   };
-}
+};
 
 const mapDispatchToProps = (dispatch: Function, { id }: IRetryMarkerContainerProps): IRetryMarkerCallbackProps => ({
   onSaveAgain: (text: string) => updateItem(dispatch)(id, text),

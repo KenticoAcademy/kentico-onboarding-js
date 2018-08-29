@@ -10,17 +10,13 @@ import {
   IEditListItemContainerProps
 } from '../components/EditedListItem';
 import { IAppState } from '../reducers/IAppState';
-import { IItem } from '../models/Item';
 import { updateItem } from '../actions';
 import { toggleEditing } from '../actions/simpleActions/toggleEditing';
 import { textUpdateChange } from '../actions/simpleActions/textUpdateChange';
 
-function mapStateToProps(state: IAppState, {itemId}: IEditListItemContainerProps): IEditedListItemDataProps {
-  const item: IItem = state.items.byId.get(itemId);
-  return {
-    item,
-  };
-}
+const mapStateToProps = (state: IAppState, {itemId}: IEditListItemContainerProps): IEditedListItemDataProps => ({
+    item: state.items.byId.get(itemId),
+  });
 
 const mapDispatchToProps = (dispatch: Dispatch<IAppState>, {itemId}: IEditListItemContainerProps): IEditedListItemCallbackProps => ({
   onCancel: () => dispatch(toggleEditing(itemId, false)),

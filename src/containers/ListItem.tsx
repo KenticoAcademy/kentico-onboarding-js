@@ -28,7 +28,7 @@ export interface IListItemCallbackProps {
   onRecover: () => IAction;
 }
 
-function mapStateToProps(state: IAppState, {id, index}: IListItemContainerProps): IListItemDataProps {
+const mapStateToProps = (state: IAppState, {id, index}: IListItemContainerProps): IListItemDataProps => {
   const item = state.items.byId.get(id);
   return {
     id,
@@ -38,7 +38,7 @@ function mapStateToProps(state: IAppState, {id, index}: IListItemContainerProps)
     errorMessages: item.errorMessages,
     isBeingDeleted: item.isBeingDeleted,
   };
-}
+};
 
 const mapDispatchToProps = (dispatch: Function, { id }: IListItemContainerProps): IListItemCallbackProps => ({
   onDivClick: () => dispatch(toggleEditing(id, true)),
@@ -47,6 +47,5 @@ const mapDispatchToProps = (dispatch: Function, { id }: IListItemContainerProps)
   onUploadAgain: (text: string) => uploadItemAgain(id)(dispatch)(text),
   onRecover: () => dispatch(resetItem(id, [errorMessageTypes.DELETE])),
 });
-
 
 export const ListItem: ComponentClass<IListItemContainerProps> = connect(mapStateToProps, mapDispatchToProps)(ListItemComponent);
