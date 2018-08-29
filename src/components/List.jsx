@@ -32,7 +32,7 @@ export class List extends PureComponent {
     }));
   };
 
-  _listItems = () => Object.keys(this.state.items).map((id, index) => (
+  _renderListItems = () => Object.keys(this.state.items).map((id, index) => (
     <li
       className="list-group-item"
       key={id}
@@ -87,7 +87,7 @@ export class List extends PureComponent {
           <div className="col-sm-12 col-md-offset-2 col-md-8">
             <pre>
                 <ul className="list-group">
-                  {this._listItems()}
+                  {this._renderListItems()}
                   <li className="list-group-item">
                     <NewItem onAdd={this._addItem} />
                   </li>
