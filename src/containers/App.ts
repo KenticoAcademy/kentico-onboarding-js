@@ -15,7 +15,7 @@ const mapStateToProps = (state: IAppState) => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<IAppState>): IAppCallbackProps => ({
-fetchItems: () => fetchItems(dispatch),
+  fetchItemsCall: () => fetchItems(dispatch)(),
 });
 
 export const App = connect(mapStateToProps, mapDispatchToProps)(AppComponent);

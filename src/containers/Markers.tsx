@@ -22,4 +22,4 @@ const mapStateToProps = (state: IAppState, {id}: IMarkersContainerProps): IMarke
   };
 };
 
-export const Markers: ComponentClass<IMarkersContainerProps> = connect(mapStateToProps, null)(MarkersComponent);
+export const Markers: ComponentClass<IMarkersContainerProps> = connect(mapStateToProps)(MarkersComponent);
