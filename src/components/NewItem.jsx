@@ -15,7 +15,10 @@ export class NewItem extends PureComponent {
     };
   }
 
-  _changeInput = event => this.setState({ value: event.target.value });
+  _changeInput = (event) => {
+    event.persist();
+    this.setState(() => ({ value: event.target.value }));
+  };
 
   _addItem = () => {
     this.props.onAdd(this.state.value);

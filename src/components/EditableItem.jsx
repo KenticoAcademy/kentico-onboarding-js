@@ -19,7 +19,8 @@ export class EditableItem extends PureComponent {
   }
 
   _changeInput = (event) => {
-    this.setState({ value: event.target.value });
+    event.persist();
+    this.setState(() => ({ value: event.target.value }));
   };
 
   _saveInput = () => this.props.onEdit(this.state.value);
