@@ -6,6 +6,16 @@ import { StaticItem } from './StaticItem';
 export class Item extends PureComponent {
   static displayName = 'Item';
 
+  static propTypes = {
+    item: PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      value: PropTypes.string.isRequired
+    }),
+    onEdit: PropTypes.func.isRequired,
+    onDelete: PropTypes.func.isRequired,
+    index: PropTypes.number.isRequired
+  };
+
   constructor(props) {
     super(props);
     this.state = {
@@ -52,13 +62,3 @@ export class Item extends PureComponent {
     );
   }
 }
-
-Item.propTypes = {
-  item: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    value: PropTypes.string.isRequired
-  }),
-  onEdit: PropTypes.func.isRequired,
-  onDelete: PropTypes.func.isRequired,
-  index: PropTypes.number.isRequired
-};

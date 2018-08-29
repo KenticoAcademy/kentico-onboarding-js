@@ -4,6 +4,10 @@ import PropTypes from 'prop-types';
 export class NewItem extends PureComponent {
   static displayName = 'NewItem';
 
+  static propTypes = {
+    onAdd: PropTypes.func.isRequired,
+  };
+
   constructor(props) {
     super(props);
     this.state = {
@@ -39,7 +43,3 @@ export class NewItem extends PureComponent {
     );
   }
 }
-
-NewItem.propTypes = {
-  onAdd: PropTypes.func.isRequired,
-};

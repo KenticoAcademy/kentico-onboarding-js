@@ -4,6 +4,13 @@ import PropTypes from 'prop-types';
 export class EditableItem extends PureComponent {
   static displayName = 'EditableItem';
 
+  static propTypes = {
+    onCancel: PropTypes.func.isRequired,
+    onDelete: PropTypes.func.isRequired,
+    onEdit: PropTypes.func.isRequired,
+    index: PropTypes.number.isRequired
+  }
+
   constructor(props) {
     super(props);
     this.state = { value: this.props.value };
@@ -50,10 +57,3 @@ export class EditableItem extends PureComponent {
     );
   }
 }
-
-EditableItem.propTypes = {
-  onCancel: PropTypes.func.isRequired,
-  onDelete: PropTypes.func.isRequired,
-  onEdit: PropTypes.func.isRequired,
-  index: PropTypes.number.isRequired
-};
