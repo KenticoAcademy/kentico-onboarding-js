@@ -19,21 +19,21 @@ export class Item extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      inEdit: false,
+      isInEditMode: false,
     };
   }
 
   _clickLabel = () => this.setState(() => ({
-    inEdit: true,
+    isInEditMode: true,
   }));
 
   _cancelEdit = () => this.setState(() => ({
-    inEdit: false,
+    isInEditMode: false,
   }));
 
   _saveItem = (value) => {
     this.props.onEdit(this.props.item.id, value);
-    this.setState(() => ({ inEdit: false }));
+    this.setState(() => ({ isInEditMode: false }));
   };
 
   _deleteItem = () => this.props.onDelete(this.props.item.id);
@@ -41,7 +41,7 @@ export class Item extends PureComponent {
   render() {
     const value = this.props.item.value;
 
-    if (this.state.inEdit) {
+    if (this.state.isInEditMode) {
       return (
         <EditableItem
           value={value}
