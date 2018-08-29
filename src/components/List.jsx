@@ -17,7 +17,6 @@ export class List extends PureComponent {
 
   _addItem = itemText => {
     if (!(validateInput(itemText))) {
-      alert('You have to enter some text!');
       return;
     }
     const newItem = {
@@ -57,7 +56,6 @@ export class List extends PureComponent {
 
   _editItem = (id, value) => {
     if (!(validateInput(value))) {
-      alert('You have to enter some text!');
       return;
     }
     const editedItem = {
