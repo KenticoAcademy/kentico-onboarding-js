@@ -49,7 +49,6 @@ export class Item extends PureComponent {
           onEdit={this._saveItem}
           onDelete={this._deleteItem}
           onCancel={this._cancelEdit}
-          autoFocus
         />);
     }
     return (
