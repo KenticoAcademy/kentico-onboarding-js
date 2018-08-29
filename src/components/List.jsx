@@ -6,23 +6,27 @@ export class List extends PureComponent {
   static displayName = 'List';
 
   static propTypes = {
-    items: PropTypes.array.isRequired,
+    items: PropTypes.object.isRequired,
     onSave: PropTypes.func.isRequired,
     onDelete: PropTypes.func.isRequired,
   };
 
   render() {
+    const itemsValueSeq = this.props.items.valueSeq();
     return (
-      this.props.items
-        .map((item, index) => (
-          <Item
-            key={item.id}
-            id={item.id}
-            text={item.text}
-            position={index + 1}
-            onSave={this.props.onSave}
-            onDelete={this.props.onDelete}
-          />
-        )));
+      itemsValueSeq
+        .map((item, index) => {
+          return (
+              <Item
+                key={item.id}
+                id={item.id}
+                text={item.text}
+                position={index + 1}
+                onSave={this.props.onSave}
+                onDelete={this.props.onDelete}
+              />);
+        }
+        )
+    );
   }
 }

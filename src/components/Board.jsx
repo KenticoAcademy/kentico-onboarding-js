@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import { OrderedMap, Record } from 'immutable';
 import { uuidGenerator } from '../utils/uuidGenerator';
 import { AddItem } from './AddItem';
 import { List } from './List';
@@ -6,8 +7,22 @@ import { List } from './List';
 export class Board extends PureComponent {
   static displayName = 'Board';
 
-  state = {
-    items: [
+  constructor(props) {
+    super(props);
+
+    this.ItemRecord = new Record({
+      id: 0,
+      text: '',
+    });
+
+    this._createItemRecord = (id, text) => {
+      return (new this.ItemRecord({
+        'id': id,
+        'text': text,
+      }));
+    };
+
+    const items = [
       {
         id: uuidGenerator(),
         text: 'Dog',
@@ -20,30 +35,31 @@ export class Board extends PureComponent {
         id: uuidGenerator(),
         text: 'Elephant',
       },
-    ],
-  };
+    ];
+
+    this.state = {
+      items: new OrderedMap(),
+    };
+
+    items.forEach((element) => {
+      const id = uuidGenerator();
+      this.state.items = this.state.items
+        .set(id, this._createItemRecord(id, element.text));
+    });
+  }
 
   _addItem = (newText) => {
+    const id = uuidGenerator();
     this.setState(prevState => ({
-      items: [
-        ...prevState.items,
-        {
-          id: uuidGenerator(),
-          text: newText
-        },
-      ],
+      items: prevState.items
+        .set(id, this._createItemRecord(id, newText))
     }));
   };
 
   _editItem = (id, text) => {
     this.setState((prevState) => ({
       items: prevState.items
-        .map(item => {
-          if (item.id === id) {
-            return Object.assign({}, item, { text });
-          }
-          return item;
-        })
+        .setIn([id, 'text'], text)
     }));
   };
 
@@ -58,11 +74,11 @@ export class Board extends PureComponent {
     return (
       <div>
         <ul className="list-group">
-            <List
-              items={this.state.items}
-              onSave={this._editItem}
-              onDelete={this._deleteItem}
-            />
+          <List
+            items={this.state.items}
+            onSave={this._editItem}
+            onDelete={this._deleteItem}
+          />
           <li className="list-group-item">
             <AddItem onChange={this._addItem} />
           </li>
