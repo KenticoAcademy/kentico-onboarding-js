@@ -1,5 +1,8 @@
 import React, { PureComponent } from 'react';
-import { OrderedMap, Record } from 'immutable';
+import {
+  OrderedMap,
+  Record
+} from 'immutable';
 import { uuidGenerator } from '../utils/uuidGenerator';
 import { AddItem } from './AddItem';
 import { List } from './List';
@@ -7,20 +10,19 @@ import { List } from './List';
 export class Board extends PureComponent {
   static displayName = 'Board';
 
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
 
     this.ItemRecord = new Record({
       id: 0,
       text: '',
     });
 
-    this._createItemRecord = (id, text) => {
-      return (new this.ItemRecord({
+    this._createItemRecord = (id, text) => (
+      new this.ItemRecord({
         'id': id,
         'text': text,
       }));
-    };
 
     const items = [
       {
@@ -41,14 +43,14 @@ export class Board extends PureComponent {
       items: new OrderedMap(),
     };
 
-    items.forEach((element) => {
+    items.forEach(element => {
       const id = uuidGenerator();
       this.state.items = this.state.items
         .set(id, this._createItemRecord(id, element.text));
     });
   }
 
-  _addItem = (newText) => {
+  _addItem = newText => {
     const id = uuidGenerator();
     this.setState(prevState => ({
       items: prevState.items
@@ -63,7 +65,7 @@ export class Board extends PureComponent {
     }));
   };
 
-  _deleteItem = (id) => {
+  _deleteItem = id => {
     this.setState((prevState) => ({
       items: prevState.items
         .filter(item => item.id !== id)

@@ -13,10 +13,10 @@ export class List extends PureComponent {
 
   render() {
     const itemsValueSeq = this.props.items.valueSeq();
+
     return (
       itemsValueSeq
-        .map((item, index) => {
-          return (
+        .map((item, index) => (
               <Item
                 key={item.id}
                 id={item.id}
@@ -24,9 +24,8 @@ export class List extends PureComponent {
                 position={index + 1}
                 onSave={this.props.onSave}
                 onDelete={this.props.onDelete}
-              />);
-        }
-        )
+              />
+        ))
     );
   }
 }
