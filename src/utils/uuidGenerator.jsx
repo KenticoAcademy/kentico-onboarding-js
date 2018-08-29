@@ -1,3 +1,3 @@
-import { v4 as generator } from 'uuid';
+import * as generator from 'uuid/v4';
 
 export const uuidGenerator = () => generator();

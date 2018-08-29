@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { uuidGenerator } from '../utils/UuidGenerator';
+import { uuidGenerator } from '../utils/uuidGenerator';
 import { AddItem } from './AddItem';
 import { List } from './List';
 
@@ -23,13 +23,13 @@ export class Board extends PureComponent {
     ],
   };
 
-  _addItem = (text) => {
+  _addItem = (newText) => {
     this.setState(prevState => ({
       items: [
         ...prevState.items,
         {
-          'id': uuidGenerator(),
-          'text': text
+          id: uuidGenerator(),
+          text: newText
         },
       ],
     }));
