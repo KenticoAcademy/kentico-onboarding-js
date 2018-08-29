@@ -14,7 +14,6 @@ const mapStateToProps = (state: IAppState) => ({
   errorMessage: state.items.status.errorMessage,
 });
 
-
 const mapDispatchToProps = (dispatch: Dispatch<IAppState>): IAppCallbackProps => ({
 fetchItems: () => fetchItems(dispatch),
 });
