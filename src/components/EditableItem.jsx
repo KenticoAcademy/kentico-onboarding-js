@@ -13,7 +13,9 @@ export class EditableItem extends PureComponent {
 
   constructor(props) {
     super(props);
-    this.state = { value: this.props.value };
+    this.state = {
+      value: this.props.value
+    };
   }
 
   _changeInput = (event) => {
