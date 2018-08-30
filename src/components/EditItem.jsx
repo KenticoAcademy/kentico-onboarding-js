@@ -18,8 +18,8 @@ export class EditItem extends PureComponent {
   };
 
   _textEdit = event => {
-    event.persist();
-    this.setState(() => ({ text: event.target.value }));
+    const eventTargetValue = event.target.value;
+    this.setState(() => ({ text: eventTargetValue }));
   };
 
   _saveItem = () => {

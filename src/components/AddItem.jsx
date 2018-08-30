@@ -13,8 +13,8 @@ export class AddItem extends PureComponent {
   };
 
   _updateValue = event => {
-    event.persist();
-    this.setState(() => ({ value: event.target.value }));
+    const eventTargetValue = event.target.value;
+    this.setState(() => ({ value: eventTargetValue }));
   };
 
   _addItem = () => {
