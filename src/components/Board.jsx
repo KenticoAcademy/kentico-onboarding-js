@@ -1,9 +1,9 @@
 import React, { PureComponent } from 'react';
 import {
   OrderedMap,
-  Record
 } from 'immutable';
 import { uuidGenerator } from '../utils/uuidGenerator';
+import { ItemRecord } from '../models/ItemRecord';
 import { AddItem } from './AddItem';
 import { List } from './List';
 
@@ -13,48 +13,24 @@ export class Board extends PureComponent {
   constructor() {
     super();
 
-    this.ItemRecord = new Record({
-      id: 0,
-      text: '',
-    });
-
-    this._createItemRecord = (id, text) => (
-      new this.ItemRecord({
-        'id': id,
-        'text': text,
-      }));
-
-    const items = [
-      {
-        id: uuidGenerator(),
-        text: 'Dog',
-      },
-      {
-        id: uuidGenerator(),
-        text: 'Cat',
-      },
-      {
-        id: uuidGenerator(),
-        text: 'Elephant',
-      },
-    ];
+    const dog = new ItemRecord(uuidGenerator(), 'Dog');
+    const cat = new ItemRecord(uuidGenerator(), 'Cat');
+    const elephant = new ItemRecord(uuidGenerator(), 'Elephant');
 
     this.state = {
-      items: new OrderedMap(),
+      items: new OrderedMap({
+        [dog.id]: dog,
+        [cat.id]: cat,
+        [elephant.id]: elephant,
+      }),
     };
-
-    items.forEach(element => {
-      const id = uuidGenerator();
-      this.state.items = this.state.items
-        .set(id, this._createItemRecord(id, element.text));
-    });
   }
 
   _addItem = newText => {
     const id = uuidGenerator();
     this.setState(prevState => ({
       items: prevState.items
-        .set(id, this._createItemRecord(id, newText))
+        .set(id, new ItemRecord(id, newText))
     }));
   };
 
