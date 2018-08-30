@@ -36,7 +36,7 @@ If you are not familiar with GitHub forking and pull requests, I suggest reading
  - Every task should be submitted as a separate PR, always from branch `feature/task-X`. (If you submit PR from `develop` branch and start working on another task immediately, all commits added to the `develop` will be reflected in PR which really does not make the reviewer happy.)
  - You should wait for the previous PR to be merged before you submit another. 
  - Any comments from PR review shall be fixed to the appropriate feature branch that is related to the reviewed task.
- - Once your changes from PR are approved and merged to your solutions branch in the original repository, you can merge them to your develop branch. (`git checkout develop; git fetch upstream; git merge upstream/solutions/your-login;)
+ - Once your changes from PR are approved and merged to your solutions branch in the original repository, you can merge them to your develop branch. (`git checkout develop; git fetch upstream; git merge upstream/solutions/your-login;`)
  - In case you already started working on next task, either merge or just merge the changes from your develop to the next feature branch.
  - If the PR is still not merged and you want to start working on next task, checkout a new branch based on previous task's branch
  - Repeat from step 1. for following tasks :)
@@ -56,7 +56,7 @@ Merge your `master` branch - that already includes all changes from `upstream/ma
 
 Your next step is to set up a [continuous integration](https://www.atlassian.com/continuous-delivery/continuous-integration-intro) for your repository.
 - each push of commits should trigger tests
-- status of a build should be visible as a GitHub badge in the repository (search for "status badge _your CI name_")
+- status of a build should be visible as a GitHub badge in the repository `README.md` (search for "status badge _your CI name_")
 - you can choose any CI service provider that is compatible with GitHub and has a free license/plan for commercial use - for example [Travis CI](https://travis-ci.org/), [AppVeyor*](https://www.appveyor.com/) or [Circle CI](https://circleci.com/)
 - commit and push your CI configuration file to your `feature/task-0` branch
 
@@ -76,7 +76,7 @@ npm start
 ```
 
 ### Development
-**IMPORTANT:** Run `npm install --no-optional` and make sure you have `eslint` and `tslint` tools enabled (in File > Settings, search for keywords). The path to `eslint` and `tslint` node packages should be in `node_modules` inside of project folder.
+**IMPORTANT:** Run `npm install --no-optional` and make sure you have `eslint` and `tslint` tools enabled (WebStorm IDE -> File > Settings, search for keywords `eslint` and `tslint`). The path to `eslint` and `tslint` node packages should be in `node_modules` inside of project folder.
 
 You should use WebStorm IDE to get familiar with it. Prerequisites for running this project are node v8+ and npm v5+. (If you followed the Draft onboarding on Kentico wiki pages, you should be ready to go.)
 
