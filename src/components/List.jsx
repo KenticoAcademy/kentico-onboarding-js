@@ -1,12 +1,13 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import { Map } from 'immutable';
 import { Item } from './Item';
 
 export class List extends PureComponent {
   static displayName = 'List';
 
   static propTypes = {
-    items: PropTypes.object.isRequired,
+    items: PropTypes.instanceOf(Map).isRequired,
     onSave: PropTypes.func.isRequired,
     onDelete: PropTypes.func.isRequired,
   };
