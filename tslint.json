@@ -36,9 +36,20 @@
     ],
     "member-ordering": [
       true,
-      "private-before-public",
-      "static-before-instance",
-      "variables-before-functions"
+      {
+        "order": [
+          "public-static-field",
+          "protected-static-field",
+          "private-static-field",
+          "public-instance-field",
+          "protected-instance-field",
+          "private-instance-field",
+          "public-static-method",
+          "private-static-method",
+          "protected-static-method",
+          "instance-method"
+        ]
+      }
     ],
     "no-any": false,
     "no-arg": true,
@@ -62,10 +73,13 @@
     "no-require-imports": true,
     "no-string-literal": true,
     "no-switch-case-fall-through": true,
-    "trailing-comma": {
-      "singleline": "never",
-      "multiline": "always"
-    },
+    "trailing-comma": [
+      true,
+      {
+        "singleline": "never",
+        "multiline": "always"
+      }
+    ],
     "no-trailing-whitespace": true,
     "no-unused-expression": true,
     "no-use-before-declare": true,
