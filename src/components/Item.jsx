@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { EditableItem } from './EditableItem';
 import { StaticItem } from './StaticItem';
+import { validateInput } from '../utils/inputValidator';
 
 export class Item extends PureComponent {
   static displayName = 'Item';
@@ -32,6 +33,9 @@ export class Item extends PureComponent {
   }));
 
   _saveItem = (value) => {
+    if (!validateInput(value)) {
+      return;
+    }
     this.props.onEdit(this.props.item.id, value);
     this.setState(() => ({ isInEditMode: false }));
   };

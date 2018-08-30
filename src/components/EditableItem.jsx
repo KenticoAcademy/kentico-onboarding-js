@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import { validateInput } from '../utils/inputValidator';
 
 export class EditableItem extends PureComponent {
   static displayName = 'EditableItem';
@@ -9,7 +10,7 @@ export class EditableItem extends PureComponent {
     onDelete: PropTypes.func.isRequired,
     onEdit: PropTypes.func.isRequired,
     index: PropTypes.number.isRequired
-  }
+  };
 
   constructor(props) {
     super(props);

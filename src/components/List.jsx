@@ -55,9 +55,6 @@ export class List extends PureComponent {
   };
 
   _editItem = (id, value) => {
-    if (!validateInput(value)) {
-      return;
-    }
     this.setState(prevState => ({ items: prevState.items.map(item => (item.id !== id ? item : { ...item, value })) }));
   };
 

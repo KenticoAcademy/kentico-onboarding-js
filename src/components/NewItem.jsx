@@ -1,5 +1,6 @@
 import React, { PureComponent, } from 'react';
 import PropTypes from 'prop-types';
+import { validateInput } from '../utils/inputValidator';
 
 export class NewItem extends PureComponent {
   static displayName = 'NewItem';
