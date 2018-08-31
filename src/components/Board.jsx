@@ -53,7 +53,7 @@ export class Board extends PureComponent {
       <div>
         <ul className="list-group">
           <List
-            items={this.state.items}
+            items={this.state.items.valueSeq()}
             onSave={this._editItem}
             onDelete={this._deleteItem}
           />
