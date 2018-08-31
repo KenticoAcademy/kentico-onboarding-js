@@ -17,7 +17,10 @@ export class EditItem extends PureComponent {
     text: this.props.text,
   };
 
-  _textEdit = (event) => this.setState({ text: event.target.value });
+  _textEdit = event => {
+    const eventTargetValue = event.target.value;
+    this.setState(() => ({ text: eventTargetValue }));
+  };
 
   _saveItem = () => {
     this.props.onSave(this.props.id, this.state.text);

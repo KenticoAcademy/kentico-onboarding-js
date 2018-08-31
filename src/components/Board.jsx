@@ -1,5 +1,7 @@
 import React, { PureComponent } from 'react';
-import { uuidGenerator } from '../utils/uuidGenerator';
+import { generateId } from '../utils/generateId';
+import { ItemRecord } from '../models/ItemRecord';
+import { getIInitialItems } from '../utils/getIInitialItems';
 import { AddItem } from './AddItem';
 import { List } from './List';
 
@@ -7,47 +9,28 @@ export class Board extends PureComponent {
   static displayName = 'Board';
 
   state = {
-    items: [
-      {
-        id: uuidGenerator(),
-        text: 'Dog',
-      },
-      {
-        id: uuidGenerator(),
-        text: 'Cat',
-      },
-      {
-        id: uuidGenerator(),
-        text: 'Elephant',
-      },
-    ],
+    items: getIInitialItems()
   };
 
-  _addItem = (newText) => {
+  _addItem = newText => {
+    const id = generateId();
     this.setState(prevState => ({
-      items: [
-        ...prevState.items,
-        {
-          id: uuidGenerator(),
+      items: prevState.items
+        .set(id, new ItemRecord({
+          'id': id,
           text: newText
-        },
-      ],
+        }))
     }));
   };
 
   _editItem = (id, text) => {
     this.setState((prevState) => ({
       items: prevState.items
-        .map(item => {
-          if (item.id === id) {
-            return Object.assign({}, item, { text });
-          }
-          return item;
-        })
+        .setIn([id, 'text'], text)
     }));
   };
 
-  _deleteItem = (id) => {
+  _deleteItem = id => {
     this.setState((prevState) => ({
       items: prevState.items
         .filter(item => item.id !== id)
@@ -58,11 +41,11 @@ export class Board extends PureComponent {
     return (
       <div>
         <ul className="list-group">
-            <List
-              items={this.state.items}
-              onSave={this._editItem}
-              onDelete={this._deleteItem}
-            />
+          <List
+            items={this.state.items.valueSeq()}
+            onSave={this._editItem}
+            onDelete={this._deleteItem}
+          />
           <li className="list-group-item">
             <AddItem onChange={this._addItem} />
           </li>
