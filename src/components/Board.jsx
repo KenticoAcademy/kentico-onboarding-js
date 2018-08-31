@@ -13,9 +13,9 @@ export class Board extends PureComponent {
   constructor() {
     super();
 
-    const dog = new ItemRecord(uuidGenerator(), 'Dog');
-    const cat = new ItemRecord(uuidGenerator(), 'Cat');
-    const elephant = new ItemRecord(uuidGenerator(), 'Elephant');
+    const dog = new ItemRecord({ id: uuidGenerator(), text: 'Dog' });
+    const cat = new ItemRecord({ id: uuidGenerator(), text: 'Cat' });
+    const elephant = new ItemRecord({ id: uuidGenerator(), text: 'Elephant' });
 
     this.state = {
       items: new OrderedMap({
@@ -30,7 +30,7 @@ export class Board extends PureComponent {
     const id = uuidGenerator();
     this.setState(prevState => ({
       items: prevState.items
-        .set(id, new ItemRecord(id, newText))
+        .set(id, new ItemRecord({ 'id': id, text: newText }))
     }));
   };
 

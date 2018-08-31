@@ -1,7 +1,7 @@
 import { Record } from 'immutable';
 
-export class ItemRecord extends Record({ id: 0, text: '', }) {
-  constructor(id, text) {
-    super({ id, text });
-  }
-}
+const defaultItemRecord = {
+  id: 0, text: '',
+};
+
+export const ItemRecord = Record(defaultItemRecord, 'ItemRecord');
