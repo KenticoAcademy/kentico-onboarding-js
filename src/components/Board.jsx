@@ -1,36 +1,25 @@
 import React, { PureComponent } from 'react';
-import {
-  OrderedMap,
-} from 'immutable';
-import { uuidGenerator } from '../utils/uuidGenerator';
+import { generateId } from '../utils/generateId';
 import { ItemRecord } from '../models/ItemRecord';
+import { getIInitialItems } from '../utils/getIInitialItems';
 import { AddItem } from './AddItem';
 import { List } from './List';
 
 export class Board extends PureComponent {
   static displayName = 'Board';
 
-  constructor() {
-    super();
-
-    const dog = new ItemRecord({ id: uuidGenerator(), text: 'Dog' });
-    const cat = new ItemRecord({ id: uuidGenerator(), text: 'Cat' });
-    const elephant = new ItemRecord({ id: uuidGenerator(), text: 'Elephant' });
-
-    this.state = {
-      items: new OrderedMap({
-        [dog.id]: dog,
-        [cat.id]: cat,
-        [elephant.id]: elephant,
-      }),
-    };
-  }
+  state = {
+    items: getIInitialItems()
+  };
 
   _addItem = newText => {
-    const id = uuidGenerator();
+    const id = generateId();
     this.setState(prevState => ({
       items: prevState.items
-        .set(id, new ItemRecord({ 'id': id, text: newText }))
+        .set(id, new ItemRecord({
+          'id': id,
+          text: newText
+        }))
     }));
   };
 
