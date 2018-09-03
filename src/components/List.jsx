@@ -37,7 +37,7 @@ export class List extends PureComponent {
         isInEditMode: false
       }))
     }));
-  }
+  };
 
   _clickLabel = (itemId) => {
     this.setState(prevState => ({
@@ -46,7 +46,7 @@ export class List extends PureComponent {
         isInEditMode: true
       }))
     }));
-  }
+  };
 
   _cancelEdit = (itemId) => {
     this.setState(prevState => ({
