@@ -5,8 +5,8 @@ import { StaticItem } from './StaticItem';
 
 export const Item = ({
   item, index, onEdit, onDelete, onCancel, onClick
-}) => {
-  return (item.isInEditMode
+}) =>
+  (item.isInEditMode
     ? (
       <EditableItem
         item={item}
@@ -24,7 +24,6 @@ export const Item = ({
         autoFocus
       />
     ));
-};
 
 Item.displayName = 'Item';
 
