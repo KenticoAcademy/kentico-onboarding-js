@@ -64,7 +64,7 @@ export class List extends PureComponent {
         key={item.id}
       >
         <Item
-          item={this.state.items[index]}
+          item={item}
           index={index + 1}
           onEdit={this._saveItem}
           onDelete={this._deleteItem}
