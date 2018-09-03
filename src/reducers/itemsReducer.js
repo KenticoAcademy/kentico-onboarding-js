@@ -14,8 +14,7 @@ export const itemsReducer = (state = initialState, action) => {
   switch (action.type) {
     case ITEM_CREATED:
       return {
-        // INFO: there could by problem with more variables in the state in the future - "items: state.items"
-        // -> fix by Immutable.Map?
+        ...state,
         items: state.items
           .set(action.id, new ItemRecord({
             id: action.id,
@@ -24,11 +23,13 @@ export const itemsReducer = (state = initialState, action) => {
       };
     case ITEM_EDITED:
       return {
+        ...state,
         items: state.items
           .setIn([action.id, 'text'], action.text)
       };
     case ITEM_DELETED:
       return {
+        ...state,
         items: state.items
           .filter(item => item.id !== action.id)
       };
