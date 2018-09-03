@@ -8,7 +8,7 @@ export class EditableItem extends PureComponent {
   static propTypes = {
     item: PropTypes.shape({
       id: PropTypes.string.isRequired,
-      value: PropTypes.string.isRequired
+      inputText: PropTypes.string.isRequired
     }).isRequired,
     onCancel: PropTypes.func.isRequired,
     onDelete: PropTypes.func.isRequired,
@@ -19,16 +19,16 @@ export class EditableItem extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      value: this.props.item.value
+      inputText: this.props.item.inputText
     };
   }
 
   _changeInput = (event) => {
     event.persist();
-    this.setState(() => ({ value: event.target.value }));
+    this.setState(() => ({ inputText: event.target.value }));
   };
 
-  _saveInput = () => this.props.onEdit(this.props.item.id, this.state.value);
+  _saveInput = () => this.props.onEdit(this.props.item.id, this.state.inputText);
 
   _cancelEdit = () => this.props.onCancel(this.props.item.id);
 
@@ -42,7 +42,7 @@ export class EditableItem extends PureComponent {
           <input
             className="form-control"
             type="text"
-            value={this.state.value}
+            value={this.state.inputText}
             onChange={this._changeInput}
             autoFocus
           />
@@ -50,7 +50,7 @@ export class EditableItem extends PureComponent {
             type="button"
             className="btn btn-primary"
             onClick={this._saveInput}
-            disabled={!validateInput(this.state.value)}
+            disabled={!validateInput(this.state.inputText)}
           >
             Save
           </button>
