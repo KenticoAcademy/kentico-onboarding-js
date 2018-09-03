@@ -30,15 +30,31 @@ export class List extends PureComponent {
   };
 
   _saveItem = (itemId, value) => {
-    this.setState(prevState => ({ items: prevState.items.map(item => (item.id !== itemId ? item : { ...item, value, isInEditMode: false })) }));
+    this.setState(prevState => ({
+      items: prevState.items.map(item => (item.id !== itemId ? item : {
+        ...item,
+        value,
+        isInEditMode: false
+      }))
+    }));
   }
 
   _clickLabel = (itemId) => {
-    this.setState(prevState => ({ items: prevState.items.map(item => (item.id !== itemId ? item : { ...item, isInEditMode: true })) }));
+    this.setState(prevState => ({
+      items: prevState.items.map(item => (item.id !== itemId ? item : {
+        ...item,
+        isInEditMode: true
+      }))
+    }));
   }
 
   _cancelEdit = (itemId) => {
-    this.setState(prevState => ({ items: prevState.items.map(item => (item.id !== itemId ? item : { ...item, isInEditMode: false })) }));
+    this.setState(prevState => ({
+      items: prevState.items.map(item => (item.id !== itemId ? item : {
+        ...item,
+        isInEditMode: false
+      }))
+    }));
   };
 
   _renderListItems = () => this.state.items.map((item, index) => (
