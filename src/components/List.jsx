@@ -3,6 +3,7 @@ import { TsComponent } from './TsComponent.tsx';
 import { NewItem } from './NewItem';
 import { Item } from './Item';
 import { generateId } from '../utils/idGenerator';
+import { ListItem } from '../models/ListItem';
 
 const { OrderedMap } = require('immutable');
 
@@ -17,17 +18,14 @@ export class List extends PureComponent {
   }
 
   _addItem = itemText => {
-    const newItem = {
+    const newItem = new ListItem({
       id: generateId(),
-      inputText: itemText,
+      value: itemText,
       isInEditMode: false,
-    };
+    });
 
     this.setState(prevState => ({
-      items: [
-        ...prevState.items,
-        newItem,
-      ]
+      items: prevState.items.set(newItem.id, newItem),
     }));
   };
 
