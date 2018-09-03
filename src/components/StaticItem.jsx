@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 export const StaticItem = ({ item, onClick, index }) => {
-  const _clickHandler = () => {
+  const _editItem = () => {
     onClick(item.id);
   };
 
   return (
-    <div onClick={_clickHandler}>
+    <div onClick={_editItem}>
       {index}. {item.inputText}
     </div>
   );
