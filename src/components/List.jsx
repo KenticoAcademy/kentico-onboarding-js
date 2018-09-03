@@ -57,21 +57,22 @@ export class List extends PureComponent {
     }));
   };
 
-  _renderListItems = () => this.state.items.map((item, index) => (
-    <li
-      className="list-group-item"
-      key={item.id}
-    >
-      <Item
-        item={this.state.items[index]}
-        index={index + 1}
-        onEdit={this._saveItem}
-        onDelete={this._deleteItem}
-        onClick={this._clickLabel}
-        onCancel={this._cancelEdit}
-      />
-    </li>)
-  );
+  _renderListItems = () =>
+    this.state.items.map((item, index) => (
+      <li
+        className="list-group-item"
+        key={item.id}
+      >
+        <Item
+          item={this.state.items[index]}
+          index={index + 1}
+          onEdit={this._saveItem}
+          onDelete={this._deleteItem}
+          onClick={this._clickLabel}
+          onCancel={this._cancelEdit}
+        />
+      </li>)
+    );
 
   _deleteItem = (deletedItemId) => {
     const currentItems = [...this.state.items];
