@@ -19,7 +19,7 @@ export class List extends PureComponent {
   _addItem = itemText => {
     const newItem = {
       id: generateId(),
-      value: itemText,
+      inputText: itemText,
       isInEditMode: false,
     };
 
@@ -31,39 +31,55 @@ export class List extends PureComponent {
     }));
   };
 
-  _saveItem = (itemId, value) => {
-    this.setState(prevState => ({ items: prevState.items.map(item => (item.id !== itemId ? item : { ...item, value, isInEditMode: false })) }));
-  }
-
-  _clickLabel = (itemId) => {
-    this.setState(prevState => ({ items: prevState.items.map(item => (item.id !== itemId ? item : { ...item, isInEditMode: true })) }));
-  }
-
-  _cancelEdit = (itemId) => {
-    this.setState(prevState => ({ items: prevState.items.map(item => (item.id !== itemId ? item : { ...item, isInEditMode: false })) }));
+  _saveItem = (itemId, itemText) => {
+    this.setState(prevState => ({
+      items: prevState.items.map(item => (item.id !== itemId ? item : {
+        ...item,
+        inputText: itemText,
+        isInEditMode: false
+      }))
+    }));
   };
 
-  _renderListItems = () => this.state.items.map((item, index) => (
-    <li
-      className="list-group-item"
-      key={item.id}
-    >
-      <Item
-        item={this.state.items[index]}
-        index={index + 1}
-        onEdit={this._saveItem}
-        onDelete={this._deleteItem}
-        onClick={this._clickLabel}
-        onCancel={this._cancelEdit}
-      />
-    </li>)
-  );
+  _clickLabel = (itemId) => {
+    this.setState(prevState => ({
+      items: prevState.items.map(item => (item.id !== itemId ? item : {
+        ...item,
+        isInEditMode: true
+      }))
+    }));
+  };
+
+  _cancelEdit = (itemId) => {
+    this.setState(prevState => ({
+      items: prevState.items.map(item => (item.id !== itemId ? item : {
+        ...item,
+        isInEditMode: false
+      }))
+    }));
+  };
+
+  _renderListItems = () =>
+    this.state.items.map((item, index) => (
+      <li
+        className="list-group-item"
+        key={item.id}
+      >
+        <Item
+          item={item}
+          index={index + 1}
+          onEdit={this._saveItem}
+          onDelete={this._deleteItem}
+          onClick={this._clickLabel}
+          onCancel={this._cancelEdit}
+        />
+      </li>)
+    );
 
   _deleteItem = (deletedItemId) => {
-    const currentItems = [...this.state.items];
-    const items = currentItems.filter(item => item.id !== deletedItemId);
-    this.setState(() => ({
-      items
+    this.setState((prevState) => ({
+      items: prevState.items
+        .filter(item => item.id !== deletedItemId)
     }));
   };
 

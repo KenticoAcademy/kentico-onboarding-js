@@ -5,6 +5,7 @@ describe('Id generator', () => {
 
   it('should generate id in valid format', () => {
     const id = generateId();
+
     expect(id).toMatch(validFormat);
   });
 
