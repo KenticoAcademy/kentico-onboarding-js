@@ -75,10 +75,9 @@ export class List extends PureComponent {
     );
 
   _deleteItem = (deletedItemId) => {
-    const currentItems = [...this.state.items];
-    const items = currentItems.filter(item => item.id !== deletedItemId);
-    this.setState(() => ({
-      items
+    this.setState((prevState) => ({
+      items: prevState.items
+        .filter(item => item.id !== deletedItemId)
     }));
   };
 
