@@ -13,7 +13,7 @@ export class EditableItem extends PureComponent {
     onCancel: PropTypes.func.isRequired,
     onDelete: PropTypes.func.isRequired,
     onEdit: PropTypes.func.isRequired,
-    index: PropTypes.number.isRequired,
+    index: PropTypes.number.isRequired
   };
 
   constructor(props) {

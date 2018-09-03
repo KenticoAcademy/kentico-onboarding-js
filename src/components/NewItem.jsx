@@ -6,7 +6,7 @@ export class NewItem extends PureComponent {
   static displayName = 'NewItem';
 
   static propTypes = {
-    onAdd: PropTypes.func.isRequired,
+    onAdd: PropTypes.func.isRequired
   };
 
   constructor(props) {

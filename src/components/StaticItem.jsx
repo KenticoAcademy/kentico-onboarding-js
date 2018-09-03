@@ -22,5 +22,5 @@ StaticItem.propTypes = {
     value: PropTypes.string.isRequired
   }).isRequired,
   onClick: PropTypes.func.isRequired,
-  index: PropTypes.number.isRequired,
+  index: PropTypes.number.isRequired
 };
