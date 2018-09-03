@@ -2,8 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 export const StaticItem = ({ item, onClick, index }) => {
-  const clickHandler = e => {
-    e.preventDefault();
+  const clickHandler = () => {
     onClick(item.id);
   };
 
