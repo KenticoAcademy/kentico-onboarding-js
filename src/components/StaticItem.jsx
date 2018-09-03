@@ -1,18 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export const StaticItem = ({ onClick, index, value }) => {
+export const StaticItem = ({ item, onClick, index }) => {
+  const clickHandler = e => {
+    e.preventDefault();
+    onClick(item.id);
+  };
+
   return (
-    <div onClick={onClick}>
-      {index}. {value}
+    <div onClick={clickHandler}>
+      {index}. {item.value}
     </div>
   );
 };
 
-StaticItem.displayName = 'NewItem';
+StaticItem.displayName = 'StaticItem';
 
 StaticItem.propTypes = {
+  item: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    value: PropTypes.string.isRequired
+  }).isRequired,
   onClick: PropTypes.func.isRequired,
-  index: PropTypes.number,
-  value: PropTypes.string.isRequired
+  index: PropTypes.number.isRequired,
 };

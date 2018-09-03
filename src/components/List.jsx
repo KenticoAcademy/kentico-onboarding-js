@@ -3,7 +3,6 @@ import { TsComponent } from './TsComponent.tsx';
 import { NewItem } from './NewItem';
 import { Item } from './Item';
 import { generateId } from '../utils/idGenerator';
-import { validateInput } from '../utils/inputValidator';
 
 export class List extends PureComponent {
   static displayName = 'List';
@@ -16,12 +15,10 @@ export class List extends PureComponent {
   }
 
   _addItem = itemText => {
-    if (!validateInput(itemText)) {
-      return;
-    }
     const newItem = {
       id: generateId(),
-      value: itemText
+      value: itemText,
+      isInEditMode: false,
     };
 
     this.setState(prevState => ({
@@ -32,6 +29,18 @@ export class List extends PureComponent {
     }));
   };
 
+  _saveItem = (itemId, value) => {
+    this.setState(prevState => ({ items: prevState.items.map(item => (item.id !== itemId ? item : { ...item, value, isInEditMode: false })) }));
+  }
+
+  _clickLabel = (itemId) => {
+    this.setState(prevState => ({ items: prevState.items.map(item => (item.id !== itemId ? item : { ...item, isInEditMode: true })) }));
+  }
+
+  _cancelEdit = (itemId) => {
+    this.setState(prevState => ({ items: prevState.items.map(item => (item.id !== itemId ? item : { ...item, isInEditMode: false })) }));
+  };
+
   _renderListItems = () => this.state.items.map((item, index) => (
     <li
       className="list-group-item"
@@ -40,8 +49,10 @@ export class List extends PureComponent {
       <Item
         item={this.state.items[index]}
         index={index + 1}
-        onEdit={this._editItem}
+        onEdit={this._saveItem}
         onDelete={this._deleteItem}
+        onClick={this._clickLabel}
+        onCancel={this._cancelEdit}
       />
     </li>)
   );
@@ -52,10 +63,6 @@ export class List extends PureComponent {
     this.setState(() => ({
       items
     }));
-  };
-
-  _editItem = (id, value) => {
-    this.setState(prevState => ({ items: prevState.items.map(item => (item.id !== id ? item : { ...item, value })) }));
   };
 
   render() {

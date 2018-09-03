@@ -38,6 +38,7 @@ export class NewItem extends PureComponent {
           />
           <button
             type="button"
+            disabled={!validateInput(this.state.value)}
             className="btn btn-default"
             onClick={this._addItem}
           >
