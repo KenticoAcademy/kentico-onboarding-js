@@ -4,13 +4,15 @@ import { NewItem } from './NewItem';
 import { Item } from './Item';
 import { generateId } from '../utils/idGenerator';
 
+const { OrderedMap } = require('immutable');
+
 export class List extends PureComponent {
   static displayName = 'List';
 
   constructor() {
     super();
     this.state = {
-      items: []
+      items: OrderedMap()
     };
   }
 
