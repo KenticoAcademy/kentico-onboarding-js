@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { generateId } from '../utils/generateId';
 import { ItemRecord } from '../models/ItemRecord';
-import { getIInitialItems } from '../utils/getIInitialItems';
+import { getInitialItems } from '../utils/getInitialItems';
 import { AddItem } from './AddItem';
 import { List } from './List';
 
@@ -9,7 +9,7 @@ export class Board extends PureComponent {
   static displayName = 'Board';
 
   state = {
-    items: getIInitialItems()
+    items: getInitialItems()
   };
 
   _addItem = newText => {

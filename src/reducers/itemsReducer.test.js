@@ -35,9 +35,9 @@ describe('itemsReducers', () => {
 
   const defaultState = { items: new OrderedMap().set(dog.id, dog) };
 
-  it('should handle ITEM_CREATED on undefine state', () => {
+  it('should handle ITEM_CREATED on empty state', () => {
     const actionCreatedDog = itemCreated('Dog', idGenerator1);
-    const state = itemsReducer(undefined, actionCreatedDog);
+    const state = itemsReducer({ items: OrderedMap() }, actionCreatedDog);
     expect(state).toEqual(defaultState);
   });
 
