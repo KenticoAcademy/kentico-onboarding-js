@@ -42,10 +42,7 @@ export class List extends PureComponent {
 
   _clickLabel = (itemId) => {
     this.setState(prevState => ({
-      items: prevState.items.map(item => (item.id !== itemId ? item : {
-        ...item,
-        isInEditMode: true
-      }))
+      items: prevState.items.update(itemId, item => item.set('isInEditMode', true)),
     }));
   };
 
