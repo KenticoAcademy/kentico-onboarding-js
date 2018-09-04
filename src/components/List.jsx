@@ -70,10 +70,7 @@ export class List extends PureComponent {
     );
 
   _deleteItem = (deletedItemId) => {
-    this.setState((prevState) => ({
-      items: prevState.items
-        .filter(item => item.id !== deletedItemId)
-    }));
+    this.setState(prevState => ({ items: prevState.items.delete(deletedItemId) }));
   };
 
   render() {
