@@ -8,7 +8,7 @@ export const StaticItem = ({ item, onClick, index }) => {
 
   return (
     <div onClick={_editItem}>
-      {index}. {item.inputText}
+      {index}. {item.text}
     </div>
   );
 };
@@ -18,7 +18,7 @@ StaticItem.displayName = 'StaticItem';
 StaticItem.propTypes = {
   item: PropTypes.shape({
     id: PropTypes.string.isRequired,
-    inputText: PropTypes.string.isRequired
+    text: PropTypes.string.isRequired
   }).isRequired,
   onClick: PropTypes.func.isRequired,
   index: PropTypes.number.isRequired

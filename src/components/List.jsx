@@ -17,7 +17,7 @@ export class List extends PureComponent {
   _addItem = itemText => {
     const newItem = {
       id: generateId(),
-      inputText: itemText,
+      text: itemText,
       isInEditMode: false,
     };
 
@@ -33,7 +33,7 @@ export class List extends PureComponent {
     this.setState(prevState => ({
       items: prevState.items.map(item => (item.id !== itemId ? item : {
         ...item,
-        inputText: itemText,
+        text: itemText,
         isInEditMode: false
       }))
     }));

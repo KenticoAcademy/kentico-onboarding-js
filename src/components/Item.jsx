@@ -30,7 +30,7 @@ Item.displayName = 'Item';
 Item.propTypes = {
   item: PropTypes.shape({
     id: PropTypes.string.isRequired,
-    inputText: PropTypes.string.isRequired
+    text: PropTypes.string.isRequired
   }).isRequired,
   index: PropTypes.number.isRequired,
   onEdit: PropTypes.func.isRequired,

@@ -12,18 +12,18 @@ export class NewItem extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      inputText: ''
+      text: ''
     };
   }
 
   _changeInput = (event) => {
     event.persist();
-    this.setState(() => ({ inputText: event.target.value }));
+    this.setState(() => ({ text: event.target.value }));
   };
 
   _addItem = () => {
-    this.props.onAdd(this.state.inputText);
-    this.setState(() => ({ inputText: '' }));
+    this.props.onAdd(this.state.text);
+    this.setState(() => ({ text: '' }));
   };
 
   render() {
@@ -32,13 +32,13 @@ export class NewItem extends PureComponent {
         <div className="form-group">
           <input
             className="form-control"
-            value={this.state.inputText}
+            value={this.state.text}
             onChange={this._changeInput}
             autoFocus
           />
           <button
             type="button"
-            disabled={!validateInput(this.state.inputText)}
+            disabled={!validateInput(this.state.text)}
             className="btn btn-default"
             onClick={this._addItem}
           >
