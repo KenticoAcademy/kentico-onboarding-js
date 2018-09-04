@@ -1,11 +1,10 @@
 import React, { PureComponent } from 'react';
+import { OrderedMap } from 'immutable';
 import { TsComponent } from './TsComponent.tsx';
 import { NewItem } from './NewItem';
 import { Item } from './Item';
 import { generateId } from '../utils/idGenerator';
 import { ListItem } from '../models/ListItem';
-
-const { OrderedMap } = require('immutable');
 
 export class List extends PureComponent {
   static displayName = 'List';
@@ -34,19 +33,21 @@ export class List extends PureComponent {
       id: itemId,
       text: itemText,
     });
-
+    // udělat to pomocí mergeIn, nevytvářet nový ListItem:
     this.setState(prevState => ({
       items: prevState.items.set(itemId, updatedItem),
     }));
   };
 
   _clickLabel = (itemId) => {
+    // udělat pomocí setIn
     this.setState(prevState => ({
       items: prevState.items.update(itemId, item => item.set('isInEditMode', true)),
     }));
   };
 
   _cancelEdit = (itemId) => {
+    // udělat pomocí setIn
     this.setState(prevState => ({
       items: prevState.items.update(itemId, item => item.set('isInEditMode', false)),
     }));
