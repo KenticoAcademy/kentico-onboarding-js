@@ -48,10 +48,7 @@ export class List extends PureComponent {
 
   _cancelEdit = (itemId) => {
     this.setState(prevState => ({
-      items: prevState.items.map(item => (item.id !== itemId ? item : {
-        ...item,
-        isInEditMode: false
-      }))
+      items: prevState.items.update(itemId, item => item.set('isInEditMode', false)),
     }));
   };
 
