@@ -17,7 +17,7 @@ export class List extends PureComponent {
     };
   }
 
-  _addItem = inputText => {
+  _addItem = itemText => {
     const newItem = new ListItem({
       id: generateId(),
       text: itemText,
