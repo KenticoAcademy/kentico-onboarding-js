@@ -14,10 +14,6 @@ const idGenerator1 = () => 1;
 const idGenerator2 = () => 2;
 
 describe('itemsReducer', () => {
-  it('should return the initial state', () => {
-    expect(itemsReducer(undefined, {})).toEqual(initialState);
-  });
-
   const dog = new ItemRecord({
     id: idGenerator1(),
     text: 'Dog'
@@ -34,6 +30,10 @@ describe('itemsReducer', () => {
   });
 
   const defaultState = new OrderedMap().set(dog.id, dog);
+
+  it('should return the initial state', () => {
+    expect(itemsReducer(undefined, {})).toEqual(initialState);
+  });
 
   it('should handle ITEM_CREATED on empty state', () => {
     const actionCreatedDog = itemCreated('Dog', idGenerator1);

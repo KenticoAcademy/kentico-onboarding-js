@@ -1,16 +1,12 @@
+import { OrderedMap } from 'immutable';
 import {
   ITEM_CREATED,
   ITEM_EDITED,
   ITEM_DELETED,
 } from '../actions/actionTypes';
 import { ItemRecord } from '../models/ItemRecord';
-import { getInitialItems } from '../utils/getInitialItems';
 
-// export const initialState = {
-//   items: OrderedMap({})
-// };
-
-export const initialState = getInitialItems();
+export const initialState = new OrderedMap({});
 
 export const itemsReducer = (state = initialState, action) => {
   switch (action.type) {
