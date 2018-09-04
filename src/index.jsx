@@ -10,7 +10,7 @@ import {
 import { createLogger } from 'redux-logger';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { Iterable } from 'immutable';
-import { itemsReducer } from './reducers/itemsReducer';
+import reducer from './reducers/listReducer';
 
 const stateTransformer = (state) => {
   if (Iterable.isIterable(state)) {
@@ -24,7 +24,7 @@ const logger = createLogger({
 });
 
 const store = createStore(
-  itemsReducer,
+  reducer,
   undefined,
   composeWithDevTools(
     applyMiddleware(logger)
