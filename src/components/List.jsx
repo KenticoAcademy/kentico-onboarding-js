@@ -17,10 +17,10 @@ export class List extends PureComponent {
     };
   }
 
-  _addItem = itemText => {
+  _addItem = inputText => {
     const newItem = new ListItem({
       id: generateId(),
-      value: itemText,
+      inputText,
       isInEditMode: false,
     });
 
@@ -29,13 +29,14 @@ export class List extends PureComponent {
     }));
   };
 
-  _saveItem = (itemId, itemText) => {
+  _saveItem = (itemId, inputText) => {
+    const updatedItem = new ListItem({
+      id: itemId,
+      inputText,
+    });
+
     this.setState(prevState => ({
-      items: prevState.items.map(item => (item.id !== itemId ? item : {
-        ...item,
-        inputText: itemText,
-        isInEditMode: false
-      }))
+      items: prevState.items.set(itemId, updatedItem),
     }));
   };
 
