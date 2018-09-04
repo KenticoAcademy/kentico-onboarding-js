@@ -29,27 +29,26 @@ export class List extends PureComponent {
   };
 
   _saveItem = (itemId, itemText) => {
-    const updatedItem = new ListItem({
+    const savedItem = {
       id: itemId,
       text: itemText,
-    });
-    // udělat to pomocí mergeIn, nevytvářet nový ListItem:
+      isInEditMode: false
+    };
+
     this.setState(prevState => ({
-      items: prevState.items.set(itemId, updatedItem),
+      items: prevState.items.mergeIn([itemId], savedItem),
     }));
   };
 
   _clickLabel = (itemId) => {
-    // udělat pomocí setIn
     this.setState(prevState => ({
-      items: prevState.items.update(itemId, item => item.set('isInEditMode', true)),
+      items: prevState.items.setIn([itemId, 'isInEditMode'], true),
     }));
   };
 
   _cancelEdit = (itemId) => {
-    // udělat pomocí setIn
     this.setState(prevState => ({
-      items: prevState.items.update(itemId, item => item.set('isInEditMode', false)),
+      items: prevState.items.setIn([itemId, 'isInEditMode'], false),
     }));
   };
 
@@ -71,7 +70,9 @@ export class List extends PureComponent {
     );
 
   _deleteItem = (deletedItemId) => {
-    this.setState(prevState => ({ items: prevState.items.delete(deletedItemId) }));
+    this.setState(prevState => ({
+      items: prevState.items.delete(deletedItemId)
+    }));
   };
 
   render() {
