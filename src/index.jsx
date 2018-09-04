@@ -7,14 +7,28 @@ import {
   applyMiddleware,
   createStore
 } from 'redux';
-import logger from 'redux-logger';
+import { createLogger } from 'redux-logger';
+import { composeWithDevTools } from 'redux-devtools-extension';
+import { Iterable } from 'immutable';
 import { itemsReducer } from './reducers/itemsReducer';
+
+const stateTransformer = (state) => {
+  if (Iterable.isIterable(state)) {
+    return state.toJS();
+  }
+  return state;
+};
+
+const logger = createLogger({
+  stateTransformer,
+});
 
 const store = createStore(
   itemsReducer,
   undefined,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
-  applyMiddleware(logger),
+  composeWithDevTools(
+    applyMiddleware(logger)
+  ),
 );
 import { App } from './App.jsx';
 
