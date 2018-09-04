@@ -13,20 +13,20 @@ export const itemsReducer = (state = initialState, action) => {
     case ITEM_CREATED:
       return (
         state
-          .set(action.id, new ItemRecord({
-            id: action.id,
-            text: action.text,
+          .set(action.payload.id, new ItemRecord({
+            id: action.payload.id,
+            text: action.payload.text,
           }))
       );
     case ITEM_EDITED:
       return (
         state
-          .setIn([action.id, 'text'], action.text)
+          .setIn([action.payload.id, 'text'], action.payload.text)
       );
     case ITEM_DELETED:
       return (
         state
-          .filter(item => item.id !== action.id)
+          .filter(item => item.id !== action.payload.id)
       );
     default:
       return state;

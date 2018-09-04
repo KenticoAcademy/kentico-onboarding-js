@@ -5,25 +5,31 @@ import {
   ITEM_DELETED
 } from './actionTypes';
 
-export function itemCreated(text, idGenerator = generateId) {
-  return {
+export const itemCreated = (text) => (
+  {
     type: ITEM_CREATED,
-    id: idGenerator(),
-    text
-  };
-}
+    payload: {
+      id: generateId(),
+      text,
+    }
+  }
+);
 
-export function itemEdited(id, text) {
-  return {
+export const itemEdited = (id, text) => (
+  {
     type: ITEM_EDITED,
-    id,
-    text
-  };
-}
+    payload: {
+      id,
+      text,
+    }
+  }
+);
 
-export function itemDeleted(id) {
-  return {
+export const itemDeleted = (id) => (
+  {
     type: ITEM_DELETED,
-    id
-  };
-}
+    payload: {
+      id,
+    }
+  }
+);
