@@ -3,10 +3,11 @@ import {
   itemEdited,
   itemDeleted
 } from '../actions/actionCreators';
+import { itemsSelector } from '../selectors/itemsSelector';
 import { List } from '../components/List';
 
 const mapStateToProps = (state) => ({
-  items: state.items.valueSeq()
+  items: itemsSelector(state.items.valueSeq())
 });
 
 const mapDispatchToProps = (dispatch) => ({
