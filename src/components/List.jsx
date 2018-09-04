@@ -59,7 +59,7 @@ export class List extends PureComponent {
   };
 
   _renderListItems = () =>
-    this.state.items.map((item, index) => (
+    this.state.items.valueSeq().map((item, index) => (
       <li
         className="list-group-item"
         key={item.id}

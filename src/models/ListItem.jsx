@@ -2,6 +2,6 @@ const { Record } = require('immutable');
 
 export const ListItem = new Record({
   id: undefined,
-  inputText: '',
+  text: '',
   isInEditMode: false
 });
