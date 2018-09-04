@@ -29,10 +29,10 @@ export class List extends PureComponent {
     }));
   };
 
-  _saveItem = (itemId, inputText) => {
+  _saveItem = (itemId, itemText) => {
     const updatedItem = new ListItem({
       id: itemId,
-      inputText,
+      text: itemText,
     });
 
     this.setState(prevState => ({
