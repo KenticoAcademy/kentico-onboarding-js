@@ -1,7 +1,6 @@
 import { validateInput } from './inputValidator';
 
 describe('validateInput()', () => {
-
   it('should return false in case of empty input', () => {
     const input = '';
 

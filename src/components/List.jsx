@@ -20,7 +20,7 @@ export class List extends PureComponent {
   _addItem = inputText => {
     const newItem = new ListItem({
       id: generateId(),
-      inputText,
+      text: itemText,
       isInEditMode: false,
     });
 
