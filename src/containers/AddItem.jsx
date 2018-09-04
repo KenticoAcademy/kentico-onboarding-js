@@ -1,12 +1,9 @@
 import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { itemCreated } from '../actions/actionCreators';
 
-export class AddItem extends PureComponent {
+class AddItem extends PureComponent {
   static displayName = 'AddItem';
-
-  static propTypes = {
-    onChange: PropTypes.func.isRequired,
-  };
 
   state = {
     value: '',
@@ -18,7 +15,7 @@ export class AddItem extends PureComponent {
   };
 
   _addItem = () => {
-    this.props.onChange(this.state.value);
+    this.props.dispatch(itemCreated(this.state.value));
     this.setState(() => ({ value: '' }));
   };
 
@@ -46,3 +43,5 @@ export class AddItem extends PureComponent {
     );
   }
 }
+
+export default connect()(AddItem);

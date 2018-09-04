@@ -1,10 +1,11 @@
+import { generateId } from '../utils/generateId';
 import {
   ITEM_CREATED,
   ITEM_EDITED,
   ITEM_DELETED
 } from './actionTypes';
 
-export function itemCreated(text, idGenerator) {
+export function itemCreated(text, idGenerator = generateId) {
   return {
     type: ITEM_CREATED,
     id: idGenerator(),

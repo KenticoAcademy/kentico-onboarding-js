@@ -10,7 +10,7 @@ import { getInitialItems } from '../utils/getInitialItems';
 //   items: OrderedMap({})
 // };
 
-export const initialState = { items: getInitialItems };
+export const initialState = { items: getInitialItems() };
 
 export const itemsReducer = (state = initialState, action) => {
   switch (action.type) {
