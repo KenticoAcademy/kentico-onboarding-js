@@ -13,10 +13,11 @@ export const itemsReducer = (state = initialState, action) => {
     case ITEM_CREATED:
       return (
         state
-          .set(action.payload.id, new ItemRecord({
-            id: action.payload.id,
-            text: action.payload.text,
-          }))
+          .set(action.payload.id,
+            new ItemRecord({
+              id: action.payload.id,
+              text: action.payload.text,
+            }))
       );
     case ITEM_EDITED:
       return (
