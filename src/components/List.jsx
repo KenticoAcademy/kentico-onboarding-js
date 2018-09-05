@@ -24,7 +24,9 @@ export class List extends PureComponent {
     });
 
     this.setState(prevState => ({
-      items: prevState.items.set(newItem.id, newItem),
+      items: prevState
+        .items
+        .set(newItem.id, newItem),
     }));
   };
 
