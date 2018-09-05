@@ -46,13 +46,17 @@ export class List extends PureComponent {
 
   _clickLabel = (itemId) => {
     this.setState(prevState => ({
-      items: prevState.items.setIn([itemId, 'isInEditMode'], true),
+      items: prevState
+        .items
+        .mergeIn([itemId], { isInEditMode: true }),
     }));
   };
 
   _cancelEdit = (itemId) => {
     this.setState(prevState => ({
-      items: prevState.items.setIn([itemId, 'isInEditMode'], false),
+      items: prevState
+        .items
+        .mergeIn([itemId], { isInEditMode: false }),
     }));
   };
 
