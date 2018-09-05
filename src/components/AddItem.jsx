@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
-import { itemCreated } from '../actions/actionCreators';
 
 class AddItem extends PureComponent {
   static displayName = 'AddItem';
@@ -15,7 +14,7 @@ class AddItem extends PureComponent {
   };
 
   _addItem = () => {
-    this.props.dispatch(itemCreated(this.state.value));
+    this.props.onChange(this.state.value);
     this.setState(() => ({ value: '' }));
   };
 
