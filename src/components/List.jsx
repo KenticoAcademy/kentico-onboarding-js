@@ -38,7 +38,9 @@ export class List extends PureComponent {
     };
 
     this.setState(prevState => ({
-      items: prevState.items.mergeIn([itemId], savedItem),
+      items: prevState
+        .items
+        .mergeIn([itemId], savedItem),
     }));
   };
 
@@ -55,25 +57,30 @@ export class List extends PureComponent {
   };
 
   _renderListItems = () =>
-    this.state.items.valueSeq().map((item, index) => (
-      <li
-        className="list-group-item"
-        key={item.id}
-      >
-        <Item
-          item={item}
-          index={index + 1}
-          onEdit={this._saveItem}
-          onDelete={this._deleteItem}
-          onClick={this._clickLabel}
-          onCancel={this._cancelEdit}
-        />
-      </li>)
-    );
+    this.state
+      .items
+      .valueSeq()
+      .map((item, index) => (
+        <li
+          className="list-group-item"
+          key={item.id}
+        >
+          <Item
+            item={item}
+            index={index + 1}
+            onEdit={this._saveItem}
+            onDelete={this._deleteItem}
+            onClick={this._clickLabel}
+            onCancel={this._cancelEdit}
+          />
+        </li>)
+      );
 
   _deleteItem = (deletedItemId) => {
     this.setState(prevState => ({
-      items: prevState.items.delete(deletedItemId)
+      items: prevState
+        .items
+        .delete(deletedItemId)
     }));
   };
 
