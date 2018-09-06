@@ -6,4 +6,4 @@ const defaultListItem = {
   isInEditMode: false
 };
 
-export const ListItem = new Record(defaultListItem);
+export const ListItem = new Record(defaultListItem, 'list item');
