@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export const StaticItem = ({ item, onClick, index }) => {
+export const StaticItem = ({ item, onStartEdit, index }) => {
   const _editItem = () => {
-    onClick(item.id);
+    onStartEdit(item.id);
   };
 
   return (
@@ -20,6 +20,6 @@ StaticItem.propTypes = {
     id: PropTypes.string.isRequired,
     text: PropTypes.string.isRequired
   }).isRequired,
-  onClick: PropTypes.func.isRequired,
+  onStartEdit: PropTypes.func.isRequired,
   index: PropTypes.number.isRequired
 };

@@ -74,7 +74,7 @@ export class List extends PureComponent {
             index={index + 1}
             onEdit={this._saveItem}
             onDelete={this._deleteItem}
-            onClick={this._setEdit}
+            onStartEdit={this._setEdit}
             onCancel={this._cancelEdit}
           />
         </li>)
