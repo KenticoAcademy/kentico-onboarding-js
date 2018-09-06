@@ -3,9 +3,7 @@ import { CREATE_ITEM, } from '../actions/actionTypes';
 import { ItemRecord } from '../models/ItemRecord';
 import { item } from './item';
 
-export const initialState = new OrderedMap();
-
-export const items = (state = initialState, action) => {
+export const items = (state = OrderedMap(), action) => {
   switch (action.type) {
     case CREATE_ITEM:
       return (
