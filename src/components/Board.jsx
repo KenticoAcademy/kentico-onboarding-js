@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
-import List from '../containers/List';
-import AddItem from '../containers/AddItem';
+import { List } from '../containers/List';
+import { AddItem } from '../containers/AddItem';
 
 export class Board extends PureComponent {
   static displayName = 'Board';
