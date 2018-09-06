@@ -4,9 +4,7 @@ import {
 } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { logger } from 'redux-logger';
-import reducer from '../reducers/listReducer';
-
-
+import { listReducer as reducer } from '../reducers/listReducer';
 import { getInitialItems } from './getInitialItems';
 
 export const initialItems = { items: getInitialItems() };

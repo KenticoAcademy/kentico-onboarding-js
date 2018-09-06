@@ -1,9 +1,9 @@
 import { connect } from 'react-redux';
-import { itemCreated } from '../actions/actionCreators';
+import { createItem } from '../actions/actionCreators';
 import { AddItem } from '../components/AddItem';
 
 const mapDispatchToProps = (dispatch) => ({
-  onChange: (text) => dispatch(itemCreated(text)),
+  onChange: (text) => dispatch(createItem(text)),
 });
 
 export default connect(

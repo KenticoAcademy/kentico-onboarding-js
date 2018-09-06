@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-import { itemsReducer as items } from './items';
+import { items } from './items';
 
-export default combineReducers({
+export const listReducer = combineReducers({
   items,
 });

@@ -1,28 +1,28 @@
 import { generateId } from '../utils/generateId';
 import {
-  ITEM_CREATED,
-  ITEM_EDITED,
-  ITEM_DELETED
+  CREATE_ITEM,
+  EDIT_ITEM,
+  DELETE_ITEM
 } from './actionTypes';
 
-export const itemCreated = (text) => ({
-  type: ITEM_CREATED,
+export const createItem = (text) => ({
+  type: CREATE_ITEM,
   payload: {
     id: generateId(),
     text,
   }
 });
 
-export const itemEdited = (id, text) => ({
-  type: ITEM_EDITED,
+export const editItem = (id, text) => ({
+  type: EDIT_ITEM,
   payload: {
     id,
     text,
   }
 });
 
-export const itemDeleted = (id) => ({
-  type: ITEM_DELETED,
+export const deleteItem = (id) => ({
+  type: DELETE_ITEM,
   payload: {
     id,
   }

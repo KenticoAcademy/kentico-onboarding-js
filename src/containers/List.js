@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import {
-  itemEdited,
-  itemDeleted
+  editItem,
+  deleteItem
 } from '../actions/actionCreators';
 import { itemsSelector } from '../selectors/itemsSelector';
 import { List } from '../components/List';
@@ -11,8 +11,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onSave: (id, text) => dispatch(itemEdited(id, text)),
-  onDelete: id => dispatch(itemDeleted(id)),
+  onSave: (id, text) => dispatch(editItem(id, text)),
+  onDelete: id => dispatch(deleteItem(id)),
 });
 
 export default connect(
