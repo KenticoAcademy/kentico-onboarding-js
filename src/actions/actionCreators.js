@@ -1,17 +1,11 @@
 import { generateId } from '../utils/generateId';
 import {
-  CREATE_ITEM,
   EDIT_ITEM,
   DELETE_ITEM
 } from './actionTypes';
+import { createItemFactory } from './actionCreatorsFactory';
 
-export const createItem = (text) => ({
-  type: CREATE_ITEM,
-  payload: {
-    id: generateId(),
-    text,
-  }
-});
+export const createItem = createItemFactory(generateId);
 
 export const editItem = (id, text) => ({
   type: EDIT_ITEM,

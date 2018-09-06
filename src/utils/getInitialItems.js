@@ -16,7 +16,7 @@ export const getInitialItems = () => {
     text: 'Elephant'
   });
 
-  return new OrderedMap({
+  return OrderedMap({
     [dog.id]: dog,
     [cat.id]: cat,
     [elephant.id]: elephant,

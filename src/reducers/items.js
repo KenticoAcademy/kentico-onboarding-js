@@ -1,14 +1,9 @@
 import { OrderedMap } from 'immutable';
-import {
-  CREATE_ITEM,
-  EDIT_ITEM,
-  DELETE_ITEM,
-} from '../actions/actionTypes';
+import { CREATE_ITEM, } from '../actions/actionTypes';
 import { ItemRecord } from '../models/ItemRecord';
+import { item } from './item';
 
-export const initialState = new OrderedMap({});
-
-export const items = (state = initialState, action) => {
+export const items = (state = OrderedMap(), action) => {
   switch (action.type) {
     case CREATE_ITEM:
       return (
@@ -19,17 +14,8 @@ export const items = (state = initialState, action) => {
               text: action.payload.text,
             }))
       );
-    case EDIT_ITEM:
-      return (
-        state
-          .setIn([action.payload.id, 'text'], action.payload.text)
-      );
-    case DELETE_ITEM:
-      return (
-        state
-          .filter(item => item.id !== action.payload.id)
-      );
+
     default:
-      return state;
+      return item(state, action);
   }
 };
