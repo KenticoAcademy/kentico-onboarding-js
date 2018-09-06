@@ -98,8 +98,10 @@ Install [ImmutableJS](http://facebook.github.io/immutable-js) to your project: `
 
 Refactor your application; make sure that all data required for the application (apart from reasonable exceptions, e.g. current text of input fields) is stored as an `Immutable.OrderedMap` of `Immutable.Record`s within the top level component (e.g. `List.jsx`). Use IDs of the items as keys for the Map.
 
+*Useful plugin to Chrome which makes Immutable JS objects more readable when they are logged to the console: [Immutable.js Object Formatter](https://chrome.google.com/webstore/detail/immutablejs-object-format/hgldghadipiblonfkkicmgcbbijnpeog)*
+
 ## Task 3 (redux)
-**Prerequisite:** Go through Flux & Redux section on [wiki](https://kentico.atlassian.net/wiki/display/KA/04+-+JS-related+tutorials).
+**Prerequisite:** Go through Flux & Redux section on [wiki](https://kentico.atlassian.net/wiki/spaces/KA/pages/199525328/05+-+JS-related+tutorials).
 
 Install [ReduxJS](http://redux.js.org/), [react-redux](http://redux.js.org/docs/basics/UsageWithReact.html) and [redux-logger](https://github.com/evgenyrodionov/redux-logger) to your project: 
 ```
@@ -108,25 +110,25 @@ npm install --no-optional --save react-redux
 npm install --no-optional --save redux-logger
 ```
 Refactor the application to use ReduxJS. 
- - Create **`actionTypes.js`** where you describe all possible actions (as string constants) that can modify state of the app (e.g: "ITEM_CREATED").
+ - Create **`actionTypes.js`** where you describe all possible actions (as string constants) that can modify state of the app (e.g: "CREATE_ITEM").
  - Create **action creators** (helper functions) for all the action types you defined.
  - Move all the state of top level component (`List.jsx`) to Redux store (state in Redux is described by reducers; use reducer composition if possible).
    - Write jest **unit tests** for your Redux logic (used TDD to write tests for actionCreators and reducers together).
    - Implement **reducers** that react to dispatched actions and change the state accordingly.
- - In index.js:
+ - In `index.js`:
    - Create instance of Redux store, pass root reducer and use logging middleware.
    - Wrap the instance of App.jsx in `<Provider>` component so that all the components can access global store (via `connect()` function).
  - Refactor `List.jsx` so that it receives the app state from Redux store as its props and passes it down to its child components. (`connect()` + `mapStateToProps()`)
    - Keep in mind how react-redux works and prevent any unnecessary re-renders – memoization packages like [memoizee](https://www.npmjs.com/package/memoizee) will help you out
  - Child components should dispatch actions that describe changes of the application. (`connect()` + `mapDispatchToProps()`)
- - Install [Redux extension](https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd) to your browser, so you can see application's store in real life with all dispatched actions
+ - Install [Redux extension](https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd) to your browser + [Redux DevTools Extension's helper](https://www.npmjs.com/package/redux-devtools-extension) to your project, so you can see application's store in real life with all dispatched actions
     - You can watch dispatched action both in redux-logger and this extension, what suites you better?
 
 **IMPORTANT:** preserve Immutability in store state!
 (No view model you will need has to be instances of Immutable, feel free to just use [POJO](https://en.wikipedia.org/wiki/Plain_old_Java_object).)
 
 ## Task 4 (TypeScript)
-In this task you will use TypeScript to make you app strongly typed. Mainly introduce interfaces for all Models and ViewModels in your app. Use them in reducers. Create a simple interface for action with payload of type `any` and use it for all actions. Rewrite all components, and redux stuff to TypeScript - have a look at coding conventions in [our wiki](https://kentico.atlassian.net/wiki/x/X6_fD) again to get an idea how to start. Do not forget to rewrite tests as well.
+In this task you will use [TypeScript](https://www.typescriptlang.org) to make you app strongly typed. Mainly introduce interfaces for all Models and ViewModels in your app. Use them in reducers. Create a simple interface for action with payload of type `any` and use it for all actions. Rewrite all components, and redux stuff to TypeScript - have a look at coding conventions in [our wiki](https://kentico.atlassian.net/wiki/x/X6_fD) again to get an idea how to start. Do not forget to rewrite tests as well.
 
 **IMPORTANT:**
 - Make sure you install type definitions for all 3rd party libraries you are already using in your app (e.g. redux, react-redux, immutable, memoizee... – unless their types are already included in their pacakge). To do that, run command line this for each library with missing type definitions:
@@ -134,8 +136,8 @@ In this task you will use TypeScript to make you app strongly typed. Mainly intr
 	npm install --no-optional --save-dev @types/redux-logger
 	```
 	Read about how it works here: https://github.com/DefinitelyTyped/DefinitelyTyped
+- You need to change types of all your files from `.js` to `.ts` (or from `.jsx` to `.tsx`) and after changing the type you must restart the `npm`. Firstly change the type, commit the file and then continue with changes (due to good git history/diff).
 - When you change type of index.jsx to TS, make sure to also change the entry point in webpack.common.js
-
 
 
 ## Task 5 (connecting)
