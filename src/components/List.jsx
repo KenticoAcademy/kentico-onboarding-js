@@ -44,7 +44,7 @@ export class List extends PureComponent {
     }));
   };
 
-  _clickLabel = (itemId) => {
+  _setEdit = (itemId) => {
     this.setState(prevState => ({
       items: prevState
         .items
@@ -74,7 +74,7 @@ export class List extends PureComponent {
             index={index + 1}
             onEdit={this._saveItem}
             onDelete={this._deleteItem}
-            onClick={this._clickLabel}
+            onClick={this._setEdit}
             onCancel={this._cancelEdit}
           />
         </li>)
