@@ -5,10 +5,10 @@ import { Item } from './Item';
 
 export const List = ({ items }) => (
   items
-    .map((item, index) => (
+    .map((id, index) => (
       <Item
-        key={item.id}
-        item={item}
+        key={id}
+        id={id}
         position={index + 1}
       />
     ))

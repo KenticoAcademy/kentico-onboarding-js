@@ -1,12 +1,12 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { ItemRecord } from '../models/ItemRecord';
 
 export class EditItem extends PureComponent {
   static displayName = 'EditItem';
 
   static propTypes = {
-    item: PropTypes.instanceOf(ItemRecord).isRequired,
+    id: PropTypes.string.isRequired,
+    text: PropTypes.string.isRequired,
     position: PropTypes.number.isRequired,
     finishEdit: PropTypes.func.isRequired,
     onSave: PropTypes.func.isRequired,
@@ -14,7 +14,7 @@ export class EditItem extends PureComponent {
   };
 
   state = {
-    text: this.props.item.text,
+    text: this.props.text,
   };
 
   _textEdit = event => {

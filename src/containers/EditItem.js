@@ -5,12 +5,16 @@ import {
 } from '../actions/actionCreators';
 import { EditItem as EditItemComponent } from '../components/EditItem';
 
-const mapDispatchToProps = (dispatch, { item }) => ({
-  onSave: (text) => dispatch(editItem(item.id, text)),
-  onDelete: () => dispatch(deleteItem(item.id)),
+const mapStateToProps = (state, { id }) => ({
+  text: state.items.get(id).text
+});
+
+const mapDispatchToProps = (dispatch, { id }) => ({
+  onSave: (text) => dispatch(editItem(id, text)),
+  onDelete: () => dispatch(deleteItem(id)),
 });
 
 export const EditItem = connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(EditItemComponent);

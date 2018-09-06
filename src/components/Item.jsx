@@ -1,14 +1,13 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { EditItem } from '../containers/EditItem';
-import { ShowItem } from './ShowItem';
-import { ItemRecord } from '../models/ItemRecord';
+import { ShowItem } from '../containers/ShowItem';
 
 export class Item extends PureComponent {
   static displayName = 'Item';
 
   static propTypes = {
-    item: PropTypes.instanceOf(ItemRecord).isRequired,
+    id: PropTypes.string.isRequired,
     position: PropTypes.number.isRequired,
   };
 
@@ -28,14 +27,14 @@ export class Item extends PureComponent {
         {this.state.edit
           ? (
             <EditItem
-              item={this.props.item}
+              id={this.props.id}
               position={this.props.position}
               finishEdit={this._finishEditItem}
             />)
           : (
             <ShowItem
               position={this.props.position}
-              text={this.props.item.text}
+              id={this.props.id}
               onEditStart={this._startEditItem}
             />)
         }

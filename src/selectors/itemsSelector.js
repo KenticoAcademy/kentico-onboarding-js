@@ -1,5 +1,3 @@
 import * as memoize from 'memoizee';
 
-const itemsSeq = (itemsValueSeq) => itemsValueSeq;
-
-export const itemsSelector = memoize(itemsSeq);
+export const itemsSelector = memoize(items => items, { primitive: true });
