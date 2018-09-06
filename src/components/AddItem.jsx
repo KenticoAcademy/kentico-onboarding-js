@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react';
-import { connect } from 'react-redux';
 
-class AddItem extends PureComponent {
+export class AddItem extends PureComponent {
   static displayName = 'AddItem';
 
   state = {
@@ -42,5 +41,3 @@ class AddItem extends PureComponent {
     );
   }
 }
-
-export default connect()(AddItem);

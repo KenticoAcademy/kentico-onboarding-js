@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
-import ItemsList from '../containers/ItemsList';
-import ItemAdd from '../containers/ItemAdd';
+import List from '../containers/List';
+import AddItem from '../containers/AddItem';
 
 export class Board extends PureComponent {
   static displayName = 'Board';
@@ -9,9 +9,9 @@ export class Board extends PureComponent {
     return (
       <div>
         <ul className="list-group">
-          <ItemsList />
+          <List />
           <li className="list-group-item">
-            <ItemAdd />
+            <AddItem />
           </li>
         </ul>
       </div>
