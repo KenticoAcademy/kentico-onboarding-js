@@ -1,5 +1,5 @@
 import { OrderedMap } from 'immutable';
-import { Item } from '../../models/ItemRecord';
+import { Item } from '../../models/Item';
 import { Action } from '../../actions/actionInterface';
 import {
   CREATE_ITEM,
