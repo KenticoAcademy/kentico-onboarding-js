@@ -3,7 +3,7 @@ import {
   CREATE_ITEM,
   DELETE_ITEM,
   EDIT_ITEM,
-} from '../actions/actionTypes';
+} from '../../actions/actionTypes';
 import { item } from './item';
 
 export const items = (state = OrderedMap(), action) => {
