@@ -4,4 +4,4 @@ const defaultItemRecord = {
   id: 0, text: '',
 };
 
-export const ItemRecord = Record(defaultItemRecord, 'ItemRecord');
+export const Item = Record(defaultItemRecord, 'ItemRecord');

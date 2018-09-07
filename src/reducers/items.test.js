@@ -4,24 +4,24 @@ import {
   deleteItem,
   editItem
 } from '../actions/actionCreators';
-import { ItemRecord } from '../models/ItemRecord';
+import { Item } from '../models/Item';
 import { createItemFactory } from '../actions/actionCreatorsFactory';
 
 const idGenerator1 = () => 1;
 const idGenerator2 = () => 2;
 
 describe('items', () => {
-  const dog = new ItemRecord({
+  const dog = new Item({
     id: idGenerator1(),
     text: 'Dog'
   });
 
-  const cat = new ItemRecord({
+  const cat = new Item({
     id: idGenerator2(),
     text: 'Cat'
   });
 
-  const doga = new ItemRecord({
+  const doga = new Item({
     id: idGenerator1(),
     text: 'Doga'
   });
@@ -57,7 +57,7 @@ describe('items', () => {
     expect(state).toEqual(expectedState);
   });
 
-  it('should edit the text in the record Dog on ITEM_EDIT action', () => {
+  it('should isEdited the text in the record Dog on ITEM_EDIT action', () => {
     const action = editItem(dog.id, 'Doga');
     const expectedState = OrderedMap([[doga.id, doga]]);
 

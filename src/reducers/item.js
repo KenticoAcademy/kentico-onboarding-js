@@ -2,14 +2,14 @@ import {
   CREATE_ITEM,
   EDIT_ITEM,
 } from '../actions/actionTypes';
-import { ItemRecord } from '../models/ItemRecord';
+import { Item } from '../models/Item';
 
-export const item = (state = new ItemRecord(), action) => {
+export const item = (state = new Item(), action) => {
   switch (action.type) {
     case CREATE_ITEM:
     case EDIT_ITEM:
       return (
-        new ItemRecord({
+        new Item({
           id: action.payload.id,
           text: action.payload.text,
         })

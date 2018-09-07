@@ -1,17 +1,17 @@
 import { OrderedMap } from 'immutable';
-import { ItemRecord } from '../models/ItemRecord';
+import { Item } from '../models/Item';
 import { generateId } from './generateId';
 
 export const getInitialItems = () => {
-  const dog = new ItemRecord({
+  const dog = new Item({
     id: generateId(),
     text: 'Dog'
   });
-  const cat = new ItemRecord({
+  const cat = new Item({
     id: generateId(),
     text: 'Cat'
   });
-  const elephant = new ItemRecord({
+  const elephant = new Item({
     id: generateId(),
     text: 'Elephant'
   });
