@@ -5,15 +5,15 @@ import { generateId } from './generateId';
 export const getInitialItems = () => {
   const dog = new Item({
     id: generateId(),
-    text: 'Dog'
+    text: 'Dog',
   });
   const cat = new Item({
     id: generateId(),
-    text: 'Cat'
+    text: 'Cat',
   });
   const elephant = new Item({
     id: generateId(),
-    text: 'Elephant'
+    text: 'Elephant',
   });
 
   return OrderedMap({

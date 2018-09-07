@@ -13,6 +13,6 @@ export const store = createStore(
   reducer,
   initialItems,
   composeWithDevTools(
-    applyMiddleware(logger)
+    applyMiddleware(logger),
   ),
 );

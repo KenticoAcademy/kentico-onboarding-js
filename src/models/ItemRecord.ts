@@ -1,7 +1,11 @@
 import { Record } from 'immutable';
 
-const defaultItemRecord = {
-  id: 0, text: '',
-};
+export interface ItemRecordInterface {
+  id: string;
+  text: string;
+}
+export class ItemRecord extends Record({id: '0', text: ''}) {
+  id: string;
+  text: string;
+}
 
-export const ItemRecord = Record(defaultItemRecord, 'ItemRecord');

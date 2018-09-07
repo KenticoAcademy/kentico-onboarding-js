@@ -1,9 +1,12 @@
+import { OrderedMap } from 'immutable';
+import { ItemRecordInterface } from '../models/ItemRecord';
+import { Action } from '../actions/actionInterface';
 import {
-  DELETE_ITEM,
-  EDIT_ITEM
+DELETE_ITEM,
+EDIT_ITEM,
 } from '../actions/actionTypes';
 
-export const item = (state, action) => {
+export const item = (state = OrderedMap<string, ItemRecordInterface>(), action: Action) => {
   switch (action.type) {
     case EDIT_ITEM:
       return (
@@ -14,7 +17,7 @@ export const item = (state, action) => {
     case DELETE_ITEM:
       return (
         state
-          .filter(actualItem => actualItem.id !== action.payload.id)
+          .delete(action.payload.id)
       );
 
     default:
