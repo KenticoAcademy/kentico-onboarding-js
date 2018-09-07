@@ -1,5 +1,5 @@
 import { OrderedMap } from 'immutable';
-import { Item } from '../models/Item';
+import { Item } from '../models/ItemRecord';
 import { generateId } from './generateId';
 
 export const getInitialItems = () => {

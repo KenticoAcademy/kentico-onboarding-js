@@ -2,34 +2,39 @@ import { OrderedMap } from 'immutable';
 import { items } from './items';
 import {
   deleteItem,
-  editItem
+  editItem,
 } from '../../actions/actionCreators';
 import { Item } from '../../models/ItemRecord';
 import { createItemFactory } from '../../actions/actionCreatorsFactory';
 
-const idGenerator1 = () => 1;
-const idGenerator2 = () => 2;
+const idGenerator1 = () => '1';
+const idGenerator2 = () => '2';
 
 describe('items', () => {
   const dog = new Item({
     id: idGenerator1(),
-    text: 'Dog'
+    text: 'Dog',
   });
 
   const cat = new Item({
     id: idGenerator2(),
-    text: 'Cat'
+    text: 'Cat',
   });
 
   const doga = new Item({
     id: idGenerator1(),
-    text: 'Doga'
+    text: 'Doga',
   });
 
-  const defaultState = OrderedMap([[dog.id, dog]]);
+  const defaultState = OrderedMap<string, Item>([[dog.id, dog]]);
+
+  const unknownAction = {
+    type: 'UNKNOWN_ACTION',
+    payload: 'any',
+  };
 
   it('should return initial state when the input state in undefined', () => {
-    const state = items(undefined, {});
+    const state = items(undefined, unknownAction);
     const expectedState = OrderedMap();
 
     expect(state).toEqual(expectedState);
@@ -67,9 +72,6 @@ describe('items', () => {
   });
 
   it('should return previous state on UNKNOWN_ACTION action', () => {
-    const unknownAction = {
-      type: 'UNKNOWN_ACTION'
-    };
     const expectedState = defaultState;
 
     const state = items(defaultState, unknownAction);
