@@ -1,8 +1,10 @@
 import React, { PureComponent } from 'react';
+import { OrderedMap } from 'immutable';
 import { TsComponent } from './TsComponent.tsx';
 import { NewItem } from './NewItem';
 import { Item } from './Item';
 import { generateId } from '../utils/idGenerator';
+import { ListItem } from '../models/ListItem';
 
 export class List extends PureComponent {
   static displayName = 'List';
@@ -10,74 +12,79 @@ export class List extends PureComponent {
   constructor() {
     super();
     this.state = {
-      items: []
+      items: OrderedMap()
     };
   }
 
   _addItem = itemText => {
-    const newItem = {
+    const newItem = new ListItem({
       id: generateId(),
       text: itemText,
       isInEditMode: false,
-    };
+    });
 
     this.setState(prevState => ({
-      items: [
-        ...prevState.items,
-        newItem,
-      ]
+      items: prevState
+        .items
+        .set(newItem.id, newItem),
     }));
   };
 
   _saveItem = (itemId, itemText) => {
+    const savedItem = {
+      id: itemId,
+      text: itemText,
+      isInEditMode: false
+    };
+
     this.setState(prevState => ({
-      items: prevState.items.map(item => (item.id !== itemId ? item : {
-        ...item,
-        text: itemText,
-        isInEditMode: false
-      }))
+      items: prevState
+        .items
+        .mergeIn([itemId], savedItem),
     }));
   };
 
-  _clickLabel = (itemId) => {
+  _setEdit = (itemId) => {
     this.setState(prevState => ({
-      items: prevState.items.map(item => (item.id !== itemId ? item : {
-        ...item,
-        isInEditMode: true
-      }))
+      items: prevState
+        .items
+        .mergeIn([itemId], { isInEditMode: true }),
     }));
   };
 
   _cancelEdit = (itemId) => {
     this.setState(prevState => ({
-      items: prevState.items.map(item => (item.id !== itemId ? item : {
-        ...item,
-        isInEditMode: false
-      }))
+      items: prevState
+        .items
+        .mergeIn([itemId], { isInEditMode: false }),
     }));
   };
 
   _renderListItems = () =>
-    this.state.items.map((item, index) => (
-      <li
-        className="list-group-item"
-        key={item.id}
-      >
-        <Item
-          item={item}
-          index={index + 1}
-          onEdit={this._saveItem}
-          onDelete={this._deleteItem}
-          onClick={this._clickLabel}
-          onCancel={this._cancelEdit}
-        />
-      </li>)
-    );
+    this.state
+      .items
+      .valueSeq()
+      .map((item, index) => (
+        <li
+          className="list-group-item"
+          key={item.id}
+        >
+          <Item
+            item={item}
+            index={index + 1}
+            onEdit={this._saveItem}
+            onDelete={this._deleteItem}
+            onStartEdit={this._setEdit}
+            onCancel={this._cancelEdit}
+          />
+        </li>)
+      );
 
   _deleteItem = (deletedItemId) => {
-    this.setState((prevState) => ({
-      items: prevState.items
-        .filter(item => item.id !== deletedItemId)
+    this.setState(prevState => ({
+      items: prevState
+        .items
+        .delete(deletedItemId)
     }));
   };
 
