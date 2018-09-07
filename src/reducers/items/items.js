@@ -11,8 +11,8 @@ export const items = (state = OrderedMap(), action) => {
     case CREATE_ITEM:
     case EDIT_ITEM:
       return (
-        state.update(action.payload.id,
-          () => (item(state, action)))
+        state.set(action.payload.id,
+          item(state, action))
       );
 
     case DELETE_ITEM:
