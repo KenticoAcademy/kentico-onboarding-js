@@ -2,7 +2,7 @@ import { OrderedMap } from 'immutable';
 import {
   initialState,
   itemsReducer,
-} from './itemsReducer';
+} from './items';
 import {
   itemCreated,
   itemDeleted,
