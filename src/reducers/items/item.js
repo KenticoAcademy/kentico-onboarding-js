@@ -2,7 +2,7 @@ import {
   CREATE_ITEM,
   EDIT_ITEM,
 } from '../../actions/actionTypes';
-import { Item } from '../../models/Item';
+import { Item } from '../../models/ItemRecord';
 
 export const item = (state = new Item(), action) => {
   switch (action.type) {

@@ -4,7 +4,7 @@ import {
   deleteItem,
   editItem
 } from '../../actions/actionCreators';
-import { Item } from '../../models/Item';
+import { Item } from '../../models/ItemRecord';
 import { createItemFactory } from '../../actions/actionCreatorsFactory';
 
 const idGenerator1 = () => 1;
