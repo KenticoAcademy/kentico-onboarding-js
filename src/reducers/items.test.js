@@ -26,11 +26,12 @@ describe('items', () => {
     text: 'Doga'
   });
 
+  const defaultState = OrderedMap([[dog.id, dog]]);
+
   it('should return initial state when the input state in undefined', () => {
     const state = items(undefined, {});
     const expectedState = OrderedMap();
 
-    expect(state.size).toEqual(0);
     expect(state).toEqual(expectedState);
   });
 
@@ -38,10 +39,9 @@ describe('items', () => {
     const name = 'Dog';
     const createItem = createItemFactory(idGenerator1);
     const action = createItem(name);
-    let state = OrderedMap();
     const expectedState = OrderedMap([[dog.id, dog]]);
 
-    state = items(state, action);
+    const state = items(OrderedMap(), action);
 
     expect(state).toEqual(expectedState);
   });
@@ -50,20 +50,18 @@ describe('items', () => {
     const name = 'Cat';
     const createItem = createItemFactory(idGenerator2);
     const action = createItem(name);
-    let state = OrderedMap([[dog.id, dog]]);
-    const expectedState = state.set(cat.id, cat);
+    const expectedState = defaultState.set(cat.id, cat);
 
-    state = items(state, action);
+    const state = items(defaultState, action);
 
     expect(state).toEqual(expectedState);
   });
 
   it('should edit the text in the record Dog on ITEM_EDIT action', () => {
     const action = editItem(dog.id, 'Doga');
-    let state = OrderedMap([[dog.id, dog]]);
     const expectedState = OrderedMap([[doga.id, doga]]);
 
-    state = items(state, action);
+    const state = items(defaultState, action);
 
     expect(state).toEqual(expectedState);
   });
@@ -72,20 +70,18 @@ describe('items', () => {
     const unknownAction = {
       type: 'UNKNOWN_ACTION'
     };
-    let state = OrderedMap([[dog.id, dog]]);
-    const expectedState = state;
+    const expectedState = defaultState;
 
-    state = items(state, unknownAction);
+    const state = items(defaultState, unknownAction);
 
     expect(state).toEqual(expectedState);
   });
 
   it('should delete the record Dog on DELETE_ITEM action', () => {
     const action = deleteItem(dog.id);
-    let state = OrderedMap([[dog.id, dog]]);
     const expectedState = OrderedMap();
 
-    state = items(state, action);
+    const state = items(defaultState, action);
 
     expect(state).toEqual(expectedState);
   });
