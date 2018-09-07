@@ -12,19 +12,19 @@ export class Item extends PureComponent {
   };
 
   state = {
-    edit: false,
+    isEdited: false,
   };
 
-  _startEditItem = () => this.setState(() => ({ edit: true }));
+  _startEditItem = () => this.setState(() => ({ isEdited: true }));
 
-  _finishEditItem = () => this.setState(() => ({ edit: false }));
+  _finishEditItem = () => this.setState(() => ({ isEdited: false }));
 
   render() {
     return (
       <li
         className="list-group-item"
       >
-        {this.state.edit
+        {this.state.isEdited
           ? (
             <EditItem
               id={this.props.id}

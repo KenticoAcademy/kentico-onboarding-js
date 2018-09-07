@@ -4,17 +4,17 @@ export class AddItem extends PureComponent {
   static displayName = 'AddItem';
 
   state = {
-    value: '',
+    inputText: '',
   };
 
   _updateValue = event => {
     const eventTargetValue = event.target.value;
-    this.setState(() => ({ value: eventTargetValue }));
+    this.setState(() => ({ inputText: eventTargetValue }));
   };
 
   _addItem = () => {
-    this.props.onChange(this.state.value);
-    this.setState(() => ({ value: '' }));
+    this.props.onChange(this.state.inputText);
+    this.setState(() => ({ inputText: '' }));
   };
 
   render() {
@@ -25,14 +25,14 @@ export class AddItem extends PureComponent {
             type="text"
             className="form-control"
             id="text"
-            value={this.state.value}
+            value={this.state.inputText}
             onChange={this._updateValue}
           />
           <button
             type="button"
             className="btn btn-default"
             onClick={this._addItem}
-            disabled={!this.state.value}
+            disabled={!this.state.inputText}
           >
             Add
           </button>
