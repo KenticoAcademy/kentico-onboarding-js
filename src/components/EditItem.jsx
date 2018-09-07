@@ -5,7 +5,6 @@ export class EditItem extends PureComponent {
   static displayName = 'EditItem';
 
   static propTypes = {
-    id: PropTypes.string.isRequired,
     text: PropTypes.string.isRequired,
     position: PropTypes.number.isRequired,
     finishEdit: PropTypes.func.isRequired,
