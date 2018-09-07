@@ -1,20 +1,18 @@
 import {
-  DELETE_ITEM,
-  EDIT_ITEM
+  CREATE_ITEM,
+  EDIT_ITEM,
 } from '../actions/actionTypes';
+import { ItemRecord } from '../models/ItemRecord';
 
-export const item = (state, action) => {
+export const item = (state = new ItemRecord(), action) => {
   switch (action.type) {
+    case CREATE_ITEM:
     case EDIT_ITEM:
       return (
-        state
-          .setIn([action.payload.id, 'text'], action.payload.text)
-      );
-
-    case DELETE_ITEM:
-      return (
-        state
-          .filter(actualItem => actualItem.id !== action.payload.id)
+        new ItemRecord({
+          id: action.payload.id,
+          text: action.payload.text,
+        })
       );
 
     default:
