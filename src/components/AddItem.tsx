@@ -1,14 +1,27 @@
-import React, { PureComponent } from 'react';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
+import { PureComponent } from 'react';
 
-export class AddItem extends PureComponent {
+export interface Props {
+  onChange: (input: string) => void;
+}
+
+interface State {
+  inputText: string;
+}
+export class AddItem extends PureComponent<Props, State> {
   static displayName = 'AddItem';
+
+  static propTypes = {
+    onChange: PropTypes.func.isRequired,
+  };
 
   state = {
     inputText: '',
   };
 
-  _updateValue = event => {
-    const eventTargetValue = event.target.value;
+  _updateValue = (event: React.FormEvent<HTMLInputElement>) => {
+    const eventTargetValue = event.currentTarget.value;
     this.setState(() => ({ inputText: eventTargetValue }));
   };
 
