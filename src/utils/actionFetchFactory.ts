@@ -6,7 +6,7 @@ import {
   getFetch,
   postFetch,
   putFetch
-} from '../actions/applyActionFetch';
+} from '../actions/actionFetch';
 
 const actionFetchFactory = (method: string): (id?: ItemId, text?: string) => Promise<Response> => {
   const apiUrl: RequestInfo = getApiUrl();

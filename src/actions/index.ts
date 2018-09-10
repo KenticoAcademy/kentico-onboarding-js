@@ -1,5 +1,5 @@
 import { generateId } from '../utils/generateId';
-import { applyActionFetch } from './applyActionFetch';
+import { actionFetchFactory } from '../utils/actionFetchFactory';
 import { uploadItem } from './thunkActions/uploadItem';
 import { fetchItems } from './thunkActions/fetchItems';
 import { updateItem } from './thunkActions/updateItem';
@@ -7,17 +7,17 @@ import { removeItem } from './thunkActions/removeItem';
 import { ItemId } from '../models/ItemId';
 import { requestMethodTypes } from '../constants/requestMethodTypes';
 
-const uploadItemInjected = uploadItem(applyActionFetch(requestMethodTypes.POST), generateId);
+const uploadItemInjected = uploadItem(actionFetchFactory(requestMethodTypes.POST), generateId);
 export { uploadItemInjected as uploadItem };
 
-const uploadItemAgainInjected = (id: ItemId) => uploadItem(applyActionFetch(requestMethodTypes.POST), () => id);
+const uploadItemAgainInjected = (id: ItemId) => uploadItem(actionFetchFactory(requestMethodTypes.POST), () => id);
 export { uploadItemAgainInjected as uploadItemAgain };
 
-const fetchItemsInjected = fetchItems(applyActionFetch(requestMethodTypes.GET));
+const fetchItemsInjected = fetchItems(actionFetchFactory(requestMethodTypes.GET));
 export { fetchItemsInjected as fetchItems };
 
-const updateItemInjected = updateItem(applyActionFetch(requestMethodTypes.PUT));
+const updateItemInjected = updateItem(actionFetchFactory(requestMethodTypes.PUT));
 export { updateItemInjected as updateItem };
 
-const removeItemInjected = removeItem(applyActionFetch(requestMethodTypes.DELETE));
+const removeItemInjected = removeItem(actionFetchFactory(requestMethodTypes.DELETE));
 export { removeItemInjected as removeItem };
