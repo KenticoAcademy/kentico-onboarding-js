@@ -17,14 +17,14 @@ export const receiveItems = (items: Array<Item>) => ({
 
 export const fetchItems = (fetch: () => Promise<Response>) =>
   (dispatch: Dispatch<IAction>) =>
-    (): Promise<IAction> => {
-      dispatch(requestItems());
-      return fetch()
-        .then(response => response.json())
-        .then(items => dispatch(receiveItems(items)))
-        .catch(() => dispatch(requestFailed('Failed to fetch.')));
+    async (): Promise<IAction> => {
+      try {
+        dispatch(requestItems());
+        const items = await (await fetch()).json();
+        return dispatch(receiveItems(items));
+      } catch {
+        return dispatch(requestFailed('Failed to fetch.'));
+      }
     };
-
-
 
 
