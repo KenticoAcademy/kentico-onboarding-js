@@ -12,7 +12,7 @@ const applyGetFetch = (apiUrl: RequestInfo) => (): Promise<Response> =>
     method: requestMethodTypes.GET,
     mode: 'cors', redirect: 'follow',
     headers: HEADERS
-  }).then(response => response.status >= 400 ? this.reject() : response);
+  });
 
 const applyPostFetch = (apiUrl: RequestInfo) => (text: string): Promise<Response> =>
   fetch(apiUrl, {
@@ -21,7 +21,7 @@ const applyPostFetch = (apiUrl: RequestInfo) => (text: string): Promise<Response
     body: JSON.stringify({
       'Text': text
     })
-  }).then(response => response.status >= 400 ? this.reject() : response);
+  });
 
 const applyPutFetch = (apiUrl: RequestInfo) => (id: ItemId, text: string): Promise<Response> =>
   fetch(`${apiUrl}/${id}`, {
@@ -31,13 +31,13 @@ const applyPutFetch = (apiUrl: RequestInfo) => (id: ItemId, text: string): Promi
       'Id': id,
       'Text': text
     })
-  }).then(response => response.status >= 400 ? this.reject() : response);
+  });
 
 const applyDeleteFetch = (apiUrl: RequestInfo) => (id: ItemId): Promise<Response> =>
   fetch(`${apiUrl}/${id}`, {
     method: requestMethodTypes.DELETE,
     headers: HEADERS,
-  }).then(response => response.status >= 400 ? this.reject() : response);
+  });
 
 const applyActionFetch = (method: string): (id?: ItemId, text?: string) => Promise<Response> => {
   const apiUrl: RequestInfo = getApiUrl();
