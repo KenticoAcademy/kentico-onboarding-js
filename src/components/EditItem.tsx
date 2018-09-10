@@ -2,23 +2,30 @@ import * as React from 'react';
 import { PureComponent } from 'react';
 import * as PropTypes from 'prop-types';
 
-interface IEditItemProps {
-  position: number;
-  text: string;
-  onSave: (text: string) => void;
-  onDelete: () => void;
-  finishEdit: () => void;
+export interface IEditItemProps {
+  readonly id: string;
+  readonly position: number;
+  readonly finishEdit: () => void;
 }
 
-export class EditItem extends PureComponent<IEditItemProps> {
+export interface IEditItemStateProps {
+  readonly text: string;
+}
+
+export interface IEditItemDispatchProps {
+  readonly onSave: (text: string) => void;
+  readonly onDelete: () => void;
+}
+
+export interface IEditItem extends IEditItemProps, IEditItemStateProps, IEditItemDispatchProps {}
+
+export class EditItem extends PureComponent<IEditItem> {
   static displayName = 'EditItem';
 
   static propTypes = {
-    text: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
     position: PropTypes.number.isRequired,
     finishEdit: PropTypes.func.isRequired,
-    onSave: PropTypes.func.isRequired,
-    onDelete: PropTypes.func.isRequired,
   };
 
   state = {
@@ -37,7 +44,7 @@ export class EditItem extends PureComponent<IEditItemProps> {
 
   _deleteItem = () => this.props.onDelete();
 
-  render() {
+  render(): JSX.Element {
     return (
       <form className="form-inline">
         <div className="form-group">

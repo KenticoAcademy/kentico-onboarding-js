@@ -3,11 +3,11 @@ import * as PropTypes from 'prop-types';
 import { PureComponent } from 'react';
 
 export interface IAddItemProps {
-  onChange: (input: string) => void;
+  readonly onChange: (input: string) => void;
 }
 
 interface IAddItemState {
-  inputText: string;
+  readonly inputText: string;
 }
 
 export class AddItem extends PureComponent<IAddItemProps, IAddItemState> {
@@ -31,7 +31,7 @@ export class AddItem extends PureComponent<IAddItemProps, IAddItemState> {
     this.setState(() => ({ inputText: '' }));
   };
 
-  render() {
+  render(): JSX.Element {
     return (
       <form className="form-inline">
         <div className="form-group">

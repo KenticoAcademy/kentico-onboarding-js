@@ -5,8 +5,8 @@ import { EditItem } from '../containers/EditItem';
 import { ShowItem } from '../containers/ShowItem';
 
 interface IItemProps {
-  id: string;
-  position: number;
+  readonly id: GUID;
+  readonly position: number;
 }
 
 export class Item extends PureComponent<IItemProps> {
@@ -25,7 +25,7 @@ export class Item extends PureComponent<IItemProps> {
 
   _finishEditItem = () => this.setState(() => ({ isEdited: false }));
 
-  renderStateIsEdited() {
+  _renderStateIsEdited(): JSX.Element {
     return this.state.isEdited
       ? (
         <EditItem
@@ -41,12 +41,12 @@ export class Item extends PureComponent<IItemProps> {
         />);
   }
 
-  render() {
+  render(): JSX.Element {
     return (
       <li
         className="list-group-item"
       >
-        {this.renderStateIsEdited()}
+        {this._renderStateIsEdited()}
       </li>
     );
   }
