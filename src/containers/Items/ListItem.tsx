@@ -3,17 +3,17 @@ import { ComponentClass } from 'react';
 import {
   IListItemDataProps,
   ListItem as ListItemComponent
-} from '../components/ListItem';
-import { IAppState } from '../reducers/IAppState';
-import { ItemId } from '../models/ItemId';
-import { IAction } from '../actions/IAction';
+} from '../../components/Items/ListItem';
+import { IAppState } from '../../reducers/IAppState';
+import { ItemId } from '../../models/ItemId';
+import { IAction } from '../../actions/IAction';
 import {
   removeItem,
   updateItem,
   uploadItemAgain
-} from '../actions';
-import { resetItem } from '../actions/simpleActions/resetItem';
-import { errorMessageTypes } from '../constants/errorMessageTypes';
+} from '../../actions/index';
+import { resetItem } from '../../actions/simpleActions/resetItem';
+import { errorMessageTypes } from '../../constants/errorMessageTypes';
 import { Dispatch } from 'redux';
 
 export interface IListItemContainerProps {

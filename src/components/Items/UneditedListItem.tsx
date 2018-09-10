@@ -3,8 +3,8 @@ import * as React from 'react';
 import {
   IItem,
   Item
-} from '../models/Item';
-import { IAction } from '../actions/IAction';
+} from '../../models/Item';
+import { IAction } from '../../actions/IAction';
 
 export interface IUneditedListItemDataProps {
   item: IItem;

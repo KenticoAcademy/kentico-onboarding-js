@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { IAction } from '../actions/IAction';
-import { errorMessageTypes } from '../constants/errorMessageTypes';
+import { IAction } from '../../actions/IAction';
+import { errorMessageTypes } from '../../constants/errorMessageTypes';
 import { OrderedMap } from 'immutable';
 import * as PropTypes from 'prop-types';
 

@@ -1,9 +1,9 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { DeleteItemMarker } from '../containers/DeleteItemMarker';
-import { RecoverMarker } from '../containers/RecoverMarker';
-import { RetryMarker } from '../containers/RetryMarker';
-import { Item } from '../models/Item';
+import { DeleteItemMarker } from '../../containers/Markers/DeleteItemMarker';
+import { RecoverMarker } from '../../containers/Markers/RecoverMarker';
+import { RetryMarker } from '../../containers/Markers/RetryMarker';
+import { Item } from '../../models/Item';
 
 export interface IMarkersDataProps {
   item: Item;

@@ -8,11 +8,11 @@ import {
   IEditedListItemCallbackProps,
   IEditedListItemDataProps,
   IEditListItemContainerProps
-} from '../components/EditedListItem';
-import { IAppState } from '../reducers/IAppState';
-import { updateItem } from '../actions';
-import { toggleEditing } from '../actions/simpleActions/toggleEditing';
-import { textUpdateChange } from '../actions/simpleActions/textUpdateChange';
+} from '../../components/Items/EditedListItem';
+import { IAppState } from '../../reducers/IAppState';
+import { updateItem } from '../../actions/index';
+import { toggleEditing } from '../../actions/simpleActions/toggleEditing';
+import { textUpdateChange } from '../../actions/simpleActions/textUpdateChange';
 
 const mapStateToProps = (state: IAppState, {itemId}: IEditListItemContainerProps): IEditedListItemDataProps => ({
   item: state.items.byId.get(itemId),

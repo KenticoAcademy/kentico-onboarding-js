@@ -1,9 +1,9 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { EditedListItem } from '../containers/EditedListItem';
-import { UneditedListItem } from '../containers/UneditedListItem';
-import { Markers } from '../containers/Markers';
-import { Item } from '../models/Item';
+import { EditedListItem } from '../../containers/Items/EditedListItem';
+import { UneditedListItem } from '../../containers/Items/UneditedListItem';
+import { Markers } from '../../containers/Markers/Markers';
+import { Item } from '../../models/Item';
 
 export interface IListItemDataProps {
   item: Item;

@@ -1,8 +1,8 @@
 import { connect } from 'react-redux';
-import { DeleteItemMarker as DeleteItemMarkerComponent } from '../components/DeleteItemMarker';
-import { IAction } from '../actions/IAction';
-import { removeItem, } from '../actions';
-import { ItemId } from '../models/ItemId';
+import { DeleteItemMarker as DeleteItemMarkerComponent } from '../../components/Markers/DeleteItemMarker';
+import { IAction } from '../../actions/IAction';
+import { removeItem, } from '../../actions/index';
+import { ItemId } from '../../models/ItemId';
 import { Dispatch } from 'redux';
 
 export interface IDeleteItemMarkerContainerProps {
