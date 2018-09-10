@@ -6,6 +6,7 @@ import { deleteItem } from '../simpleActions/deleteItem';
 import { requestFailedForItem } from '../simpleActions/requestFailedForItem';
 import { errorMessageTypes } from '../../constants/errorMessageTypes';
 import { actionTypes } from '../../constants/actionTypes';
+import { Dispatch } from 'redux';
 
 export const preRemoveItem = (id: ItemId): IAction => ({
   type: actionTypes.PRE_REMOVE_ITEM,
@@ -15,7 +16,7 @@ export const preRemoveItem = (id: ItemId): IAction => ({
 });
 
 export const removeItem = (fetch: (id: ItemId) => Promise<Response>) =>
-  (dispatch: Function) =>
+  (dispatch: Dispatch<IAction>) =>
     async (id: ItemId): Promise<IAction> => {
   try {
     dispatch(preRemoveItem(id));

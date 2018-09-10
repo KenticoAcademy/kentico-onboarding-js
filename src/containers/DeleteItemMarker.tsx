@@ -5,6 +5,7 @@ import {
   removeItem,
 } from '../actions';
 import { ItemId } from '../models/ItemId';
+import { Dispatch } from 'redux';
 
 export interface IDeleteItemMarkerContainerProps {
   id: ItemId;
@@ -14,7 +15,7 @@ export interface IDeleteItemMarkerCallbackProps {
   onThrowAway: () => Promise<IAction>;
 }
 
-const mapDispatchToProps = (dispatch: Function, { id }: IDeleteItemMarkerContainerProps): IDeleteItemMarkerCallbackProps => ({
+const mapDispatchToProps = (dispatch: Dispatch<IAction>, { id }: IDeleteItemMarkerContainerProps): IDeleteItemMarkerCallbackProps => ({
   onThrowAway: () => removeItem(dispatch)(id),
 });
 
