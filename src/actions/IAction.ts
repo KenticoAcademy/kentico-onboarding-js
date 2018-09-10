@@ -1,4 +1,4 @@
 export interface IAction {
-  type: string;
-  payload: any;
+  readonly type: string;
+  readonly payload: any;
 }

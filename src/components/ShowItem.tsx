@@ -2,12 +2,18 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 
 export interface IShowItemProps {
-  position: number;
-  text: string;
-  onEditStart: () => void;
+  readonly id: string;
+  readonly position: number;
+  readonly onEditStart: () => void;
 }
 
-export const ShowItem: React.SFC<IShowItemProps> = (props) => (
+export interface IShowItemStateProps {
+  text: string;
+}
+
+export interface IShowItem extends IShowItemProps, IShowItemStateProps { }
+
+export const ShowItem: React.SFC<IShowItem> = (props) => (
   <div
     role="presentation"
     onClick={props.onEditStart}
@@ -19,7 +25,7 @@ export const ShowItem: React.SFC<IShowItemProps> = (props) => (
 ShowItem.displayName = 'ShowItem';
 
 ShowItem.propTypes = {
+  id: PropTypes.string.isRequired,
   position: PropTypes.number.isRequired,
-  text: PropTypes.string.isRequired,
   onEditStart: PropTypes.func.isRequired,
 };

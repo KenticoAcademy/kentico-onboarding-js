@@ -1,12 +1,12 @@
 import { connect } from 'react-redux';
 import { IState } from '../reducers/IState';
 import { itemsSelector } from '../selectors/itemsSelector';
-import { List as ListComponent } from '../components/List';
+import { Board as BoardComponent, IBoardProps } from '../components/Board';
 
-const mapStateToProps = (state: IState) => ({
+const mapStateToProps = (state: IState): IBoardProps => ({
   items: itemsSelector(state.items.keySeq().toArray()),
 });
 
-export const List = connect(
+export const Board = connect(
   mapStateToProps,
-)(ListComponent);
+)(BoardComponent);

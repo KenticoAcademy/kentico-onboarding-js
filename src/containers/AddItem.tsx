@@ -1,9 +1,9 @@
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { createItem } from '../actions/actionCreators';
-import { AddItem as AddItemComponent } from '../components/AddItem';
+import { AddItem as AddItemComponent, IAddItemProps } from '../components/AddItem';
 
-const mapDispatchToProps = (dispatch: Dispatch) => ({
+const mapDispatchToProps = (dispatch: Dispatch): IAddItemProps => ({
   onChange: (text: string) => dispatch(createItem(text)),
 });
 
