@@ -3,7 +3,7 @@ import { ComponentClass } from 'react';
 import { AddNewItem as AddNewItemComponent, IAddNewItemCallbackProps, IAddNewItemDataProps } from '../components/AddNewItem';
 import { IAppState } from '../reducers/IAppState';
 import { uploadItem } from '../actions';
-import { updateNewItemText } from '../actions/simpleActions/updateNewItemText';
+import { refreshNewItemText } from '../actions/simpleActions/refreshNewItemText';
 
 const mapStateToProps = ({items: {newItemText}}: IAppState): IAddNewItemDataProps => ({
   newItemText,
@@ -11,7 +11,7 @@ const mapStateToProps = ({items: {newItemText}}: IAppState): IAddNewItemDataProp
 
 const mapDispatchToProps = (dispatch: Dispatch<IAppState>): IAddNewItemCallbackProps => ({
   onAdd: (value: string) => uploadItem(dispatch)(value),
-  onNewTextChange: (newText: string) => dispatch(updateNewItemText(newText)),
+  onNewTextChange: (newText: string) => dispatch(refreshNewItemText(newText)),
 });
 
 export const AddNewItem: ComponentClass = connect(mapStateToProps, mapDispatchToProps)(AddNewItemComponent);
