@@ -11,15 +11,8 @@ export interface IMarkersContainerProps {
   id: ItemId;
 }
 
-const mapStateToProps = (state: IAppState, {id}: IMarkersContainerProps): IMarkersDataProps => {
-  const item = state.items.byId.get(id);
-  return {
-    id,
-    isBeingEdited: item.isBeingEdited,
-    isBeingDeleted: item.isBeingDeleted,
-    synchronized: item.synchronized,
-    errorMessages: item.errorMessages,
-  };
-};
+const mapStateToProps = (state: IAppState, {id}: IMarkersContainerProps): IMarkersDataProps => ({
+  item: state.items.byId.get(id),
+});
 
 export const Markers: ComponentClass<IMarkersContainerProps> = connect(mapStateToProps)(MarkersComponent);

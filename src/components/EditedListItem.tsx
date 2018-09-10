@@ -34,7 +34,7 @@ export class EditedListItem extends React.PureComponent<IEditedListItemProps> {
   };
 
   _onSaveItem = (): void => {
-    const {onSave, item } = this.props;
+    const { onSave, item } = this.props;
     onSave(item.textUpdate);
   };
 
