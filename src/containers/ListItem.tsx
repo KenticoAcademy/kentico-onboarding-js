@@ -7,10 +7,12 @@ import {
 import { IAppState } from '../reducers/IAppState';
 import { ItemId } from '../models/ItemId';
 import { IAction } from '../actions/IAction';
-import { removeItem } from '../actions';
-import { updateItem } from '../actions';
+import {
+  removeItem,
+  updateItem,
+  uploadItemAgain
+} from '../actions';
 import { resetItem } from '../actions/simpleActions/resetItem';
-import { uploadItemAgain } from '../actions';
 import { errorMessageTypes } from '../constants/errorMessageTypes';
 import { Dispatch } from 'redux';
 
@@ -31,7 +33,7 @@ const mapStateToProps = (state: IAppState, {id, index}: IListItemContainerProps)
   index,
 });
 
-const mapDispatchToProps = (dispatch: Dispatch<IAction>, { id }: IListItemContainerProps): IListItemCallbackProps => ({
+const mapDispatchToProps = (dispatch: Dispatch<IAction>, {id}: IListItemContainerProps): IListItemCallbackProps => ({
   onThrowAway: () => removeItem(dispatch)(id),
   onSaveAgain: (text: string) => updateItem(dispatch)(id, text),
   onUploadAgain: (text: string) => uploadItemAgain(id)(dispatch)(text),

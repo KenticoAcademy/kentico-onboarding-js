@@ -2,7 +2,10 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { containsNoCharacters } from '../utils/containsNoCharacters';
 import { IAction } from '../actions/IAction';
-import { IItem, Item } from '../models/Item';
+import {
+  IItem,
+  Item
+} from '../models/Item';
 import { ItemId } from '../models/ItemId';
 import { errorMessageTypes } from '../constants/errorMessageTypes';
 
@@ -34,18 +37,18 @@ export class EditedListItem extends React.PureComponent<IEditedListItemProps> {
   };
 
   _onSaveItem = (): void => {
-    const { onSave, item } = this.props;
+    const {onSave, item} = this.props;
     onSave(item.textUpdate);
   };
 
   _onTextChanged = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const textUpdate = e.target.value;
-    const { textUpdateChange } = this.props;
+    const {textUpdateChange} = this.props;
     textUpdateChange(textUpdate);
   };
 
   render() {
-    const { item, onCancel } = this.props;
+    const {item, onCancel} = this.props;
     const isEmpty = containsNoCharacters(item.textUpdate);
     const emptinessLabel = isEmpty ? 'Item name mustn\'t be empty' : null;
 

@@ -18,13 +18,14 @@ export const preRemoveItem = (id: ItemId): IAction => ({
 export const removeItem = (fetch: (id: ItemId) => Promise<Response>) =>
   (dispatch: Dispatch<IAction>) =>
     async (id: ItemId): Promise<IAction> => {
-  try {
-    dispatch(preRemoveItem(id));
-    await fetch(id);
-    assertAlert('SUCCESS', 'Shark successfully ate item.');
-    return dispatch(deleteItem(id));
-  } catch {
-    dispatch(toggleSynchronized(id, true));
-    assertAlert('ERROR', 'Shark failed in eating item.');
-    return dispatch(requestFailedForItem(id, errorMessageTypes.DELETE, 'Shark failed in eating item.'));
-  }};
+      try {
+        dispatch(preRemoveItem(id));
+        await fetch(id);
+        assertAlert('SUCCESS', 'Shark successfully ate item.');
+        return dispatch(deleteItem(id));
+      } catch {
+        dispatch(toggleSynchronized(id, true));
+        assertAlert('ERROR', 'Shark failed in eating item.');
+        return dispatch(requestFailedForItem(id, errorMessageTypes.DELETE, 'Shark failed in eating item.'));
+      }
+    };

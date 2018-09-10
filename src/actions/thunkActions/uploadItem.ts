@@ -21,5 +21,6 @@ export const uploadItem = (fetch: (text: string) => Promise<Response>, generateI
       } catch {
         assertAlert('ERROR', 'Failed to upload item.');
         return dispatch(requestFailedForItem(id, errorMessageTypes.UPLOAD, 'Failed to upload. '));
-      }};
+      }
+    };
 

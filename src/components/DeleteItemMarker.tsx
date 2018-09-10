@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { IAction } from '../actions/IAction';
 
-interface  IDeleteItemMarkerDataProps {
+interface IDeleteItemMarkerDataProps {
   onThrowAway: () => Promise<IAction>;
 }
 

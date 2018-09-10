@@ -1,6 +1,9 @@
 import * as PropTypes from 'prop-types';
 import * as React from 'react';
-import { IItem, Item } from '../models/Item';
+import {
+  IItem,
+  Item
+} from '../models/Item';
 import { IAction } from '../actions/IAction';
 
 export interface IUneditedListItemDataProps {
@@ -14,7 +17,7 @@ export interface IUneditedListItemCallbackProps {
 type IUneditedListItemProps = IUneditedListItemDataProps & IUneditedListItemCallbackProps;
 
 const UneditedListItem:
-  React.StatelessComponent<IUneditedListItemProps> = ({ item, onClick }) => {
+  React.StatelessComponent<IUneditedListItemProps> = ({item, onClick}) => {
 
   if (item.errorMessages.size !== 0) {
     return (

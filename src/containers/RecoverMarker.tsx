@@ -13,7 +13,7 @@ export interface IRecoverMarkerCallbackProps {
   onRecover: () => Promise<IAction>;
 }
 
-const mapDispatchToProps = (dispatch: Function, { id }: IRecoverMarkerContainerProps): IRecoverMarkerCallbackProps => ({
+const mapDispatchToProps = (dispatch: Function, {id}: IRecoverMarkerContainerProps): IRecoverMarkerCallbackProps => ({
   onRecover: () => dispatch(resetItem(id, [errorMessageTypes.DELETE])),
 });
 

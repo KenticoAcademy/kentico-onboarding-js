@@ -6,7 +6,7 @@ const options = {
   timeout: 3000
 };
 
-export function assertAlert (type: string, message: string) {
+export function assertAlert(type: string, message: string) {
   switch (type) {
     case 'ERROR':
       return Alert.error(message, options);

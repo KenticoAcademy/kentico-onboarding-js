@@ -4,19 +4,19 @@ import * as PropTypes from 'prop-types';
 import { ListItem } from '../containers/ListItem';
 import { ItemId } from '../models/ItemId';
 
-interface  IListDataProps {
+interface IListDataProps {
   ids: Immutable.Seq.Indexed<ItemId>;
 }
 
-const List: React.StatelessComponent<IListDataProps> = ({ ids }) => (
-    <div>
-      {ids.map((id: ItemId, index: number) =>
-          <ListItem key={index}
-            id={id} index={index}
-          />
-      )}
-    </div>
-  );
+const List: React.StatelessComponent<IListDataProps> = ({ids}) => (
+  <div>
+    {ids.map((id: ItemId, index: number) =>
+      <ListItem key={index}
+                id={id} index={index}
+      />
+    )}
+  </div>
+);
 
 List.displayName = 'List';
 

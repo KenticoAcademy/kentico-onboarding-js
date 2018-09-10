@@ -1,6 +1,13 @@
-import { connect, Dispatch } from 'react-redux';
+import {
+  connect,
+  Dispatch
+} from 'react-redux';
 import { ComponentClass } from 'react';
-import { AddNewItem as AddNewItemComponent, IAddNewItemCallbackProps, IAddNewItemDataProps } from '../components/AddNewItem';
+import {
+  AddNewItem as AddNewItemComponent,
+  IAddNewItemCallbackProps,
+  IAddNewItemDataProps
+} from '../components/AddNewItem';
 import { IAppState } from '../reducers/IAppState';
 import { uploadItem } from '../actions';
 import { refreshNewItemText } from '../actions/simpleActions/refreshNewItemText';

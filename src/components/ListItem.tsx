@@ -35,7 +35,7 @@ const ListItem: React.StatelessComponent<IListItemDataProps> = (
           itemId={id}
         />}
 
-        <Markers id={id}/>
+      <Markers id={id} />
     </div>);
 };
 

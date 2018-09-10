@@ -12,7 +12,8 @@ export interface IAddNewItemCallbackProps {
   onNewTextChange: Function;
 }
 
-export interface IAddNewItemProps extends IAddNewItemDataProps, IAddNewItemCallbackProps {}
+export interface IAddNewItemProps extends IAddNewItemDataProps, IAddNewItemCallbackProps {
+}
 
 export class AddNewItem extends React.PureComponent<IAddNewItemProps> {
 

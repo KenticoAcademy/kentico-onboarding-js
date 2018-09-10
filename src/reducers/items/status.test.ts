@@ -19,7 +19,7 @@ describe('status', () => {
       isFetching: false,
       didInvalidate: false,
       errorMessage: '',
-    },                         action);
+    }, action);
 
     expect(actualState).toEqual(expectedState);
   });
@@ -37,7 +37,7 @@ describe('status', () => {
       isFetching: true,
       didInvalidate: false,
       errorMessage: '2018-00-01 00:00:00',
-    },                         action);
+    }, action);
 
     expect(actualState).toEqual(expectedState);
   });
@@ -55,7 +55,7 @@ describe('status', () => {
       isFetching: true,
       didInvalidate: false,
       errorMessage: '',
-    },                         action);
+    }, action);
 
     expect(actualState).toEqual(expectedState);
   });
