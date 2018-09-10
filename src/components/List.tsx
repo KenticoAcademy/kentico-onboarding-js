@@ -1,21 +1,27 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Seq } from 'immutable';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
 import { Item } from './Item';
 
-export const List = ({ items }) => (
-  items
+interface IListProps {
+  readonly items: Array<string>;
+}
+
+export const List: React.SFC<IListProps> = ({ items }) => {
+  const itemsJSX = items
     .map((id, index) => (
       <Item
         key={id}
         id={id}
-        position={index + 1}
+        position={Number(index) + 1}
       />
-    ))
-);
+    ));
+
+  return (<> {itemsJSX} </>);
+};
 
 List.displayName = 'List';
 
 List.propTypes = {
-  items: PropTypes.instanceOf(Seq).isRequired,
+  items: PropTypes.array.isRequired,
+  // items: PropTypes.arrayOf(PropTypes.string).isRequired, // doesn't work with TypeScript - problem with null
 };
