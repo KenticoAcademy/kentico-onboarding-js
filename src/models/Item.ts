@@ -1,6 +1,8 @@
 import { ItemId } from './ItemId';
 import { BaseRecord } from './BaseRecord';
 import { Map } from 'immutable';
+import { emptyId } from '../constants/emptyId';
+
 export interface IItem {
   readonly id: ItemId;
   readonly text: string;
@@ -10,8 +12,6 @@ export interface IItem {
   readonly isBeingEdited: boolean;
   readonly isBeingDeleted: boolean;
 }
-
-const emptyId: string = '00000000-0000-0000-0000-000000000000';
 
 export const defaultItem: IItem = {
   id: emptyId,
