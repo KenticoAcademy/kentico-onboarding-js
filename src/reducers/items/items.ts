@@ -1,6 +1,6 @@
 import { OrderedMap } from 'immutable';
 import { Item } from '../../models/Item';
-import { Action } from '../../actions/actionInterface';
+import { IAction } from '../../actions/IAction';
 import {
   CREATE_ITEM,
   DELETE_ITEM,
@@ -8,7 +8,7 @@ import {
 } from '../../actions/actionTypes';
 import { item } from './item';
 
-export const items = (state = OrderedMap<string, Item>(), action: Action) => {
+export const items = (state = OrderedMap<string, Item>(), action: IAction) => {
   switch (action.type) {
     case CREATE_ITEM:
     case EDIT_ITEM:

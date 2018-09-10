@@ -1,7 +1,16 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import { PureComponent } from 'react';
+import * as PropTypes from 'prop-types';
 
-export class EditItem extends PureComponent {
+interface IEditItemProps {
+  position: number;
+  text: string;
+  onSave: (text: string) => void;
+  onDelete: () => void;
+  finishEdit: () => void;
+}
+
+export class EditItem extends PureComponent<IEditItemProps> {
   static displayName = 'EditItem';
 
   static propTypes = {
@@ -16,8 +25,8 @@ export class EditItem extends PureComponent {
     text: this.props.text,
   };
 
-  _textEdit = event => {
-    const eventTargetValue = event.target.value;
+  _textEdit = (event: React.FormEvent<HTMLInputElement>) => {
+    const eventTargetValue = event.currentTarget.value;
     this.setState(() => ({ text: eventTargetValue }));
   };
 

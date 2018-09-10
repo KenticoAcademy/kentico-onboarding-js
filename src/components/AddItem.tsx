@@ -2,14 +2,15 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { PureComponent } from 'react';
 
-export interface Props {
+export interface IAddItemProps {
   onChange: (input: string) => void;
 }
 
-interface State {
+interface IAddItemState {
   inputText: string;
 }
-export class AddItem extends PureComponent<Props, State> {
+
+export class AddItem extends PureComponent<IAddItemProps, IAddItemState> {
   static displayName = 'AddItem';
 
   static propTypes = {

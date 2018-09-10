@@ -1,7 +1,13 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
 
-export const ShowItem = (props) => (
+export interface IShowItemProps {
+  position: number;
+  text: string;
+  onEditStart: () => void;
+}
+
+export const ShowItem: React.SFC<IShowItemProps> = (props) => (
   <div
     role="presentation"
     onClick={props.onEditStart}

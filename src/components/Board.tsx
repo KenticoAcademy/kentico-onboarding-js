@@ -1,4 +1,5 @@
-import React, { PureComponent } from 'react';
+import * as React from 'react';
+import { PureComponent } from 'react';
 import { List } from '../containers/List';
 import { AddItem } from '../containers/AddItem';
 
