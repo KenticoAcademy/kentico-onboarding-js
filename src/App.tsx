@@ -1,5 +1,5 @@
 import './sticky-footer.css';
-import React from 'react';
+import * as React from 'react';
 import { Board } from './components/Board';
 
 export const App = () => (
