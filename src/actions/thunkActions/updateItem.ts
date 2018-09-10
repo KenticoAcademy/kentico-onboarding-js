@@ -14,16 +14,14 @@ export const preUpdateItem = (id: ItemId): IAction => ({
 });
 
 export const updateItem = (fetch: (id: ItemId, text: string) => Promise<Response>) =>
-  (dispatch: Function) => {
-    return (id: ItemId, text: string): Promise<IAction> => {
-      dispatch(preUpdateItem(id));
-
-      return fetch(id, text)
-        .then(() => dispatch(toggleSynchronized(id, true)))
-        .then(() => assertAlert('SUCCESS', 'Updated item text successfully'))
-        .catch(() => {
-          assertAlert('ERROR', 'Failed to update item text');
-          return dispatch(requestFailedForItem(id, errorMessageTypes.UPDATE, 'Failed to update item text. '));
-        });
-    };
-  };
+  (dispatch: Function) =>
+    async (id: ItemId, text: string): Promise<IAction> => {
+  try {
+    dispatch(preUpdateItem(id));
+    await fetch(id, text);
+    assertAlert('SUCCESS', 'Updated item text successfully');
+    return dispatch(toggleSynchronized(id, true));
+  } catch {
+    assertAlert('ERROR', 'Failed to update item text');
+    return dispatch(requestFailedForItem(id, errorMessageTypes.UPDATE, 'Failed to update item text. '));
+  }};

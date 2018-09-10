@@ -8,22 +8,17 @@ import { requestFailedForItem } from '../simpleActions/requestFailedForItem';
 import { errorMessageTypes } from '../../constants/errorMessageTypes';
 
 export const uploadItem = (fetch: (text: string) => Promise<Response>, generateId: () => ItemId) =>
-  (dispatch: Function) => {
-    return (text: string): Promise<IAction> => {
+  (dispatch: Function) =>
+    async (text: string): Promise<IAction> => {
       const id = generateId();
-      dispatch(addItem(id, text));
+      try {
+        dispatch(addItem(id, text));
+        const itemWithOfficialId = await (await fetch(text)).json();
+        assertAlert('SUCCESS', 'Uploaded item successfully');
+        dispatch(synchronizeItemId(id, itemWithOfficialId.Id));
+        return dispatch(toggleSynchronized(itemWithOfficialId.Id, true));
+      } catch {
+        assertAlert('ERROR', 'Failed to upload item.');
+        return dispatch(requestFailedForItem(id, errorMessageTypes.UPLOAD, 'Failed to upload. '));
+      }};
 
-      return fetch(text)
-        .then(response => response.json())
-        .then(itemWithOfficialId => {
-          dispatch(synchronizeItemId(id, itemWithOfficialId.Id));
-          return itemWithOfficialId.Id;
-        })
-        .then(officialId => dispatch(toggleSynchronized(officialId, true)))
-        .then(() => assertAlert('SUCCESS', 'Uploaded item successfully'))
-        .catch(() => {
-          assertAlert('ERROR', 'Failed to upload item.');
-          return dispatch(requestFailedForItem(id, errorMessageTypes.UPLOAD, 'Failed to upload. '));
-        });
-    };
-  };
