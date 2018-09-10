@@ -1,6 +1,6 @@
 import { newItemText } from './newItemText.ts';
 import { addItem } from '../../actions/simpleActions/addItem.ts';
-import { updateNewItemText } from '../../actions/simpleActions/updateNewItemText.ts';
+import { refreshNewItemText } from '../../actions/simpleActions/refreshNewItemText.ts';
 import { deleteItem } from '../../actions/simpleActions/deleteItem.ts';
 
 const mockId = () => '2';
@@ -8,7 +8,7 @@ const mockId = () => '2';
 describe('newItemText', () => {
   it('returns text that is given in args when the action type is UPDATE_NEW_ITEM', () => {
     const expectedState = 'Some random sentence.';
-    const action = updateNewItemText(expectedState);
+    const action = refreshNewItemText(expectedState);
 
     const actualState = newItemText(null, action);
 
