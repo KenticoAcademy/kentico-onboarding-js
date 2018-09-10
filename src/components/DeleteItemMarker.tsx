@@ -8,17 +8,12 @@ interface  IDeleteItemMarkerDataProps {
 
 const DeleteItemMarker: React.StatelessComponent<IDeleteItemMarkerDataProps> = ({onThrowAway}) => {
 
-  function _onThrowAway(e: React.MouseEvent<HTMLDivElement>) {
-    e.stopPropagation();
-    onThrowAway();
-  }
-
   return (
     <div
       data-balloon={'Let this shark eat this item'}
       data-balloon-pos="up"
       className="uneditedItemMessage"
-      onClick={_onThrowAway}>
+      onClick={onThrowAway}>
       🦈
     </div>);
 };
