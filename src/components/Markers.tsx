@@ -5,7 +5,7 @@ import { RecoverMarker } from '../containers/RecoverMarker';
 import { RetryMarker } from '../containers/RetryMarker';
 import { Item } from '../models/Item';
 
-export interface  IMarkersDataProps {
+export interface IMarkersDataProps {
   item: Item;
 }
 

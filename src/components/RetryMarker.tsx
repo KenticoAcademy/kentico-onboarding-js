@@ -4,7 +4,7 @@ import { errorMessageTypes } from '../constants/errorMessageTypes';
 import { OrderedMap } from 'immutable';
 import * as PropTypes from 'prop-types';
 
-export interface  IRetryMarkerDataProps {
+export interface IRetryMarkerDataProps {
   text: string;
   textUpdate: string;
   errorMessages: OrderedMap<string, string>;

@@ -1,4 +1,7 @@
-import { combineReducers, Reducer } from 'redux';
+import {
+  combineReducers,
+  Reducer
+} from 'redux';
 import { OrderedMap } from 'immutable';
 import { newItemText } from './newItemText';
 import { byId } from './byId';

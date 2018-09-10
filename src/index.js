@@ -2,7 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 import './index.css';
-import { createStore, applyMiddleware } from 'redux';
+import {
+  applyMiddleware,
+  createStore,
+} from 'redux';
 import logger from 'redux-logger';
 import { Provider } from 'react-redux';
 import { App } from './containers/App.tsx';

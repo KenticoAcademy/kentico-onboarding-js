@@ -1,4 +1,7 @@
-import { combineReducers, Reducer } from 'redux';
+import {
+  combineReducers,
+  Reducer
+} from 'redux';
 import { items } from './items/items';
 import { IAppState } from './IAppState';
 

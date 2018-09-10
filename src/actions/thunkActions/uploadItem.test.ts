@@ -3,7 +3,7 @@ import { uploadItem } from './uploadItem';
 import 'isomorphic-fetch';
 
 describe('uploadItem', () => {
-  test('calls request, addItem and success action if the fetch response was successful',  async () => {
+  test('calls request, addItem and success action if the fetch response was successful', async () => {
     const fetch = jest.fn().mockImplementation((text: string) => Promise.resolve(new Response('{"body": [{"Text":"' + text + '"}]}', {status: 201})));
     const mockId = () => '42';
 
@@ -16,7 +16,7 @@ describe('uploadItem', () => {
     expect(dispatch.mock.calls[2][0].type).toBe(actionTypes.TOGGLE_SYNCHRONIZED);
   });
 
-  test('calls addItem, request and failed action if the fetch response was unsuccessful',  async () => {
+  test('calls addItem, request and failed action if the fetch response was unsuccessful', async () => {
     const fetch = () => Promise.reject(Error);
     const mockId = () => '42';
 

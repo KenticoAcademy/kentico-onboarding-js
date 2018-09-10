@@ -13,7 +13,7 @@ const actionFetchFactory = (method: string): (id?: ItemId, text?: string) => Pro
 
   switch (method) {
     case requestMethodTypes.GET:
-      return getFetch(apiUrl) ;
+      return getFetch(apiUrl);
     case requestMethodTypes.POST:
       return postFetch(apiUrl);
     case requestMethodTypes.PUT:
@@ -30,4 +30,4 @@ const actionFetchFactoryWithErrorHandling = (method: string) => (id?: ItemId, te
   actionFetchFactory(method)(id, text)
     .then(response => response.status >= 400 ? this.reject() : response);
 
-export {actionFetchFactoryWithErrorHandling as actionFetchFactory};
+export { actionFetchFactoryWithErrorHandling as actionFetchFactory };

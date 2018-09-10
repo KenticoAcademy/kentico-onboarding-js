@@ -15,8 +15,8 @@ import { toggleEditing } from '../actions/simpleActions/toggleEditing';
 import { textUpdateChange } from '../actions/simpleActions/textUpdateChange';
 
 const mapStateToProps = (state: IAppState, {itemId}: IEditListItemContainerProps): IEditedListItemDataProps => ({
-    item: state.items.byId.get(itemId),
-  });
+  item: state.items.byId.get(itemId),
+});
 
 const mapDispatchToProps = (dispatch: Dispatch<IAppState>, {itemId}: IEditListItemContainerProps): IEditedListItemCallbackProps => ({
   onCancel: () => dispatch(toggleEditing(itemId)),

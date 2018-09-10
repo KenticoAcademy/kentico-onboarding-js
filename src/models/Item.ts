@@ -23,7 +23,7 @@ export const defaultItem: IItem = {
   isBeingDeleted: false,
 };
 
-export class Item extends  BaseRecord<Item>(defaultItem, 'Item') implements IItem {
+export class Item extends BaseRecord<Item>(defaultItem, 'Item') implements IItem {
   readonly id: ItemId;
   readonly text: string;
   readonly textUpdate: string;
