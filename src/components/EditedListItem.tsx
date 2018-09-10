@@ -47,6 +47,7 @@ export class EditedListItem extends React.PureComponent<IEditedListItemProps> {
   render() {
     const { item, onCancel } = this.props;
     const isEmpty = containsNoCharacters(item.textUpdate);
+    const emptinessLabel = isEmpty ? 'Item name mustn\'t be empty' : null;
 
     return (
       <div className="input-group">
@@ -58,7 +59,7 @@ export class EditedListItem extends React.PureComponent<IEditedListItemProps> {
         />
         <div className="input-group-btn">
           <button
-            data-balloon={isEmpty ? 'Item name mustn\'t be empty' : null}
+            data-balloon={emptinessLabel}
             data-balloon-pos="up"
             className="btn btn-default orange"
             disabled={isEmpty}
