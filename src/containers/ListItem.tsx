@@ -26,17 +26,10 @@ export interface IListItemCallbackProps {
   onRecover: () => IAction;
 }
 
-const mapStateToProps = (state: IAppState, {id, index}: IListItemContainerProps): IListItemDataProps => {
-  const item = state.items.byId.get(id);
-  return {
-    id,
-    isBeingEdited: item.isBeingEdited,
-    index,
-    synchronized: item.synchronized,
-    errorMessages: item.errorMessages,
-    isBeingDeleted: item.isBeingDeleted,
-  };
-};
+const mapStateToProps = (state: IAppState, {id, index}: IListItemContainerProps): IListItemDataProps => ({
+  item: state.items.byId.get(id),
+  index,
+});
 
 const mapDispatchToProps = (dispatch: Dispatch<IAction>, { id }: IListItemContainerProps): IListItemCallbackProps => ({
   onThrowAway: () => removeItem(dispatch)(id),

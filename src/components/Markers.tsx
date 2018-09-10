@@ -1,21 +1,16 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { DeleteItemMarker } from '../containers/DeleteItemMarker';
-import { ItemId } from '../models/ItemId';
-import { OrderedMap } from 'immutable';
 import { RecoverMarker } from '../containers/RecoverMarker';
 import { RetryMarker } from '../containers/RetryMarker';
+import { Item } from '../models/Item';
 
 export interface  IMarkersDataProps {
-  id: ItemId;
-  isBeingEdited: boolean;
-  isBeingDeleted: boolean;
-  synchronized: boolean;
-  errorMessages: OrderedMap<string, string>;
+  item: Item;
 }
 
-const Markers: React.StatelessComponent<IMarkersDataProps>
-  = ({id, errorMessages, isBeingEdited, isBeingDeleted, synchronized}) => {
+const Markers: React.StatelessComponent<IMarkersDataProps> = ({item}) => {
+  const {id, errorMessages, isBeingEdited, isBeingDeleted, synchronized} = item;
 
   const itemGotError = !(errorMessages.size === 0);
   const isNotEditedOrBeingDeleted = !isBeingEdited && !isBeingDeleted;
@@ -36,11 +31,7 @@ const Markers: React.StatelessComponent<IMarkersDataProps>
 Markers.displayName = 'Markers';
 
 Markers.propTypes = {
-  id: PropTypes.string.isRequired,
-  isBeingEdited: PropTypes.bool.isRequired,
-  isBeingDeleted: PropTypes.bool.isRequired,
-  synchronized: PropTypes.bool.isRequired,
-  errorMessages: PropTypes.object.isRequired,
+  item: PropTypes.object.isRequired,
 };
 
 export { Markers };

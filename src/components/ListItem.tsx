@@ -2,28 +2,22 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { EditedListItem } from '../containers/EditedListItem';
 import { UneditedListItem } from '../containers/UneditedListItem';
-import { ItemId } from '../models/ItemId';
-import {
-  Map,
-} from 'immutable';
 import { Markers } from '../containers/Markers';
+import { Item } from '../models/Item';
 
 export interface IListItemDataProps {
-  id: ItemId;
-  isBeingEdited: boolean;
-  synchronized: boolean;
+  item: Item;
   index: number;
-  errorMessages: Map<string, string>;
-  isBeingDeleted: boolean;
 }
 
 const ListItem: React.StatelessComponent<IListItemDataProps> = (
-  {id, isBeingEdited, index, synchronized, errorMessages, isBeingDeleted}) => {
+  {item, index}) => {
 
+  const {id} = item;
   const className = 'list-group-item form-inline'
-    + (!synchronized && errorMessages.size === 0 ? ' synchronizing' : '')
-    + (errorMessages.size === 0 ? '' : ' alert-danger')
-    + (!isBeingDeleted ? '' : ' being-deleted');
+    + (!item.synchronized && item.errorMessages.size === 0 ? ' synchronizing' : '')
+    + (item.errorMessages.size === 0 ? '' : ' alert-danger')
+    + (!item.isBeingDeleted ? '' : ' being-deleted');
 
   return (
     <div
@@ -33,7 +27,7 @@ const ListItem: React.StatelessComponent<IListItemDataProps> = (
       {index + 1}
       .&nbsp;
 
-      {isBeingEdited ?
+      {item.isBeingEdited ?
         <EditedListItem
           itemId={id}
         /> :
@@ -48,12 +42,8 @@ const ListItem: React.StatelessComponent<IListItemDataProps> = (
 ListItem.displayName = 'ListItem';
 
 ListItem.propTypes = {
-  id: PropTypes.string.isRequired,
-  isBeingEdited: PropTypes.bool.isRequired,
-  synchronized: PropTypes.bool.isRequired,
+  item: PropTypes.object.isRequired,
   index: PropTypes.number.isRequired,
-  errorMessages: PropTypes.object,
-  isBeingDeleted: PropTypes.bool.isRequired,
 };
 
 export { ListItem };
