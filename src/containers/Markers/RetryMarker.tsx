@@ -4,14 +4,14 @@ import {
   IRetryMarkerCallbackProps,
   IRetryMarkerDataProps,
   RetryMarker as RetryMarkerComponent
-} from '../components/RetryMarker';
-import { IAppState } from '../reducers/IAppState';
-import { ItemId } from '../models/ItemId';
+} from '../../components/Markers/RetryMarker';
+import { IAppState } from '../../reducers/IAppState';
+import { ItemId } from '../../models/ItemId';
 import {
   updateItem,
   uploadItemAgain
-} from '../actions';
-import { IAction } from '../actions/IAction';
+} from '../../actions/index';
+import { IAction } from '../../actions/IAction';
 import { Dispatch } from 'redux';
 
 export interface IRetryMarkerContainerProps {

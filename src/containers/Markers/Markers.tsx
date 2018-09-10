@@ -3,9 +3,9 @@ import { ComponentClass } from 'react';
 import {
   IMarkersDataProps,
   Markers as MarkersComponent
-} from '../components/Markers';
-import { IAppState } from '../reducers/IAppState';
-import { ItemId } from '../models/ItemId';
+} from '../../components/Markers/Markers';
+import { IAppState } from '../../reducers/IAppState';
+import { ItemId } from '../../models/ItemId';
 
 export interface IMarkersContainerProps {
   id: ItemId;

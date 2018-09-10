@@ -7,10 +7,10 @@ import {
   IUneditedListItemCallbackProps,
   IUneditedListItemDataProps,
   UneditedListItem as UneditedListItemComponent
-} from '../components/UneditedListItem';
-import { IAppState } from '../reducers/IAppState';
-import { ItemId } from '../models/ItemId';
-import { toggleEditing } from '../actions/simpleActions/toggleEditing';
+} from '../../components/Items/UneditedListItem';
+import { IAppState } from '../../reducers/IAppState';
+import { ItemId } from '../../models/ItemId';
+import { toggleEditing } from '../../actions/simpleActions/toggleEditing';
 
 interface IUneditedListItemContainerProps {
   itemId: ItemId;

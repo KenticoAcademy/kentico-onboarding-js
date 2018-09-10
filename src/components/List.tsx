@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as Immutable from 'immutable';
 import * as PropTypes from 'prop-types';
-import { ListItem } from '../containers/ListItem';
+import { ListItem } from '../containers/Items/ListItem';
 import { ItemId } from '../models/ItemId';
 
 interface IListDataProps {

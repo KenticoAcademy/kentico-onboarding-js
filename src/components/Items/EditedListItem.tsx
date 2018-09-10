@@ -1,13 +1,13 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { containsNoCharacters } from '../utils/containsNoCharacters';
-import { IAction } from '../actions/IAction';
+import { containsNoCharacters } from '../../utils/containsNoCharacters';
+import { IAction } from '../../actions/IAction';
 import {
   IItem,
   Item
-} from '../models/Item';
-import { ItemId } from '../models/ItemId';
-import { errorMessageTypes } from '../constants/errorMessageTypes';
+} from '../../models/Item';
+import { ItemId } from '../../models/ItemId';
+import { errorMessageTypes } from '../../constants/errorMessageTypes';
 
 export interface IEditListItemContainerProps {
   itemId: ItemId;

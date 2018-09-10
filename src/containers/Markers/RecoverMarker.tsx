@@ -1,9 +1,9 @@
 import { connect } from 'react-redux';
-import { RecoverMarker as RecoverMarkerComponent } from '../components/RecoverMarker';
-import { IAction } from '../actions/IAction';
-import { ItemId } from '../models/ItemId';
-import { resetItem } from '../actions/simpleActions/resetItem';
-import { errorMessageTypes } from '../constants/errorMessageTypes';
+import { RecoverMarker as RecoverMarkerComponent } from '../../components/Markers/RecoverMarker';
+import { IAction } from '../../actions/IAction';
+import { ItemId } from '../../models/ItemId';
+import { resetItem } from '../../actions/simpleActions/resetItem';
+import { errorMessageTypes } from '../../constants/errorMessageTypes';
 
 export interface IRecoverMarkerContainerProps {
   id: ItemId;
