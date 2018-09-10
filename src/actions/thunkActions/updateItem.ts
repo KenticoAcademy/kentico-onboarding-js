@@ -5,6 +5,7 @@ import { toggleSynchronized } from '../simpleActions/toggleSynchronized';
 import { requestFailedForItem } from '../simpleActions/requestFailedForItem';
 import { errorMessageTypes } from '../../constants/errorMessageTypes';
 import { actionTypes } from '../../constants/actionTypes';
+import { Dispatch } from 'redux';
 
 export const preUpdateItem = (id: ItemId): IAction => ({
   type: actionTypes.PRE_UPDATE_ITEM,
@@ -14,7 +15,7 @@ export const preUpdateItem = (id: ItemId): IAction => ({
 });
 
 export const updateItem = (fetch: (id: ItemId, text: string) => Promise<Response>) =>
-  (dispatch: Function) =>
+  (dispatch: Dispatch<IAction>) =>
     async (id: ItemId, text: string): Promise<IAction> => {
   try {
     dispatch(preUpdateItem(id));

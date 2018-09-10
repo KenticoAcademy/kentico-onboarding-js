@@ -12,6 +12,7 @@ import { updateItem } from '../actions';
 import { resetItem } from '../actions/simpleActions/resetItem';
 import { uploadItemAgain } from '../actions';
 import { errorMessageTypes } from '../constants/errorMessageTypes';
+import { Dispatch } from 'redux';
 
 export interface IListItemContainerProps {
   id: ItemId;
@@ -37,7 +38,7 @@ const mapStateToProps = (state: IAppState, {id, index}: IListItemContainerProps)
   };
 };
 
-const mapDispatchToProps = (dispatch: Function, { id }: IListItemContainerProps): IListItemCallbackProps => ({
+const mapDispatchToProps = (dispatch: Dispatch<IAction>, { id }: IListItemContainerProps): IListItemCallbackProps => ({
   onThrowAway: () => removeItem(dispatch)(id),
   onSaveAgain: (text: string) => updateItem(dispatch)(id, text),
   onUploadAgain: (text: string) => uploadItemAgain(id)(dispatch)(text),

@@ -9,6 +9,8 @@ import { IAppState } from '../reducers/IAppState';
 import { ItemId } from '../models/ItemId';
 import { updateItem } from '../actions';
 import { uploadItemAgain } from '../actions';
+import { IAction } from '../actions/IAction';
+import { Dispatch } from 'redux';
 
 export interface IRetryMarkerContainerProps {
   id: ItemId;
@@ -23,7 +25,7 @@ const mapStateToProps = (state: IAppState, {id}: IRetryMarkerContainerProps): IR
   };
 };
 
-const mapDispatchToProps = (dispatch: Function, { id }: IRetryMarkerContainerProps): IRetryMarkerCallbackProps => ({
+const mapDispatchToProps = (dispatch: Dispatch<IAction>, { id }: IRetryMarkerContainerProps): IRetryMarkerCallbackProps => ({
   onSaveAgain: (text: string) => updateItem(dispatch)(id, text),
   onUploadAgain: (text: string) => uploadItemAgain(id)(dispatch)(text),
 });

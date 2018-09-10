@@ -6,9 +6,10 @@ import { synchronizeItemId } from '../simpleActions/synchronizeItemId';
 import { toggleSynchronized } from '../simpleActions/toggleSynchronized';
 import { requestFailedForItem } from '../simpleActions/requestFailedForItem';
 import { errorMessageTypes } from '../../constants/errorMessageTypes';
+import { Dispatch } from 'redux';
 
 export const uploadItem = (fetch: (text: string) => Promise<Response>, generateId: () => ItemId) =>
-  (dispatch: Function) =>
+  (dispatch: Dispatch<IAction>) =>
     async (text: string): Promise<IAction> => {
       const id = generateId();
       try {
