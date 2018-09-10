@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import { root } from '../src/reducers/root.ts';
 import thunk from 'redux-thunk';
-import { App } from '../src/containers/App.ts';
+import { App } from '../src/containers/App.tsx';
 
 if (typeof window !== 'undefined') {
   it('renders without crashing', () => {
