@@ -5,7 +5,6 @@ export class EditItem extends PureComponent {
   static displayName = 'EditItem';
 
   static propTypes = {
-    id: PropTypes.string.isRequired,
     text: PropTypes.string.isRequired,
     position: PropTypes.number.isRequired,
     finishEdit: PropTypes.func.isRequired,
@@ -23,11 +22,11 @@ export class EditItem extends PureComponent {
   };
 
   _saveItem = () => {
-    this.props.onSave(this.props.id, this.state.text);
+    this.props.onSave(this.state.text);
     this.props.finishEdit();
   };
 
-  _deleteItem = () => this.props.onDelete(this.props.id);
+  _deleteItem = () => this.props.onDelete();
 
   render() {
     return (

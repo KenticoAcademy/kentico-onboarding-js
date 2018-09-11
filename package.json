@@ -19,9 +19,14 @@
   "dependencies": {
     "bootstrap": "^3.3.7",
     "immutable": "^3.8.2",
+    "memoizee": "^0.4.14",
     "npm": "^6.4.0",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
+    "react-redux": "^5.0.7",
+    "redux": "^4.0.0",
+    "redux-devtools-extension": "^2.13.5",
+    "redux-logger": "^3.0.6",
     "uuid": "^3.3.2"
   },
   "devDependencies": {

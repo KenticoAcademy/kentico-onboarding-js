@@ -3,16 +3,13 @@ import PropTypes from 'prop-types';
 import { Seq } from 'immutable';
 import { Item } from './Item';
 
-export const List = ({ items, onSave, onDelete }) => (
+export const List = ({ items }) => (
   items
-    .map((item, index) => (
+    .map((id, index) => (
       <Item
-        key={item.id}
-        id={item.id}
-        text={item.text}
+        key={id}
+        id={id}
         position={index + 1}
-        onSave={onSave}
-        onDelete={onDelete}
       />
     ))
 );
@@ -21,6 +18,4 @@ List.displayName = 'List';
 
 List.propTypes = {
   items: PropTypes.instanceOf(Seq).isRequired,
-  onSave: PropTypes.func.isRequired,
-  onDelete: PropTypes.func.isRequired,
 };
