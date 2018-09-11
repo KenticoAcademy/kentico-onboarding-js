@@ -8,12 +8,12 @@ export interface IShowItemProps {
 }
 
 export interface IShowItemStateProps {
-  text: string;
+  readonly text: string;
 }
 
 export interface IShowItem extends IShowItemProps, IShowItemStateProps { }
 
-export const ShowItem: React.SFC<IShowItem> = (props) => (
+export const ShowItem: React.SFC<IShowItem> = (props: IShowItem) => (
   <div
     role="presentation"
     onClick={props.onEditStart}
@@ -28,4 +28,5 @@ ShowItem.propTypes = {
   id: PropTypes.string.isRequired,
   position: PropTypes.number.isRequired,
   onEditStart: PropTypes.func.isRequired,
+  text: PropTypes.string.isRequired,
 };
