@@ -15,8 +15,8 @@ export class Board extends PureComponent<IBoardProps> {
     items: PropTypes.arrayOf(PropTypes.string).isRequired,
   };
 
-  _renderItems(): JSX.Element {
-    const itemsJSX = this.props.items
+  private _renderItems = (): JSX.Element[] =>
+    this.props.items
       .map((id, index) => (
         <Item
           key={id}
@@ -24,9 +24,6 @@ export class Board extends PureComponent<IBoardProps> {
           position={Number(index) + 1}
         />
       ));
-
-    return (<> {itemsJSX} </>);
-  }
 
   render(): JSX.Element {
     return (

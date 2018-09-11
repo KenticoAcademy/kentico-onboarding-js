@@ -19,30 +19,32 @@ export interface IEditItemDispatchProps {
 
 export interface IEditItem extends IEditItemProps, IEditItemStateProps, IEditItemDispatchProps {}
 
-export class EditItem extends PureComponent<IEditItem> {
+export class EditItem extends PureComponent<IEditItem, IEditItemStateProps> {
   static displayName = 'EditItem';
 
   static propTypes = {
     id: PropTypes.string.isRequired,
     position: PropTypes.number.isRequired,
     finishEdit: PropTypes.func.isRequired,
+    onSave: PropTypes.func.isRequired,
+    onDelete: PropTypes.func.isRequired,
   };
 
   state = {
     text: this.props.text,
   };
 
-  _textEdit = (event: React.FormEvent<HTMLInputElement>) => {
+  private _textEdit = (event: React.FormEvent<HTMLInputElement>): void  => {
     const eventTargetValue = event.currentTarget.value;
     this.setState(() => ({ text: eventTargetValue }));
   };
 
-  _saveItem = () => {
+  private _saveItem = (): void  => {
     this.props.onSave(this.state.text);
     this.props.finishEdit();
   };
 
-  _deleteItem = () => this.props.onDelete();
+  private _deleteItem = (): void => this.props.onDelete();
 
   render(): JSX.Element {
     return (

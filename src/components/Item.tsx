@@ -9,7 +9,11 @@ interface IItemProps {
   readonly position: number;
 }
 
-export class Item extends PureComponent<IItemProps> {
+interface IItemState {
+  readonly isEdited: boolean;
+}
+
+export class Item extends PureComponent<IItemProps, IItemState> {
   static displayName = 'Item';
 
   static propTypes = {
@@ -21,12 +25,12 @@ export class Item extends PureComponent<IItemProps> {
     isEdited: false,
   };
 
-  _startEditItem = () => this.setState(() => ({ isEdited: true }));
+  private _startEditItem = (): void => this.setState(() => ({isEdited: true}));
 
-  _finishEditItem = () => this.setState(() => ({ isEdited: false }));
+  private _finishEditItem = (): void => this.setState(() => ({isEdited: false}));
 
-  _renderStateIsEdited(): JSX.Element {
-    return this.state.isEdited
+  private _renderStateIsEdited = (): JSX.Element => (
+    this.state.isEdited
       ? (
         <EditItem
           id={this.props.id}
@@ -38,8 +42,8 @@ export class Item extends PureComponent<IItemProps> {
           position={this.props.position}
           id={this.props.id}
           onEditStart={this._startEditItem}
-        />);
-  }
+        />)
+  );
 
   render(): JSX.Element {
     return (
