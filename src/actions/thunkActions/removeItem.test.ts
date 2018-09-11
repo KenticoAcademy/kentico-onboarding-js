@@ -4,7 +4,7 @@ import { ItemId } from '../../models/ItemId';
 import 'isomorphic-fetch';
 
 describe('removeItem', () => {
-  test('calls modifiDeleting, toggleSynchronized, clearErrorMessage, toggleEditing and deleteItem actions if the fetch response was successful', async () => {
+  test('calls modifiDeleting, setAsSynchronized, clearErrorMessage, toggleEditing and deleteItem actions if the fetch response was successful', async () => {
 
     const fetch = jest.fn().mockImplementation((_: ItemId) => Promise.resolve(new Response('', {status: 200})));
     const mockId = () => '42';
