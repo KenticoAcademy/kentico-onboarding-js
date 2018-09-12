@@ -8,7 +8,7 @@ import { createItemFactory } from './actionCreatorsFactory';
 
 export const createItem = createItemFactory(generateId);
 
-export const editItem = (id: GUID, text: string): IAction => ({
+export const editItem = (id: Guid, text: string): IAction => ({
   type: EDIT_ITEM,
   payload: {
     id,
@@ -16,7 +16,7 @@ export const editItem = (id: GUID, text: string): IAction => ({
   },
 });
 
-export const deleteItem = (id: GUID): IAction => ({
+export const deleteItem = (id: Guid): IAction => ({
   type: DELETE_ITEM,
   payload: {
     id,

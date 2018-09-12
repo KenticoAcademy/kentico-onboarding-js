@@ -5,7 +5,7 @@ import { EditItem } from '../containers/EditItem';
 import { ShowItem } from '../containers/ShowItem';
 
 interface IItemProps {
-  readonly id: GUID;
+  readonly id: Guid;
   readonly position: number;
 }
 

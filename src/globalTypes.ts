@@ -1,1 +1,0 @@
-type GUID = string;

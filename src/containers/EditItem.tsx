@@ -13,11 +13,11 @@ import {
   IEditItemStateProps,
 } from '../components/EditItem';
 
-const mapStateToProps = (state: IState, {id}: { id: GUID }): IEditItemStateProps => ({
+const mapStateToProps = (state: IState, {id}: { id: Guid }): IEditItemStateProps => ({
   text: state.items.get(id).text,
 });
 
-const mapDispatchToProps = (dispatch: Dispatch, {id}: { id: GUID }): IEditItemDispatchProps => ({
+const mapDispatchToProps = (dispatch: Dispatch, {id}: { id: Guid }): IEditItemDispatchProps => ({
   onSave: (text: string) => dispatch(editItem(id, text)),
   onDelete: () => dispatch(deleteItem(id)),
 });
