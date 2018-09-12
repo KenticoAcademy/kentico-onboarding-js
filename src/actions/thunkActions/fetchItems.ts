@@ -17,12 +17,12 @@ export const receiveItems = (items: Array<Item>) => ({
   }
 });
 
-export const fetchItems = (fetch: () => Promise<Response>) =>
+export const fetchItems = (fetch: () => Promise<Array<Item>>) =>
   () =>
     async (dispatch: Dispatch<ThunkAction<IAction, IAppState, void>>) : Promise<IAction>  => {
       try {
         dispatch(requestItems());
-        const items = await (await fetch()).json();
+        const items = await fetch();
         return dispatch(receiveItems(items));
       } catch {
         return dispatch(requestFailed('Failed to fetch.'));

@@ -2,6 +2,8 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { containsNoCharacters } from '../utils/containsNoCharacters';
 import { IAction } from '../actions/IAction';
+import { alertTypes } from '../constants/alert/alertTypes';
+import { alertMessages } from '../constants/alert/alertMessages';
 
 export interface IAddNewItemDataProps {
   newItemText: string;
@@ -10,6 +12,7 @@ export interface IAddNewItemDataProps {
 export interface IAddNewItemCallbackProps {
   onAdd: (value: string) => Promise<IAction>;
   onNewTextChange: Function;
+  assertAlert: (type: string, message: string) =>  number;
 }
 
 export interface IAddNewItemProps extends IAddNewItemDataProps, IAddNewItemCallbackProps {
@@ -23,6 +26,7 @@ export class AddNewItem extends React.PureComponent<IAddNewItemProps> {
     newItemText: PropTypes.string.isRequired,
     onAdd: PropTypes.func.isRequired,
     onNewTextChange: PropTypes.func.isRequired,
+    assertAlert: PropTypes.func.isRequired,
   };
 
   _onChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -33,7 +37,9 @@ export class AddNewItem extends React.PureComponent<IAddNewItemProps> {
 
   _onClick = () => {
     const input = this.props.newItemText;
-    this.props.onAdd(input);
+    this.props.onAdd(input)
+      .then(() => this.props.assertAlert(alertTypes.SUCCESS, alertMessages.UPLOAD_SUCCESS))
+      .catch(() => this.props.assertAlert(alertTypes.ERROR, alertMessages.UPLOAD_ERROR));
   };
 
   render() {

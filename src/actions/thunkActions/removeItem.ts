@@ -23,11 +23,9 @@ export const removeItem = (fetch: (id: ItemId) => Promise<Response>) =>
       try {
         dispatch(preRemoveItem(id));
         await fetch(id);
-        assertAlert('SUCCESS', 'Shark successfully ate item.');
         return dispatch(deleteItem(id));
       } catch {
         dispatch(setAsSynchronized(id));
-        assertAlert('ERROR', 'Shark failed in eating item.');
         return dispatch(requestFailedForItem(id, errorMessageTypes.DELETE, 'Shark failed in eating item.'));
       }
     };

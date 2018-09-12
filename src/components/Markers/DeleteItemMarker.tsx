@@ -1,19 +1,26 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { IAction } from '../../actions/IAction';
+import { IDeleteItemMarkerCallbackProps } from '../../containers/Markers/DeleteItemMarker';
+import { alertTypes } from '../../constants/alert/alertTypes';
+import { alertMessages } from '../../constants/alert/alertMessages';
 
-interface IDeleteItemMarkerDataProps {
-  onThrowAway: () => Promise<IAction>;
+interface IDeleteItemMarkerDataProps extends IDeleteItemMarkerCallbackProps {
 }
 
-const DeleteItemMarker: React.StatelessComponent<IDeleteItemMarkerDataProps> = ({onThrowAway}) => {
+const DeleteItemMarker: React.StatelessComponent<IDeleteItemMarkerDataProps> = ({onThrowAway, assertAlert}) => {
+
+  const _onSharkClick = () => {
+    onThrowAway()
+      .then(() => assertAlert(alertTypes.SUCCESS, alertMessages.DELETION_SUCCESS))
+      .catch(() => assertAlert(alertTypes.ERROR, alertMessages.DELETION_ERROR));
+  };
 
   return (
     <div
       data-balloon={'Let this shark eat this item'}
       data-balloon-pos="up"
       className="uneditedItemMessage"
-      onClick={onThrowAway}>
+      onClick={_onSharkClick}>
       🦈
     </div>);
 };
