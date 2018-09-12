@@ -15,6 +15,9 @@ import {
 import { resetItem } from '../../actions/simpleActions/resetItem';
 import { errorMessageTypes } from '../../constants/errorMessageTypes';
 import { Dispatch } from 'redux';
+import { assertAlert } from '../../utils/assertAlert';
+import { alertTypes } from '../../constants/alert/alertTypes';
+import { alertMessages } from '../../constants/alert/alertMessages';
 
 export interface IListItemContainerProps {
   id: ItemId;
@@ -26,6 +29,7 @@ export interface IListItemCallbackProps {
   onSaveAgain: (text: string) => Promise<IAction>;
   onUploadAgain: (text: string) => Promise<IAction>;
   onRecover: () => IAction;
+  assertAlert: (type: alertTypes, message: alertMessages) => number;
 }
 
 const mapStateToProps = (state: IAppState, {id, index}: IListItemContainerProps): IListItemDataProps => ({
@@ -38,6 +42,7 @@ const mapDispatchToProps = (dispatch: Dispatch<IAction>, {id}: IListItemContaine
   onSaveAgain: (text: string) => dispatch(updateItem(id, text)),
   onUploadAgain: (text: string) => dispatch(uploadItemAgain(id)(text)),
   onRecover: () => dispatch(resetItem(id, [errorMessageTypes.DELETE])),
+  assertAlert: (type, message) =>  assertAlert(type, message),
 });
 
 export const ListItem: ComponentClass<IListItemContainerProps> = connect(mapStateToProps, mapDispatchToProps)(ListItemComponent);

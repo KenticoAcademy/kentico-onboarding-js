@@ -15,7 +15,7 @@ describe('fetchItems', () => {
   });
 
   test('calls request and failed action if the fetch response was unsuccessful', async () => {
-    const fetch = jest.fn().mockImplementation(() => Promise.resolve(new Response('{"status":400, "statusText": Test Error!}')));
+    const fetch = jest.fn().mockImplementation(() => Promise.reject(status));
 
     const store = mockStore();
     await store.dispatch<any>(fetchItems(fetch)());

@@ -7,6 +7,7 @@ import {
   postFetch,
   putFetch
 } from '../actions/actionFetch';
+import { Item } from '../models/Item';
 
 const actionFetchFactory = (method: string): (id?: ItemId, text?: string) => Promise<Response> => {
   const apiUrl: RequestInfo = getApiUrl();
@@ -26,8 +27,9 @@ const actionFetchFactory = (method: string): (id?: ItemId, text?: string) => Pro
   }
 };
 
-const actionFetchFactoryWithErrorHandling = (method: string) => (id?: ItemId, text?: string): Promise<Response> =>
+const actionFetchFactoryWithErrorHandling = (method: string) => (id?: ItemId, text?: string): Promise<Response&Item&Item[]> =>
   actionFetchFactory(method)(id, text)
-    .then(response => response.status >= 400 ? this.reject() : response);
+    .then(response => response.status >= 400 ? this.reject() : response)
+    .then(response => response.json());
 
 export { actionFetchFactoryWithErrorHandling as actionFetchFactory };

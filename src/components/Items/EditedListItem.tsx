@@ -8,6 +8,8 @@ import {
 } from '../../models/Item';
 import { ItemId } from '../../models/ItemId';
 import { errorMessageTypes } from '../../constants/errorMessageTypes';
+import { alertTypes } from '../../constants/alert/alertTypes';
+import { alertMessages } from '../../constants/alert/alertMessages';
 
 export interface IEditListItemContainerProps {
   itemId: ItemId;
@@ -21,6 +23,7 @@ export interface IEditedListItemCallbackProps {
   onCancel: () => IAction;
   onSave: (textUpdate: string) => Promise<IAction>;
   textUpdateChange: (textUpdate: string) => IAction;
+  assertAlert: (type: alertTypes, message: alertMessages) => number;
 }
 
 type IEditedListItemProps = IEditListItemContainerProps & IEditedListItemDataProps & IEditedListItemCallbackProps;
@@ -38,7 +41,9 @@ export class EditedListItem extends React.PureComponent<IEditedListItemProps> {
 
   _onSaveItem = (): void => {
     const {onSave, item} = this.props;
-    onSave(item.textUpdate);
+    onSave(item.textUpdate)
+      .then(() => this.props.assertAlert(alertTypes.SUCCESS, alertMessages.UPDATE_SUCCESS))
+      .catch(() => this.props.assertAlert(alertTypes.ERROR, alertMessages.UPDATE_ERROR));
   };
 
   _onTextChanged = (e: React.ChangeEvent<HTMLInputElement>): void => {
