@@ -9,7 +9,7 @@ import {
   IEditListItemContainerProps
 } from '../../components/Items/EditedListItem';
 import { IAppState } from '../../reducers/IAppState';
-import { updateItem } from '../../actions';
+import { CreateUpdateItem } from '../../actions';
 import { toggleEditing } from '../../actions/simpleActions/toggleEditing';
 import { textUpdateChange } from '../../actions/simpleActions/textUpdateChange';
 import { Dispatch} from 'redux';
@@ -21,7 +21,7 @@ const mapStateToProps = (state: IAppState, {itemId}: IEditListItemContainerProps
 
 const mapDispatchToProps = (dispatch: Dispatch<IAppState>, {itemId}: IEditListItemContainerProps): IEditedListItemCallbackProps => ({
   onCancel: () => dispatch(toggleEditing(itemId)),
-  onSave: (updatedText: string) => dispatch(updateItem(itemId, updatedText)),
+  onSave: (updatedText: string) => dispatch(CreateUpdateItem(itemId, updatedText)),
   textUpdateChange: (text: string) => dispatch(textUpdateChange(itemId, text)),
   assertAlert: (type, message) =>  assertAlert(type, message),
 });

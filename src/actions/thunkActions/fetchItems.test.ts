@@ -2,7 +2,7 @@ import { fetchItems } from './fetchItems';
 import { actionTypes } from '../../constants/actionTypes';
 import { mockStore } from '../../../test/utils/mockStore';
 
-describe('fetchItems', () => {
+describe('CreateFetchItems', () => {
   test('calls request and success action if the fetch response was successful', async () => {
     const fetch = jest.fn().mockImplementation(() => Promise.resolve(new Response('{"body": [{"Id":"1","Text":"TestItem"}]}', {status: 200})));
 

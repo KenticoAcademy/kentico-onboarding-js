@@ -8,9 +8,9 @@ import { IAppState } from '../../reducers/IAppState';
 import { ItemId } from '../../models/ItemId';
 import { IAction } from '../../actions/IAction';
 import {
-  removeItem,
-  updateItem,
-  uploadItemAgain
+  CreateRemoveItem,
+  CreateUpdateItem,
+  CreateUploadItemAgain
 } from '../../actions/index';
 import { resetItem } from '../../actions/simpleActions/resetItem';
 import { errorMessageTypes } from '../../constants/errorMessageTypes';
@@ -38,9 +38,9 @@ const mapStateToProps = (state: IAppState, {id, index}: IListItemContainerProps)
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<IAction>, {id}: IListItemContainerProps): IListItemCallbackProps => ({
-  onThrowAway: () => dispatch(removeItem(id)),
-  onSaveAgain: (text: string) => dispatch(updateItem(id, text)),
-  onUploadAgain: (text: string) => dispatch(uploadItemAgain(id)(text)),
+  onThrowAway: () => dispatch(CreateRemoveItem(id)),
+  onSaveAgain: (text: string) => dispatch(CreateUpdateItem(id, text)),
+  onUploadAgain: (text: string) => dispatch(CreateUploadItemAgain(() => id)(text)),
   onRecover: () => dispatch(resetItem(id, [errorMessageTypes.DELETE])),
   assertAlert: (type, message) =>  assertAlert(type, message),
 });

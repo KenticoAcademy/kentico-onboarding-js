@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { DeleteItemMarker as DeleteItemMarkerComponent } from '../../components/Markers/DeleteItemMarker';
 import { IAction } from '../../actions/IAction';
-import { removeItem, } from '../../actions';
+import { CreateRemoveItem, } from '../../actions';
 import { ItemId } from '../../models/ItemId';
 import { Dispatch } from 'redux';
 import { assertAlert } from '../../utils/assertAlert';
@@ -18,7 +18,7 @@ export interface IDeleteItemMarkerCallbackProps {
 }
 
 const mapDispatchToProps = (dispatch: Dispatch<IAction>, {id}: IDeleteItemMarkerContainerProps): IDeleteItemMarkerCallbackProps => ({
-  onThrowAway: () => dispatch(removeItem(id)),
+  onThrowAway: () => dispatch(CreateRemoveItem(id)),
   assertAlert: (type, message) =>  assertAlert(type, message),
 });
 
