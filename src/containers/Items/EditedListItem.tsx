@@ -17,6 +17,7 @@ import { assertAlert } from '../../utils/assertAlert';
 
 const mapStateToProps = (state: IAppState, {itemId}: IEditListItemContainerProps): IEditedListItemDataProps => ({
   item: state.items.byId.get(itemId),
+
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<IAppState>, {itemId}: IEditListItemContainerProps): IEditedListItemCallbackProps => ({

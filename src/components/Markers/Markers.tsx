@@ -4,27 +4,33 @@ import { DeleteItemMarker } from '../../containers/Markers/DeleteItemMarker';
 import { RecoverMarker } from '../../containers/Markers/RecoverMarker';
 import { RetryMarker } from '../../containers/Markers/RetryMarker';
 import { Item } from '../../models/Item';
+import { typeOfMarkerRendered } from '../../containers/Markers/Markers';
+import { ItemId } from '../../models/ItemId';
 
 export interface IMarkersDataProps {
   item: Item;
+  marker: typeOfMarkerRendered;
 }
 
-const Markers: React.StatelessComponent<IMarkersDataProps> = ({item}) => {
-  const {id, errorMessages, isBeingEdited, isBeingDeleted, synchronized} = item;
 
-  const itemGotError = !(errorMessages.size === 0);
-  const isNotEditedOrBeingDeleted = !isBeingEdited && !isBeingDeleted;
+const getCorrectMarker = (marker: typeOfMarkerRendered, id: ItemId): JSX.Element|undefined => {
+  switch (marker) {
+    case typeOfMarkerRendered.SHOW_RETRY:
+      return <RetryMarker id={id} />;
+    case typeOfMarkerRendered.SHOW_RECOVER:
+      return <RecoverMarker id={id} />;
+    default:
+      return;
+  }
+};
+
+const Markers: React.StatelessComponent<IMarkersDataProps> = ({item, marker}) => {
+  const {id} = item;
 
   return (
     <span>
       <DeleteItemMarker id={id} />
-
-      {itemGotError && isNotEditedOrBeingDeleted
-        ? <RetryMarker id={id} />
-
-        : isBeingDeleted && synchronized
-          ? <RecoverMarker id={id} />
-          : (null)}
+      {getCorrectMarker(marker, id)}
     </span>);
 };
 
