@@ -6,7 +6,7 @@ import { IAppState } from '../reducers/IAppState';
 import {
   connect
 } from 'react-redux';
-import { fetchItems } from '../actions';
+import { CreateFetchItems } from '../actions';
 import { Dispatch} from 'redux';
 
 const mapStateToProps = (state: IAppState) => ({
@@ -15,7 +15,7 @@ const mapStateToProps = (state: IAppState) => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<IAppState>): IAppCallbackProps => ({
-  fetchItemsCall: () => dispatch(fetchItems()),
+  fetchItemsCall: () => dispatch(CreateFetchItems()),
 });
 
 export const App = connect(mapStateToProps, mapDispatchToProps)(AppComponent);

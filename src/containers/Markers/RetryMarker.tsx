@@ -8,9 +8,9 @@ import {
 import { IAppState } from '../../reducers/IAppState';
 import { ItemId } from '../../models/ItemId';
 import {
-  updateItem,
-  uploadItemAgain
-} from '../../actions/index';
+  CreateUpdateItem,
+  CreateUploadItemAgain
+} from '../../actions';
 import { IAction } from '../../actions/IAction';
 import { Dispatch } from 'redux';
 import { assertAlert } from '../../utils/assertAlert';
@@ -29,8 +29,8 @@ const mapStateToProps = (state: IAppState, {id}: IRetryMarkerContainerProps): IR
 };
 
 const mapDispatchToProps = (dispatch: Dispatch<IAction>, {id}: IRetryMarkerContainerProps): IRetryMarkerCallbackProps => ({
-  onSaveAgain: (text: string) => dispatch(updateItem(id, text)),
-  onUploadAgain: (text: string) => dispatch(uploadItemAgain(id)(text)),
+  onSaveAgain: (text: string) => dispatch(CreateUpdateItem(id, text)),
+  onUploadAgain: (text: string) => dispatch(CreateUploadItemAgain(() => id)(text)),
   assertAlert: (type, message) =>  assertAlert(type, message),
 });
 

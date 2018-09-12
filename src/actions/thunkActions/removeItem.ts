@@ -1,6 +1,5 @@
 import { IAction } from '../IAction';
 import { ItemId } from '../../models/ItemId';
-import { assertAlert } from '../../utils/assertAlert';
 import { setAsSynchronized } from '../simpleActions/setAsSynchronized';
 import { deleteItem } from '../simpleActions/deleteItem';
 import { requestFailedForItem } from '../simpleActions/requestFailedForItem';

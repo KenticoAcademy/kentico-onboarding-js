@@ -9,7 +9,7 @@ import {
   IAddNewItemDataProps
 } from '../components/AddNewItem';
 import { IAppState } from '../reducers/IAppState';
-import { uploadItem } from '../actions';
+import { CreateUploadItem } from '../actions';
 import { refreshNewItemText } from '../actions/simpleActions/refreshNewItemText';
 import { assertAlert } from '../utils/assertAlert';
 
@@ -18,7 +18,7 @@ const mapStateToProps = ({items: {newItemText}}: IAppState): IAddNewItemDataProp
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<IAppState>): IAddNewItemCallbackProps => ({
-  onAdd: (value: string) => dispatch(uploadItem(value)),
+  onAdd: (value: string) => dispatch(CreateUploadItem(value)),
   onNewTextChange: (newText: string) => dispatch(refreshNewItemText(newText)),
   assertAlert: (type, message) =>  assertAlert(type, message),
 });
