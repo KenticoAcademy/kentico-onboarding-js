@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { DeleteItemMarker as DeleteItemMarkerComponent } from '../../components/Markers/DeleteItemMarker';
 import { IAction } from '../../actions/IAction';
-import { removeItem, } from '../../actions/index';
+import { removeItem, } from '../../actions';
 import { ItemId } from '../../models/ItemId';
 import { Dispatch } from 'redux';
 
@@ -14,7 +14,7 @@ export interface IDeleteItemMarkerCallbackProps {
 }
 
 const mapDispatchToProps = (dispatch: Dispatch<IAction>, {id}: IDeleteItemMarkerContainerProps): IDeleteItemMarkerCallbackProps => ({
-  onThrowAway: () => removeItem(dispatch)(id),
+  onThrowAway: () => dispatch(removeItem(id)),
 });
 
 export const DeleteItemMarker = connect(null, mapDispatchToProps)(DeleteItemMarkerComponent);

@@ -7,6 +7,8 @@ import { requestFailedForItem } from '../simpleActions/requestFailedForItem';
 import { errorMessageTypes } from '../../constants/errorMessageTypes';
 import { actionTypes } from '../../constants/actionTypes';
 import { Dispatch } from 'redux';
+import { IAppState } from '../../reducers/IAppState';
+import { ThunkAction } from 'redux-thunk';
 
 export const preRemoveItem = (id: ItemId): IAction => ({
   type: actionTypes.PRE_REMOVE_ITEM,
@@ -16,8 +18,8 @@ export const preRemoveItem = (id: ItemId): IAction => ({
 });
 
 export const removeItem = (fetch: (id: ItemId) => Promise<Response>) =>
-  (dispatch: Dispatch<IAction>) =>
-    async (id: ItemId): Promise<IAction> => {
+  (id: ItemId) =>
+    async (dispatch: Dispatch<ThunkAction<IAction, IAppState, void>>): Promise<IAction> => {
       try {
         dispatch(preRemoveItem(id));
         await fetch(id);
