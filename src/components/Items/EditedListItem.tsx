@@ -52,6 +52,16 @@ export class EditedListItem extends React.PureComponent<IEditedListItemProps> {
     textUpdateChange(textUpdate);
   };
 
+  _buttonLabel = (): string => {
+    const {item} = this.props;
+    const uploadError = item.errorMessages.keySeq().contains(errorMessageTypes.UPLOAD);
+    const someError = item.errorMessages.size !== 0;
+
+    if (uploadError) return 'Modify the word you wanted to upload!';
+    if (someError) return 'Save the word again!';
+    return 'Save the word!';
+  };
+
   render() {
     const {item, onCancel} = this.props;
     const isEmpty = containsNoCharacters(item.textUpdate);
@@ -73,9 +83,7 @@ export class EditedListItem extends React.PureComponent<IEditedListItemProps> {
             disabled={isEmpty}
             onClick={this._onSaveItem}
           >
-            {item.errorMessages.keySeq().contains(errorMessageTypes.UPLOAD) ?
-              'Modify the word you wanted to upload!' : item.errorMessages.size !== 0 ?
-                'Save the word again!' : 'Save the word!'}
+            {this._buttonLabel}
           </button>
           <button
             className="btn btn-default"

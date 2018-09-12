@@ -28,13 +28,9 @@ const ListItem: React.StatelessComponent<IListItemDataProps> = (
       .&nbsp;
 
       {item.isBeingEdited ?
-        <EditedListItem
-          itemId={id}
-        /> :
-        <UneditedListItem
-          itemId={id}
-        />}
-
+        <EditedListItem itemId={id} />
+        : <UneditedListItem itemId={id} />
+      }
       <Markers id={id} />
     </div>);
 };
