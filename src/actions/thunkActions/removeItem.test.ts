@@ -1,7 +1,7 @@
 import { actionTypes } from '../../constants/actionTypes';
 import { removeItem } from './removeItem';
 import { ItemId } from '../../models/ItemId';
-import 'isomorphic-fetch';
+import { mockStore } from '../../../test/utils/mockStore';
 
 describe('removeItem', () => {
   test('calls modifiDeleting, setAsSynchronized, clearErrorMessage, toggleEditing and deleteItem actions if the fetch response was successful', async () => {
@@ -9,21 +9,24 @@ describe('removeItem', () => {
     const fetch = jest.fn().mockImplementation((_: ItemId) => Promise.resolve(new Response('', {status: 200})));
     const mockId = () => '42';
 
-    const dispatch = jest.fn();
-    await removeItem(fetch)(dispatch)(mockId());
+    const store = mockStore();
+    await store.dispatch<any>(removeItem(fetch)(mockId()));
+    const actions = store.getActions();
 
-    expect(dispatch).toHaveBeenCalledTimes(2);
-    expect(dispatch.mock.calls[0][0].type).toBe(actionTypes.PRE_REMOVE_ITEM);
+    expect(actions[0]).toHaveProperty('type', actionTypes.PRE_REMOVE_ITEM);
+    expect(actions[1]).toHaveProperty('type', actionTypes.DELETE_ITEM);
   });
 
   test('calls request and failed action if the fetch response was unsuccessful', async () => {
     const fetch = () => Promise.reject(Error);
     const mockId = () => '42';
 
-    const dispatch = jest.fn();
-    await removeItem(fetch)(dispatch)(mockId());
+    const store = mockStore();
+    await store.dispatch<any>(removeItem(fetch)(mockId()));
+    const actions = store.getActions();
 
-    expect(dispatch).toHaveBeenCalledTimes(3);
-    expect(dispatch.mock.calls[2][0].type).toBe(actionTypes.REQUEST_FAILED_FOR_ITEM);
+    expect(actions[0]).toHaveProperty('type', actionTypes.PRE_REMOVE_ITEM);
+    expect(actions[1]).toHaveProperty('type', actionTypes.TOGGLE_SYNCHRONIZED);
+    expect(actions[2]).toHaveProperty('type', actionTypes.REQUEST_FAILED_FOR_ITEM);
   });
 });

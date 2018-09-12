@@ -6,6 +6,8 @@ import { requestFailedForItem } from '../simpleActions/requestFailedForItem';
 import { errorMessageTypes } from '../../constants/errorMessageTypes';
 import { actionTypes } from '../../constants/actionTypes';
 import { Dispatch } from 'redux';
+import { ThunkAction } from 'redux-thunk';
+import { IAppState } from '../../reducers/IAppState';
 
 export const preUpdateItem = (id: ItemId): IAction => ({
   type: actionTypes.PRE_UPDATE_ITEM,
@@ -15,8 +17,8 @@ export const preUpdateItem = (id: ItemId): IAction => ({
 });
 
 export const updateItem = (fetch: (id: ItemId, text: string) => Promise<Response>) =>
-  (dispatch: Dispatch<IAction>) =>
-    async (id: ItemId, text: string): Promise<IAction> => {
+  (id: ItemId, text: string) =>
+    async (dispatch: Dispatch<ThunkAction<IAction, IAppState, void>>): Promise<IAction> => {
       try {
         dispatch(preUpdateItem(id));
         await fetch(id, text);

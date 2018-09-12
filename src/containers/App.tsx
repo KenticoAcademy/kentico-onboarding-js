@@ -4,10 +4,10 @@ import {
 } from '../App';
 import { IAppState } from '../reducers/IAppState';
 import {
-  connect,
-  Dispatch
+  connect
 } from 'react-redux';
 import { fetchItems } from '../actions';
+import { Dispatch} from 'redux';
 
 const mapStateToProps = (state: IAppState) => ({
   isFetching: state.items.status.isFetching,
@@ -15,7 +15,7 @@ const mapStateToProps = (state: IAppState) => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<IAppState>): IAppCallbackProps => ({
-  fetchItemsCall: () => fetchItems(dispatch)(),
+  fetchItemsCall: () => dispatch(fetchItems()),
 });
 
 export const App = connect(mapStateToProps, mapDispatchToProps)(AppComponent);

@@ -1,27 +1,27 @@
 import { fetchItems } from './fetchItems';
 import { actionTypes } from '../../constants/actionTypes';
-import 'isomorphic-fetch';
+import { mockStore } from '../../../test/utils/mockStore';
 
 describe('fetchItems', () => {
   test('calls request and success action if the fetch response was successful', async () => {
     const fetch = jest.fn().mockImplementation(() => Promise.resolve(new Response('{"body": [{"Id":"1","Text":"TestItem"}]}', {status: 200})));
 
-    const dispatch = jest.fn();
-    await fetchItems(fetch)(dispatch)();
+    const store = mockStore();
+    await store.dispatch<any>(fetchItems(fetch)());
+    const actions = store.getActions();
 
-    expect(dispatch).toHaveBeenCalledTimes(2);
-    expect(dispatch.mock.calls[0][0]).toEqual({type: actionTypes.REQUEST_ITEMS});
-    expect(dispatch.mock.calls[1][0].type).toBe(actionTypes.RECEIVE_ITEMS);
+    expect(actions[0]).toHaveProperty('type', actionTypes.REQUEST_ITEMS);
+    expect(actions[1]).toHaveProperty('type', actionTypes.RECEIVE_ITEMS);
   });
 
   test('calls request and failed action if the fetch response was unsuccessful', async () => {
     const fetch = jest.fn().mockImplementation(() => Promise.resolve(new Response('{"status":400, "statusText": Test Error!}')));
-    const dispatch = jest.fn();
 
-    await fetchItems(fetch)(dispatch)();
+    const store = mockStore();
+    await store.dispatch<any>(fetchItems(fetch)());
+    const actions = store.getActions();
 
-    expect(dispatch).toHaveBeenCalledTimes(2);
-    expect(dispatch.mock.calls[0][0]).toEqual({type: actionTypes.REQUEST_ITEMS});
-    expect(dispatch.mock.calls[1][0].type).toBe(actionTypes.REQUEST_FAILED);
+    expect(actions[0]).toHaveProperty('type', actionTypes.REQUEST_ITEMS);
+    expect(actions[1]).toHaveProperty('type', actionTypes.REQUEST_FAILED);
   });
 });

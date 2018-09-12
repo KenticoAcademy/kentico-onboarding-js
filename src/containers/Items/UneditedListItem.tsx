@@ -1,7 +1,7 @@
 import {
-  connect,
-  Dispatch
+  connect
 } from 'react-redux';
+import { Dispatch} from 'redux';
 import { ComponentClass } from 'react';
 import {
   IUneditedListItemCallbackProps,

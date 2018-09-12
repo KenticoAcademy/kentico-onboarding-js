@@ -7,10 +7,12 @@ import { setAsSynchronized } from '../simpleActions/setAsSynchronized';
 import { requestFailedForItem } from '../simpleActions/requestFailedForItem';
 import { errorMessageTypes } from '../../constants/errorMessageTypes';
 import { Dispatch } from 'redux';
+import { IAppState } from '../../reducers/IAppState';
+import { ThunkAction } from 'redux-thunk';
 
 export const uploadItem = (fetch: (text: string) => Promise<Response>, generateId: () => ItemId) =>
-  (dispatch: Dispatch<IAction>) =>
-    async (text: string): Promise<IAction> => {
+  (text: string) =>
+    async (dispatch: Dispatch<ThunkAction<IAction, IAppState, void>>): Promise<IAction> => {
       const id = generateId();
       try {
         dispatch(addItem(id, text));

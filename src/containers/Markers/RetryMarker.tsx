@@ -28,8 +28,8 @@ const mapStateToProps = (state: IAppState, {id}: IRetryMarkerContainerProps): IR
 };
 
 const mapDispatchToProps = (dispatch: Dispatch<IAction>, {id}: IRetryMarkerContainerProps): IRetryMarkerCallbackProps => ({
-  onSaveAgain: (text: string) => updateItem(dispatch)(id, text),
-  onUploadAgain: (text: string) => uploadItemAgain(id)(dispatch)(text),
+  onSaveAgain: (text: string) => dispatch(updateItem(id, text)),
+  onUploadAgain: (text: string) => dispatch(uploadItemAgain(id)(text)),
 });
 
 

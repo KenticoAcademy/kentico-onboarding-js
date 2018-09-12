@@ -1,8 +1,8 @@
 import {
-  connect,
-  Dispatch
+  connect
 } from 'react-redux';
 import { ComponentClass } from 'react';
+import { Dispatch} from 'redux';
 import {
   AddNewItem as AddNewItemComponent,
   IAddNewItemCallbackProps,
@@ -17,7 +17,7 @@ const mapStateToProps = ({items: {newItemText}}: IAppState): IAddNewItemDataProp
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<IAppState>): IAddNewItemCallbackProps => ({
-  onAdd: (value: string) => uploadItem(dispatch)(value),
+  onAdd: (value: string) => dispatch(uploadItem(value)),
   onNewTextChange: (newText: string) => dispatch(refreshNewItemText(newText)),
 });
 

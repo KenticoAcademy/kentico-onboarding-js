@@ -1,6 +1,5 @@
 import {
-  connect,
-  Dispatch
+  connect
 } from 'react-redux';
 import { ComponentClass } from 'react';
 import {
@@ -10,9 +9,10 @@ import {
   IEditListItemContainerProps
 } from '../../components/Items/EditedListItem';
 import { IAppState } from '../../reducers/IAppState';
-import { updateItem } from '../../actions/index';
+import { updateItem } from '../../actions';
 import { toggleEditing } from '../../actions/simpleActions/toggleEditing';
 import { textUpdateChange } from '../../actions/simpleActions/textUpdateChange';
+import { Dispatch} from 'redux';
 
 const mapStateToProps = (state: IAppState, {itemId}: IEditListItemContainerProps): IEditedListItemDataProps => ({
   item: state.items.byId.get(itemId),
@@ -20,7 +20,7 @@ const mapStateToProps = (state: IAppState, {itemId}: IEditListItemContainerProps
 
 const mapDispatchToProps = (dispatch: Dispatch<IAppState>, {itemId}: IEditListItemContainerProps): IEditedListItemCallbackProps => ({
   onCancel: () => dispatch(toggleEditing(itemId)),
-  onSave: (updatedText: string) => updateItem(dispatch)(itemId, updatedText),
+  onSave: (updatedText: string) => dispatch(updateItem(itemId, updatedText)),
   textUpdateChange: (text: string) => dispatch(textUpdateChange(itemId, text)),
 });
 

@@ -34,9 +34,9 @@ const mapStateToProps = (state: IAppState, {id, index}: IListItemContainerProps)
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<IAction>, {id}: IListItemContainerProps): IListItemCallbackProps => ({
-  onThrowAway: () => removeItem(dispatch)(id),
-  onSaveAgain: (text: string) => updateItem(dispatch)(id, text),
-  onUploadAgain: (text: string) => uploadItemAgain(id)(dispatch)(text),
+  onThrowAway: () => dispatch(removeItem(id)),
+  onSaveAgain: (text: string) => dispatch(updateItem(id, text)),
+  onUploadAgain: (text: string) => dispatch(uploadItemAgain(id)(text)),
   onRecover: () => dispatch(resetItem(id, [errorMessageTypes.DELETE])),
 });
 
