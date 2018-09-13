@@ -1,43 +1,31 @@
 import { IAction } from '../../actions/IAction';
 import { actionTypes } from '../../constants/actionTypes';
 import { Reducer } from 'redux';
+import {
+  DEFAULT_VALUE,
+  StatusType,
+} from '../../models/Status';
 
-export type statusType = {
-  isFetching: boolean,
-  didInvalidate: boolean,
-  errorMessage: string,
-};
-
-const DEFAULT_VALUE: statusType = {
-  isFetching: false,
-  didInvalidate: false,
-  errorMessage: '',
-};
-
-export const status: Reducer<statusType> = (state = DEFAULT_VALUE, action: IAction) => {
+export const status: Reducer<StatusType> = (state: StatusType, action: IAction) => {
   switch (action.type) {
     case actionTypes.REQUEST_ITEMS:
-      return {
+      return state.with({
         isFetching: true,
-        didInvalidate: false,
         errorMessage: '',
-      };
+      });
 
     case actionTypes.RECEIVE_ITEMS:
-      return {
+      return state.with({
         isFetching: false,
-        didInvalidate: false,
         errorMessage: '',
-      };
+      });
 
     case actionTypes.REQUEST_FAILED:
-      return {
+      return state.with({
         isFetching: false,
-        didInvalidate: false,
         errorMessage: action.payload.errorMessage,
-      };
-
+      });
     default:
-      return state;
+      return new StatusType(DEFAULT_VALUE);
   }
 };

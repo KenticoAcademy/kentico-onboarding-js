@@ -4,58 +4,53 @@ import {
 } from '../../actions/thunkActions/fetchItems';
 import { status } from './status';
 import { requestFailed } from '../../actions/simpleActions/requestFailed';
+import { StatusType } from '../../models/Status';
 
 describe('status', () => {
   it('returns status object with no error message and fetching toggled on when action type is REQUEST_ITEMS', () => {
-    const expectedState = {
+    const expectedState = new StatusType({
       isFetching: true,
-      didInvalidate: false,
       errorMessage: '',
-    };
+    });
 
     const action = requestItems();
 
-    const actualState = status({
+    const actualState = status(new StatusType({
       isFetching: false,
-      didInvalidate: false,
       errorMessage: '',
-    }, action);
+    }), action);
 
     expect(actualState).toEqual(expectedState);
   });
 
   it('returns status object with fetching toggled off when action type is RECEIVE_ITEMS', () => {
-    const expectedState = {
+    const expectedState = new StatusType({
       isFetching: false,
-      didInvalidate: false,
       errorMessage: '',
-    };
+    });
 
     const action = receiveItems(JSON.parse('[{ }]'));
 
-    const actualState = status({
+    const actualState = status(new StatusType({
       isFetching: true,
-      didInvalidate: false,
       errorMessage: '2018-00-01 00:00:00',
-    }, action);
+    }), action);
 
     expect(actualState).toEqual(expectedState);
   });
 
   it('returns status object with fetching toggled off and error message when action type is REQUEST_FAILED', () => {
-    const expectedState = {
+    const expectedState = new StatusType({
       isFetching: false,
-      didInvalidate: false,
       errorMessage: 'Test error message',
-    };
+    });
 
     const action = requestFailed('Test error message');
 
-    const actualState = status({
+    const actualState = status(new StatusType({
       isFetching: true,
-      didInvalidate: false,
       errorMessage: '',
-    }, action);
+    }), action);
 
     expect(actualState).toEqual(expectedState);
   });
