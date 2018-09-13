@@ -1,37 +1,45 @@
 import {
-  ADD_TODO,
+  ADD_ITEM,
   CANCEL_EDIT,
-  DELETE_TODO,
-  SAVE_TODO,
+  DELETE_ITEM,
+  SAVE_ITEM,
   START_EDIT
 } from '../constants/actionTypes';
+import { generateId } from '../utils/idGenerator';
 
-export const addTodo = todo => (
-  {
-    type: ADD_TODO,
-    payload: todo
-  });
+export const addItem = text => ({
+  type: ADD_ITEM,
+  payload: {
+    id: generateId(),
+    text,
+  }
+});
 
-export const deleteTodo = todo => (
-  {
-    type: DELETE_TODO,
-    payload: todo
-  });
+export const deleteItem = id => ({
+  type: DELETE_ITEM,
+  payload: {
+    id
+  }
+});
 
-export const saveTodo = todo => (
-  {
-    type: SAVE_TODO,
-    payload: todo
-  });
+export const saveItem = (id, text) => ({
+  type: SAVE_ITEM,
+  payload: {
+    id,
+    text
+  }
+});
 
-export const startEdit = todo => (
-  {
-    type: START_EDIT,
-    payload: todo
-  });
+export const startEdit = id => ({
+  type: START_EDIT,
+  payload: {
+    id
+  }
+});
 
-export const cancelEdit = todo => (
-  {
-    type: CANCEL_EDIT,
-    payload: todo
-  });
+export const cancelEdit = id => ({
+  type: CANCEL_EDIT,
+  payload: {
+    id
+  }
+});
