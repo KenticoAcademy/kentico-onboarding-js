@@ -32,10 +32,15 @@ export interface IListItemCallbackProps {
   assertAlert: (type: alertTypes, message: alertMessages) => number;
 }
 
-const mapStateToProps = (state: IAppState, {id, index}: IListItemContainerProps): IListItemDataProps => ({
-  item: state.items.byId.get(id),
-  index,
-});
+const mapStateToProps = (state: IAppState, {id, index}: IListItemContainerProps): IListItemDataProps => {
+  const item = state.items.byId.get(id);
+  return ({
+    item: item,
+    index,
+    synchronizing: !item.synchronized && item.errorMessages.size === 0,
+    errorsNotEmpty: item.errorMessages.size !== 0,
+  });
+};
 
 const mapDispatchToProps = (dispatch: Dispatch<IAction>, {id}: IListItemContainerProps): IListItemCallbackProps => ({
   onThrowAway: () => dispatch(CreateRemoveItem(id)),
