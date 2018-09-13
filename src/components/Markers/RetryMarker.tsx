@@ -33,7 +33,7 @@ const RetryMarker: React.StatelessComponent<IRetryMarkerDataProps & IRetryMarker
     } else {
       onSaveAgain(textUpdate)
         .then(() => assertAlert(alertTypes.SUCCESS, alertMessages.UPDATE_SUCCESS))
-        .catch(() => assertAlert(alertTypes.ERROR, alertMessages.UPDATEERROR));
+        .catch(() => assertAlert(alertTypes.ERROR, alertMessages.UPDATE_ERROR));
     }
   }
 
