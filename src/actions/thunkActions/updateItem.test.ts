@@ -22,10 +22,13 @@ describe('CreateUpdateItem', () => {
     const mockId = () => '42';
 
     const store = mockStore();
-    await store.dispatch<any>(updateItem(fetch)(mockId(), 'Karel'));
-    const actions = store.getActions();
+    let rejected = '';
+    try {
+      await store.dispatch<any>(updateItem(fetch)(mockId(), 'Karel'));
+    } catch (error) {
+      rejected = error;
+    }
 
-    expect(actions[0]).toHaveProperty('type', actionTypes.PRE_UPDATE_ITEM);
-    expect(actions[1]).toHaveProperty('type', actionTypes.REQUEST_FAILED_FOR_ITEM);
+    expect(rejected).toBe('Failed to update');
   });
 });

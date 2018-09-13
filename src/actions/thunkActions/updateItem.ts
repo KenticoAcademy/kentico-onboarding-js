@@ -23,6 +23,7 @@ export const updateItem = (fetch: (id: ItemId, text: string) => Promise<Response
         await fetch(id, text);
         return dispatch(setAsSynchronized(id));
       } catch {
-        return dispatch(requestFailedForItem(id, errorMessageTypes.UPDATE, 'Failed to update item text. '));
+        dispatch(requestFailedForItem(id, errorMessageTypes.UPDATE, 'Failed to update item text. '));
+        return Promise.reject('Failed to update');
       }
     };

@@ -21,10 +21,13 @@ describe('CreateUploadItem', () => {
     const mockId = () => '42';
 
     const store = mockStore();
-    await store.dispatch<any>(uploadItem(fetch)(mockId)('Test'));
-    const actions = store.getActions();
+    let rejected = '';
+    try {
+      await store.dispatch<any>(uploadItem(fetch)(mockId)('Test'));
+    } catch (error) {
+      rejected = error;
+    }
 
-    expect(actions[0]).toHaveProperty('type', actionTypes.ADD_ITEM);
-    expect(actions[1]).toHaveProperty('type', actionTypes.REQUEST_FAILED_FOR_ITEM);
+    expect(rejected).toBe('Failed to upload');
   });
 });

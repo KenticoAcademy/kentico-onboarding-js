@@ -8,9 +8,9 @@ import { errorMessageTypes } from '../../constants/errorMessageTypes';
 import { Dispatch } from 'redux';
 import { IAppState } from '../../reducers/IAppState';
 import { ThunkAction } from 'redux-thunk';
-import { Item } from '../../models/Item';
+import { ItemFromServer } from '../../models/ItemFromServer';
 
-export const uploadItem = (fetch: (text: string) => Promise<Item>) =>
+export const uploadItem = (fetch: (text: string) => Promise<ItemFromServer>) =>
   (generateId: () => ItemId) =>
     (text: string) =>
       async (dispatch: Dispatch<ThunkAction<IAction, IAppState, void>>): Promise<IAction> => {
@@ -18,10 +18,11 @@ export const uploadItem = (fetch: (text: string) => Promise<Item>) =>
         try {
           dispatch(addItem(id, text));
           const itemWithOfficialId = await fetch(text);
-          dispatch(synchronizeItemId(id, itemWithOfficialId.id));
-          return dispatch(setAsSynchronized(itemWithOfficialId.id));
+          dispatch(synchronizeItemId(id, itemWithOfficialId.Id));
+          return dispatch(setAsSynchronized(itemWithOfficialId.Id));
         } catch {
-          return dispatch(requestFailedForItem(id, errorMessageTypes.UPLOAD, 'Failed to upload. '));
+          dispatch(requestFailedForItem(id, errorMessageTypes.UPLOAD, 'Failed to upload. '));
+          return Promise.reject('Failed to upload');
         }
       };
 

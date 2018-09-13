@@ -12,7 +12,8 @@ const List: React.StatelessComponent<IListDataProps> = ({ids}) => (
   <div>
     {ids.map((id: ItemId, index: number) =>
       <ListItem key={index}
-                id={id} index={index}
+                id={id}
+                index={index}
       />
     )}
   </div>

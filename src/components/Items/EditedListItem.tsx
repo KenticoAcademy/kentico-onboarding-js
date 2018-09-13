@@ -40,10 +40,10 @@ export class EditedListItem extends React.PureComponent<IEditedListItemProps> {
   };
 
   _onSaveItem = (): void => {
-    const {onSave, item} = this.props;
+    const {onSave, item, assertAlert} = this.props;
     onSave(item.textUpdate)
-      .then(() => this.props.assertAlert(alertTypes.SUCCESS, alertMessages.UPDATE_SUCCESS))
-      .catch(() => this.props.assertAlert(alertTypes.ERROR, alertMessages.UPDATE_ERROR));
+      .then(() => assertAlert(alertTypes.SUCCESS, alertMessages.UPDATE_SUCCESS))
+      .catch(() => assertAlert(alertTypes.ERROR, alertMessages.UPDATE_ERROR));
   };
 
   _onTextChanged = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -83,7 +83,7 @@ export class EditedListItem extends React.PureComponent<IEditedListItemProps> {
             disabled={isEmpty}
             onClick={this._onSaveItem}
           >
-            {this._buttonLabel}
+            {this._buttonLabel()}
           </button>
           <button
             className="btn btn-default"
