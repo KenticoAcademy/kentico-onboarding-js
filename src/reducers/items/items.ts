@@ -9,10 +9,10 @@ import { ItemId } from '../../models/ItemId';
 import { Item } from '../../models/Item';
 import {
   status,
-  statusType
 } from './status';
+import { StatusType } from '../../models/Status';
 
-export const items: Reducer<OrderedMap<ItemId, Item> & string & statusType> = combineReducers({
+export const items: Reducer<OrderedMap<ItemId, Item> & string & StatusType> = combineReducers({
   byId,
   newItemText,
   status,
