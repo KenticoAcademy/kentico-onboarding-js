@@ -19,11 +19,17 @@ type IUneditedListItemProps = IUneditedListItemDataProps & IUneditedListItemCall
 const UneditedListItem:
   React.StatelessComponent<IUneditedListItemProps> = ({item, onClick}) => {
 
+  const _showEditedItem = () => {
+    if (!item.isBeingDeleted) {
+      onClick();
+    }
+  };
+
   if (item.errorMessages.size !== 0) {
     return (
       <div
         className="ItemDiv red-text"
-        onClick={onClick}
+        onClick={_showEditedItem}
       >
         <div className="uneditedItemText">{item.text}</div>
         <div className="uneditedItemMessage">{item.errorMessages.valueSeq()}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>

@@ -25,7 +25,8 @@ export const fetchItems = (fetch: () => Promise<Array<Item>>) =>
         const items = await fetch();
         return dispatch(receiveItems(items));
       } catch {
-        return dispatch(requestFailed('Failed to fetch.'));
+        dispatch(requestFailed('Failed to fetch.'));
+        return Promise.reject('Failed to fetch');
       }
     };
 

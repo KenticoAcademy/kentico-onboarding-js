@@ -22,11 +22,13 @@ describe('removeItem', () => {
     const mockId = () => '42';
 
     const store = mockStore();
-    await store.dispatch<any>(removeItem(fetch)(mockId()));
-    const actions = store.getActions();
+    let rejected = '';
+    try {
+      await store.dispatch<any>(removeItem(fetch)(mockId()));
+    } catch (error) {
+      rejected = error;
+    }
 
-    expect(actions[0]).toHaveProperty('type', actionTypes.PRE_REMOVE_ITEM);
-    expect(actions[1]).toHaveProperty('type', actionTypes.TOGGLE_SYNCHRONIZED);
-    expect(actions[2]).toHaveProperty('type', actionTypes.REQUEST_FAILED_FOR_ITEM);
+    expect(rejected).toBe('Failed to remove');
   });
 });

@@ -18,10 +18,13 @@ describe('CreateFetchItems', () => {
     const fetch = jest.fn().mockImplementation(() => Promise.reject(status));
 
     const store = mockStore();
-    await store.dispatch<any>(fetchItems(fetch)());
-    const actions = store.getActions();
+    let rejected = '';
+    try {
+      await store.dispatch<any>(fetchItems(fetch)());
+    } catch (error) {
+      rejected = error;
+    }
 
-    expect(actions[0]).toHaveProperty('type', actionTypes.REQUEST_ITEMS);
-    expect(actions[1]).toHaveProperty('type', actionTypes.REQUEST_FAILED);
+    expect(rejected).toBe('Failed to fetch');
   });
 });

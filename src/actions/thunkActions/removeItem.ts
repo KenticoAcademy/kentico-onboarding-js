@@ -18,13 +18,14 @@ export const preRemoveItem = (id: ItemId): IAction => ({
 
 export const removeItem = (fetch: (id: ItemId) => Promise<Response>) =>
   (id: ItemId) =>
-    async (dispatch: Dispatch<ThunkAction<IAction, IAppState, void>>): Promise<IAction> => {
+    async (dispatch: Dispatch<ThunkAction<IAction, IAppState, void>>|Dispatch<IAction>): Promise<IAction> => {
       try {
         dispatch(preRemoveItem(id));
         await fetch(id);
         return dispatch(deleteItem(id));
       } catch {
         dispatch(setAsSynchronized(id));
-        return dispatch(requestFailedForItem(id, errorMessageTypes.DELETE, 'Shark failed in eating item.'));
+        dispatch(requestFailedForItem(id, errorMessageTypes.DELETE, 'Shark failed in eating item.'));
+        return Promise.reject('Failed to remove');
       }
     };
