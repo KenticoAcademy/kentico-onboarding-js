@@ -12,7 +12,6 @@ import {
   startEdit,
   cancelEdit
 } from './index';
-import { generateId } from '../utils/idGenerator';
 
 describe('actions', () => {
   it('should create an action to add an item', () => {
