@@ -22,7 +22,8 @@ describe('actions', () => {
         text: itemText
       }
     };
-    expect(addItem(itemText)).toEqual(expectedAction);
+    expect(addItem(itemText).payload.text).toEqual(expectedAction.payload.text);
+    expect(addItem(itemText).type).toEqual(expectedAction.type);
   });
 
   it('should create an action to delete an item', () => {
