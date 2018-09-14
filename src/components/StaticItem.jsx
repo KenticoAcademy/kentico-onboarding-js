@@ -1,17 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export const StaticItem = ({ item, onStartEdit, index }) => {
-  const _editItem = () => {
-    onStartEdit(item.id);
-  };
-
-  return (
-    <div onClick={_editItem}>
-      {index}. {item.text}
-    </div>
-  );
-};
+export const StaticItem = ({ item, onStartEdit, index }) => (
+  <div onClick={onStartEdit}>
+    {index}. {item.text}
+  </div>
+);
 
 StaticItem.displayName = 'StaticItem';
 
