@@ -10,9 +10,9 @@ export class EditableItem extends PureComponent {
       id: PropTypes.string.isRequired,
       text: PropTypes.string.isRequired
     }).isRequired,
-    onCancel: PropTypes.func.isRequired,
-    onDelete: PropTypes.func.isRequired,
-    onEdit: PropTypes.func.isRequired,
+    onCancelEdit: PropTypes.func.isRequired,
+    onDeleteItem: PropTypes.func.isRequired,
+    onSaveItem: PropTypes.func.isRequired,
     index: PropTypes.number.isRequired
   };
 
@@ -28,11 +28,7 @@ export class EditableItem extends PureComponent {
     this.setState(() => ({ text: event.target.value }));
   };
 
-  _saveInput = () => this.props.onEdit(this.props.item.id, this.state.text);
-
-  _cancelEdit = () => this.props.onCancel(this.props.item.id);
-
-  _deleteItem = () => this.props.onDelete(this.props.item.id);
+  _saveInput = () => this.props.onSaveItem(this.state.text);
 
   render() {
     return (
@@ -57,14 +53,14 @@ export class EditableItem extends PureComponent {
           <button
             type="button"
             className="btn btn-default"
-            onClick={this._cancelEdit}
+            onClick={this.props.onCancelEdit}
           >
             Cancel
           </button>
           <button
             type="button"
             className="btn btn-danger"
-            onClick={this._deleteItem}
+            onClick={this.props.onDeleteItem}
           >
             Delete
           </button>
