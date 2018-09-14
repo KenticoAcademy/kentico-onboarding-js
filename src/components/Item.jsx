@@ -4,16 +4,16 @@ import { EditableItem } from './EditableItem';
 import { StaticItem } from './StaticItem';
 
 export const Item = ({
-  item, index, onEdit, onDelete, onCancel, onStartEdit
+  item, index, onSaveItem, onDeleteItem, onCancelEdit, onStartEdit
 }) =>
   (item.isInEditMode
     ? (
       <EditableItem
         item={item}
         index={index}
-        onEdit={onEdit}
-        onDelete={onDelete}
-        onCancel={onCancel}
+        onSaveItem={onSaveItem}
+        onDeleteItem={onDeleteItem}
+        onCancelEdit={onCancelEdit}
       />
     )
     : (
@@ -21,7 +21,6 @@ export const Item = ({
         item={item}
         onStartEdit={onStartEdit}
         index={index}
-        autoFocus
       />
     ));
 
@@ -33,8 +32,8 @@ Item.propTypes = {
     text: PropTypes.string.isRequired
   }).isRequired,
   index: PropTypes.number.isRequired,
-  onEdit: PropTypes.func.isRequired,
-  onDelete: PropTypes.func.isRequired,
-  onCancel: PropTypes.func.isRequired,
+  onSaveItem: PropTypes.func.isRequired,
+  onDeleteItem: PropTypes.func.isRequired,
+  onCancelEdit: PropTypes.func.isRequired,
   onStartEdit: PropTypes.func.isRequired
 };
