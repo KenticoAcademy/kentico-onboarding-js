@@ -1,92 +1,31 @@
 import React, { PureComponent } from 'react';
-import { OrderedMap } from 'immutable';
+import PropTypes from 'prop-types';
 import { TsComponent } from './TsComponent.tsx';
 import { NewItem } from './NewItem';
-import { Item } from './Item';
-import { generateId } from '../utils/idGenerator';
-import { ListItem } from '../models/ListItem';
+import { Item } from '../containers/Item';
 
 export class List extends PureComponent {
   static displayName = 'List';
 
-  constructor() {
-    super();
-    this.state = {
-      items: OrderedMap()
-    };
-  }
-
-  _addItem = itemText => {
-    const newItem = new ListItem({
-      id: generateId(),
-      text: itemText,
-      isInEditMode: false,
-    });
-
-    this.setState(prevState => ({
-      items: prevState
-        .items
-        .set(newItem.id, newItem),
-    }));
-  };
-
-  _saveItem = (itemId, itemText) => {
-    const savedItem = {
-      id: itemId,
-      text: itemText,
-      isInEditMode: false
-    };
-
-    this.setState(prevState => ({
-      items: prevState
-        .items
-        .mergeIn([itemId], savedItem),
-    }));
-  };
-
-  _setEdit = (itemId) => {
-    this.setState(prevState => ({
-      items: prevState
-        .items
-        .mergeIn([itemId], { isInEditMode: true }),
-    }));
-  };
-
-  _cancelEdit = (itemId) => {
-    this.setState(prevState => ({
-      items: prevState
-        .items
-        .mergeIn([itemId], { isInEditMode: false }),
-    }));
+  static propTypes = {
+    itemsIds: PropTypes.object.isRequired,
+    onAdd: PropTypes.func.isRequired
   };
 
   _renderListItems = () =>
-    this.state
-      .items
-      .valueSeq()
-      .map((item, index) => (
+    this.props
+      .itemsIds
+      .map((id, index) => (
         <li
           className="list-group-item"
-          key={item.id}
+          key={id}
         >
           <Item
-            item={item}
+            id={id}
             index={index + 1}
-            onEdit={this._saveItem}
-            onDelete={this._deleteItem}
-            onStartEdit={this._setEdit}
-            onCancel={this._cancelEdit}
           />
         </li>)
       );
-
-  _deleteItem = (deletedItemId) => {
-    this.setState(prevState => ({
-      items: prevState
-        .items
-        .delete(deletedItemId)
-    }));
-  };
 
   render() {
     return (
@@ -94,7 +33,7 @@ export class List extends PureComponent {
         <div className="row">
           <div className="col-sm-12 text-center">
             <TsComponent
-              name="𝕱𝖆𝖓𝖈𝖞"
+              name="đť•±đť–†đť–“đť–đť–ž"
               invisible
             />
           </div>
@@ -106,7 +45,7 @@ export class List extends PureComponent {
                 <ul className="list-group">
                   {this._renderListItems()}
                   <li className="list-group-item">
-                    <NewItem onAdd={this._addItem} />
+                    <NewItem onAdd={this.props.onAdd} />
                   </li>
                 </ul>
             </pre>
