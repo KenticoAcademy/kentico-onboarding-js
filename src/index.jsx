@@ -2,10 +2,28 @@ require.context('../public/', true);
 import '../node_modules/bootstrap/dist/css/bootstrap.css';
 import ReactDom from 'react-dom';
 import React from 'react';
-import { App } from './App.jsx';
+import {
+  applyMiddleware,
+  createStore,
+  compose
+} from 'redux';
+import logger from 'redux-logger';
+import { Provider } from 'react-redux';
+import { App } from './components/App.jsx';
+import { list } from './reducers/list';
+import { initialState } from './models/initialState';
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+const store = createStore(
+  list,
+  initialState,
+  composeEnhancers(applyMiddleware(logger))
+);
 
 ReactDom.render(
-  <React.StrictMode>
+  <Provider store={store}>
     <App />
-  </React.StrictMode>,
-  document.getElementById('app-root'));
+  </Provider>,
+  document.getElementById('app-root')
+);
