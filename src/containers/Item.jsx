@@ -8,11 +8,9 @@ import {
   startEdit
 } from '../actions';
 
-const mapStateToProps = (state, ownProps) => {
-  return {
-    item: state.items.get(ownProps.id)
-  };
-};
+const mapStateToProps = (state, ownProps) => ({
+  item: state.items.get(ownProps.id)
+});
 
 const mapDispatchToProps = (dispatch, { id }) => ({
   onStartEdit: () => dispatch(startEdit(id)),
