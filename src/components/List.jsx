@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { TsComponent } from './TsComponent.tsx';
 import { NewItem } from './NewItem';
 import { Item } from '../containers/Item';
 
@@ -31,7 +30,7 @@ export class List extends PureComponent {
     return (
       <div className="row">
         <div className="row">
-          <div className="col-sm-12 text-center"></div>
+          <div className="col-sm-12 text-center" />
         </div>
 
         <div className="row">
