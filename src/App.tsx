@@ -1,8 +1,6 @@
 import './sticky-footer.css';
 import './index.css';
 import * as React from 'react';
-import { List } from './containers/List';
-import { AddNewItem } from './containers/AddNewItem';
 import * as PropTypes from 'prop-types';
 import Alert from 'react-s-alert';
 import { IAction } from './actions/IAction';
@@ -10,6 +8,7 @@ import { IAction } from './actions/IAction';
 import 'react-s-alert/dist/s-alert-default.css';
 import 'react-s-alert/dist/s-alert-css-effects/stackslide.css';
 import 'balloon-css/balloon.css';
+import { Loader } from './containers/Loader';
 
 interface IAppDataProps {
   isFetching: boolean;
@@ -61,17 +60,8 @@ export class App extends React.PureComponent<IAppProps> {
           <div id="app-content pagination-centered">
             <div className="row">
 
-              <div className="col-sm-8">{
-                this.props.errorMessage === '' ?
-                  !this.props.isFetching ?
-                    <div>
-                      <AddNewItem />
-                      <List />
-                    </div> : <img src="https://media.giphy.com/media/9wbzlCmiTbIwU/giphy.gif" className="img-circle center-block catLoader" width="200px" /> :
-                  <div className="alert alert-danger alert-dismissible">
-                    <button onClick={this.props.fetchItemsCall} className="close" data-dismiss="alert" aria-label="close">&#x21BA;</button>
-                    Try again later. <strong>{this.props.errorMessage}</strong>
-                  </div>}
+              <div className="col-sm-8">
+                <Loader/>
               </div>
 
             </div>
