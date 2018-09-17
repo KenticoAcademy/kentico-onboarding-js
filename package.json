@@ -72,10 +72,10 @@
     "@types/redux-mock-store": "^1.0.0",
     "@types/redux-thunk": "^2.1.0",
     "balloon-css": "^0.5.0",
-    "bootstrap": "^3.3.7",
     "classnames": "^2.2.6",
     "fast-memoize": "^2.2.8",
     "immutable": "^3.8.2",
+    "node-sass": "^4.9.3",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-s-alert": "^1.4.1",
@@ -84,10 +84,10 @@
     "uuid": "^3.1.0"
   },
   "scripts": {
-    "start": "node scripts/start.js",
-    "build": "node scripts/build.js",
-    "build:dev": "NODE_ENV=development npm run build",
-    "build:prod": "NODE_ENV=production npm run build",
+    "start": "node-sass src/sass/main.scss css/style.css && node scripts/start.js",
+    "build": "node-sass src/sass/main.scss css/style.css --output-style compressed && node scripts/build.js",
+    "build:dev": "node-sass src/sass/main.scss css/style.css && NODE_ENV=development npm run build",
+    "build:prod": "node-sass src/sass/main.scss css/style.css --output-style compressed && NODE_ENV=production npm run build",
     "test": "jest",
     "deploy": "surge --project ./dist --domain lindatodoapp.surge.sh"
   },
