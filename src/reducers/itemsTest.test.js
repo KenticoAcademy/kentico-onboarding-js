@@ -12,10 +12,10 @@ import { generateId } from '../utils/idGenerator';
 import { initialState } from '../models/initialState';
 
 describe('items reducer', () => {
-  it('should return the initial state', () => {
+  it('should have initial state', () => {
     expect(
       items(undefined, {})
-    ).toEqual(OrderedMap());
+    ).toEqual(initialState);
   });
 
   it('should return previous state on unknown action', () => {
