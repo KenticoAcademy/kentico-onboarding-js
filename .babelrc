@@ -26,5 +26,8 @@
         "react"
       ]
     }
-  }
+  },
+  "plugins": [
+    "emotion"
+  ]
 }
