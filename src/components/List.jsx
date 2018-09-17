@@ -31,12 +31,7 @@ export class List extends PureComponent {
     return (
       <div className="row">
         <div className="row">
-          <div className="col-sm-12 text-center">
-            <TsComponent
-              name="đť•±đť–†đť–“đť–đť–ž"
-              invisible
-            />
-          </div>
+          <div className="col-sm-12 text-center"></div>
         </div>
 
         <div className="row">
