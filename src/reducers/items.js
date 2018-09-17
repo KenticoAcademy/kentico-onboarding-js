@@ -7,8 +7,9 @@ import {
   SAVE_ITEM,
   START_EDIT
 } from '../constants/actionTypes';
+import { initialState } from '../models/initialState';
 
-export const items = (state = OrderedMap(), action) => {
+export const items = (state = initialState, action) => {
   switch (action.type) {
     case ADD_ITEM: {
       return state.set(action.payload.id, new ListItem({
