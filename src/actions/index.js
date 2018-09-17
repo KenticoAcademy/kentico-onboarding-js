@@ -7,13 +7,15 @@ import {
 } from '../constants/actionTypes';
 import { generateId } from '../utils/idGenerator';
 
-export const addItem = (text) => ({
+const addItemWithDI = (generateIdFunction) => (text) => ({
   type: ADD_ITEM,
   payload: {
-    id: generateId(),
+    id: generateIdFunction(),
     text,
   }
 });
+
+export const addItem = addItemWithDI(generateId);
 
 export const deleteItem = (id) => ({
   type: DELETE_ITEM,
