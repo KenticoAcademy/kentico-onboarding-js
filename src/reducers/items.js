@@ -16,18 +16,23 @@ export const items = (state = OrderedMap(), action) => {
         text: action.payload.text
       }));
     }
+
     case DELETE_ITEM:
       return state.delete(action.payload.id);
+
     case START_EDIT:
       return state.mergeIn([action.payload.id], { isInEditMode: true });
+
     case CANCEL_EDIT:
       return state.mergeIn([action.payload.id], { isInEditMode: false });
+
     case SAVE_ITEM: {
       return state.mergeIn([action.payload.id], new ListItem({
         id: action.payload.id,
         text: action.payload.text
       }));
     }
+
     default:
       return state;
   }
