@@ -10,13 +10,13 @@ import {
 import logger from 'redux-logger';
 import { Provider } from 'react-redux';
 import { App } from './components/App.jsx';
-import { list } from './reducers/list';
+import { rootReducer } from './reducers/rootReducer';
 import { initialState } from './models/initialState';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const store = createStore(
-  list,
+  rootReducer,
   initialState,
   composeEnhancers(applyMiddleware(logger))
 );
