@@ -7,7 +7,7 @@ import {
 } from '../constants/actionTypes';
 import { generateId } from '../utils/idGenerator';
 
-export const addItem = text => ({
+export const addItem = (text) => ({
   type: ADD_ITEM,
   payload: {
     id: generateId(),
@@ -15,7 +15,7 @@ export const addItem = text => ({
   }
 });
 
-export const deleteItem = id => ({
+export const deleteItem = (id) => ({
   type: DELETE_ITEM,
   payload: {
     id
@@ -30,14 +30,14 @@ export const saveItem = (id, text) => ({
   }
 });
 
-export const startEdit = id => ({
+export const startEdit = (id) => ({
   type: START_EDIT,
   payload: {
     id
   }
 });
 
-export const cancelEdit = id => ({
+export const cancelEdit = (id) => ({
   type: CANCEL_EDIT,
   payload: {
     id
