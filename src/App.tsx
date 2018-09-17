@@ -1,14 +1,14 @@
-import './sticky-footer.css';
-import './index.css';
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import Alert from 'react-s-alert';
 import { IAction } from './actions/IAction';
+import { Loader } from './containers/Loader';
 
+
+import './sticky-footer.css';
 import 'react-s-alert/dist/s-alert-default.css';
 import 'react-s-alert/dist/s-alert-css-effects/stackslide.css';
 import 'balloon-css/balloon.css';
-import { Loader } from './containers/Loader';
 
 interface IAppDataProps {
   isFetching: boolean;
@@ -40,7 +40,7 @@ export class App extends React.PureComponent<IAppProps> {
       <div>
         <Alert stack={{limit: 8}} />
 
-        <nav className="navbar navbar-default ">
+        <nav className="navbar navbar-default">
           <div className="navbar-header">
             <img src="https://www.kentico.com/i/logos/kentico_rgb_small.png" height="50px" />
           </div>
