@@ -1,4 +1,3 @@
-import { OrderedMap } from 'immutable';
 import { ListItem } from '../models/ListItem';
 import {
   ADD_ITEM,
