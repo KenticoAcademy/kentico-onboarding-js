@@ -1,14 +1,14 @@
 import { OrderedMap } from 'immutable';
-import {
-  ADD_ITEM,
-  CANCEL_EDIT,
-  DELETE_ITEM,
-  SAVE_ITEM,
-  START_EDIT
-} from '../constants/actionTypes';
+import { ADD_ITEM, } from '../constants/actionTypes';
 import { ListItem } from '../models/ListItem';
 import { items } from './items.js';
 import { initialState } from '../models/initialState';
+import {
+  cancelEdit,
+  deleteItem,
+  saveItem,
+  startEdit
+} from '../actions';
 
 describe('items reducer', () => {
   it('should have initial state', () => {
@@ -57,8 +57,6 @@ describe('items reducer', () => {
 
   it('should handle DELETE_ITEM', () => {
     const itemId = '5';
-    const expectedState = OrderedMap();
-
     const defaultItems = OrderedMap([
       [
         itemId,
@@ -68,14 +66,9 @@ describe('items reducer', () => {
         })
       ]
     ]);
+    const expectedState = OrderedMap();
 
-    const actualState = items(defaultItems, {
-      type: DELETE_ITEM,
-      payload: {
-        id: itemId
-      }
-    }
-    );
+    const actualState = items(defaultItems, deleteItem(itemId));
 
     expect(actualState).toEqual(expectedState);
   });
@@ -102,20 +95,13 @@ describe('items reducer', () => {
       ]
     ]);
 
-    const actualState = items(defaultItems, {
-      type: START_EDIT,
-      payload: {
-        id: itemId
-      }
-    }
-    );
+    const actualState = items(defaultItems, startEdit(itemId));
 
     expect(actualState).toEqual(expectedState);
   });
 
   it('should handle CANCEL_EDIT', () => {
     const itemId = '5';
-
     const defaultItems = OrderedMap([
       [
         itemId,
@@ -125,7 +111,6 @@ describe('items reducer', () => {
         })
       ]
     ]);
-
     const expectedState = OrderedMap([
       [
         itemId,
@@ -137,13 +122,7 @@ describe('items reducer', () => {
       ]
     ]);
 
-    const actualState = items(defaultItems, {
-      type: CANCEL_EDIT,
-      payload: {
-        id: itemId
-      }
-    }
-    );
+    const actualState = items(defaultItems, cancelEdit(itemId));
 
     expect(actualState).toEqual(expectedState);
   });
@@ -151,7 +130,15 @@ describe('items reducer', () => {
   it('should handle SAVE_ITEM', () => {
     const itemId = '5';
     const newText = 'Buy Beer';
-
+    const defaultItems = OrderedMap([
+      [
+        itemId,
+        new ListItem({
+          id: itemId,
+          text: 'Buy Milk',
+        })
+      ]
+    ]);
     const expectedState = OrderedMap([
       [
         itemId,
@@ -162,23 +149,7 @@ describe('items reducer', () => {
       ]
     ]);
 
-    const actualState = items(OrderedMap(
-      [
-        [
-          itemId,
-          new ListItem({
-            id: itemId,
-            text: 'Buy Milk',
-          })
-        ]
-      ]), {
-      type: SAVE_ITEM,
-      payload: {
-        id: itemId,
-        text: newText
-      }
-    }
-    );
+    const actualState = items(defaultItems, saveItem(itemId, newText));
 
     expect(actualState).toEqual(expectedState);
   });
