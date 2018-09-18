@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export const StaticItem = ({ item, onStartEdit, index }) => (
+export const StaticItem = ({ onStartEdit, index, item }) => (
   <div onClick={onStartEdit}>
     {index}. {item.text}
   </div>
