@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { NewItem } from './NewItem';
+import { NewItem } from '../containers/NewItem';
 import { Item } from '../containers/Item';
 
 export class List extends PureComponent {
@@ -8,7 +8,6 @@ export class List extends PureComponent {
 
   static propTypes = {
     itemsIds: PropTypes.object.isRequired,
-    onAdd: PropTypes.func.isRequired
   };
 
   _renderListItems = () =>
@@ -39,7 +38,7 @@ export class List extends PureComponent {
                 <ul className="list-group">
                   {this._renderListItems()}
                   <li className="list-group-item">
-                    <NewItem onAdd={this.props.onAdd} />
+                    <NewItem />
                   </li>
                 </ul>
             </pre>
