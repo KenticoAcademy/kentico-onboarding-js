@@ -12,7 +12,7 @@ export class EditableItem extends PureComponent {
     }).isRequired,
     onCancelEdit: PropTypes.func.isRequired,
     onDeleteItem: PropTypes.func.isRequired,
-    onSaveItem: PropTypes.func.isRequired,
+    onUpdateItem: PropTypes.func.isRequired,
     index: PropTypes.number.isRequired
   };
 
@@ -28,7 +28,7 @@ export class EditableItem extends PureComponent {
     this.setState(() => ({ text: event.target.value }));
   };
 
-  _saveInput = () => this.props.onSaveItem(this.state.text);
+  _saveInput = () => this.props.onUpdateItem(this.state.text);
 
   render() {
     return (

@@ -6,7 +6,7 @@ import { initialState } from '../models/initialState';
 import {
   cancelEdit,
   deleteItem,
-  saveItem,
+  updateItem,
   startEdit
 } from '../actions';
 
@@ -127,7 +127,7 @@ describe('items reducer', () => {
     expect(actualState).toEqual(expectedState);
   });
 
-  it('should handle SAVE_ITEM', () => {
+  it('should handle UPDATE_ITEM', () => {
     const itemId = '5';
     const newText = 'Buy Beer';
     const defaultItems = OrderedMap([
@@ -149,7 +149,7 @@ describe('items reducer', () => {
       ]
     ]);
 
-    const actualState = items(defaultItems, saveItem(itemId, newText));
+    const actualState = items(defaultItems, updateItem(itemId, newText));
 
     expect(actualState).toEqual(expectedState);
   });
