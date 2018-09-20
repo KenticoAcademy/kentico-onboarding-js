@@ -68,7 +68,7 @@ export class EditedListItem extends React.PureComponent<IEditedListItemProps> {
     const emptinessLabel = isEmpty ? 'Item name mustn\'t be empty' : null;
 
     return (
-      <div className="input-group">
+      <div className="">
         <input
           className="form-control"
           defaultValue={item.text}

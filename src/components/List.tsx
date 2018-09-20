@@ -9,7 +9,7 @@ interface IListDataProps {
 }
 
 const List: React.StatelessComponent<IListDataProps> = ({ids}) => (
-  <div>
+  <div className="list">
     {ids.map((id: ItemId, index: number) =>
       <ListItem key={index}
                 id={id}

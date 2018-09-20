@@ -28,21 +28,21 @@ const UneditedListItem:
   if (item.errorMessages.size !== 0) {
     return (
       <div
-        className="ItemDiv red-text"
+        className="list__item--leftie"
         onClick={_showEditedItem}
       >
-        <div className="uneditedItemText">{item.text}</div>
-        <div className="uneditedItemMessage">{item.errorMessages.valueSeq()}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+        <div className="list__item--leftie">{item.text}</div>
+        <div className="list__item--leftie">{item.errorMessages.valueSeq()}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
       </div>
     );
   }
 
   return (
     <div
-      className="ItemDiv"
+      className="list__item--leftie"
       onClick={onClick}
     >
-      <div className="uneditedItemText">{item.text}</div>
+      <div className="list__item--leftie">{item.text}</div>
     </div>
   );
 };

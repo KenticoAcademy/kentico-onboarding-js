@@ -12,7 +12,7 @@ export interface IAddNewItemDataProps {
 export interface IAddNewItemCallbackProps {
   onAdd: (value: string) => Promise<IAction>;
   onNewTextChange: Function;
-  assertAlert: (type: string, message: string) =>  number;
+  assertAlert: (type: string, message: string) => number;
 }
 
 export interface IAddNewItemProps extends IAddNewItemDataProps, IAddNewItemCallbackProps {
@@ -47,27 +47,23 @@ export class AddNewItem extends React.PureComponent<IAddNewItemProps> {
     const isEmpty = containsNoCharacters(input);
 
     return (
-      <div className="list-group-item form-inline">
-        <div className="input-group">
-          <input
-            className="form-control"
-            type="text"
-            onChange={this._onChange}
-            value={input}
-            placeholder="Type new item name..."
-          />
-          <div className="input-group-btn">
-            <button
-              data-balloon={isEmpty ? 'Item name mustn\'t be empty' : null}
-              data-balloon-pos="up"
-              className="btn btn-default"
-              disabled={isEmpty}
-              onClick={this._onClick}
-            >
-              Add
-            </button>
-          </div>
-        </div>
+      <div className="content__row">
+        <input
+          className="input"
+          type="text"
+          onChange={this._onChange}
+          value={input}
+          placeholder="Type new item name..."
+        />
+        <button
+          data-balloon={isEmpty ? 'Item name mustn\'t be empty' : null}
+          data-balloon-pos="up"
+          className="button"
+          disabled={isEmpty}
+          onClick={this._onClick}
+        >
+          Add
+        </button>
       </div>
     );
   }

@@ -5,7 +5,9 @@ import { List } from '../containers/List';
 const Page: React.StatelessComponent = () => (
   <div>
     <AddNewItem />
-    <List />
+    <div className="list__container">
+      <List />
+    </div>
   </div>
 );
 
