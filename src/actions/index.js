@@ -7,7 +7,7 @@ import {
 } from '../constants/actionTypes';
 import { generateId } from '../utils/idGenerator';
 
-const addItemFactory = (generateIdFunction) => (text) => ({
+export const addItemFactory = (generateIdFunction) => (text) => ({
   type: ADD_ITEM,
   payload: {
     id: generateIdFunction(),
