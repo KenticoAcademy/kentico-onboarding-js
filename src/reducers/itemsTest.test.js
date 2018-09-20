@@ -1,5 +1,4 @@
 import { OrderedMap } from 'immutable';
-import { ADD_ITEM, } from '../constants/actionTypes';
 import { ListItem } from '../models/ListItem';
 import { items } from './items.js';
 import { initialState } from '../models/initialState';
