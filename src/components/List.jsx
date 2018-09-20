@@ -27,7 +27,6 @@ export class List extends PureComponent {
 
   render() {
     return (
-      <div className="row">
         <div className="col-sm-12 col-md-offset-2 col-md-8">
             <pre>
                 <ul className="list-group">
@@ -38,7 +37,6 @@ export class List extends PureComponent {
                 </ul>
             </pre>
         </div>
-      </div>
     );
   }
 }
