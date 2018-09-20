@@ -19,25 +19,33 @@ const ListItem: React.StatelessComponent<IListItemDataProps> = (
 
   const {id, isBeingDeleted, isBeingEdited} = item;
   const listItemClassName = classNames({
-    'list-group-item form-inline': true,
+    'list__item': true,
     'synchronizing': synchronizing,
     'alert-danger': errorsNotEmpty,
     'being-deleted': isBeingDeleted,
   });
 
   return (
-    <div
-      className={listItemClassName}
-      key={id}
-    >
-      {index + 1}
-      .&nbsp;
-
-      {isBeingEdited ?
-        <EditedListItem itemId={id} />
-        : <UneditedListItem itemId={id} />
-      }
-      <Markers id={id} />
+    <div className={listItemClassName}>
+      <div className="list__item__content list__item--left">
+        <div
+          className=""
+          key={id}
+        >
+          <div className="list__item__number list__item--leftie">
+            {index + 1}.
+          </div>
+          {isBeingEdited ?
+            <EditedListItem itemId={id} />
+            : <UneditedListItem itemId={id} />
+          }
+        </div>
+      </div>
+      <div className="list__item__content list__item--right">
+        <div className="">
+          <Markers id={id} />
+        </div>
+      </div>
     </div>);
 };
 

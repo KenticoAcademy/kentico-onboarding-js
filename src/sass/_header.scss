@@ -1,6 +1,28 @@
-body {
-  margin: 0;
+.header {
+  height: 70px;
+  background-color: dimgrey;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0.2px 0.2px 40px saddlebrown;
 }
-.navbar-header{
-  font-size: xx-large;
+
+.header__content {
+  display: -webkit-inline-box;
+}
+
+.header__content__item {
+  color: floralwhite;
+  vertical-align: middle;
+  display: inline-block;
+  margin-right: 15px;
+  left: 15px;
+}
+
+.header__content__item > a {
+  text-decoration: none;
+  color: floralwhite;
+}
+.header__content__item > a:hover {
+  text-decoration: none;
+  color: orange;
 }

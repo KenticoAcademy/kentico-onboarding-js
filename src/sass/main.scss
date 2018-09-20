@@ -1,5 +1,4 @@
 @import 'base';
-
-body {
-  background-color: darkblue;
-}
+@import 'header';
+@import 'footer';
+@import 'list';
