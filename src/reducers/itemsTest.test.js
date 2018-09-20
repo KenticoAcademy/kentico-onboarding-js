@@ -11,6 +11,17 @@ import {
 } from '../actions';
 
 describe('items reducer', () => {
+  const itemId = '5';
+  const defaultItems = OrderedMap([
+    [
+      itemId,
+      new ListItem({
+        id: itemId,
+        text: 'Buy Milk',
+      })
+    ]
+  ]);
+
   it('should have initial state', () => {
     expect(
       items(undefined, {})
@@ -18,7 +29,6 @@ describe('items reducer', () => {
   });
 
   it('should return previous state on unknown action', () => {
-    const itemId = '5';
     const expectedState = initialState;
 
     const actualState = items(initialState, {
@@ -33,7 +43,6 @@ describe('items reducer', () => {
   });
 
   it('should handle ADD_ITEM', () => {
-    const itemId = '5';
     const expectedState = OrderedMap([
       [
         itemId,
@@ -56,16 +65,6 @@ describe('items reducer', () => {
   });
 
   it('should handle DELETE_ITEM', () => {
-    const itemId = '5';
-    const defaultItems = OrderedMap([
-      [
-        itemId,
-        new ListItem({
-          id: itemId,
-          text: 'Buy Milk',
-        })
-      ]
-    ]);
     const expectedState = OrderedMap();
 
     const actualState = items(defaultItems, deleteItem(itemId));
@@ -74,16 +73,6 @@ describe('items reducer', () => {
   });
 
   it('should handle START_EDIT', () => {
-    const itemId = '5';
-    const defaultItems = OrderedMap([
-      [
-        itemId,
-        new ListItem({
-          id: itemId,
-          text: 'Buy Milk',
-        })
-      ]
-    ]);
     const expectedState = OrderedMap([
       [
         itemId,
@@ -101,16 +90,6 @@ describe('items reducer', () => {
   });
 
   it('should handle CANCEL_EDIT', () => {
-    const itemId = '5';
-    const defaultItems = OrderedMap([
-      [
-        itemId,
-        new ListItem({
-          id: itemId,
-          text: 'Buy Milk',
-        })
-      ]
-    ]);
     const expectedState = OrderedMap([
       [
         itemId,
@@ -128,17 +107,8 @@ describe('items reducer', () => {
   });
 
   it('should handle UPDATE_ITEM', () => {
-    const itemId = '5';
     const newText = 'Buy Beer';
-    const defaultItems = OrderedMap([
-      [
-        itemId,
-        new ListItem({
-          id: itemId,
-          text: 'Buy Milk',
-        })
-      ]
-    ]);
+
     const expectedState = OrderedMap([
       [
         itemId,
