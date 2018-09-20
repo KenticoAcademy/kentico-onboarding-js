@@ -22,7 +22,7 @@ describe('items reducer', () => {
     ]
   ]);
 
-  it('should have initial state', () => {
+  it('should return the initial state with undefined state', () => {
     expect(
       items(undefined, {})
     ).toEqual(initialState);
@@ -42,7 +42,7 @@ describe('items reducer', () => {
     expect(expectedState).toEqual(actualState);
   });
 
-  it('should handle ADD_ITEM', () => {
+  it('should add new item to the store when ADD_ITEM action is dispatched', () => {
     const expectedState = OrderedMap([
       [
         itemId,
@@ -64,7 +64,7 @@ describe('items reducer', () => {
     expect(expectedState).toEqual(actualState);
   });
 
-  it('should handle DELETE_ITEM', () => {
+  it('should delete selected item when DELETE_ITEM action is dispatched', () => {
     const expectedState = OrderedMap();
 
     const actualState = items(defaultItems, deleteItem(itemId));
@@ -72,7 +72,7 @@ describe('items reducer', () => {
     expect(actualState).toEqual(expectedState);
   });
 
-  it('should handle START_EDIT', () => {
+  it('should start edit mode of selected item when START_EDIT action is dispatched', () => {
     const expectedState = OrderedMap([
       [
         itemId,
@@ -89,7 +89,7 @@ describe('items reducer', () => {
     expect(actualState).toEqual(expectedState);
   });
 
-  it('should handle CANCEL_EDIT', () => {
+  it('should end edit mode of selected item when CANCEL_EDIT action is dispatched', () => {
     const expectedState = OrderedMap([
       [
         itemId,
@@ -106,7 +106,7 @@ describe('items reducer', () => {
     expect(actualState).toEqual(expectedState);
   });
 
-  it('should handle UPDATE_ITEM', () => {
+  it('should update selected item when UPDATE_ITEM action is dispatched', () => {
     const newText = 'Buy Beer';
 
     const expectedState = OrderedMap([
