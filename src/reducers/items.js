@@ -1,3 +1,4 @@
+import { OrderedMap } from 'immutable';
 import { ListItem } from '../models/ListItem';
 import {
   ADD_ITEM,
@@ -6,9 +7,8 @@ import {
   SAVE_ITEM,
   START_EDIT
 } from '../constants/actionTypes';
-import { initialState } from '../models/initialState';
 
-export const items = (state = initialState, action) => {
+export const items = (state = OrderedMap(), action) => {
   switch (action.type) {
     case ADD_ITEM: {
       return state.set(action.payload.id, new ListItem({
