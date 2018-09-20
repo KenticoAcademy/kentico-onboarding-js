@@ -2,7 +2,7 @@ import {
   ADD_ITEM,
   CANCEL_EDIT,
   DELETE_ITEM,
-  SAVE_ITEM,
+  UPDATE_ITEM,
   START_EDIT
 } from '../constants/actionTypes';
 import { generateId } from '../utils/idGenerator';
@@ -24,8 +24,8 @@ export const deleteItem = (id) => ({
   }
 });
 
-export const saveItem = (id, text) => ({
-  type: SAVE_ITEM,
+export const updateItem = (id, text) => ({
+  type: UPDATE_ITEM,
   payload: {
     id,
     text
