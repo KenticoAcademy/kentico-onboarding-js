@@ -7,7 +7,8 @@ import {
   cancelEdit,
   deleteItem,
   updateItem,
-  startEdit
+  startEdit,
+  addItemFactory,
 } from '../actions';
 
 describe('items reducer', () => {
@@ -25,7 +26,7 @@ describe('items reducer', () => {
   it('should return the initial state with undefined state', () => {
     expect(
       items(undefined, {})
-    ).toEqual(initialState);
+    ).toEqual(OrderedMap());
   });
 
   it('should return previous state on unknown action', () => {
@@ -43,23 +44,19 @@ describe('items reducer', () => {
   });
 
   it('should add new item to the store when ADD_ITEM action is dispatched', () => {
+    const generateId = () => '5';
+    const itemText = 'Run the tests';
     const expectedState = OrderedMap([
       [
         itemId,
         new ListItem({
           id: itemId,
-          text: 'Run the tests'
+          text: itemText
         })
       ]
     ]);
 
-    const actualState = items(OrderedMap(), {
-      type: ADD_ITEM,
-      payload: {
-        text: 'Run the tests',
-        id: itemId
-      }
-    });
+    const actualState = items(OrderedMap(), addItemFactory(generateId)(itemText));
 
     expect(expectedState).toEqual(actualState);
   });
