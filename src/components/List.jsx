@@ -28,12 +28,7 @@ export class List extends PureComponent {
   render() {
     return (
       <div className="row">
-        <div className="row">
-          <div className="col-sm-12 text-center" />
-        </div>
-
-        <div className="row">
-          <div className="col-sm-12 col-md-offset-2 col-md-8">
+        <div className="col-sm-12 col-md-offset-2 col-md-8">
             <pre>
                 <ul className="list-group">
                   {this._renderListItems()}
@@ -42,7 +37,6 @@ export class List extends PureComponent {
                   </li>
                 </ul>
             </pre>
-          </div>
         </div>
       </div>
     );
