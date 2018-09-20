@@ -27,10 +27,10 @@ export const items = (state = OrderedMap(), action) => {
       return state.mergeIn([action.payload.id], { isInEditMode: false });
 
     case UPDATE_ITEM: {
-      return state.mergeIn([action.payload.id], new ListItem({
-        id: action.payload.id,
+      return state.mergeIn([action.payload.id], {
+        isInEditMode: false,
         text: action.payload.text
-      }));
+      });
     }
 
     default:
