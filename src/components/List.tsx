@@ -9,6 +9,7 @@ import { NewListItem } from '../containers/NewListItem';
 export type ListStateProps = {
   readonly itemIds: Array<Guid>,
   readonly isLoading: boolean,
+  readonly error: string,
 };
 
 type ListProps = ListStateProps;
@@ -16,9 +17,10 @@ type ListProps = ListStateProps;
 const listPropTypes: ValidationMap<ListProps> = {
   itemIds: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   isLoading: PropTypes.bool.isRequired,
+  error: PropTypes.string.isRequired,
 };
 
-export const List: StatelessComponent<ListProps> = ({ itemIds, isLoading }): JSX.Element => {
+export const List: StatelessComponent<ListProps> = ({ itemIds, isLoading, error }): JSX.Element => {
   const items: JSX.Element[] = itemIds.map((itemId: Guid, index: number) =>
     <ListItem key={itemId} order={index + 1} id={itemId} />,
   );
@@ -39,6 +41,7 @@ export const List: StatelessComponent<ListProps> = ({ itemIds, isLoading }): JSX
               </pre>
             </div>
         }
+        <p>{error}</p>
       </div>
     </div>
   );
