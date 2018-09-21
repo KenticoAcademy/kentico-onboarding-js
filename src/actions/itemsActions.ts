@@ -3,9 +3,19 @@ import { generateUuid } from '../utils/generateUuid';
 import {
   AddItemAction,
   DeleteItemAction,
+  FetchFailureAction,
+  FetchItemsSuccessAction,
   SaveItemTextAction,
   ToggleItemEditingAction,
 } from './types/itemsActionTypes';
+import { IItem } from '../models/Item';
+import {
+  deleteItemCreator,
+  getItemsCreator,
+  postItemCreator,
+  putItemCreator,
+} from './creators/fetchCreators';
+import { Dispatch } from 'redux';
 
 export const addItem: (text: string) => AddItemAction = addItemCreator(generateUuid);
 
@@ -30,3 +40,26 @@ export const toggleItemEditing = (id: Guid): ToggleItemEditingAction => ({
     id,
   },
 });
+
+export const fetchFailure = (error: string): FetchFailureAction => ({
+  type: 'FETCH_ERROR',
+  payload: {
+    error,
+  },
+});
+
+export const fetchItemsSuccess = (response: IItem[]): FetchItemsSuccessAction => ({
+  type: 'FETCH_ITEMS_SUCCESS',
+  payload: {
+    response,
+  },
+});
+
+export const getItemsRequest: () => (dispatch: Dispatch) => Promise<FetchItemsSuccessAction | FetchFailureAction> = getItemsCreator(fetch);
+
+export const postItemRequest: (text: string) => (dispatch: Dispatch) => Promise<AddItemAction | FetchFailureAction> = postItemCreator(fetch);
+
+export const putItemRequest: (item: IItem) => (dispatch: Dispatch) => Promise<SaveItemTextAction| FetchFailureAction> = putItemCreator(fetch);
+
+export const deleteItemRequest: (id: Guid) => (dispatch: Dispatch) => Promise<DeleteItemAction| FetchFailureAction> = deleteItemCreator(fetch);
+
