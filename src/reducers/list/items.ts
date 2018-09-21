@@ -18,6 +18,11 @@ export const items = (state: IItemsState = OrderedMap(), action: Actions): IItem
     case 'DELETE_ITEM':
       return state.delete(action.payload.id);
 
+    case 'FETCH_ITEMS_SUCCESS': {
+      const response = action.payload.response.map(newItem => [newItem.id, newItem]);
+      return OrderedMap(response);
+    }
+
     default:
       return state;
   }

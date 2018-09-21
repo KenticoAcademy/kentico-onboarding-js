@@ -5,6 +5,9 @@ import * as React from 'react';
 import { Provider } from 'react-redux';
 import { App } from './components/App';
 import { appStore } from './store/appStore';
+import { getItemsRequest } from './actions/itemsActions';
+
+appStore.dispatch<any>(getItemsRequest());
 
 ReactDom.render(
   <Provider store={appStore}>
