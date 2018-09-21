@@ -5,5 +5,6 @@ export const initialState: IAppState = {
   list: {
     items: OrderedMap(),
     isLoading: true,
+    error: '',
   },
 };
