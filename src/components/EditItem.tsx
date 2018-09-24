@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { PureComponent } from 'react';
 import * as PropTypes from 'prop-types';
 
 export interface IEditItemOwnProps {
@@ -19,11 +18,12 @@ export interface IEditItemDispatchProps {
 
 export interface IEditItemProps extends IEditItemOwnProps, IEditItemStateProps, IEditItemDispatchProps {}
 
-export class EditItem extends PureComponent<IEditItemProps, IEditItemStateProps> {
+export class EditItem extends React.PureComponent<IEditItemProps, IEditItemStateProps> {
   static displayName = 'EditItem';
 
-  static propTypes = {
+  static propTypes: PropTypes.ValidationMap<IEditItemProps> = {
     id: PropTypes.string.isRequired,
+    text: PropTypes.string.isRequired,
     position: PropTypes.number.isRequired,
     onCancel: PropTypes.func.isRequired,
     onSave: PropTypes.func.isRequired,

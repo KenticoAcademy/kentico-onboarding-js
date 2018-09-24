@@ -13,7 +13,7 @@ export interface IShowItemStateProps {
 
 export interface IShowItem extends IShowItemProps, IShowItemStateProps { }
 
-export const ShowItem: React.SFC<IShowItem> = (props: IShowItem) => (
+export const ShowItem: React.StatelessComponent<IShowItem> = (props: IShowItem) => (
   <div
     role="presentation"
     onClick={props.onEditStart}
