@@ -1,4 +1,4 @@
-import { createItem, editItem } from '../../actions/actionCreators';
+import { editItem, createItem } from '../../actions';
 import { item } from './item';
 import { Item } from '../../models/Item';
 

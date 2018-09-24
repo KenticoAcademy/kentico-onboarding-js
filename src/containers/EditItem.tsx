@@ -5,7 +5,7 @@ import { IState } from '../reducers/IState';
 import {
   deleteItem,
   editItem,
-} from '../actions/actionCreators';
+} from '../actions';
 import {
   EditItem as EditItemComponent,
   IEditItemProps,

@@ -3,7 +3,7 @@ import { items } from './items';
 import {
   deleteItem,
   editItem,
-} from '../../actions/actionCreators';
+} from '../../actions';
 import { Item } from '../../models/Item';
 import { createItemFactory } from '../../actions/actionCreatorsFactory';
 
