@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { PureComponent } from 'react';
 import * as PropTypes from 'prop-types';
 import { AddItem } from '../containers/AddItem';
 import { Item } from './Item';
@@ -8,11 +7,11 @@ export interface IBoardProps {
   readonly items: Array<string>;
 }
 
-export class Board extends PureComponent<IBoardProps> {
+export class Board extends React.PureComponent<IBoardProps> {
   static displayName = 'Board';
 
-  static propTypes = {
-    items: PropTypes.arrayOf(PropTypes.string).isRequired,
+  static propTypes: PropTypes.ValidationMap<IBoardProps> = {
+    items: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   };
 
   private _renderItems = (): JSX.Element[] =>

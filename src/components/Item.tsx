@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { PureComponent } from 'react';
 import * as PropTypes from 'prop-types';
 import { EditItem } from '../containers/EditItem';
 import { ShowItem } from '../containers/ShowItem';
@@ -13,10 +12,10 @@ interface IItemState {
   readonly isEdited: boolean;
 }
 
-export class Item extends PureComponent<IItemProps, IItemState> {
+export class Item extends React.PureComponent<IItemProps, IItemState> {
   static displayName = 'Item';
 
-  static propTypes = {
+  static propTypes: PropTypes.ValidationMap<IItemProps> = {
     id: PropTypes.string.isRequired,
     position: PropTypes.number.isRequired,
   };

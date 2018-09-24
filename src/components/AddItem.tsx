@@ -1,6 +1,5 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { PureComponent } from 'react';
 
 export interface IAddItemProps {
   readonly onAddItem: (input: string) => void;
@@ -10,10 +9,10 @@ interface IAddItemState {
   readonly inputText: string;
 }
 
-export class AddItem extends PureComponent<IAddItemProps, IAddItemState> {
+export class AddItem extends React.PureComponent<IAddItemProps, IAddItemState> {
   static displayName = 'AddItem';
 
-  static propTypes = {
+  static propTypes: PropTypes.ValidationMap<IAddItemProps> = {
     onAddItem: PropTypes.func.isRequired,
   };
 
