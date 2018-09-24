@@ -2,10 +2,10 @@ import * as React from 'react';
 import { PureComponent } from 'react';
 import * as PropTypes from 'prop-types';
 
-export interface IEditItemProps {
+export interface IEditItemOwnProps {
   readonly id: string;
   readonly position: number;
-  readonly finishEdit: () => void;
+  readonly onCancel: () => void;
 }
 
 export interface IEditItemStateProps {
@@ -17,15 +17,15 @@ export interface IEditItemDispatchProps {
   readonly onDelete: () => void;
 }
 
-export interface IEditItem extends IEditItemProps, IEditItemStateProps, IEditItemDispatchProps {}
+export interface IEditItemProps extends IEditItemOwnProps, IEditItemStateProps, IEditItemDispatchProps {}
 
-export class EditItem extends PureComponent<IEditItem, IEditItemStateProps> {
+export class EditItem extends PureComponent<IEditItemProps, IEditItemStateProps> {
   static displayName = 'EditItem';
 
   static propTypes = {
     id: PropTypes.string.isRequired,
     position: PropTypes.number.isRequired,
-    finishEdit: PropTypes.func.isRequired,
+    onCancel: PropTypes.func.isRequired,
     onSave: PropTypes.func.isRequired,
     onDelete: PropTypes.func.isRequired,
   };
@@ -41,7 +41,7 @@ export class EditItem extends PureComponent<IEditItem, IEditItemStateProps> {
 
   private _saveItem = (): void  => {
     this.props.onSave(this.state.text);
-    this.props.finishEdit();
+    this.props.onCancel();
   };
 
   private _deleteItem = (): void => this.props.onDelete();
@@ -69,7 +69,7 @@ export class EditItem extends PureComponent<IEditItem, IEditItemStateProps> {
           <button
             type="button"
             className="btn btn-default"
-            onClick={this.props.finishEdit}
+            onClick={this.props.onCancel}
           >
             Cancel
           </button>

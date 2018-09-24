@@ -35,7 +35,7 @@ export class Item extends PureComponent<IItemProps, IItemState> {
         <EditItem
           id={this.props.id}
           position={this.props.position}
-          finishEdit={this._finishEditItem}
+          onCancel={this._finishEditItem}
         />)
       : (
         <ShowItem

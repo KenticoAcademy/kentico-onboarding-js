@@ -3,7 +3,7 @@ import * as PropTypes from 'prop-types';
 import { PureComponent } from 'react';
 
 export interface IAddItemProps {
-  readonly onChange: (input: string) => void;
+  readonly onAddItem: (input: string) => void;
 }
 
 interface IAddItemState {
@@ -14,7 +14,7 @@ export class AddItem extends PureComponent<IAddItemProps, IAddItemState> {
   static displayName = 'AddItem';
 
   static propTypes = {
-    onChange: PropTypes.func.isRequired,
+    onAddItem: PropTypes.func.isRequired,
   };
 
   state = {
@@ -27,7 +27,7 @@ export class AddItem extends PureComponent<IAddItemProps, IAddItemState> {
   };
 
   private _addItem = (): void => {
-    this.props.onChange(this.state.inputText);
+    this.props.onAddItem(this.state.inputText);
     this.setState(() => ({ inputText: '' }));
   };
 

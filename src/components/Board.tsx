@@ -21,7 +21,7 @@ export class Board extends PureComponent<IBoardProps> {
         <Item
           key={id}
           id={id}
-          position={Number(index) + 1}
+          position={index + 1}
         />
       ));
 
