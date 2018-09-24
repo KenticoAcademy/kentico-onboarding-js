@@ -8,7 +8,7 @@ import {
 } from '../actions';
 import {
   EditItem as EditItemComponent,
-  IEditItemProps,
+  IEditItemOwnProps,
   IEditItemDispatchProps,
   IEditItemStateProps,
 } from '../components/EditItem';
@@ -22,7 +22,7 @@ const mapDispatchToProps = (dispatch: Dispatch, {id}: { id: Guid }): IEditItemDi
   onDelete: () => dispatch(deleteItem(id)),
 });
 
-export const EditItem: React.ComponentClass<IEditItemProps> = connect(
+export const EditItem: React.ComponentClass<IEditItemOwnProps> = connect(
   mapStateToProps,
   mapDispatchToProps,
 )(EditItemComponent);
