@@ -11,10 +11,9 @@ const RecoverMarker: React.StatelessComponent<IRecoverMarkerDataProps> = ({onRec
     <div
       data-balloon={'Recover item'}
       data-balloon-pos="up"
-      className="uneditedItemMessage"
+      className="list__item__inline_content"
       onClick={onRecover}>
       ♻
-      &nbsp;&nbsp;&nbsp;
     </div>);
 
 

@@ -41,10 +41,9 @@ const RetryMarker: React.StatelessComponent<IRetryMarkerDataProps & IRetryMarker
     <div
       data-balloon={'Try again'}
       data-balloon-pos="up"
-      className="uneditedItemMessage"
+      className="list__item__inline_content"
       onClick={_onDoItAgain}>
       ↺
-      &nbsp;&nbsp;&nbsp;
     </div>);
 };
 

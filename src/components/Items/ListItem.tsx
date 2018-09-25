@@ -6,6 +6,8 @@ import { Markers } from '../../containers/Markers/Markers';
 import { Item } from '../../models/Item';
 import * as classNames from 'classnames';
 
+const ItemErrorMessage = require('../../../dist/src/containers/Items/ItemErrorMessage').ItemErrorMessage;
+
 
 export interface IListItemDataProps {
   item: Item;
@@ -20,32 +22,27 @@ const ListItem: React.StatelessComponent<IListItemDataProps> = (
   const {id, isBeingDeleted, isBeingEdited} = item;
   const listItemClassName = classNames({
     'list__item': true,
-    'synchronizing': synchronizing,
-    'alert-danger': errorsNotEmpty,
-    'being-deleted': isBeingDeleted,
+    'item--synchronizing': synchronizing,
+    'item--error': errorsNotEmpty,
+    'item--deleted': isBeingDeleted,
   });
 
   return (
     <div className={listItemClassName}>
-      <div className="list__item__content list__item--left">
-        <div
-          className=""
-          key={id}
-        >
-          <div className="list__item__number list__item--leftie">
-            {index + 1}.
-          </div>
-          {isBeingEdited ?
-            <EditedListItem itemId={id} />
-            : <UneditedListItem itemId={id} />
-          }
+      <div
+        className="list__item_content--long"
+        key={id}
+      >
+        <div className="list__item__inline_content">
+          {index + 1}.&nbsp;
         </div>
+        {isBeingEdited ?
+          <EditedListItem itemId={id} />
+          : <UneditedListItem itemId={id} />
+        }
       </div>
-      <div className="list__item__content list__item--right">
-        <div className="">
-          <Markers id={id} />
-        </div>
-      </div>
+      <ItemErrorMessage itemId={id} />
+      <Markers id={id} />
     </div>);
 };
 

@@ -28,26 +28,25 @@ const UneditedListItem:
   if (item.errorMessages.size !== 0) {
     return (
       <div
-        className="list__item--leftie"
+        className="list__item__inline_content"
         onClick={_showEditedItem}
       >
-        <div className="list__item--leftie">{item.text}</div>
-        <div className="list__item--leftie">{item.errorMessages.valueSeq()}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+        {item.text}
       </div>
     );
   }
 
   return (
     <div
-      className="list__item--leftie"
+      className="list__item__inline_content"
       onClick={onClick}
     >
-      <div className="list__item--leftie">{item.text}</div>
+      {item.text}
     </div>
   );
 };
 
-UneditedListItem.displayName = 'EditedListItem';
+UneditedListItem.displayName = 'UneditedListItem';
 
 UneditedListItem.propTypes = {
   item: PropTypes.instanceOf(Item).isRequired,

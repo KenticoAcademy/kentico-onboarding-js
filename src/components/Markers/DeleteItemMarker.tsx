@@ -19,7 +19,7 @@ const DeleteItemMarker: React.StatelessComponent<IDeleteItemMarkerDataProps> = (
     <div
       data-balloon={'Let this shark eat this item'}
       data-balloon-pos="up"
-      className="uneditedItemMessage"
+      className="list__item__inline_content"
       onClick={_onSharkClick}>
       🦈
     </div>);
