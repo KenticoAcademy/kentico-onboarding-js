@@ -40,6 +40,12 @@ export const byId: Reducer<OrderedMap<ItemId, Item>> = (state = DEFAULT_STATE, a
         errorMessages: item.errorMessages.delete('DELETE'),
       }));
 
+    case actionTypes.UPDATE_SUCCEEDED:
+      return state.update(action.payload.id, (item) => item.with({
+        synchronized: true,
+        errorMessages: item.errorMessages.clear(),
+      }));
+
     case actionTypes.EDIT_ITEM_TEXT:
       return state.update(action.payload.id, (item) => item.with({
         textUpdate: action.payload.updatedText,

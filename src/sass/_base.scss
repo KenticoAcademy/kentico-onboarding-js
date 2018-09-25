@@ -1,9 +1,14 @@
+@import 'variables';
+
 body {
   color: #555555;
   margin: 0;
-  font: 100% "Verdana", sans-serif;
+  font: 100% $primary-font, sans-serif;
 }
 
 .body__content {
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin: auto;
 }
