@@ -5,6 +5,7 @@ import { HotKeys, KeyMap } from 'react-hotkeys';
 import { ValidationMap } from 'prop-types';
 import * as PropTypes from 'prop-types';
 import { Loader } from './Loader';
+import classNames from 'classnames';
 
 const map: KeyMap = {
   'confirm': 'enter',
@@ -24,28 +25,37 @@ const appPropTypes: ValidationMap<AppProps> = {
   error: PropTypes.string.isRequired,
 };
 
-export const App: React.StatelessComponent<AppProps> = ({ isLoading, error }): JSX.Element => (
-  <HotKeys keyMap={map}>
-    <div>
-      <div className="container">
-        <div className="header clearfix">
-          <h3 className="text-muted">
-            Kentico Academy
-          </h3>
-        </div>
-        <section id="app-content">
-          {isLoading ? <Loader/> : <List />}
-          <p>{error}</p>
-        </section>
-      </div>
-      <footer className="footer">
-        <p>
-          &copy; 2017 Kentico software, s.r.o
-        </p>
-      </footer>
+export const App: React.StatelessComponent<AppProps> = ({ isLoading, error }): JSX.Element => {
+  const className: string = classNames('', {'aligner aligner-item': isLoading});
+  const errorMessage: JSX.Element = (
+    <div className="alert alert-danger error-message" role="alert">
+      {error}
     </div>
-  </HotKeys>
-);
+  );
+
+  return (
+    <HotKeys keyMap={map}>
+      <div className="aligner page">
+        <div className="container aligner-item aligner-item--top">
+          <div className="header clearfix">
+            <h3 className="text-muted">
+              Kentico Academy
+            </h3>
+          </div>
+          <section className={className} id="app-content">
+            {isLoading ? <Loader /> : <List />}
+          </section>
+        </div>
+        {error !== '' ? errorMessage : undefined}
+        <footer className="footer">
+          <p>
+            &copy; 2017 Kentico software, s.r.o
+          </p>
+        </footer>
+      </div>
+    </HotKeys>
+  );
+};
 
 App.displayName = 'App';
 App.propTypes = appPropTypes;

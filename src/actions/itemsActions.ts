@@ -59,7 +59,7 @@ export const getItemsRequest: () => (dispatch: Dispatch) => Promise<FetchItemsSu
 
 export const postItemRequest: (text: string) => (dispatch: Dispatch) => Promise<AddItemAction | FetchFailureAction> = postItemCreator(fetch);
 
-export const putItemRequest: (item: IItem) => (dispatch: Dispatch) => Promise<SaveItemTextAction| FetchFailureAction> = putItemCreator(fetch);
+export const putItemRequest: (item: IItem) => (dispatch: Dispatch) => Promise<void | FetchFailureAction> = putItemCreator(fetch);
 
 export const deleteItemRequest: (id: Guid) => (dispatch: Dispatch) => Promise<DeleteItemAction| FetchFailureAction> = deleteItemCreator(fetch);
 

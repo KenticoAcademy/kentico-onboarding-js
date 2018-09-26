@@ -21,7 +21,7 @@ export const List: StatelessComponent<ListProps> = ({ itemIds }): JSX.Element =>
   );
 
   return (
-    <div className="row">
+    <div className="row aligner-item">
       <div className="row">
         <div className="col-sm-12 col-md-offset-2 col-md-8">
           <pre>

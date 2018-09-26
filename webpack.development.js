@@ -16,6 +16,9 @@ module.exports = merge(common, {
     contentBase: path.resolve(__dirname, 'build'),
     port: 3000,
     open: true,
-    hot: true
-  }
+    hot: true,
+    proxy: {
+      '*': 'http://[::1]:58227/api'
+    }
+  },
 });

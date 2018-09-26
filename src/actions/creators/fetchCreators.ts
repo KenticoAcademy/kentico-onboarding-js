@@ -3,9 +3,8 @@ import { IItem, Item } from '../../models/Item';
 import { deleteItem, fetchFailure, fetchItemsSuccess, saveItemText } from '../itemsActions';
 import { addItemCreator } from './addItemCreator';
 
-const urlBase: string = 'http://localhost:58227/api/v1/items';
+const urlBase: string = '/v1/items';
 const headerBase: RequestInit = {
-  mode: 'cors',
   headers: { 'Content-Type': 'application/json; charset=utf-8'},
 };
 
@@ -17,7 +16,12 @@ export const getItemsCreator = (fetch: (input: string, init: RequestInit) => Pro
         method: 'GET',
       })
         .then(
-          response => response.json(),
+          response => {
+            if (!response.ok) {
+              throw Error(response.statusText);
+            }
+            return response.json();
+          },
         ).then(
           json => dispatch(fetchItemsSuccess(json.map( (item: IItem) => new Item(item)))),
         ).catch(
@@ -33,7 +37,12 @@ export const postItemCreator = (fetch: (input: string, init: RequestInit) => Pro
         body: JSON.stringify({ text }),
       })
         .then(
-          response => response.json(),
+          response => {
+            if (!response.ok) {
+              throw Error(response.statusText);
+            }
+            return response.json();
+          },
         ).then(
           json => dispatch(addItemCreator(() => json.id)(json.text)),
         ).catch(
@@ -49,7 +58,12 @@ export const putItemCreator = (fetch: (input: string, init: RequestInit) => Prom
         body: JSON.stringify({ id: item.id, text: item.text }),
       })
         .then(
-          () => dispatch(saveItemText(item.id, item.text)),
+          response => {
+            if (!response.ok) {
+              throw Error(response.statusText);
+            }
+            dispatch(saveItemText(item.id, item.text));
+          },
         ).catch(
           error => dispatch(fetchFailure(error.message)),
         );
@@ -62,7 +76,12 @@ export const deleteItemCreator = (fetch: (input: string, init: RequestInit) => P
         method: 'DELETE',
       })
         .then(
-          response => response.json(),
+          response => {
+            if (!response.ok) {
+              throw Error(response.statusText);
+            }
+            return response.json();
+          },
         ).then(
           json => dispatch(deleteItem(json.id)),
         ).catch(
