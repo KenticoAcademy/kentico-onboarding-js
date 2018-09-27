@@ -3,31 +3,31 @@ import * as PropTypes from 'prop-types';
 import Alert from 'react-s-alert';
 import { IAction } from './actions/IAction';
 import { Loader } from './containers/Loader';
-
-interface IAppDataProps {
-  isFetching: boolean;
-  errorMessage: string;
-}
+import { alertTypes } from './constants/alert/alertTypes';
+import { alertMessages } from './constants/alert/alertMessages';
+import { assertAlert } from './utils/assertAlert';
 
 export interface IAppCallbackProps {
   fetchItemsCall: () => Promise<IAction>;
 }
 
-type IAppProps = IAppDataProps & IAppCallbackProps;
-
-export class App extends React.PureComponent<IAppProps> {
+export class App extends React.PureComponent<IAppCallbackProps> {
 
   static displayName = 'App';
 
   static propTypes = {
-    isFetching: PropTypes.bool,
-    errorMessage: PropTypes.string,
-    fetchItems: PropTypes.func,
+    fetchItemsCall: PropTypes.func.isRequired,
   };
 
   componentDidMount() {
-    this.props.fetchItemsCall();
+    this.props.fetchItemsCall()
+      .catch(() => assertAlert(alertTypes.ERROR, alertMessages.LOAD_ERROR));
   }
+
+  fetchItems = () => {
+    this.props.fetchItemsCall()
+      .catch(() => assertAlert(alertTypes.ERROR, alertMessages.LOAD_ERROR));
+  };
 
   render() {
     return (
@@ -41,7 +41,7 @@ export class App extends React.PureComponent<IAppProps> {
         </div>
         <Alert stack={{limit: 8}} />
         <div className="body__content">
-          <a onClick={this.props.fetchItemsCall} className="list__external_button">Reload items &#x21BA;</a>
+          <a onClick={this.fetchItems} className="list__external_button">Reload items &#x21BA;</a>
           <Loader />
         </div>
 

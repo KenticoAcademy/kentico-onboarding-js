@@ -1,13 +1,9 @@
 import { connect } from 'react-redux';
 import {
-  ILoaderCallbackProps,
   ILoaderDataProps,
   Loader as LoaderComponent
 } from '../components/Loader';
 import { IAppState } from '../reducers/IAppState';
-import { CreateFetchItems } from '../actions';
-import { Dispatch } from 'redux';
-
 export enum loaderContent {
   DEFAULT = 'DEFAULT',
   COMMON_CONTENT = 'COMMON_CONTENT',
@@ -26,10 +22,4 @@ const mapStateToProps = ({items}: IAppState): ILoaderDataProps => {
   });
 };
 
-const mapDispatchToProps = (dispatch: Dispatch<IAppState>): ILoaderCallbackProps => {
-  return ({
-    fetchItemsCall: () => dispatch(CreateFetchItems()),
-  });
-};
-
-export const Loader = connect(mapStateToProps, mapDispatchToProps)(LoaderComponent);
+export const Loader = connect(mapStateToProps)(LoaderComponent);

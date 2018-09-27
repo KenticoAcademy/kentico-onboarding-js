@@ -86,8 +86,8 @@
   "scripts": {
     "start": "node-sass src/sass/main.scss css/style.css && node scripts/start.js",
     "build": "node-sass src/sass/main.scss css/style.css --output-style compressed && node scripts/build.js",
-    "build:dev": "node-sass src/sass/main.scss css/style.css && NODE_ENV=development npm run build",
-    "build:prod": "node-sass src/sass/main.scss css/style.css --output-style compressed && NODE_ENV=production npm run build",
+    "build:dev": "node-sass src/sass/main.scss css/style.css && npm run build NODE_ENV=development",
+    "build:prod": "node-sass src/sass/main.scss css/style.css --output-style compressed && npm run build NODE_ENV=production",
     "test": "jest",
     "deploy": "surge --project ./dist --domain lindatodoapp.surge.sh"
   },
