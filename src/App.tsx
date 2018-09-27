@@ -45,9 +45,9 @@ export class App extends React.PureComponent<IAppProps> {
           <Loader />
         </div>
 
-        <footer className="footer">
+        <div className="footer">
           <p>&copy; 2017 Kentico software, s.r.o</p>
-        </footer>
+        </div>
       </div>);
   };
 }
