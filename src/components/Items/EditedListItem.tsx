@@ -78,14 +78,14 @@ export class EditedListItem extends React.PureComponent<IEditedListItemProps> {
           <button
             data-balloon={emptinessLabel}
             data-balloon-pos="up"
-            className="button__modifier"
+            className="default_button"
             disabled={isEmpty}
             onClick={this._onSaveItem}
           >
             {this._buttonLabel()}
           </button>
           <button
-            className="button__modifier"
+            className="default_button"
             onClick={onCancel}
           >
             Do not...

@@ -1,0 +1,13 @@
+@import 'variables';
+
+.warning__container {
+  color: $warning-color;
+  padding: 20px;
+  display: flex;
+  flex-flow: column;
+  border: 3px solid $warning-color;
+  border-radius: 5px;
+}
+.warning__content {
+  margin: auto;
+}

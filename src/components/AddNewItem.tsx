@@ -58,7 +58,7 @@ export class AddNewItem extends React.PureComponent<IAddNewItemProps> {
         <button
           data-balloon={isEmpty ? 'Item name mustn\'t be empty' : null}
           data-balloon-pos="up"
-          className="button"
+          className="default_button"
           disabled={isEmpty}
           onClick={this._onClick}
         >

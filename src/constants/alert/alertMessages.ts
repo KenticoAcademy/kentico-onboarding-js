@@ -5,4 +5,5 @@ export enum alertMessages {
   UPLOAD_ERROR = 'Failed to upload item',
   UPDATE_SUCCESS = 'Updated item text successfully',
   UPDATE_ERROR = 'Failed to update item text',
+  LOAD_ERROR = 'Failed to load the items',
 }

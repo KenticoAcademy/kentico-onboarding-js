@@ -1,6 +1,8 @@
+@import 'variables';
+
 .header {
   height: 67px;
-  background-color: #E3E9EC;
+  background-color: $color-neutral-light;
   box-shadow: 0.2px 0.2px 40px saddlebrown;
   display: flex;
   justify-content: center;
@@ -28,16 +30,14 @@
   &:before {
     content: ' | ';
   }
-}
 
+  & a {
+    color: $color-neutral-dark;
+    text-decoration: none;
 
-.header__content__link a {
-  color: #555555;
-  text-decoration: none;
-}
-
-
-.header__content__link > a:hover {
-  text-decoration: none;
-  color: orange;
+    &:hover {
+      text-decoration: none;
+      color: orange;
+    }
+  }
 }
