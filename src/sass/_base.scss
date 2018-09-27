@@ -4,6 +4,8 @@ body {
   color: #555555;
   margin: 0;
   font: 100% $primary-font, sans-serif;
+  position: relative;
+  min-height: 100%;
 }
 
 .body__content {
@@ -11,4 +13,9 @@ body {
   justify-content: center;
   flex-direction: column;
   margin: auto;
+}
+
+html {
+  height: 100%;
+  box-sizing: border-box;
 }
