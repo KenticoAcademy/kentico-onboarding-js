@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 
 export interface IShowItemProps {
-  readonly id: string;
+  readonly id: Guid;
   readonly position: number;
   readonly onEditStart: () => void;
 }
