@@ -1,11 +1,16 @@
+@import "variables";
+
+
 .item--error {
-  color: brown;
+  color: $color-error;
 }
+
 
 .item--synchronizing {
-  color: orange;
+  color: $color-main-light;
 }
 
+
 .item--deleted {
-  color: silver;
+  color: $color-expired;
 }

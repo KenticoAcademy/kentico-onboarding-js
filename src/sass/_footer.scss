@@ -1,5 +1,6 @@
 @import 'variables';
 
+
 .footer {
   display: flex;
   position: absolute;
@@ -8,13 +9,13 @@
   bottom: 0;
   left: 0;
   text-align: center;
-  color: floralwhite;
+  color: $color-white-secondary;
   margin-top: 5px;
   background-color: $color-neutral-dark;
   opacity: 0.5;
-}
 
-.footer > p {
-  vertical-align: middle;
-  display: flex;
+  & p {
+    vertical-align: middle;
+    display: flex;
+  }
 }

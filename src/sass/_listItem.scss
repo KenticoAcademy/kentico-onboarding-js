@@ -1,6 +1,9 @@
+@import "variables";
+
+
 .list__item {
   margin-top: -2px;
-  border: 2px solid #ccc;
+  border: $default-item-border;
   border-radius: 4px;
   box-sizing: border-box;
   padding: 10px 18px 10px 15px;
