@@ -3,44 +3,37 @@ import * as PropTypes from 'prop-types';
 import { EditItem } from '../containers/EditItem';
 import { ShowItem } from '../containers/ShowItem';
 
-interface IItemProps {
+export interface IItemStateProps {
   readonly id: Guid;
   readonly position: number;
 }
 
-interface IItemState {
+export interface IItemDispatchStateProps {
   readonly isEdited: boolean;
 }
 
-export class Item extends React.PureComponent<IItemProps, IItemState> {
+export interface IItemProps extends IItemStateProps, IItemDispatchStateProps { }
+
+export class Item extends React.PureComponent<IItemProps> {
   static displayName = 'Item';
 
   static propTypes: PropTypes.ValidationMap<IItemProps> = {
     id: PropTypes.string.isRequired,
     position: PropTypes.number.isRequired,
+    isEdited: PropTypes.bool.isRequired,
   };
-
-  state = {
-    isEdited: false,
-  };
-
-  private _startEditItem = (): void => this.setState(() => ({isEdited: true}));
-
-  private _finishEditItem = (): void => this.setState(() => ({isEdited: false}));
 
   private _renderStateIsEdited = (): JSX.Element => (
-    this.state.isEdited
+    this.props.isEdited
       ? (
         <EditItem
           id={this.props.id}
           position={this.props.position}
-          onCancel={this._finishEditItem}
         />)
       : (
         <ShowItem
           position={this.props.position}
           id={this.props.id}
-          onEditStart={this._startEditItem}
         />)
   );
 

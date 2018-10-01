@@ -4,7 +4,6 @@ import * as PropTypes from 'prop-types';
 export interface IEditItemOwnProps {
   readonly id: Guid;
   readonly position: number;
-  readonly onCancel: () => void;
 }
 
 export interface IEditItemStateProps {
@@ -14,6 +13,7 @@ export interface IEditItemStateProps {
 export interface IEditItemDispatchProps {
   readonly onSave: (text: string) => void;
   readonly onDelete: () => void;
+  readonly onCancel: () => void;
 }
 
 export interface IEditItemProps extends IEditItemOwnProps, IEditItemStateProps, IEditItemDispatchProps {}

@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { createItem } from '../actions';
@@ -7,7 +8,7 @@ const mapDispatchToProps = (dispatch: Dispatch): IAddItemProps => ({
   onAddItem: (text: string) => dispatch(createItem(text)),
 });
 
-export const AddItem = connect(
+export const AddItem: React.ComponentClass = connect(
   null,
   mapDispatchToProps,
 )(AddItemComponent);

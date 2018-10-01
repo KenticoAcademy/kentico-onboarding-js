@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { connect } from 'react-redux';
 import { IState } from '../reducers/IState';
 import { itemsSelector } from '../selectors/itemsSelector';
@@ -7,6 +8,6 @@ const mapStateToProps = (state: IState): IBoardProps => ({
   items: itemsSelector(state.items.keySeq().toArray()),
 });
 
-export const Board = connect(
+export const Board: React.ComponentClass = connect(
   mapStateToProps,
 )(BoardComponent);

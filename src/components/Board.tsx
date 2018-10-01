@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { AddItem } from '../containers/AddItem';
-import { Item } from './Item';
+import { Item } from '../containers/Item';
 
 export interface IBoardProps {
   readonly items: Array<string>;
