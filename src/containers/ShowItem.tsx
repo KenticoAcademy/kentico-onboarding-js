@@ -4,25 +4,21 @@ import { Dispatch } from 'redux';
 import { IState } from '../reducers/IState';
 import {
   ShowItem as ShowItemComponent,
-  IShowItemProps,
+  IShowItemOwnProps,
   IShowItemStateProps,
   IShowItemDispatchStateProps,
 } from '../components/ShowItem';
 import { startEditItem } from '../actions';
 
-interface IOwnProps {
-  id: Guid;
-}
-
-const mapStateToProps = (state: IState, {id}: IOwnProps): IShowItemStateProps => ({
+const mapStateToProps = (state: IState, { id }: IShowItemOwnProps): IShowItemStateProps => ({
   text: state.items.get(id).text,
 });
 
-const mapDispatchToProps = (dispatch: Dispatch, {id}: IOwnProps): IShowItemDispatchStateProps => ({
+const mapDispatchToProps = (dispatch: Dispatch, { id }: IShowItemOwnProps): IShowItemDispatchStateProps => ({
   onEditStart: () => dispatch(startEditItem(id)),
 });
 
-export const ShowItem: React.ComponentClass<IShowItemProps> = connect(
+export const ShowItem: React.ComponentClass<IShowItemOwnProps> = connect(
   mapStateToProps,
   mapDispatchToProps,
 )(ShowItemComponent);
