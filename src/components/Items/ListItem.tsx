@@ -1,12 +1,12 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { EditedListItem } from '../../containers/Items/EditedListItem';
+import { ItemErrorMessage } from '../../containers/Items/ItemErrorMessage';
 import { UneditedListItem } from '../../containers/Items/UneditedListItem';
 import { Markers } from '../../containers/Markers/Markers';
 import { Item } from '../../models/Item';
 import * as classNames from 'classnames';
 
-const ItemErrorMessage = require('../../../dist/src/containers/Items/ItemErrorMessage').ItemErrorMessage;
 
 
 export interface IListItemDataProps {
