@@ -5,6 +5,7 @@ import { IState } from '../reducers/IState';
 import {
   deleteItem,
   editItem,
+  finishEditItem,
 } from '../actions';
 import {
   EditItem as EditItemComponent,
@@ -24,6 +25,7 @@ const mapStateToProps = (state: IState, {id}: IOwnProps): IEditItemStateProps =>
 const mapDispatchToProps = (dispatch: Dispatch, {id}: IOwnProps): IEditItemDispatchProps => ({
   onSave: (text: string) => dispatch(editItem(id, text)),
   onDelete: () => dispatch(deleteItem(id)),
+  onCancel: () => dispatch(finishEditItem(id)),
 });
 
 export const EditItem: React.ComponentClass<IEditItemOwnProps> = connect(
