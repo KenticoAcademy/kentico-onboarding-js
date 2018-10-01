@@ -1,13 +1,23 @@
 @import 'variables';
 
+
 .warning__container {
-  color: $warning-color;
+  color: $color-warning;
   padding: 20px;
   display: flex;
   flex-flow: column;
-  border: 3px solid $warning-color;
+  border: 3px solid $color-warning;
   border-radius: 5px;
 }
+
+
 .warning__content {
   margin: auto;
+}
+
+
+.img__sad-cat {
+  margin: 10px;
+  border: 3px solid $color-warning;
+  border-radius: 5px;
 }

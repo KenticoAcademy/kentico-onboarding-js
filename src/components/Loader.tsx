@@ -17,7 +17,7 @@ const Loader: React.StatelessComponent<ILoaderDataProps> = ({content, errorMessa
             <strong>{errorMessage}</strong>
           </div>
           <div className="warning__content">
-            <img src="/images/sadCat.gif" width="200px" />
+            <img className="img__sad-cat" src="/images/sadCat.gif" width="200px" />
           </div>
           <div className="warning__content">
             Try again later.

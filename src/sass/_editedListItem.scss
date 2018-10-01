@@ -1,8 +1,11 @@
+@import "variables";
+
+
 .input__edit_text {
   display: flex;
   min-width: 100px;
   box-sizing: border-box;
-  border: 2px solid #ccc;
+  border: $default-item-border;
   border-radius: 4px;
   font-size: 16px;
   padding: 8px 8px 8px 8px;

@@ -1,9 +1,10 @@
 @import 'variables';
 
+
 .header {
   height: 67px;
   background-color: $color-neutral-light;
-  box-shadow: 0.2px 0.2px 40px saddlebrown;
+  box-shadow: 0.2px 0.2px 40px $color-main-shadow;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -37,7 +38,7 @@
 
     &:hover {
       text-decoration: none;
-      color: orange;
+      color: $color-main-light;
     }
   }
 }
