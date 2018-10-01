@@ -12,7 +12,8 @@ export interface IItemDispatchStateProps {
   readonly isEdited: boolean;
 }
 
-export interface IItemProps extends IItemOwnProps, IItemDispatchStateProps { }
+export interface IItemProps extends IItemOwnProps, IItemDispatchStateProps {
+}
 
 export class Item extends React.PureComponent<IItemProps> {
   static displayName = 'Item';
@@ -23,18 +24,24 @@ export class Item extends React.PureComponent<IItemProps> {
     isEdited: PropTypes.bool.isRequired,
   };
 
+  private _renderEditedItem = (): JSX.Element => (
+    <EditItem
+      id={this.props.id}
+      position={this.props.position}
+    />
+  );
+
+  private _renderPristineItem = (): JSX.Element => (
+    <ShowItem
+      position={this.props.position}
+      id={this.props.id}
+    />
+  );
+
   private _renderStateIsEdited = (): JSX.Element => (
     this.props.isEdited
-      ? (
-        <EditItem
-          id={this.props.id}
-          position={this.props.position}
-        />)
-      : (
-        <ShowItem
-          position={this.props.position}
-          id={this.props.id}
-        />)
+      ? this._renderEditedItem()
+      : this._renderPristineItem()
   );
 
   render(): JSX.Element {
