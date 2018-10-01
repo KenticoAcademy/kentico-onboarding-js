@@ -2,5 +2,5 @@ import { OrderedMap } from 'immutable';
 import { Item } from '../models/Item';
 
 export interface IState {
-  readonly items: OrderedMap<string, Item>;
+  readonly items: OrderedMap<Guid, Item>;
 }
