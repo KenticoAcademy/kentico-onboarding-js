@@ -26,7 +26,7 @@ describe('items', () => {
     text: 'Doga',
   });
 
-  const defaultState = OrderedMap<string, Item>([[dog.id, dog]]);
+  const defaultState = OrderedMap<Guid, Item>([dog.id, dog]);
 
   const unknownAction = {
     type: 'UNKNOWN_ACTION',
@@ -64,7 +64,7 @@ describe('items', () => {
 
   it('should isEdited the text in the record Dog on ITEM_EDIT action', () => {
     const action = editItem(dog.id, 'Doga');
-    const expectedState = OrderedMap([[doga.id, doga]]);
+    const expectedState = OrderedMap([[doga.get('id'), doga]]);
 
     const state = items(defaultState, action);
 
