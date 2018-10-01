@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 
-export interface IShowItemProps {
+export interface IShowItemOwnProps {
   readonly id: Guid;
   readonly position: number;
 }
@@ -14,7 +14,7 @@ export interface IShowItemDispatchStateProps {
   readonly onEditStart: () => void;
 }
 
-export interface IShowItem extends IShowItemProps, IShowItemStateProps, IShowItemDispatchStateProps { }
+export interface IShowItem extends IShowItemOwnProps, IShowItemStateProps, IShowItemDispatchStateProps { }
 
 export const ShowItem: React.StatelessComponent<IShowItem> = (props: IShowItem) => (
   <div
