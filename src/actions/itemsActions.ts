@@ -9,13 +9,6 @@ import {
   ToggleItemEditingAction,
 } from './types/itemsActionTypes';
 import { IItem } from '../models/Item';
-import {
-  deleteItemCreator,
-  getItemsCreator,
-  postItemCreator,
-  putItemCreator,
-} from './creators/fetchCreators';
-import { Dispatch } from 'redux';
 
 export const addItem: (text: string) => AddItemAction = addItemCreator(generateUuid);
 
@@ -54,12 +47,3 @@ export const fetchItemsSuccess = (response: IItem[]): FetchItemsSuccessAction =>
     response,
   },
 });
-
-export const getItemsRequest: () => (dispatch: Dispatch) => Promise<FetchItemsSuccessAction | FetchFailureAction> = getItemsCreator(fetch);
-
-export const postItemRequest: (text: string) => (dispatch: Dispatch) => Promise<AddItemAction | FetchFailureAction> = postItemCreator(fetch);
-
-export const putItemRequest: (item: IItem) => (dispatch: Dispatch) => Promise<void | FetchFailureAction> = putItemCreator(fetch);
-
-export const deleteItemRequest: (id: Guid) => (dispatch: Dispatch) => Promise<DeleteItemAction| FetchFailureAction> = deleteItemCreator(fetch);
-

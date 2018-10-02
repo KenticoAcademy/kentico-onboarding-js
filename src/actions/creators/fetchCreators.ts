@@ -2,11 +2,8 @@ import { Dispatch } from 'redux';
 import { IItem, Item } from '../../models/Item';
 import { deleteItem, fetchFailure, fetchItemsSuccess, saveItemText } from '../itemsActions';
 import { addItemCreator } from './addItemCreator';
-
-const urlBase: string = '/v1/items';
-const headerBase: RequestInit = {
-  headers: { 'Content-Type': 'application/json; charset=utf-8'},
-};
+import { urlBase } from '../utils/urlBase';
+import { headerBase } from '../utils/headerBase';
 
 export const getItemsCreator = (fetch: (input: string, init: RequestInit) => Promise<Response>) =>
   () =>

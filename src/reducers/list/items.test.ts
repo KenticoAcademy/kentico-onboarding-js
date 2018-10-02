@@ -1,11 +1,11 @@
 import { OrderedMap } from 'immutable';
 import { items } from './items';
-import { Item } from '../../models/Item';
+import { IItem, Item } from '../../models/Item';
 import { addItemCreator } from '../../actions/creators/addItemCreator';
 import {
-  deleteItem,
+  deleteItem, fetchItemsSuccess,
   saveItemText,
-  toggleItemEditing
+  toggleItemEditing,
 } from '../../actions/itemsActions';
 import { IItemsState } from '../../store/state/IItemsState';
 
@@ -154,6 +154,36 @@ describe('items', () => {
       ]);
 
       const result: IItemsState = items(previousState, toggleItemEditing('2'));
+
+      expect(result).toEqual(expectedState);
+    });
+  });
+
+  describe('fetchItemsSuccess', () => {
+    it('returns state with received items', () => {
+      const response: IItem[] = [
+        new Item({ id: '1', text: 'Text1' }),
+        new Item({ id: '2', text: 'Text2' }),
+      ];
+      const previousState: IItemsState = OrderedMap();
+      const expectedState: IItemsState = OrderedMap([
+        [
+          '1',
+          new Item({
+            id: '1',
+            text: 'Text1',
+          }),
+        ],
+        [
+          '2',
+          new Item({
+            id: '2',
+            text: 'Text2',
+          }),
+        ],
+      ]);
+
+      const result: IItemsState = items(previousState, fetchItemsSuccess(response));
 
       expect(result).toEqual(expectedState);
     });

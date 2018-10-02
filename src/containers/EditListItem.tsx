@@ -2,8 +2,6 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import {
-  deleteItemRequest,
-  putItemRequest,
   toggleItemEditing,
 } from '../actions/itemsActions';
 import {
@@ -14,6 +12,7 @@ import {
 } from '../components/EditListItem';
 import { IAppState } from '../store/state/IAppState';
 import { Item } from '../models/Item';
+import { deleteItemRequest, putItemRequest } from '../actions/fetchActions';
 
 const mapStateToProps = (state: IAppState, ownProps: EditListItemContainerProps): EditListItemStateProps => ({
   text: state.list.items.get(ownProps.id).text,

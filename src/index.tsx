@@ -5,7 +5,7 @@ import * as React from 'react';
 import { Provider } from 'react-redux';
 import { App } from './containers/App';
 import { appStore } from './store/appStore';
-import { getItemsRequest } from './actions/itemsActions';
+import { getItemsRequest } from './actions/fetchActions';
 
 appStore.dispatch<any>(getItemsRequest());
 
