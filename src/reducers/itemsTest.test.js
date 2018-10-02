@@ -3,10 +3,10 @@ import { ListItem } from '../models/ListItem';
 import { items } from './items.js';
 import { initialState } from '../models/initialState';
 import {
-  cancelEdit,
+  stopEditing,
   deleteItem,
   updateText,
-  startEdit,
+  startEditing,
   addItemFactory,
 } from '../actions';
 
@@ -68,7 +68,7 @@ describe('items reducer', () => {
     expect(actualState).toEqual(expectedState);
   });
 
-  it('should start edit mode of selected item when START_EDIT action is dispatched', () => {
+  it('should start edit mode of selected item when START_EDITING action is dispatched', () => {
     const expectedState = OrderedMap([
       [
         itemId,
@@ -80,12 +80,12 @@ describe('items reducer', () => {
       ]
     ]);
 
-    const actualState = items(defaultItems, startEdit(itemId));
+    const actualState = items(defaultItems, startEditing(itemId));
 
     expect(actualState).toEqual(expectedState);
   });
 
-  it('should end edit mode of selected item when CANCEL_EDIT action is dispatched', () => {
+  it('should end edit mode of selected item when STOP_EDITING action is dispatched', () => {
     const expectedState = OrderedMap([
       [
         itemId,
@@ -97,7 +97,7 @@ describe('items reducer', () => {
       ]
     ]);
 
-    const actualState = items(defaultItems, cancelEdit(itemId));
+    const actualState = items(defaultItems, stopEditing(itemId));
 
     expect(actualState).toEqual(expectedState);
   });

@@ -1,9 +1,9 @@
 import { connect } from 'react-redux';
 import { StaticItem } from '../components/StaticItem';
-import { startEdit } from '../actions';
+import { startEditing } from '../actions';
 
 const mapDispatchToProps = (dispatch, { item }) => ({
-  onStartEdit: () => dispatch(startEdit(item.id)),
+  onStartEdit: () => dispatch(startEditing(item.id)),
 });
 
 const ConnectedStaticItem = connect(null, mapDispatchToProps)(StaticItem);
