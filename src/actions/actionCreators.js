@@ -1,8 +1,8 @@
 import {
-  CANCEL_EDIT,
+  STOP_EDITING,
   DELETE_ITEM,
   UPDATE_TEXT,
-  START_EDIT
+  START_EDITING
 } from '../constants/actionTypes';
 
 export const deleteItem = (id) => ({
@@ -20,15 +20,15 @@ export const updateText = (id, text) => ({
   }
 });
 
-export const startEdit = (id) => ({
-  type: START_EDIT,
+export const startEditing = (id) => ({
+  type: START_EDITING,
   payload: {
     id
   }
 });
 
-export const cancelEdit = (id) => ({
-  type: CANCEL_EDIT,
+export const stopEditing = (id) => ({
+  type: STOP_EDITING,
   payload: {
     id
   }
