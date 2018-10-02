@@ -5,7 +5,7 @@ import { initialState } from '../models/initialState';
 import {
   cancelEdit,
   deleteItem,
-  updateItem,
+  updateText,
   startEdit,
   addItemFactory,
 } from '../actions';
@@ -102,7 +102,7 @@ describe('items reducer', () => {
     expect(actualState).toEqual(expectedState);
   });
 
-  it('should update selected item when UPDATE_ITEM action is dispatched', () => {
+  it('should update selected item when UPDATE_TEXT action is dispatched', () => {
     const newText = 'Buy Beer';
 
     const expectedState = OrderedMap([
@@ -115,7 +115,7 @@ describe('items reducer', () => {
       ]
     ]);
 
-    const actualState = items(defaultItems, updateItem(itemId, newText));
+    const actualState = items(defaultItems, updateText(itemId, newText));
 
     expect(actualState).toEqual(expectedState);
   });

@@ -1,7 +1,7 @@
 import {
   CANCEL_EDIT,
   DELETE_ITEM,
-  UPDATE_ITEM,
+  UPDATE_TEXT,
   START_EDIT
 } from '../constants/actionTypes';
 
@@ -12,8 +12,8 @@ export const deleteItem = (id) => ({
   }
 });
 
-export const updateItem = (id, text) => ({
-  type: UPDATE_ITEM,
+export const updateText = (id, text) => ({
+  type: UPDATE_TEXT,
   payload: {
     id,
     text

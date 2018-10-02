@@ -4,13 +4,13 @@ import { EditableItem } from '../components/EditableItem';
 import {
   cancelEdit,
   deleteItem,
-  updateItem,
+  updateText,
 } from '../actions';
 
 const mapDispatchToProps = (dispatch, { item }) => ({
   onCancelEdit: () => dispatch(cancelEdit(item.id)),
   onDeleteItem: () => dispatch(deleteItem(item.id)),
-  onUpdateItem: (text) => dispatch(updateItem(item.id, text)),
+  onUpdateItem: (text) => dispatch(updateText(item.id, text)),
 });
 
 const ConnectedEditableItem = connect(null, mapDispatchToProps)(EditableItem);

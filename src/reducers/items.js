@@ -5,7 +5,7 @@ import {
   CANCEL_EDIT,
   DELETE_ITEM,
   START_EDIT,
-  UPDATE_ITEM
+  UPDATE_TEXT
 } from '../constants/actionTypes';
 
 export const items = (state = OrderedMap(), action) => {
@@ -26,7 +26,7 @@ export const items = (state = OrderedMap(), action) => {
     case CANCEL_EDIT:
       return state.mergeIn([action.payload.id], { isInEditMode: false });
 
-    case UPDATE_ITEM: {
+    case UPDATE_TEXT: {
       return state.mergeIn([action.payload.id], {
         isInEditMode: false,
         text: action.payload.text
