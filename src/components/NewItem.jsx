@@ -1,5 +1,6 @@
 import React, { PureComponent, } from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import { validateInput } from '../utils/inputValidator';
 
 export class NewItem extends PureComponent {
@@ -12,7 +13,8 @@ export class NewItem extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      text: ''
+      text: '',
+      isFocused: true
     };
   }
 
@@ -26,18 +28,32 @@ export class NewItem extends PureComponent {
     this.setState(() => ({ text: '' }));
   };
 
+  _onFocus = () => {
+    this.setState(() => ({ isFocused: true }));
+  };
+
+  _onBlur = () => {
+    this.setState(() => ({ isFocused: false }));
+  };
+
   render() {
     const isInputFieldValid = validateInput(this.state.text);
     const tooltip = !isInputFieldValid ? 'You have to insert some text!' : '';
+    const formGroupClassName = classNames('form-group', this.props.className, {
+      'has-success': isInputFieldValid && this.state.isFocused,
+      'has-error': !isInputFieldValid && this.state.isFocused
+    });
 
     return (
       <div className="form-inline">
-        <div className="form-group">
+        <div className={formGroupClassName}>
           <input
             className="form-control"
             value={this.state.text}
             onChange={this._changeInput}
             title={tooltip}
+            onBlur={this._onBlur}
+            onFocus={this._onFocus}
             autoFocus
           />
           <button
