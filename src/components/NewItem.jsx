@@ -58,7 +58,7 @@ export class NewItem extends PureComponent {
           />
           <button
             type="button"
-            disabled={!validateInput(this.state.text)}
+            disabled={!isInputFieldValid}
             title={tooltip}
             className="btn btn-default"
             onClick={this._addItem}
