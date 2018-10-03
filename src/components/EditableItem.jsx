@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import { validateInput } from '../utils/inputValidator';
 
 export class EditableItem extends PureComponent {
@@ -19,7 +20,8 @@ export class EditableItem extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      text: this.props.item.text
+      text: this.props.item.text,
+      isFocused: true
     };
   }
 
@@ -30,13 +32,25 @@ export class EditableItem extends PureComponent {
 
   _saveInput = () => this.props.onUpdateItem(this.state.text);
 
+  _onFocus = () => {
+    this.setState(() => ({ isFocused: true }));
+  };
+
+  _onBlur = () => {
+    this.setState(() => ({ isFocused: false }));
+  };
+
   render() {
     const isInputFieldValid = validateInput(this.state.text);
     const tooltip = !isInputFieldValid ? 'You have to insert some text!' : '';
+    const formGroupClassName = classNames('form-group', this.props.className, {
+      'has-success': isInputFieldValid && this.state.isFocused,
+      'has-error': !isInputFieldValid && this.state.isFocused
+    });
 
     return (
       <div className="form-inline">
-        <div className="form-group">
+        <div className={formGroupClassName}>
           {this.props.index}.
           <input
             className="form-control"
@@ -44,6 +58,8 @@ export class EditableItem extends PureComponent {
             value={this.state.text}
             title={tooltip}
             onChange={this._changeInput}
+            onBlur={this._onBlur}
+            onFocus={this._onFocus}
             autoFocus
           />
           <button
