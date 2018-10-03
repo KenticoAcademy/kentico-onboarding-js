@@ -1,19 +1,21 @@
 import { IItem } from '../models/Item';
-import { Dispatch } from 'redux';
 import {
-  AddItemAction,
+  Actions,
   DeleteItemAction,
   FetchFailureAction,
   FetchItemsSuccessAction,
 } from './types/itemsActionTypes';
 import {
-  deleteItemCreator,
   getItemsCreator,
-  postItemCreator,
-  putItemCreator,
-} from './creators/fetchCreators';
+  } from './creators/getItemsCreator';
+import { IAppState } from '../store/state/IAppState';
+import { ThunkAction } from 'redux-thunk';
+import { generateUuid } from '../utils/generateUuid';
+import { postItemCreator } from './creators/postItemCreator';
+import { putItemCreator } from './creators/putItemCreator';
+import { deleteItemCreator } from './creators/deleteItemCreator';
 
-export const getItemsRequest: () => (dispatch: Dispatch) => Promise<FetchItemsSuccessAction | FetchFailureAction> = getItemsCreator(fetch);
-export const postItemRequest: (text: string) => (dispatch: Dispatch) => Promise<AddItemAction | FetchFailureAction> = postItemCreator(fetch);
-export const putItemRequest: (item: IItem) => (dispatch: Dispatch) => Promise<void | FetchFailureAction> = putItemCreator(fetch);
-export const deleteItemRequest: (id: Guid) => (dispatch: Dispatch) => Promise<DeleteItemAction | FetchFailureAction> = deleteItemCreator(fetch);
+export const getItemsRequest: () => ThunkAction<Promise<FetchFailureAction | FetchItemsSuccessAction>, void, void, Actions> = getItemsCreator(fetch);
+export const postItemRequest: (text: string) => ThunkAction<Promise<void>, void, void, Actions> = postItemCreator(fetch, generateUuid);
+export const putItemRequest: (item: IItem) => ThunkAction<Promise<void | Response>, IAppState, void, Actions> = putItemCreator(fetch);
+export const deleteItemRequest: (id: Guid) => ThunkAction<Promise<FetchFailureAction | DeleteItemAction>, void, void, Actions> = deleteItemCreator(fetch);

@@ -8,11 +8,8 @@ import {
   SaveItemTextAction,
 } from '../types/itemsActionTypes';
 import {
-  deleteItemCreator,
   getItemsCreator,
-  postItemCreator,
-  putItemCreator,
-} from './fetchCreators';
+  } from './getItemsCreator';
 import Mock = jest.Mock;
 import {
   deleteItem,
@@ -23,6 +20,10 @@ import {
 import { addItemCreator } from './addItemCreator';
 import { urlBase } from '../utils/urlBase';
 import { headerBase } from '../utils/headerBase';
+import { IAppState } from '../../store/state/IAppState';
+import { postItemCreator } from './postItemCreator';
+import { putItemCreator } from './putItemCreator';
+import { deleteItemCreator } from './deleteItemCreator';
 
 describe('fetchCreators', () => {
   const mockResponse = (status: number, statusText?: string, response?: BodyInit) =>
@@ -55,7 +56,7 @@ describe('fetchCreators', () => {
       };
       fetchResponse = mockResponse(200, undefined, '[{"id":"1","text":"Text1"}]');
 
-      getItemsCreator(fetch)()(dispatch)
+      getItemsCreator(fetch)()(dispatch, () => undefined, undefined)
         .then(() => {
           expect(fetch.mock.calls.length).toBe(1);
           expect(fetch.mock.calls[0][0]).toEqual(urlBase);
@@ -71,7 +72,7 @@ describe('fetchCreators', () => {
       const expectedResult: FetchFailureAction = fetchFailure(error);
       fetchResponse = mockResponse(400, error);
 
-      getItemsCreator(fetch)()(dispatch)
+      getItemsCreator(fetch)()(dispatch, () => undefined, undefined)
         .then(() => {
           expect(dispatch.mock.calls.length).toBe(1);
           expect(dispatch.mock.calls[0][0]).toEqual(expectedResult);
@@ -90,7 +91,7 @@ describe('fetchCreators', () => {
       };
       fetchResponse = mockResponse(200, undefined, '{"id":"1","text":"Text1"}');
 
-      postItemCreator(fetch)(newItem.text)(dispatch)
+      postItemCreator(fetch, () => '1')(newItem.text)(dispatch, () => undefined, undefined)
         .then(() => {
           expect(fetch.mock.calls.length).toBe(1);
           expect(fetch.mock.calls[0][0]).toEqual(urlBase);
@@ -107,7 +108,7 @@ describe('fetchCreators', () => {
       const expectedResult: FetchFailureAction = fetchFailure(error);
       fetchResponse = mockResponse(400, error);
 
-      postItemCreator(fetch)(text)(dispatch)
+      postItemCreator(fetch, () => '1')(text)(dispatch, () => undefined, undefined)
         .then(() => {
           expect(dispatch.mock.calls.length).toBe(1);
           expect(dispatch.mock.calls[0][0]).toEqual(expectedResult);
@@ -124,9 +125,10 @@ describe('fetchCreators', () => {
         method: 'PUT',
         body: '{"id":"1","text":"Text1"}',
       };
+      const getState: () => IAppState = jest.fn(() => 'Old text');
       fetchResponse = mockResponse(200, undefined);
 
-      putItemCreator(fetch)(updatedItem)(dispatch)
+      putItemCreator(fetch)(updatedItem)(dispatch, getState, undefined)
         .then(() => {
           expect(fetch.mock.calls.length).toBe(1);
           expect(fetch.mock.calls[0][0]).toEqual(urlBase + '/' + updatedItem.id);
@@ -141,9 +143,10 @@ describe('fetchCreators', () => {
       const updatedItem: IItem = new Item({ id: '1', text: 'Text1' });
       const error: string = 'Test error';
       const expectedResult: FetchFailureAction = fetchFailure(error);
+      const getState: () => IAppState = jest.fn(() => 'Old text');
       fetchResponse = mockResponse(400, error);
 
-      putItemCreator(fetch)(updatedItem)(dispatch)
+      putItemCreator(fetch)(updatedItem)(dispatch, getState, undefined)
         .then(() => {
           expect(dispatch.mock.calls.length).toBe(1);
           expect(dispatch.mock.calls[0][0]).toEqual(expectedResult);
@@ -161,7 +164,7 @@ describe('fetchCreators', () => {
       };
       fetchResponse = mockResponse(200, undefined, '{"id":"1","text":"Text1"}');
 
-      deleteItemCreator(fetch)(id)(dispatch)
+      deleteItemCreator(fetch)(id)(dispatch, () => undefined, undefined)
         .then(() => {
           expect(fetch.mock.calls.length).toBe(1);
           expect(fetch.mock.calls[0][0]).toEqual(urlBase + '/' + id);
@@ -178,7 +181,7 @@ describe('fetchCreators', () => {
       const expectedResult: FetchFailureAction = fetchFailure(error);
       fetchResponse = mockResponse(400, error);
 
-      deleteItemCreator(fetch)(id)(dispatch)
+      deleteItemCreator(fetch)(id)(dispatch, () => undefined, undefined)
         .then(() => {
           expect(dispatch.mock.calls.length).toBe(1);
           expect(dispatch.mock.calls[0][0]).toEqual(expectedResult);
