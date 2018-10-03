@@ -27,6 +27,9 @@ export class NewItem extends PureComponent {
   };
 
   render() {
+    const isInputFieldValid = validateInput(this.state.text);
+    const tooltip = !isInputFieldValid ? 'You have to insert some text!' : '';
+
     return (
       <div className="form-inline">
         <div className="form-group">
@@ -34,11 +37,13 @@ export class NewItem extends PureComponent {
             className="form-control"
             value={this.state.text}
             onChange={this._changeInput}
+            title={tooltip}
             autoFocus
           />
           <button
             type="button"
             disabled={!validateInput(this.state.text)}
+            title={tooltip}
             className="btn btn-default"
             onClick={this._addItem}
           >

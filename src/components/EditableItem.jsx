@@ -24,13 +24,16 @@ export class EditableItem extends PureComponent {
   }
 
   _changeInput = (event) => {
-    event.persist();
-    this.setState(() => ({ text: event.target.value }));
+    const eventTargetValue = event.target.value;
+    this.setState(() => ({ text: eventTargetValue }));
   };
 
   _saveInput = () => this.props.onUpdateItem(this.state.text);
 
   render() {
+    const isInputFieldValid = validateInput(this.state.text);
+    const tooltip = !isInputFieldValid ? 'You have to insert some text!' : '';
+
     return (
       <div className="form-inline">
         <div className="form-group">
@@ -39,14 +42,16 @@ export class EditableItem extends PureComponent {
             className="form-control"
             type="text"
             value={this.state.text}
+            title={tooltip}
             onChange={this._changeInput}
             autoFocus
           />
           <button
             type="button"
+            disabled={!isInputFieldValid}
+            title={tooltip}
             className="btn btn-primary"
             onClick={this._saveInput}
-            disabled={!validateInput(this.state.text)}
           >
             Save
           </button>
