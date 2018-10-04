@@ -20,6 +20,7 @@ export class EditableItem extends PureComponent {
 
   constructor(props) {
     super(props);
+
     this.state = {
       text: this.props.item.text,
       isFocused: true
