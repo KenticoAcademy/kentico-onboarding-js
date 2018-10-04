@@ -11,10 +11,12 @@ import {
 export const items = (state = OrderedMap(), action) => {
   switch (action.type) {
     case ADD_ITEM: {
-      return state.set(action.payload.id, new ListItem({
+      const newItem = new ListItem({
         id: action.payload.id,
         text: action.payload.text
-      }));
+      });
+
+      return state.set(action.payload.id, newItem);
     }
 
     case DELETE_ITEM:
