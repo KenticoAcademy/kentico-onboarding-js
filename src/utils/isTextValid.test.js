@@ -17,6 +17,22 @@ describe('isTextValid()', () => {
     expect(result).toBeFalsy();
   });
 
+  it('should return false in case the input is null', () => {
+    const input = null;
+
+    const result = isTextValid(input);
+
+    expect(result).toBeFalsy();
+  });
+
+  it('should return false in case the input is undefined', () => {
+    const input = undefined;
+
+    const result = isTextValid(input);
+
+    expect(result).toBeFalsy();
+  });
+
   it('should return true in case of valid input', () => {
     const input = 'hello';
 
