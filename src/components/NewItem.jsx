@@ -12,6 +12,7 @@ export class NewItem extends PureComponent {
 
   constructor(props) {
     super(props);
+
     this.state = {
       text: '',
       isFocused: true
