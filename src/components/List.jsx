@@ -14,15 +14,14 @@ export class List extends PureComponent {
     this.props
       .itemsIds
       .map((id, index) => (
-        <li
-          className="list-group-item"
+        <ListGroupItem
           key={id}
         >
           <Item
             id={id}
             index={index + 1}
           />
-        </li>)
+        </ListGroupItem>)
       );
 
   render() {
@@ -31,12 +30,16 @@ export class List extends PureComponent {
             <pre>
                 <ul className="list-group">
                   {this._renderListItems()}
-                  <li className="list-group-item">
+                  <ListGroupItem>
                     <NewItem />
-                  </li>
+                  </ListGroupItem>
                 </ul>
             </pre>
       </div>
     );
   }
 }
+
+const ListGroupItem = (props) => (
+  <li className="list-group-item">{props.children}</li>
+);
