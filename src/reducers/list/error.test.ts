@@ -1,5 +1,5 @@
 import { error } from './error';
-import { fetchFailure, deleteItem } from '../../actions/itemsActions';
+import { displayError, deleteItem } from '../../actions/itemsActions';
 
 describe('error', () => {
   it('initializes state with empty string', () => {
@@ -11,13 +11,13 @@ describe('error', () => {
     expect(result).toEqual(expectedState);
   });
 
-  describe('fetchFailure', () => {
+  describe('displayError', () => {
     it('returns state with correct error message', () => {
       const errorMessage: string = 'All your bases are belong to us!';
       const previousState: string = '';
       const expectedState: string = errorMessage;
 
-      const result: string = error(previousState, fetchFailure(errorMessage));
+      const result: string = error(previousState, displayError(errorMessage));
 
       expect(result).toEqual(expectedState);
     });

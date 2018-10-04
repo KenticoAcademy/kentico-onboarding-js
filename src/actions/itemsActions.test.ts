@@ -1,5 +1,5 @@
 import {
-  deleteItem, fetchFailure, fetchItemsSuccess,
+  deleteItem, displayError, loadingItemsSuccess,
   saveItemText,
   toggleItemEditing,
 } from './itemsActions';
@@ -7,7 +7,7 @@ import { generateUuid } from '../utils/generateUuid';
 import { addItemCreator } from './creators/addItemCreator';
 import {
   AddItemAction,
-  DeleteItemAction, FetchFailureAction, FetchItemsSuccessAction,
+  DeleteItemAction, DisplayErrorAction, LoadingItemsSuccessAction,
   SaveItemTextAction,
   ToggleItemEditingAction,
 } from './types/itemsActionTypes';
@@ -81,37 +81,37 @@ describe('toggleItemEditing', () => {
   });
 });
 
-describe('fetchFailure', () => {
+describe('displayError', () => {
   it('returns action with error message', () => {
     const error: string = 'This is an error.';
-    const expectedResult: FetchFailureAction = {
-      type: 'FETCH_ERROR',
+    const expectedResult: DisplayErrorAction = {
+      type: 'DISPLAY_ERROR',
       payload: {
         error,
       },
     };
 
-    const result: FetchFailureAction = fetchFailure(error);
+    const result: DisplayErrorAction = displayError(error);
 
     expect(result).toEqual(expectedResult);
   });
 });
 
-describe('fetchItemsSuccess', () => {
+describe('loadingItemsSuccess', () => {
   it('returns action with array of received items', () => {
     const response: IItem[] = [
       new Item({ id: '1', text: 'Text1' }),
       new Item({ id: '2', text: 'Text2' }),
       new Item({ id: '3', text: 'Text3' }),
     ];
-    const expectedResult: FetchItemsSuccessAction = {
-      type: 'FETCH_ITEMS_SUCCESS',
+    const expectedResult: LoadingItemsSuccessAction = {
+      type: 'LOADING_ITEMS_SUCCESS',
       payload: {
         response,
       },
     };
 
-    const result: FetchItemsSuccessAction = fetchItemsSuccess(response);
+    const result: LoadingItemsSuccessAction = loadingItemsSuccess(response);
 
     expect(result).toEqual(expectedResult);
   });

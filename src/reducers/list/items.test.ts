@@ -3,7 +3,7 @@ import { items } from './items';
 import { IItem, Item } from '../../models/Item';
 import { addItemCreator } from '../../actions/creators/addItemCreator';
 import {
-  deleteItem, fetchItemsSuccess,
+  deleteItem, loadingItemsSuccess,
   saveItemText,
   toggleItemEditing,
 } from '../../actions/itemsActions';
@@ -159,7 +159,7 @@ describe('items', () => {
     });
   });
 
-  describe('fetchItemsSuccess', () => {
+  describe('loadingItemsSuccess', () => {
     it('returns state with received items', () => {
       const response: IItem[] = [
         new Item({ id: '1', text: 'Text1' }),
@@ -183,7 +183,7 @@ describe('items', () => {
         ],
       ]);
 
-      const result: IItemsState = items(previousState, fetchItemsSuccess(response));
+      const result: IItemsState = items(previousState, loadingItemsSuccess(response));
 
       expect(result).toEqual(expectedState);
     });

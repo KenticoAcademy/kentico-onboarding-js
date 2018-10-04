@@ -3,8 +3,8 @@ import { IItem, Item } from '../../models/Item';
 import {
   AddItemAction,
   DeleteItemAction,
-  FetchFailureAction,
-  FetchItemsSuccessAction,
+  DisplayErrorAction,
+  LoadingItemsSuccessAction,
   SaveItemTextAction,
 } from '../types/itemsActionTypes';
 import {
@@ -13,14 +13,13 @@ import {
 import Mock = jest.Mock;
 import {
   deleteItem,
-  fetchFailure,
-  fetchItemsSuccess,
+  displayError,
+  loadingItemsSuccess,
   saveItemText,
 } from '../itemsActions';
 import { addItemCreator } from './addItemCreator';
 import { urlBase } from '../utils/urlBase';
 import { headerBase } from '../utils/headerBase';
-import { IAppState } from '../../store/state/IAppState';
 import { postItemCreator } from './postItemCreator';
 import { putItemCreator } from './putItemCreator';
 import { deleteItemCreator } from './deleteItemCreator';
@@ -45,11 +44,11 @@ describe('fetchCreators', () => {
   });
 
   describe('getItemsCreator', () => {
-    it('when successful, creates fetchItemsSuccess action', () => {
+    it('when successful, creates loadingItemsSuccess action', () => {
       const response: IItem[] = [
         new Item({ id: '1', text: 'Text1' }),
       ];
-      const expectedResult: FetchItemsSuccessAction = fetchItemsSuccess(response);
+      const expectedResult: LoadingItemsSuccessAction = loadingItemsSuccess(response);
       const expectedRequestInit: RequestInit = {
         ...headerBase,
         method: 'GET',
@@ -67,9 +66,9 @@ describe('fetchCreators', () => {
         });
     });
 
-    it('when fails, creates fetchFailure action', () => {
+    it('when fails, creates displayError action', () => {
       const error = 'Test error';
-      const expectedResult: FetchFailureAction = fetchFailure(error);
+      const expectedResult: DisplayErrorAction = displayError(error);
       fetchResponse = mockResponse(400, error);
 
       getItemsCreator(fetch)()(dispatch, () => undefined, undefined)
@@ -102,10 +101,10 @@ describe('fetchCreators', () => {
         });
     });
 
-    it('when fails, creates fetchFailure action', () => {
+    it('when fails, creates displayError action', () => {
       const text: string = 'Item text.';
       const error: string = 'Test error';
-      const expectedResult: FetchFailureAction = fetchFailure(error);
+      const expectedResult: DisplayErrorAction = displayError(error);
       fetchResponse = mockResponse(400, error);
 
       postItemCreator(fetch, () => '1')(text)(dispatch, () => undefined, undefined)
@@ -125,10 +124,9 @@ describe('fetchCreators', () => {
         method: 'PUT',
         body: '{"id":"1","text":"Text1"}',
       };
-      const getState: () => IAppState = jest.fn(() => 'Old text');
       fetchResponse = mockResponse(200, undefined);
 
-      putItemCreator(fetch)(updatedItem)(dispatch, getState, undefined)
+      putItemCreator(fetch)(updatedItem)(dispatch, () => undefined, undefined)
         .then(() => {
           expect(fetch.mock.calls.length).toBe(1);
           expect(fetch.mock.calls[0][0]).toEqual(urlBase + '/' + updatedItem.id);
@@ -139,14 +137,13 @@ describe('fetchCreators', () => {
         });
     });
 
-    it('when fails, creates fetchFailure action', () => {
+    it('when fails, creates displayError action', () => {
       const updatedItem: IItem = new Item({ id: '1', text: 'Text1' });
       const error: string = 'Test error';
-      const expectedResult: FetchFailureAction = fetchFailure(error);
-      const getState: () => IAppState = jest.fn(() => 'Old text');
+      const expectedResult: DisplayErrorAction = displayError(error);
       fetchResponse = mockResponse(400, error);
 
-      putItemCreator(fetch)(updatedItem)(dispatch, getState, undefined)
+      putItemCreator(fetch)(updatedItem)(dispatch, () => undefined, undefined)
         .then(() => {
           expect(dispatch.mock.calls.length).toBe(1);
           expect(dispatch.mock.calls[0][0]).toEqual(expectedResult);
@@ -175,10 +172,10 @@ describe('fetchCreators', () => {
         });
     });
 
-    it('when fails, creates fetchFailure action', () => {
+    it('when fails, creates displayError action', () => {
       const id: Guid = '1';
       const error: string = 'Test error';
-      const expectedResult: FetchFailureAction = fetchFailure(error);
+      const expectedResult: DisplayErrorAction = displayError(error);
       fetchResponse = mockResponse(400, error);
 
       deleteItemCreator(fetch)(id)(dispatch, () => undefined, undefined)

@@ -3,10 +3,10 @@ import { generateUuid } from '../utils/generateUuid';
 import {
   AddItemAction,
   DeleteItemAction,
-  FetchFailureAction,
-  FetchItemsSuccessAction,
+  DisplayErrorAction,
+  LoadingItemsSuccessAction, DisplayItemErrorAction, PostItemSuccessAction,
   SaveItemTextAction,
-  ToggleItemEditingAction,
+  ToggleItemEditingAction, PutItemSuccessAction,
 } from './types/itemsActionTypes';
 import { IItem } from '../models/Item';
 
@@ -34,16 +34,40 @@ export const toggleItemEditing = (id: Guid): ToggleItemEditingAction => ({
   },
 });
 
-export const fetchFailure = (error: string): FetchFailureAction => ({
-  type: 'FETCH_ERROR',
+export const displayError = (error: string): DisplayErrorAction => ({
+  type: 'DISPLAY_ERROR',
   payload: {
     error,
   },
 });
 
-export const fetchItemsSuccess = (response: IItem[]): FetchItemsSuccessAction => ({
-  type: 'FETCH_ITEMS_SUCCESS',
+export const loadingItemsSuccess = (response: IItem[]): LoadingItemsSuccessAction => ({
+  type: 'LOADING_ITEMS_SUCCESS',
   payload: {
     response,
+  },
+});
+
+export const postItemSuccess = (oldId: Guid, newId: Guid, text: string): PostItemSuccessAction => ({
+  type: 'POST_ITEM_SUCCESS',
+  payload: {
+    oldId,
+    newId,
+    text,
+  },
+});
+
+export const displayItemError = (id: Guid, error: string): DisplayItemErrorAction => ({
+  type: 'DISPLAY_ITEM_ERROR',
+  payload: {
+    id,
+    error,
+  },
+});
+
+export const putItemSuccess = (id: Guid): PutItemSuccessAction => ({
+  type: 'PUT_ITEM_SUCCESS',
+  payload: {
+    id,
   },
 });

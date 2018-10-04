@@ -30,6 +30,11 @@ html {
   max-height: 50px;
 }
 
+.is-syncing {
+  color: lightgrey;
+  font-weight: bold;
+}
+
 body {
   /* Margin bottom by footer height */
   margin-bottom: 60px !important;

@@ -1,12 +1,12 @@
 import { ThunkAction } from 'redux-thunk';
-import { Actions, DeleteItemAction, FetchFailureAction } from '../types/itemsActionTypes';
+import { Actions, DeleteItemAction, DisplayErrorAction } from '../types/itemsActionTypes';
 import { Dispatch } from 'redux';
 import { urlBase } from '../utils/urlBase';
-import { deleteItem, fetchFailure } from '../itemsActions';
+import { deleteItem, displayError } from '../itemsActions';
 import { fetchFactory } from '../utils/fetchFactory';
 
 export const deleteItemCreator = (fetch: (input: string, init: RequestInit) => Promise<Response>) =>
-  (id: Guid): ThunkAction<Promise<FetchFailureAction | DeleteItemAction>, void, void, Actions> =>
+  (id: Guid): ThunkAction<Promise<DisplayErrorAction | DeleteItemAction>, void, void, Actions> =>
     (dispatch: Dispatch) =>
       fetchFactory(fetch, urlBase + `/${id}`, {method: 'DELETE'})
         .then(
@@ -14,5 +14,5 @@ export const deleteItemCreator = (fetch: (input: string, init: RequestInit) => P
         ).then(
           json => dispatch(deleteItem(json.id)),
         ).catch(
-          error => dispatch(fetchFailure('There was an error while deleting item: ' + error.message)),
+          error => dispatch(displayError('There was an error while deleting item: ' + error.message)),
         );

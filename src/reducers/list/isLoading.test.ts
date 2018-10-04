@@ -1,5 +1,5 @@
 import { isLoading } from './isLoading';
-import { deleteItem, fetchItemsSuccess } from '../../actions/itemsActions';
+import { deleteItem, loadingItemsSuccess } from '../../actions/itemsActions';
 import { IItem, Item } from '../../models/Item';
 
 describe('isLoading', () => {
@@ -12,7 +12,7 @@ describe('isLoading', () => {
     expect(result).toEqual(expectedState);
   });
 
-  describe('fetchItemsSuccess', () => {
+  describe('loadingItemsSuccess', () => {
     it('returns state with false value', () => {
       const response: IItem[] = [
         new Item({ id: '1', text: 'Text1' }),
@@ -21,7 +21,7 @@ describe('isLoading', () => {
       const previousState: boolean = true;
       const expectedState: boolean = false;
 
-      const result: boolean = isLoading(previousState, fetchItemsSuccess(response));
+      const result: boolean = isLoading(previousState, loadingItemsSuccess(response));
 
       expect(result).toEqual(expectedState);
     });

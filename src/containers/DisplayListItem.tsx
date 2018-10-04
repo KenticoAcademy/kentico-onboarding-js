@@ -15,7 +15,11 @@ const mapStateToProps = (state: IAppState, ownProps: DisplayListItemContainerPro
 });
 
 const mapDispatchToProps = (dispatch: Dispatch, ownProps: DisplayListItemContainerProps): DisplayListItemDispatchProps => ({
-  enableEditing: () => dispatch(toggleItemEditing(ownProps.id)),
+  enableEditing: () => {
+    if (!ownProps.isSyncing) {
+      dispatch(toggleItemEditing(ownProps.id));
+    }
+  },
 });
 
 export const DisplayListItem: React.ComponentClass<DisplayListItemContainerProps> = connect(
