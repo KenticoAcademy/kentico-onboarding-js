@@ -11,10 +11,11 @@ export class EditableItem extends PureComponent {
       id: PropTypes.string.isRequired,
       text: PropTypes.string.isRequired
     }).isRequired,
+    index: PropTypes.number.isRequired,
+
     onCancelEdit: PropTypes.func.isRequired,
     onDeleteItem: PropTypes.func.isRequired,
-    onUpdateItem: PropTypes.func.isRequired,
-    index: PropTypes.number.isRequired
+    onUpdateItem: PropTypes.func.isRequired
   };
 
   constructor(props) {
