@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import { AppStateProps } from '../components/App';
 
 const mapStateToProps = (state: IAppState): AppStateProps => ({
-  isLoading: state.list.isLoading,
   error: state.list.error,
 });
 
