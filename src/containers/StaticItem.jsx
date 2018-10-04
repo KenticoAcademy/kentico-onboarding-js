@@ -3,7 +3,7 @@ import { StaticItem } from '../components/StaticItem';
 import { startEditing } from '../actions';
 
 const mapDispatchToProps = (dispatch, { item }) => ({
-  onStartEdit: () => dispatch(startEditing(item.id)),
+  onItemClick: () => dispatch(startEditing(item.id)),
 });
 
 const ConnectedStaticItem = connect(null, mapDispatchToProps)(StaticItem);
