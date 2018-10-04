@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { validateInput } from '../utils/isTextValid';
+import { isTextValid } from '../utils/isTextValid';
 
 export class EditableItem extends PureComponent {
   static displayName = 'EditableItem';
@@ -41,7 +41,7 @@ export class EditableItem extends PureComponent {
   };
 
   render() {
-    const isInputFieldValid = validateInput(this.state.text);
+    const isInputFieldValid = isTextValid(this.state.text);
     const tooltip = !isInputFieldValid ? 'You have to insert some text!' : '';
     const formGroupClassName = classNames('form-group', this.props.className, {
       'has-success': isInputFieldValid && this.state.isFocused,
