@@ -1,9 +1,9 @@
 import connect from 'react-redux/es/connect/connect';
 import { List } from '../components/List';
-import { memoizedIds } from '../selectors/itemSelector';
+import { getMemoizedIds } from '../selectors/itemSelector';
 
 const mapStateToProps = ({ items }) => ({
-  itemsIds: memoizedIds(items.keySeq())
+  itemsIds: getMemoizedIds(items)
 });
 
 const ConnectedList = connect(mapStateToProps)(List);
