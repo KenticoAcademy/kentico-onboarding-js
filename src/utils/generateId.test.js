@@ -1,4 +1,4 @@
-import { generateId } from './idGenerator';
+import { generateId } from './generateId';
 
 describe('Id generator', () => {
   it('should generate id in valid format', () => {
