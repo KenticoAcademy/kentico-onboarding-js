@@ -24,8 +24,7 @@ Item.displayName = 'Item';
 
 Item.propTypes = {
   item: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    text: PropTypes.string.isRequired
+    isInEditMode: PropTypes.bool.isRequired,
   }).isRequired,
   index: PropTypes.number.isRequired,
 };
