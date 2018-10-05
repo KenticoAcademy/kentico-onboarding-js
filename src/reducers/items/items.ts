@@ -3,7 +3,7 @@ import { IAction } from '../../actions/IAction';
 import {
   CREATE_ITEM,
   DELETE_ITEM,
-  EDIT_ITEM,
+  EDIT_TEXT_ITEM,
   FINISH_EDIT_ITEM,
   START_EDIT_ITEM,
 } from '../../actions/actionTypes';
@@ -13,7 +13,7 @@ import { Item } from '../../models/Item';
 export const items = (state = OrderedMap<Guid, Item>(), action: IAction): OrderedMap<Guid, Item> => {
   switch (action.type) {
     case CREATE_ITEM:
-    case EDIT_ITEM:
+    case EDIT_TEXT_ITEM:
     case START_EDIT_ITEM:
     case FINISH_EDIT_ITEM:
       const requiredItem = state.get(action.payload.id);

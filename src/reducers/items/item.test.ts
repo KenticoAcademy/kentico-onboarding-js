@@ -1,5 +1,5 @@
 import {
-  editItem,
+  editTextItem,
   createItem,
   startEditItem,
   finishEditItem,
@@ -30,9 +30,9 @@ describe('item', () => {
     expect(state).toEqual(expectedState);
   });
 
-  it('should edit the text of the Item Dog on EDIT_ITEM action', () => {
+  it('should edit the text of the Item Dog on EDIT_TEXT_ITEM action', () => {
     const actionCreate = createItem('Dog');
-    const action = editItem(actionCreate.payload.id, 'Doga');
+    const action = editTextItem(actionCreate.payload.id, 'Doga');
     const defaultState = new Item({id: actionCreate.payload.id, text: 'Dog'});
     const expectedState = new Item({id: actionCreate.payload.id, text: 'Doga'});
 
