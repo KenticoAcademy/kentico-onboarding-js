@@ -1,13 +1,13 @@
 import { IAction } from './IAction';
 import {
-  EDIT_ITEM,
+  EDIT_TEXT_ITEM,
   DELETE_ITEM,
   START_EDIT_ITEM,
   FINISH_EDIT_ITEM,
 } from './actionTypes';
 
-export const editItem = (id: Guid, text: string): IAction => ({
-  type: EDIT_ITEM,
+export const editTextItem = (id: Guid, text: string): IAction => ({
+  type: EDIT_TEXT_ITEM,
   payload: {
     id,
     text,

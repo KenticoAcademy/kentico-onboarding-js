@@ -4,7 +4,7 @@ import { Dispatch } from 'redux';
 import { IState } from '../reducers/IState';
 import {
   deleteItem,
-  editItem,
+  editTextItem,
   finishEditItem,
 } from '../actions';
 import {
@@ -19,7 +19,7 @@ const mapStateToProps = (state: IState, { id }: IEditItemOwnProps): IEditItemSta
 });
 
 const mapDispatchToProps = (dispatch: Dispatch, { id }: IEditItemOwnProps): IEditItemDispatchProps => ({
-  onSave: (text: string) => dispatch(editItem(id, text)),
+  onSave: (text: string) => dispatch(editTextItem(id, text)),
   onDelete: () => dispatch(deleteItem(id)),
   onCancel: () => dispatch(finishEditItem(id)),
 });
