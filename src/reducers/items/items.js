@@ -1,12 +1,13 @@
 import { OrderedMap } from 'immutable';
-import { ListItem } from '../models/ListItem';
+import { ListItem } from '../../models/ListItem';
 import {
   ADD_ITEM,
   STOP_EDITING,
   DELETE_ITEM,
   START_EDITING,
   UPDATE_TEXT
-} from '../constants/actionTypes';
+} from '../../constants/actionTypes';
+import { item } from './item';
 
 export const items = (state = OrderedMap(), action) => {
   switch (action.type) {
@@ -23,16 +24,9 @@ export const items = (state = OrderedMap(), action) => {
       return state.delete(action.payload.id);
 
     case START_EDITING:
-      return state.mergeIn([action.payload.id], { isInEditMode: true });
-
     case STOP_EDITING:
-      return state.mergeIn([action.payload.id], { isInEditMode: false });
-
     case UPDATE_TEXT: {
-      return state.mergeIn([action.payload.id], {
-        isInEditMode: false,
-        text: action.payload.text
-      });
+      return state.mergeIn([action.payload.id], item(state.get(action.payload.id), action));
     }
 
     default:
