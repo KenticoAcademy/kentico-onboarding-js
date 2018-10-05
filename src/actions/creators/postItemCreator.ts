@@ -10,7 +10,8 @@ export const postItemCreator = (fetch: (input: string, init: RequestInit) => Pro
   (text: string): ThunkAction<Promise<PostItemSuccessAction | DisplayItemErrorAction>, void, void, Actions> =>
     (dispatch: Dispatch) => {
       const tempId: Guid = dispatch(addItemCreator(idGenerator)(text))
-        .payload.id;
+        .payload
+        .id;
 
       return fetchFactory(fetch, urlBase, {
         method: 'POST',

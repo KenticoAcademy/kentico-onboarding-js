@@ -9,7 +9,7 @@ import { fetchFactory } from '../utils/fetchFactory';
 export const getItemsCreator = (fetch: (input: string, init: RequestInit) => Promise<Response>) =>
   (): ThunkAction<Promise<LoadingItemsSuccessAction | DisplayErrorAction>, void, void, Actions> =>
     (dispatch: Dispatch) =>
-      fetchFactory(fetch, urlBase, {method: 'GET'})
+      fetchFactory(fetch, urlBase, { method: 'GET' })
         .then(
           response => response.json(),
         ).then(

@@ -1,4 +1,5 @@
 import { headerBase } from './headerBase';
+import { GATEWAY_TIMEOUT_MESSAGE, NOT_FOUND_MESSAGE, UNKNOWN_MESSAGE } from './errorMessages';
 
 const validateResponse = async (response: Response): Promise<string> => {
   switch (response.status) {
@@ -7,13 +8,13 @@ const validateResponse = async (response: Response): Promise<string> => {
       return json.ModelState;
 
     case 404:
-      return 'Requested item was not found.';
+      return NOT_FOUND_MESSAGE;
 
     case 504:
-      return 'Request has timed out, please repeat later.';
+      return GATEWAY_TIMEOUT_MESSAGE;
 
     default:
-      return 'Unknown error, team of garden gnomes is trying to resolve it.';
+      return UNKNOWN_MESSAGE;
   }
 };
 

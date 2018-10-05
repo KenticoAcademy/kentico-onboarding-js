@@ -1,5 +1,5 @@
 import { error } from './error';
-import { displayError, deleteItem } from '../../actions/itemsActions';
+import { displayError, deleteItem, loadingItemsSuccess } from '../../actions/itemsActions';
 
 describe('error', () => {
   it('initializes state with empty string', () => {
@@ -18,6 +18,17 @@ describe('error', () => {
       const expectedState: string = errorMessage;
 
       const result: string = error(previousState, displayError(errorMessage));
+
+      expect(result).toEqual(expectedState);
+    });
+  });
+
+  describe('loadingItemsSuccess', () => {
+    it('returns state with empty string', () => {
+      const previousState: string = 'All your bases are belong to us!';
+      const expectedState: string = '';
+
+      const result: string = error(previousState, loadingItemsSuccess([]));
 
       expect(result).toEqual(expectedState);
     });
