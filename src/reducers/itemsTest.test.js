@@ -1,14 +1,13 @@
 import { OrderedMap } from 'immutable';
-import { ListItem } from '../models/ListItem';
+import { ListItem } from '../../models/ListItem';
 import { items } from './items.js';
-import { initialState } from '../models/initialState';
+import { initialState } from '../../models/initialState';
 import {
   stopEditing,
   deleteItem,
   updateText,
   startEditing,
-  addItemFactory,
-} from '../actions';
+} from '../../actions/index';
 
 describe('items reducer', () => {
   const itemId = '5';
