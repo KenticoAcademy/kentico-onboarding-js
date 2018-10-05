@@ -1,13 +1,13 @@
 import { OrderedMap } from 'immutable';
 import { ListItem } from '../../models/ListItem';
 import { items } from './items.js';
-import { initialState } from '../../models/initialState';
 import {
   stopEditing,
   deleteItem,
   updateText,
   startEditing,
 } from '../../actions/index';
+import { addItemFactory } from '../../actions/addItemFactory';
 
 describe('items reducer', () => {
   const itemId = '5';
@@ -28,9 +28,9 @@ describe('items reducer', () => {
   });
 
   it('should return previous state on unknown action', () => {
-    const expectedState = initialState;
+    const expectedState = defaultItems;
 
-    const actualState = items(initialState, {
+    const actualState = items(defaultItems, {
       type: 'UNKNOWN_ACTION',
       payload: {
         text: 'Run the tests',
