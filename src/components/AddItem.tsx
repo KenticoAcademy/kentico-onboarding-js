@@ -34,21 +34,25 @@ export class AddItem extends React.PureComponent<IAddItemProps, IAddItemState> {
     return (
       <form className="form-inline">
         <div className="form-group">
-          <input
-            type="text"
-            className="form-control"
-            id="text"
-            value={this.state.inputText}
-            onChange={this._updateValue}
-          />
-          <button
-            type="button"
-            className="btn btn-default"
-            onClick={this._addItem}
-            disabled={!this.state.inputText}
-          >
-            Add
-          </button>
+          <div className="input-group">
+            <input
+              type="text"
+              className="form-control"
+              id="text"
+              value={this.state.inputText}
+              onChange={this._updateValue}
+            />
+            <span className="input-group-btn">
+              <button
+                type="button"
+                className="btn btn-default"
+                onClick={this._addItem}
+                disabled={!this.state.inputText}
+              >
+                Add
+              </button>
+            </span>
+          </div>
         </div>
       </form>
     );
