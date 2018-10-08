@@ -4,8 +4,8 @@ import { Dispatch } from 'redux';
 import { IState } from '../reducers/IState';
 import {
   deleteItem,
-  editTextItem,
-  finishEditItem,
+  saveTextItem,
+  cancelEditItem,
 } from '../actions';
 import {
   EditItem as EditItemComponent,
@@ -19,9 +19,9 @@ const mapStateToProps = (state: IState, { id }: IEditItemOwnProps): IEditItemSta
 });
 
 const mapDispatchToProps = (dispatch: Dispatch, { id }: IEditItemOwnProps): IEditItemDispatchProps => ({
-  onSave: (text: string) => dispatch(editTextItem(id, text)),
+  onSave: (text: string) => dispatch(saveTextItem(id, text)),
   onDelete: () => dispatch(deleteItem(id)),
-  onCancel: () => dispatch(finishEditItem(id)),
+  onCancel: () => dispatch(cancelEditItem(id)),
 });
 
 export const EditItem: React.ComponentClass<IEditItemOwnProps> = connect(
