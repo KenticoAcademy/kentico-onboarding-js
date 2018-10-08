@@ -3,9 +3,9 @@ import { items } from './items';
 import {
   deleteItem,
   editTextItem,
-} from '../../actions';
-import { Item } from '../../models/Item';
-import { createItemFactory } from '../../actions/actionCreatorsFactory';
+} from '../../../actions';
+import { Item } from '../../../models/Item';
+import { createItemFactory } from '../../../actions/actionCreatorsFactory';
 
 const idGenerator1 = () => '1';
 const idGenerator2 = () => '2';

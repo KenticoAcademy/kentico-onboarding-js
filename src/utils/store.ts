@@ -4,10 +4,10 @@ import {
 } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { logger } from 'redux-logger';
-import { list as reducer } from '../reducers/list';
+import { app as reducer } from '../reducers/app';
 import { getInitialItems } from './getInitialItems';
 
-export const initialItems = { items: getInitialItems() };
+export const initialItems = { list: { items: getInitialItems() } };
 
 export const store = createStore(
   reducer,

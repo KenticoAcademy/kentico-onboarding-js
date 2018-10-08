@@ -1,14 +1,14 @@
 import { OrderedMap } from 'immutable';
-import { IAction } from '../../actions/IAction';
+import { IAction } from '../../../actions/IAction';
 import {
   CREATE_ITEM,
   DELETE_ITEM,
   EDIT_TEXT_ITEM,
   FINISH_EDIT_ITEM,
   START_EDIT_ITEM,
-} from '../../actions/actionTypes';
+} from '../../../actions/actionTypes';
 import { item } from './item';
-import { Item } from '../../models/Item';
+import { Item } from '../../../models/Item';
 
 export const items = (state = OrderedMap<Guid, Item>(), action: IAction): OrderedMap<Guid, Item> => {
   switch (action.type) {
