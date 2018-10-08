@@ -1,8 +1,8 @@
 import {
-  editTextItem,
+  saveTextItem,
   createItem,
   startEditItem,
-  finishEditItem,
+  cancelEditItem,
 } from '../../../actions';
 import { item } from './item';
 import { Item } from '../../../models/Item';
@@ -30,9 +30,9 @@ describe('item', () => {
     expect(state).toEqual(expectedState);
   });
 
-  it('should edit the text of the Item Dog on EDIT_TEXT_ITEM action', () => {
+  it('should edit the text of the Item Dog on SAVE_TEXT_ITEM action', () => {
     const actionCreate = createItem('Dog');
-    const action = editTextItem(actionCreate.payload.id, 'Doga');
+    const action = saveTextItem(actionCreate.payload.id, 'Doga');
     const defaultState = new Item({id: actionCreate.payload.id, text: 'Dog'});
     const expectedState = new Item({id: actionCreate.payload.id, text: 'Doga'});
 
@@ -75,9 +75,9 @@ describe('item', () => {
     expect(state).toEqual(expectedState);
   });
 
-  it('should deactivate edit on the Item on FINISH_EDIT_ITEM action, when is active', () => {
+  it('should deactivate edit on the Item on CANCEL_EDIT_ITEM action, when is active', () => {
     const actionCreate = createItem('Dog');
-    const action = finishEditItem(actionCreate.payload.id);
+    const action = cancelEditItem(actionCreate.payload.id);
     const defaultState = new Item({
       id: actionCreate.payload.id, text: 'Dog',
       isEdited: true,
@@ -92,9 +92,9 @@ describe('item', () => {
     expect(state).toEqual(expectedState);
   });
 
-  it('should do nothing with the Item on FINISH_EDIT_ITEM action, when is not active', () => {
+  it('should do nothing with the Item on CANCEL_EDIT_ITEM action, when is not active', () => {
     const actionCreate = createItem('Dog');
-    const action = finishEditItem(actionCreate.payload.id);
+    const action = cancelEditItem(actionCreate.payload.id);
     const defaultState = new Item({
       id: actionCreate.payload.id, text: 'Dog',
       isEdited: false,

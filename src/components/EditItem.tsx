@@ -41,7 +41,6 @@ export class EditItem extends React.PureComponent<IEditItemProps, IEditItemState
 
   private _saveItem = (): void  => {
     this.props.onSave(this.state.text);
-    this.props.onCancel();
   };
 
   private _deleteItem = (): void => this.props.onDelete();

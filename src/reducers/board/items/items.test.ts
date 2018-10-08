@@ -2,7 +2,7 @@ import { OrderedMap } from 'immutable';
 import { items } from './items';
 import {
   deleteItem,
-  editTextItem,
+  saveTextItem,
 } from '../../../actions';
 import { Item } from '../../../models/Item';
 import { createItemFactory } from '../../../actions/actionCreatorsFactory';
@@ -63,7 +63,7 @@ describe('items', () => {
   });
 
   it('should isEdited the text in the record Dog on ITEM_EDIT action', () => {
-    const action = editTextItem(dog.id, 'Doga');
+    const action = saveTextItem(dog.id, 'Doga');
     const expectedState = OrderedMap([[doga.get('id'), doga]]);
 
     const state = items(defaultState, action);

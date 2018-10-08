@@ -1,13 +1,13 @@
 import { IAction } from './IAction';
 import {
-  EDIT_TEXT_ITEM,
+  SAVE_TEXT_ITEM,
   DELETE_ITEM,
   START_EDIT_ITEM,
-  FINISH_EDIT_ITEM,
+  CANCEL_EDIT_ITEM,
 } from './actionTypes';
 
-export const editTextItem = (id: Guid, text: string): IAction => ({
-  type: EDIT_TEXT_ITEM,
+export const saveTextItem = (id: Guid, text: string): IAction => ({
+  type: SAVE_TEXT_ITEM,
   payload: {
     id,
     text,
@@ -28,8 +28,8 @@ export const startEditItem = (id: Guid): IAction => ({
   },
 });
 
-export const finishEditItem = (id: Guid): IAction => ({
-  type: FINISH_EDIT_ITEM,
+export const cancelEditItem = (id: Guid): IAction => ({
+  type: CANCEL_EDIT_ITEM,
   payload: {
     id,
   },
