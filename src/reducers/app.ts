@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-import { list } from './list/list';
+import { board } from './board/board';
 
 export const app = combineReducers({
-  list,
+  board,
 });
