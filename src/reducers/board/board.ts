@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import { items } from './items/items';
 
-export const list = combineReducers({
+export const board = combineReducers({
   items,
 });

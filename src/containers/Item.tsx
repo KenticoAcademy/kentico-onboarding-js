@@ -8,7 +8,7 @@ import {
 } from '../components/Item';
 
 const mapStateToProps = (state: IState, { id }: IItemOwnProps): IItemDispatchStateProps => ({
-  isEdited: state.list.items.get(id).isEdited,
+  isEdited: state.board.items.get(id).isEdited,
 });
 
 export const Item: React.ComponentClass<IItemOwnProps> = connect(

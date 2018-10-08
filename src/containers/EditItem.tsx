@@ -15,7 +15,7 @@ import {
 } from '../components/EditItem';
 
 const mapStateToProps = (state: IState, { id }: IEditItemOwnProps): IEditItemStateProps => ({
-  text: state.list.items.get(id).text,
+  text: state.board.items.get(id).text,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch, { id }: IEditItemOwnProps): IEditItemDispatchProps => ({

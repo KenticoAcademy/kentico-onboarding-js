@@ -2,7 +2,7 @@
 Simple step-by-step task for Kentico Academy to learn the basics of JS, React, Redux, TypeScript.
 
 This project will consist of separate tasks. In the zeroth task we will prepare repository and configure commit-based tests run.
-In the first one we will implement simple list of editable items using **ReactJS** only.
+In the first one we will implement simple board of editable items using **ReactJS** only.
 In the second we will try to refactor our code to use **ImmutableJS**.
 Next task will focus on managing the application state via **ReduxJS**.
 Then we will rewrite the whole app to **TypeScript**.
@@ -90,7 +90,7 @@ ESlint and TSlint are already set-up for you, so you will see all the errors and
 ## Task 1 (react)
 **Prerequisite:** JS & React sections in [our wiki](https://kentico.atlassian.net/wiki/x/0IPkCw).
 
-According to `assignment.gif` implement all the required functionality (keep in mind we want to be able to edit multiple list items at once). Store some pseudo-random identifier (id) for each item (use some util function for its generation, e.g: http://stackoverflow.com/questions/105034/create-guid-uuid-in-javascript)
+According to `assignment.gif` implement all the required functionality (keep in mind we want to be able to edit multiple board items at once). Store some pseudo-random identifier (id) for each item (use some util function for its generation, e.g: http://stackoverflow.com/questions/105034/create-guid-uuid-in-javascript)
 All the boilerplate is already there so you can dive into coding straight away. Feel free to use [Bootstrap](http://getbootstrap.com/) CSS classes. Get familiar with project structure. The entry file is `index.js`. Page layout can be found in `App.jsx`. It renders `List.jsx` in its body, where you are supposed to implement the rest of the functionality. 
 
 ## Task 2 (immutable)
@@ -147,7 +147,7 @@ What kind of app it would be without the server side, right? Customer hitting F5
 **Requirements:**
 - show a loader ("točič") until items are asynchronously provided after application start
 - show an error message when an operation fails/timeouts (e.g. loading items, updating, deleting, ...)
-- to begin with, it is OK to only amend the way (list of) existing items are retrieved and a new item is added
+- to begin with, it is OK to only amend the way (board of) existing items are retrieved and a new item is added
 - stick with the Redux data flow design, read about [async actions](http://redux.js.org/docs/advanced/AsyncActions.html)
 - make sure you use [`redux-thunk`](https://github.com/gaearon/redux-thunk) middleware
 - do not forget about dependency injection and tests (see sample tests for inspiration)
