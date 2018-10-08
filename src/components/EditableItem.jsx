@@ -64,29 +64,35 @@ export class EditableItem extends PureComponent {
             onFocus={this._onFocus}
             autoFocus
           />
-          <button
-            type="button"
-            disabled={!isInputFieldValid}
-            title={tooltip}
-            className="btn btn-primary"
-            onClick={this._saveInput}
+          <div
+            className="btn-group"
+            role="group"
+            aria-label="Item buttons"
           >
-            Save
-          </button>
-          <button
-            type="button"
-            className="btn btn-default"
-            onClick={this.props.onCancelEdit}
-          >
-            Cancel
-          </button>
-          <button
-            type="button"
-            className="btn btn-danger"
-            onClick={this.props.onDeleteItem}
-          >
-            Delete
-          </button>
+            <button
+              type="button"
+              disabled={!isInputFieldValid}
+              title={tooltip}
+              className="btn btn-primary"
+              onClick={this._saveInput}
+            >
+              Save
+            </button>
+            <button
+              type="button"
+              className="btn btn-default"
+              onClick={this.props.onCancelEdit}
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              className="btn btn-danger"
+              onClick={this.props.onDeleteItem}
+            >
+              Delete
+            </button>
+          </div>
         </div>
       </div>
     );
