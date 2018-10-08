@@ -5,7 +5,7 @@ import { itemsSelector } from '../selectors/itemsSelector';
 import { Board as BoardComponent, IBoardProps } from '../components/Board';
 
 const mapStateToProps = (state: IState): IBoardProps => ({
-  items: itemsSelector(state.items.keySeq().toArray()),
+  items: itemsSelector(state.list.items.keySeq().toArray()),
 });
 
 export const Board: React.ComponentClass = connect(

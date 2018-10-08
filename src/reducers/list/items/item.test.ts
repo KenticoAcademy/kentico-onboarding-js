@@ -3,9 +3,9 @@ import {
   createItem,
   startEditItem,
   finishEditItem,
-} from '../../actions';
+} from '../../../actions';
 import { item } from './item';
-import { Item } from '../../models/Item';
+import { Item } from '../../../models/Item';
 
 describe('item', () => {
   const unknownAction = {

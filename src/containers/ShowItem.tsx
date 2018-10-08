@@ -11,7 +11,7 @@ import {
 import { startEditItem } from '../actions';
 
 const mapStateToProps = (state: IState, { id }: IShowItemOwnProps): IShowItemStateProps => ({
-  text: state.items.get(id).text,
+  text: state.list.items.get(id).text,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch, { id }: IShowItemOwnProps): IShowItemDispatchStateProps => ({
