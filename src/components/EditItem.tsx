@@ -51,35 +51,39 @@ export class EditItem extends React.PureComponent<IEditItemProps, IEditItemState
       <form className="form-inline">
         <div className="form-group">
           {this.props.position + '. '}
-          <input
-            type="text"
-            className="form-control"
-            id="text"
-            value={this.state.text}
-            onChange={this._textEdit}
-          />
-          <button
-            type="button"
-            className="btn btn-primary"
-            onClick={this._saveItem}
-            disabled={!this.state.text}
-          >
-            Save
-          </button>
-          <button
-            type="button"
-            className="btn btn-default"
-            onClick={this.props.onCancel}
-          >
-            Cancel
-          </button>
-          <button
-            type="button"
-            className="btn btn-danger"
-            onClick={this._deleteItem}
-          >
-            Delete
-          </button>
+          <div className="input-group">
+            <input
+              type="text"
+              className="form-control"
+              id="text"
+              value={this.state.text}
+              onChange={this._textEdit}
+            />
+            <span className="input-group-btn">
+              <button
+                type="button"
+                className="btn btn-primary"
+                onClick={this._saveItem}
+                disabled={!this.state.text}
+              >
+                Save
+              </button>
+              <button
+                type="button"
+                className="btn btn-default"
+                onClick={this.props.onCancel}
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                className="btn btn-danger"
+                onClick={this._deleteItem}
+              >
+                Delete
+              </button>
+            </span>
+          </div>
         </div>
       </form>
     );
