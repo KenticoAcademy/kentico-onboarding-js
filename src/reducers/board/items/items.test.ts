@@ -26,7 +26,7 @@ describe('items', () => {
     text: 'Doga',
   });
 
-  const defaultState = OrderedMap<Guid, Item>([dog.id, dog]);
+  const defaultState = OrderedMap<Guid, Item>([[dog.id, dog]]);
 
   const unknownAction = {
     type: 'UNKNOWN_ACTION',
