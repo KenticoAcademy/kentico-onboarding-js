@@ -2,10 +2,10 @@ import { OrderedMap } from 'immutable';
 import { ListItem } from '../../models/ListItem';
 import {
   ADD_ITEM,
-  STOP_EDITING,
-  DELETE_ITEM,
-  START_EDITING,
-  UPDATE_TEXT
+  ITEM_STOP_EDITING,
+  ITEM_DELETE,
+  ITEM_START_EDITING,
+  ITEM_TEXT_UPDATE
 } from '../../constants/actionTypes';
 import { item } from './item';
 
@@ -20,12 +20,12 @@ export const items = (state = OrderedMap(), action) => {
       return state.set(action.payload.id, newItem);
     }
 
-    case DELETE_ITEM:
+    case ITEM_DELETE:
       return state.delete(action.payload.id);
 
-    case START_EDITING:
-    case STOP_EDITING:
-    case UPDATE_TEXT: {
+    case ITEM_START_EDITING:
+    case ITEM_STOP_EDITING:
+    case ITEM_TEXT_UPDATE: {
       return state.mergeIn([action.payload.id], item(state.get(action.payload.id), action));
     }
 

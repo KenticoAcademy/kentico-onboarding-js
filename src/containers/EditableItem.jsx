@@ -2,15 +2,15 @@ import { connect } from 'react-redux';
 import { EditableItem } from '../components/EditableItem';
 
 import {
-  stopEditing,
+  stopItemEditing,
   deleteItem,
-  updateText,
+  updateItemText,
 } from '../actions';
 
 const mapDispatchToProps = (dispatch, { item }) => ({
-  onCancelEdit: () => dispatch(stopEditing(item.id)),
+  onCancelEdit: () => dispatch(stopItemEditing(item.id)),
   onDeleteItem: () => dispatch(deleteItem(item.id)),
-  onUpdateItem: (text) => dispatch(updateText(item.id, text)),
+  onUpdateItem: (text) => dispatch(updateItemText(item.id, text)),
 });
 
 const ConnectedEditableItem = connect(null, mapDispatchToProps)(EditableItem);

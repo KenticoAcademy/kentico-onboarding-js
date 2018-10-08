@@ -60,7 +60,7 @@ describe('items reducer', () => {
     expect(expectedState).toEqual(actualState);
   });
 
-  it('should delete selected item when DELETE_ITEM action is dispatched', () => {
+  it('should delete selected item when ITEM_DELETE action is dispatched', () => {
     const expectedState = OrderedMap();
 
     const actualState = items(defaultItems, deleteItem(itemId));

@@ -1,34 +1,34 @@
 import {
-  STOP_EDITING,
-  DELETE_ITEM,
-  UPDATE_TEXT,
-  START_EDITING
+  ITEM_STOP_EDITING,
+  ITEM_DELETE,
+  ITEM_TEXT_UPDATE,
+  ITEM_START_EDITING
 } from '../constants/actionTypes';
 
 export const deleteItem = (id) => ({
-  type: DELETE_ITEM,
+  type: ITEM_DELETE,
   payload: {
     id
   }
 });
 
-export const updateText = (id, text) => ({
-  type: UPDATE_TEXT,
+export const updateItemText = (id, text) => ({
+  type: ITEM_TEXT_UPDATE,
   payload: {
     id,
     text
   }
 });
 
-export const startEditing = (id) => ({
-  type: START_EDITING,
+export const startItemEditing = (id) => ({
+  type: ITEM_START_EDITING,
   payload: {
     id
   }
 });
 
-export const stopEditing = (id) => ({
-  type: STOP_EDITING,
+export const stopItemEditing = (id) => ({
+  type: ITEM_STOP_EDITING,
   payload: {
     id
   }
