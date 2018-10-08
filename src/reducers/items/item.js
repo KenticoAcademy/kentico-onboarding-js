@@ -1,25 +1,25 @@
 import { ListItem } from '../../models/ListItem';
 import {
-  START_EDITING,
-  STOP_EDITING,
-  UPDATE_TEXT
+  ITEM_START_EDITING,
+  ITEM_STOP_EDITING,
+  ITEM_TEXT_UPDATE
 } from '../../constants/actionTypes';
 
 export const item = (state = ListItem(), action) => {
   switch (action.type) {
-    case START_EDITING:
+    case ITEM_START_EDITING:
       return state.merge({
         id: action.payload.id,
         isInEditMode: true
       });
 
-    case STOP_EDITING:
+    case ITEM_STOP_EDITING:
       return state.merge({
         id: action.payload.id,
         isInEditMode: false
       });
 
-    case UPDATE_TEXT:
+    case ITEM_TEXT_UPDATE:
       return state.merge({
         id: action.payload.id,
         isInEditMode: false,

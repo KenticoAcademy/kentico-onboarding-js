@@ -1,5 +1,5 @@
 export const ADD_ITEM = 'ADD_ITEM';
-export const DELETE_ITEM = 'DELETE_ITEM';
-export const START_EDITING = 'START_EDITING';
-export const STOP_EDITING = 'STOP_EDITING';
-export const UPDATE_TEXT = 'UPDATE_TEXT';
+export const ITEM_DELETE = 'ITEM_DELETE';
+export const ITEM_START_EDITING = 'ITEM_START_EDITING';
+export const ITEM_STOP_EDITING = 'ITEM_STOP_EDITING';
+export const ITEM_TEXT_UPDATE = 'ITEM_TEXT_UPDATE';

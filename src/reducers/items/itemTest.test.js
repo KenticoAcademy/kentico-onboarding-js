@@ -1,9 +1,9 @@
 import { item } from './item';
 import { ListItem } from '../../models/ListItem';
 import {
-  startEditing,
-  stopEditing,
-  updateText
+  startItemEditing,
+  stopItemEditing,
+  updateItemText
 } from '../../actions';
 
 describe('item reducer', () => {
@@ -38,28 +38,28 @@ describe('item reducer', () => {
     expect(expectedState).toEqual(actualState);
   });
 
-  it('should start edit mode of selected item when START_EDITING action is dispatched', () => {
+  it('should start edit mode of selected item when ITEM_START_EDITING action is dispatched', () => {
     const expectedState = defaultItem.merge({ isInEditMode: true });
 
-    const actualState = item(defaultItem, startEditing(itemId));
+    const actualState = item(defaultItem, startItemEditing(itemId));
 
     expect(expectedState).toEqual(actualState);
   });
 
-  it('should end edit mode of selected item when STOP_EDITING action is dispatched', () => {
+  it('should end edit mode of selected item when ITEM_STOP_EDITING action is dispatched', () => {
     const defaultItemInEditMode = defaultItem.merge({ isInEditMode: true });
     const expectedState = defaultItem.merge({ isInEditMode: false });
 
-    const actualState = item(defaultItemInEditMode, stopEditing(itemId));
+    const actualState = item(defaultItemInEditMode, stopItemEditing(itemId));
 
     expect(expectedState).toEqual(actualState);
   });
 
-  it('should update selected item when UPDATE_TEXT action is dispatched', () => {
+  it('should update selected item when ITEM_TEXT_UPDATE action is dispatched', () => {
     const newText = 'Buy Beer';
     const expectedState = defaultItem.merge({ text: newText });
 
-    const actualState = item(defaultItem, updateText(defaultItem.id, newText));
+    const actualState = item(defaultItem, updateItemText(defaultItem.id, newText));
 
     expect(expectedState).toEqual(actualState);
   });
