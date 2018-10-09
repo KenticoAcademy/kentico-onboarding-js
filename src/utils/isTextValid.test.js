@@ -33,6 +33,22 @@ describe('isTextValid()', () => {
     expect(result).toBeFalsy();
   });
 
+  it('should return false in case the input is boolean', () => {
+    const input = true;
+
+    const result = isTextValid(input);
+
+    expect(result).toBeFalsy();
+  });
+
+  it('should return false in case the input is number', () => {
+    const input = 42;
+
+    const result = isTextValid(input);
+
+    expect(result).toBeFalsy();
+  });
+
   it('should return true in case of valid input', () => {
     const input = 'hello';
 
