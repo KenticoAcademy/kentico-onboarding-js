@@ -1,4 +1,3 @@
-import { OrderedMap } from 'immutable';
 import { ListItem } from '../models/ListItem';
 import { generateId } from './generateId';
 
@@ -20,12 +19,10 @@ export const getDefaultItems = () => {
     text: 'Help making Draft awesome',
   });
 
-  const items = [
+  return [
     [buyMilkItem.id, buyMilkItem],
     [masterReactItem.id, masterReactItem],
     [learnReduxItem.id, learnReduxItem],
     [helpMakingDraftAwesomeItem.id, helpMakingDraftAwesomeItem]
   ];
-
-  return OrderedMap(items);
 };

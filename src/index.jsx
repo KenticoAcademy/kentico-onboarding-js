@@ -9,11 +9,11 @@ import {
 } from 'redux';
 import logger from 'redux-logger';
 import { Provider } from 'react-redux';
+import { createInitialState } from './utils/createInitialState';
 import { App } from './components/App.jsx';
 import { rootReducer } from './reducers/rootReducer';
-import { getDefaultItems } from './utils/getDefaultItems';
 
-export const initialState = { todoListReducer: { items: getDefaultItems() } };
+export const initialState = createInitialState();
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const store = createStore(
