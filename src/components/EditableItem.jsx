@@ -44,7 +44,7 @@ export class EditableItem extends PureComponent {
 
   render() {
     const isInputFieldValid = isTextValid(this.state.text);
-    const tooltip = !isInputFieldValid ? 'You have to insert some text!' : '';
+    const tooltip = !isInputFieldValid ? 'You have to insert some text' : '';
     const formGroupClassName = classNames('form-group', {
       'has-success': isInputFieldValid && this.state.isFocused,
       'has-error': !isInputFieldValid && this.state.isFocused

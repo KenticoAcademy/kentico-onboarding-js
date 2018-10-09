@@ -39,7 +39,7 @@ export class NewItem extends PureComponent {
 
   render() {
     const isInputFieldValid = isTextValid(this.state.text);
-    const tooltip = !isInputFieldValid ? 'You have to insert some text!' : '';
+    const tooltip = !isInputFieldValid ? 'You have to insert some text' : '';
     const formGroupClassName = classNames('form-group', this.props.className, {
       'has-success': isInputFieldValid && this.state.isFocused,
       'has-error': !isInputFieldValid && this.state.isFocused
