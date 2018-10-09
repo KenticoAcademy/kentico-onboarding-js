@@ -18,9 +18,7 @@ export class List extends PureComponent {
     this.props
       .itemsIds
       .map((id, index) => (
-        <ListGroupItem
-          key={id}
-        >
+        <ListGroupItem key={id}>
           <Item
             id={id}
             index={index + 1}
