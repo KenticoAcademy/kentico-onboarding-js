@@ -1,10 +1,10 @@
 import { ADD_ITEM } from '../constants/actionTypes';
 
-export const addItemFactory = (generateIdFunction) =>
+export const addItemFactory = (idGenerator) =>
   (text) => ({
     type: ADD_ITEM,
     payload: {
-      id: generateIdFunction(),
+      id: idGenerator(),
       text,
     }
   });
