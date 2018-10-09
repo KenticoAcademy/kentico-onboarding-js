@@ -1,10 +1,10 @@
 import { item } from './item';
-import { ListItem } from '../../models/ListItem';
+import { ListItem } from '../../../models/ListItem';
 import {
   startItemEditing,
   stopItemEditing,
   updateItemText
-} from '../../actions';
+} from '../../../actions/index';
 
 describe('item reducer', () => {
   const itemId = '5';
