@@ -1,7 +1,7 @@
 import React, { PureComponent, } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { validateInput } from '../utils/inputValidator';
+import { validateInput } from '../utils/isTextValid';
 
 export class NewItem extends PureComponent {
   static displayName = 'NewItem';
