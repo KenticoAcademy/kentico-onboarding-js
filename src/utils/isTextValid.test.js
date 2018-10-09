@@ -1,4 +1,4 @@
-import { validateInput } from './inputValidator';
+import { validateInput } from './isTextValid';
 
 describe('validateInput()', () => {
   it('should return false in case of empty input', () => {
