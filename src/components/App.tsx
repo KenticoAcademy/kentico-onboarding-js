@@ -33,7 +33,11 @@ export const App: React.StatelessComponent<AppProps> = ({ error }): JSX.Element 
         </div>
         <Content />
       </div>
-      {error !== '' && <ErrorMessage error={error} />}
+      <ErrorMessage
+        classNames="alert alert-danger error-message"
+        error={error}
+        tooltip={''}
+      />
       <footer className="footer">
         <p>
           &copy; 2017 Kentico software, s.r.o

@@ -5,7 +5,7 @@ const validateResponse = async (response: Response): Promise<string> => {
   switch (response.status) {
     case 400:
       const json = await response.json();
-      return json.ModelState;
+      return JSON.stringify(json.ModelState);
 
     case 404:
       return NOT_FOUND_MESSAGE;

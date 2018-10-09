@@ -12,6 +12,7 @@ export type ListItemContainerProps = {
 export type ListItemStateProps = {
   readonly isBeingEdited: boolean,
   readonly isSyncing: boolean,
+  readonly errorId: Guid,
 };
 
 type ListItemProps = ListItemStateProps & ListItemContainerProps;
@@ -21,12 +22,20 @@ const listItemPropTypes: ValidationMap<ListItemProps> = {
   id: PropTypes.string.isRequired,
   isBeingEdited: PropTypes.bool.isRequired,
   isSyncing: PropTypes.bool.isRequired,
+  errorId: PropTypes.string.isRequired,
 };
 
-export const ListItem: React.StatelessComponent<ListItemProps> = ({ order, id, isBeingEdited, isSyncing }): JSX.Element => (
-  isBeingEdited
+export const ListItem: React.StatelessComponent<ListItemProps> = ({ order, id, isBeingEdited, isSyncing, errorId}): JSX.Element => (
+  isBeingEdited && errorId === '' && !isSyncing
     ? <EditListItem id={id} order={order} />
-    : <DisplayListItem id={id} order={order} isSyncing={isSyncing} />
+    : (
+      <DisplayListItem
+        id={id}
+        order={order}
+        isSyncing={isSyncing}
+        errorId={errorId}
+      />
+    )
 );
 
 ListItem.displayName = 'ListItem';

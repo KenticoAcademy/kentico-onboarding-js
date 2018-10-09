@@ -12,7 +12,7 @@ import {
 } from '../components/EditListItem';
 import { IAppState } from '../store/state/IAppState';
 import { Item } from '../models/Item';
-import { deleteItemRequest, putItemRequest } from '../actions/fetchActions';
+import { deleteItemRequest, putItemRequest } from '../actions/asyncActions';
 
 const mapStateToProps = (state: IAppState, ownProps: EditListItemContainerProps): EditListItemStateProps => ({
   text: state.list.items.get(ownProps.id).text,

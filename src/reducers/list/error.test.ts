@@ -1,12 +1,12 @@
 import { error } from './error';
-import { displayError, deleteItem, loadingItemsSuccess } from '../../actions/itemsActions';
+import { displayError, deleteItemSuccess, loadingItemsSuccess } from '../../actions/itemsActions';
 
 describe('error', () => {
   it('initializes state with empty string', () => {
     const previousState: string | undefined = undefined;
     const expectedState: string = '';
 
-    const result: string = error(previousState, deleteItem(''));
+    const result: string = error(previousState, deleteItemSuccess('', ''));
 
     expect(result).toEqual(expectedState);
   });

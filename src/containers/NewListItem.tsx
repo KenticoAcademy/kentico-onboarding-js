@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { postItemRequest } from '../actions/fetchActions';
+import { postItemRequest } from '../actions/asyncActions';
 import {
   NewListItemDispatchProps,
   NewListItem as NewListItemComponent,

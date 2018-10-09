@@ -3,18 +3,20 @@ import { items } from './items';
 import { IItem, Item } from '../../models/Item';
 import { addItemCreator } from '../../actions/creators/addItemCreator';
 import {
-  deleteItem, loadingItemsSuccess, postItemSuccess, putItemSuccess,
-  saveItemText,
+  deleteItemSuccess, loadingItemsSuccess, postItemSuccess, putItemSuccess,
+  saveItemText, setItemSyncing,
   toggleItemEditing,
+  cancelItemUpdating, deleteItemError,
 } from '../../actions/itemsActions';
 import { IItemsState } from '../../store/state/IItemsState';
+import { addItemErrorCreator } from '../../actions/creators/addItemErrorCreator';
 
 describe('items', () => {
   it('initializes state with OrderedMap', () => {
     const previousState: IItemsState | undefined = undefined;
     const expectedState: IItemsState = OrderedMap();
 
-    const result: IItemsState = items(previousState, deleteItem('1'));
+    const result: IItemsState = items(previousState, deleteItemSuccess('1', ''));
 
     expect(result).toEqual(expectedState);
   });
@@ -86,7 +88,7 @@ describe('items', () => {
     });
   });
 
-  describe('deleteItem', () => {
+  describe('deleteItemSuccess', () => {
     it('returns state with deleted item', () => {
       const previousState: IItemsState = OrderedMap([
         [
@@ -114,7 +116,7 @@ describe('items', () => {
         ],
       ]);
 
-      const result: IItemsState = items(previousState, deleteItem('1'));
+      const result: IItemsState = items(previousState, deleteItemSuccess('1', ''));
 
       expect(result.has('1')).toBeFalsy();
       expect(result).toEqual(expectedState);
@@ -203,6 +205,7 @@ describe('items', () => {
             text: 'Learn react',
             isSyncing: true,
             oldText: 'Learn JS',
+            errorId: '42',
           }),
         ],
         [
@@ -232,7 +235,7 @@ describe('items', () => {
         ],
       ]);
 
-      const result: IItemsState = items(previousState, putItemSuccess('1'));
+      const result: IItemsState = items(previousState, putItemSuccess('1', ''));
 
       expect(result).toEqual(expectedState);
     });
@@ -254,6 +257,7 @@ describe('items', () => {
             id: '2',
             text: 'Write app',
             isSyncing: true,
+            errorId: '42',
           }),
         ],
       ]);
@@ -275,7 +279,180 @@ describe('items', () => {
         ],
       ]);
 
-      const result: IItemsState = items(previousState, postItemSuccess('2', '3', 'Write app'));
+      const result: IItemsState = items(previousState, postItemSuccess('2', '3', ''));
+
+      expect(result).toEqual(expectedState);
+    });
+  });
+
+  describe('setItemSyncing', () => {
+    it('returns state with toggled item\'s editing', () => {
+      const previousState: IItemsState = OrderedMap([
+        [
+          '1',
+          new Item({
+            id: '1',
+            text: 'Learn react',
+          }),
+        ],
+        [
+          '2',
+          new Item({
+            id: '2',
+            text: 'Write app',
+          }),
+        ],
+      ]);
+      const expectedState: IItemsState = OrderedMap([
+        [
+          '1',
+          new Item({
+            id: '1',
+            text: 'Learn react',
+          }),
+        ],
+        [
+          '2',
+          new Item({
+            id: '2',
+            text: 'Write app',
+            isSyncing: true,
+          }),
+        ],
+      ]);
+
+      const result: IItemsState = items(previousState, setItemSyncing('2', true));
+
+      expect(result).toEqual(expectedState);
+    });
+  });
+
+  describe('cancelItemUpdating', () => {
+    it('returns state with toggled item\'s editing', () => {
+      const previousState: IItemsState = OrderedMap([
+        [
+          '1',
+          new Item({
+            id: '1',
+            text: 'Learn react',
+            errorId: '42',
+            isSyncing: true,
+            isBeingEdited: true,
+            oldText: 'Learn JS',
+          }),
+        ],
+        [
+          '2',
+          new Item({
+            id: '2',
+            text: 'Write app',
+          }),
+        ],
+      ]);
+      const expectedState: IItemsState = OrderedMap([
+        [
+          '1',
+          new Item({
+            id: '1',
+            text: 'Learn JS',
+          }),
+        ],
+        [
+          '2',
+          new Item({
+            id: '2',
+            text: 'Write app',
+          }),
+        ],
+      ]);
+
+      const result: IItemsState = items(previousState, cancelItemUpdating('1', '42'));
+
+      expect(result).toEqual(expectedState);
+    });
+  });
+
+  describe('addItemError', () => {
+    it('returns state with items\'s set errorId', () => {
+      const errorId: Guid = '42';
+      const previousState: IItemsState = OrderedMap([
+        [
+          '1',
+          new Item({
+            id: '1',
+            text: 'Learn react',
+          }),
+        ],
+        [
+          '2',
+          new Item({
+            id: '2',
+            text: 'Write app',
+          }),
+        ],
+      ]);
+      const expectedState: IItemsState = OrderedMap([
+        [
+          '1',
+          new Item({
+            id: '1',
+            text: 'Learn react',
+            errorId,
+          }),
+        ],
+        [
+          '2',
+          new Item({
+            id: '2',
+            text: 'Write app',
+          }),
+        ],
+      ]);
+
+      const result: IItemsState = items(previousState, addItemErrorCreator(() => errorId)('1', '', 'POST'));
+
+      expect(result).toEqual(expectedState);
+    });
+  });
+
+  describe('deleteItemError', () => {
+    it('returns state with items\'s set errorId', () => {
+      const errorId: Guid = '42';
+      const previousState: IItemsState = OrderedMap([
+        [
+          '1',
+          new Item({
+            id: '1',
+            text: 'Learn react',
+          }),
+        ],
+        [
+          '2',
+          new Item({
+            id: '2',
+            text: 'Write app',
+            errorId,
+          }),
+        ],
+      ]);
+      const expectedState: IItemsState = OrderedMap([
+        [
+          '1',
+          new Item({
+            id: '1',
+            text: 'Learn react',
+          }),
+        ],
+        [
+          '2',
+          new Item({
+            id: '2',
+            text: 'Write app',
+          }),
+        ],
+      ]);
+
+      const result: IItemsState = items(previousState, deleteItemError(errorId));
 
       expect(result).toEqual(expectedState);
     });

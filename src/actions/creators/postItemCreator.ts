@@ -1,14 +1,16 @@
 import { ThunkAction } from 'redux-thunk';
-import { Actions, DisplayItemErrorAction, PostItemSuccessAction } from '../types/itemsActionTypes';
+import { Actions, AddItemErrorAction, PostItemSuccessAction } from '../types/itemsActionTypes';
 import { Dispatch } from 'redux';
 import { addItemCreator } from './addItemCreator';
 import { urlBase } from '../utils/urlBase';
-import { displayItemError, postItemSuccess } from '../itemsActions';
+import { postItemSuccess } from '../itemsActions';
 import { fetchFactory } from '../utils/fetchFactory';
+import { addItemErrorCreator } from './addItemErrorCreator';
 
-export const postItemCreator = (fetch: (input: string, init: RequestInit) => Promise<Response>, idGenerator: () => Guid) =>
-  (text: string): ThunkAction<Promise<PostItemSuccessAction | DisplayItemErrorAction>, void, void, Actions> =>
+export const postItemCreator = (fetch: (input: string, init: RequestInit) => Promise<Response>, idGenerator: () => Guid, errorIdGenerator: () => Guid) =>
+  (text: string): ThunkAction<Promise<PostItemSuccessAction | AddItemErrorAction>, void, void, Actions> =>
     (dispatch: Dispatch) => {
+      const errorId: Guid = errorIdGenerator();
       const tempId: Guid = dispatch(addItemCreator(idGenerator)(text))
         .payload
         .id;
@@ -20,9 +22,9 @@ export const postItemCreator = (fetch: (input: string, init: RequestInit) => Pro
         .then(
           response => response.json(),
         ).then(
-          json => dispatch(postItemSuccess(tempId, json.id, json.text)),
+          json => dispatch(postItemSuccess(tempId, json.id, errorId)),
         ).catch(
           error =>
-            dispatch(displayItemError(tempId, 'There was an error while creating new item: ' + error.message)),
+            dispatch(addItemErrorCreator(() => errorId)(tempId, 'There was an error while creating new item: ' + error.message, 'POST')),
         );
     };

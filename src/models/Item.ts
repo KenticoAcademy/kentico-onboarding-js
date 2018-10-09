@@ -6,6 +6,7 @@ export interface IItem {
   readonly oldText: string;
   readonly isBeingEdited: boolean;
   readonly isSyncing: boolean;
+  readonly errorId: Guid;
 }
 
 const defaultValues: IItem = {
@@ -14,6 +15,7 @@ const defaultValues: IItem = {
   oldText: '',
   isBeingEdited: false,
   isSyncing: false,
+  errorId: '',
 };
 
 export class Item extends ModelBase(defaultValues, 'Item') implements IItem {
@@ -22,5 +24,6 @@ export class Item extends ModelBase(defaultValues, 'Item') implements IItem {
   readonly text: string;
   readonly oldText: string;
   readonly isSyncing: boolean;
+  readonly errorId: Guid;
 }
 

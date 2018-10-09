@@ -8,6 +8,14 @@ html {
   min-height: 95vh !important;
 }
 
+.list-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  max-height: 34px;
+}
+
 .aligner {
   display: flex;
   flex-direction: column;
@@ -28,6 +36,11 @@ html {
   flex: 1;
   min-width: 80%;
   max-height: 50px;
+}
+
+.item-error {
+  flex: 1;
+  max-width: 70%;
 }
 
 .is-syncing {

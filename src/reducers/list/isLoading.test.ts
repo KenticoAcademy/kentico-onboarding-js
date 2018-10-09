@@ -1,5 +1,5 @@
 import { isLoading } from './isLoading';
-import { deleteItem, loadingItemsSuccess } from '../../actions/itemsActions';
+import { deleteItemSuccess, loadingItemsSuccess } from '../../actions/itemsActions';
 import { IItem, Item } from '../../models/Item';
 
 describe('isLoading', () => {
@@ -7,7 +7,7 @@ describe('isLoading', () => {
     const previousState: boolean | undefined = undefined;
     const expectedState: boolean = true;
 
-    const result: boolean = isLoading(previousState, deleteItem(''));
+    const result: boolean = isLoading(previousState, deleteItemSuccess('', ''));
 
     expect(result).toEqual(expectedState);
   });

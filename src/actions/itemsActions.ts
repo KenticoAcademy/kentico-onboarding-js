@@ -2,13 +2,20 @@ import { addItemCreator } from './creators/addItemCreator';
 import { generateUuid } from '../utils/generateUuid';
 import {
   AddItemAction,
-  DeleteItemAction,
+  DeleteItemSuccessAction,
   DisplayErrorAction,
-  LoadingItemsSuccessAction, DisplayItemErrorAction, PostItemSuccessAction,
+  LoadingItemsSuccessAction,
+  AddItemErrorAction,
+  PostItemSuccessAction,
   SaveItemTextAction,
-  ToggleItemEditingAction, PutItemSuccessAction,
+  ToggleItemEditingAction,
+  PutItemSuccessAction,
+  SetItemSyncingAction,
+  DeleteItemErrorAction,
+  CancelItemUpdatingAction,
 } from './types/itemsActionTypes';
 import { IItem } from '../models/Item';
+import { addItemErrorCreator } from './creators/addItemErrorCreator';
 
 export const addItem: (text: string) => AddItemAction = addItemCreator(generateUuid);
 
@@ -20,10 +27,11 @@ export const saveItemText = (id: Guid, text: string): SaveItemTextAction => ({
   },
 });
 
-export const deleteItem = (id: Guid): DeleteItemAction => ({
-  type: 'DELETE_ITEM',
+export const deleteItemSuccess = (id: Guid, errorId: Guid): DeleteItemSuccessAction => ({
+  type: 'DELETE_ITEM_SUCCESS',
   payload: {
     id,
+    errorId,
   },
 });
 
@@ -31,6 +39,14 @@ export const toggleItemEditing = (id: Guid): ToggleItemEditingAction => ({
   type: 'TOGGLE_ITEM_EDITING',
   payload: {
     id,
+  },
+});
+
+export const setItemSyncing = (id: Guid, value: boolean): SetItemSyncingAction => ({
+  type: 'SET_ITEM_SYNCING',
+  payload: {
+    id,
+    value,
   },
 });
 
@@ -48,26 +64,36 @@ export const loadingItemsSuccess = (response: IItem[]): LoadingItemsSuccessActio
   },
 });
 
-export const postItemSuccess = (oldId: Guid, newId: Guid, text: string): PostItemSuccessAction => ({
+export const postItemSuccess = (oldId: Guid, newId: Guid, errorId: Guid): PostItemSuccessAction => ({
   type: 'POST_ITEM_SUCCESS',
   payload: {
     oldId,
     newId,
-    text,
+    errorId,
   },
 });
 
-export const displayItemError = (id: Guid, error: string): DisplayItemErrorAction => ({
-  type: 'DISPLAY_ITEM_ERROR',
+export const addItemError: (itemId: Guid, error: string, action: ErrorAction) => AddItemErrorAction = addItemErrorCreator(generateUuid);
+
+export const deleteItemError = (errorId: Guid): DeleteItemErrorAction => ({
+  type: 'DELETE_ITEM_ERROR',
   payload: {
-    id,
-    error,
+    errorId,
   },
 });
 
-export const putItemSuccess = (id: Guid): PutItemSuccessAction => ({
+export const putItemSuccess = (id: Guid, errorId: Guid): PutItemSuccessAction => ({
   type: 'PUT_ITEM_SUCCESS',
   payload: {
     id,
+    errorId,
+  },
+});
+
+export const cancelItemUpdating = (id: Guid, errorId: Guid): CancelItemUpdatingAction => ({
+  type: 'CANCEL_ITEM_UPDATING',
+  payload: {
+    id,
+    errorId,
   },
 });
