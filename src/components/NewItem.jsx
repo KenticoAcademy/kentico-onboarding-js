@@ -15,7 +15,7 @@ export class NewItem extends PureComponent {
 
     this.state = {
       text: '',
-      isFocused: true
+      isFocused: false
     };
   }
 
@@ -29,12 +29,8 @@ export class NewItem extends PureComponent {
     this.setState(() => ({ text: '' }));
   };
 
-  _onFocus = () => {
-    this.setState(() => ({ isFocused: true }));
-  };
-
-  _onBlur = () => {
-    this.setState(() => ({ isFocused: false }));
+  _toggleFocus = () => {
+    this.setState((prevState) => ({ isFocused: !prevState.isFocused }));
   };
 
   render() {
@@ -53,8 +49,8 @@ export class NewItem extends PureComponent {
             value={this.state.text}
             onChange={this._changeInput}
             title={tooltip}
-            onBlur={this._onBlur}
-            onFocus={this._onFocus}
+            onBlur={this._toggleFocus}
+            onFocus={this._toggleFocus}
             autoFocus
           />
           <button

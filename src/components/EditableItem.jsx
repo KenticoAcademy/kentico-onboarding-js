@@ -34,12 +34,8 @@ export class EditableItem extends PureComponent {
 
   _saveInput = () => this.props.onUpdateItem(this.state.text);
 
-  _onFocus = () => {
-    this.setState(() => ({ isFocused: true }));
-  };
-
-  _onBlur = () => {
-    this.setState(() => ({ isFocused: false }));
+  _toggleFocus = () => {
+    this.setState((prevState) => ({ isFocused: !prevState.isFocused }));
   };
 
   render() {
@@ -60,8 +56,8 @@ export class EditableItem extends PureComponent {
             value={this.state.text}
             title={tooltip}
             onChange={this._changeInput}
-            onBlur={this._onBlur}
-            onFocus={this._onFocus}
+            onBlur={this._toggleFocus}
+            onFocus={this._toggleFocus}
             autoFocus
           />
           <div
