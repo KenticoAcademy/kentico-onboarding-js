@@ -1,9 +1,9 @@
-import { ListItem } from '../../models/ListItem';
+import { ListItem } from '../../../models/ListItem';
 import {
   ITEM_START_EDITING,
   ITEM_STOP_EDITING,
   ITEM_TEXT_UPDATE
-} from '../../constants/actionTypes';
+} from '../../../constants/actionTypes';
 
 export const item = (state = ListItem(), action) => {
   switch (action.type) {

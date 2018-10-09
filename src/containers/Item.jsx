@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { Item } from '../components/Item';
 
-const mapStateToProps = ({ items }, { id }) => ({
+const mapStateToProps = ({ todoListReducer: { items } }, { id }) => ({
   item: items.get(id)
 });
 
