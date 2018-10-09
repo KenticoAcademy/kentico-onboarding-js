@@ -3,9 +3,7 @@ import PropTypes from 'prop-types';
 import { StaticItem } from '../containers/StaticItem';
 import { EditableItem } from '../containers/EditableItem';
 
-export const Item = ({
-  item, index
-}) =>
+export const Item = ({ item, index }) =>
   (item.isInEditMode
     ? (
       <EditableItem
