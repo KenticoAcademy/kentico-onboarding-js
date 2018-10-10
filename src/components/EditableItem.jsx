@@ -1,7 +1,10 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import { isTextValid } from '../utils/isTextValid';
+import {
+  createClassNamesFormValidation,
+  createTooltip
+} from '../utils/validationTools';
 
 export class EditableItem extends PureComponent {
   static displayName = 'EditableItem';
@@ -39,12 +42,9 @@ export class EditableItem extends PureComponent {
   };
 
   render() {
-    const isInputFieldValid = isTextValid(this.state.text);
-    const tooltip = !isInputFieldValid ? 'You have to insert some text' : '';
-    const formGroupClassName = classNames('form-group', {
-      'has-success': isInputFieldValid && this.state.isFocused,
-      'has-error': !isInputFieldValid && this.state.isFocused
-    });
+    const isInputTextValid = isTextValid(this.state.text);
+    const tooltip = createTooltip(isInputTextValid);
+    const formGroupClassName = createClassNamesFormValidation(isInputTextValid, this.state.isFocused);
 
     return (
       <div className="form-inline">
@@ -67,7 +67,7 @@ export class EditableItem extends PureComponent {
           >
             <button
               type="button"
-              disabled={!isInputFieldValid}
+              disabled={!isInputTextValid}
               title={tooltip}
               className="btn btn-primary"
               onClick={this._saveInput}
