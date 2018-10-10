@@ -1,7 +1,10 @@
 import React, { PureComponent, } from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import { isTextValid } from '../utils/isTextValid';
+import {
+  createClassNamesFormValidation,
+  createTooltip
+} from '../utils/validationTools';
 
 export class NewItem extends PureComponent {
   static displayName = 'NewItem';
@@ -34,12 +37,9 @@ export class NewItem extends PureComponent {
   };
 
   render() {
-    const isInputFieldValid = isTextValid(this.state.text);
-    const tooltip = !isInputFieldValid ? 'You have to insert some text' : '';
-    const formGroupClassName = classNames('form-group', this.props.className, {
-      'has-success': isInputFieldValid && this.state.isFocused,
-      'has-error': !isInputFieldValid && this.state.isFocused
-    });
+    const isInputTextValid = isTextValid(this.state.text);
+    const tooltip = createTooltip(isInputTextValid);
+    const formGroupClassName = createClassNamesFormValidation(isInputTextValid, this.state.isFocused);
 
     return (
       <div className="form-inline">
@@ -55,7 +55,7 @@ export class NewItem extends PureComponent {
           />
           <button
             type="button"
-            disabled={!isInputFieldValid}
+            disabled={!isInputTextValid}
             title={tooltip}
             className="btn btn-default"
             onClick={this._addItem}
