@@ -7,7 +7,7 @@ describe('isLoading', () => {
     const previousState: boolean | undefined = undefined;
     const expectedState: boolean = true;
 
-    const result: boolean = isLoading(previousState, deleteItemSuccess('', ''));
+    const result: boolean = isLoading(previousState, deleteItemSuccess(''));
 
     expect(result).toEqual(expectedState);
   });

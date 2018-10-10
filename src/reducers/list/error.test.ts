@@ -6,7 +6,7 @@ describe('error', () => {
     const previousState: string | undefined = undefined;
     const expectedState: string = '';
 
-    const result: string = error(previousState, deleteItemSuccess('', ''));
+    const result: string = error(previousState, deleteItemSuccess(''));
 
     expect(result).toEqual(expectedState);
   });

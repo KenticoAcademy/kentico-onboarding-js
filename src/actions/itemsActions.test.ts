@@ -60,16 +60,14 @@ describe('saveItemText', () => {
 describe('deleteItemSuccess', () => {
   it('returns action with correct id', () => {
     const id: Guid = generateUuid();
-    const errorId: Guid = generateUuid();
     const expectedResult: DeleteItemSuccessAction = {
       type: 'DELETE_ITEM_SUCCESS',
       payload: {
         id,
-        errorId,
       },
     };
 
-    const result: DeleteItemSuccessAction = deleteItemSuccess(id, errorId);
+    const result: DeleteItemSuccessAction = deleteItemSuccess(id);
 
     expect(result).toEqual(expectedResult);
   });
@@ -131,17 +129,15 @@ describe('postItemSuccess', () => {
   it('returns action with correct ids', () => {
     const oldId: Guid = generateUuid();
     const newId: Guid = generateUuid();
-    const errorId: Guid = generateUuid();
     const expectedResult: PostItemSuccessAction = {
       type: 'POST_ITEM_SUCCESS',
       payload: {
         oldId,
         newId,
-        errorId,
       },
     };
 
-    const result: PostItemSuccessAction = postItemSuccess(oldId, newId, errorId);
+    const result: PostItemSuccessAction = postItemSuccess(oldId, newId);
 
     expect(result).toEqual(expectedResult);
   });
@@ -188,16 +184,14 @@ describe('deleteItemError', () => {
 describe('putItemSuccess', () => {
   it('returns action with correct ids', () => {
     const id: Guid = generateUuid();
-    const errorId: Guid = generateUuid();
     const expectedResult: PutItemSuccessAction = {
       type: 'PUT_ITEM_SUCCESS',
       payload: {
         id,
-        errorId,
       },
     };
 
-    const result: PutItemSuccessAction = putItemSuccess(id, errorId);
+    const result: PutItemSuccessAction = putItemSuccess(id);
 
     expect(result).toEqual(expectedResult);
   });
@@ -206,16 +200,14 @@ describe('putItemSuccess', () => {
 describe('cancelItemUpdating', () => {
   it('returns action with correct text', () => {
     const id: Guid = generateUuid();
-    const errorId: Guid = generateUuid();
     const expectedResult: CancelItemUpdatingAction = {
       type: 'CANCEL_ITEM_UPDATING',
       payload: {
         id,
-        errorId,
       },
     };
 
-    const result: CancelItemUpdatingAction = cancelItemUpdating(id, errorId);
+    const result: CancelItemUpdatingAction = cancelItemUpdating(id);
 
     expect(result).toEqual(expectedResult);
   });

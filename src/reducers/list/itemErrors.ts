@@ -11,11 +11,7 @@ export const itemErrors = (state: IErrorsState = OrderedMap(), action: Actions):
       return state.set(newError.id, newError);
     }
 
-    case 'POST_ITEM_SUCCESS':
-    case 'PUT_ITEM_SUCCESS':
-    case 'DELETE_ITEM_SUCCESS':
     case 'DELETE_ITEM_ERROR':
-    case 'CANCEL_ITEM_UPDATING':
       return state.delete(action.payload.errorId);
 
     default:

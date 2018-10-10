@@ -16,7 +16,7 @@ describe('items', () => {
     const previousState: IItemsState | undefined = undefined;
     const expectedState: IItemsState = OrderedMap();
 
-    const result: IItemsState = items(previousState, deleteItemSuccess('1', ''));
+    const result: IItemsState = items(previousState, deleteItemSuccess('1'));
 
     expect(result).toEqual(expectedState);
   });
@@ -116,7 +116,7 @@ describe('items', () => {
         ],
       ]);
 
-      const result: IItemsState = items(previousState, deleteItemSuccess('1', ''));
+      const result: IItemsState = items(previousState, deleteItemSuccess('1'));
 
       expect(result.has('1')).toBeFalsy();
       expect(result).toEqual(expectedState);
@@ -235,7 +235,7 @@ describe('items', () => {
         ],
       ]);
 
-      const result: IItemsState = items(previousState, putItemSuccess('1', ''));
+      const result: IItemsState = items(previousState, putItemSuccess('1'));
 
       expect(result).toEqual(expectedState);
     });
@@ -279,7 +279,7 @@ describe('items', () => {
         ],
       ]);
 
-      const result: IItemsState = items(previousState, postItemSuccess('2', '3', ''));
+      const result: IItemsState = items(previousState, postItemSuccess('2', '3'));
 
       expect(result).toEqual(expectedState);
     });
@@ -366,7 +366,7 @@ describe('items', () => {
         ],
       ]);
 
-      const result: IItemsState = items(previousState, cancelItemUpdating('1', '42'));
+      const result: IItemsState = items(previousState, cancelItemUpdating('1'));
 
       expect(result).toEqual(expectedState);
     });

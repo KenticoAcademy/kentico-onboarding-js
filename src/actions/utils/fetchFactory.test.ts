@@ -2,7 +2,7 @@ import 'isomorphic-fetch';
 import { headerBase } from './headerBase';
 import Mock = jest.Mock;
 import { fetchFactory } from './fetchFactory';
-import { GATEWAY_TIMEOUT_MESSAGE, NOT_FOUND_MESSAGE, UNKNOWN_MESSAGE } from './errorMessages';
+import { GATEWAY_TIMEOUT_MESSAGE, NOT_FOUND_MESSAGE } from './errorMessages';
 
 describe('fetchFactory', () => {
   const mockResponse = (status: number, statusText?: string, response?: BodyInit) =>
@@ -50,11 +50,12 @@ describe('fetchFactory', () => {
   });
 
   it('for unknown status code throws unknown message', () => {
-    fetchResponse = mockResponse(42, '');
+    const statusText = 'This is unknown message';
+    fetchResponse = mockResponse(42, statusText);
 
     fetchFactory(fetch, 'localhost:42/random', {})
       .catch(
-        error => expect(error.message).toEqual(UNKNOWN_MESSAGE),
+        error => expect(error.message).toEqual(statusText),
       );
   });
 

@@ -70,7 +70,7 @@ describe('retryCreator', () => {
     const text: string = 'Learn JS';
     const errorId: Guid = errorIdGenerator();
     const expectedAction1: DeleteItemErrorAction = deleteItemError(errorId);
-    const expectedAction2: DeleteItemSuccessAction = deleteItemSuccess(id, errorId);
+    const expectedAction2: DeleteItemSuccessAction = deleteItemSuccess(id);
 
     getState = jest.fn(() => ({
       list: {

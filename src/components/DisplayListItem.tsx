@@ -9,7 +9,6 @@ export type DisplayListItemContainerProps = {
   readonly id: Guid,
   readonly order: number,
   readonly isSyncing: boolean,
-  readonly errorId: Guid,
 };
 
 export type DisplayListItemDispatchProps = {
@@ -26,12 +25,11 @@ const displayListItemPropTypes: ValidationMap<DisplayListItemProps> = {
   order: PropTypes.number.isRequired,
   id: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired,
-  errorId: PropTypes.string.isRequired,
   isSyncing: PropTypes.bool.isRequired,
   enableEditing: PropTypes.func.isRequired,
 };
 
-export const DisplayListItem: React.StatelessComponent<DisplayListItemProps> = ({ id, errorId, order, text, enableEditing, isSyncing }): JSX.Element => (
+export const DisplayListItem: React.StatelessComponent<DisplayListItemProps> = ({ id, order, text, enableEditing, isSyncing }): JSX.Element => (
   <li className="list-group-item">
     <HotKeys handlers={{'confirm': enableEditing}}>
       <form className="form-inline" tabIndex={order}>
@@ -39,7 +37,7 @@ export const DisplayListItem: React.StatelessComponent<DisplayListItemProps> = (
           <div className={classNames('form-group', {'is-syncing': isSyncing})}>
             {order}. {text}
           </div>
-          <ItemError id={id} errorId={errorId} />
+          <ItemError id={id} />
         </div>
       </form>
     </HotKeys>

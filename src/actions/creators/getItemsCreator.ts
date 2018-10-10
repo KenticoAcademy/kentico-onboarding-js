@@ -6,9 +6,9 @@ import { ThunkAction } from 'redux-thunk';
 import { Actions, DisplayErrorAction, LoadingItemsSuccessAction } from '../types/itemsActionTypes';
 import { fetchFactory } from '../utils/fetchFactory';
 
-export const getItemsCreator = (fetch: (input: string, init: RequestInit) => Promise<Response>) =>
+export const getItemsCreator = (fetch: Fetch) =>
   (): ThunkAction<Promise<LoadingItemsSuccessAction | DisplayErrorAction>, void, void, Actions> =>
-    (dispatch: Dispatch) =>
+    (dispatch: Dispatch): Promise<LoadingItemsSuccessAction | DisplayErrorAction> =>
       fetchFactory(fetch, urlBase, { method: 'GET' })
         .then(
           response => response.json(),

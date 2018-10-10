@@ -33,7 +33,6 @@ export const ListItem: React.StatelessComponent<ListItemProps> = ({ order, id, i
         id={id}
         order={order}
         isSyncing={isSyncing}
-        errorId={errorId}
       />
     )
 );

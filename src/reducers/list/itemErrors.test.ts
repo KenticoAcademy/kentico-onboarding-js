@@ -1,9 +1,6 @@
 import {
-  cancelItemUpdating,
   deleteItemError,
   deleteItemSuccess,
-  postItemSuccess,
-  putItemSuccess,
 } from '../../actions/itemsActions';
 import { ItemError } from '../../models/Error';
 import { addItemErrorCreator } from '../../actions/creators/addItemErrorCreator';
@@ -16,7 +13,7 @@ describe('itemErrors', () => {
     const previousState: IErrorsState | undefined = undefined;
     const expectedState: IErrorsState = OrderedMap();
 
-    const result: IErrorsState = itemErrors(previousState, deleteItemSuccess('1', ''));
+    const result: IErrorsState = itemErrors(previousState, deleteItemSuccess('1'));
 
     expect(result).toEqual(expectedState);
   });
@@ -44,122 +41,8 @@ describe('itemErrors', () => {
     });
   });
 
-  describe('postItemSuccess', () => {
-    it('returns state deleted item error', () => {
-      const previousState: IErrorsState = OrderedMap([
-        [
-          '1',
-          new ItemError({
-            id: '1',
-            message: 'Error1',
-            action: 'POST',
-          }),
-        ],
-        [
-          '2',
-          new ItemError({
-            id: '2',
-            message: 'Error2',
-            action: 'PUT',
-          }),
-        ],
-      ]);
-      const expectedState: IErrorsState = OrderedMap([
-        [
-          '2',
-          new ItemError({
-            id: '2',
-            message: 'Error2',
-            action: 'PUT',
-          }),
-        ],
-      ]);
-
-      const result: IErrorsState = itemErrors(previousState, postItemSuccess('42', '43', '1'));
-
-      expect(result.has('1')).toBeFalsy();
-      expect(result).toEqual(expectedState);
-    });
-  });
-
-  describe('putItemSuccess', () => {
-    it('returns state deleted item error', () => {
-      const previousState: IErrorsState = OrderedMap([
-        [
-          '1',
-          new ItemError({
-            id: '1',
-            message: 'Error1',
-            action: 'POST',
-          }),
-        ],
-        [
-          '2',
-          new ItemError({
-            id: '2',
-            message: 'Error2',
-            action: 'PUT',
-          }),
-        ],
-      ]);
-      const expectedState: IErrorsState = OrderedMap([
-        [
-          '2',
-          new ItemError({
-            id: '2',
-            message: 'Error2',
-            action: 'PUT',
-          }),
-        ],
-      ]);
-
-      const result: IErrorsState = itemErrors(previousState, putItemSuccess('42', '1'));
-
-      expect(result.has('1')).toBeFalsy();
-      expect(result).toEqual(expectedState);
-    });
-  });
-
-  describe('deleteItemSuccess', () => {
-    it('returns state deleted item error', () => {
-      const previousState: IErrorsState = OrderedMap([
-        [
-          '1',
-          new ItemError({
-            id: '1',
-            message: 'Error1',
-            action: 'POST',
-          }),
-        ],
-        [
-          '2',
-          new ItemError({
-            id: '2',
-            message: 'Error2',
-            action: 'PUT',
-          }),
-        ],
-      ]);
-      const expectedState: IErrorsState = OrderedMap([
-        [
-          '2',
-          new ItemError({
-            id: '2',
-            message: 'Error2',
-            action: 'PUT',
-          }),
-        ],
-      ]);
-
-      const result: IErrorsState = itemErrors(previousState, deleteItemSuccess('42', '1'));
-
-      expect(result.has('1')).toBeFalsy();
-      expect(result).toEqual(expectedState);
-    });
-  });
-
   describe('deleteItemError', () => {
-    it('returns state deleted item error', () => {
+    it('returns state with deleted item error', () => {
       const previousState: IErrorsState = OrderedMap([
         [
           '1',
@@ -190,44 +73,6 @@ describe('itemErrors', () => {
       ]);
 
       const result: IErrorsState = itemErrors(previousState, deleteItemError('1'));
-
-      expect(result.has('1')).toBeFalsy();
-      expect(result).toEqual(expectedState);
-    });
-  });
-
-  describe('cancelItemUpdating', () => {
-    it('returns state deleted item error', () => {
-      const previousState: IErrorsState = OrderedMap([
-        [
-          '1',
-          new ItemError({
-            id: '1',
-            message: 'Error1',
-            action: 'POST',
-          }),
-        ],
-        [
-          '2',
-          new ItemError({
-            id: '2',
-            message: 'Error2',
-            action: 'PUT',
-          }),
-        ],
-      ]);
-      const expectedState: IErrorsState = OrderedMap([
-        [
-          '2',
-          new ItemError({
-            id: '2',
-            message: 'Error2',
-            action: 'PUT',
-          }),
-        ],
-      ]);
-
-      const result: IErrorsState = itemErrors(previousState, cancelItemUpdating('42', '1'));
 
       expect(result.has('1')).toBeFalsy();
       expect(result).toEqual(expectedState);

@@ -21,7 +21,8 @@ describe('cancelAsyncActionCreator', () => {
   it('when canceling POST, creates deleteItemSuccess action', async () => {
     const id: Guid = '1';
     const errorId: Guid = '42';
-    const expectedAction1: DeleteItemSuccessAction = deleteItemSuccess(id, errorId);
+    const expectedAction1: DeleteItemErrorAction = deleteItemError(errorId);
+    const expectedAction2: DeleteItemSuccessAction = deleteItemSuccess(id);
 
     getState = jest.fn(() => ({
       list: {
@@ -50,14 +51,16 @@ describe('cancelAsyncActionCreator', () => {
 
     cancelAsyncActionCreator(id)(dispatch, getState);
 
-    expect(dispatch.mock.calls.length).toBe(1);
+    expect(dispatch.mock.calls.length).toBe(2);
     expect(dispatch.mock.calls[0][0]).toEqual(expectedAction1);
+    expect(dispatch.mock.calls[1][0]).toEqual(expectedAction2);
   });
 
   it('when canceling POST, creates deleteItemSuccess action', async () => {
     const id: Guid = '1';
     const errorId: Guid = '42';
-    const expectedAction1: DeleteItemSuccessAction = deleteItemSuccess(id, errorId);
+    const expectedAction1: DeleteItemErrorAction = deleteItemError(errorId);
+    const expectedAction2: DeleteItemSuccessAction = deleteItemSuccess(id);
 
     getState = jest.fn(() => ({
       list: {
@@ -86,14 +89,16 @@ describe('cancelAsyncActionCreator', () => {
 
     cancelAsyncActionCreator(id)(dispatch, getState);
 
-    expect(dispatch.mock.calls.length).toBe(1);
+    expect(dispatch.mock.calls.length).toBe(2);
     expect(dispatch.mock.calls[0][0]).toEqual(expectedAction1);
+    expect(dispatch.mock.calls[1][0]).toEqual(expectedAction2);
   });
 
   it('when canceling PUT, creates cancelItemUpdating action', async () => {
     const id: Guid = '1';
     const errorId: Guid = '42';
-    const expectedAction1: CancelItemUpdatingAction = cancelItemUpdating(id, errorId);
+    const expectedAction1: DeleteItemErrorAction = deleteItemError(errorId);
+    const expectedAction2: CancelItemUpdatingAction = cancelItemUpdating(id);
 
     getState = jest.fn(() => ({
       list: {
@@ -122,8 +127,9 @@ describe('cancelAsyncActionCreator', () => {
 
     cancelAsyncActionCreator(id)(dispatch, getState);
 
-    expect(dispatch.mock.calls.length).toBe(1);
+    expect(dispatch.mock.calls.length).toBe(2);
     expect(dispatch.mock.calls[0][0]).toEqual(expectedAction1);
+    expect(dispatch.mock.calls[1][0]).toEqual(expectedAction2);
   });
 
   it('when canceling DELETE, creates deleteItemError action', async () => {

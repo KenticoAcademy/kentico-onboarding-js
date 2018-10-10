@@ -35,6 +35,7 @@ describe('fetchCreators', () => {
     });
 
   const errorIdGenerator = () => '42';
+  const addItemError = addItemErrorCreator(errorIdGenerator);
   let fetchResponse: Response;
   let dispatch: Mock;
   let fetch: Mock;
@@ -87,7 +88,7 @@ describe('fetchCreators', () => {
       const tempId: Guid = '1';
       const newItem: IItem = new Item({ id: '2', text: 'Text1' });
       const expectedAction1: AddItemAction = addItemCreator(() => tempId)(newItem.text);
-      const expectedAction2: PostItemSuccessAction = postItemSuccess(tempId, newItem.id, errorIdGenerator());
+      const expectedAction2: PostItemSuccessAction = postItemSuccess(tempId, newItem.id);
       const expectedRequestInit: RequestInit = {
         ...headerBase,
         method: 'POST',
@@ -96,7 +97,7 @@ describe('fetchCreators', () => {
       fetchResponse = mockResponse(200, undefined, '{"id":"2","text":"Text1"}');
       dispatch = jest.fn(() => addItemCreator(() => tempId)(newItem.text));
 
-      postItemCreator(fetch, () => tempId, errorIdGenerator)(newItem.text)(dispatch, () => undefined, undefined)
+      postItemCreator(fetch, addItemCreator(() => tempId), addItemError)(newItem.text)(dispatch, () => undefined, undefined)
         .then(() => {
           expect(fetch.mock.calls.length).toBe(1);
           expect(fetch.mock.calls[0][0]).toEqual(urlBase);
@@ -112,11 +113,11 @@ describe('fetchCreators', () => {
       const tempId: Guid = '1';
       const text: string = 'Item text.';
       const error: string = 'There was an error while creating new item: ' + GATEWAY_TIMEOUT_MESSAGE;
-      const expectedResult: AddItemErrorAction = addItemErrorCreator(errorIdGenerator)(tempId, error, 'POST');
+      const expectedResult: AddItemErrorAction = addItemError(tempId, error, 'POST');
       fetchResponse = mockResponse(504, error);
       dispatch = jest.fn(() => addItemCreator(() => tempId)(text));
 
-      postItemCreator(fetch, () => tempId, errorIdGenerator)(text)(dispatch, () => undefined, undefined)
+      postItemCreator(fetch, addItemCreator(() => tempId), addItemError)(text)(dispatch, () => undefined, undefined)
         .then(() => {
           expect(dispatch.mock.calls.length).toBe(2);
           expect(dispatch.mock.calls[1][0]).toEqual(expectedResult);
@@ -128,7 +129,7 @@ describe('fetchCreators', () => {
     it('when successful, creates saveItemText action', () => {
       const updatedItem: IItem = new Item({ id: '1', text: 'Text1' });
       const expectedAction1: SaveItemTextAction = saveItemText(updatedItem.id, updatedItem.text);
-      const expectedAction2: PutItemSuccessAction = putItemSuccess(updatedItem.id, errorIdGenerator());
+      const expectedAction2: PutItemSuccessAction = putItemSuccess(updatedItem.id);
       const expectedRequestInit: RequestInit = {
         ...headerBase,
         method: 'PUT',
@@ -136,7 +137,7 @@ describe('fetchCreators', () => {
       };
       fetchResponse = mockResponse(200, undefined);
 
-      putItemCreator(fetch, errorIdGenerator)(updatedItem)(dispatch, () => undefined, undefined)
+      putItemCreator(fetch, addItemError)(updatedItem)(dispatch, () => undefined, undefined)
         .then(() => {
           expect(fetch.mock.calls.length).toBe(1);
           expect(fetch.mock.calls[0][0]).toEqual(urlBase + '/' + updatedItem.id);
@@ -151,10 +152,10 @@ describe('fetchCreators', () => {
     it('when fails, creates displayError action', () => {
       const updatedItem: IItem = new Item({ id: '1', text: 'Text1' });
       const error: string = 'There was an error while saving item: ' + GATEWAY_TIMEOUT_MESSAGE;
-      const expectedResult: AddItemErrorAction = addItemErrorCreator(errorIdGenerator)(updatedItem.id, error, 'PUT');
+      const expectedResult: AddItemErrorAction = addItemError(updatedItem.id, error, 'PUT');
       fetchResponse = mockResponse(504, error);
 
-      putItemCreator(fetch, errorIdGenerator)(updatedItem)(dispatch, () => undefined, undefined)
+      putItemCreator(fetch, addItemError)(updatedItem)(dispatch, () => undefined, undefined)
         .then(() => {
           expect(dispatch.mock.calls.length).toBe(2);
           expect(dispatch.mock.calls[1][0]).toEqual(expectedResult);
@@ -166,14 +167,14 @@ describe('fetchCreators', () => {
     it('when successful, creates deleteItemSuccess action', () => {
       const id: Guid = '1';
       const expectedAction1: SetItemSyncingAction = setItemSyncing(id, true);
-      const expectedAction2: DeleteItemSuccessAction = deleteItemSuccess(id, errorIdGenerator());
+      const expectedAction2: DeleteItemSuccessAction = deleteItemSuccess(id);
       const expectedRequestInit: RequestInit = {
         ...headerBase,
         method: 'DELETE',
       };
       fetchResponse = mockResponse(200, undefined, '{"id":"1","text":"Text1"}');
 
-      deleteItemCreator(fetch, errorIdGenerator)(id)(dispatch, () => undefined, undefined)
+      deleteItemCreator(fetch, addItemError)(id)(dispatch, () => undefined, undefined)
         .then(() => {
           expect(fetch.mock.calls.length).toBe(1);
           expect(fetch.mock.calls[0][0]).toEqual(urlBase + '/' + id);
@@ -189,10 +190,10 @@ describe('fetchCreators', () => {
       const id: Guid = '1';
       const error: string = 'There was an error while deleting item: ' + GATEWAY_TIMEOUT_MESSAGE;
       const expectedAction1: SetItemSyncingAction = setItemSyncing(id, true);
-      const expectedAction2: AddItemErrorAction = addItemErrorCreator(errorIdGenerator)(id, error, 'DELETE');
+      const expectedAction2: AddItemErrorAction = addItemError(id, error, 'DELETE');
       fetchResponse = mockResponse(504, error);
 
-      deleteItemCreator(fetch, errorIdGenerator)(id)(dispatch, () => undefined, undefined)
+      deleteItemCreator(fetch, addItemError)(id)(dispatch, () => undefined, undefined)
         .then(() => {
           expect(dispatch.mock.calls.length).toBe(2);
           expect(dispatch.mock.calls[0][0]).toEqual(expectedAction1);

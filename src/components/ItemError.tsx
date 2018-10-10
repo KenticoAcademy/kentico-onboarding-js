@@ -6,7 +6,6 @@ import { ErrorMessage } from './ErrorMessage';
 
 export type ItemErrorContainerProps = {
   readonly id: Guid,
-  readonly errorId: Guid,
 };
 
 export type ItemErrorStateProps = {
@@ -22,7 +21,6 @@ type ItemErrorProps = ItemErrorContainerProps & ItemErrorStateProps & ItemErrorD
 
 const itemErrorPropTypes: ValidationMap<ItemErrorProps> = {
   id: PropTypes.string.isRequired,
-  errorId: PropTypes.string.isRequired,
   error: PropTypes.string.isRequired,
   cancel: PropTypes.func.isRequired,
   retry: PropTypes.func.isRequired,

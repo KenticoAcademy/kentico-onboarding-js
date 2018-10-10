@@ -8,21 +8,22 @@ import { Dispatch } from 'redux';
 import { urlBase } from '../utils/urlBase';
 import { deleteItemSuccess, setItemSyncing } from '../itemsActions';
 import { fetchFactory } from '../utils/fetchFactory';
-import { addItemErrorCreator } from './addItemErrorCreator';
 
-export const deleteItemCreator = (fetch: (input: string, init: RequestInit) => Promise<Response>, errorIdGenerator: () => Guid) =>
+export const deleteItemCreator = (
+  fetch: Fetch,
+  addItemError: (itemId: Guid, error: string, action: ErrorAction) => AddItemErrorAction,
+) =>
   (id: Guid): ThunkAction<Promise<DeleteItemSuccessAction | AddItemErrorAction>, void, void, Actions> =>
-    (dispatch: Dispatch) => {
-      const errorId: Guid = errorIdGenerator();
+    (dispatch: Dispatch): Promise<DeleteItemSuccessAction | AddItemErrorAction> => {
       dispatch(setItemSyncing(id, true));
 
       return fetchFactory(fetch, urlBase + `/${id}`, {method: 'DELETE'})
         .then(
           response => response.json(),
         ).then(
-        json => dispatch(deleteItemSuccess(json.id, errorId)),
+        json => dispatch(deleteItemSuccess(json.id)),
         ).catch(
           error =>
-            dispatch(addItemErrorCreator(() => errorId)(id, 'There was an error while deleting item: ' + error.message, 'DELETE')),
+            dispatch(addItemError(id, 'There was an error while deleting item: ' + error.message, 'DELETE')),
         );
     };

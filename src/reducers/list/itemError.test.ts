@@ -8,7 +8,7 @@ describe('itemError', () => {
     const previousState: ItemError | undefined = undefined;
     const expectedState: ItemError = new ItemError();
 
-    const result: ItemError = itemError(previousState, deleteItemSuccess('1', ''));
+    const result: ItemError = itemError(previousState, deleteItemSuccess('1'));
 
     expect(result).toEqual(expectedState);
   });

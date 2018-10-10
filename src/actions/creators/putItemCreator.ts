@@ -9,12 +9,13 @@ import { Dispatch } from 'redux';
 import { putItemSuccess, saveItemText } from '../itemsActions';
 import { urlBase } from '../utils/urlBase';
 import { fetchFactory } from '../utils/fetchFactory';
-import { addItemErrorCreator } from './addItemErrorCreator';
 
-export const putItemCreator = (fetch: (input: string, init: RequestInit) => Promise<Response>, errorIdGenerator: () => Guid) =>
+export const putItemCreator = (
+  fetch: Fetch,
+  addItemError: (itemId: Guid, error: string, action: ErrorAction) => AddItemErrorAction,
+) =>
   (item: IItem): ThunkAction<Promise<PutItemSuccessAction | AddItemErrorAction>, void, void, Actions> =>
-    (dispatch: Dispatch) => {
-      const errorId: Guid = errorIdGenerator();
+    (dispatch: Dispatch): Promise<PutItemSuccessAction | AddItemErrorAction> => {
       dispatch(saveItemText(item.id, item.text));
 
       return fetchFactory(fetch, urlBase + `/${item.id}`, {
@@ -22,10 +23,10 @@ export const putItemCreator = (fetch: (input: string, init: RequestInit) => Prom
         body: JSON.stringify({id: item.id, text: item.text}),
       })
         .then(
-          () => dispatch(putItemSuccess(item.id, errorId)),
+          () => dispatch(putItemSuccess(item.id)),
         )
         .catch(
           error =>
-            dispatch(addItemErrorCreator(() => errorId)(item.id, 'There was an error while saving item: ' + error.message, 'PUT')),
+            dispatch(addItemError(item.id, 'There was an error while saving item: ' + error.message, 'PUT')),
         );
     };

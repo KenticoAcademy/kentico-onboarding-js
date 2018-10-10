@@ -1,5 +1,5 @@
 import { headerBase } from './headerBase';
-import { GATEWAY_TIMEOUT_MESSAGE, NOT_FOUND_MESSAGE, UNKNOWN_MESSAGE } from './errorMessages';
+import { GATEWAY_TIMEOUT_MESSAGE, NOT_FOUND_MESSAGE, CONNECTION_FAILED } from './errorMessages';
 
 const validateResponse = async (response: Response): Promise<string> => {
   switch (response.status) {
@@ -14,7 +14,7 @@ const validateResponse = async (response: Response): Promise<string> => {
       return GATEWAY_TIMEOUT_MESSAGE;
 
     default:
-      return UNKNOWN_MESSAGE;
+      return response.statusText;
   }
 };
 
@@ -24,10 +24,14 @@ export const fetchFactory = (
   headers: RequestInit,
 ): Promise<Response> =>
     fetch(url, {...headerBase, ...headers})
-      .then(async response => {
+      .then(
+        async response => {
           if (!response.ok) {
             throw Error(await validateResponse(response));
           }
           return response;
+        },
+        () => {
+            throw Error(CONNECTION_FAILED);
         },
       );

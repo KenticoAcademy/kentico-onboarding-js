@@ -14,7 +14,7 @@ describe('item', () => {
     const previousState: Item | undefined = undefined;
     const expectedState: Item = new Item();
 
-    const result: Item = item(previousState, deleteItemSuccess('1', ''));
+    const result: Item = item(previousState, deleteItemSuccess('1'));
 
     expect(result).toEqual(expectedState);
   });
@@ -98,7 +98,7 @@ describe('item', () => {
         isSyncing: false,
       });
 
-      const result: Item = item(previousState, postItemSuccess('0', idGenerator(), ''));
+      const result: Item = item(previousState, postItemSuccess('0', idGenerator()));
 
       expect(result).toEqual(expectedState);
     });
@@ -120,7 +120,7 @@ describe('item', () => {
         isSyncing: false,
       });
 
-      const result: Item = item(previousState, putItemSuccess(previousState.id, ''));
+      const result: Item = item(previousState, putItemSuccess(previousState.id));
 
       expect(result).toEqual(expectedState);
     });
@@ -199,7 +199,7 @@ describe('item', () => {
         errorId: '',
       });
 
-      const result: Item = item(previousState, cancelItemUpdating(id, errorId));
+      const result: Item = item(previousState, cancelItemUpdating(id));
 
       expect(result).toEqual(expectedState);
     });

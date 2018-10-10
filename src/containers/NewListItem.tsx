@@ -5,10 +5,12 @@ import {
   NewListItemDispatchProps,
   NewListItem as NewListItemComponent,
 } from '../components/NewListItem';
-import { Dispatch } from 'redux';
+import { ThunkDispatch } from 'redux-thunk';
+import { IAppState } from '../store/state/IAppState';
+import { Actions } from '../actions/types/itemsActionTypes';
 
-const mapDispatchToProps = (dispatch: Dispatch): NewListItemDispatchProps => ({
-  addItem: (text: string) => dispatch<any>(postItemRequest(text)),
+const mapDispatchToProps = (dispatch: ThunkDispatch<IAppState, void, Actions>): NewListItemDispatchProps => ({
+  addItem: (text: string) => dispatch(postItemRequest(text)),
 });
 
 export const NewListItem: React.ComponentClass = connect(

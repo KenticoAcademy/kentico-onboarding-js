@@ -27,11 +27,10 @@ export const saveItemText = (id: Guid, text: string): SaveItemTextAction => ({
   },
 });
 
-export const deleteItemSuccess = (id: Guid, errorId: Guid): DeleteItemSuccessAction => ({
+export const deleteItemSuccess = (id: Guid): DeleteItemSuccessAction => ({
   type: 'DELETE_ITEM_SUCCESS',
   payload: {
     id,
-    errorId,
   },
 });
 
@@ -64,12 +63,11 @@ export const loadingItemsSuccess = (response: IItem[]): LoadingItemsSuccessActio
   },
 });
 
-export const postItemSuccess = (oldId: Guid, newId: Guid, errorId: Guid): PostItemSuccessAction => ({
+export const postItemSuccess = (oldId: Guid, newId: Guid): PostItemSuccessAction => ({
   type: 'POST_ITEM_SUCCESS',
   payload: {
     oldId,
     newId,
-    errorId,
   },
 });
 
@@ -82,18 +80,16 @@ export const deleteItemError = (errorId: Guid): DeleteItemErrorAction => ({
   },
 });
 
-export const putItemSuccess = (id: Guid, errorId: Guid): PutItemSuccessAction => ({
+export const putItemSuccess = (id: Guid): PutItemSuccessAction => ({
   type: 'PUT_ITEM_SUCCESS',
   payload: {
     id,
-    errorId,
   },
 });
 
-export const cancelItemUpdating = (id: Guid, errorId: Guid): CancelItemUpdatingAction => ({
+export const cancelItemUpdating = (id: Guid): CancelItemUpdatingAction => ({
   type: 'CANCEL_ITEM_UPDATING',
   payload: {
     id,
-    errorId,
   },
 });
