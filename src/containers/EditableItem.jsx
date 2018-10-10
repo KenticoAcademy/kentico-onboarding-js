@@ -12,9 +12,9 @@ const mapStateToProps = ({ todoListReducer: { items } }, { id }) => ({
 });
 
 const mapDispatchToProps = (dispatch, { id }) => ({
-  onCancelEdit: () => dispatch(stopItemEditing(id)),
-  onDeleteItem: () => dispatch(deleteItem(id)),
-  onUpdateItem: (text) => dispatch(updateItemText(id, text)),
+  onCancelClick: () => dispatch(stopItemEditing(id)),
+  onDeleteClick: () => dispatch(deleteItem(id)),
+  onSaveClick: (text) => dispatch(updateItemText(id, text)),
 });
 
 const ConnectedEditableItem = connect(mapStateToProps, mapDispatchToProps)(EditableItem);

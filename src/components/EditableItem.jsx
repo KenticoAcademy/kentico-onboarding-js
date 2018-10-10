@@ -13,9 +13,9 @@ export class EditableItem extends PureComponent {
     }).isRequired,
     index: PropTypes.number.isRequired,
 
-    onCancelEdit: PropTypes.func.isRequired,
-    onDeleteItem: PropTypes.func.isRequired,
-    onUpdateItem: PropTypes.func.isRequired
+    onCancelClick: PropTypes.func.isRequired,
+    onDeleteClick: PropTypes.func.isRequired,
+    onSaveClick: PropTypes.func.isRequired
   };
 
   constructor(props) {
@@ -32,7 +32,7 @@ export class EditableItem extends PureComponent {
     this.setState(() => ({ text: eventTargetValue }));
   };
 
-  _saveInput = () => this.props.onUpdateItem(this.state.text);
+  _saveInput = () => this.props.onSaveClick(this.state.text);
 
   _toggleFocus = () => {
     this.setState((prevState) => ({ isFocused: !prevState.isFocused }));
@@ -77,14 +77,14 @@ export class EditableItem extends PureComponent {
             <button
               type="button"
               className="btn btn-default"
-              onClick={this.props.onCancelEdit}
+              onClick={this.props.onCancelClick}
             >
               Cancel
             </button>
             <button
               type="button"
               className="btn btn-danger"
-              onClick={this.props.onDeleteItem}
+              onClick={this.props.onDeleteClick}
             >
               Delete
             </button>

@@ -7,7 +7,7 @@ export class NewItem extends PureComponent {
   static displayName = 'NewItem';
 
   static propTypes = {
-    onAdd: PropTypes.func.isRequired
+    onAddClick: PropTypes.func.isRequired
   };
 
   constructor(props) {
@@ -25,7 +25,7 @@ export class NewItem extends PureComponent {
   };
 
   _addItem = () => {
-    this.props.onAdd(this.state.text);
+    this.props.onAddClick(this.state.text);
     this.setState(() => ({ text: '' }));
   };
 
