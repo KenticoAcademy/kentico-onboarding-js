@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { Item } from '../components/Item';
 
 const mapStateToProps = ({ todoListReducer: { items } }, { id }) => ({
-  item: items.get(id)
+  isInEditMode: items.get(id).isInEditMode
 });
 
 const ConnectedItem = connect(mapStateToProps)(Item);

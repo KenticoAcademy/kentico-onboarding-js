@@ -7,11 +7,15 @@ import {
   updateItemText,
 } from '../actions';
 
-const mapDispatchToProps = (dispatch, { item }) => ({
-  onCancelEdit: () => dispatch(stopItemEditing(item.id)),
-  onDeleteItem: () => dispatch(deleteItem(item.id)),
-  onUpdateItem: (text) => dispatch(updateItemText(item.id, text)),
+const mapStateToProps = ({ todoListReducer: { items } }, { id }) => ({
+  item: items.get(id)
 });
 
-const ConnectedEditableItem = connect(null, mapDispatchToProps)(EditableItem);
+const mapDispatchToProps = (dispatch, { id }) => ({
+  onCancelEdit: () => dispatch(stopItemEditing(id)),
+  onDeleteItem: () => dispatch(deleteItem(id)),
+  onUpdateItem: (text) => dispatch(updateItemText(id, text)),
+});
+
+const ConnectedEditableItem = connect(mapStateToProps, mapDispatchToProps)(EditableItem);
 export { ConnectedEditableItem as EditableItem };
