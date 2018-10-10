@@ -27,7 +27,7 @@ describe('item reducer', () => {
 
     const actualState = item(undefined, unknownAction);
 
-    expect(expectedState).toEqual(actualState);
+    expect(actualState).toEqual(expectedState);
   });
 
   it('should return previous state on unknown action', () => {
@@ -35,7 +35,7 @@ describe('item reducer', () => {
 
     const actualState = item(defaultItem, unknownAction);
 
-    expect(expectedState).toEqual(actualState);
+    expect(actualState).toEqual(expectedState);
   });
 
   it('should start edit mode of selected item when ITEM_START_EDITING action is dispatched', () => {
@@ -43,7 +43,7 @@ describe('item reducer', () => {
 
     const actualState = item(defaultItem, startItemEditing(itemId));
 
-    expect(expectedState).toEqual(actualState);
+    expect(actualState).toEqual(expectedState);
   });
 
   it('should end edit mode of selected item when ITEM_STOP_EDITING action is dispatched', () => {
@@ -52,7 +52,7 @@ describe('item reducer', () => {
 
     const actualState = item(defaultItemInEditMode, stopItemEditing(itemId));
 
-    expect(expectedState).toEqual(actualState);
+    expect(actualState).toEqual(expectedState);
   });
 
   it('should update selected item when ITEM_TEXT_UPDATE action is dispatched', () => {
@@ -61,6 +61,6 @@ describe('item reducer', () => {
 
     const actualState = item(defaultItem, updateItemText(defaultItem.id, newText));
 
-    expect(expectedState).toEqual(actualState);
+    expect(actualState).toEqual(expectedState);
   });
 });
