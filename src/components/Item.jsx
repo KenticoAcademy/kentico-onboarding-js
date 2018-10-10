@@ -3,17 +3,17 @@ import PropTypes from 'prop-types';
 import { StaticItem } from '../containers/StaticItem';
 import { EditableItem } from '../containers/EditableItem';
 
-export const Item = ({ item, index }) =>
-  (item.isInEditMode
+export const Item = ({ id, index, isInEditMode }) =>
+  (isInEditMode
     ? (
       <EditableItem
-        item={item}
+        id={id}
         index={index}
       />
     )
     : (
       <StaticItem
-        item={item}
+        id={id}
         index={index}
       />
     ));
@@ -21,8 +21,7 @@ export const Item = ({ item, index }) =>
 Item.displayName = 'Item';
 
 Item.propTypes = {
-  item: PropTypes.shape({
-    isInEditMode: PropTypes.bool.isRequired,
-  }).isRequired,
+  id: PropTypes.string.isRequired,
   index: PropTypes.number.isRequired,
+  isInEditMode: PropTypes.bool.isRequired,
 };

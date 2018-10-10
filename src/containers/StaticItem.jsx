@@ -2,9 +2,13 @@ import { connect } from 'react-redux';
 import { StaticItem } from '../components/StaticItem';
 import { startItemEditing } from '../actions';
 
-const mapDispatchToProps = (dispatch, { item }) => ({
-  onItemClick: () => dispatch(startItemEditing(item.id)),
+const mapStateToProps = ({ todoListReducer: { items } }, { id }) => ({
+  item: items.get(id)
 });
 
-const ConnectedStaticItem = connect(null, mapDispatchToProps)(StaticItem);
+const mapDispatchToProps = (dispatch, { id }) => ({
+  onItemClick: () => dispatch(startItemEditing(id)),
+});
+
+const ConnectedStaticItem = connect(mapStateToProps, mapDispatchToProps)(StaticItem);
 export { ConnectedStaticItem as StaticItem };
