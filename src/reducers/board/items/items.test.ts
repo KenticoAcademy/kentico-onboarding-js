@@ -7,25 +7,23 @@ import {
 import { Item } from '../../../models/Item';
 import { createItemFactory } from '../../../actions/actionCreatorsFactory';
 
-const idGenerator1 = () => '1';
-const idGenerator2 = () => '2';
-
 describe('items', () => {
   const dog = new Item({
-    id: idGenerator1(),
+    id: '1',
     text: 'Dog',
   });
 
   const cat = new Item({
-    id: idGenerator2(),
+    id: '2',
     text: 'Cat',
   });
 
   const doga = new Item({
-    id: idGenerator1(),
+    id: '1',
     text: 'Doga',
   });
 
+  const initialState = OrderedMap<Guid, Item>();
   const defaultState = OrderedMap<Guid, Item>([[dog.id, dog]]);
 
   const unknownAction = {
@@ -35,26 +33,28 @@ describe('items', () => {
 
   it('should return initial state when the input state in undefined', () => {
     const state = items(undefined, unknownAction);
-    const expectedState = OrderedMap();
 
-    expect(state).toEqual(expectedState);
+    expect(state).toEqual(initialState);
+  });
+
+  it('should return previous state on UNKNOWN_ACTION action', () => {
+    const state = items(defaultState, unknownAction);
+
+    expect(state).toEqual(defaultState);
   });
 
   it('should add a record to empty state on CREATE_ITEM action', () => {
-    const name = 'Dog';
-    const createItem = createItemFactory(idGenerator1);
-    const action = createItem(name);
-    const expectedState = OrderedMap([[dog.id, dog]]);
+    const createItem = createItemFactory(() => '1');
+    const action = createItem(dog.text);
 
-    const state = items(OrderedMap(), action);
+    const state = items(initialState, action);
 
-    expect(state).toEqual(expectedState);
+    expect(state).toEqual(defaultState);
   });
 
   it('should add second record to state on CREATE_ITEM action', () => {
-    const name = 'Cat';
-    const createItem = createItemFactory(idGenerator2);
-    const action = createItem(name);
+    const createItem = createItemFactory(() => '2');
+    const action = createItem(cat.text);
     const expectedState = defaultState.set(cat.id, cat);
 
     const state = items(defaultState, action);
@@ -62,29 +62,20 @@ describe('items', () => {
     expect(state).toEqual(expectedState);
   });
 
-  it('should isEdited the text in the record Dog on ITEM_EDIT action', () => {
-    const action = saveTextItem(dog.id, 'Doga');
-    const expectedState = OrderedMap([[doga.get('id'), doga]]);
+  it('should change the text in the record Dog on SAVE_TEXT_ITEM action', () => {
+    const action = saveTextItem(dog.id, doga.text);
+    const expectedState = OrderedMap([[doga.id, doga]]);
 
     const state = items(defaultState, action);
-
-    expect(state).toEqual(expectedState);
-  });
-
-  it('should return previous state on UNKNOWN_ACTION action', () => {
-    const expectedState = defaultState;
-
-    const state = items(defaultState, unknownAction);
 
     expect(state).toEqual(expectedState);
   });
 
   it('should delete the record Dog on DELETE_ITEM action', () => {
     const action = deleteItem(dog.id);
-    const expectedState = OrderedMap();
 
     const state = items(defaultState, action);
 
-    expect(state).toEqual(expectedState);
+    expect(state).toEqual(initialState);
   });
 });
