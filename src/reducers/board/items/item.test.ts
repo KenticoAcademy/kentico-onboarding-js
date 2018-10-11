@@ -8,6 +8,23 @@ import { item } from './item';
 import { Item } from '../../../models/Item';
 
 describe('item', () => {
+
+  const actionCreateItemDog = createItem('Dog');
+  const actionStartEditItemDog = startEditItem(actionCreateItemDog.payload.id);
+  const actionCancelEditItemDog = cancelEditItem(actionCreateItemDog.payload.id);
+
+  const dogIsEditedFalse = new Item({
+    id: actionCreateItemDog.payload.id,
+    text: 'Dog',
+    isEdited: false,
+  });
+
+  const dogIsEditedTrue = new Item({
+    id: actionCreateItemDog.payload.id,
+    text: 'Dog',
+    isEdited: true,
+  });
+
   const unknownAction = {
     type: 'UNKNOWN_ACTION',
     payload: 'any',
@@ -15,7 +32,15 @@ describe('item', () => {
 
   it('should return initial state when the input state in undefined', () => {
     const state = item(undefined, unknownAction);
-    const expectedState = new Item();
+
+    expect(state).toEqual(new Item());
+  });
+
+  it('should return previous state on UNKNOWN_ACTION action', () => {
+    const defaultState = new Item({ text: 'Dog' });
+    const expectedState = defaultState;
+
+    const state = item(defaultState, unknownAction);
 
     expect(state).toEqual(expectedState);
   });
@@ -23,7 +48,7 @@ describe('item', () => {
   it('should create the Item Dog on CREATE_ITEM action', () => {
     const action = createItem('Dog');
     const defaultState = new Item();
-    const expectedState = new Item({id: action.payload.id, text: 'Dog'});
+    const expectedState = new Item({ id: action.payload.id, text: 'Dog' });
 
     const state = item(defaultState, action);
 
@@ -33,8 +58,8 @@ describe('item', () => {
   it('should edit the text of the Item Dog on SAVE_TEXT_ITEM action', () => {
     const actionCreate = createItem('Dog');
     const action = saveTextItem(actionCreate.payload.id, 'Doga');
-    const defaultState = new Item({id: actionCreate.payload.id, text: 'Dog'});
-    const expectedState = new Item({id: actionCreate.payload.id, text: 'Doga'});
+    const defaultState = new Item({ id: actionCreate.payload.id, text: 'Dog' });
+    const expectedState = new Item({ id: actionCreate.payload.id, text: 'Doga' });
 
     const state = item(defaultState, action);
 
@@ -42,79 +67,26 @@ describe('item', () => {
   });
 
   it('should activate edit on the Item on START_EDIT_ITEM action, when is not active', () => {
-    const actionCreate = createItem('Dog');
-    const action = startEditItem(actionCreate.payload.id);
-    const defaultState = new Item({
-      id: actionCreate.payload.id, text: 'Dog',
-      isEdited: false,
-    });
-    const expectedState = new Item({
-      id: actionCreate.payload.id, text: 'Dog',
-      isEdited: true,
-    });
+    const state = item(dogIsEditedFalse, actionStartEditItemDog);
 
-    const state = item(defaultState, action);
-
-    expect(state).toEqual(expectedState);
+    expect(state).toEqual(dogIsEditedTrue);
   });
 
   it('should do nothing with the Item on START_EDIT_ITEM action, when is active', () => {
-    const actionCreate = createItem('Dog');
-    const action = startEditItem(actionCreate.payload.id);
-    const defaultState = new Item({
-      id: actionCreate.payload.id, text: 'Dog',
-      isEdited: true,
-    });
-    const expectedState = new Item({
-      id: actionCreate.payload.id, text: 'Dog',
-      isEdited: true,
-    });
+    const state = item(dogIsEditedTrue, actionStartEditItemDog);
 
-    const state = item(defaultState, action);
-
-    expect(state).toEqual(expectedState);
+    expect(state).toEqual(dogIsEditedTrue);
   });
 
   it('should deactivate edit on the Item on CANCEL_EDIT_ITEM action, when is active', () => {
-    const actionCreate = createItem('Dog');
-    const action = cancelEditItem(actionCreate.payload.id);
-    const defaultState = new Item({
-      id: actionCreate.payload.id, text: 'Dog',
-      isEdited: true,
-    });
-    const expectedState = new Item({
-      id: actionCreate.payload.id, text: 'Dog',
-      isEdited: false,
-    });
+    const state = item(dogIsEditedTrue, actionCancelEditItemDog);
 
-    const state = item(defaultState, action);
-
-    expect(state).toEqual(expectedState);
+    expect(state).toEqual(dogIsEditedFalse);
   });
 
   it('should do nothing with the Item on CANCEL_EDIT_ITEM action, when is not active', () => {
-    const actionCreate = createItem('Dog');
-    const action = cancelEditItem(actionCreate.payload.id);
-    const defaultState = new Item({
-      id: actionCreate.payload.id, text: 'Dog',
-      isEdited: false,
-    });
-    const expectedState = new Item({
-      id: actionCreate.payload.id, text: 'Dog',
-      isEdited: false,
-    });
+    const state = item(dogIsEditedFalse, actionCancelEditItemDog);
 
-    const state = item(defaultState, action);
-
-    expect(state).toEqual(expectedState);
-  });
-
-  it('should return previous state on UNKNOWN_ACTION action', () => {
-    const defaultState = new Item({text: 'Dog'});
-    const expectedState = defaultState;
-
-    const state = item(defaultState, unknownAction);
-
-    expect(state).toEqual(expectedState);
+    expect(state).toEqual(dogIsEditedFalse);
   });
 });

@@ -16,12 +16,16 @@ export const item = (state: Item = new Item(), action: IAction): Item => {
           text: action.payload.text,
         })
       );
+
     case SAVE_TEXT_ITEM:
-      return state.with({text: action.payload.text, isEdited: false});
+      return state.with({ text: action.payload.text, isEdited: false });
+
     case START_EDIT_ITEM:
-      return state.with({isEdited: true});
+      return state.with({ isEdited: true });
+
     case CANCEL_EDIT_ITEM:
-      return state.with({isEdited: false});
+      return state.with({ isEdited: false });
+
     default:
       return state;
   }
