@@ -7,7 +7,7 @@ import {
   updateItemText,
 } from '../actions';
 
-const mapStateToProps = ({ todoListReducer: { items } }, { id }) => ({
+const mapStateToProps = ({ todoList: { items } }, { id }) => ({
   item: items.get(id)
 });
 

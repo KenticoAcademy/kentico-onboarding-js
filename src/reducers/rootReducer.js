@@ -1,4 +1,4 @@
 import { combineReducers } from 'redux';
-import { todoListReducer } from './todoList/todoListReducer';
+import { todoList } from './todoList/todoList';
 
-export const rootReducer = combineReducers({ todoListReducer });
+export const rootReducer = combineReducers({ todoList });

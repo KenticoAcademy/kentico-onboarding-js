@@ -2,7 +2,7 @@ import connect from 'react-redux/es/connect/connect';
 import { List } from '../components/List';
 import { getItemsIds } from '../selectors/getItemsIds';
 
-const mapStateToProps = ({ todoListReducer: { items } }) => ({
+const mapStateToProps = ({ todoList: { items } }) => ({
   itemsIds: getItemsIds(items)
 });
 
