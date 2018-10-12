@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { StaticItem } from '../components/StaticItem';
 import { startItemEditing } from '../actions';
 
-const mapStateToProps = ({ todoListReducer: { items } }, { id }) => ({
+const mapStateToProps = ({ todoList: { items } }, { id }) => ({
   item: items.get(id)
 });
 
