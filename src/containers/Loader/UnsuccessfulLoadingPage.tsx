@@ -1,9 +1,9 @@
 import { connect } from 'react-redux';
-import { IAppState } from '../reducers/IAppState';
+import { IAppState } from '../../reducers/IAppState';
 import {
   IUnsuccessfulLoadingPageStateProps,
   UnsuccessfulLoadingPage as UnsuccessfulLoadingPageComponent,
-} from '../components/UnsuccessfulLoadingPage';
+} from '../../components/Loader/UnsuccessfulLoadingPage';
 
 
 const mapStateToProps = ({items}: IAppState): IUnsuccessfulLoadingPageStateProps => ({

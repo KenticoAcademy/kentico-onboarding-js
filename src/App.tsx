@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import Alert from 'react-s-alert';
 import { IAction } from './actions/IAction';
-import { Loader } from './containers/Loader';
+import { Loader } from './containers/Loader/Loader';
 import { alertTypes } from './constants/alert/alertTypes';
 import { alertMessages } from './constants/alert/alertMessages';
 import { assertAlert } from './utils/assertAlert';

@@ -2,8 +2,8 @@ import { connect } from 'react-redux';
 import {
   ILoaderStateProps,
   Loader as LoaderComponent
-} from '../components/Loader';
-import { IAppState } from '../reducers/IAppState';
+} from '../../components/Loader/Loader';
+import { IAppState } from '../../reducers/IAppState';
 export enum loaderContent {
   DEFAULT = 'DEFAULT',
   COMMON_CONTENT = 'COMMON_CONTENT',

@@ -1,10 +1,10 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { containsNoCharacters } from '../utils/containsNoCharacters';
-import { IAction } from '../actions/IAction';
-import { alertTypes } from '../constants/alert/alertTypes';
-import { alertMessages } from '../constants/alert/alertMessages';
-import {assertAlert} from '../utils/assertAlert';
+import { containsNoCharacters } from '../../utils/containsNoCharacters';
+import { IAction } from '../../actions/IAction';
+import { alertTypes } from '../../constants/alert/alertTypes';
+import { alertMessages } from '../../constants/alert/alertMessages';
+import {assertAlert} from '../../utils/assertAlert';
 
 export interface IAddNewItemStateProps {
   newItemText: string;

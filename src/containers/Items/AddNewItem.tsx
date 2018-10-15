@@ -7,10 +7,10 @@ import {
   AddNewItem as AddNewItemComponent,
   IAddNewItemDispatchProps,
   IAddNewItemStateProps
-} from '../components/AddNewItem';
-import { IAppState } from '../reducers/IAppState';
-import { CreateUploadItem } from '../actions';
-import { refreshNewItemText } from '../actions/simpleActions/refreshNewItemText';
+} from '../../components/Items/AddNewItem';
+import { IAppState } from '../../reducers/IAppState';
+import { CreateUploadItem } from '../../actions/index';
+import { refreshNewItemText } from '../../actions/simpleActions/refreshNewItemText';
 
 const mapStateToProps = ({items: {newItemText}}: IAppState): IAddNewItemStateProps => ({
   newItemText,

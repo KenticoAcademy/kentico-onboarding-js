@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { AddNewItem } from '../containers/AddNewItem';
+import { AddNewItem } from '../containers/Items/AddNewItem';
 import { List } from '../containers/List';
 
 const Page: React.StatelessComponent = () => (
