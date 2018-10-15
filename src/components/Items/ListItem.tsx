@@ -6,8 +6,7 @@ import { UneditedListItem } from '../../containers/Items/UneditedListItem';
 import { Markers } from '../../containers/Markers/Markers';
 import { Item } from '../../models/Item';
 import * as classNames from 'classnames';
-
-
+import {IListItemCallbackProps} from '../../containers/Items/ListItem';
 
 export interface IListItemDataProps {
   item: Item;
@@ -16,8 +15,8 @@ export interface IListItemDataProps {
   errorsNotEmpty: boolean;
 }
 
-const ListItem: React.StatelessComponent<IListItemDataProps> = (
-  {item, index, synchronizing, errorsNotEmpty}) => {
+const ListItem: React.StatelessComponent<IListItemDataProps&IListItemCallbackProps> = (
+  {item, index, synchronizing, errorsNotEmpty, onClick}) => {
 
   const {id, isBeingDeleted, isBeingEdited} = item;
   const listItemClassName = classNames({
@@ -27,9 +26,16 @@ const ListItem: React.StatelessComponent<IListItemDataProps> = (
     'item--deleted': isBeingDeleted,
   });
 
+  const _showEditedItem = () => {
+    if (!isBeingEdited && !item.isBeingDeleted) {
+      onClick();
+    }
+  };
+
   return (
     <div className={listItemClassName}>
       <div
+        onClick={_showEditedItem}
         className="list__item_content--long"
         key={id}
       >
@@ -53,6 +59,7 @@ ListItem.propTypes = {
   index: PropTypes.number.isRequired,
   synchronizing: PropTypes.bool.isRequired,
   errorsNotEmpty: PropTypes.bool.isRequired,
+  onClick: PropTypes.func.isRequired,
 };
 
 export { ListItem };
