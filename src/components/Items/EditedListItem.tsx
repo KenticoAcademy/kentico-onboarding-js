@@ -1,6 +1,5 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { containsNoCharacters } from '../../utils/containsNoCharacters';
 import { IAction } from '../../actions/IAction';
 import {
   IItem,
@@ -14,6 +13,7 @@ import {getItemButtonLabel} from '../../utils/getItemButtonLabel';
 
 export interface IEditedListItemStateProps {
   item: IItem;
+  isEmpty: boolean;
 }
 
 export interface IEditedListItemDispatchProps {
@@ -48,8 +48,7 @@ export class EditedListItem extends React.PureComponent<IEditedListItemProps> {
   };
 
   render() {
-    const {item, onCancel} = this.props;
-    const isEmpty = containsNoCharacters(item.textUpdate);
+    const {item, onCancel, isEmpty} = this.props;
     const emptinessLabel = isEmpty ? 'Item name mustn\'t be empty' : null;
 
     return (
