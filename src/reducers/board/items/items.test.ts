@@ -1,8 +1,10 @@
 import { OrderedMap } from 'immutable';
 import { items } from './items';
 import {
+  cancelEditItem,
   deleteItem,
   saveTextItem,
+  startEditItem,
 } from '../../../actions';
 import { Item } from '../../../models/Item';
 import { createItemFactory } from '../../../actions/actionCreatorsFactory';
@@ -11,16 +13,25 @@ describe('items', () => {
   const dog = new Item({
     id: '1',
     text: 'Dog',
+    isEdited: false,
+  });
+
+  const dogIsEditedTrue = new Item({
+    id: '1',
+    text: 'Dog',
+    isEdited: true,
   });
 
   const cat = new Item({
     id: '2',
     text: 'Cat',
+    isEdited: false,
   });
 
   const doga = new Item({
     id: '1',
     text: 'Doga',
+    isEdited: false,
   });
 
   const initialState = OrderedMap<Guid, Item>();
@@ -31,7 +42,7 @@ describe('items', () => {
     payload: 'any',
   };
 
-  it('should return initial state when the input state in undefined', () => {
+  it('should return initial state when the input state is undefined', () => {
     const state = items(undefined, unknownAction);
 
     expect(state).toEqual(initialState);
@@ -52,7 +63,7 @@ describe('items', () => {
     expect(state).toEqual(defaultState);
   });
 
-  it('should add second record to state on CREATE_ITEM action', () => {
+  it('should add second record to state with one Item on CREATE_ITEM action', () => {
     const createItem = createItemFactory(() => '2');
     const action = createItem(cat.text);
     const expectedState = defaultState.set(cat.id, cat);
@@ -62,13 +73,31 @@ describe('items', () => {
     expect(state).toEqual(expectedState);
   });
 
-  it('should change the text in the record Dog on SAVE_TEXT_ITEM action', () => {
+  it('should change the text in the Item record on SAVE_TEXT_ITEM action', () => {
     const action = saveTextItem(dog.id, doga.text);
     const expectedState = OrderedMap([[doga.id, doga]]);
 
     const state = items(defaultState, action);
 
     expect(state).toEqual(expectedState);
+  });
+
+  it('should activate edit on the Item on START_EDIT_ITEM action, when is not active', () => {
+    const actionStartEditItemDog = startEditItem(dog.id);
+    const expectedState = defaultState.set(dog.id, dogIsEditedTrue);
+
+    const state = items(defaultState, actionStartEditItemDog);
+
+    expect(state).toEqual(expectedState);
+  });
+
+  it('should deactivate edit on the Item on CANCEL_EDIT_ITEM action, when is active', () => {
+    const actionCancelEditItemDog = cancelEditItem(dog.id);
+    const startState = defaultState.set(dog.id, dogIsEditedTrue);
+
+    const state = items(startState, actionCancelEditItemDog);
+
+    expect(state).toEqual(defaultState);
   });
 
   it('should delete the record Dog on DELETE_ITEM action', () => {
