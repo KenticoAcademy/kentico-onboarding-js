@@ -13,7 +13,6 @@ import {
 } from '../../actions';
 import { IAction } from '../../actions/IAction';
 import { Dispatch } from 'redux';
-import { assertAlert } from '../../utils/assertAlert';
 
 export interface IRetryMarkerContainerProps {
   id: ItemId;
@@ -31,7 +30,6 @@ const mapStateToProps = (state: IAppState, {id}: IRetryMarkerContainerProps): IR
 const mapDispatchToProps = (dispatch: Dispatch<IAction>, {id}: IRetryMarkerContainerProps): IRetryMarkerDispatchProps => ({
   onSaveAgain: (text: string) => dispatch(CreateUpdateItem(id, text)),
   onUploadAgain: (text: string) => dispatch(CreateUploadItemAgain(() => id)(text)),
-  assertAlert: (type, message) =>  assertAlert(type, message),
 });
 
 

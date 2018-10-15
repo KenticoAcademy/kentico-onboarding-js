@@ -5,6 +5,8 @@ import { OrderedMap } from 'immutable';
 import * as PropTypes from 'prop-types';
 import { alertTypes } from '../../constants/alert/alertTypes';
 import { alertMessages } from '../../constants/alert/alertMessages';
+import {AnyAction} from 'redux';
+import {assertAlert} from '../../utils/assertAlert';
 
 export interface IRetryMarkerStateProps {
   text: string;
@@ -15,28 +17,28 @@ export interface IRetryMarkerStateProps {
 export interface IRetryMarkerDispatchProps {
   onUploadAgain: (text: string) => Promise<IAction>;
   onSaveAgain: (text: string) => Promise<IAction>;
-  assertAlert: (type: alertTypes, message: alertMessages) => number;
 }
 
 type IRetryMarkerProps = IRetryMarkerStateProps & IRetryMarkerDispatchProps;
 
 const RetryMarker: React.StatelessComponent<IRetryMarkerProps>
-  = ({errorMessages, onUploadAgain, onSaveAgain, textUpdate, text, assertAlert}) => {
+  = ({errorMessages, onUploadAgain, onSaveAgain, textUpdate, text}) => {
+
+  function getCorrectAction(): Promise<AnyAction> {
+    if (errorMessages.keySeq().contains(errorMessageTypes.UPLOAD)) {
+      if (textUpdate){
+        return onUploadAgain(textUpdate);
+      } else {
+        return onUploadAgain(text);
+      }} else
+        return onSaveAgain(textUpdate);
+  }
 
   function _onDoItAgain(e: React.MouseEvent<HTMLDivElement>) {
     e.stopPropagation();
-    if (errorMessages.keySeq().contains(errorMessageTypes.UPLOAD)) {
-      if (textUpdate) onUploadAgain(textUpdate)
-        .then(() => assertAlert(alertTypes.SUCCESS, alertMessages.UPLOAD_SUCCESS))
-        .catch(() => assertAlert(alertTypes.ERROR, alertMessages.UPLOAD_ERROR));
-      else onUploadAgain(text)
-        .then(() => assertAlert(alertTypes.SUCCESS, alertMessages.UPLOAD_SUCCESS))
-        .catch(() => assertAlert(alertTypes.ERROR, alertMessages.UPLOAD_ERROR));
-    } else {
-      onSaveAgain(textUpdate)
-        .then(() => assertAlert(alertTypes.SUCCESS, alertMessages.UPDATE_SUCCESS))
-        .catch(() => assertAlert(alertTypes.ERROR, alertMessages.UPDATE_ERROR));
-    }
+   getCorrectAction()
+   .then(() => assertAlert(alertTypes.SUCCESS, alertMessages.UPLOAD_SUCCESS))
+   .catch(() => assertAlert(alertTypes.ERROR, alertMessages.UPLOAD_ERROR));
   }
 
   return (

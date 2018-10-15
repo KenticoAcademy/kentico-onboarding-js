@@ -12,7 +12,6 @@ import { CreateUpdateItem } from '../../actions';
 import { toggleEditing } from '../../actions/simpleActions/toggleEditing';
 import { textUpdateChange } from '../../actions/simpleActions/textUpdateChange';
 import { Dispatch} from 'redux';
-import { assertAlert } from '../../utils/assertAlert';
 import {ItemId} from '../../models/ItemId';
 import {containsNoCharacters} from '../../utils/containsNoCharacters';
 
@@ -32,7 +31,6 @@ const mapDispatchToProps = (dispatch: Dispatch<IAppState>, {itemId}: IEditListIt
   onCancel: () => dispatch(toggleEditing(itemId)),
   onSave: (updatedText: string) => dispatch(CreateUpdateItem(itemId, updatedText)),
   textUpdateChange: (text: string) => dispatch(textUpdateChange(itemId, text)),
-  assertAlert: (type, message) =>  assertAlert(type, message),
 });
 
 export const EditedListItem: ComponentClass<IEditListItemContainerProps> = connect(mapStateToProps, mapDispatchToProps)(EditedListItemComponent);

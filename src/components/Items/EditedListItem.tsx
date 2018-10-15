@@ -9,6 +9,7 @@ import { alertTypes } from '../../constants/alert/alertTypes';
 import { alertMessages } from '../../constants/alert/alertMessages';
 import {IEditListItemContainerProps} from '../../containers/Items/EditedListItem';
 import {getItemButtonLabel} from '../../utils/getItemButtonLabel';
+import {assertAlert} from '../../utils/assertAlert';
 
 
 export interface IEditedListItemStateProps {
@@ -20,7 +21,6 @@ export interface IEditedListItemDispatchProps {
   onCancel: () => IAction;
   onSave: (textUpdate: string) => Promise<IAction>;
   textUpdateChange: (textUpdate: string) => IAction;
-  assertAlert: (type: alertTypes, message: alertMessages) => number;
 }
 
 type IEditedListItemProps = IEditListItemContainerProps & IEditedListItemStateProps & IEditedListItemDispatchProps;
@@ -37,7 +37,7 @@ export class EditedListItem extends React.PureComponent<IEditedListItemProps> {
   };
 
   _onSaveItem = (): void => {
-    const {onSave, item, assertAlert} = this.props;
+    const {onSave, item} = this.props;
     onSave(item.textUpdate)
       .then(() => assertAlert(alertTypes.SUCCESS, alertMessages.UPDATE_SUCCESS))
       .catch(() => assertAlert(alertTypes.ERROR, alertMessages.UPDATE_ERROR));
