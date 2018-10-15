@@ -3,12 +3,11 @@ import * as PropTypes from 'prop-types';
 import { DeleteItemMarker } from '../../containers/Markers/DeleteItemMarker';
 import { RecoverMarker } from '../../containers/Markers/RecoverMarker';
 import { RetryMarker } from '../../containers/Markers/RetryMarker';
-import { Item } from '../../models/Item';
 import { typeOfMarkerRendered } from '../../containers/Markers/Markers';
 import { ItemId } from '../../models/ItemId';
 
 export interface IMarkersStateProps {
-  item: Item;
+  id: ItemId;
   marker: typeOfMarkerRendered;
 }
 
@@ -23,20 +22,15 @@ const getCorrectMarker = (marker: typeOfMarkerRendered, id: ItemId): JSX.Element
   }
 };
 
-const Markers: React.StatelessComponent<IMarkersStateProps> = ({item, marker}) => {
-  const {id} = item;
-
-  return (
-    <div className="list__item_content">
-      {getCorrectMarker(marker, id)}
-      <DeleteItemMarker id={id} />
-    </div>);
-};
+const Markers: React.StatelessComponent<IMarkersStateProps> = ({id, marker}) => (
+  <div className="list__item_content">
+    {getCorrectMarker(marker, id)} <DeleteItemMarker id={id} />
+  </div>);
 
 Markers.displayName = 'Markers';
 
 Markers.propTypes = {
-  item: PropTypes.object.isRequired,
+  id: PropTypes.string.isRequired,
 };
 
 export { Markers };
