@@ -31,7 +31,7 @@ const mapStateToProps = (state: IAppState, {id}: IMarkersContainerProps): IMarke
   }
 
   return ({
-    item: item,
+    id: item.id,
     marker: markerShown,
   });
 };
