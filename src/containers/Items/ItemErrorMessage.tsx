@@ -1,7 +1,7 @@
 import { ItemId } from '../../models/ItemId';
 import { IAppState } from '../../reducers/IAppState';
 import {
-  IItemErrorMessageDataProps,
+  IItemErrorMessageStateProps,
   ItemErrorMessage as ItemErrorMessageComponent
 } from '../../components/Items/ItemErrorMessage';
 import { ComponentClass } from 'react';
@@ -12,7 +12,7 @@ interface IItemErrorMessageContainerProps {
   itemId: ItemId;
 }
 
-const mapStateToProps = (state: IAppState, {itemId}: IItemErrorMessageContainerProps): IItemErrorMessageDataProps => ({
+const mapStateToProps = (state: IAppState, {itemId}: IItemErrorMessageContainerProps): IItemErrorMessageStateProps => ({
   errorMessages: state.items.byId.get(itemId).errorMessages,
 });
 

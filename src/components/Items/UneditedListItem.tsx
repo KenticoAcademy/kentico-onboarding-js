@@ -5,13 +5,13 @@ import {
   Item
 } from '../../models/Item';
 
-export interface IUneditedListItemDataProps {
+export interface IUneditedListItemStateProps {
   item: IItem;
 }
 
 const UneditedListItem:
 
-  React.StatelessComponent<IUneditedListItemDataProps> = ({item}) => (
+  React.StatelessComponent<IUneditedListItemStateProps> = ({item}) => (
     <div className="list__item__inline_content">
       {item.text}
     </div>);

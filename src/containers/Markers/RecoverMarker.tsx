@@ -1,6 +1,8 @@
 import { connect } from 'react-redux';
-import { RecoverMarker as RecoverMarkerComponent } from '../../components/Markers/RecoverMarker';
-import { IAction } from '../../actions/IAction';
+import {
+  IRecoverMarkerDispatchProps,
+  RecoverMarker as RecoverMarkerComponent,
+} from '../../components/Markers/RecoverMarker';
 import { ItemId } from '../../models/ItemId';
 import { resetItem } from '../../actions/simpleActions/resetItem';
 import { errorMessageTypes } from '../../constants/errorMessageTypes';
@@ -9,11 +11,7 @@ export interface IRecoverMarkerContainerProps {
   id: ItemId;
 }
 
-export interface IRecoverMarkerCallbackProps {
-  onRecover: () => Promise<IAction>;
-}
-
-const mapDispatchToProps = (dispatch: Function, {id}: IRecoverMarkerContainerProps): IRecoverMarkerCallbackProps => ({
+const mapDispatchToProps = (dispatch: Function, {id}: IRecoverMarkerContainerProps): IRecoverMarkerDispatchProps => ({
   onRecover: () => dispatch(resetItem(id, [errorMessageTypes.DELETE])),
 });
 

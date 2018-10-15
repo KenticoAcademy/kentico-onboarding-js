@@ -7,11 +7,10 @@ import { Item } from '../../models/Item';
 import { typeOfMarkerRendered } from '../../containers/Markers/Markers';
 import { ItemId } from '../../models/ItemId';
 
-export interface IMarkersDataProps {
+export interface IMarkersStateProps {
   item: Item;
   marker: typeOfMarkerRendered;
 }
-
 
 const getCorrectMarker = (marker: typeOfMarkerRendered, id: ItemId): JSX.Element | undefined => {
   switch (marker) {
@@ -24,7 +23,7 @@ const getCorrectMarker = (marker: typeOfMarkerRendered, id: ItemId): JSX.Element
   }
 };
 
-const Markers: React.StatelessComponent<IMarkersDataProps> = ({item, marker}) => {
+const Markers: React.StatelessComponent<IMarkersStateProps> = ({item, marker}) => {
   const {id} = item;
 
   return (

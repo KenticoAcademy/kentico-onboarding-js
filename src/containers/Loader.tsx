@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import {
-  ILoaderDataProps,
+  ILoaderStateProps,
   Loader as LoaderComponent
 } from '../components/Loader';
 import { IAppState } from '../reducers/IAppState';
@@ -10,7 +10,7 @@ export enum loaderContent {
   NO_SUCCESS = 'NO_SUCCESS',
 }
 
-const mapStateToProps = ({items}: IAppState): ILoaderDataProps => {
+const mapStateToProps = ({items}: IAppState): ILoaderStateProps => {
   let content: loaderContent;
   if (items.status.errorMessage === '' && !items.status.isFetching) content = loaderContent.COMMON_CONTENT;
   else if (items.status.errorMessage !== '' || !items.status.isFetching) content = loaderContent.NO_SUCCESS;

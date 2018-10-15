@@ -2,14 +2,12 @@ import * as React from 'react';
 import { Map } from 'immutable';
 import * as PropTypes from 'prop-types';
 
-export interface IItemErrorMessageDataProps {
+export interface IItemErrorMessageStateProps {
   errorMessages: Map<string, string>;
 }
 
-type IItemErrorMessageProps = IItemErrorMessageDataProps;
-
 const ItemErrorMessage:
-  React.StatelessComponent<IItemErrorMessageProps> = ({errorMessages}) => {
+  React.StatelessComponent<IItemErrorMessageStateProps> = ({errorMessages}) => {
 
     return (
         <div className="list__item_content">{errorMessages.valueSeq()}</div>

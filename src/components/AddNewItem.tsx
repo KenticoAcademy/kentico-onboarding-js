@@ -5,18 +5,17 @@ import { IAction } from '../actions/IAction';
 import { alertTypes } from '../constants/alert/alertTypes';
 import { alertMessages } from '../constants/alert/alertMessages';
 
-export interface IAddNewItemDataProps {
+export interface IAddNewItemStateProps {
   newItemText: string;
 }
 
-export interface IAddNewItemCallbackProps {
+export interface IAddNewItemDispatchProps {
   onAdd: (value: string) => Promise<IAction>;
   onNewTextChange: Function;
   assertAlert: (type: string, message: string) => number;
 }
 
-export interface IAddNewItemProps extends IAddNewItemDataProps, IAddNewItemCallbackProps {
-}
+type IAddNewItemProps = IAddNewItemStateProps & IAddNewItemDispatchProps;
 
 export class AddNewItem extends React.PureComponent<IAddNewItemProps> {
 

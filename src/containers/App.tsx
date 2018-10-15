@@ -1,6 +1,6 @@
 import {
   App as AppComponent,
-  IAppCallbackProps
+  IAppDispatchProps
 } from '../App';
 import { IAppState } from '../reducers/IAppState';
 import {
@@ -9,7 +9,7 @@ import {
 import { CreateFetchItems } from '../actions';
 import { Dispatch} from 'redux';
 
-const mapDispatchToProps = (dispatch: Dispatch<IAppState>): IAppCallbackProps => ({
+const mapDispatchToProps = (dispatch: Dispatch<IAppState>): IAppDispatchProps => ({
   fetchItemsCall: () => dispatch(CreateFetchItems()),
 });
 

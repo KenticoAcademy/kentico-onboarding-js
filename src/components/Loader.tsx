@@ -3,12 +3,12 @@ import { Page } from './Page';
 import { loaderContent } from '../containers/Loader';
 import * as PropTypes from 'prop-types';
 
-export interface ILoaderDataProps {
+export interface ILoaderStateProps {
   content: loaderContent;
   errorMessage: string;
 }
 
-const Loader: React.StatelessComponent<ILoaderDataProps> = ({content, errorMessage}) => {
+const Loader: React.StatelessComponent<ILoaderStateProps> = ({content, errorMessage}) => {
   switch (content) {
     case loaderContent.NO_SUCCESS:
       return (

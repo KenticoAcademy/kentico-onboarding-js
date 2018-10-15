@@ -7,11 +7,11 @@ import { alertTypes } from './constants/alert/alertTypes';
 import { alertMessages } from './constants/alert/alertMessages';
 import { assertAlert } from './utils/assertAlert';
 
-export interface IAppCallbackProps {
+export interface IAppDispatchProps {
   fetchItemsCall: () => Promise<IAction>;
 }
 
-export class App extends React.PureComponent<IAppCallbackProps> {
+export class App extends React.PureComponent<IAppDispatchProps> {
 
   static displayName = 'App';
 
