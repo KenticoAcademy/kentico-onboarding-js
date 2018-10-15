@@ -6,7 +6,8 @@ import { UneditedListItem } from '../../containers/Items/UneditedListItem';
 import { Markers } from '../../containers/Markers/Markers';
 import { Item } from '../../models/Item';
 import * as classNames from 'classnames';
-import {IListItemCallbackProps} from '../../containers/Items/ListItem';
+import {IAction} from '../../actions/IAction';
+import {IListItemContainerProps} from '../../containers/Items/ListItem';
 
 export interface IListItemDataProps {
   item: Item;
@@ -15,51 +16,55 @@ export interface IListItemDataProps {
   errorsNotEmpty: boolean;
 }
 
-const ListItem: React.StatelessComponent<IListItemDataProps&IListItemCallbackProps> = (
-  {item, index, synchronizing, errorsNotEmpty, onClick}) => {
+export interface IListItemCallbackProps {
+  onClick: () => IAction;
+}
 
-  const {id, isBeingDeleted, isBeingEdited} = item;
-  const listItemClassName = classNames({
-    'list__item': true,
-    'item--synchronizing': synchronizing,
-    'item--error': errorsNotEmpty,
-    'item--deleted': isBeingDeleted,
-  });
+type IListItemProps = IListItemDataProps & IListItemCallbackProps & IListItemContainerProps;
 
-  const _showEditedItem = () => {
-    if (!isBeingEdited && !item.isBeingDeleted) {
-      onClick();
+export class ListItem extends React.PureComponent<IListItemProps> {
+
+  static displayName = 'ListItem';
+
+  static propTypes = {
+    item: PropTypes.instanceOf(Item),
+    index: PropTypes.number.isRequired,
+    synchronizing: PropTypes.bool.isRequired,
+    errorsNotEmpty: PropTypes.bool.isRequired,
+    onClick: PropTypes.func.isRequired,
+  };
+
+  _showEditedItem = (): void => {
+    if (!this.props.item.isBeingEdited) {
+      this.props.onClick();
     }
   };
 
-  return (
-    <div className={listItemClassName}>
+  render() {
+    const listItemClassName = classNames({
+      'list__item': true,
+      'item--synchronizing': this.props.synchronizing,
+      'item--error': this.props.errorsNotEmpty,
+      'item--deleted': this.props.item.isBeingDeleted,
+    });
+
+    return (
+      <div className={listItemClassName}>
       <div
-        onClick={_showEditedItem}
+        onClick={this._showEditedItem}
         className="list__item_content--long"
-        key={id}
+        key={this.props.item.id}
       >
         <div className="list__item__inline_content">
-          {index + 1}.&nbsp;
+          {this.props.index + 1}.&nbsp;
         </div>
-        {isBeingEdited ?
-          <EditedListItem itemId={id} />
-          : <UneditedListItem itemId={id} />
+        {this.props.item.isBeingEdited ?
+          <EditedListItem itemId={this.props.item.id} />
+          : <UneditedListItem itemId={this.props.item.id} />
         }
       </div>
-      <ItemErrorMessage itemId={id} />
-      <Markers id={id} />
-    </div>);
-};
-
-ListItem.displayName = 'ListItem';
-
-ListItem.propTypes = {
-  item: PropTypes.object.isRequired,
-  index: PropTypes.number.isRequired,
-  synchronizing: PropTypes.bool.isRequired,
-  errorsNotEmpty: PropTypes.bool.isRequired,
-  onClick: PropTypes.func.isRequired,
-};
-
-export { ListItem };
+      <ItemErrorMessage itemId={this.props.item.id} />
+      <Markers id={this.props.item.id} />
+    </div>)
+  }
+}
