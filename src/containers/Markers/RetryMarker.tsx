@@ -1,8 +1,8 @@
 import { connect } from 'react-redux';
 import { ComponentClass } from 'react';
 import {
-  IRetryMarkerCallbackProps,
-  IRetryMarkerDataProps,
+  IRetryMarkerDispatchProps,
+  IRetryMarkerStateProps,
   RetryMarker as RetryMarkerComponent
 } from '../../components/Markers/RetryMarker';
 import { IAppState } from '../../reducers/IAppState';
@@ -19,7 +19,7 @@ export interface IRetryMarkerContainerProps {
   id: ItemId;
 }
 
-const mapStateToProps = (state: IAppState, {id}: IRetryMarkerContainerProps): IRetryMarkerDataProps => {
+const mapStateToProps = (state: IAppState, {id}: IRetryMarkerContainerProps): IRetryMarkerStateProps => {
   const item = state.items.byId.get(id);
   return {
     text: item.text,
@@ -28,7 +28,7 @@ const mapStateToProps = (state: IAppState, {id}: IRetryMarkerContainerProps): IR
   };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch<IAction>, {id}: IRetryMarkerContainerProps): IRetryMarkerCallbackProps => ({
+const mapDispatchToProps = (dispatch: Dispatch<IAction>, {id}: IRetryMarkerContainerProps): IRetryMarkerDispatchProps => ({
   onSaveAgain: (text: string) => dispatch(CreateUpdateItem(id, text)),
   onUploadAgain: (text: string) => dispatch(CreateUploadItemAgain(() => id)(text)),
   assertAlert: (type, message) =>  assertAlert(type, message),

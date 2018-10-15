@@ -3,7 +3,7 @@ import {
 } from 'react-redux';
 import { ComponentClass } from 'react';
 import {
-  IUneditedListItemDataProps,
+  IUneditedListItemStateProps,
   UneditedListItem as UneditedListItemComponent
 } from '../../components/Items/UneditedListItem';
 import { IAppState } from '../../reducers/IAppState';
@@ -13,7 +13,7 @@ interface IUneditedListItemContainerProps {
   itemId: ItemId;
 }
 
-const mapStateToProps = (state: IAppState, {itemId}: IUneditedListItemContainerProps): IUneditedListItemDataProps => ({
+const mapStateToProps = (state: IAppState, {itemId}: IUneditedListItemContainerProps): IUneditedListItemStateProps => ({
   item: state.items.byId.get(itemId),
 });
 

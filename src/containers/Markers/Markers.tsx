@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { ComponentClass } from 'react';
 import {
-  IMarkersDataProps,
+  IMarkersStateProps,
   Markers as MarkersComponent
 } from '../../components/Markers/Markers';
 import { IAppState } from '../../reducers/IAppState';
@@ -17,7 +17,7 @@ export interface IMarkersContainerProps {
   id: ItemId;
 }
 
-const mapStateToProps = (state: IAppState, {id}: IMarkersContainerProps): IMarkersDataProps => {
+const mapStateToProps = (state: IAppState, {id}: IMarkersContainerProps): IMarkersStateProps => {
   const item = state.items.byId.get(id);
   let markerShown = typeOfMarkerRendered.NONE;
 

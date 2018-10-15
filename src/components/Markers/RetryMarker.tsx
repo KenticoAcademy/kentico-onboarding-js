@@ -6,19 +6,21 @@ import * as PropTypes from 'prop-types';
 import { alertTypes } from '../../constants/alert/alertTypes';
 import { alertMessages } from '../../constants/alert/alertMessages';
 
-export interface IRetryMarkerDataProps {
+export interface IRetryMarkerStateProps {
   text: string;
   textUpdate: string;
   errorMessages: OrderedMap<string, string>;
 }
 
-export interface IRetryMarkerCallbackProps {
+export interface IRetryMarkerDispatchProps {
   onUploadAgain: (text: string) => Promise<IAction>;
   onSaveAgain: (text: string) => Promise<IAction>;
   assertAlert: (type: alertTypes, message: alertMessages) => number;
 }
 
-const RetryMarker: React.StatelessComponent<IRetryMarkerDataProps & IRetryMarkerCallbackProps>
+type IRetryMarkerProps = IRetryMarkerStateProps & IRetryMarkerDispatchProps;
+
+const RetryMarker: React.StatelessComponent<IRetryMarkerProps>
   = ({errorMessages, onUploadAgain, onSaveAgain, textUpdate, text, assertAlert}) => {
 
   function _onDoItAgain(e: React.MouseEvent<HTMLDivElement>) {

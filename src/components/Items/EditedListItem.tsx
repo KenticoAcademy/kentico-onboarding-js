@@ -6,27 +6,24 @@ import {
   IItem,
   Item
 } from '../../models/Item';
-import { ItemId } from '../../models/ItemId';
 import { errorMessageTypes } from '../../constants/errorMessageTypes';
 import { alertTypes } from '../../constants/alert/alertTypes';
 import { alertMessages } from '../../constants/alert/alertMessages';
+import {IEditListItemContainerProps} from '../../containers/Items/EditedListItem';
 
-export interface IEditListItemContainerProps {
-  itemId: ItemId;
-}
 
-export interface IEditedListItemDataProps {
+export interface IEditedListItemStateProps {
   item: IItem;
 }
 
-export interface IEditedListItemCallbackProps {
+export interface IEditedListItemDispatchProps {
   onCancel: () => IAction;
   onSave: (textUpdate: string) => Promise<IAction>;
   textUpdateChange: (textUpdate: string) => IAction;
   assertAlert: (type: alertTypes, message: alertMessages) => number;
 }
 
-type IEditedListItemProps = IEditListItemContainerProps & IEditedListItemDataProps & IEditedListItemCallbackProps;
+type IEditedListItemProps = IEditListItemContainerProps & IEditedListItemStateProps & IEditedListItemDispatchProps;
 
 export class EditedListItem extends React.PureComponent<IEditedListItemProps> {
 

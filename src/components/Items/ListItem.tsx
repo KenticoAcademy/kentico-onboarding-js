@@ -9,18 +9,18 @@ import * as classNames from 'classnames';
 import {IAction} from '../../actions/IAction';
 import {IListItemContainerProps} from '../../containers/Items/ListItem';
 
-export interface IListItemDataProps {
+export interface IListItemStateProps {
   item: Item;
   index: number;
   synchronizing: boolean;
   errorsNotEmpty: boolean;
 }
 
-export interface IListItemCallbackProps {
+export interface IListItemDispatchProps {
   onClick: () => IAction;
 }
 
-type IListItemProps = IListItemDataProps & IListItemCallbackProps & IListItemContainerProps;
+type IListItemProps = IListItemStateProps & IListItemDispatchProps & IListItemContainerProps;
 
 export class ListItem extends React.PureComponent<IListItemProps> {
 

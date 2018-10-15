@@ -2,11 +2,11 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { IAction } from '../../actions/IAction';
 
-interface IRecoverMarkerDataProps {
+export interface IRecoverMarkerDispatchProps {
   onRecover: () => Promise<IAction>;
 }
 
-const RecoverMarker: React.StatelessComponent<IRecoverMarkerDataProps> = ({onRecover}) =>
+const RecoverMarker: React.StatelessComponent<IRecoverMarkerDispatchProps> = ({onRecover}) =>
   (
     <div
       data-balloon={'Recover item'}
@@ -16,9 +16,7 @@ const RecoverMarker: React.StatelessComponent<IRecoverMarkerDataProps> = ({onRec
       ♻
     </div>);
 
-
 RecoverMarker.displayName = 'RecoverMarker';
-
 
 RecoverMarker.propTypes = {
   onRecover: PropTypes.func.isRequired,
