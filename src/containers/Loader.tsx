@@ -18,7 +18,6 @@ const mapStateToProps = ({items}: IAppState): ILoaderStateProps => {
 
   return ({
     content,
-    errorMessage: items.status.errorMessage,
   });
 };
 
