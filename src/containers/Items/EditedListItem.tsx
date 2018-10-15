@@ -14,15 +14,19 @@ import { textUpdateChange } from '../../actions/simpleActions/textUpdateChange';
 import { Dispatch} from 'redux';
 import { assertAlert } from '../../utils/assertAlert';
 import {ItemId} from '../../models/ItemId';
+import {containsNoCharacters} from '../../utils/containsNoCharacters';
 
 export interface IEditListItemContainerProps {
   itemId: ItemId;
 }
 
-const mapStateToProps = (state: IAppState, {itemId}: IEditListItemContainerProps): IEditedListItemStateProps => ({
-  item: state.items.byId.get(itemId),
-
-});
+const mapStateToProps = (state: IAppState, {itemId}: IEditListItemContainerProps): IEditedListItemStateProps => {
+  const item = state.items.byId.get(itemId);
+  return ({
+    item,
+    isEmpty: containsNoCharacters(item.textUpdate),
+  });
+};
 
 const mapDispatchToProps = (dispatch: Dispatch<IAppState>, {itemId}: IEditListItemContainerProps): IEditedListItemDispatchProps => ({
   onCancel: () => dispatch(toggleEditing(itemId)),
