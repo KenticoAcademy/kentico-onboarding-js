@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { Page } from './Page';
-import { loaderContent } from '../containers/Loader';
+import { Page } from '../Page';
+import { loaderContent } from '../../containers/Loader/Loader';
 import * as PropTypes from 'prop-types';
-import {UnsuccessfulLoadingPage} from '../containers/UnsuccessfulLoadingPage';
+import {UnsuccessfulLoadingPage} from '../../containers/Loader/UnsuccessfulLoadingPage';
 import {CatLoader} from './CatLoader';
 
 export interface ILoaderStateProps {
