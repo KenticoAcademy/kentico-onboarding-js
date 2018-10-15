@@ -6,10 +6,10 @@ import {
   IItem,
   Item
 } from '../../models/Item';
-import { errorMessageTypes } from '../../constants/errorMessageTypes';
 import { alertTypes } from '../../constants/alert/alertTypes';
 import { alertMessages } from '../../constants/alert/alertMessages';
 import {IEditListItemContainerProps} from '../../containers/Items/EditedListItem';
+import {getItemButtonLabel} from '../../utils/getItemButtonLabel';
 
 
 export interface IEditedListItemStateProps {
@@ -44,19 +44,7 @@ export class EditedListItem extends React.PureComponent<IEditedListItemProps> {
   };
 
   _onTextChanged = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    const textUpdate = e.target.value;
-    const {textUpdateChange} = this.props;
-    textUpdateChange(textUpdate);
-  };
-
-  _buttonLabel = (): string => {
-    const {item} = this.props;
-    const uploadError = item.errorMessages.keySeq().contains(errorMessageTypes.UPLOAD);
-    const someError = item.errorMessages.size !== 0;
-
-    if (uploadError) return 'Modify the word you wanted to upload!';
-    if (someError) return 'Save the word again!';
-    return 'Save the word!';
+    this.props.textUpdateChange(e.target.value);
   };
 
   render() {
@@ -79,7 +67,7 @@ export class EditedListItem extends React.PureComponent<IEditedListItemProps> {
             disabled={isEmpty}
             onClick={this._onSaveItem}
           >
-            {this._buttonLabel()}
+            {getItemButtonLabel(item)}
           </button>
           <button
             className="default_button"
