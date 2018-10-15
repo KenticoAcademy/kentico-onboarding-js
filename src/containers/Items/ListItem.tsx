@@ -1,8 +1,9 @@
 import { connect } from 'react-redux';
 import { ComponentClass } from 'react';
 import {
+  IListItemCallbackProps,
   IListItemDataProps,
-  ListItem as ListItemComponent
+  ListItem as ListItemComponent,
 } from '../../components/Items/ListItem';
 import { IAppState } from '../../reducers/IAppState';
 import { ItemId } from '../../models/ItemId';
@@ -13,10 +14,6 @@ import {toggleEditing} from '../../actions/simpleActions/toggleEditing';
 export interface IListItemContainerProps {
   id: ItemId;
   index: number;
-}
-
-export interface IListItemCallbackProps {
-  onClick: () => IAction;
 }
 
 const mapStateToProps = (state: IAppState, {id, index}: IListItemContainerProps): IListItemDataProps => {
