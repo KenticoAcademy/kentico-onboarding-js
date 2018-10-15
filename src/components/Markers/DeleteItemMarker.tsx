@@ -3,13 +3,13 @@ import * as PropTypes from 'prop-types';
 import { alertTypes } from '../../constants/alert/alertTypes';
 import { alertMessages } from '../../constants/alert/alertMessages';
 import {IAction} from '../../actions/IAction';
+import {assertAlert} from '../../utils/assertAlert';
 
 export interface IDeleteItemMarkerDispatchProps {
   onThrowAway: () => Promise<IAction>;
-  assertAlert: (type: alertTypes, message: alertMessages) => number;
 }
 
-const DeleteItemMarker: React.StatelessComponent<IDeleteItemMarkerDispatchProps> = ({onThrowAway, assertAlert}) => {
+const DeleteItemMarker: React.StatelessComponent<IDeleteItemMarkerDispatchProps> = ({onThrowAway}) => {
 
   const _onSharkClick = () => {
     onThrowAway()

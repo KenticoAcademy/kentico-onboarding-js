@@ -4,6 +4,7 @@ import { containsNoCharacters } from '../utils/containsNoCharacters';
 import { IAction } from '../actions/IAction';
 import { alertTypes } from '../constants/alert/alertTypes';
 import { alertMessages } from '../constants/alert/alertMessages';
+import {assertAlert} from '../utils/assertAlert';
 
 export interface IAddNewItemStateProps {
   newItemText: string;
@@ -12,7 +13,6 @@ export interface IAddNewItemStateProps {
 export interface IAddNewItemDispatchProps {
   onAdd: (value: string) => Promise<IAction>;
   onNewTextChange: Function;
-  assertAlert: (type: string, message: string) => number;
 }
 
 type IAddNewItemProps = IAddNewItemStateProps & IAddNewItemDispatchProps;
@@ -25,7 +25,6 @@ export class AddNewItem extends React.PureComponent<IAddNewItemProps> {
     newItemText: PropTypes.string.isRequired,
     onAdd: PropTypes.func.isRequired,
     onNewTextChange: PropTypes.func.isRequired,
-    assertAlert: PropTypes.func.isRequired,
   };
 
   _onChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -37,8 +36,8 @@ export class AddNewItem extends React.PureComponent<IAddNewItemProps> {
   _onClick = () => {
     const input = this.props.newItemText;
     this.props.onAdd(input)
-      .then(() => this.props.assertAlert(alertTypes.SUCCESS, alertMessages.UPLOAD_SUCCESS))
-      .catch(() => this.props.assertAlert(alertTypes.ERROR, alertMessages.UPLOAD_ERROR));
+      .then(() => assertAlert(alertTypes.SUCCESS, alertMessages.UPLOAD_SUCCESS))
+      .catch(() => assertAlert(alertTypes.ERROR, alertMessages.UPLOAD_ERROR));
   };
 
   render() {
