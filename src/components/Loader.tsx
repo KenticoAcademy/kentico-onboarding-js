@@ -2,39 +2,28 @@ import * as React from 'react';
 import { Page } from './Page';
 import { loaderContent } from '../containers/Loader';
 import * as PropTypes from 'prop-types';
+import {UnsuccessfulLoadingPage} from '../containers/UnsuccessfulLoadingPage';
+import {CatLoader} from './CatLoader';
 
 export interface ILoaderStateProps {
   content: loaderContent;
-  errorMessage: string;
 }
 
-const Loader: React.StatelessComponent<ILoaderStateProps> = ({content, errorMessage}) => {
+const Loader: React.StatelessComponent<ILoaderStateProps> = ({content}) => {
   switch (content) {
     case loaderContent.NO_SUCCESS:
-      return (
-        <div className="warning__container">
-          <div className="warning__content">
-            <strong>{errorMessage}</strong>
-          </div>
-          <div className="warning__content">
-            <img className="img__sad-cat" src="/images/sadCat.gif" width="200px" />
-          </div>
-          <div className="warning__content">
-            Try again later.
-          </div>
-        </div>);
+      return <UnsuccessfulLoadingPage />;
     case loaderContent.COMMON_CONTENT:
       return <Page />;
     default:
-      return <img src="/images/catLoader.gif" width="200px" />;
+      return <CatLoader />;
   }
 };
 
 Loader.propTypes = {
-  errorMessage: PropTypes.string.isRequired,
   content: PropTypes.string.isRequired,
 };
 
-Loader.displayName = 'Page';
+Loader.displayName = 'Loader';
 
 export { Loader };
