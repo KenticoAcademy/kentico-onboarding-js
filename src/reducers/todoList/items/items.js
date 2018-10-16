@@ -26,7 +26,8 @@ export const items = (state = OrderedMap(), action) => {
     case ITEM_START_EDITING:
     case ITEM_STOP_EDITING:
     case ITEM_TEXT_UPDATE: {
-      const updatedItem = item(state.get(action.payload.id), action);
+      const initialItem = state.get(action.payload.id);
+      const updatedItem = item(initialItem, action);
       return state.mergeIn([action.payload.id], updatedItem);
     }
 
