@@ -20,9 +20,9 @@ export const getDefaultItems = () => {
   });
 
   return [
-    [buyMilkItem.id, buyMilkItem],
-    [masterReactItem.id, masterReactItem],
-    [learnReduxItem.id, learnReduxItem],
-    [helpMakingDraftAwesomeItem.id, helpMakingDraftAwesomeItem]
+    buyMilkItem,
+    masterReactItem,
+    learnReduxItem,
+    helpMakingDraftAwesomeItem
   ];
 };
