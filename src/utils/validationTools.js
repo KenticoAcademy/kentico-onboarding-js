@@ -1,11 +1,15 @@
 import classNames from 'classnames';
+import { isTextValid } from './isTextValid';
 
-export const createTooltip = (isItemTextValid) => {
-  return !isItemTextValid ? 'You have to insert some text' : '';
-};
-
-export const createClassNamesFormValidation = (isItemTextValid, isItemFocused) =>
-  classNames('form-group', {
-    'has-success': isItemTextValid && isItemFocused,
-    'has-error': !isItemTextValid && isItemFocused
+export const createValidationTools = (text, isFocused) => {
+  const tooltip = !isTextValid(text) ? 'You have to insert some text' : '';
+  const className = classNames('form-group', {
+    'has-success': isTextValid(text) && isFocused,
+    'has-error': !isTextValid(text) && isFocused
   });
+
+  return {
+    tooltip,
+    className
+  };
+};
