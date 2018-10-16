@@ -4,8 +4,10 @@ import { NewItem } from '../containers/NewItem';
 import { Item } from '../containers/Item';
 
 const ListGroupItem = (props) => (
-  <li className="list-group-item">{props.children}</li>
-);
+  <li className="list-group-item">
+    {props.children}
+  </li>);
+ListGroupItem.DisplayName = 'ListGroupItem';
 
 export class List extends PureComponent {
   static displayName = 'List';
