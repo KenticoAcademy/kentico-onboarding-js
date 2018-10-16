@@ -1,52 +1,17 @@
 import { isTextValid } from './isTextValid';
 
 describe('isTextValid()', () => {
-  it('should return false in case of empty input', () => {
-    const input = '';
-
-    const result = isTextValid(input);
-
-    expect(result).toBeFalsy();
-  });
-
-  it('should return false in case of input with multiple whitespaces', () => {
-    const input = '    ';
-
-    const result = isTextValid(input);
-
-    expect(result).toBeFalsy();
-  });
-
-  it('should return false in case the input is null', () => {
-    const input = null;
-
-    const result = isTextValid(input);
-
-    expect(result).toBeFalsy();
-  });
-
-  it('should return false in case the input is undefined', () => {
-    const input = undefined;
-
-    const result = isTextValid(input);
-
-    expect(result).toBeFalsy();
-  });
-
-  it('should return false in case the input is boolean', () => {
-    const input = true;
-
-    const result = isTextValid(input);
-
-    expect(result).toBeFalsy();
-  });
-
-  it('should return false in case the input is number', () => {
-    const input = 42;
-
-    const result = isTextValid(input);
-
-    expect(result).toBeFalsy();
+  [
+    '',
+    '  ',
+    null,
+    undefined,
+    true,
+    42,
+  ].forEach((input) => {
+    it(`should return false for input "${input}"`, () => {
+      expect(isTextValid(input)).toBeFalsy();
+    });
   });
 
   it('should return true in case of valid input', () => {
