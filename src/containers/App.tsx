@@ -10,7 +10,7 @@ import { CreateFetchItems } from '../actions';
 import { Dispatch} from 'redux';
 
 const mapDispatchToProps = (dispatch: Dispatch<IAppState>): IAppDispatchProps => ({
-  fetchItemsCall: () => dispatch(CreateFetchItems()),
+  onApplicationLoad: () => dispatch(CreateFetchItems()),
 });
 
 export const App = connect(null, mapDispatchToProps)(AppComponent);

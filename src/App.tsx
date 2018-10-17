@@ -9,7 +9,7 @@ import { assertAlert } from './utils/assertAlert';
 import { MenuItem } from './components/MenuItem';
 
 export interface IAppDispatchProps {
-  fetchItemsCall: () => Promise<IAction>;
+  onApplicationLoad: () => Promise<IAction>;
 }
 
 export class App extends React.PureComponent<IAppDispatchProps> {
@@ -17,16 +17,15 @@ export class App extends React.PureComponent<IAppDispatchProps> {
   static displayName = 'App';
 
   static propTypes = {
-    fetchItemsCall: PropTypes.func.isRequired,
+    onApplicationLoad: PropTypes.func.isRequired,
   };
 
   componentDidMount() {
-    this.props.fetchItemsCall()
-      .catch(() => assertAlert(alertTypes.ERROR, alertMessages.LOAD_ERROR));
+    this.fetchItems();
   }
 
   fetchItems = () => {
-    this.props.fetchItemsCall()
+    this.props.onApplicationLoad()
       .catch(() => assertAlert(alertTypes.ERROR, alertMessages.LOAD_ERROR));
   };
 
