@@ -24,7 +24,8 @@ const getCorrectMarker = (marker: typeOfMarkerRendered, id: ItemId): JSX.Element
 
 const Markers: React.StatelessComponent<IMarkersStateProps> = ({id, marker}) => (
   <div className="list__item_content">
-    {getCorrectMarker(marker, id)} <DeleteItemMarker id={id} />
+    {getCorrectMarker(marker, id)}
+    <DeleteItemMarker id={id} />
   </div>);
 
 Markers.displayName = 'Markers';
