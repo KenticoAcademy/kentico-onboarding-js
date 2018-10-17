@@ -12,8 +12,8 @@ import {IListItemContainerProps} from '../../containers/Items/ListItem';
 export interface IListItemStateProps {
   item: Item;
   index: number;
-  synchronizing: boolean;
-  errorsNotEmpty: boolean;
+  isSynchronizing: boolean;
+  areThereErrors: boolean;
 }
 
 export interface IListItemDispatchProps {
@@ -29,8 +29,8 @@ export class ListItem extends React.PureComponent<IListItemProps> {
   static propTypes = {
     item: PropTypes.instanceOf(Item),
     index: PropTypes.number.isRequired,
-    synchronizing: PropTypes.bool.isRequired,
-    errorsNotEmpty: PropTypes.bool.isRequired,
+    isSynchronizing: PropTypes.bool.isRequired,
+    areThereErrors: PropTypes.bool.isRequired,
     onClick: PropTypes.func.isRequired,
   };
 
@@ -43,8 +43,8 @@ export class ListItem extends React.PureComponent<IListItemProps> {
   render() {
     const listItemClassName = classNames({
       'list__item': true,
-      'item--synchronizing': this.props.synchronizing,
-      'item--error': this.props.errorsNotEmpty,
+      'item--synchronizing': this.props.isSynchronizing,
+      'item--error': this.props.areThereErrors,
       'item--deleted': this.props.item.isBeingDeleted,
     });
 

@@ -18,11 +18,14 @@ export interface IListItemContainerProps {
 
 const mapStateToProps = (state: IAppState, {id, index}: IListItemContainerProps): IListItemStateProps => {
   const item = state.items.byId.get(id);
+  const isSynchronizing = item.isNotSynchronized && item.errorMessages.size === 0;
+  const areThereErrors = item.errorMessages.size !== 0;
+
   return ({
-    item: item,
+    item,
     index,
-    synchronizing: !item.synchronized && item.errorMessages.size === 0,
-    errorsNotEmpty: item.errorMessages.size !== 0,
+    isSynchronizing,
+    areThereErrors,
   });
 };
 

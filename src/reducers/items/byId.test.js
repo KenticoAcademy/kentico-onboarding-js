@@ -16,7 +16,7 @@ describe('byId', () => {
         id: newId,
         text: 'tested item',
         isBeingEdited: false,
-        synchronized: false,
+        isNotSynchronized: true,
       }),
     });
     const stateAfter = byId(undefined, addItem(mockId(), 'tested item'));
