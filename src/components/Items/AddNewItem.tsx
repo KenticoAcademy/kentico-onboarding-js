@@ -1,6 +1,5 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { containsNoCharacters } from '../../utils/containsNoCharacters';
 import { IAction } from '../../actions/IAction';
 import { alertTypes } from '../../constants/alert/alertTypes';
 import { alertMessages } from '../../constants/alert/alertMessages';
@@ -8,6 +7,7 @@ import {assertAlert} from '../../utils/assertAlert';
 
 export interface IAddNewItemStateProps {
   newItemText: string;
+  isEmpty: boolean;
 }
 
 export interface IAddNewItemDispatchProps {
@@ -25,6 +25,7 @@ export class AddNewItem extends React.PureComponent<IAddNewItemProps> {
     newItemText: PropTypes.string.isRequired,
     onAdd: PropTypes.func.isRequired,
     onNewTextChange: PropTypes.func.isRequired,
+    isEmpty: PropTypes.bool.isRequired,
   };
 
   _onChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -42,7 +43,6 @@ export class AddNewItem extends React.PureComponent<IAddNewItemProps> {
 
   render() {
     const input = this.props.newItemText;
-    const isEmpty = containsNoCharacters(input);
 
     return (
       <div className="content__row">
@@ -54,10 +54,10 @@ export class AddNewItem extends React.PureComponent<IAddNewItemProps> {
           placeholder="Type new item name..."
         />
         <button
-          data-balloon={isEmpty ? 'Item name mustn\'t be empty' : null}
+          data-balloon={this.props.isEmpty ? 'Item name mustn\'t be empty' : null}
           data-balloon-pos="up"
           className="default_button"
-          disabled={isEmpty}
+          disabled={this.props.isEmpty}
           onClick={this._onClick}
         >
           Add

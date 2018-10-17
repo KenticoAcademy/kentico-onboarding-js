@@ -11,9 +11,11 @@ import {
 import { IAppState } from '../../reducers/IAppState';
 import { CreateUploadItem } from '../../actions/index';
 import { refreshNewItemText } from '../../actions/simpleActions/refreshNewItemText';
+import {containsNoCharacters} from '../../utils/containsNoCharacters';
 
 const mapStateToProps = ({items: {newItemText}}: IAppState): IAddNewItemStateProps => ({
   newItemText,
+  isEmpty: containsNoCharacters(newItemText),
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<IAppState>): IAddNewItemDispatchProps => ({
