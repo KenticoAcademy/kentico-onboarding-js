@@ -1,13 +1,11 @@
 import { IAction } from '../IAction';
 import { ItemId } from '../../models/ItemId';
-import { setAsSynchronized } from '../simpleActions/setAsSynchronized';
 import { deleteItem } from '../simpleActions/deleteItem';
-import { requestFailedForItem } from '../simpleActions/requestFailedForItem';
-import { errorMessageTypes } from '../../constants/errorMessageTypes';
 import { actionTypes } from '../../constants/actionTypes';
 import { Dispatch } from 'redux';
 import { IAppState } from '../../reducers/IAppState';
 import { ThunkAction } from 'redux-thunk';
+import {deletingFailedForItem} from '../simpleActions/deletingFailedForItem';
 
 export const preRemoveItem = (id: ItemId): IAction => ({
   type: actionTypes.PRE_REMOVE_ITEM,
@@ -24,8 +22,7 @@ export const removeItem = (fetch: (id: ItemId) => Promise<Response>) =>
         await fetch(id);
         return dispatch(deleteItem(id));
       } catch {
-        dispatch(setAsSynchronized(id));
-        dispatch(requestFailedForItem(id, errorMessageTypes.DELETE, 'Shark failed in eating item.'));
+        dispatch(deletingFailedForItem(id, 'Shark failed in eating item.'));
         return Promise.reject('Failed to remove');
       }
     };
