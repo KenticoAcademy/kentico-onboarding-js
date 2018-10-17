@@ -16,7 +16,7 @@ export const byId: Reducer<OrderedMap<ItemId, Item>> = (state = DEFAULT_STATE, a
       return state.set(action.payload.id, new Item({
         id: action.payload.id,
         text: action.payload.text,
-        synchronized: action.payload.synchronized,
+        isNotSynchronized: action.payload.isNotSynchronized,
       }));
 
     case actionTypes.UPDATE_ITEM:
@@ -36,7 +36,7 @@ export const byId: Reducer<OrderedMap<ItemId, Item>> = (state = DEFAULT_STATE, a
 
     case actionTypes.UPDATE_SUCCEEDED:
       return state.update(action.payload.id, (item) => item.with({
-        synchronized: true,
+        isNotSynchronized: false,
         errorMessages: item.errorMessages.clear(),
       }));
 
@@ -60,7 +60,7 @@ export const byId: Reducer<OrderedMap<ItemId, Item>> = (state = DEFAULT_STATE, a
     case actionTypes.DELETING_FAILED_FOR_ITEM: {
       return state.update(action.payload.id, (item) => item.with({
         errorMessages: item.errorMessages.set(errorMessageTypes.DELETE, action.payload.errorMessage),
-        synchronized: true,
+        isNotSynchronized: false,
       }));
     }
 
@@ -94,12 +94,12 @@ export const byId: Reducer<OrderedMap<ItemId, Item>> = (state = DEFAULT_STATE, a
         isBeingEdited: false,
         isBeingDeleted: false,
         errorMessages: item.errorMessages.filter((_, key) => !action.payload.errorTypes.includes(key)).toMap(),
-        synchronized: true,
+        isNotSynchronized: false,
       }));
 
     case actionTypes.PRE_UPDATE_ITEM:
       return state.update(action.payload.id, (item) => item.with({
-        synchronized: false,
+        isNotSynchronized: true,
         isBeingEdited: false,
         text: item.textUpdate,
         errorMessages: item.errorMessages.remove(errorMessageTypes.UPLOAD),
@@ -108,7 +108,7 @@ export const byId: Reducer<OrderedMap<ItemId, Item>> = (state = DEFAULT_STATE, a
     case actionTypes.PRE_REMOVE_ITEM:
       return state.update(action.payload.id, (item) => item.with({
         isBeingDeleted: true,
-        synchronized: false,
+        isNotSynchronized: true,
         isBeingEdited: false,
       }));
 

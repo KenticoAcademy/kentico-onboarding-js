@@ -8,7 +8,7 @@ export interface IItem {
   readonly text: string;
   readonly textUpdate: string;
   readonly errorMessages: Map<string, string>;
-  readonly synchronized: boolean;
+  readonly isNotSynchronized: boolean;
   readonly isBeingEdited: boolean;
   readonly isBeingDeleted: boolean;
 }
@@ -18,7 +18,7 @@ export const defaultItem: IItem = {
   text: '',
   textUpdate: '',
   errorMessages: Map<string, string>(),
-  synchronized: true,
+  isNotSynchronized: false,
   isBeingEdited: false,
   isBeingDeleted: false,
 };
@@ -28,7 +28,7 @@ export class Item extends BaseRecord<Item>(defaultItem, 'Item') implements IItem
   readonly text: string;
   readonly textUpdate: string;
   readonly errorMessages: Map<string, string>;
-  readonly synchronized: boolean;
+  readonly isNotSynchronized: boolean;
   readonly isBeingEdited: boolean;
   readonly isBeingDeleted: boolean;
 }

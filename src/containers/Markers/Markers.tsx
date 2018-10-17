@@ -26,7 +26,7 @@ const mapStateToProps = (state: IAppState, {id}: IMarkersContainerProps): IMarke
 
   if (itemGotError && isNotEditedOrBeingDeleted) {
     markerShown = typeOfMarkerRendered.SHOW_RETRY;
-  } else if (item.isBeingDeleted && item.synchronized) {
+  } else if (item.isBeingDeleted && !item.isNotSynchronized) {
     markerShown = typeOfMarkerRendered.SHOW_RECOVER;
   }
 

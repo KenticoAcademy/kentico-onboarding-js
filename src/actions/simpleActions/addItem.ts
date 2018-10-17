@@ -8,6 +8,6 @@ export const addItem: ((id: ItemId, text: string) => IAction) =
     payload: {
       text,
       id: id,
-      synchronized: false,
+      isNotSynchronized: true,
     },
   });
