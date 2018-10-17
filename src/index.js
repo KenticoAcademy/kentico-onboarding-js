@@ -14,6 +14,7 @@ import '.././css/style.css';
 import 'react-s-alert/dist/s-alert-default.css';
 import 'react-s-alert/dist/s-alert-css-effects/stackslide.css';
 import 'balloon-css/balloon.css';
+import 'react-confirm-alert/src/react-confirm-alert.css';
 
 
 const store = createStore(
