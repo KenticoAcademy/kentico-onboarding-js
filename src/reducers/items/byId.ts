@@ -34,12 +34,6 @@ export const byId: Reducer<OrderedMap<ItemId, Item>> = (state = DEFAULT_STATE, a
         isBeingEdited: !item.isBeingEdited,
       }));
 
-    case actionTypes.TOGGLE_SYNCHRONIZED:
-      return state.update(action.payload.id, (item) => item.with({
-        synchronized: true,
-        errorMessages: item.errorMessages.delete('DELETE'),
-      }));
-
     case actionTypes.UPDATE_SUCCEEDED:
       return state.update(action.payload.id, (item) => item.with({
         synchronized: true,
@@ -60,6 +54,13 @@ export const byId: Reducer<OrderedMap<ItemId, Item>> = (state = DEFAULT_STATE, a
     case actionTypes.REQUEST_FAILED_FOR_ITEM: {
       return state.update(action.payload.id, (item) => item.with({
         errorMessages: item.errorMessages.set(action.payload.errorType, action.payload.errorMessage),
+      }));
+    }
+
+    case actionTypes.DELETING_FAILED_FOR_ITEM: {
+      return state.update(action.payload.id, (item) => item.with({
+        errorMessages: item.errorMessages.set(errorMessageTypes.DELETE, action.payload.errorMessage),
+        synchronized: true,
       }));
     }
 
