@@ -8,6 +8,7 @@ import {
 } from '../../../actions';
 import { Item } from '../../../models/Item';
 import { createItemFactory } from '../../../actions/actionCreatorsFactory';
+import { IAction } from '../../../actions/IAction';
 
 describe('items', () => {
   const dog = new Item({
@@ -37,7 +38,7 @@ describe('items', () => {
   const initialState = OrderedMap<Guid, Item>();
   const defaultState = OrderedMap<Guid, Item>([[dog.id, dog]]);
 
-  const unknownAction = {
+  const unknownAction: IAction = {
     type: 'UNKNOWN_ACTION',
     payload: 'any',
   };

@@ -1,8 +1,7 @@
-import { OrderedMap } from 'immutable';
 import { Item } from '../models/Item';
 import { generateId } from './generateId';
 
-export const getInitialItems = () => {
+export const getInitialItems = (): Item[] => {
   const dog = new Item({
     id: generateId(),
     text: 'Dog',
@@ -16,9 +15,5 @@ export const getInitialItems = () => {
     text: 'Elephant',
   });
 
-  return OrderedMap({
-    [dog.id]: dog,
-    [cat.id]: cat,
-    [elephant.id]: elephant,
-  });
+  return [dog, cat, elephant];
 };
