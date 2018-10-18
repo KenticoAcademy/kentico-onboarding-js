@@ -5,7 +5,7 @@ import {
   Markers as MarkersComponent
 } from '../../components/Markers/Markers';
 import { IAppState } from '../../reducers/IAppState';
-import { ItemId } from '../../models/ItemId';
+import {IItem} from '../../models/Item';
 
 export enum typeOfMarkerRendered {
   NONE = 'NONE',
@@ -17,22 +17,25 @@ export interface IMarkersContainerProps {
   id: ItemId;
 }
 
+function getMarkerType(itemGotError: boolean, isNotEditedOrBeingDeleted: boolean, item: IItem): typeOfMarkerRendered {
+  if (itemGotError && isNotEditedOrBeingDeleted) {
+    return typeOfMarkerRendered.SHOW_RETRY;
+  }
+  if (item.isBeingDeleted && !item.isNotSynchronized) {
+    return typeOfMarkerRendered.SHOW_RECOVER;
+  }
+  return typeOfMarkerRendered.NONE;
+}
+
 const mapStateToProps = (state: IAppState, {id}: IMarkersContainerProps): IMarkersStateProps => {
   const item = state.items.byId.get(id);
-  let markerShown = typeOfMarkerRendered.NONE;
 
   const itemGotError = !(item.errorMessages.size === 0);
   const isNotEditedOrBeingDeleted = !item.isBeingEdited && !item.isBeingDeleted;
 
-  if (itemGotError && isNotEditedOrBeingDeleted) {
-    markerShown = typeOfMarkerRendered.SHOW_RETRY;
-  } else if (item.isBeingDeleted && !item.isNotSynchronized) {
-    markerShown = typeOfMarkerRendered.SHOW_RECOVER;
-  }
-
   return ({
     id: item.id,
-    marker: markerShown,
+    markerType: getMarkerType(itemGotError, isNotEditedOrBeingDeleted, item),
   });
 };
 

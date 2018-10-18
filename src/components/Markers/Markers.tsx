@@ -7,7 +7,7 @@ import { typeOfMarkerRendered } from '../../containers/Markers/Markers';
 
 export interface IMarkersStateProps {
   id: ItemId;
-  marker: typeOfMarkerRendered;
+  markerType: typeOfMarkerRendered;
 }
 
 const getCorrectMarker = (marker: typeOfMarkerRendered, id: ItemId): JSX.Element | undefined => {
@@ -21,9 +21,9 @@ const getCorrectMarker = (marker: typeOfMarkerRendered, id: ItemId): JSX.Element
   }
 };
 
-const Markers: React.StatelessComponent<IMarkersStateProps> = ({id, marker}) => (
+const Markers: React.StatelessComponent<IMarkersStateProps> = ({id, markerType}) => (
   <div className="list__item_content">
-    {getCorrectMarker(marker, id)}
+    {getCorrectMarker(markerType, id)}
     <DeleteItemMarker id={id} />
   </div>);
 

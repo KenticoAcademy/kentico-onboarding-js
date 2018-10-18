@@ -48,14 +48,13 @@ export class EditedListItem extends React.PureComponent<IEditedListItemProps> {
   };
 
   render() {
-    const {item, onCancel, isEmpty} = this.props;
-    const emptinessLabel = isEmpty ? 'Item name mustn\'t be empty' : null;
+    const emptinessLabel = this.props.isEmpty ? 'Item name mustn\'t be empty' : null;
 
     return (
       <div className="list__item__inline_content--long">
         <input
           className="input__edit_text"
-          defaultValue={item.text}
+          defaultValue={this.props.item.text}
           onChange={this._onTextChanged}
           placeholder="Type new item name..."
         />
@@ -63,14 +62,14 @@ export class EditedListItem extends React.PureComponent<IEditedListItemProps> {
             data-balloon={emptinessLabel}
             data-balloon-pos="up"
             className="default_button"
-            disabled={isEmpty}
+            disabled={this.props.isEmpty}
             onClick={this._onSaveItem}
           >
-            {getItemButtonLabel(item)}
+            {getItemButtonLabel(this.props.item)}
           </button>
           <button
             className="default_button"
-            onClick={onCancel}
+            onClick={this.props.onCancel}
           >
             Do not...
           </button>

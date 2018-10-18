@@ -1,17 +1,20 @@
 import * as React from 'react';
-import { IAction } from '../../actions/IAction';
-import { errorMessageTypes } from '../../constants/errorMessageTypes';
-import { OrderedMap } from 'immutable';
+import {IAction} from '../../actions/IAction';
 import * as PropTypes from 'prop-types';
-import { alertTypes } from '../../constants/alert/alertTypes';
-import { alertMessages } from '../../constants/alert/alertMessages';
-import {AnyAction} from 'redux';
+import {alertTypes} from '../../constants/alert/alertTypes';
+import {alertMessages} from '../../constants/alert/alertMessages';
 import {assertAlert} from '../../utils/assertAlert';
+import {
+  IRetryMarkerContainerProps,
+  statusOfItemToBeProcessed,
+} from '../../containers/Markers/RetryMarker';
+import {AnyAction} from 'redux';
+
 
 export interface IRetryMarkerStateProps {
   text: string;
   textUpdate: string;
-  errorMessages: OrderedMap<string, string>;
+  itemToBeProcessed: statusOfItemToBeProcessed;
 }
 
 export interface IRetryMarkerDispatchProps {
@@ -19,44 +22,61 @@ export interface IRetryMarkerDispatchProps {
   onSaveAgain: (text: string) => Promise<IAction>;
 }
 
-type IRetryMarkerProps = IRetryMarkerStateProps & IRetryMarkerDispatchProps;
+type IRetryMarkerProps = IRetryMarkerStateProps & IRetryMarkerDispatchProps & IRetryMarkerContainerProps;
 
-const RetryMarker: React.StatelessComponent<IRetryMarkerProps>
-  = ({errorMessages, onUploadAgain, onSaveAgain, textUpdate, text}) => {
+const getCorrectRetryAction = (
+  itemToBeProcessed: statusOfItemToBeProcessed,
+  onUploadAgain: (text: string) => Promise<IAction>,
+  onSaveAgain: (text: string) => Promise<IAction>,
+  text: string,
+  textUpdate: string): Promise<AnyAction> => {
 
-  function getCorrectAction(): Promise<AnyAction> {
-    if (errorMessages.keySeq().contains(errorMessageTypes.UPLOAD)) {
-      if (textUpdate){
-        return onUploadAgain(textUpdate);
-      } else {
-        return onUploadAgain(text);
-      }} else
-        return onSaveAgain(textUpdate);
+  switch (itemToBeProcessed) {
+    case statusOfItemToBeProcessed.NEW_MODIFIED:
+      return onUploadAgain(textUpdate);
+
+    case statusOfItemToBeProcessed.NEW_CONSISTENT:
+      return onUploadAgain(text);
+
+    case statusOfItemToBeProcessed.EXISTING_MODIFIED:
+      return onSaveAgain(textUpdate);
+
+    default:
+      throw new Error();
   }
+};
 
-  function _onDoItAgain(e: React.MouseEvent<HTMLDivElement>) {
+export class RetryMarker extends React.PureComponent<IRetryMarkerProps> {
+
+  static displayName = 'RetryMarker';
+
+  static propTypes = {
+    text: PropTypes.string.isRequired,
+    textUpdate: PropTypes.string.isRequired,
+    itemToBeProcessed: PropTypes.string.isRequired,
+    onUploadAgain: PropTypes.func.isRequired,
+    onSaveAgain: PropTypes.func.isRequired,
+  };
+
+  _onDoItAgain(e: React.MouseEvent<HTMLDivElement>) {
     e.stopPropagation();
-   getCorrectAction()
-   .then(() => assertAlert(alertTypes.SUCCESS, alertMessages.UPLOAD_SUCCESS))
-   .catch(() => assertAlert(alertTypes.ERROR, alertMessages.UPLOAD_ERROR));
+    getCorrectRetryAction(
+      this.props.itemToBeProcessed,
+      this.props.onUploadAgain,
+      this.props.onSaveAgain,
+      this.props.text,
+      this.props.textUpdate)
+      .then(() => assertAlert(alertTypes.SUCCESS, alertMessages.UPLOAD_SUCCESS))
+      .catch(() => assertAlert(alertTypes.ERROR, alertMessages.UPLOAD_ERROR));
   }
 
-  return (
-    <div
+  render(){
+    return (<div
       data-balloon={'Try again'}
       data-balloon-pos="up"
       className="list__item__inline_content"
-      onClick={_onDoItAgain}>
-      ↺
-    </div>);
-};
-
-RetryMarker.displayName = 'RetryMarker';
-
-RetryMarker.propTypes = {
-  text: PropTypes.string.isRequired,
-  textUpdate: PropTypes.string.isRequired,
-  errorMessages: PropTypes.object.isRequired,
-};
-
-export { RetryMarker };
+      onClick={this._onDoItAgain.bind(this)}
+    >
+      ↺ </div>);
+  }
+}

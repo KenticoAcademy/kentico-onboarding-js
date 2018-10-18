@@ -6,13 +6,10 @@ export interface IItemErrorMessageStateProps {
   errorMessages: Map<string, string>;
 }
 
-const ItemErrorMessage:
-  React.StatelessComponent<IItemErrorMessageStateProps> = ({errorMessages}) => {
-
-    return (
-        <div className="list__item_content">{errorMessages.valueSeq()}</div>
-    );
-};
+const ItemErrorMessage: React.StatelessComponent<IItemErrorMessageStateProps> = ({errorMessages}) => (
+  <div className="list__item_content">
+    {errorMessages.valueSeq()}
+    </div>);
 
 ItemErrorMessage.displayName = 'ItemErrorMessage';
 
