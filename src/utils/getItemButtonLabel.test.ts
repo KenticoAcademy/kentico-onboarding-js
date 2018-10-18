@@ -6,7 +6,7 @@ import {errorMessageTypes} from '../constants/errorMessageTypes';
 
 describe('getItemButtonLabel', () => {
   it('returns correct string informing about modifying uploaded word when it failed to upload', () => {
-    const item = new Item({errorMessages: Map<string, string>().set(errorMessageTypes.UPLOAD, "Unable to upload")});
+    const item = new Item({errorMessages: Map<string, string>().set(errorMessageTypes.UPLOAD, 'Unable to upload')});
 
     const result = getItemButtonLabel(item);
 
@@ -14,7 +14,7 @@ describe('getItemButtonLabel', () => {
   });
 
   it('returns correct string informing about not successful modification', () => {
-    const item = new Item({errorMessages: Map<string, string>().set(errorMessageTypes.UPDATE, "Unable to delete")});
+    const item = new Item({errorMessages: Map<string, string>().set(errorMessageTypes.UPDATE, 'Unable to delete')});
 
     const result = getItemButtonLabel(item);
 

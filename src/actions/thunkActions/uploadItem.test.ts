@@ -1,9 +1,13 @@
-import { uploadItem } from './uploadItem';
-import { actionTypes } from '../../constants/actionTypes';
+import {uploadItem} from './uploadItem';
+import {actionTypes} from '../../constants/actionTypes';
+
 
 describe('CreateUploadItem', () => {
   it('calls request, addItem and success action if the fetch response was successful', async () => {
-    const fetch = jest.fn(() => new Object({Id: '42', Text: 'Test text'}));
+    const fetch = jest.fn(() => new Object({
+      Id: '42',
+      Text: 'Test text',
+    }));
     const dispatch = jest.fn();
     const mockId = () => '42';
 

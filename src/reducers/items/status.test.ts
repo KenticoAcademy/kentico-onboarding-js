@@ -1,10 +1,8 @@
-import {
-  receiveItems,
-  requestItems
-} from '../../actions/thunkActions/fetchItems';
-import { status } from './status';
-import { requestFailed } from '../../actions/simpleActions/requestFailed';
-import { StatusType } from '../../models/Status';
+import {receiveItems, requestItems} from '../../actions/thunkActions/fetchItems';
+import {status} from './status';
+import {requestFailed} from '../../actions/simpleActions/requestFailed';
+import {StatusType} from '../../models/Status';
+
 
 describe('status', () => {
   it('returns status object with no error message and fetching toggled on when action type is REQUEST_ITEMS', () => {

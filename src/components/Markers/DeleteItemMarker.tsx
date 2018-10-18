@@ -12,9 +12,7 @@ export interface IDeleteItemMarkerDispatchProps {
   onThrowAway: () => Promise<IAction>;
 }
 
-type IDeleteMarkerProps =
-  IDeleteItemMarkerDispatchProps
-  & IDeleteItemMarkerContainerProps;
+type IDeleteMarkerProps = IDeleteItemMarkerDispatchProps & IDeleteItemMarkerContainerProps;
 
 export class DeleteItemMarker extends React.PureComponent<IDeleteMarkerProps> {
 
@@ -32,13 +30,12 @@ export class DeleteItemMarker extends React.PureComponent<IDeleteMarkerProps> {
         {
           label: 'Yes',
           onClick: () => this.props.onThrowAway()
-          .then(() => assertAlert(alertTypes.SUCCESS, alertMessages.DELETION_SUCCESS))
-          .catch(() => assertAlert(alertTypes.ERROR, alertMessages.DELETION_ERROR)),
-        },
-        {
+            .then(() => assertAlert(alertTypes.SUCCESS, alertMessages.DELETION_SUCCESS))
+            .catch(() => assertAlert(alertTypes.ERROR, alertMessages.DELETION_ERROR)),
+        }, {
           label: 'No',
           onClick: () => null,
-        }
+        },
       ],
     });
   };

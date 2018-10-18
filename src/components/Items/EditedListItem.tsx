@@ -1,12 +1,9 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { IAction } from '../../actions/IAction';
-import {
-  IItem,
-  Item
-} from '../../models/Item';
-import { alertTypes } from '../../constants/alert/alertTypes';
-import { alertMessages } from '../../constants/alert/alertMessages';
+import {IAction} from '../../actions/IAction';
+import {IItem, Item} from '../../models/Item';
+import {alertTypes} from '../../constants/alert/alertTypes';
+import {alertMessages} from '../../constants/alert/alertMessages';
 import {IEditListItemContainerProps} from '../../containers/Items/EditedListItem';
 import {getItemButtonLabel} from '../../utils/getItemButtonLabel';
 import {assertAlert} from '../../utils/assertAlert';
@@ -50,30 +47,28 @@ export class EditedListItem extends React.PureComponent<IEditedListItemProps> {
   render() {
     const emptinessLabel = this.props.isEmpty ? 'Item name mustn\'t be empty' : null;
 
-    return (
-      <div className="list__item__inline_content--long">
-        <input
-          className="input__edit_text"
-          defaultValue={this.props.item.text}
-          onChange={this._onTextChanged}
-          placeholder="Type new item name..."
-        />
-          <button
-            data-balloon={emptinessLabel}
-            data-balloon-pos="up"
-            className="default_button"
-            disabled={this.props.isEmpty}
-            onClick={this._onSaveItem}
-          >
-            {getItemButtonLabel(this.props.item)}
-          </button>
-          <button
-            className="default_button"
-            onClick={this.props.onCancel}
-          >
-            Do not...
-          </button>
-        </div>
-    );
+    return (<div className="list__item__inline_content--long">
+      <input
+        className="input__edit_text"
+        defaultValue={this.props.item.text}
+        onChange={this._onTextChanged}
+        placeholder="Type new item name..."
+      />
+      <button
+        data-balloon={emptinessLabel}
+        data-balloon-pos="up"
+        className="default_button"
+        disabled={this.props.isEmpty}
+        onClick={this._onSaveItem}
+      >
+        {getItemButtonLabel(this.props.item)}
+      </button>
+      <button
+        className="default_button"
+        onClick={this.props.onCancel}
+      >
+        Do not...
+      </button>
+    </div>);
   }
 }

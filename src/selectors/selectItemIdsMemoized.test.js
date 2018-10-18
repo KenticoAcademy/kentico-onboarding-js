@@ -1,5 +1,6 @@
-import { selectItemIdsMemoized } from './selectItemIdsMemoized.ts';
-import { OrderedMap } from 'immutable';
+import {OrderedMap} from 'immutable';
+import {selectItemIdsMemoized} from './selectItemIdsMemoized.ts';
+
 
 describe('selectItemIdsMemoized', () => {
   it('return the same object when is given two different objects with the same value', () => {

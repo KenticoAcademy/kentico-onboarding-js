@@ -1,17 +1,18 @@
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import {
-  DeleteItemMarker as DeleteItemMarkerComponent,
-  IDeleteItemMarkerDispatchProps,
+  DeleteItemMarker as DeleteItemMarkerComponent, IDeleteItemMarkerDispatchProps,
 } from '../../components/Markers/DeleteItemMarker';
-import { IAction } from '../../actions/IAction';
-import { CreateRemoveItem, } from '../../actions';
-import { Dispatch } from 'redux';
+import {IAction} from '../../actions/IAction';
+import {CreateRemoveItem} from '../../actions';
+import {Dispatch} from 'redux';
+
 
 export interface IDeleteItemMarkerContainerProps {
   id: ItemId;
 }
 
-const mapDispatchToProps = (dispatch: Dispatch<IAction>, {id}: IDeleteItemMarkerContainerProps): IDeleteItemMarkerDispatchProps => ({
+const mapDispatchToProps = (dispatch: Dispatch<IAction>,
+  {id}: IDeleteItemMarkerContainerProps): IDeleteItemMarkerDispatchProps => ({
   onThrowAway: () => dispatch(CreateRemoveItem(id)),
 });
 

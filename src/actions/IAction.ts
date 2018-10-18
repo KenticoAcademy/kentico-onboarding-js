@@ -1,5 +1,6 @@
-import { actionTypes } from '../constants/actionTypes';
-import { AnyAction } from 'redux';
+import {actionTypes} from '../constants/actionTypes';
+import {AnyAction} from 'redux';
+
 
 export interface IAction extends AnyAction {
   type: actionTypes;

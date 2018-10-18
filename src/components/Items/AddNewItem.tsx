@@ -1,9 +1,10 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { IAction } from '../../actions/IAction';
-import { alertTypes } from '../../constants/alert/alertTypes';
-import { alertMessages } from '../../constants/alert/alertMessages';
+import {IAction} from '../../actions/IAction';
+import {alertTypes} from '../../constants/alert/alertTypes';
+import {alertMessages} from '../../constants/alert/alertMessages';
 import {assertAlert} from '../../utils/assertAlert';
+
 
 export interface IAddNewItemStateProps {
   newItemText: string;
@@ -43,25 +44,23 @@ export class AddNewItem extends React.PureComponent<IAddNewItemProps> {
   render() {
     const infoText = this.props.isEmpty ? 'Item name mustn\'t be empty' : null;
 
-    return (
-      <div className="content__row">
-        <input
-          className="input"
-          type="text"
-          onChange={this._onChange}
-          value={this.props.newItemText}
-          placeholder="Type new item name..."
-        />
-        <button
-          data-balloon={infoText}
-          data-balloon-pos="up"
-          className="default_button"
-          disabled={this.props.isEmpty}
-          onClick={this._onClick}
-        >
-          Add
-        </button>
-      </div>
-    );
+    return (<div className="content__row">
+      <input
+        className="input"
+        type="text"
+        onChange={this._onChange}
+        value={this.props.newItemText}
+        placeholder="Type new item name..."
+      />
+      <button
+        data-balloon={infoText}
+        data-balloon-pos="up"
+        className="default_button"
+        disabled={this.props.isEmpty}
+        onClick={this._onClick}
+      >
+        Add
+      </button>
+    </div>);
   }
 }

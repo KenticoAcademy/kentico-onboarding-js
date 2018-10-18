@@ -1,6 +1,4 @@
-import {
-  OrderedMap,
-} from 'immutable';
+import {OrderedMap} from 'immutable';
 import {Item} from '../models/Item';
 import {StatusType} from '../models/Status';
 

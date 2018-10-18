@@ -1,4 +1,5 @@
-import { actionTypes } from '../../constants/actionTypes';
+import {actionTypes} from '../../constants/actionTypes';
+
 
 export const requestFailedForItem = (id: ItemId, errorType: string, errorMessage: string) => ({
   type: actionTypes.REQUEST_FAILED_FOR_ITEM,
@@ -6,5 +7,5 @@ export const requestFailedForItem = (id: ItemId, errorType: string, errorMessage
     id,
     errorType,
     errorMessage,
-  }
+  },
 });

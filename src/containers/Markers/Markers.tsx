@@ -1,11 +1,9 @@
-import { connect } from 'react-redux';
-import { ComponentClass } from 'react';
-import {
-  IMarkersStateProps,
-  Markers as MarkersComponent
-} from '../../components/Markers/Markers';
-import { IAppState } from '../../reducers/IAppState';
+import {connect} from 'react-redux';
+import {ComponentClass} from 'react';
+import {IMarkersStateProps, Markers as MarkersComponent} from '../../components/Markers/Markers';
+import {IAppState} from '../../reducers/IAppState';
 import {IItem} from '../../models/Item';
+
 
 export enum typeOfMarkerRendered {
   NONE = 'NONE',

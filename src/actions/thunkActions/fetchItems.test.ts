@@ -1,6 +1,6 @@
-import { fetchItems } from './fetchItems';
+import {fetchItems} from './fetchItems';
+import {actionTypes} from '../../constants/actionTypes';
 
-import { actionTypes } from '../../constants/actionTypes';
 
 describe('CreateFetchItems', () => {
   it('calls request and success action if the fetch response was successful', async () => {

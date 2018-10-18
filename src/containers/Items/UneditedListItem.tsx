@@ -1,13 +1,11 @@
+import {connect} from 'react-redux';
+import {ComponentClass} from 'react';
 import {
-  connect
-} from 'react-redux';
-import { ComponentClass } from 'react';
-import {
-  IUneditedListItemStateProps,
-  UneditedListItem as UneditedListItemComponent
+  IUneditedListItemStateProps, UneditedListItem as UneditedListItemComponent,
 } from '../../components/Items/UneditedListItem';
-import { IAppState } from '../../reducers/IAppState';
+import {IAppState} from '../../reducers/IAppState';
 import {selectItemMemoized} from '../../selectors/selectItemMemoized';
+
 
 interface IUneditedListItemContainerProps {
   itemId: ItemId;
@@ -18,4 +16,4 @@ const mapStateToProps = (state: IAppState, {itemId}: IUneditedListItemContainerP
 });
 
 export const UneditedListItem: ComponentClass<IUneditedListItemContainerProps> =
-  connect(mapStateToProps,null)(UneditedListItemComponent);
+  connect(mapStateToProps, null)(UneditedListItemComponent);
