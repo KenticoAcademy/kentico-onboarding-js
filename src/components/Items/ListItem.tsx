@@ -14,7 +14,7 @@ import {IListItemContainerProps} from '../../containers/Items/ListItem';
 import {ReactElement} from 'react';
 
 export interface IListItemStateProps {
-  item: Item;
+  item: IItem;
   index: number;
   isSynchronizing: boolean;
   areThereErrors: boolean;

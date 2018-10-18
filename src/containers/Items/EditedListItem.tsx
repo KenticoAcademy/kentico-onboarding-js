@@ -13,6 +13,7 @@ import { toggleEditing } from '../../actions/simpleActions/toggleEditing';
 import { textUpdateChange } from '../../actions/simpleActions/textUpdateChange';
 import { Dispatch} from 'redux';
 import {containsNoCharacters} from '../../utils/containsNoCharacters';
+import {selectItemMemoized} from '../../selectors/selectItemMemoized';
 
 export interface IEditListItemContainerProps {
   itemId: ItemId;
@@ -21,7 +22,7 @@ export interface IEditListItemContainerProps {
 const mapStateToProps = (state: IAppState, {itemId}: IEditListItemContainerProps): IEditedListItemStateProps => {
   const item = state.items.byId.get(itemId);
   return ({
-    item,
+    item: selectItemMemoized(item),
     isEmpty: containsNoCharacters(item.textUpdate),
   });
 };

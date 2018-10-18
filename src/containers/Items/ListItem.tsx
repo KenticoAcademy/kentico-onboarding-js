@@ -9,6 +9,7 @@ import { IAppState } from '../../reducers/IAppState';
 import { IAction } from '../../actions/IAction';
 import { Dispatch } from 'redux';
 import {toggleEditing} from '../../actions/simpleActions/toggleEditing';
+import {selectItemMemoized} from '../../selectors/selectItemMemoized';
 
 export interface IListItemContainerProps {
   id: ItemId;
@@ -21,7 +22,7 @@ const mapStateToProps = (state: IAppState, {id, index}: IListItemContainerProps)
   const areThereErrors = item.errorMessages.size !== 0;
 
   return ({
-    item,
+    item: selectItemMemoized(item),
     index,
     isSynchronizing,
     areThereErrors,

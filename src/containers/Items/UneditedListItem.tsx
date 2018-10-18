@@ -7,13 +7,14 @@ import {
   UneditedListItem as UneditedListItemComponent
 } from '../../components/Items/UneditedListItem';
 import { IAppState } from '../../reducers/IAppState';
+import {selectItemMemoized} from '../../selectors/selectItemMemoized';
 
 interface IUneditedListItemContainerProps {
   itemId: ItemId;
 }
 
 const mapStateToProps = (state: IAppState, {itemId}: IUneditedListItemContainerProps): IUneditedListItemStateProps => ({
-  item: state.items.byId.get(itemId),
+  item: selectItemMemoized(state.items.byId.get(itemId)),
 });
 
 export const UneditedListItem: ComponentClass<IUneditedListItemContainerProps> =
