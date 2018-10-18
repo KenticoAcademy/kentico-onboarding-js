@@ -4,7 +4,6 @@ import { DeleteItemMarker } from '../../containers/Markers/DeleteItemMarker';
 import { RecoverMarker } from '../../containers/Markers/RecoverMarker';
 import { RetryMarker } from '../../containers/Markers/RetryMarker';
 import { typeOfMarkerRendered } from '../../containers/Markers/Markers';
-import { ItemId } from '../../models/ItemId';
 
 export interface IMarkersStateProps {
   id: ItemId;

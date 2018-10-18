@@ -5,7 +5,6 @@ import {
 } from '../../components/Markers/DeleteItemMarker';
 import { IAction } from '../../actions/IAction';
 import { CreateRemoveItem, } from '../../actions';
-import { ItemId } from '../../models/ItemId';
 import { Dispatch } from 'redux';
 
 export interface IDeleteItemMarkerContainerProps {

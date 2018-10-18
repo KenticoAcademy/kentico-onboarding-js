@@ -1,4 +1,3 @@
-import { ItemId } from '../models/ItemId';
 import { requestMethodTypes } from '../constants/requestMethodTypes';
 
 const HEADERS = {

@@ -1,7 +1,13 @@
-import { ItemId } from './ItemId';
 import { BaseRecord } from './BaseRecord';
 import { Map } from 'immutable';
 import { emptyId } from '../constants/emptyId';
+
+export type ItemFromServer = {
+  Id: ItemId;
+  Text: string;
+  CreatedAt: Date;
+  LastChange: Date;
+};
 
 export interface IItem {
   readonly id: ItemId;

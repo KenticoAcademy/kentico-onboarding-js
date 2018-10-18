@@ -1,4 +1,3 @@
-import { ItemId } from '../../models/ItemId';
 import { IAppState } from '../../reducers/IAppState';
 import {
   IItemErrorMessageStateProps,

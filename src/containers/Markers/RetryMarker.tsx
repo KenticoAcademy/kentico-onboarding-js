@@ -6,7 +6,6 @@ import {
   RetryMarker as RetryMarkerComponent
 } from '../../components/Markers/RetryMarker';
 import { IAppState } from '../../reducers/IAppState';
-import { ItemId } from '../../models/ItemId';
 import {
   CreateUpdateItem,
   CreateUploadItemAgain

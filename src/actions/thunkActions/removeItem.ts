@@ -1,5 +1,4 @@
 import { IAction } from '../IAction';
-import { ItemId } from '../../models/ItemId';
 import { deleteItem } from '../simpleActions/deleteItem';
 import { actionTypes } from '../../constants/actionTypes';
 import { Dispatch } from 'redux';
