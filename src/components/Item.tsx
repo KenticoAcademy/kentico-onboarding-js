@@ -12,7 +12,7 @@ export interface IItemDispatchStateProps {
   readonly isEdited: boolean;
 }
 
-export interface IItemProps extends IItemOwnProps, IItemDispatchStateProps {
+interface IItemProps extends IItemOwnProps, IItemDispatchStateProps {
 }
 
 export class Item extends React.PureComponent<IItemProps> {

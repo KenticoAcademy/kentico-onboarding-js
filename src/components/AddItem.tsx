@@ -20,8 +20,8 @@ export class AddItem extends React.PureComponent<IAddItemProps, IAddItemState> {
     inputText: '',
   };
 
-  private _updateValue = (event: React.FormEvent<HTMLInputElement>): void => {
-    const eventTargetValue = event.currentTarget.value;
+  private _updateValue = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    const eventTargetValue = event.target.value;
     this.setState(() => ({ inputText: eventTargetValue }));
   };
 
