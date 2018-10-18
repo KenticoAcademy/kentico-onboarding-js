@@ -1,12 +1,16 @@
-import { OrderedMap } from 'immutable';
-import { Item } from '../models/Item';
-import { ItemId } from '../models/ItemId';
-import { StatusType } from '../models/Status';
+import {
+  OrderedMap,
+} from 'immutable';
+import {Item} from '../models/Item';
+import {StatusType} from '../models/Status';
+
+
+export interface IItemsState {
+  byId: OrderedMap<ItemId, Item>;
+  newItemText: string;
+  status: StatusType;
+}
 
 export interface IAppState {
-  items: {
-    byId: OrderedMap<ItemId, Item>;
-    newItemText: string;
-    status: StatusType;
-  };
+  items: IItemsState;
 }
