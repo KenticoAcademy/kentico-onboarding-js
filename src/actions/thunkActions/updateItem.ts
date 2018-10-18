@@ -1,4 +1,3 @@
-import { ItemId } from '../../models/ItemId';
 import { IAction } from '../IAction';
 import { requestFailedForItem } from '../simpleActions/requestFailedForItem';
 import { errorMessageTypes } from '../../constants/errorMessageTypes';

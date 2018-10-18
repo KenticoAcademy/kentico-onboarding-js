@@ -1,4 +1,3 @@
-import { ItemId } from '../../models/ItemId';
 import { IAction } from '../IAction';
 import { addItem } from '../simpleActions/addItem';
 import { synchronizeItemId } from '../simpleActions/synchronizeItemId';
@@ -7,8 +6,8 @@ import { errorMessageTypes } from '../../constants/errorMessageTypes';
 import { Dispatch } from 'redux';
 import { IAppState } from '../../reducers/IAppState';
 import { ThunkAction } from 'redux-thunk';
-import { ItemFromServer } from '../../models/ItemFromServer';
 import { updateSucceeded } from '../simpleActions/updateSucceeded';
+import {ItemFromServer} from '../../models/Item';
 
 export const uploadItem = (fetch: (text: string) => Promise<ItemFromServer>) =>
   (generateId: () => ItemId) =>

@@ -3,7 +3,6 @@ import { Reducer } from 'redux';
 import { Item } from '../../models/Item';
 import { actionTypes } from '../../constants/actionTypes';
 import { IAction } from '../../actions/IAction';
-import { ItemId } from '../../models/ItemId';
 import { errorMessageTypes } from '../../constants/errorMessageTypes';
 
 const DEFAULT_STATE = OrderedMap<ItemId, Item>();

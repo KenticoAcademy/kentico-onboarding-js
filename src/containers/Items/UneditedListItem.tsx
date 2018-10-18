@@ -7,7 +7,6 @@ import {
   UneditedListItem as UneditedListItemComponent
 } from '../../components/Items/UneditedListItem';
 import { IAppState } from '../../reducers/IAppState';
-import { ItemId } from '../../models/ItemId';
 
 interface IUneditedListItemContainerProps {
   itemId: ItemId;

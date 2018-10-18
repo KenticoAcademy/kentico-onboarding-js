@@ -3,7 +3,6 @@ import {
   IRecoverMarkerDispatchProps,
   RecoverMarker as RecoverMarkerComponent,
 } from '../../components/Markers/RecoverMarker';
-import { ItemId } from '../../models/ItemId';
 import { resetItem } from '../../actions/simpleActions/resetItem';
 import { errorMessageTypes } from '../../constants/errorMessageTypes';
 

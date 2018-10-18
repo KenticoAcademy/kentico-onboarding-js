@@ -1,4 +1,3 @@
-import { ItemId } from '../models/ItemId';
 import { getApiUrl } from '../constants/url';
 import { requestMethodTypes } from '../constants/requestMethodTypes';
 import {
@@ -7,8 +6,10 @@ import {
   postFetch,
   putFetch
 } from '../actions/actionFetch';
-import { Item } from '../models/Item';
-import { ItemFromServer } from '../models/ItemFromServer';
+import {
+  Item,
+  ItemFromServer,
+} from '../models/Item';
 
 const actionFetchFactory = (method: string): (id?: ItemId, text?: string) => Promise<Response> => {
   const apiUrl: RequestInfo = getApiUrl();

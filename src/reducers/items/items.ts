@@ -5,7 +5,6 @@ import {
 import { OrderedMap } from 'immutable';
 import { newItemText } from './newItemText';
 import { byId } from './byId';
-import { ItemId } from '../../models/ItemId';
 import { Item } from '../../models/Item';
 import {
   status,

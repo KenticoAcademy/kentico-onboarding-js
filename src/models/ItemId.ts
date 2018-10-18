@@ -1,1 +1,1 @@
-export type ItemId = string;
+declare type ItemId = string;
