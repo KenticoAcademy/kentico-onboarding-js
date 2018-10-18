@@ -4,10 +4,14 @@ import { EditedListItem } from '../../containers/Items/EditedListItem';
 import { ItemErrorMessage } from '../../containers/Items/ItemErrorMessage';
 import { UneditedListItem } from '../../containers/Items/UneditedListItem';
 import { Markers } from '../../containers/Markers/Markers';
-import { Item } from '../../models/Item';
+import {
+  IItem,
+  Item,
+} from '../../models/Item';
 import * as classNames from 'classnames';
 import {IAction} from '../../actions/IAction';
 import {IListItemContainerProps} from '../../containers/Items/ListItem';
+import {ReactElement} from 'react';
 
 export interface IListItemStateProps {
   item: Item;
@@ -21,6 +25,13 @@ export interface IListItemDispatchProps {
 }
 
 type IListItemProps = IListItemStateProps & IListItemDispatchProps & IListItemContainerProps;
+
+const getListItemInCorrectMode = (item: IItem): ReactElement<any>=>  {
+  if(item.isBeingEdited){
+    return <EditedListItem itemId={item.id} />
+  }
+  return <UneditedListItem itemId={item.id} />
+};
 
 export class ListItem extends React.PureComponent<IListItemProps> {
 
@@ -58,10 +69,7 @@ export class ListItem extends React.PureComponent<IListItemProps> {
         <div className="list__item__inline_content">
           {this.props.index + 1}.&nbsp;
         </div>
-        {this.props.item.isBeingEdited ?
-          <EditedListItem itemId={this.props.item.id} />
-          : <UneditedListItem itemId={this.props.item.id} />
-        }
+        {getListItemInCorrectMode(this.props.item)}
       </div>
       <ItemErrorMessage itemId={this.props.item.id} />
       <Markers id={this.props.item.id} />

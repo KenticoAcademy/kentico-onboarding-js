@@ -1,24 +1,28 @@
 import * as React from 'react';
 import { Page } from '../Page';
-import { loaderContent } from '../../containers/Loader/Loader';
+import { loaderContentType } from '../../containers/Loader/Loader';
 import * as PropTypes from 'prop-types';
 import {UnsuccessfulLoadingPage} from '../../containers/Loader/UnsuccessfulLoadingPage';
 import {CatLoader} from './CatLoader';
+import {ReactElement} from 'react';
 
 export interface ILoaderStateProps {
-  content: loaderContent;
+  content: loaderContentType;
 }
 
-const Loader: React.StatelessComponent<ILoaderStateProps> = ({content}) => {
+const getCorrectContent = (content: loaderContentType): ReactElement<any> => {
   switch (content) {
-    case loaderContent.NO_SUCCESS:
+    case loaderContentType.NO_SUCCESS:
       return <UnsuccessfulLoadingPage />;
-    case loaderContent.COMMON_CONTENT:
+    case loaderContentType.COMMON_CONTENT:
       return <Page />;
     default:
       return <CatLoader />;
   }
 };
+
+const Loader: React.StatelessComponent<ILoaderStateProps> = ({content}) =>
+  (getCorrectContent(content));
 
 Loader.propTypes = {
   content: PropTypes.string.isRequired,

@@ -12,7 +12,6 @@ import { CreateUpdateItem } from '../../actions';
 import { toggleEditing } from '../../actions/simpleActions/toggleEditing';
 import { textUpdateChange } from '../../actions/simpleActions/textUpdateChange';
 import { Dispatch} from 'redux';
-import {ItemId} from '../../models/ItemId';
 import {containsNoCharacters} from '../../utils/containsNoCharacters';
 
 export interface IEditListItemContainerProps {

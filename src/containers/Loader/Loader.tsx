@@ -4,21 +4,32 @@ import {
   Loader as LoaderComponent
 } from '../../components/Loader/Loader';
 import { IAppState } from '../../reducers/IAppState';
-export enum loaderContent {
+import {StatusType} from '../../models/Status';
+
+export enum loaderContentType {
   DEFAULT = 'DEFAULT',
   COMMON_CONTENT = 'COMMON_CONTENT',
   NO_SUCCESS = 'NO_SUCCESS',
 }
 
-const mapStateToProps = ({items}: IAppState): ILoaderStateProps => {
-  let content: loaderContent;
-  if (items.status.errorMessage === '' && !items.status.isFetching) content = loaderContent.COMMON_CONTENT;
-  else if (items.status.errorMessage !== '' || !items.status.isFetching) content = loaderContent.NO_SUCCESS;
-  else content = loaderContent.DEFAULT;
+const isCommonContent = (items: { status: StatusType }): boolean =>
+  items.status.errorMessage === '' && !items.status.isFetching;
 
-  return ({
-    content,
-  });
+const isNotSuccessful = (items: { status: StatusType }): boolean =>
+  items.status.errorMessage !== '' || !items.status.isFetching;
+
+const getLoaderContentType = (items: { status: StatusType }): loaderContentType => {
+  if (isCommonContent(items)) {
+    return loaderContentType.COMMON_CONTENT;
+  }
+  if (isNotSuccessful(items)){
+    return loaderContentType.NO_SUCCESS;
+  }
+  return loaderContentType.DEFAULT;
 };
+
+const mapStateToProps = ({items}: IAppState): ILoaderStateProps => ({
+  content: getLoaderContentType(items),
+});
 
 export const Loader = connect(mapStateToProps)(LoaderComponent);
