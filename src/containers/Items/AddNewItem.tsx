@@ -9,7 +9,7 @@ import {
   IAddNewItemStateProps
 } from '../../components/Items/AddNewItem';
 import { IAppState } from '../../reducers/IAppState';
-import { CreateUploadItem } from '../../actions/index';
+import { CreateUploadItem } from '../../actions';
 import { refreshNewItemText } from '../../actions/simpleActions/refreshNewItemText';
 import {containsNoCharacters} from '../../utils/containsNoCharacters';
 

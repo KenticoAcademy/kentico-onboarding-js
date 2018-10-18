@@ -35,14 +35,13 @@ export class AddNewItem extends React.PureComponent<IAddNewItemProps> {
   };
 
   _onClick = () => {
-    const input = this.props.newItemText;
-    this.props.onAdd(input)
+    this.props.onAdd(this.props.newItemText)
       .then(() => assertAlert(alertTypes.SUCCESS, alertMessages.UPLOAD_SUCCESS))
       .catch(() => assertAlert(alertTypes.ERROR, alertMessages.UPLOAD_ERROR));
   };
 
   render() {
-    const input = this.props.newItemText;
+    const infoText = this.props.isEmpty ? 'Item name mustn\'t be empty' : null;
 
     return (
       <div className="content__row">
@@ -50,11 +49,11 @@ export class AddNewItem extends React.PureComponent<IAddNewItemProps> {
           className="input"
           type="text"
           onChange={this._onChange}
-          value={input}
+          value={this.props.newItemText}
           placeholder="Type new item name..."
         />
         <button
-          data-balloon={this.props.isEmpty ? 'Item name mustn\'t be empty' : null}
+          data-balloon={infoText}
           data-balloon-pos="up"
           className="default_button"
           disabled={this.props.isEmpty}
