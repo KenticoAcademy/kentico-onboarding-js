@@ -1,2 +1,1 @@
-export const getApiUrl = (): RequestInfo =>
-  _API_;
+export const getApiUrl = (): RequestInfo => _API_;

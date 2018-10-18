@@ -1,17 +1,15 @@
 import * as React from 'react';
+import {ReactElement} from 'react';
 import * as PropTypes from 'prop-types';
-import { EditedListItem } from '../../containers/Items/EditedListItem';
-import { ItemErrorMessage } from '../../containers/Items/ItemErrorMessage';
-import { UneditedListItem } from '../../containers/Items/UneditedListItem';
-import { Markers } from '../../containers/Markers/Markers';
-import {
-  IItem,
-  Item,
-} from '../../models/Item';
+import {EditedListItem} from '../../containers/Items/EditedListItem';
+import {ItemErrorMessage} from '../../containers/Items/ItemErrorMessage';
+import {UneditedListItem} from '../../containers/Items/UneditedListItem';
+import {Markers} from '../../containers/Markers/Markers';
+import {IItem, Item} from '../../models/Item';
 import * as classNames from 'classnames';
 import {IAction} from '../../actions/IAction';
 import {IListItemContainerProps} from '../../containers/Items/ListItem';
-import {ReactElement} from 'react';
+
 
 export interface IListItemStateProps {
   item: IItem;
@@ -26,11 +24,11 @@ export interface IListItemDispatchProps {
 
 type IListItemProps = IListItemStateProps & IListItemDispatchProps & IListItemContainerProps;
 
-const getListItemInCorrectMode = (item: IItem): ReactElement<any>=>  {
-  if(item.isBeingEdited){
-    return <EditedListItem itemId={item.id} />
+const getListItemInCorrectMode = (item: IItem): ReactElement<any> => {
+  if (item.isBeingEdited) {
+    return <EditedListItem itemId={item.id} />;
   }
-  return <UneditedListItem itemId={item.id} />
+  return <UneditedListItem itemId={item.id} />;
 };
 
 export class ListItem extends React.PureComponent<IListItemProps> {
@@ -59,8 +57,7 @@ export class ListItem extends React.PureComponent<IListItemProps> {
       'item--deleted': this.props.item.isBeingDeleted,
     });
 
-    return (
-      <div className={listItemClassName}>
+    return (<div className={listItemClassName}>
       <div
         onClick={this._showEditedItem}
         className="list__item_content--long"
@@ -71,8 +68,7 @@ export class ListItem extends React.PureComponent<IListItemProps> {
         </div>
         {getListItemInCorrectMode(this.props.item)}
       </div>
-      <ItemErrorMessage itemId={this.props.item.id} />
-      <Markers id={this.props.item.id} />
-    </div>)
+      <ItemErrorMessage itemId={this.props.item.id} /> <Markers id={this.props.item.id} />
+    </div>);
   }
 }

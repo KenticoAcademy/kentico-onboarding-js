@@ -1,4 +1,5 @@
-import { Record } from 'immutable';
+import {Record} from 'immutable';
+
 
 export const BaseRecord = <T>(defaultValues: {}, name?: string) => class extends Record(defaultValues, name) {
   constructor(params: Partial<T>) {

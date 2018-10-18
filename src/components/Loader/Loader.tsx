@@ -1,10 +1,11 @@
 import * as React from 'react';
-import { Page } from '../Page';
-import { loaderContentType } from '../../containers/Loader/Loader';
+import {ReactElement} from 'react';
+import {Page} from '../Page';
+import {loaderContentType} from '../../containers/Loader/Loader';
 import * as PropTypes from 'prop-types';
 import {UnsuccessfulLoadingPage} from '../../containers/Loader/UnsuccessfulLoadingPage';
 import {CatLoader} from './CatLoader';
-import {ReactElement} from 'react';
+
 
 export interface ILoaderStateProps {
   content: loaderContentType;
@@ -21,8 +22,7 @@ const getCorrectContent = (content: loaderContentType): ReactElement<any> => {
   }
 };
 
-const Loader: React.StatelessComponent<ILoaderStateProps> = ({content}) =>
-  (getCorrectContent(content));
+const Loader: React.StatelessComponent<ILoaderStateProps> = ({content}) => (getCorrectContent(content));
 
 Loader.propTypes = {
   content: PropTypes.string.isRequired,
@@ -30,4 +30,4 @@ Loader.propTypes = {
 
 Loader.displayName = 'Loader';
 
-export { Loader };
+export {Loader};

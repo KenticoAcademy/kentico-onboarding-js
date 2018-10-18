@@ -1,4 +1,5 @@
-import { BaseRecord } from './BaseRecord';
+import {BaseRecord} from './BaseRecord';
+
 
 export interface IStatusType {
   readonly isFetching: boolean;

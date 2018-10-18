@@ -1,5 +1,6 @@
-import { updateItem } from './updateItem';
-import { actionTypes } from '../../constants/actionTypes';
+import {updateItem} from './updateItem';
+import {actionTypes} from '../../constants/actionTypes';
+
 
 describe('CreateUpdateItem', () => {
   it('calls request, addItem and success action if the fetch response was successful', async () => {

@@ -1,9 +1,10 @@
-import { OrderedMap } from 'immutable';
-import { Reducer } from 'redux';
-import { Item } from '../../models/Item';
-import { actionTypes } from '../../constants/actionTypes';
-import { IAction } from '../../actions/IAction';
-import { errorMessageTypes } from '../../constants/errorMessageTypes';
+import {OrderedMap} from 'immutable';
+import {Reducer} from 'redux';
+import {Item} from '../../models/Item';
+import {actionTypes} from '../../constants/actionTypes';
+import {IAction} from '../../actions/IAction';
+import {errorMessageTypes} from '../../constants/errorMessageTypes';
+
 
 const DEFAULT_STATE = OrderedMap<ItemId, Item>();
 
@@ -45,8 +46,15 @@ export const byId: Reducer<OrderedMap<ItemId, Item>> = (state = DEFAULT_STATE, a
       }));
 
     case actionTypes.RECEIVE_ITEMS: {
-      if (!action || !action.payload || !action.payload.items) return state;
-      const itemsArray = action.payload.items.map((item: any) => [[item.Id].toString(), new Item({id: item.Id, text: item.Text})]);
+      if (!action || !action.payload || !action.payload.items) {
+        return state;
+      }
+      const itemsArray = action.payload.items.map((item: any) => [
+        [item.Id].toString(), new Item({
+          id: item.Id,
+          text: item.Text,
+        }),
+      ]);
       return OrderedMap(itemsArray);
     }
 
@@ -77,8 +85,9 @@ export const byId: Reducer<OrderedMap<ItemId, Item>> = (state = DEFAULT_STATE, a
         if (key === action.payload.oldId) {
           const newValue = value.with({id: action.payload.newId});
           return [action.payload.newId, newValue];
-        } else
+        } else {
           return [key, value];
+        }
       });
       return OrderedMap<ItemId, Item>(newState);
     }

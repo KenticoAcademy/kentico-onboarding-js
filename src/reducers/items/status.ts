@@ -1,10 +1,8 @@
-import { IAction } from '../../actions/IAction';
-import { actionTypes } from '../../constants/actionTypes';
-import { Reducer } from 'redux';
-import {
-  DEFAULT_VALUE,
-  StatusType,
-} from '../../models/Status';
+import {IAction} from '../../actions/IAction';
+import {actionTypes} from '../../constants/actionTypes';
+import {Reducer} from 'redux';
+import {DEFAULT_VALUE, StatusType} from '../../models/Status';
+
 
 export const status: Reducer<StatusType> = (state: StatusType, action: IAction) => {
   switch (action.type) {

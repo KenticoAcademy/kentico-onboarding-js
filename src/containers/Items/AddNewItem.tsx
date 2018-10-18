@@ -1,17 +1,14 @@
+import {connect} from 'react-redux';
+import {ComponentClass} from 'react';
+import {Dispatch} from 'redux';
 import {
-  connect
-} from 'react-redux';
-import { ComponentClass } from 'react';
-import { Dispatch} from 'redux';
-import {
-  AddNewItem as AddNewItemComponent,
-  IAddNewItemDispatchProps,
-  IAddNewItemStateProps
+  AddNewItem as AddNewItemComponent, IAddNewItemDispatchProps, IAddNewItemStateProps,
 } from '../../components/Items/AddNewItem';
-import { IAppState } from '../../reducers/IAppState';
-import { CreateUploadItem } from '../../actions';
-import { refreshNewItemText } from '../../actions/simpleActions/refreshNewItemText';
+import {IAppState} from '../../reducers/IAppState';
+import {CreateUploadItem} from '../../actions';
+import {refreshNewItemText} from '../../actions/simpleActions/refreshNewItemText';
 import {containsNoCharacters} from '../../utils/containsNoCharacters';
+
 
 const mapStateToProps = ({items: {newItemText}}: IAppState): IAddNewItemStateProps => ({
   newItemText,

@@ -4,10 +4,7 @@ import * as PropTypes from 'prop-types';
 import {alertTypes} from '../../constants/alert/alertTypes';
 import {alertMessages} from '../../constants/alert/alertMessages';
 import {assertAlert} from '../../utils/assertAlert';
-import {
-  IRetryMarkerContainerProps,
-  statusOfItemToBeProcessed,
-} from '../../containers/Markers/RetryMarker';
+import {IRetryMarkerContainerProps, statusOfItemToBeProcessed} from '../../containers/Markers/RetryMarker';
 import {AnyAction} from 'redux';
 
 
@@ -24,8 +21,7 @@ export interface IRetryMarkerDispatchProps {
 
 type IRetryMarkerProps = IRetryMarkerStateProps & IRetryMarkerDispatchProps & IRetryMarkerContainerProps;
 
-const getCorrectRetryAction = (
-  itemToBeProcessed: statusOfItemToBeProcessed,
+const getCorrectRetryAction = (itemToBeProcessed: statusOfItemToBeProcessed,
   onUploadAgain: (text: string) => Promise<IAction>,
   onSaveAgain: (text: string) => Promise<IAction>,
   text: string,
@@ -70,7 +66,7 @@ export class RetryMarker extends React.PureComponent<IRetryMarkerProps> {
       .catch(() => assertAlert(alertTypes.ERROR, alertMessages.UPLOAD_ERROR));
   }
 
-  render(){
+  render() {
     return (<div
       data-balloon={'Try again'}
       data-balloon-pos="up"

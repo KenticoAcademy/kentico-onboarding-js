@@ -1,10 +1,8 @@
-import { connect } from 'react-redux';
-import {
-  ILoaderStateProps,
-  Loader as LoaderComponent
-} from '../../components/Loader/Loader';
-import { IAppState } from '../../reducers/IAppState';
+import {connect} from 'react-redux';
+import {ILoaderStateProps, Loader as LoaderComponent} from '../../components/Loader/Loader';
+import {IAppState} from '../../reducers/IAppState';
 import {StatusType} from '../../models/Status';
+
 
 export enum loaderContentType {
   DEFAULT = 'DEFAULT',
@@ -22,7 +20,7 @@ const getLoaderContentType = (items: { status: StatusType }): loaderContentType 
   if (isCommonContent(items)) {
     return loaderContentType.COMMON_CONTENT;
   }
-  if (isNotSuccessful(items)){
+  if (isNotSuccessful(items)) {
     return loaderContentType.NO_SUCCESS;
   }
   return loaderContentType.DEFAULT;

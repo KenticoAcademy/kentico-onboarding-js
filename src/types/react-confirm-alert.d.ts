@@ -1,4 +1,4 @@
 declare module 'react-confirm-alert' {
 
-  export function confirmAlert(properties: any) : void;
+  export function confirmAlert(properties: any): void;
 }

@@ -6,10 +6,7 @@ declare module 'fast-memoize' {
     strategy?: (fn: Function, options?: Options) => Function;
   }
 
-  function memoize<T>(
-    fn: T,
-    options?: Options
-  ): T;
+  function memoize<T>(fn: T, options?: Options): T;
 
   export = memoize;
 }

@@ -1,15 +1,16 @@
-import { connect } from 'react-redux';
-import { ComponentClass } from 'react';
+import {connect} from 'react-redux';
+import {ComponentClass} from 'react';
 import {
   IListItemDispatchProps,
   IListItemStateProps,
   ListItem as ListItemComponent,
 } from '../../components/Items/ListItem';
-import { IAppState } from '../../reducers/IAppState';
-import { IAction } from '../../actions/IAction';
-import { Dispatch } from 'redux';
+import {IAppState} from '../../reducers/IAppState';
+import {IAction} from '../../actions/IAction';
+import {Dispatch} from 'redux';
 import {toggleEditing} from '../../actions/simpleActions/toggleEditing';
 import {selectItemMemoized} from '../../selectors/selectItemMemoized';
+
 
 export interface IListItemContainerProps {
   id: ItemId;
@@ -33,4 +34,5 @@ const mapDispatchToProps = (dispatch: Dispatch<IAction>, {id}: IListItemContaine
   onClick: () => dispatch(toggleEditing(id)),
 });
 
-export const ListItem: ComponentClass<IListItemContainerProps> = connect(mapStateToProps, mapDispatchToProps)(ListItemComponent);
+export const ListItem: ComponentClass<IListItemContainerProps> =
+  connect(mapStateToProps, mapDispatchToProps)(ListItemComponent);

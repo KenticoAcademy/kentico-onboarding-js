@@ -1,10 +1,9 @@
-import { IAppState } from '../../reducers/IAppState';
+import {IAppState} from '../../reducers/IAppState';
 import {
-  IItemErrorMessageStateProps,
-  ItemErrorMessage as ItemErrorMessageComponent
+  IItemErrorMessageStateProps, ItemErrorMessage as ItemErrorMessageComponent,
 } from '../../components/Items/ItemErrorMessage';
-import { ComponentClass } from 'react';
-import { connect } from 'react-redux';
+import {ComponentClass} from 'react';
+import {connect} from 'react-redux';
 import {selectErrorsMemoized} from '../../selectors/selectErrorsMemoized';
 
 
@@ -18,3 +17,4 @@ const mapStateToProps = (state: IAppState, {itemId}: IItemErrorMessageContainerP
 
 export const ItemErrorMessage: ComponentClass<IItemErrorMessageContainerProps> =
   connect(mapStateToProps)(ItemErrorMessageComponent);
+
