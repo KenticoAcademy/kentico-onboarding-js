@@ -10,7 +10,9 @@ import {
 import { item } from './item';
 import { Item } from '../../../models/Item';
 
-export const items = (state = OrderedMap<Guid, Item>(), action: IAction): OrderedMap<Guid, Item> => {
+export type IItemState = OrderedMap<Guid, Item>;
+
+export const items = (state = OrderedMap<Guid, Item>(), action: IAction): IItemState => {
   switch (action.type) {
     case CREATE_ITEM:
     case SAVE_TEXT_ITEM:
