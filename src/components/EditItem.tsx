@@ -16,7 +16,7 @@ export interface IEditItemDispatchProps {
   readonly onCancel: () => void;
 }
 
-interface IEditItemProps extends IEditItemOwnProps, IEditItemStateProps, IEditItemDispatchProps {}
+type IEditItemProps = IEditItemOwnProps & IEditItemStateProps & IEditItemDispatchProps;
 
 export class EditItem extends React.PureComponent<IEditItemProps, IEditItemStateProps> {
   static displayName = 'EditItem';
@@ -34,12 +34,12 @@ export class EditItem extends React.PureComponent<IEditItemProps, IEditItemState
     text: this.props.text,
   };
 
-  private _textEdit = (event: React.ChangeEvent<HTMLInputElement>): void  => {
+  private _textEdit = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const eventTargetValue = event.target.value;
     this.setState(() => ({ text: eventTargetValue }));
   };
 
-  private _saveItem = (): void  => {
+  private _saveItem = (): void => {
     this.props.onSave(this.state.text);
   };
 

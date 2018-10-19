@@ -14,7 +14,7 @@ export interface IShowItemDispatchStateProps {
   readonly onEditStart: () => void;
 }
 
-interface IShowItem extends IShowItemOwnProps, IShowItemStateProps, IShowItemDispatchStateProps { }
+type IShowItem = IShowItemOwnProps & IShowItemStateProps & IShowItemDispatchStateProps;
 
 export const ShowItem: React.StatelessComponent<IShowItem> = (props: IShowItem) => (
   <div

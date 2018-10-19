@@ -1,7 +1,6 @@
 import * as memoize from 'memoizee';
-import { OrderedMap } from 'immutable';
-import { Item } from '../models/Item';
+import { IItemState } from '../reducers/board/items/items';
 
-const itemsKey = (items: OrderedMap<Guid, Item>): Array<string> => items.keySeq().toArray();
+const itemsKey = (items: IItemState): Array<string> => items.keySeq().toArray();
 
-export const itemsSelector: (items: OrderedMap<Guid, Item>) => Array<string> = memoize(itemsKey, { primitive: true });
+export const itemsSelector: (items: IItemState) => Array<string> = memoize(itemsKey, { primitive: true });

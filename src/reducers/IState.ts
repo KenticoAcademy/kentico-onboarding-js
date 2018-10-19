@@ -1,6 +1,5 @@
-import { OrderedMap } from 'immutable';
-import { Item } from '../models/Item';
+import { IBoardState } from './board/board';
 
 export interface IState {
-  readonly board: { items: OrderedMap<Guid, Item> };
+  readonly board: IBoardState;
 }
