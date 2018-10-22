@@ -4,17 +4,20 @@ import {
   ITEM_STOP_EDITING,
   ITEM_DELETE,
   ITEM_START_EDITING,
-  ITEM_TEXT_UPDATE
+  ITEM_TEXT_UPDATE,
 } from '../../../constants/actionTypes';
 import { item } from './item';
 import { ListItem } from '../../../models/ListItem';
+import { IAction } from '../../../actions/IAction';
 
-export const items = (state = OrderedMap(), action) => {
+type ItemsState = OrderedMap<Uuid, ListItem>;
+
+export const items = (state = OrderedMap<Uuid, ListItem>(), action: IAction): ItemsState => {
   switch (action.type) {
     case ADD_ITEM: {
       const newItem = new ListItem({
         id: action.payload.id,
-        text: action.payload.text
+        text: action.payload.text,
       });
 
       return state.set(action.payload.id, newItem);
