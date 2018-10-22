@@ -3,27 +3,28 @@ import { ListItem } from '../../../models/ListItem';
 import {
   startItemEditing,
   stopItemEditing,
-  updateItemText
-} from '../../../actions/index';
+  updateItemText,
+} from '../../../actions';
+import { IAction } from '../../../actions/IAction';
 
 describe('item reducer', () => {
   const itemId = '5';
-  const defaultItem = new ListItem({
+  const defaultItem: ListItem = new ListItem({
     id: itemId,
     isInEditMode: false,
     text: 'Lorem ipsum',
   });
 
-  const unknownAction = {
+  const unknownAction: IAction = {
     type: 'UNKNOWN_ACTION',
     payload: {
       text: 'Run the tests',
-      id: itemId
-    }
+      id: itemId,
+    },
   };
 
   it('should return the initial state with undefined state', () => {
-    const expectedState = ListItem();
+    const expectedState: ListItem = new ListItem();
 
     const actualState = item(undefined, unknownAction);
 
@@ -31,7 +32,7 @@ describe('item reducer', () => {
   });
 
   it('should return previous state on unknown action', () => {
-    const expectedState = defaultItem;
+    const expectedState: ListItem = defaultItem;
 
     const actualState = item(defaultItem, unknownAction);
 
@@ -39,7 +40,7 @@ describe('item reducer', () => {
   });
 
   it('should start edit mode of selected item when ITEM_START_EDITING action is dispatched', () => {
-    const expectedState = defaultItem.merge({ isInEditMode: true });
+    const expectedState: ListItem = defaultItem.with({isInEditMode: true});
 
     const actualState = item(defaultItem, startItemEditing(itemId));
 
@@ -47,8 +48,8 @@ describe('item reducer', () => {
   });
 
   it('should end edit mode of selected item when ITEM_STOP_EDITING action is dispatched', () => {
-    const defaultItemInEditMode = defaultItem.merge({ isInEditMode: true });
-    const expectedState = defaultItem.merge({ isInEditMode: false });
+    const defaultItemInEditMode: ListItem = defaultItem.with({isInEditMode: true});
+    const expectedState: ListItem = defaultItem.with({isInEditMode: false});
 
     const actualState = item(defaultItemInEditMode, stopItemEditing(itemId));
 
@@ -57,7 +58,7 @@ describe('item reducer', () => {
 
   it('should update selected item when ITEM_TEXT_UPDATE action is dispatched', () => {
     const newText = 'Buy Beer';
-    const expectedState = defaultItem.merge({ text: newText });
+    const expectedState: ListItem = defaultItem.with({text: newText});
 
     const actualState = item(defaultItem, updateItemText(defaultItem.id, newText));
 
