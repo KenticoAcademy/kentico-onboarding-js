@@ -8,7 +8,6 @@ import {Markers} from '../../containers/Markers/Markers';
 import {IItem, Item} from '../../models/Item';
 import * as classNames from 'classnames';
 import {IAction} from '../../actions/IAction';
-import {IListItemContainerProps} from '../../containers/Items/ListItem';
 
 
 export interface IListItemStateProps {
@@ -22,7 +21,7 @@ export interface IListItemDispatchProps {
   onClick: () => IAction;
 }
 
-type IListItemProps = IListItemStateProps & IListItemDispatchProps & IListItemContainerProps;
+type IListItemProps = IListItemStateProps & IListItemDispatchProps;
 
 const getListItemInCorrectMode = (item: IItem): ReactElement<any> => {
   if (item.isBeingEdited) {

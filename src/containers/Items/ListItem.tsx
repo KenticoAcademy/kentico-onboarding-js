@@ -34,5 +34,10 @@ const mapDispatchToProps = (dispatch: Dispatch<IAction>, {id}: IListItemContaine
   onClick: () => dispatch(toggleEditing(id)),
 });
 
+const mergeProps = (propsFromState: IListItemStateProps, propsFromDispatch: IListItemDispatchProps) => ({
+  ...propsFromState,
+  ...propsFromDispatch,
+});
+
 export const ListItem: ComponentClass<IListItemContainerProps> =
-  connect(mapStateToProps, mapDispatchToProps)(ListItemComponent);
+  connect(mapStateToProps, mapDispatchToProps, mergeProps)(ListItemComponent);

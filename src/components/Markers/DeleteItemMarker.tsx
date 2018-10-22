@@ -4,7 +4,6 @@ import {alertTypes} from '../../constants/alert/alertTypes';
 import {alertMessages} from '../../constants/alert/alertMessages';
 import {IAction} from '../../actions/IAction';
 import {assertAlert} from '../../utils/assertAlert';
-import {IDeleteItemMarkerContainerProps} from '../../containers/Markers/DeleteItemMarker';
 import {confirmAlert} from 'react-confirm-alert';
 
 
@@ -12,7 +11,7 @@ export interface IDeleteItemMarkerDispatchProps {
   onThrowAway: () => Promise<IAction>;
 }
 
-type IDeleteMarkerProps = IDeleteItemMarkerDispatchProps & IDeleteItemMarkerContainerProps;
+type IDeleteMarkerProps = IDeleteItemMarkerDispatchProps;
 
 export class DeleteItemMarker extends React.PureComponent<IDeleteMarkerProps> {
 
