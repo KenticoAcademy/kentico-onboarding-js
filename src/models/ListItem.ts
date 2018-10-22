@@ -1,7 +1,7 @@
 import { Record } from 'immutable';
 
 export interface IListItem {
-  id?: string;
+  id?: Uuid;
   text?: string;
   isInEditMode?: boolean;
 }
@@ -13,7 +13,7 @@ const defaultListItem: IListItem = {
 };
 
 export class ListItem extends Record(defaultListItem, 'ListItem') implements IListItem {
-  readonly id: string;
+  readonly id: Uuid;
   readonly text: string;
   readonly isInEditMode: boolean;
 
