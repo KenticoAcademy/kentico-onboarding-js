@@ -1,10 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { isTextValid } from '../utils/isTextValid';
-import {
-  createClassNamesFormValidation,
-  createTooltip
-} from '../utils/validationTools';
+import { createValidationTools } from '../utils/validationTools';
 
 export class EditableItem extends PureComponent {
   static displayName = 'EditableItem';
@@ -42,19 +39,17 @@ export class EditableItem extends PureComponent {
   };
 
   render() {
-    const isInputTextValid = isTextValid(this.state.text);
-    const tooltip = createTooltip(isInputTextValid);
-    const formGroupClassName = createClassNamesFormValidation(isInputTextValid, this.state.isFocused);
+    const validationTools = createValidationTools(this.state.text, this.state.isFocused);
 
     return (
       <div className="form-inline">
-        <div className={formGroupClassName}>
+        <div className={validationTools.className}>
           {this.props.index}.
           <input
             className="form-control"
             type="text"
             value={this.state.text}
-            title={tooltip}
+            title={validationTools.tooltip}
             onChange={this._changeInput}
             onBlur={this._toggleFocus}
             onFocus={this._toggleFocus}
@@ -67,8 +62,8 @@ export class EditableItem extends PureComponent {
           >
             <button
               type="button"
-              disabled={!isInputTextValid}
-              title={tooltip}
+              disabled={!isTextValid(this.state.text)}
+              title={validationTools.tooltip}
               className="btn btn-primary"
               onClick={this._saveInput}
             >
