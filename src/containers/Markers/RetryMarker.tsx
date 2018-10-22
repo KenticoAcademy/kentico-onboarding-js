@@ -1,7 +1,9 @@
 import {connect} from 'react-redux';
 import {ComponentClass} from 'react';
 import {
-  IRetryMarkerDispatchProps, IRetryMarkerStateProps, RetryMarker as RetryMarkerComponent,
+  IRetryMarkerDispatchProps,
+  IRetryMarkerStateProps,
+  RetryMarker as RetryMarkerComponent,
 } from '../../components/Markers/RetryMarker';
 import {IAppState} from '../../reducers/IAppState';
 import {CreateUpdateItem, CreateUploadItemAgain} from '../../actions';
@@ -49,5 +51,10 @@ const mapDispatchToProps = (dispatch: Dispatch<IAction>,
   onUploadAgain: (text: string) => dispatch(CreateUploadItemAgain(() => id)(text)),
 });
 
+const mergeProps = (propsFromState: IRetryMarkerStateProps, propsFromDispatch: IRetryMarkerDispatchProps) => ({
+  ...propsFromState,
+  ...propsFromDispatch,
+});
+
 export const RetryMarker: ComponentClass<IRetryMarkerContainerProps> =
-  connect(mapStateToProps, mapDispatchToProps)(RetryMarkerComponent);
+  connect(mapStateToProps, mapDispatchToProps, mergeProps)(RetryMarkerComponent);

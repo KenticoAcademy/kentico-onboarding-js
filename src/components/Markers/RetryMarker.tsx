@@ -4,7 +4,7 @@ import * as PropTypes from 'prop-types';
 import {alertTypes} from '../../constants/alert/alertTypes';
 import {alertMessages} from '../../constants/alert/alertMessages';
 import {assertAlert} from '../../utils/assertAlert';
-import {IRetryMarkerContainerProps, statusOfItemToBeProcessed} from '../../containers/Markers/RetryMarker';
+import {statusOfItemToBeProcessed} from '../../containers/Markers/RetryMarker';
 import {AnyAction} from 'redux';
 
 
@@ -19,7 +19,7 @@ export interface IRetryMarkerDispatchProps {
   onSaveAgain: (text: string) => Promise<IAction>;
 }
 
-type IRetryMarkerProps = IRetryMarkerStateProps & IRetryMarkerDispatchProps & IRetryMarkerContainerProps;
+type IRetryMarkerProps = IRetryMarkerStateProps & IRetryMarkerDispatchProps;
 
 const getCorrectRetryAction = (itemToBeProcessed: statusOfItemToBeProcessed,
   onUploadAgain: (text: string) => Promise<IAction>,

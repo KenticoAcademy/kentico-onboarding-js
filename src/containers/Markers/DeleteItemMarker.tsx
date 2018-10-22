@@ -1,6 +1,7 @@
 import {connect} from 'react-redux';
 import {
-  DeleteItemMarker as DeleteItemMarkerComponent, IDeleteItemMarkerDispatchProps,
+  DeleteItemMarker as DeleteItemMarkerComponent,
+  IDeleteItemMarkerDispatchProps,
 } from '../../components/Markers/DeleteItemMarker';
 import {IAction} from '../../actions/IAction';
 import {CreateRemoveItem} from '../../actions';
@@ -16,5 +17,9 @@ const mapDispatchToProps = (dispatch: Dispatch<IAction>,
   onThrowAway: () => dispatch(CreateRemoveItem(id)),
 });
 
-export const DeleteItemMarker = connect(null, mapDispatchToProps)(DeleteItemMarkerComponent);
+const mergeProps = (_: null, propsFromDispatch: IDeleteItemMarkerDispatchProps) => ({
+  ...propsFromDispatch,
+});
+
+export const DeleteItemMarker = connect(null, mapDispatchToProps, mergeProps)(DeleteItemMarkerComponent);
 

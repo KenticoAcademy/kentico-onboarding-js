@@ -33,5 +33,10 @@ const mapDispatchToProps = (dispatch: Dispatch<IAppState>,
   textUpdateChange: (text: string) => dispatch(textUpdateChange(itemId, text)),
 });
 
+const mergeProps = (propsFromState: IEditedListItemStateProps, propsFromDispatch: IEditedListItemDispatchProps) => ({
+  ...propsFromState,
+  ...propsFromDispatch,
+});
+
 export const EditedListItem: ComponentClass<IEditListItemContainerProps> =
-  connect(mapStateToProps, mapDispatchToProps)(EditedListItemComponent);
+  connect(mapStateToProps, mapDispatchToProps, mergeProps)(EditedListItemComponent);

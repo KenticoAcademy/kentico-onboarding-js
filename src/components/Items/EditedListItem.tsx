@@ -4,7 +4,6 @@ import {IAction} from '../../actions/IAction';
 import {IItem, Item} from '../../models/Item';
 import {alertTypes} from '../../constants/alert/alertTypes';
 import {alertMessages} from '../../constants/alert/alertMessages';
-import {IEditListItemContainerProps} from '../../containers/Items/EditedListItem';
 import {getItemButtonLabel} from '../../utils/getItemButtonLabel';
 import {assertAlert} from '../../utils/assertAlert';
 
@@ -20,7 +19,7 @@ export interface IEditedListItemDispatchProps {
   textUpdateChange: (textUpdate: string) => IAction;
 }
 
-type IEditedListItemProps = IEditListItemContainerProps & IEditedListItemStateProps & IEditedListItemDispatchProps;
+type IEditedListItemProps = IEditedListItemStateProps & IEditedListItemDispatchProps;
 
 export class EditedListItem extends React.PureComponent<IEditedListItemProps> {
 
