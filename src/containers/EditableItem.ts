@@ -5,7 +5,7 @@ import {
   stopItemEditing,
   deleteItem,
   updateItemText,
-} from '../actions';
+} from '../actions/index';
 
 const mapStateToProps = ({ todoList: { items } }, { id }) => ({
   item: items.get(id)

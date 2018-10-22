@@ -2,7 +2,7 @@ import { OrderedMap } from 'immutable';
 import { items } from './items.js';
 import { ListItem } from '../../../models/ListItem';
 import { addItemFactory } from '../../../actions/addItemFactory';
-import { deleteItem } from '../../../actions';
+import { deleteItem } from '../../../actions/index';
 
 describe('items reducer', () => {
   const itemId = '5';

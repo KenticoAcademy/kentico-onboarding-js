@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { NewItem } from '../components/NewItem';
-import { addItem } from '../actions';
+import { addItem } from '../actions/index';
 
 const mapDispatchToProps = (dispatch) => ({
   onAddClick: (text) => dispatch(addItem(text)),

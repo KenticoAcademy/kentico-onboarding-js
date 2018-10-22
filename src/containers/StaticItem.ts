@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { StaticItem } from '../components/StaticItem';
-import { startItemEditing } from '../actions';
+import { startItemEditing } from '../actions/index';
 
 const mapStateToProps = ({ todoList: { items } }, { id }) => ({
   item: items.get(id)

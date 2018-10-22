@@ -10,7 +10,7 @@ import {
 import logger from 'redux-logger';
 import { Provider } from 'react-redux';
 import { createInitialState } from './utils/createInitialState';
-import { App } from './components/App.jsx';
+import { App } from './components/App.tsx';
 import { rootReducer } from './reducers/rootReducer';
 
 export const initialState = createInitialState();
