@@ -1,10 +1,9 @@
-import { OrderedMap } from 'immutable';
 import { getItemsIds } from './getItemsIds';
 
 describe('getItemsIds() ', () => {
   it('returns the same result when given two different objects with the same value', () => {
-    const ids = new OrderedMap([[1, 2], [3, 4]]);
-    const ids2 = new OrderedMap([[1, 2], [3, 4]]);
+    const ids =  ['1', '2', '3', '4'];
+    const ids2 =  ['1', '2', '3', '4'];
 
     const memoizedIds1 = getItemsIds(ids);
     const memoizedIds2 = getItemsIds(ids2);
@@ -13,7 +12,7 @@ describe('getItemsIds() ', () => {
   });
 
   it('returns the same result when called multiple times with the same input', () => {
-    const ids = new OrderedMap([[1, 2], [3, 4]]);
+    const ids =  ['1', '2', '3', '4'];
 
     const memoizedIds1 = getItemsIds(ids);
     const memoizedIds2 = getItemsIds(ids);
@@ -21,3 +20,4 @@ describe('getItemsIds() ', () => {
     expect(memoizedIds1).toEqual(memoizedIds2);
   });
 });
+

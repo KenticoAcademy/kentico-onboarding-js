@@ -1,5 +1,6 @@
-import memoize from 'memoizee';
+import * as memoize from 'memoizee';
 
-export const getItemsIds = memoize(ids => ids.keySeq(), {
-  primitive: true
+export const getItemsIds = memoize((ids: Array<Uuid>) => ids, {
+  primitive: true,
 });
+
