@@ -1,10 +1,13 @@
 import { connect } from 'react-redux';
-import { NewItem } from '../components/NewItem';
-import { addItem } from '../actions/index';
+import { INewItemDispatchProps, NewItem as NewItemComponent } from '../components/NewItem';
+import { addItem } from '../actions';
+import { IAction } from '../actions/IAction';
+import { Dispatch } from 'redux';
+import { ComponentClass } from 'react';
 
-const mapDispatchToProps = (dispatch) => ({
-  onAddClick: (text) => dispatch(addItem(text)),
+const mapDispatchToProps = (dispatch: Dispatch<IAction>): INewItemDispatchProps => ({
+  onAddClick: (text: string) => dispatch(addItem(text)),
 });
 
-const ConnectedNewItem = connect(null, mapDispatchToProps)(NewItem);
-export { ConnectedNewItem as NewItem };
+export const NewItem: ComponentClass =
+  connect(null, mapDispatchToProps)(NewItemComponent);

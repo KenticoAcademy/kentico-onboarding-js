@@ -1,39 +1,49 @@
-import React, { PureComponent, } from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
 import { isTextValid } from '../utils/isTextValid';
 import { createValidationTools } from '../utils/validationTools';
+import { IAction } from '../actions/IAction';
+import * as PropTypes from 'prop-types';
 
-export class NewItem extends PureComponent {
+export interface INewItemDispatchProps {
+  readonly onAddClick: (text: string) => IAction;
+}
+
+interface INewItemState {
+  readonly text: string;
+  readonly isFocused: boolean;
+}
+
+export class NewItem extends React.PureComponent<INewItemDispatchProps, INewItemState> {
   static displayName = 'NewItem';
 
   static propTypes = {
-    onAddClick: PropTypes.func.isRequired
+    onAddClick: PropTypes.func.isRequired,
   };
 
-  constructor(props) {
+  constructor(props: INewItemDispatchProps) {
     super(props);
 
     this.state = {
       text: '',
-      isFocused: false
+      isFocused: false,
     };
   }
 
-  _changeInput = (event) => {
+  _changeInput = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const eventTargetValue = event.target.value;
-    this.setState(() => ({ text: eventTargetValue }));
+    this.setState(() => ({text: eventTargetValue}));
   };
 
-  _addItem = () => {
+  _addItem = (): void => {
     this.props.onAddClick(this.state.text);
-    this.setState(() => ({ text: '' }));
+    this.setState(() => ({text: ''}));
   };
 
-  _toggleFocus = () => {
-    this.setState((prevState) => ({ isFocused: !prevState.isFocused }));
+  _toggleFocus = (): void => {
+    this.setState((prevState) => ({isFocused: !prevState.isFocused}));
   };
 
-  render() {
+  render(): JSX.Element {
     const validationTools = createValidationTools(this.state.text, this.state.isFocused);
 
     return (
@@ -46,7 +56,7 @@ export class NewItem extends PureComponent {
             title={validationTools.tooltip}
             onBlur={this._toggleFocus}
             onFocus={this._toggleFocus}
-            autoFocus
+            autoFocus={true}
           />
           <button
             type="button"
