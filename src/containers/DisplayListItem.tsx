@@ -12,6 +12,7 @@ import { IAppState } from '../store/state/IAppState';
 
 const mapStateToProps = (state: IAppState, ownProps: DisplayListItemContainerProps): DisplayListItemStateProps => ({
   text: state.list.items.get(ownProps.id).text,
+  hasError: state.list.items.get(ownProps.id).errorId !== '',
 });
 
 const mapDispatchToProps = (dispatch: Dispatch, ownProps: DisplayListItemContainerProps): DisplayListItemDispatchProps => ({

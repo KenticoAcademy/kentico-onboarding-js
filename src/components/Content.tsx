@@ -23,7 +23,7 @@ export const Content: React.StatelessComponent<ContentProps> = ({ isLoading, err
 
   return (
     <section className={className} id="app-content">
-      {isLoading && error === '' && <Loader />}
+      {isLoading && error === '' && <Loader classNames="aligner aligner-item" size={15} />}
       {!isLoading && <List />}
     </section>
   );

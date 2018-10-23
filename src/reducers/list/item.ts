@@ -15,7 +15,7 @@ export const item = (state: Item = new Item(), action: Actions): Item => {
         text: action.payload.text,
         isBeingEdited: false,
         isSyncing: true,
-        oldText: action.payload.text !== state.text
+        oldText: state.oldText === ''
           ? state.text
           : state.oldText,
       });
