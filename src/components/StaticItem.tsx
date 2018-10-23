@@ -1,7 +1,20 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import { IAction } from '../actions/IAction';
+import { ListItem } from '../models/ListItem';
+import * as PropTypes from 'prop-types';
 
-export const StaticItem = ({ index, item, onItemClick }) => (
+export interface IStaticItemDispatchProps {
+  readonly onItemClick: () => IAction;
+}
+
+export interface IStaticItemStateProps {
+  readonly item: ListItem;
+  readonly index: number;
+}
+
+type StaticItemProps = IStaticItemDispatchProps & IStaticItemStateProps;
+
+export const StaticItem: React.StatelessComponent<StaticItemProps> = ({index, item, onItemClick}: StaticItemProps) => (
   <div onClick={onItemClick}>
     {index}. {item.text}
   </div>
@@ -10,11 +23,8 @@ export const StaticItem = ({ index, item, onItemClick }) => (
 StaticItem.displayName = 'StaticItem';
 
 StaticItem.propTypes = {
-  item: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    text: PropTypes.string.isRequired
-  }).isRequired,
+  item: PropTypes.instanceOf(ListItem),
   index: PropTypes.number.isRequired,
 
-  onItemClick: PropTypes.func.isRequired
+  onItemClick: PropTypes.func.isRequired,
 };

@@ -1,14 +1,27 @@
 import { connect } from 'react-redux';
-import { StaticItem } from '../components/StaticItem';
-import { startItemEditing } from '../actions/index';
+import {
+  IStaticItemDispatchProps,
+  IStaticItemStateProps,
+  StaticItem as StaticItemComponent,
+} from '../components/StaticItem';
+import { startItemEditing } from '../actions';
+import { IAction } from '../actions/IAction';
+import { Dispatch } from 'redux';
+import { IStore } from '../store/IAppState';
+import { ComponentClass } from 'react';
 
-const mapStateToProps = ({ todoList: { items } }, { id }) => ({
-  item: items.get(id)
+interface IStaticItemContainerProps {
+  readonly id: Uuid;
+  readonly index: number;
+}
+
+const mapStateToProps = (state: IStore, ownProps: IStaticItemContainerProps): IStaticItemStateProps => ({
+  item: state.todoList.items.get(ownProps.id),
+  index: ownProps.index,
 });
 
-const mapDispatchToProps = (dispatch, { id }) => ({
-  onItemClick: () => dispatch(startItemEditing(id)),
+const mapDispatchToProps = (dispatch: Dispatch<IAction>, ownProps: IStaticItemContainerProps): IStaticItemDispatchProps => ({
+  onItemClick: () => dispatch(startItemEditing(ownProps.id)),
 });
 
-const ConnectedStaticItem = connect(mapStateToProps, mapDispatchToProps)(StaticItem);
-export { ConnectedStaticItem as StaticItem };
+export const StaticItem: ComponentClass<IStaticItemContainerProps> = connect(mapStateToProps, mapDispatchToProps)(StaticItemComponent);
