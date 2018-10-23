@@ -1,44 +1,60 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
 import { isTextValid } from '../utils/isTextValid';
 import { createValidationTools } from '../utils/validationTools';
+import { IAction } from '../actions/IAction';
+import { ListItem } from '../models/ListItem';
+import * as PropTypes from 'prop-types';
 
-export class EditableItem extends PureComponent {
+export interface IEditableItemStateProps {
+  readonly item: ListItem;
+  readonly index: number;
+}
+
+export interface IEditableItemDispatchProps {
+  readonly onCancelClick: () => IAction;
+  readonly onDeleteClick: () => IAction;
+  readonly onSaveClick: (text: string) => IAction;
+}
+
+interface IEditableItemState {
+  readonly text: string;
+  readonly isFocused: boolean;
+}
+
+type EditableItemProps = IEditableItemDispatchProps & IEditableItemStateProps;
+
+export class EditableItem extends React.PureComponent<EditableItemProps, IEditableItemState> {
   static displayName = 'EditableItem';
 
   static propTypes = {
-    item: PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      text: PropTypes.string.isRequired
-    }).isRequired,
+    item: PropTypes.instanceOf(ListItem),
     index: PropTypes.number.isRequired,
 
     onCancelClick: PropTypes.func.isRequired,
     onDeleteClick: PropTypes.func.isRequired,
-    onSaveClick: PropTypes.func.isRequired
+    onSaveClick: PropTypes.func.isRequired,
   };
 
-  constructor(props) {
+  constructor(props: EditableItemProps) {
     super(props);
-
     this.state = {
       text: this.props.item.text,
-      isFocused: false
+      isFocused: false,
     };
   }
 
-  _changeInput = (event) => {
+  _changeInput = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const eventTargetValue = event.target.value;
-    this.setState(() => ({ text: eventTargetValue }));
+    this.setState(() => ({text: eventTargetValue}));
   };
 
-  _saveInput = () => this.props.onSaveClick(this.state.text);
+  _saveInput = (): IAction => this.props.onSaveClick(this.state.text);
 
-  _toggleFocus = () => {
-    this.setState((prevState) => ({ isFocused: !prevState.isFocused }));
+  _toggleFocus = (): void => {
+    this.setState((prevState) => ({isFocused: !prevState.isFocused}));
   };
 
-  render() {
+  render(): JSX.Element {
     const validationTools = createValidationTools(this.state.text, this.state.isFocused);
 
     return (
@@ -53,7 +69,7 @@ export class EditableItem extends PureComponent {
             onChange={this._changeInput}
             onBlur={this._toggleFocus}
             onFocus={this._toggleFocus}
-            autoFocus
+            autoFocus={true}
           />
           <div
             className="btn-group"
