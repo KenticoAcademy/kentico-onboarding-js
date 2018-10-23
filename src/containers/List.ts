@@ -1,10 +1,11 @@
-import connect from 'react-redux/es/connect/connect';
-import { List } from '../components/List';
+import { connect } from 'react-redux';
 import { getItemsIds } from '../selectors/getItemsIds';
+import { IListStateProps, List as ListComponent } from '../components/List';
+import { IStore } from '../store/IAppState';
+import { ComponentClass } from 'react';
 
-const mapStateToProps = ({ todoList: { items } }) => ({
-  itemsIds: getItemsIds(items)
+const mapStateToProps = (state: IStore): IListStateProps => ({
+  itemsIds: getItemsIds(state.todoList.items.keySeq().toArray()),
 });
 
-const ConnectedList = connect(mapStateToProps)(List);
-export { ConnectedList as List };
+export const List: ComponentClass = connect(mapStateToProps)(ListComponent);

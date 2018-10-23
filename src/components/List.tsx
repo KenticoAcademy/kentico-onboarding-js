@@ -1,45 +1,52 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
 import { NewItem } from '../containers/NewItem';
 import { Item } from '../containers/Item';
+import * as PropTypes from 'prop-types';
 
-const ListGroupItem = (props) => (
+interface IListGroupItemProps {
+  readonly children: React.ReactNode;
+}
+
+const ListGroupItem: React.StatelessComponent<IListGroupItemProps> = ({children}: IListGroupItemProps) => (
   <li className="list-group-item">
-    {props.children}
+    {children}
   </li>);
-ListGroupItem.DisplayName = 'ListGroupItem';
 
-export class List extends PureComponent {
-  static displayName = 'List';
+ListGroupItem.displayName = 'ListGroupItem';
 
-  static propTypes = {
-    itemsIds: PropTypes.object.isRequired,
-  };
+export interface IListStateProps {
+  readonly itemsIds: Array<Uuid>;
+}
 
-  _renderListItems = () =>
-    this.props
-      .itemsIds
+export const List: React.StatelessComponent<IListStateProps>
+  = ({itemsIds}: IListStateProps) => {
+  const _renderedItems =
+    itemsIds
       .map((id, index) => (
         <ListGroupItem key={id}>
           <Item
             id={id}
             index={index + 1}
           />
-        </ListGroupItem>)
+        </ListGroupItem>),
       );
 
-  render() {
-    return (
-      <div className="col-sm-12 col-md-offset-2 col-md-8">
+  return (
+    <div className="col-sm-12 col-md-offset-2 col-md-8">
             <pre>
                 <ul className="list-group">
-                  {this._renderListItems()}
+                  {_renderedItems}
                   <ListGroupItem>
                     <NewItem />
                   </ListGroupItem>
                 </ul>
             </pre>
-      </div>
-    );
-  }
-}
+    </div>
+  );
+};
+
+List.displayName = 'List';
+
+List.propTypes = {
+  itemsIds: PropTypes.array.isRequired,
+};
