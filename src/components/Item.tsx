@@ -1,9 +1,15 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
 import { StaticItem } from '../containers/StaticItem';
 import { EditableItem } from '../containers/EditableItem';
+import * as PropTypes from 'prop-types';
 
-export const Item = ({ id, index, isInEditMode }) =>
+export interface IItemStateProps {
+  readonly id: Uuid;
+  readonly index: number;
+  readonly isInEditMode: boolean;
+}
+
+export const Item: React.StatelessComponent<IItemStateProps> = ({id, index, isInEditMode}: IItemStateProps) =>
   (isInEditMode
     ? (
       <EditableItem
