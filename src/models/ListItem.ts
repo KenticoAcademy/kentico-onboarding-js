@@ -1,9 +1,9 @@
-import { Record } from 'immutable';
+import { BaseRecord } from './BaseRecord';
 
 export interface IListItem {
-  id?: Uuid;
-  text?: string;
-  isInEditMode?: boolean;
+  id: Uuid;
+  text: string;
+  isInEditMode: boolean;
 }
 
 const defaultListItem: IListItem = {
@@ -12,16 +12,8 @@ const defaultListItem: IListItem = {
   isInEditMode: false,
 };
 
-export class ListItem extends Record(defaultListItem, 'ListItem') implements IListItem {
+export class ListItem extends BaseRecord(defaultListItem, 'ListItem') implements IListItem {
   readonly id: Uuid;
   readonly text: string;
   readonly isInEditMode: boolean;
-
-  constructor(params?: Partial<IListItem>) {
-    params ? super(params) : super();
-  }
-
-  with(values: IListItem): ListItem {
-    return this.merge(values) as this;
-  }
 }
