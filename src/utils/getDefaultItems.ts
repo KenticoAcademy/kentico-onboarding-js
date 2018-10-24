@@ -1,7 +1,7 @@
 import { ListItem } from '../models/ListItem';
 import { generateId } from './generateId';
 
-export const getDefaultItems = () => {
+export const getDefaultItems = (): Array<ListItem> => {
   const buyMilkItem = new ListItem({
     id: generateId(),
     text: 'Buy Milk',
@@ -23,6 +23,6 @@ export const getDefaultItems = () => {
     buyMilkItem,
     masterReactItem,
     learnReduxItem,
-    helpMakingDraftAwesomeItem
+    helpMakingDraftAwesomeItem,
   ];
 };
