@@ -11,6 +11,9 @@ module.exports = merge(common, {
   mode: 'development',
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
+    new webpack.DefinePlugin({
+      'process.env.API_URL': JSON.stringify('')
+    }),
   ],
   devServer: {
     contentBase: path.resolve(__dirname, 'build'),

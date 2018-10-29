@@ -1,1 +1,1 @@
-export const urlBase: string = '/v1/items';
+export const urlBase: string = process.env.API_URL + '/v1/items';

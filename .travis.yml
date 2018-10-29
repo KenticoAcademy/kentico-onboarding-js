@@ -4,3 +4,14 @@ node_js:
  
 before_install:
   - npm i -g npm@6.1.0
+
+before_deploy:
+  - npm run produce
+
+deploy:
+  skip_cleanup: true
+  provider: surge
+  project: ./build/
+  domain: peterh-todolist.surge.sh
+  on:
+    branch: feature/task-5

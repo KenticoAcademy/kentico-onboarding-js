@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/pthutta/kentico-onboarding-js.svg?branch=master)](https://travis-ci.org/pthutta/kentico-onboarding-js)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/20f2b735762c46c6bba6c6513d7030db)](https://www.codacy.com/app/pthutta/kentico-onboarding-js?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=pthutta/kentico-onboarding-js&amp;utm_campaign=Badge_Grade)
 
 # kentico-onboarding-js
 Simple step-by-step task for Kentico Academy to learn the basics of JS, React, Redux, TypeScript.
