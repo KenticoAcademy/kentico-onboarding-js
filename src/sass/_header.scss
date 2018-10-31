@@ -28,9 +28,13 @@
 
 .header__content__link {
   margin-left: 8px;
-  &:before {
-    content: ' | ';
+
+  @media all and (min-width: 500px) {
+    &:before {
+      content: ' | ';
+    }
   }
+
 
   & a {
     color: $color-neutral-dark;
