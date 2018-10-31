@@ -22,7 +22,6 @@
     flex-flow: row nowrap;
     align-items: center;
     justify-content: flex-start;
-    width: 600px;
   }
 }
 
@@ -30,7 +29,6 @@
 .list__item__inline_content {
   flex-flow: row;
   align-items: center;
-  display: flex;
   margin-right: 5px;
   text-align: left;
 

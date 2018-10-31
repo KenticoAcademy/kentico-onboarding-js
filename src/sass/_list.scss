@@ -4,8 +4,6 @@
 .list__external_button {
   margin-top: 40px;
   margin-bottom: 30px;
-  background-color: transparent;
-  border: none;
   color: $color-main-middle;
   text-align: center;
   text-decoration: none;
@@ -42,14 +40,10 @@
 
 .list__container {
   text-align: center;
-  margin-bottom: 70px;
 }
 
 
 .list__content {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
   max-width: 900px;
   width: 100%;
   margin: auto;
