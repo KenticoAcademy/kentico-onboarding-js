@@ -1,12 +1,16 @@
 import { error } from './error';
-import { displayError, deleteItemSuccess, loadingItemsSuccess } from '../../actions/itemsActions';
+import {
+  deleteItemSuccess,
+  displayError,
+  loadingItemsSuccess,
+} from '../../actions/itemsActions';
 
 describe('error', () => {
-  it('initializes state with empty string', () => {
+  it('initializes state with null string', () => {
     const previousState: string | undefined = undefined;
-    const expectedState: string = '';
+    const expectedState = null;
 
-    const result: string = error(previousState, deleteItemSuccess(''));
+    const result: string | null = error(previousState, deleteItemSuccess(''));
 
     expect(result).toEqual(expectedState);
   });
@@ -14,10 +18,10 @@ describe('error', () => {
   describe('displayError', () => {
     it('returns state with correct error message', () => {
       const errorMessage: string = 'All your bases are belong to us!';
-      const previousState: string = '';
+      const previousState = null;
       const expectedState: string = errorMessage;
 
-      const result: string = error(previousState, displayError(errorMessage));
+      const result: string | null = error(previousState, displayError(errorMessage));
 
       expect(result).toEqual(expectedState);
     });
@@ -26,9 +30,9 @@ describe('error', () => {
   describe('loadingItemsSuccess', () => {
     it('returns state with empty string', () => {
       const previousState: string = 'All your bases are belong to us!';
-      const expectedState: string = '';
+      const expectedState = null;
 
-      const result: string = error(previousState, loadingItemsSuccess([]));
+      const result: string | null = error(previousState, loadingItemsSuccess([]));
 
       expect(result).toEqual(expectedState);
     });

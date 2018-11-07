@@ -1,9 +1,7 @@
 import { OrderedMap } from 'immutable';
 import { Item } from '../../models/Item';
 import { ItemError } from '../../models/Error';
-import {
-  DeleteItemErrorAction, DeleteItemSuccessAction,
-} from '../types/itemsActionTypes';
+import { DeleteItemErrorAction, DeleteItemSuccessAction } from '../types/itemsActionTypes';
 import { deleteItemError, deleteItemSuccess } from '../itemsActions';
 import { retryCreator } from './retryCreator';
 import Mock = jest.Mock;

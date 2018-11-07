@@ -12,7 +12,7 @@ module.exports = merge(common, {
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.DefinePlugin({
-      'process.env.API_URL': JSON.stringify('')
+      'process.env.API_URL': JSON.stringify('https://peterh-todoapp.azurewebsites.net/api')
     }),
   ],
   devServer: {

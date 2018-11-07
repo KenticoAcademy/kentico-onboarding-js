@@ -1,4 +1,8 @@
-import { applyMiddleware, createStore, Store } from 'redux';
+import {
+  applyMiddleware,
+  createStore,
+  Store,
+} from 'redux';
 import thunk from 'redux-thunk';
 import { todoApp } from '../reducers/todoApp';
 import { composeWithDevTools } from 'redux-devtools-extension';

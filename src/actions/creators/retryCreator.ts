@@ -7,7 +7,8 @@ import {
   Actions,
   AddItemErrorAction,
   DeleteItemSuccessAction,
-  PostItemSuccessAction, PutItemSuccessAction,
+  PostItemSuccessAction,
+  PutItemSuccessAction,
 } from '../types/itemsActionTypes';
 
 export const retryCreator = (
@@ -16,7 +17,7 @@ export const retryCreator = (
   putItemRequest: (item: IItem) => ThunkAction<Promise<PutItemSuccessAction | AddItemErrorAction>, void, void, Actions>,
 ) =>
   (itemId: Guid) =>
-    (dispatch: ThunkDispatch<IAppState, void, Actions>, getState: () => IAppState): Promise<Actions> | undefined => {
+    (dispatch: ThunkDispatch<IAppState, void, Actions>, getState: () => IAppState): Promise<Actions> => {
       const item: IItem = getState().list.items.get(itemId);
       const error: IError = getState().list.itemErrors.get(item.errorId);
       dispatch(deleteItemError(error.id));
@@ -33,6 +34,6 @@ export const retryCreator = (
           return dispatch(putItemRequest(item));
 
         default:
-          return;
+          throw Error('Unknown error action: ' + error.action);
       }
     };

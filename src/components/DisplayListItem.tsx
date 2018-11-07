@@ -40,7 +40,7 @@ export const DisplayListItem: React.StatelessComponent<DisplayListItemProps> = (
           <div className={classNames('form-group', {'is-syncing': isSyncing})}>
             {order}. {text}
           </div>
-          {isSyncing && !hasError && <Loader classNames="aligner-item aligner-item--top col-sm-offset-1" size={6}/>}
+          {isSyncing && !hasError && <Loader className="aligner-item aligner-item--top col-sm-offset-1" size={6}/>}
           <ItemError id={id} />
         </div>
       </form>

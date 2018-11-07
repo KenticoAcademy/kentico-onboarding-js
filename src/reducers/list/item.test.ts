@@ -2,10 +2,14 @@ import { item } from './item';
 import { Item } from '../../models/Item';
 import { addItemCreator } from '../../actions/creators/addItemCreator';
 import {
+  cancelItemUpdating,
+  deleteItemError,
   deleteItemSuccess,
+  postItemSuccess,
+  putItemSuccess,
   saveItemText,
+  setItemSyncing,
   toggleItemEditing,
-  postItemSuccess, putItemSuccess, setItemSyncing, deleteItemError, cancelItemUpdating,
 } from '../../actions/itemsActions';
 import { addItemErrorCreator } from '../../actions/creators/addItemErrorCreator';
 
@@ -81,7 +85,7 @@ describe('item', () => {
         id: '1',
         text: 'Learn react',
       });
-      const expectedState: Item = previousState.with({ isBeingEdited: true });
+      const expectedState: Item = previousState.with({isBeingEdited: true});
 
       const result: Item = item(previousState, toggleItemEditing(previousState.id));
 
@@ -91,7 +95,7 @@ describe('item', () => {
 
   describe('postItemSuccess', () => {
     it('returns item with new id and isSyncing set to false', () => {
-      const previousState: Item = new Item({ errorId: '42' });
+      const previousState: Item = new Item({errorId: '42'});
       const idGenerator = () => '1';
       const expectedState: Item = new Item({
         id: idGenerator(),
@@ -151,7 +155,7 @@ describe('item', () => {
         id: '1',
         text: 'Learn react',
       });
-      const expectedState: Item = previousState.with({ isSyncing: true });
+      const expectedState: Item = previousState.with({isSyncing: true});
 
       const result: Item = item(previousState, setItemSyncing(previousState.id, true));
 

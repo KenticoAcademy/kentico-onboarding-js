@@ -6,6 +6,6 @@ export const initialState: IAppState = {
     items: OrderedMap(),
     itemErrors: OrderedMap(),
     isLoading: true,
-    error: '',
+    error: null,
   },
 };

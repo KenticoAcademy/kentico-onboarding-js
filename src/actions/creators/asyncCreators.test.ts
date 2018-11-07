@@ -1,22 +1,26 @@
 import 'isomorphic-fetch';
-import { IItem, Item } from '../../models/Item';
 import {
   AddItemAction,
+  AddItemErrorAction,
   DeleteItemSuccessAction,
-  DisplayErrorAction, AddItemErrorAction,
-  LoadingItemsSuccessAction, PostItemSuccessAction, PutItemSuccessAction,
-  SaveItemTextAction, SetItemSyncingAction,
+  DisplayErrorAction,
+  LoadingItemsSuccessAction,
+  PostItemSuccessAction,
+  PutItemSuccessAction,
+  SaveItemTextAction,
+  SetItemSyncingAction,
 } from '../types/itemsActionTypes';
-import {
-  getItemsCreator,
-  } from './getItemsCreator';
-import Mock = jest.Mock;
 import {
   deleteItemSuccess,
   displayError,
-  loadingItemsSuccess, postItemSuccess, putItemSuccess,
-  saveItemText, setItemSyncing,
+  loadingItemsSuccess,
+  postItemSuccess,
+  putItemSuccess,
+  saveItemText,
+  setItemSyncing,
 } from '../itemsActions';
+import { IItem, Item } from '../../models/Item';
+import { getItemsCreator } from './getItemsCreator';
 import { addItemCreator } from './addItemCreator';
 import { urlBase } from '../utils/urlBase';
 import { headerBase } from '../utils/headerBase';
@@ -25,6 +29,7 @@ import { putItemCreator } from './putItemCreator';
 import { deleteItemCreator } from './deleteItemCreator';
 import { GATEWAY_TIMEOUT_MESSAGE } from '../utils/errorMessages';
 import { addItemErrorCreator } from './addItemErrorCreator';
+import Mock = jest.Mock;
 
 describe('fetchCreators', () => {
   const mockResponse = (status: number, statusText?: string, response?: BodyInit) =>
@@ -50,7 +55,7 @@ describe('fetchCreators', () => {
   describe('getItemsCreator', () => {
     it('when successful, creates loadingItemsSuccess action', () => {
       const response: IItem[] = [
-        new Item({ id: '1', text: 'Text1' }),
+        new Item({id: '1', text: 'Text1'}),
       ];
       const expectedResult: LoadingItemsSuccessAction = loadingItemsSuccess(response);
       const expectedRequestInit: RequestInit = {
@@ -86,7 +91,7 @@ describe('fetchCreators', () => {
   describe('postItemCreator', () => {
     it('when successful, creates postItemSuccess action', () => {
       const tempId: Guid = '1';
-      const newItem: IItem = new Item({ id: '2', text: 'Text1' });
+      const newItem: IItem = new Item({id: '2', text: 'Text1'});
       const expectedAction1: AddItemAction = addItemCreator(() => tempId)(newItem.text);
       const expectedAction2: PostItemSuccessAction = postItemSuccess(tempId, newItem.id);
       const expectedRequestInit: RequestInit = {
@@ -127,7 +132,7 @@ describe('fetchCreators', () => {
 
   describe('putItemCreator', () => {
     it('when successful, creates saveItemText action', () => {
-      const updatedItem: IItem = new Item({ id: '1', text: 'Text1' });
+      const updatedItem: IItem = new Item({id: '1', text: 'Text1'});
       const expectedAction1: SaveItemTextAction = saveItemText(updatedItem.id, updatedItem.text);
       const expectedAction2: PutItemSuccessAction = putItemSuccess(updatedItem.id);
       const expectedRequestInit: RequestInit = {
@@ -150,7 +155,7 @@ describe('fetchCreators', () => {
     });
 
     it('when fails, creates displayError action', () => {
-      const updatedItem: IItem = new Item({ id: '1', text: 'Text1' });
+      const updatedItem: IItem = new Item({id: '1', text: 'Text1'});
       const error: string = 'There was an error while saving item: ' + GATEWAY_TIMEOUT_MESSAGE;
       const expectedResult: AddItemErrorAction = addItemError(updatedItem.id, error, 'PUT');
       fetchResponse = mockResponse(504, error);

@@ -19,7 +19,7 @@ const validateResponse = async (response: Response): Promise<string> => {
 };
 
 export const fetchFactory = (
-  fetch: (input: string, init: RequestInit) => Promise<Response>,
+  fetch: Fetch,
   url: string,
   headers: RequestInit,
 ): Promise<Response> =>

@@ -9,7 +9,7 @@ export type ItemErrorContainerProps = {
 };
 
 export type ItemErrorStateProps = {
-  readonly error: string,
+  readonly error: string | null,
 };
 
 export type ItemErrorDispatchProps = {
@@ -21,13 +21,13 @@ type ItemErrorProps = ItemErrorContainerProps & ItemErrorStateProps & ItemErrorD
 
 const itemErrorPropTypes: ValidationMap<ItemErrorProps> = {
   id: PropTypes.string.isRequired,
-  error: PropTypes.string.isRequired,
+  error: PropTypes.string,
   cancel: PropTypes.func.isRequired,
   retry: PropTypes.func.isRequired,
 };
 
 export const ItemError: React.StatelessComponent<ItemErrorProps> = ({ error, cancel, retry }): JSX.Element | null => {
-  if (error === '') {
+  if (error === null) {
     return null;
   }
 
@@ -35,7 +35,7 @@ export const ItemError: React.StatelessComponent<ItemErrorProps> = ({ error, can
     <div className="list-item">
       <ErrorMessage
         classNames="badge progress-bar-danger item-error"
-        error={'Error'}
+        error="Error"
         tooltip={error}
       />
       <span

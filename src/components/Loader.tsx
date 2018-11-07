@@ -6,18 +6,18 @@ import * as PropTypes from 'prop-types';
 
 export type LoaderContainerProps = {
   readonly size: number,
-  readonly classNames: string,
+  readonly className: string,
 };
 
 type LoaderProps = LoaderContainerProps;
 
 const loaderPropTypes: ValidationMap<LoaderProps> = {
   size: PropTypes.number.isRequired,
-  classNames: PropTypes.string.isRequired,
+  className: PropTypes.string.isRequired,
 };
 
-export const Loader: React.StatelessComponent<LoaderProps> = ({ size, classNames }): JSX.Element => (
-  <div className={classNames}>
+export const Loader: React.StatelessComponent<LoaderProps> = ({ size, className }): JSX.Element => (
+  <div className={className}>
     <PulseLoader sizeUnit="px" size={size} color="#36D7B7"/>
   </div>
 );

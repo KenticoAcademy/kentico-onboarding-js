@@ -2,13 +2,17 @@ import Mock = jest.Mock;
 import { OrderedMap } from 'immutable';
 import { Item } from '../../models/Item';
 import { ItemError } from '../../models/Error';
+import { cancelAsyncActionCreator } from './cancelAsyncActionCreator';
 import {
   CancelItemUpdatingAction,
   DeleteItemErrorAction,
   DeleteItemSuccessAction,
 } from '../types/itemsActionTypes';
-import { cancelItemUpdating, deleteItemError, deleteItemSuccess } from '../itemsActions';
-import { cancelAsyncActionCreator } from './cancelAsyncActionCreator';
+import {
+  cancelItemUpdating,
+  deleteItemError,
+  deleteItemSuccess,
+} from '../itemsActions';
 
 describe('cancelAsyncActionCreator', () => {
   let dispatch: Mock;

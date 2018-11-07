@@ -3,10 +3,15 @@ import { items } from './items';
 import { IItem, Item } from '../../models/Item';
 import { addItemCreator } from '../../actions/creators/addItemCreator';
 import {
-  deleteItemSuccess, loadingItemsSuccess, postItemSuccess, putItemSuccess,
-  saveItemText, setItemSyncing,
+  cancelItemUpdating,
+  deleteItemError,
+  deleteItemSuccess,
+  loadingItemsSuccess,
+  postItemSuccess,
+  putItemSuccess,
+  saveItemText,
+  setItemSyncing,
   toggleItemEditing,
-  cancelItemUpdating, deleteItemError,
 } from '../../actions/itemsActions';
 import { IItemsState } from '../../store/state/IItemsState';
 import { addItemErrorCreator } from '../../actions/creators/addItemErrorCreator';
@@ -168,8 +173,8 @@ describe('items', () => {
   describe('loadingItemsSuccess', () => {
     it('returns state with received items', () => {
       const response: IItem[] = [
-        new Item({ id: '1', text: 'Text1' }),
-        new Item({ id: '2', text: 'Text2' }),
+        new Item({id: '1', text: 'Text1'}),
+        new Item({id: '2', text: 'Text2'}),
       ];
       const previousState: IItemsState = OrderedMap();
       const expectedState: IItemsState = OrderedMap([

@@ -1,29 +1,24 @@
 import '../styles/sticky-footer.css';
 import * as React from 'react';
-import { HotKeys, KeyMap } from 'react-hotkeys';
+import { HotKeys } from 'react-hotkeys';
 import { ValidationMap } from 'prop-types';
 import * as PropTypes from 'prop-types';
 import { ErrorMessage } from './ErrorMessage';
 import { Content } from '../containers/Content';
-
-const map: KeyMap = {
-  'confirm': 'enter',
-  'cancelEditing': 'escape',
-  'deleteItem': 'ctrl+del',
-};
+import { appKeyMap } from './Hotkeys/appKeyMap';
 
 export type AppStateProps = {
-  readonly error: string,
+  readonly error: string | null,
 };
 
 type AppProps = AppStateProps;
 
 const appPropTypes: ValidationMap<AppProps> = {
-  error: PropTypes.string.isRequired,
+  error: PropTypes.string,
 };
 
 export const App: React.StatelessComponent<AppProps> = ({ error }): JSX.Element => (
-  <HotKeys keyMap={map}>
+  <HotKeys keyMap={appKeyMap}>
     <div className="aligner page">
       <div className="container aligner-item aligner-item--top">
         <div className="header clearfix">
@@ -36,7 +31,6 @@ export const App: React.StatelessComponent<AppProps> = ({ error }): JSX.Element 
       <ErrorMessage
         classNames="alert alert-danger error-message"
         error={error}
-        tooltip={''}
       />
       <footer className="footer">
         <p>

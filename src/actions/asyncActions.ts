@@ -1,6 +1,4 @@
-import {
-  getItemsCreator,
-  } from './creators/getItemsCreator';
+import { getItemsCreator } from './creators/getItemsCreator';
 import { generateUuid } from '../utils/generateUuid';
 import { postItemCreator } from './creators/postItemCreator';
 import { putItemCreator } from './creators/putItemCreator';

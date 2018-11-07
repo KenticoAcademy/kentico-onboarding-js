@@ -4,20 +4,20 @@ import * as PropTypes from 'prop-types';
 
 export type ErrorMessageOwnProps = {
   readonly classNames: string,
-  readonly error: string,
-  readonly tooltip: string,
+  readonly error: string | null,
+  readonly tooltip?: string | null,
 };
 
 type ErrorMessageProps = ErrorMessageOwnProps;
 
 const errorMessagePropTypes: ValidationMap<ErrorMessageProps> = {
   classNames: PropTypes.string.isRequired,
-  error: PropTypes.string.isRequired,
-  tooltip: PropTypes.string.isRequired,
+  error: PropTypes.string,
+  tooltip: PropTypes.string,
 };
 
 export const ErrorMessage: React.StatelessComponent<ErrorMessageProps> = ({ classNames, error, tooltip }): JSX.Element | null => {
-  if (error === '') {
+  if (error === null) {
     return null;
   }
 
@@ -27,7 +27,7 @@ export const ErrorMessage: React.StatelessComponent<ErrorMessageProps> = ({ clas
       role="alert"
       data-toggle="tooltip"
       data-placement="top"
-      title={tooltip}
+      title={tooltip === null ? undefined : tooltip}
     >
       {error}
     </span>

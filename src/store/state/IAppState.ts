@@ -5,7 +5,7 @@ interface IListState {
   readonly items: IItemsState;
   readonly itemErrors: IErrorsState;
   readonly isLoading: boolean;
-  readonly error: string;
+  readonly error: string | null;
 }
 
 export interface IAppState {

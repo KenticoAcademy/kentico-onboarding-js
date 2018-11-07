@@ -2,8 +2,12 @@ import { Dispatch } from 'redux';
 import { IAppState } from '../../store/state/IAppState';
 import { IItem } from '../../models/Item';
 import { IError } from '../../models/Error';
-import { cancelItemUpdating, deleteItemError, deleteItemSuccess } from '../itemsActions';
 import { Actions } from '../types/itemsActionTypes';
+import {
+  cancelItemUpdating,
+  deleteItemError,
+  deleteItemSuccess,
+} from '../itemsActions';
 
 export const cancelAsyncActionCreator = (itemId: Guid) =>
   (dispatch: Dispatch, getState: () => IAppState): Actions | undefined => {
@@ -18,7 +22,10 @@ export const cancelAsyncActionCreator = (itemId: Guid) =>
       case 'PUT':
         return dispatch(cancelItemUpdating(itemId));
 
-      default:
+      case 'DELETE':
         return;
+
+      default:
+        throw Error('Unknown error action: ' + error.action);
     }
   };

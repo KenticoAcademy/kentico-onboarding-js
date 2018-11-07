@@ -1,14 +1,20 @@
 import {
-  deleteItemSuccess, displayError, loadingItemsSuccess,
+  cancelItemUpdating,
+  deleteItemError,
+  deleteItemSuccess,
+  displayError,
+  loadingItemsSuccess,
+  postItemSuccess,
+  putItemSuccess,
   saveItemText,
   toggleItemEditing,
-  postItemSuccess, deleteItemError, putItemSuccess, cancelItemUpdating,
 } from './itemsActions';
 import { generateUuid } from '../utils/generateUuid';
 import { addItemCreator } from './creators/addItemCreator';
 import {
   AddItemAction,
-  AddItemErrorAction, CancelItemUpdatingAction,
+  AddItemErrorAction,
+  CancelItemUpdatingAction,
   DeleteItemErrorAction,
   DeleteItemSuccessAction,
   DisplayErrorAction,
@@ -108,9 +114,9 @@ describe('displayError', () => {
 describe('loadingItemsSuccess', () => {
   it('returns action with array of received items', () => {
     const response: IItem[] = [
-      new Item({ id: '1', text: 'Text1' }),
-      new Item({ id: '2', text: 'Text2' }),
-      new Item({ id: '3', text: 'Text3' }),
+      new Item({id: '1', text: 'Text1'}),
+      new Item({id: '2', text: 'Text2'}),
+      new Item({id: '3', text: 'Text3'}),
     ];
     const expectedResult: LoadingItemsSuccessAction = {
       type: 'LOADING_ITEMS_SUCCESS',
