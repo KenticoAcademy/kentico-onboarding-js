@@ -46,7 +46,7 @@ export class AddNewItem extends React.PureComponent<IAddNewItemProps> {
 
     return (<div className="content__row">
       <input
-        className="input"
+        className="input input--main"
         type="text"
         onChange={this._onChange}
         value={this.props.newItemText}

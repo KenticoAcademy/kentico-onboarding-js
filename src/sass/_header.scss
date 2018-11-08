@@ -8,14 +8,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
-}
 
-
-@media all and (max-width: 500px) {
-  .header {
+  @media screen and (max-width: 500px) {
     flex-direction: column;
     height: auto;
     padding-bottom: 20px;
+
   }
 }
 
@@ -29,12 +27,11 @@
 .header__content__link {
   margin-left: 8px;
 
-  @media all and (min-width: 500px) {
+  @media screen and (min-width: 500px) {
     &:before {
       content: ' | ';
     }
   }
-
 
   & a {
     color: $color-neutral-dark;
