@@ -1,4 +1,3 @@
-import { headerBase } from './headerBase';
 import { GATEWAY_TIMEOUT_MESSAGE, NOT_FOUND_MESSAGE, CONNECTION_FAILED } from './errorMessages';
 
 const validateResponse = async (response: Response): Promise<string> => {
@@ -20,10 +19,11 @@ const validateResponse = async (response: Response): Promise<string> => {
 
 export const fetchFactory = (
   fetch: Fetch,
-  url: string,
-  headers: RequestInit,
-): Promise<Response> =>
-    fetch(url, {...headerBase, ...headers})
+  urlBase: string,
+  headerBase: RequestInit,
+) =>
+  (url: string, headers: RequestInit): Promise<Response> =>
+    fetch(urlBase + url, {...headerBase, ...headers})
       .then(
         async response => {
           if (!response.ok) {
