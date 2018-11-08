@@ -8,7 +8,7 @@ export interface IUneditedListItemStateProps {
 }
 
 const UneditedListItem: React.StatelessComponent<IUneditedListItemStateProps> = ({item}) => (
-  <div className="list__item__inline_content">
+  <div className="list__item__inline_content list__item__inline_content--long">
     {item.text}
   </div>);
 

@@ -56,18 +56,20 @@ export class ListItem extends React.PureComponent<IListItemProps> {
       'item--deleted': this.props.item.isBeingDeleted,
     });
 
-    return (<div className={listItemClassName}>
-      <div
-        onClick={this._showEditedItem}
-        className="list__item_content--long"
-        key={this.props.item.id}
-      >
-        <div className="list__item__inline_content">
-          {this.props.index + 1}.&nbsp;
+    return (
+      <div className={listItemClassName}>
+        <div
+          onClick={this._showEditedItem}
+          className="list__item_content list__item_content--long"
+          key={this.props.item.id}
+        >
+          <div className="list__item__inline_content">
+            {this.props.index + 1}.&nbsp;
+          </div>
+          {getListItemInCorrectMode(this.props.item)}
         </div>
-        {getListItemInCorrectMode(this.props.item)}
-      </div>
-      <ItemErrorMessage itemId={this.props.item.id} /> <Markers id={this.props.item.id} />
-    </div>);
+        {this.props.areThereErrors ? <ItemErrorMessage itemId={this.props.item.id} /> : null}
+        <Markers id={this.props.item.id} />
+      </div>);
   }
 }
