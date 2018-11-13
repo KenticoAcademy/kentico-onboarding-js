@@ -114,10 +114,12 @@ module.exports = {
       // assets smaller than specified size as data URLs to avoid requests.
       {
         exclude: [
+          /\.css$/,
+          /\.sass$/,
+          /\.scss$/,
           /\.html$/,
           /\.(ts|tsx)$/,
           /\.(js|jsx)$/,
-          /\.css$/,
           /\.json$/,
           /\.svg$/,
         ],
@@ -127,29 +129,24 @@ module.exports = {
           name: 'static/media/[name].[hash:8].[ext]',
         },
       },
+      {
+        test: /\.css$/,
+        loader: 'style!css!postcss'
+      },
+      {
+        test: /\.scss$/,
+        loaders: [
+          require.resolve("style-loader"), // creates style nodes from JS strings
+          require.resolve("css-loader"), // transl ates CSS into CommonJS
+          require.resolve("sass-loader") // compiles Sass to CSS
+        ]
+      },
       // Process JS with Babel.
       {
         test: /\.(js|jsx)$/,
         include: paths.appSrc,
         loader: 'babel',
 
-      },
-      // The notation here is somewhat confusing.
-      // "postcss" loader applies autoprefixer to our CSS.
-      // "css" loader resolves paths in CSS and adds assets as dependencies.
-      // "style" loader normally turns CSS into JS modules injecting <style>,
-      // but unlike in development configuration, we do something different.
-      // `ExtractTextPlugin` first applies the "postcss" and "css" loaders
-      // (second argument), then grabs the result CSS and puts it into a
-      // separate file in our build process. This way we actually ship
-      // a single CSS file in production instead of JS code injecting <style>
-      // tags. If you use code splitting, however, any async bundles will still
-      // use the "style" loader inside the async code so CSS from them won't be
-      // in the main CSS file.
-      {
-        test: /\.css$/,
-        loader: ExtractTextPlugin.extract('style', 'css?importLoaders=1!postcss'),
-        // Note: this won't work without `new ExtractTextPlugin()` in `plugins`.
       },
       {
         test: /\.(ts|tsx)$/,
