@@ -10,7 +10,7 @@ import { applyMiddleware, createStore } from 'redux';
 import logger from 'redux-logger';
 import thunk from 'redux-thunk';
 
-import '.././css/style.css';
+import './sass/main.scss';
 import { App } from './containers/App.tsx';
 import { root } from './reducers/root.ts';
 
