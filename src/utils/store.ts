@@ -13,7 +13,7 @@ import { IItemState } from '../reducers/board/items/items';
 const getOrderMapFromItems = (items: Item[]): IItemState =>
   OrderedMap<Guid, Item>(items.map((item) => [item.id, item]));
 
-const initialItems = { board: { items: getOrderMapFromItems(getInitialItems()) } };
+export const initialItems = { board: { items: getOrderMapFromItems(getInitialItems()) } };
 
 export const store = createStore(
   reducer,
