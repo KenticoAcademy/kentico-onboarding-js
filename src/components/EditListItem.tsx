@@ -66,7 +66,7 @@ export class EditListItem extends PureComponent<EditListItemProps, EditListItemS
     const title: string | undefined = isValid
       ? undefined
       : 'Please enter text';
-    const className: string = classNames('input-group', {
+    const className: string = classNames('input-group stretch', {
       'has-success': isValid,
       'has-error': !isValid,
     });
@@ -77,52 +77,50 @@ export class EditListItem extends PureComponent<EditListItemProps, EditListItemS
     };
 
     return (
-      <li className="list-group-item">
-        <HotKeys handlers={handlers}>
-          <form className="form-inline" onKeyPress={this._onKeyPress}>
-            <div className="form-group">
-              <label>{this.props.order}. </label>
-              <div className={className}>
-                <input
-                  className="form-control"
-                  value={this.state.inputText}
-                  onChange={this._storeInputValue}
-                  tabIndex={this.props.order}
-                  autoFocus={true}
-                />
-                <div className="input-group-btn">
-                  <button
-                    type="button"
-                    className="btn btn-primary"
-                    onClick={this._saveNewItemText}
-                    disabled={!isValid}
-                    title={title}
-                    tabIndex={-1}
-                  >
-                    Save
-                  </button>
-                  <button
-                    type="button"
-                    className="btn btn-default"
-                    onClick={this.props.cancel}
-                    tabIndex={-1}
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    type="button"
-                    className="btn btn-danger"
-                    onClick={this.props.delete}
-                    tabIndex={-1}
-                  >
-                    Delete
-                  </button>
-                </div>
-              </div>
+      <HotKeys handlers={handlers}>
+        <form className="flexbox" onKeyPress={this._onKeyPress}>
+          <section className={className}>
+            <div className="stretch">
+              <input
+                type="text"
+                className="form-control"
+                value={this.state.inputText}
+                onChange={this._storeInputValue}
+                tabIndex={this.props.order}
+                autoFocus={true}
+              />
             </div>
-          </form>
-        </HotKeys>
-      </li>
+            <div className="input-group-btn normal">
+              <button
+                type="button"
+                className="btn btn-primary"
+                onClick={this._saveNewItemText}
+                disabled={!isValid}
+                title={title}
+                tabIndex={-1}
+              >
+                Save
+              </button>
+              <button
+                type="button"
+                className="btn btn-default"
+                onClick={this.props.cancel}
+                tabIndex={-1}
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                className="btn btn-danger"
+                onClick={this.props.delete}
+                tabIndex={-1}
+              >
+                Delete
+              </button>
+            </div>
+          </section>
+        </form>
+      </HotKeys>
     );
   }
 }

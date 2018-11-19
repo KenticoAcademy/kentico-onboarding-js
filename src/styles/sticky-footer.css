@@ -77,9 +77,36 @@ form:focus {
   justify-content: center;
 }
 
+.inline div[tabindex="-1"] {
+  display: inline-block;
+  flex: 1;
+}
+
+.flexbox {
+  display: flex;
+  align-items: center;
+}
+
+.flexbox .stretch {
+  flex: 1;
+}
+
+.flexbox .normal {
+  flex: 0 0 auto;
+}
+
+.flexbox div input {
+  width: 100% !important;
+}
+
+.flexbox div button {
+  white-space: nowrap !important;
+}
+
 .container .text-muted {
   display: flex;
   margin: 20px 0;
+  justify-content: center;
   width: auto;
   padding: 0 15px;
 }

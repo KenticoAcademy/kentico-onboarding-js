@@ -14,6 +14,7 @@ type NewListItemProps = NewListItemDispatchProps;
 
 type NewListItemState = {
   readonly inputText: string,
+  readonly focused: boolean,
 };
 
 export class NewListItem extends PureComponent<NewListItemProps, NewListItemState> {
@@ -25,6 +26,15 @@ export class NewListItem extends PureComponent<NewListItemProps, NewListItemStat
 
   state: NewListItemState = {
     inputText: '',
+    focused: false,
+  };
+
+  private _onFocus = (): void => {
+    this.setState(() => ({ focused: true }));
+  };
+
+  private _onBlur = (): void => {
+    this.setState(() => ({ focused: false }));
   };
 
   private _storeInputValue = (event: React.ChangeEvent<HTMLInputElement>): void => {
@@ -47,38 +57,44 @@ export class NewListItem extends PureComponent<NewListItemProps, NewListItemStat
   };
 
   render(): JSX.Element {
-    const { inputText } = this.state;
+    const { inputText, focused } = this.state;
     const isValid: boolean = isStringNonempty(inputText);
     const title: string | undefined = isValid
       ? undefined
       : 'Please enter text';
-    const className: string = classNames('form-group', {
-      'has-success': isValid,
-      'has-error': !isValid,
+    const className: string = classNames('input-group stretch', {
+      'has-success': focused && isValid,
+      'has-error': focused && !isValid,
     });
 
     return (
       <HotKeys handlers={{ 'confirm': this._addNewItem }}>
-        <form className="form-inline" onKeyPress={this._onKeyPress}>
-          <div className={className}>
-            <input
-              type="text"
-              className="form-control"
-              value={inputText}
-              placeholder="New item"
-              onChange={this._storeInputValue}
-              autoFocus={true}
-            />
-            <button
-              type="button"
-              className="btn btn-default"
-              onClick={this._addNewItem}
-              disabled={!isValid}
-              title={title}
-            >
-              Add
-            </button>
-          </div>
+        <form className="flexbox" onKeyPress={this._onKeyPress}>
+          <section className={className}>
+            <div className="stretch">
+              <input
+                type="text"
+                className="form-control"
+                value={inputText}
+                placeholder="New item"
+                onChange={this._storeInputValue}
+                autoFocus={true}
+                onFocus={this._onFocus}
+                onBlur={this._onBlur}
+              />
+            </div>
+            <div className="input-group-btn normal">
+              <button
+                type="button"
+                className="btn btn-default"
+                onClick={this._addNewItem}
+                disabled={!isValid}
+                title={title}
+              >
+                Add
+              </button>
+            </div>
+          </section>
         </form>
       </HotKeys>
     );

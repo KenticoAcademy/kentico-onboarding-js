@@ -33,19 +33,17 @@ const displayListItemPropTypes: ValidationMap<DisplayListItemProps> = {
 };
 
 export const DisplayListItem: React.StatelessComponent<DisplayListItemProps> = ({ id, order, text, enableEditing, isSyncing, hasError }): JSX.Element => (
-  <li className="list-group-item">
-    <HotKeys handlers={{'confirm': enableEditing}}>
-      <form className="form-inline" tabIndex={order}>
-        <div className="list-item aligner-item" onClick={enableEditing}>
-          <div className={classNames('form-group', {'is-syncing': isSyncing})}>
-            {order}. {text}
-          </div>
-          {isSyncing && !hasError && <Loader className="aligner-item aligner-item--top col-sm-offset-1" size={6}/>}
-          <ItemError id={id} />
+  <HotKeys handlers={{'confirm': enableEditing}}>
+    <form className="form-inline" tabIndex={order}>
+      <div className="list-item aligner-item" onClick={enableEditing}>
+        <div className={classNames('form-group', {'is-syncing': isSyncing})}>
+          {text}
         </div>
-      </form>
-    </HotKeys>
-  </li>
+        {isSyncing && !hasError && <Loader className="aligner-item aligner-item--top col-sm-offset-1" size={6}/>}
+        <ItemError id={id} />
+      </div>
+    </form>
+  </HotKeys>
 );
 
 DisplayListItem.displayName = 'DisplayListItem';

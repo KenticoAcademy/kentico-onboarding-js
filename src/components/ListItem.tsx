@@ -25,8 +25,9 @@ const listItemPropTypes: ValidationMap<ListItemProps> = {
   errorId: PropTypes.string.isRequired,
 };
 
-export const ListItem: React.StatelessComponent<ListItemProps> = ({ order, id, isBeingEdited, isSyncing, errorId}): JSX.Element => (
-  isBeingEdited && errorId === '' && !isSyncing
+export const ListItem: React.StatelessComponent<ListItemProps> = ({ order, id, isBeingEdited, isSyncing, errorId}): JSX.Element => {
+  const item: JSX.Element =
+    isBeingEdited && errorId === '' && !isSyncing
     ? <EditListItem id={id} order={order} />
     : (
       <DisplayListItem
@@ -34,8 +35,15 @@ export const ListItem: React.StatelessComponent<ListItemProps> = ({ order, id, i
         order={order}
         isSyncing={isSyncing}
       />
-    )
-);
+    );
+
+  return (
+    <li className="list-group-item inline flexbox">
+      <div>{order}. </div>
+      {item}
+    </li>
+  );
+};
 
 ListItem.displayName = 'ListItem';
 ListItem.propTypes = listItemPropTypes;
