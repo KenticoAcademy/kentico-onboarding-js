@@ -1,14 +1,11 @@
 import * as React from 'react';
-import { mount } from 'enzyme';
-import configureStore from 'redux-mock-store';
-import { initialItems } from '../utils/store';
 import { Provider } from 'react-redux';
-import { Board } from '../containers/Board';
 import { createStore } from 'redux';
+import { mount } from 'enzyme';
+import { initialItems } from '../utils/store';
+import { Board } from '../containers/Board';
 import { app as reducer } from '../reducers/app';
 
-const mockStore = configureStore();
-// const store = mockStore(initialItems);
 const store = createStore(reducer, initialItems);
 
 describe('shortcuts', () => {
@@ -42,6 +39,19 @@ describe('shortcuts', () => {
     expect(buttonAdd.contains('Add')).toBeTruthy();
 
     buttonAdd.simulate('click');
+
+    expect(wrapper.contains(uniqueInputText)).toBeTruthy();
+  });
+
+  it('put text to input and press Enter', () => {
+    putTextToInputForm(wrapper, uniqueInputText);
+    const inputForm = wrapper.find('.form-control');
+
+    inputForm.simulate('keyDown', {
+      key: 'Enter',
+      keyCode: 13,
+      which: 13,
+    });
 
     expect(wrapper.contains(uniqueInputText)).toBeTruthy();
   });
