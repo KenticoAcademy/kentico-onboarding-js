@@ -5,9 +5,9 @@ import * as React from 'react';
 import { Provider } from 'react-redux';
 import { App } from './containers/App';
 import { appStore } from './store/appStore';
-import { getItemsRequest } from './actions/asyncActions';
+import { getItemsThunk } from './actions/thunkActions/thunkActions';
 
-appStore.dispatch<any>(getItemsRequest());
+appStore.dispatch<any>(getItemsThunk());
 
 ReactDom.render(
   <Provider store={appStore}>

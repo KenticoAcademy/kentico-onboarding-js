@@ -8,21 +8,22 @@ import {
   deleteItemError,
   deleteItemSuccess,
 } from '../itemsActions';
+import { ErrorAction } from '../types/ErrorAction';
 
-export const cancelAsyncActionCreator = (itemId: Guid) =>
-  (dispatch: Dispatch, getState: () => IAppState): Actions | undefined => {
+export const cancelThunkAction = (itemId: Guid) =>
+  (dispatch: Dispatch, getState: () => IAppState): Actions | void => {
     const item: IItem = getState().list.items.get(itemId);
     const error: IError = getState().list.itemErrors.get(item.errorId);
     dispatch(deleteItemError(error.id));
 
     switch (error.action) {
-      case 'POST':
+      case ErrorAction.Add:
         return dispatch(deleteItemSuccess(itemId));
 
-      case 'PUT':
-        return dispatch(cancelItemUpdating(itemId));
+      case ErrorAction.Update:
+        return dispatch(cancelItemUpdating(itemId, error.oldText));
 
-      case 'DELETE':
+      case ErrorAction.Delete:
         return;
 
       default:

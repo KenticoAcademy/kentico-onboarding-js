@@ -1,7 +1,8 @@
 import { item } from './item';
 import { Item } from '../../models/Item';
-import { addItemCreator } from '../../actions/creators/addItemCreator';
 import {
+  addItem,
+  addItemError,
   cancelItemUpdating,
   deleteItemError,
   deleteItemSuccess,
@@ -11,7 +12,8 @@ import {
   setItemSyncing,
   toggleItemEditing,
 } from '../../actions/itemsActions';
-import { addItemErrorCreator } from '../../actions/creators/addItemErrorCreator';
+import { ErrorAction } from '../../actions/types/ErrorAction';
+import { ItemError } from '../../models/Error';
 
 describe('item', () => {
   it('initializes state with default Item Record value', () => {
@@ -27,14 +29,14 @@ describe('item', () => {
     it('returns item with correct text', () => {
       const previousState: Item = new Item();
       const text: string = 'Learn redux';
-      const idGenerator = () => '1';
+      const itemId: Guid = '1';
       const expectedState: Item = new Item({
-        id: idGenerator(),
+        id: itemId,
         text,
         isSyncing: true,
       });
 
-      const result: Item = item(previousState, addItemCreator(idGenerator)(text));
+      const result: Item = item(previousState, addItem(itemId, text));
 
       expect(result).toEqual(expectedState);
     });
@@ -51,26 +53,6 @@ describe('item', () => {
         id: '1',
         text,
         isSyncing: true,
-        oldText: previousState.text,
-      });
-
-      const result: Item = item(previousState, saveItemText(previousState.id, text));
-
-      expect(result).toEqual(expectedState);
-    });
-
-    it('when not changing text returns item with same oldText', () => {
-      const previousState: Item = new Item({
-        id: '1',
-        text: 'Learn react',
-        oldText: 'Learn JS',
-      });
-      const text: string = previousState.text;
-      const expectedState: Item = new Item({
-        id: '1',
-        text,
-        isSyncing: true,
-        oldText: 'Learn JS',
       });
 
       const result: Item = item(previousState, saveItemText(previousState.id, text));
@@ -109,18 +91,16 @@ describe('item', () => {
   });
 
   describe('putItemSuccess', () => {
-    it('returns item with isSyncing set to false and empty oldText', () => {
+    it('returns item with isSyncing set to false', () => {
       const previousState: Item = new Item({
         id: '1',
         text: 'Learn react',
-        oldText: 'Learn JS',
         isSyncing: true,
         errorId: '42',
       });
       const expectedState: Item = new Item({
         id: '1',
         text: 'Learn react',
-        oldText: '',
         isSyncing: false,
       });
 
@@ -133,6 +113,11 @@ describe('item', () => {
   describe('addItemError', () => {
     it('returns item with set errorId', () => {
       const errorId: Guid = '42';
+      const error: ItemError = new ItemError({
+        id: errorId,
+        message: '',
+        action: ErrorAction.Add,
+      });
       const previousState: Item = new Item({
         id: '1',
         text: 'Learn react',
@@ -140,10 +125,11 @@ describe('item', () => {
       const expectedState: Item = new Item({
         id: '1',
         text: 'Learn react',
+        isSyncing: true,
         errorId,
       });
 
-      const result: Item = item(previousState, addItemErrorCreator(() => errorId)(previousState.id, '', 'POST'));
+      const result: Item = item(previousState, addItemError(previousState.id, error));
 
       expect(result).toEqual(expectedState);
     });
@@ -189,21 +175,21 @@ describe('item', () => {
     it('returns item with text set to oldText', () => {
       const id: Guid = '1';
       const errorId: Guid = '42';
+      const oldText: string = 'Learn JS';
       const previousState: Item = new Item({
         id,
         text: 'Learn react',
         errorId,
         isSyncing: true,
         isBeingEdited: true,
-        oldText: 'Learn JS',
       });
       const expectedState: Item = new Item({
         id,
-        text: previousState.oldText,
+        text: oldText,
         errorId: '',
       });
 
-      const result: Item = item(previousState, cancelItemUpdating(id));
+      const result: Item = item(previousState, cancelItemUpdating(id, oldText));
 
       expect(result).toEqual(expectedState);
     });

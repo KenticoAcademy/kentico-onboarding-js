@@ -1,4 +1,6 @@
 import {
+  addItem,
+  addItemError,
   cancelItemUpdating,
   deleteItemError,
   deleteItemSuccess,
@@ -10,7 +12,6 @@ import {
   toggleItemEditing,
 } from './itemsActions';
 import { generateUuid } from '../utils/generateUuid';
-import { addItemCreator } from './creators/addItemCreator';
 import {
   AddItemAction,
   AddItemErrorAction,
@@ -25,21 +26,22 @@ import {
   ToggleItemEditingAction,
 } from './types/itemsActionTypes';
 import { IItem, Item } from '../models/Item';
-import { addItemErrorCreator } from './creators/addItemErrorCreator';
+import { ErrorAction } from './types/ErrorAction';
+import { ItemError } from '../models/Error';
 
 describe('addItem', () => {
   it('returns action with correct text', () => {
     const text: string = 'Learn react';
-    const idGenerator = () => '1';
+    const itemId: Guid = '1';
     const expectedResult: AddItemAction = {
       type: 'ADD_ITEM',
       payload: {
         text,
-        id: idGenerator(),
+        id: itemId,
       },
     };
 
-    const result: AddItemAction = addItemCreator(idGenerator)(text);
+    const result: AddItemAction = addItem(itemId, text);
 
     expect(result).toEqual(expectedResult);
   });
@@ -153,19 +155,22 @@ describe('addItemError', () => {
   it('returns action with correct error text', () => {
     const error: string = 'Learn react';
     const itemId: Guid = generateUuid();
-    const action: ErrorAction = 'POST';
-    const idGenerator = () => '1';
+    const action: ErrorAction = ErrorAction.Add;
+    const errorId: Guid = '1';
+    const itemError = new ItemError({
+      id: errorId,
+      message: error,
+      action
+    });
     const expectedResult: AddItemErrorAction = {
       type: 'ADD_ITEM_ERROR',
       payload: {
         itemId,
-        error,
-        action,
-        errorId: idGenerator(),
+        error: itemError,
       },
     };
 
-    const result: AddItemErrorAction = addItemErrorCreator(idGenerator)(itemId, error, action);
+    const result: AddItemErrorAction = addItemError(itemId, itemError);
 
     expect(result).toEqual(expectedResult);
   });
@@ -206,14 +211,16 @@ describe('putItemSuccess', () => {
 describe('cancelItemUpdating', () => {
   it('returns action with correct text', () => {
     const id: Guid = generateUuid();
+    const oldText = 'Old text';
     const expectedResult: CancelItemUpdatingAction = {
       type: 'CANCEL_ITEM_UPDATING',
       payload: {
         id,
+        oldText,
       },
     };
 
-    const result: CancelItemUpdatingAction = cancelItemUpdating(id);
+    const result: CancelItemUpdatingAction = cancelItemUpdating(id, oldText);
 
     expect(result).toEqual(expectedResult);
   });

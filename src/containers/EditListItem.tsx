@@ -10,8 +10,7 @@ import {
   EditListItemStateProps,
 } from '../components/EditListItem';
 import { IAppState } from '../store/state/IAppState';
-import { Item } from '../models/Item';
-import { deleteItemRequest, putItemRequest } from '../actions/asyncActions';
+import { deleteItemThunk, putItemThunk } from '../actions/thunkActions/thunkActions';
 import { ThunkDispatch } from 'redux-thunk';
 import { Actions } from '../actions/types/itemsActionTypes';
 
@@ -20,8 +19,8 @@ const mapStateToProps = (state: IAppState, ownProps: EditListItemContainerProps)
 });
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<IAppState, void, Actions>, ownProps: EditListItemContainerProps): EditListItemDispatchProps => ({
-  save: (text: string) => dispatch(putItemRequest(new Item({id: ownProps.id, text} ))),
-  delete: () => dispatch(deleteItemRequest(ownProps.id)),
+  save: (text: string) => dispatch(putItemThunk(ownProps.id, text)),
+  delete: () => dispatch(deleteItemThunk(ownProps.id)),
   cancel: () => dispatch(toggleItemEditing(ownProps.id)),
 });
 

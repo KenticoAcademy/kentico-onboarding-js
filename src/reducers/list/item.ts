@@ -15,9 +15,6 @@ export const item = (state: Item = new Item(), action: Actions): Item => {
         text: action.payload.text,
         isBeingEdited: false,
         isSyncing: true,
-        oldText: state.oldText === ''
-          ? state.text
-          : state.oldText,
       });
 
     case 'TOGGLE_ITEM_EDITING':
@@ -40,13 +37,13 @@ export const item = (state: Item = new Item(), action: Actions): Item => {
     case 'PUT_ITEM_SUCCESS':
       return state.with({
         isSyncing: false,
-        oldText: '',
         errorId: '',
       });
 
     case 'ADD_ITEM_ERROR':
       return state.with({
-        errorId: action.payload.errorId,
+        errorId: action.payload.error.id,
+        isSyncing: true,
       });
 
     case 'DELETE_ITEM_ERROR':
@@ -58,11 +55,10 @@ export const item = (state: Item = new Item(), action: Actions): Item => {
 
     case 'CANCEL_ITEM_UPDATING':
       return state.with({
-        text: state.oldText,
+        text: action.payload.oldText,
         errorId: '',
         isBeingEdited: false,
         isSyncing: false,
-        oldText: '',
       });
 
     default:

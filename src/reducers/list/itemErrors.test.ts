@@ -1,12 +1,13 @@
 import {
+  addItemError,
   deleteItemError,
   deleteItemSuccess,
 } from '../../actions/itemsActions';
 import { ItemError } from '../../models/Error';
-import { addItemErrorCreator } from '../../actions/creators/addItemErrorCreator';
 import { OrderedMap } from 'immutable';
 import { IErrorsState } from '../../store/state/IErrorsState';
 import { itemErrors } from './itemErrors';
+import { ErrorAction } from '../../actions/types/ErrorAction';
 
 describe('itemErrors', () => {
   it('initializes state with default Item Record value', () => {
@@ -22,20 +23,21 @@ describe('itemErrors', () => {
     it('returns state with new item error', () => {
       const previousState: IErrorsState = OrderedMap();
       const message: string = 'Error message';
-      const idGenerator = () => '1';
-      const action: ErrorAction = 'POST';
+      const errorId: Guid = '1';
+      const action: ErrorAction = ErrorAction.Add;
+      const error: ItemError = new ItemError({
+        id: errorId,
+        message: message,
+        action: action,
+      });
       const expectedState: IErrorsState = OrderedMap([
         [
-          idGenerator(),
-          new ItemError({
-            id: idGenerator(),
-            message,
-            action,
-          }),
+          errorId,
+          new ItemError(error),
         ],
       ]);
 
-      const result: IErrorsState = itemErrors(previousState, addItemErrorCreator(idGenerator)('', message, action));
+      const result: IErrorsState = itemErrors(previousState, addItemError('', error));
 
       expect(result).toEqual(expectedState);
     });
@@ -49,7 +51,7 @@ describe('itemErrors', () => {
           new ItemError({
             id: '1',
             message: 'Error1',
-            action: 'POST',
+            action: ErrorAction.Add,
           }),
         ],
         [
@@ -57,7 +59,7 @@ describe('itemErrors', () => {
           new ItemError({
             id: '2',
             message: 'Error2',
-            action: 'PUT',
+            action: ErrorAction.Update,
           }),
         ],
       ]);
@@ -67,7 +69,7 @@ describe('itemErrors', () => {
           new ItemError({
             id: '2',
             message: 'Error2',
-            action: 'PUT',
+            action: ErrorAction.Update,
           }),
         ],
       ]);

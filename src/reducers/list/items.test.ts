@@ -1,8 +1,9 @@
 import { OrderedMap } from 'immutable';
 import { items } from './items';
 import { IItem, Item } from '../../models/Item';
-import { addItemCreator } from '../../actions/creators/addItemCreator';
 import {
+  addItem,
+  addItemError,
   cancelItemUpdating,
   deleteItemError,
   deleteItemSuccess,
@@ -14,7 +15,8 @@ import {
   toggleItemEditing,
 } from '../../actions/itemsActions';
 import { IItemsState } from '../../store/state/IItemsState';
-import { addItemErrorCreator } from '../../actions/creators/addItemErrorCreator';
+import { ErrorAction } from '../../actions/types/ErrorAction';
+import { ItemError } from '../../models/Error';
 
 describe('items', () => {
   it('initializes state with OrderedMap', () => {
@@ -30,19 +32,19 @@ describe('items', () => {
     it('returns state with correct text', () => {
       const previousState: IItemsState = OrderedMap();
       const text: string = 'Learn redux';
-      const idGenerator = () => '1';
+      const itemId: Guid = '1';
       const expectedState: IItemsState = OrderedMap([
         [
-          idGenerator(),
+          itemId,
           new Item({
-            id: idGenerator(),
+            id: itemId,
             text,
             isSyncing: true,
           }),
         ],
       ]);
 
-      const result: IItemsState = items(previousState, addItemCreator(idGenerator)(text));
+      const result: IItemsState = items(previousState, addItem(itemId, text));
 
       expect(result).toEqual(expectedState);
     });
@@ -75,7 +77,6 @@ describe('items', () => {
             id: '1',
             text,
             isSyncing: true,
-            oldText: previousState.get('1').text,
           }),
         ],
         [
@@ -201,7 +202,7 @@ describe('items', () => {
   });
 
   describe('putItemSuccess', () => {
-    it('returns state with items\'s isSyncing set to false and empty oldText', () => {
+    it('returns state with items\'s isSyncing set to false', () => {
       const previousState: IItemsState = OrderedMap([
         [
           '1',
@@ -209,7 +210,6 @@ describe('items', () => {
             id: '1',
             text: 'Learn react',
             isSyncing: true,
-            oldText: 'Learn JS',
             errorId: '42',
           }),
         ],
@@ -228,7 +228,6 @@ describe('items', () => {
             id: '1',
             text: 'Learn react',
             isSyncing: false,
-            oldText: '',
           }),
         ],
         [
@@ -343,7 +342,6 @@ describe('items', () => {
             errorId: '42',
             isSyncing: true,
             isBeingEdited: true,
-            oldText: 'Learn JS',
           }),
         ],
         [
@@ -371,7 +369,7 @@ describe('items', () => {
         ],
       ]);
 
-      const result: IItemsState = items(previousState, cancelItemUpdating('1'));
+      const result: IItemsState = items(previousState, cancelItemUpdating('1', 'Learn JS'));
 
       expect(result).toEqual(expectedState);
     });
@@ -380,6 +378,11 @@ describe('items', () => {
   describe('addItemError', () => {
     it('returns state with items\'s set errorId', () => {
       const errorId: Guid = '42';
+      const error: ItemError = new ItemError({
+        id: errorId,
+        message: '',
+        action: ErrorAction.Add,
+      });
       const previousState: IItemsState = OrderedMap([
         [
           '1',
@@ -402,6 +405,7 @@ describe('items', () => {
           new Item({
             id: '1',
             text: 'Learn react',
+            isSyncing: true,
             errorId,
           }),
         ],
@@ -414,7 +418,7 @@ describe('items', () => {
         ],
       ]);
 
-      const result: IItemsState = items(previousState, addItemErrorCreator(() => errorId)('1', '', 'POST'));
+      const result: IItemsState = items(previousState, addItemError('1', error));
 
       expect(result).toEqual(expectedState);
     });

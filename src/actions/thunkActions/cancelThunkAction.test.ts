@@ -2,7 +2,7 @@ import Mock = jest.Mock;
 import { OrderedMap } from 'immutable';
 import { Item } from '../../models/Item';
 import { ItemError } from '../../models/Error';
-import { cancelAsyncActionCreator } from './cancelAsyncActionCreator';
+import { cancelThunkAction } from './cancelThunkAction';
 import {
   CancelItemUpdatingAction,
   DeleteItemErrorAction,
@@ -13,8 +13,9 @@ import {
   deleteItemError,
   deleteItemSuccess,
 } from '../itemsActions';
+import { ErrorAction } from '../types/ErrorAction';
 
-describe('cancelAsyncActionCreator', () => {
+describe('cancelThunkAction', () => {
   let dispatch: Mock;
   let getState: Mock;
 
@@ -27,7 +28,6 @@ describe('cancelAsyncActionCreator', () => {
     const errorId: Guid = '42';
     const expectedAction1: DeleteItemErrorAction = deleteItemError(errorId);
     const expectedAction2: DeleteItemSuccessAction = deleteItemSuccess(id);
-
     getState = jest.fn(() => ({
       list: {
         items: OrderedMap([
@@ -46,14 +46,14 @@ describe('cancelAsyncActionCreator', () => {
             new ItemError({
               id: errorId,
               message: 'Error2',
-              action: 'POST',
+              action: ErrorAction.Add,
             }),
           ],
         ]),
       },
     }));
 
-    cancelAsyncActionCreator(id)(dispatch, getState);
+    cancelThunkAction(id)(dispatch, getState);
 
     expect(dispatch.mock.calls.length).toBe(2);
     expect(dispatch.mock.calls[0][0]).toEqual(expectedAction1);
@@ -65,7 +65,6 @@ describe('cancelAsyncActionCreator', () => {
     const errorId: Guid = '42';
     const expectedAction1: DeleteItemErrorAction = deleteItemError(errorId);
     const expectedAction2: DeleteItemSuccessAction = deleteItemSuccess(id);
-
     getState = jest.fn(() => ({
       list: {
         items: OrderedMap([
@@ -84,14 +83,14 @@ describe('cancelAsyncActionCreator', () => {
             new ItemError({
               id: errorId,
               message: 'Error2',
-              action: 'POST',
+              action: ErrorAction.Add,
             }),
           ],
         ]),
       },
     }));
 
-    cancelAsyncActionCreator(id)(dispatch, getState);
+    cancelThunkAction(id)(dispatch, getState);
 
     expect(dispatch.mock.calls.length).toBe(2);
     expect(dispatch.mock.calls[0][0]).toEqual(expectedAction1);
@@ -101,9 +100,9 @@ describe('cancelAsyncActionCreator', () => {
   it('when canceling PUT, creates cancelItemUpdating action', async () => {
     const id: Guid = '1';
     const errorId: Guid = '42';
+    const oldText = 'Some text';
     const expectedAction1: DeleteItemErrorAction = deleteItemError(errorId);
-    const expectedAction2: CancelItemUpdatingAction = cancelItemUpdating(id);
-
+    const expectedAction2: CancelItemUpdatingAction = cancelItemUpdating(id, oldText);
     getState = jest.fn(() => ({
       list: {
         items: OrderedMap([
@@ -122,14 +121,15 @@ describe('cancelAsyncActionCreator', () => {
             new ItemError({
               id: errorId,
               message: 'Error2',
-              action: 'PUT',
+              action: ErrorAction.Update,
+              oldText,
             }),
           ],
         ]),
       },
     }));
 
-    cancelAsyncActionCreator(id)(dispatch, getState);
+    cancelThunkAction(id)(dispatch, getState);
 
     expect(dispatch.mock.calls.length).toBe(2);
     expect(dispatch.mock.calls[0][0]).toEqual(expectedAction1);
@@ -140,7 +140,6 @@ describe('cancelAsyncActionCreator', () => {
     const id: Guid = '1';
     const errorId: Guid = '42';
     const expectedAction1: DeleteItemErrorAction = deleteItemError(errorId);
-
     getState = jest.fn(() => ({
       list: {
         items: OrderedMap([
@@ -159,14 +158,14 @@ describe('cancelAsyncActionCreator', () => {
             new ItemError({
               id: errorId,
               message: 'Error2',
-              action: 'DELETE',
+              action: ErrorAction.Delete,
             }),
           ],
         ]),
       },
     }));
 
-    cancelAsyncActionCreator(id)(dispatch, getState);
+    cancelThunkAction(id)(dispatch, getState);
 
     expect(dispatch.mock.calls.length).toBe(1);
     expect(dispatch.mock.calls[0][0]).toEqual(expectedAction1);

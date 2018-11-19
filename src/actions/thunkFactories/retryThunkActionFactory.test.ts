@@ -1,31 +1,31 @@
 import { OrderedMap } from 'immutable';
 import { Item } from '../../models/Item';
 import { ItemError } from '../../models/Error';
-import { DeleteItemErrorAction, DeleteItemSuccessAction } from '../types/itemsActionTypes';
-import { deleteItemError, deleteItemSuccess } from '../itemsActions';
-import { retryCreator } from './retryCreator';
+import { DeleteItemErrorAction } from '../types/itemsActionTypes';
+import { deleteItemError } from '../itemsActions';
+import { retryThunkActionFactory } from './retryThunkActionFactory';
 import Mock = jest.Mock;
+import { ErrorAction } from '../types/ErrorAction';
 
-describe('retryCreator', () => {
-  const errorIdGenerator = () => '42';
+describe('retryThunkActionFactory', () => {
+  const generateErrorId = () => '42';
   let dispatch: Mock;
   let deleteItemRequest: Mock;
-  let postItemRequest: Mock;
+  let repostItemRequest: Mock;
   let putItemRequest: Mock;
   let getState: Mock;
 
   beforeEach(() => {
     dispatch = jest.fn();
     deleteItemRequest = jest.fn();
-    postItemRequest = jest.fn();
+    repostItemRequest = jest.fn();
     putItemRequest = jest.fn();
   });
 
-  it('when retrying DELETE, creates deleteItemCreator action', async () => {
+  it('when retrying DELETE, creates deleteItemFactory action', async () => {
     const id: Guid = '1';
-    const errorId: Guid = errorIdGenerator();
+    const errorId: Guid = generateErrorId();
     const expectedAction: DeleteItemErrorAction = deleteItemError(errorId);
-
     getState = jest.fn(() => ({
       list: {
         items: OrderedMap([
@@ -44,14 +44,16 @@ describe('retryCreator', () => {
             new ItemError({
               id: errorId,
               message: 'Error2',
-              action: 'DELETE',
+              action: ErrorAction.Delete,
             }),
           ],
         ]),
       },
     }));
+    const retryThunkAction = retryThunkActionFactory({ deleteItemThunk: deleteItemRequest, repostItemThunk: repostItemRequest, putItemThunk: putItemRequest });
+    const dispatchable = retryThunkAction(id);
 
-    await retryCreator(deleteItemRequest, postItemRequest, putItemRequest)(id)(dispatch, getState);
+    await dispatchable(dispatch, getState, undefined);
 
     expect(dispatch.mock.calls.length).toBe(2);
     expect(dispatch.mock.calls[0][0]).toEqual(expectedAction);
@@ -59,17 +61,15 @@ describe('retryCreator', () => {
     expect(deleteItemRequest.mock.calls.length).toBe(1);
     expect(deleteItemRequest.mock.calls[0][0]).toEqual(id);
 
-    expect(postItemRequest.mock.calls.length).toBe(0);
+    expect(repostItemRequest.mock.calls.length).toBe(0);
     expect(putItemRequest.mock.calls.length).toBe(0);
   });
 
-  it('when retrying POST, creates postItemCreator action', async () => {
+  it('when retrying POST, creates repostItemFactory action', async () => {
     const id: Guid = '1';
     const text: string = 'Learn JS';
-    const errorId: Guid = errorIdGenerator();
+    const errorId: Guid = generateErrorId();
     const expectedAction1: DeleteItemErrorAction = deleteItemError(errorId);
-    const expectedAction2: DeleteItemSuccessAction = deleteItemSuccess(id);
-
     getState = jest.fn(() => ({
       list: {
         items: OrderedMap([
@@ -88,36 +88,37 @@ describe('retryCreator', () => {
             new ItemError({
               id: errorId,
               message: 'Error2',
-              action: 'POST',
+              action: ErrorAction.Add,
             }),
           ],
         ]),
       },
     }));
+    const retryThunkAction = retryThunkActionFactory({ deleteItemThunk: deleteItemRequest, repostItemThunk: repostItemRequest, putItemThunk: putItemRequest });
+    const dispatchable = retryThunkAction(id);
 
-    await retryCreator(deleteItemRequest, postItemRequest, putItemRequest)(id)(dispatch, getState);
+    await dispatchable(dispatch, getState, undefined);
 
-    expect(dispatch.mock.calls.length).toBe(3);
+    expect(dispatch.mock.calls.length).toBe(2);
     expect(dispatch.mock.calls[0][0]).toEqual(expectedAction1);
-    expect(dispatch.mock.calls[1][0]).toEqual(expectedAction2);
 
-    expect(postItemRequest.mock.calls.length).toBe(1);
-    expect(postItemRequest.mock.calls[0][0]).toEqual(text);
+    expect(repostItemRequest.mock.calls.length).toBe(1);
+    expect(repostItemRequest.mock.calls[0][0]).toEqual(id);
+    expect(repostItemRequest.mock.calls[0][1]).toEqual(text);
 
     expect(deleteItemRequest.mock.calls.length).toBe(0);
     expect(putItemRequest.mock.calls.length).toBe(0);
   });
 
-  it('when retrying PUT, creates putItemCreator action', async () => {
+  it('when retrying PUT, creates putItemFactory action', async () => {
     const id: Guid = '1';
-    const errorId: Guid = errorIdGenerator();
+    const errorId: Guid = generateErrorId();
     const item = new Item({
       id,
       text: 'Learn JS',
       errorId,
     });
     const expectedAction: DeleteItemErrorAction = deleteItemError(errorId);
-
     getState = jest.fn(() => ({
       list: {
         items: OrderedMap([
@@ -132,22 +133,25 @@ describe('retryCreator', () => {
             new ItemError({
               id: errorId,
               message: 'Error2',
-              action: 'PUT',
+              action: ErrorAction.Update,
             }),
           ],
         ]),
       },
     }));
+    const retryThunkAction = retryThunkActionFactory({ deleteItemThunk: deleteItemRequest, repostItemThunk: repostItemRequest, putItemThunk: putItemRequest });
+    const dispatchable = retryThunkAction(id);
 
-    await retryCreator(deleteItemRequest, postItemRequest, putItemRequest)(id)(dispatch, getState);
+    await dispatchable(dispatch, getState, undefined);
 
     expect(dispatch.mock.calls.length).toBe(2);
     expect(dispatch.mock.calls[0][0]).toEqual(expectedAction);
 
     expect(putItemRequest.mock.calls.length).toBe(1);
-    expect(putItemRequest.mock.calls[0][0]).toEqual(item);
+    expect(putItemRequest.mock.calls[0][0]).toEqual(item.id);
+    expect(putItemRequest.mock.calls[0][1]).toEqual(item.text);
 
-    expect(postItemRequest.mock.calls.length).toBe(0);
+    expect(repostItemRequest.mock.calls.length).toBe(0);
     expect(deleteItemRequest.mock.calls.length).toBe(0);
   });
 });

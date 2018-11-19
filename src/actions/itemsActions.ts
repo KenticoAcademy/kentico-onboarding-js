@@ -1,5 +1,3 @@
-import { addItemCreator } from './creators/addItemCreator';
-import { generateUuid } from '../utils/generateUuid';
 import {
   AddItemAction,
   DeleteItemSuccessAction,
@@ -15,9 +13,15 @@ import {
   CancelItemUpdatingAction,
 } from './types/itemsActionTypes';
 import { IItem } from '../models/Item';
-import { addItemErrorCreator } from './creators/addItemErrorCreator';
+import { IError } from '../models/Error';
 
-export const addItem: (text: string) => AddItemAction = addItemCreator(generateUuid);
+export const addItem = (id: Guid, text: string): AddItemAction => ({
+  type: 'ADD_ITEM',
+  payload: {
+    id,
+    text,
+  },
+});
 
 export const saveItemText = (id: Guid, text: string): SaveItemTextAction => ({
   type: 'SAVE_ITEM_TEXT',
@@ -56,7 +60,7 @@ export const displayError = (error: string): DisplayErrorAction => ({
   },
 });
 
-export const loadingItemsSuccess = (response: IItem[]): LoadingItemsSuccessAction => ({
+export const loadingItemsSuccess = (response: ReadonlyArray<IItem>): LoadingItemsSuccessAction => ({
   type: 'LOADING_ITEMS_SUCCESS',
   payload: {
     response,
@@ -71,7 +75,13 @@ export const postItemSuccess = (oldId: Guid, newId: Guid): PostItemSuccessAction
   },
 });
 
-export const addItemError: (itemId: Guid, error: string, action: ErrorAction) => AddItemErrorAction = addItemErrorCreator(generateUuid);
+export const addItemError = (itemId: Guid, error: IError): AddItemErrorAction => ({
+  type: 'ADD_ITEM_ERROR',
+  payload: {
+    itemId,
+    error,
+  },
+});
 
 export const deleteItemError = (errorId: Guid): DeleteItemErrorAction => ({
   type: 'DELETE_ITEM_ERROR',
@@ -87,9 +97,10 @@ export const putItemSuccess = (id: Guid): PutItemSuccessAction => ({
   },
 });
 
-export const cancelItemUpdating = (id: Guid): CancelItemUpdatingAction => ({
+export const cancelItemUpdating = (id: Guid, oldText: string): CancelItemUpdatingAction => ({
   type: 'CANCEL_ITEM_UPDATING',
   payload: {
     id,
+    oldText,
   },
 });
