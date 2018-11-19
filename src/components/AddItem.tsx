@@ -41,6 +41,7 @@ export class AddItem extends React.PureComponent<IAddItemProps, IAddItemState> {
               id="text"
               value={this.state.inputText}
               onChange={this._updateValue}
+              autoFocus={true}
             />
             <span className="input-group-btn">
               <button
