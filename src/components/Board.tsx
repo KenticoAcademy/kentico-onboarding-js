@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { HotKeys, KeyMap } from 'react-hotkeys';
 import * as PropTypes from 'prop-types';
 import { AddItem } from '../containers/AddItem';
 import { Item } from '../containers/Item';
@@ -6,6 +7,10 @@ import { Item } from '../containers/Item';
 export interface IBoardProps {
   readonly items: Array<string>;
 }
+
+const keyMap: KeyMap = {
+  'saveOrAdd': 'enter',
+};
 
 export class Board extends React.PureComponent<IBoardProps> {
   static displayName = 'Board';
@@ -26,14 +31,16 @@ export class Board extends React.PureComponent<IBoardProps> {
 
   render(): JSX.Element {
     return (
-      <div>
-        <ul className="list-group">
-          {this._renderItems()}
-          <li className="list-group-item">
-            <AddItem />
-          </li>
-        </ul>
-      </div>
+      <HotKeys keyMap={keyMap}>
+        <div>
+          <ul className="list-group">
+            {this._renderItems()}
+            <li className="list-group-item">
+              <AddItem />
+            </li>
+          </ul>
+        </div>
+      </HotKeys>
     );
   }
 }
