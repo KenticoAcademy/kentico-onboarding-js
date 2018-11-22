@@ -26,19 +26,21 @@ export class AddItem extends React.PureComponent<IAddItemProps, IAddItemState> {
     this.setState(() => ({ inputText: eventTargetValue }));
   };
 
-  private _addItem = (event: React.MouseEvent<HTMLButtonElement>): void => {
-    event.preventDefault();
-    event.stopPropagation();
-    if (this.state.inputText.length < 1) {
-      return;
-    }
+  private _addItem = (): void => {
     this.props.onAddItem(this.state.inputText);
     this.setState(() => ({ inputText: '' }));
   };
 
+  private _handleAddItemOnEnter = (event: KeyboardEvent): void => {
+    event.preventDefault();
+    if (this.state.inputText.length > 0) {
+      this._addItem();
+    }
+  };
+
   render(): JSX.Element {
     const handlers: { [key: string]: (keyEvent?: KeyboardEvent) => void } = {
-      'saveOrAdd': this._addItem,
+      'enter': this._handleAddItemOnEnter,
     };
 
     return (

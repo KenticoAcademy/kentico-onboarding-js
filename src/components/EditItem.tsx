@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import { HotKeys } from 'react-hotkeys';
 
 export interface IEditItemOwnProps {
   readonly id: Guid;
@@ -39,25 +40,44 @@ export class EditItem extends React.PureComponent<IEditItemProps, IEditItemState
     this.setState(() => ({ text: eventTargetValue }));
   };
 
-  private _saveItem = (): void => {
-    this.props.onSave(this.state.text);
-  };
+  private _saveItem = (): void => this.props.onSave(this.state.text);
 
   private _deleteItem = (): void => this.props.onDelete();
 
+  private _handleSaveItemOnEnter = (event: KeyboardEvent): void => {
+    event.preventDefault();
+    if (this.state.text.length > 0) {
+      this._saveItem();
+    }
+  };
+
+  private _handleDeleteItemOnShortCut = (event: KeyboardEvent): void => {
+    event.preventDefault();
+    this.props.onDelete();
+  };
+
   render(): JSX.Element {
+    const handlers: { [key: string]: (keyEvent?: KeyboardEvent) => void } = {
+      'exit': this.props.onCancel,
+      'enter': this._handleSaveItemOnEnter,
+      'delete': this._handleDeleteItemOnShortCut,
+    };
+
     return (
       <form className="form-inline">
         <div className="form-group">
           {this.props.position + '. '}
           <div className="input-group">
-            <input
-              type="text"
-              className="form-control"
-              id="text"
-              value={this.state.text}
-              onChange={this._textEdit}
-            />
+            <HotKeys handlers={handlers}>
+              <input
+                type="text"
+                className="form-control"
+                id="text"
+                value={this.state.text}
+                onChange={this._textEdit}
+                autoFocus={true}
+              />
+            </HotKeys>
             <span className="input-group-btn">
               <button
                 type="button"

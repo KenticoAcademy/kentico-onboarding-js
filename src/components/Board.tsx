@@ -9,7 +9,9 @@ export interface IBoardProps {
 }
 
 const keyMap: KeyMap = {
-  'saveOrAdd': 'enter',
+  'enter': 'enter',
+  'exit': 'esc',
+  'delete': 'alt+d',
 };
 
 export class Board extends React.PureComponent<IBoardProps> {
