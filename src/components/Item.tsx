@@ -8,6 +8,7 @@ import { IListItem, ListItem } from '../models/ListItem';
 
 export interface IItemStateProps {
   item: IListItem;
+  timeToRender: string;
 }
 
 export interface IItemDispatchProps {
@@ -23,6 +24,7 @@ export const Item: React.StatelessComponent<IItemProps> = (props: IItemProps) =>
     ? (
       <ActiveItem
         item={props.item}
+        timeToRender={props.timeToRender}
         onSaveItem={props.onSaveItem}
         onCancelItem={props.onToggleItem}
         onDeleteItem={props.onDeleteItem}
@@ -30,6 +32,7 @@ export const Item: React.StatelessComponent<IItemProps> = (props: IItemProps) =>
     : (
       <InactiveItem
         item={props.item}
+        timeToRender={props.timeToRender}
         onItemClick={props.onToggleItem}
       />)
 );
@@ -38,6 +41,7 @@ Item.displayName = 'Item';
 
 Item.propTypes = {
   item: PropTypes.instanceOf(ListItem).isRequired,
+  timeToRender: PropTypes.string.isRequired,
   onSaveItem: PropTypes.func.isRequired,
   onDeleteItem: PropTypes.func.isRequired,
   onToggleItem: PropTypes.func.isRequired,

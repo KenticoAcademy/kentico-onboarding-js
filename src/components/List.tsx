@@ -3,7 +3,7 @@ import * as PropTypes from 'prop-types';
 
 import { Item } from '../containers/Item';
 import { AddItem } from '../containers/AddItem';
-import { ListSorting } from '../constants/ListSorting';
+import { ListSorting, getListSortingArray } from '../constants/ListSorting';
 
 export interface IListStateProps {
   itemIds: Uuid[];
@@ -21,6 +21,8 @@ export class List extends React.PureComponent<IListProps> {
 
   static propTypes = {
     itemIds: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+    sorting: PropTypes.oneOf(getListSortingArray()).isRequired,
+    onSetListView: PropTypes.func.isRequired,
   };
 
   _changeViewToCreatedTime = () => this.props.onSetListView(ListSorting.CreatedTime);
@@ -59,10 +61,10 @@ export class List extends React.PureComponent<IListProps> {
           <ul className="list-group">
             <AddItem />
             {
-              this.props.itemIds.map((itemId: Uuid) => (
+              this.props.itemIds.map((id: Uuid) => (
                 <Item
-                  key={itemId}
-                  id={itemId}
+                  key={id}
+                  id={id}
                 />
               ))
             }
@@ -72,5 +74,4 @@ export class List extends React.PureComponent<IListProps> {
     );
   }
 }
-
 

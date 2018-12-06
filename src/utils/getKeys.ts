@@ -1,5 +1,4 @@
-import { IListItem } from '../models/ListItem';
-import { OrderedMap } from 'immutable';
+import { IListItem, ListItem } from '../models/ListItem';
 import * as memoize from 'memoizee';
 
 const getArgumentsArray = (...keys: Uuid[]): Uuid[] => keys;
@@ -8,5 +7,5 @@ const getArgumentsArray = (...keys: Uuid[]): Uuid[] => keys;
 // Set max to sth means that cache size is limited.
 const memoizeKeys = memoize(getArgumentsArray, {length: false, max: 1});
 
-export const getKeys = (list: OrderedMap<Uuid, IListItem>): Uuid[] =>
-  memoizeKeys(...list.keySeq().toArray().reverse());
+export const getKeys = (list: IListItem[]): Uuid[] =>
+  memoizeKeys(...list.map((item: ListItem) => item.id));

@@ -1,15 +1,24 @@
 import { getKeys } from './getKeys';
-import { OrderedMap } from 'immutable';
-import { ListItem } from '../models/ListItem';
+import { IListItem } from '../models/ListItem';
+
+const createListItem = (id: Uuid, text: string): IListItem  => {
+  return {
+    id,
+    text,
+    isActive: false,
+    creationTime: '',
+    lastUpdateTime: '',
+  };
+};
 
 describe('getKeys', () => {
   it('returns same reference for 2 consecutive calls with the same argument', () => {
-    const list = OrderedMap<Uuid, ListItem>([
-      ['123', undefined],
-      ['-489', undefined],
-      ['854', undefined]
-    ]);
-    const expectedIds = ['854', '-489', '123'];
+    const list: IListItem[] = [
+      createListItem('123', 'aa'),
+      createListItem('-489', 'bb'),
+      createListItem('854', 'cc')
+    ];
+    const expectedIds = ['123', '-489', '854'];
 
     const actualIds = getKeys(list);
     const actualIds1 = getKeys(list);
@@ -19,17 +28,17 @@ describe('getKeys', () => {
   });
 
   it('only memoizes consecutive calls and does not fail when the number of arguments changes between calls', () => {
-    const list1 = OrderedMap<Uuid, ListItem>([
-      ['123', undefined],
-      ['-489', undefined],
-      ['854', undefined]
-    ]);
-    const list2 = OrderedMap<Uuid, ListItem>([
-      ['123', undefined],
-      ['0', undefined]
-    ]);
-    const expectedIds1 = ['854', '-489', '123'];
-    const expectedIds2 = ['0', '123'];
+    const list1: IListItem[] = [
+      createListItem('123', 'aa'),
+      createListItem('-489', 'bb'),
+      createListItem('854', 'cc')
+    ];
+    const list2: IListItem[] = [
+      createListItem('123', 'aa'),
+      createListItem('0', 'bb')
+    ];
+    const expectedIds1 = ['123', '-489', '854'];
+    const expectedIds2 = ['123', '0'];
 
     const actualIds1 = getKeys(list1);
     const actualIds2 = getKeys(list2);
@@ -41,4 +50,3 @@ describe('getKeys', () => {
     expect(actualIds1).not.toBe(actualIds3);
   });
 });
-

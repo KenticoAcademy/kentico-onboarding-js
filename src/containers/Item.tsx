@@ -8,14 +8,20 @@ import {
 } from '../components/Item';
 import { saveItem, deleteItem, toggleItem } from '../actions/ListActions';
 import { IAppState } from '../reducers/interfaces/IAppState';
+import { getTimeFromNow } from '../utils/getTimeFromNow';
+import { ListSorting } from '../constants/ListSorting';
 
 interface IItemContainerProps {
   id: Uuid;
 }
 
-const mapStateToProps = ({list}: IAppState, {id}: IItemContainerProps): IItemStateProps => ({
-  item: list.items.get(id)
-});
+const mapStateToProps = ({list}: IAppState, {id}: IItemContainerProps): IItemStateProps => {
+  const item = list.items.get(id);
+  return {
+    item,
+    timeToRender: list.sorting === ListSorting.CreatedTime ? getTimeFromNow(item.creationTime) : getTimeFromNow(item.lastUpdateTime),
+  };
+};
 
 const mapDispatchToProps = (dispatch: Dispatch, {id}: IItemContainerProps): IItemDispatchProps => ({
   onSaveItem: (text: string) => dispatch(saveItem(id, text)),
