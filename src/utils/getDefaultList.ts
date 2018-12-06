@@ -1,4 +1,4 @@
-import { OrderedMap } from 'immutable';
+import { Map } from 'immutable';
 
 import {ListItem} from '../models/ListItem';
 import { guid } from './guid';
@@ -16,7 +16,7 @@ const createMapItem = (text: string) => {
   ];
 };
 
-export const getDefaultList = () => OrderedMap<Uuid, ListItem>([
+export const getDefaultList = () => Map<Uuid, ListItem>([
   createMapItem('aaaaa'),
   createMapItem('asdfg'),
 ]);

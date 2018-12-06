@@ -1,8 +1,8 @@
 import { ListItem } from '../../models/ListItem';
-import { OrderedMap } from 'immutable';
+import { Map } from 'immutable';
 import { ListSorting } from '../../constants/ListSorting';
 
 export interface IListState {
-  items: OrderedMap<Uuid, ListItem>;
+  items: Map<Uuid, ListItem>;
   sorting: ListSorting;
 }

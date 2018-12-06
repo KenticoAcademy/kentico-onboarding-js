@@ -1,4 +1,4 @@
-import { OrderedMap } from 'immutable';
+import { Map } from 'immutable';
 
 import { getDefaultList } from './getDefaultList';
 import { ListItem } from '../models/ListItem';
@@ -7,7 +7,7 @@ describe('getDefaultList', () => {
   it('returns instance of immutable ordered map', () => {
     const defaultList = getDefaultList();
 
-    expect(defaultList).toBeInstanceOf(OrderedMap);
+    expect(defaultList).toBeInstanceOf(Map);
   });
 
   it('returns correctly created items in map', () => {

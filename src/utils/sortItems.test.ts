@@ -1,6 +1,6 @@
 import { sortItems } from './sortItems';
 import { ListItem } from '../models/ListItem';
-import { OrderedMap } from 'immutable';
+import { Map } from 'immutable';
 import { ListSorting } from '../constants/ListSorting';
 
 const createItem = (id: Uuid, creationTime: Time, lastUpdateTime: Time) => ([
@@ -22,7 +22,7 @@ describe('sortItems', () => {
   const item5 = createItem('5', '2018-12-15 15:30', '2014-12-17 15:05');
   const item6 = createItem('6', '2018-12-17 20:30', '2018-12-17 15:06');
 
-  const items = OrderedMap<Uuid, ListItem>([item1, item2, item3, item4, item5, item6]);
+  const items = Map<Uuid, ListItem>([item1, item2, item3, item4, item5, item6]);
 
 
   it('sorts correctly by creation time', () => {
