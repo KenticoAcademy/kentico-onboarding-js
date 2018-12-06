@@ -1,0 +1,15 @@
+{
+  "plugins": [
+  "@namics/stylelint-bem"
+],
+  "rules": {
+    "font-family-no-duplicate-names": true,
+    "keyframe-declaration-no-important": true,
+    "declaration-block-no-duplicate-properties": true,
+    "no-duplicate-at-import-rules": true,
+
+    "no-extra-semicolons": true,
+    "declaration-no-important": true,
+    "declaration-block-single-line-max-declarations": 1
+  }
+}
