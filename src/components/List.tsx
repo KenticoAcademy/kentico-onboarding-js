@@ -59,32 +59,21 @@ export class List extends React.PureComponent<IListProps, IListState> {
     return (
       <div className="row">
         <div className="col-sm-12 col-md-16">
-          <div
-            className="btn-group"
-            role="group"
-            aria-label="Basic example"
-          >
-            <button
-              type="button"
-              className="btn btn-info"
-              disabled={this.props.sorting === ListSorting.CreatedTime}
-              onClick={this._changeViewToCreatedTime}
-            >
-              Created time
-            </button>
-            <button
-              type="button"
-              className="btn btn-info"
-              disabled={this.props.sorting === ListSorting.LastUpdateTime}
-              onClick={this._changeViewToLastUpdateTime}
-            >
-              Last update time
-            </button>
-          </div>
-          {
-            this.props.sorting === ListSorting.CreatedTime ? 'CreatedTime' : 'LastUpdateTime'
-          }
-          <ul className="list-group">
+          <ul className="nav nav-tabs border-info">
+            <li className="nav-item">
+              <div
+                className={this.props.sorting === ListSorting.CreatedTime ? 'nav-link active border-info border-bottom-0 text-info' : 'nav-link'}
+                onClick={this._changeViewToCreatedTime}
+              >Created time</div>
+            </li>
+            <li className="nav-item">
+              <div
+                className={this.props.sorting === ListSorting.LastUpdateTime ? 'nav-link active border-info border-bottom-0 text-info' : 'nav-link'}
+                onClick={this._changeViewToLastUpdateTime}
+              >Last update time</div>
+            </li>
+          </ul>
+          <ul className="list-group list-group-flush border border-info rounded-bottom">
             <AddItem />
             {
               this.props.itemIds.map((id: Uuid) => (
