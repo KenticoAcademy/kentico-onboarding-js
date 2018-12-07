@@ -14,7 +14,7 @@ const mapStateToProps = (state: IAppState): IListStateProps => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): IListDispatchProps => ({
-  onSetListView: (view: ListSorting) => dispatch(setListSorting(view))
+  onSetListView: (view: ListSorting) => dispatch(setListSorting(view)),
 });
 
 export const List: React.ComponentClass = connect(mapStateToProps, mapDispatchToProps)(ListComponent);

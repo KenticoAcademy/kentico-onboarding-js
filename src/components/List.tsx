@@ -4,6 +4,8 @@ import * as PropTypes from 'prop-types';
 import { Item } from '../containers/Item';
 import { AddItem } from '../containers/AddItem';
 import { ListSorting, getListSortingArray } from '../constants/ListSorting';
+import Timer = NodeJS.Timer;
+import { getNow } from '../utils/getNow';
 
 export interface IListStateProps {
   itemIds: Uuid[];
@@ -16,7 +18,11 @@ export interface IListDispatchProps {
 
 type IListProps = IListStateProps & IListDispatchProps;
 
-export class List extends React.PureComponent<IListProps> {
+interface IListState {
+  lastRenderTime: Time;
+}
+
+export class List extends React.PureComponent<IListProps, IListState> {
   static displayName = 'List';
 
   static propTypes = {
@@ -24,6 +30,26 @@ export class List extends React.PureComponent<IListProps> {
     sorting: PropTypes.oneOf(getListSortingArray()).isRequired,
     onSetListView: PropTypes.func.isRequired,
   };
+
+  interval: Timer;
+
+  state = {
+    lastRenderTime: getNow()
+  };
+
+  updateRenderTime = () => this.setState(() => ({lastRenderTime: getNow()}));
+
+  componentWillReceiveProps(): void {
+    this.setState(() => ({lastRenderTime: getNow()}));
+  }
+
+  componentDidMount(): void {
+    this.interval = setInterval(this.updateRenderTime, 30000);
+  }
+
+  componentWillUnmount(): void {
+    clearInterval(this.interval);
+  }
 
   _changeViewToCreatedTime = () => this.props.onSetListView(ListSorting.CreatedTime);
 
@@ -65,6 +91,7 @@ export class List extends React.PureComponent<IListProps> {
                 <Item
                   key={id}
                   id={id}
+                  lastRenderTime={this.state.lastRenderTime}
                 />
               ))
             }

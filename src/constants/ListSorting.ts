@@ -4,4 +4,3 @@ export enum ListSorting {
 }
 
 export const getListSortingArray: () => ListSorting[] = () => [ListSorting.CreatedTime, ListSorting.LastUpdateTime];
-

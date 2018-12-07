@@ -8,18 +8,19 @@ import {
 } from '../components/Item';
 import { saveItem, deleteItem, toggleItem } from '../actions/ListActions';
 import { IAppState } from '../reducers/interfaces/IAppState';
-import { getTimeFromNow } from '../utils/getTimeFromNow';
+import { getTimeFrom } from '../utils/getTimeFrom';
 import { ListSorting } from '../constants/ListSorting';
 
 interface IItemContainerProps {
   id: Uuid;
+  lastRenderTime: Time;
 }
 
-const mapStateToProps = ({list}: IAppState, {id}: IItemContainerProps): IItemStateProps => {
+const mapStateToProps = ({list}: IAppState, {id, lastRenderTime}: IItemContainerProps): IItemStateProps => {
   const item = list.items.get(id);
   return {
     item,
-    timeToRender: list.sorting === ListSorting.CreatedTime ? getTimeFromNow(item.creationTime) : getTimeFromNow(item.lastUpdateTime),
+    timeToRender: list.sorting === ListSorting.CreatedTime ? getTimeFrom(lastRenderTime, item.creationTime) : getTimeFrom(lastRenderTime, item.lastUpdateTime),
   };
 };
 
