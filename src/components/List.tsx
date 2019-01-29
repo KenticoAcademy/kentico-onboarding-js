@@ -5,15 +5,15 @@ import { Item } from '../containers/Item';
 import { AddItem } from '../containers/AddItem';
 import { ListSorting, getListSortingArray } from '../constants/ListSorting';
 import Timer = NodeJS.Timer;
-import { getNow } from '../utils/getNow';
+import { getCurrentDateTime } from '../utils/getCurrentDateTime';
 
 export interface IListStateProps {
-  itemIds: Uuid[];
-  sorting: ListSorting;
+  readonly itemIds: Uuid[];
+  readonly sorting: ListSorting;
 }
 
 export interface IListDispatchProps {
-  onSetListView: (view: ListSorting) => void;
+  readonly onSetListView: (view: ListSorting) => void;
 }
 
 type IListProps = IListStateProps & IListDispatchProps;
@@ -34,13 +34,13 @@ export class List extends React.PureComponent<IListProps, IListState> {
   interval: Timer;
 
   state = {
-    lastRenderTime: getNow()
+    lastRenderTime: getCurrentDateTime()
   };
 
-  updateRenderTime = () => this.setState(() => ({lastRenderTime: getNow()}));
+  updateRenderTime = () => this.setState(() => ({lastRenderTime: getCurrentDateTime()}));
 
   componentWillReceiveProps(): void {
-    this.setState(() => ({lastRenderTime: getNow()}));
+    this.setState(() => ({lastRenderTime: getCurrentDateTime()}));
   }
 
   componentDidMount(): void {
@@ -90,4 +90,3 @@ export class List extends React.PureComponent<IListProps, IListState> {
     );
   }
 }
-

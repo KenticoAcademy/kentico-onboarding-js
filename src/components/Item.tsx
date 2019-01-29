@@ -7,18 +7,17 @@ import { InactiveItem } from './InactiveItem';
 import { IListItem, ListItem } from '../models/ListItem';
 
 export interface IItemStateProps {
-  item: IListItem;
-  timeToRender: string;
+  readonly item: IListItem;
+  readonly timeToRender: string;
 }
 
 export interface IItemDispatchProps {
-  onSaveItem: (text: string) => void;
-  onDeleteItem: () => void;
-  onToggleItem: () => void;
+  readonly onSaveItem: (text: string) => void;
+  readonly onDeleteItem: () => void;
+  readonly onToggleItem: () => void;
 }
 
-type IItemProps = IItemStateProps & IItemDispatchProps;
-
+export type IItemProps = IItemStateProps & IItemDispatchProps;
 export const Item: React.StatelessComponent<IItemProps> = (props: IItemProps) => (
   props.item.isActive
     ? (

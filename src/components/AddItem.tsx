@@ -1,15 +1,15 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { isValidText } from '../utils/isValidText';
+import { isTextEmpty } from '../utils/isTextEmpty';
 
 export interface IAddItemDispatchProps {
-  onAddItem: (text: string) => void;
+  readonly onAddItem: (text: string) => void;
 }
 
 export type IAddItemProps = IAddItemDispatchProps;
 
 interface IAddItemState {
-  text: string;
+  readonly text: string;
 }
 
 export class AddItem extends React.PureComponent<IAddItemProps, IAddItemState> {
@@ -34,8 +34,8 @@ export class AddItem extends React.PureComponent<IAddItemProps, IAddItemState> {
   };
 
   render(): JSX.Element {
-    const textIsValid = isValidText(this.state.text);
-    const title = textIsValid ? undefined : 'You can\'t save an empty input :(';
+    const isTextValid = isTextEmpty(this.state.text);
+    const title = isTextValid ? undefined : 'You can\'t save an empty input :(';
 
     return (
       <li className="list-group-item">
@@ -52,7 +52,7 @@ export class AddItem extends React.PureComponent<IAddItemProps, IAddItemState> {
               className="btn btn-info"
               type="submit"
               onClick={this._addNewItem}
-              disabled={!textIsValid}
+              disabled={!isTextValid}
               data-toggle="tooltip"
               data-placement="top"
               title={title}

@@ -6,10 +6,8 @@ export const item = (state: ListItem = new ListItem(), action: IAction): ListIte
   switch (action.type) {
     case ActionType.AddItem:
       return new ListItem({
-        id: action.payload.id,
-        text: action.payload.text,
+        ...action.payload,
         isActive: false,
-        creationTime: action.payload.creationTime,
         lastUpdateTime: action.payload.creationTime
       });
 

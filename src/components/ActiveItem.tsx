@@ -2,18 +2,18 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 
 import { ListItem, IListItem } from '../models/ListItem';
-import { isValidText } from '../utils/isValidText';
+import { isTextEmpty } from '../utils/isTextEmpty';
 
 interface IActiveItemProps {
-  item: IListItem;
-  timeToRender: string;
-  onSaveItem: (text: string) => void;
-  onCancelItem: () => void;
-  onDeleteItem: () => void;
+  readonly item: IListItem;
+  readonly timeToRender: string;
+  readonly onSaveItem: (text: string) => void;
+  readonly onCancelItem: () => void;
+  readonly onDeleteItem: () => void;
 }
 
 interface IActiveItemState {
-  text: string;
+  readonly text: string;
 }
 
 export class ActiveItem extends React.PureComponent<IActiveItemProps, IActiveItemState> {
@@ -39,17 +39,17 @@ export class ActiveItem extends React.PureComponent<IActiveItemProps, IActiveIte
   };
 
   render(): JSX.Element {
-    const textIsValid = isValidText(this.state.text);
+    const textIsValid = isTextEmpty(this.state.text);
     const title = textIsValid ? undefined : 'You can\'t save an empty input :(';
 
     return (
-      <a className="list-group-item list-group-item-action">
+      <div className="list-group-item list-group-item-action">
         <div className="row">
-          <strong className="col-sm-2 py-2">
+          <span className="col-sm-2 py-2 font-weight-bold">
             {
               this.props.timeToRender
             }
-          </strong>
+          </span>
           <div className="input-group col-md-8">
             <input
               className="form-control"
@@ -85,7 +85,7 @@ export class ActiveItem extends React.PureComponent<IActiveItemProps, IActiveIte
             </div>
           </div>
         </div>
-      </a>
+      </div>
     );
   }
 }

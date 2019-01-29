@@ -1,4 +1,4 @@
-import { IListItem, ListItem } from '../models/ListItem';
+import { IListItem } from '../models/ListItem';
 import * as memoize from 'memoizee';
 
 const getArgumentsArray = (...keys: Uuid[]): Uuid[] => keys;
@@ -8,4 +8,4 @@ const getArgumentsArray = (...keys: Uuid[]): Uuid[] => keys;
 const memoizeKeys = memoize(getArgumentsArray, {length: false, max: 1});
 
 export const getKeys = (list: IListItem[]): Uuid[] =>
-  memoizeKeys(...list.map((item: ListItem) => item.id));
+  memoizeKeys(...list.map(item => item.id));

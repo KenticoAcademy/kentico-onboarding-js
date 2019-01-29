@@ -20,7 +20,9 @@ const mapStateToProps = ({list}: IAppState, {id, lastRenderTime}: IItemContainer
   const item = list.items.get(id);
   return {
     item,
-    timeToRender: list.sorting === ListSorting.CreatedTime ? getTimeFrom(lastRenderTime, item.creationTime) : getTimeFrom(lastRenderTime, item.lastUpdateTime),
+    timeToRender: list.sorting === ListSorting.CreatedTime
+      ? getTimeFrom(lastRenderTime, item.creationTime)
+      : getTimeFrom(lastRenderTime, item.lastUpdateTime)
   };
 };
 

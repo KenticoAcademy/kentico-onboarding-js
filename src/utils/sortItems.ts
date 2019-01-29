@@ -5,14 +5,23 @@ import { ListItem } from '../models/ListItem';
 import { timeFormat } from '../constants/timeFormat';
 import { ListSorting } from '../constants/ListSorting';
 
+const compareTwoTimes = (left: Time, right: Time) =>
+  moment.utc(moment(right, timeFormat))
+    .diff(moment.utc(moment(left, timeFormat)));
+
+const getSortStrategy = (sorting: ListSorting) =>
+  (left: ListItem, right: ListItem) => {
+    switch (sorting) {
+      case ListSorting.CreatedTime:
+        return compareTwoTimes(left.creationTime, right.creationTime);
+      case ListSorting.LastUpdateTime:
+        return compareTwoTimes(left.lastUpdateTime, right.lastUpdateTime);
+      default:
+        throw new Error('Unknown sorting type');
+    }
+  };
+
 export const sortItems = (items: Map<Uuid, ListItem>, sorting: ListSorting): ListItem[] => {
-  if (sorting === ListSorting.LastUpdateTime) {
-    return items.sort( (left: ListItem, right: ListItem) => {
-      return moment.utc(moment(right.lastUpdateTime, timeFormat)).diff(moment.utc(moment(left.lastUpdateTime, timeFormat)));
-    }).toArray();
-  }
-  // else sorting === ListSorting.CreatedTime
-  return items.sort( (left: ListItem, right: ListItem) => {
-    return moment.utc(moment(right.creationTime, timeFormat)).diff(moment.utc(moment(left.creationTime, timeFormat)));
-  }).toArray();
+  const sortStrategy = getSortStrategy(sorting);
+  return items.sort(sortStrategy).toArray();
 };

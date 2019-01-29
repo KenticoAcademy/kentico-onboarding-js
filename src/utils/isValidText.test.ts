@@ -1,6 +1,6 @@
-import {isValidText} from './isValidText';
+import {isTextEmpty} from './isTextEmpty';
 
-describe('isValidText', () => {
+describe('isTextEmpty', () => {
   [
     '     ',
     '',
@@ -8,7 +8,7 @@ describe('isValidText', () => {
     '\f\n\r\t\v'
   ].forEach(text =>
     it(`returns false for ${text}`, () => {
-      const result = isValidText(text);
+      const result = isTextEmpty(text);
 
       expect(result).toBeFalsy();
     })
@@ -21,7 +21,7 @@ describe('isValidText', () => {
     'aaaa'
   ].forEach(text =>
     it(`returns true for ${text}`, () => {
-      const result = isValidText(text);
+      const result = isTextEmpty(text);
 
       expect(result).toBeTruthy();
     })
