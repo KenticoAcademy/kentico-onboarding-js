@@ -4,56 +4,47 @@ import * as PropTypes from 'prop-types';
 import { Item } from '../containers/Item';
 import { AddItem } from '../containers/AddItem';
 import { ListSorting, getListSortingArray } from '../constants/ListSorting';
-import Timer = NodeJS.Timer;
-import { getCurrentDateTime } from '../utils/getCurrentDateTime';
 
 export interface IListStateProps {
   readonly itemIds: Uuid[];
   readonly sorting: ListSorting;
 }
 
+export interface IListOwnProps {
+  readonly lastRenderTime: Time;
+  readonly onPropsChanged: () => void;
+}
+
 export interface IListDispatchProps {
   readonly onSetListView: (view: ListSorting) => void;
 }
 
-type IListProps = IListStateProps & IListDispatchProps;
+type IListProps = IListStateProps & IListDispatchProps & IListOwnProps;
 
-interface IListState {
-  lastRenderTime: Time;
-}
-
-export class List extends React.PureComponent<IListProps, IListState> {
+export class List extends React.Component<IListProps> {
   static displayName = 'List';
 
   static propTypes = {
     itemIds: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
     sorting: PropTypes.oneOf(getListSortingArray()).isRequired,
+    lastRenderTime: PropTypes.string.isRequired,
     onSetListView: PropTypes.func.isRequired,
   };
 
-  interval: Timer;
+  shouldComponentUpdate(nextProps: IListProps): boolean {
+    const shouldUpdate = this.props.sorting !== nextProps.sorting
+                        || this.props.itemIds !== nextProps.itemIds
+                        || this.props.lastRenderTime !== nextProps.lastRenderTime;
+    if (shouldUpdate) {
+      nextProps.onPropsChanged();
+    }
 
-  state = {
-    lastRenderTime: getCurrentDateTime()
-  };
-
-  updateRenderTime = () => this.setState(() => ({lastRenderTime: getCurrentDateTime()}));
-
-  componentWillReceiveProps(): void {
-    this.setState(() => ({lastRenderTime: getCurrentDateTime()}));
+    return shouldUpdate;
   }
 
-  componentDidMount(): void {
-    this.interval = setInterval(this.updateRenderTime, 30000);
-  }
+  private changeViewToCreatedTime = () => this.props.onSetListView(ListSorting.CreatedTime);
 
-  componentWillUnmount(): void {
-    clearInterval(this.interval);
-  }
-
-  _changeViewToCreatedTime = () => this.props.onSetListView(ListSorting.CreatedTime);
-
-  _changeViewToLastUpdateTime = () => this.props.onSetListView(ListSorting.LastUpdateTime);
+  private changeViewToLastUpdateTime = () => this.props.onSetListView(ListSorting.LastUpdateTime);
 
   render(): JSX.Element {
     return (
@@ -63,14 +54,16 @@ export class List extends React.PureComponent<IListProps, IListState> {
             <li className="nav-item">
               <div
                 className={this.props.sorting === ListSorting.CreatedTime ? 'nav-link active border-info border-bottom-0 text-info' : 'nav-link'}
-                onClick={this._changeViewToCreatedTime}
-              >Created time</div>
+                onClick={this.changeViewToCreatedTime}
+              >Created time
+              </div>
             </li>
             <li className="nav-item">
               <div
                 className={this.props.sorting === ListSorting.LastUpdateTime ? 'nav-link active border-info border-bottom-0 text-info' : 'nav-link'}
-                onClick={this._changeViewToLastUpdateTime}
-              >Last update time</div>
+                onClick={this.changeViewToLastUpdateTime}
+              >Last update time
+              </div>
             </li>
           </ul>
           <ul className="list-group list-group-flush border border-info rounded-bottom">
@@ -80,7 +73,8 @@ export class List extends React.PureComponent<IListProps, IListState> {
                 <Item
                   key={id}
                   id={id}
-                  lastRenderTime={this.state.lastRenderTime}
+                  lastRenderTime={this.props.lastRenderTime}
+                  onItemPropsChanged={this.props.onPropsChanged}
                 />
               ))
             }

@@ -1,22 +1,22 @@
 import './sticky-footer.css';
 import * as React from 'react';
-import { List } from './containers/List';
+import { PeriodicTicker } from './components/PeriodicTicker';
+import { ListWithTimer } from './components/ListWithTimer';
 
 export class App extends React.PureComponent {
   render(): JSX.Element {
     return (
       <div>
+        <PeriodicTicker />
         <div className="container">
           <div className="header clearfix">
             <h3 className="text-muted">
               Kentico Academy
             </h3>
           </div>
-
           <section id="app-content">
-            <List />
+            <ListWithTimer />
           </section>
-
         </div>
         <footer className="footer">
           <p>

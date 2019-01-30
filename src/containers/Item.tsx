@@ -4,7 +4,8 @@ import { Dispatch } from 'redux';
 import {
   Item as ItemComponent,
   IItemStateProps,
-  IItemDispatchProps
+  IItemDispatchProps,
+  IItemProps
 } from '../components/Item';
 import { saveItem, deleteItem, toggleItem } from '../actions/ListActions';
 import { IAppState } from '../reducers/interfaces/IAppState';
@@ -14,6 +15,7 @@ import { ListSorting } from '../constants/ListSorting';
 interface IItemContainerProps {
   id: Uuid;
   lastRenderTime: Time;
+  onItemPropsChanged: () => void;
 }
 
 const mapStateToProps = ({list}: IAppState, {id, lastRenderTime}: IItemContainerProps): IItemStateProps => {
@@ -32,4 +34,10 @@ const mapDispatchToProps = (dispatch: Dispatch, {id}: IItemContainerProps): IIte
   onToggleItem: () => dispatch(toggleItem(id)),
 });
 
-export const Item: React.ComponentClass<IItemContainerProps> = connect(mapStateToProps, mapDispatchToProps)(ItemComponent);
+const mergeProps = (stateProps: IItemStateProps, dispatchProps: IItemDispatchProps, ownProps: IItemContainerProps): IItemProps => ({
+  ...stateProps,
+  ...dispatchProps,
+  onItemPropsChanged: ownProps.onItemPropsChanged,
+});
+
+export const Item: React.ComponentClass<IItemContainerProps> = connect(mapStateToProps, mapDispatchToProps, mergeProps)(ItemComponent);

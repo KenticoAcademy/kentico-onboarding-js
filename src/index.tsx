@@ -6,10 +6,13 @@ import './index.css';
 
 import { App } from './App';
 import { store } from './utils/store';
+import { TimerProvider } from './components/Timer';
 
 ReactDOM.render((
     <Provider store={store}>
+      <TimerProvider>
         <App />
+      </TimerProvider>
     </Provider>
   ),
   document.getElementById('app-root')
