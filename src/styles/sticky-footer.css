@@ -24,11 +24,11 @@ html {
   min-height: 79vh;
 }
 
-.aligner-item {
+.aligned-item {
   flex: 1;
 }
 
-.aligner-item--top {
+.aligned-item--top {
   align-self: flex-start;
 }
 
@@ -57,7 +57,7 @@ div[tabindex="-1"]:focus {
   outline: 0;
 }
 
-form:focus {
+div[tabindex="-1"] > div:focus {
   outline: 0;
   font-weight: bolder;
   font-size: larger;
@@ -75,6 +75,14 @@ form:focus {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+div[class~="has-success"]:not(:focus-within) input {
+  border-color: inherit;
+}
+
+div[class~="has-error"]:not(:focus-within) input {
+  border-color: inherit;
 }
 
 .inline div[tabindex="-1"] {

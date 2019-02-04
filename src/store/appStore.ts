@@ -11,7 +11,7 @@ import { initialState } from './state/initialState';
 import { IAppState } from './state/IAppState';
 import { Actions } from '../actions/types/itemsActionTypes';
 
-export const appStore: Store<IAppState, Actions> = createStore(
+export const appStore: Store<IAppState, Actions> = createStore<IAppState, Actions, Store<IAppState, Actions>, undefined>(
   todoApp,
   initialState,
   composeWithDevTools(applyMiddleware(thunk, logger)),

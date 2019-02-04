@@ -26,8 +26,8 @@ const itemErrorPropTypes: ValidationMap<ItemErrorProps> = {
   retry: PropTypes.func.isRequired,
 };
 
-export const ItemError: React.StatelessComponent<ItemErrorProps> = ({ error, cancel, retry }): JSX.Element | null => {
-  if (error === null) {
+export const ItemError: React.FunctionComponent<ItemErrorProps> = ({ error, cancel, retry }) => {
+  if (!error) {
     return null;
   }
 

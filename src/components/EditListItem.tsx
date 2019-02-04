@@ -2,13 +2,12 @@ import * as React from 'react';
 import { PureComponent } from 'react';
 import * as PropTypes from 'prop-types';
 import { ValidationMap } from 'prop-types';
-import classNames from 'classnames';
 import { isStringNonempty } from '../utils/isStringNonempty';
 import { HotKeys } from 'react-hotkeys';
+import { HotkeyHandler } from './Hotkeys/appKeyMap';
 
 export type EditListItemContainerProps = {
   readonly id: Guid,
-  readonly order: number,
 };
 
 export type EditListItemDispatchProps = {
@@ -31,7 +30,6 @@ export class EditListItem extends PureComponent<EditListItemProps, EditListItemS
   static displayName: string = 'EditListItem';
 
   static propTypes: ValidationMap<EditListItemProps> = {
-    order: PropTypes.number.isRequired,
     id: PropTypes.string.isRequired,
     text: PropTypes.string.isRequired,
     save: PropTypes.func.isRequired,
@@ -55,38 +53,25 @@ export class EditListItem extends PureComponent<EditListItemProps, EditListItemS
     }
   };
 
-  private _onKeyPress = (event: React.KeyboardEvent<HTMLFormElement>): void => {
-    if (event.key === 'Enter') {
-      event.preventDefault();
-    }
-  };
-
   render(): JSX.Element {
-    const isValid: boolean = isStringNonempty(this.state.inputText);
-    const title: string | undefined = isValid
-      ? undefined
-      : 'Please enter text';
-    const className: string = classNames('input-group stretch', {
-      'has-success': isValid,
-      'has-error': !isValid,
-    });
-    const handlers = {
-      'cancelEditing': this.props.cancel,
-      'deleteItem': this.props.delete,
-      'confirm': this._saveNewItemText,
+    const isValid = isStringNonempty(this.state.inputText);
+    const handlers: HotkeyHandler = {
+      cancelEditing: this.props.cancel,
+      deleteItem: this.props.delete,
+      confirm: this._saveNewItemText,
     };
 
     return (
       <HotKeys handlers={handlers}>
-        <form className="flexbox" onKeyPress={this._onKeyPress}>
-          <section className={className}>
+        <div className="flexbox">
+          <div className={`input-group stretch ${isValid ? 'has-success' : 'has-error'}`}>
             <div className="stretch">
               <input
                 type="text"
                 className="form-control"
                 value={this.state.inputText}
                 onChange={this._storeInputValue}
-                tabIndex={this.props.order}
+                tabIndex={0}
                 autoFocus={true}
               />
             </div>
@@ -96,7 +81,7 @@ export class EditListItem extends PureComponent<EditListItemProps, EditListItemS
                 className="btn btn-primary"
                 onClick={this._saveNewItemText}
                 disabled={!isValid}
-                title={title}
+                title={isValid ? undefined : 'Please enter text'}
                 tabIndex={-1}
               >
                 Save
@@ -118,8 +103,8 @@ export class EditListItem extends PureComponent<EditListItemProps, EditListItemS
                 Delete
               </button>
             </div>
-          </section>
-        </form>
+          </div>
+        </div>
       </HotKeys>
     );
   }

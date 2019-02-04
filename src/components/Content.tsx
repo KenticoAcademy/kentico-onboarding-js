@@ -6,22 +6,24 @@ import * as PropTypes from 'prop-types';
 import { Loader } from './Loader';
 
 export type ContentStateProps = {
-  readonly isLoading: boolean,
-  readonly error: string | null,
+  readonly isListLoaded: boolean,
 };
 
 type ContentProps = ContentStateProps;
 
 const contentPropTypes: ValidationMap<ContentProps> = {
-  isLoading: PropTypes.bool.isRequired,
-  error: PropTypes.string,
+  isListLoaded: PropTypes.bool.isRequired,
 };
 
-export const Content: React.StatelessComponent<ContentProps> = ({ isLoading, error }): JSX.Element => (
-  <section className={isLoading ? 'aligner aligner-item' : undefined}>
-    {isLoading && error === null && <Loader className="aligner aligner-item" size={15} />}
-    {!isLoading && <List />}
-  </section>
+export const Content: React.FunctionComponent<ContentProps> = ({ isListLoaded }) => (
+  isListLoaded
+    ? <List />
+    : (
+        <Loader
+          className="aligner aligned-item"
+          size={15}
+        />
+      )
 );
 
 Content.displayName = 'Content';

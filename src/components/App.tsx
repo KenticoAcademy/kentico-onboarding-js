@@ -17,10 +17,10 @@ const appPropTypes: ValidationMap<AppProps> = {
   error: PropTypes.string,
 };
 
-export const App: React.StatelessComponent<AppProps> = ({ error }): JSX.Element => (
+export const App: React.FunctionComponent<AppProps> = ({ error }) => (
   <HotKeys keyMap={appKeyMap}>
     <div className="aligner page">
-      <div className="container aligner-item aligner-item--top">
+      <div className="container aligned-item aligned-item--top">
         <div className="header clearfix">
           <h3 className="text-muted">
             Kentico Academy
@@ -28,10 +28,13 @@ export const App: React.StatelessComponent<AppProps> = ({ error }): JSX.Element 
         </div>
         <Content />
       </div>
-      <ErrorMessage
-        classNames="alert alert-danger error-message"
-        error={error}
-      />
+      {
+        error &&
+          <ErrorMessage
+            classNames="alert alert-danger error-message"
+            error={error}
+          />
+      }
       <footer className="footer">
         <p>
           &copy; 2017 Kentico software, s.r.o

@@ -16,7 +16,7 @@ const loaderPropTypes: ValidationMap<LoaderProps> = {
   className: PropTypes.string.isRequired,
 };
 
-export const Loader: React.StatelessComponent<LoaderProps> = ({ size, className }): JSX.Element => (
+export const Loader: React.FunctionComponent<LoaderProps> = ({ size, className }) => (
   <div className={className}>
     <PulseLoader sizeUnit="px" size={size} color="#36D7B7"/>
   </div>

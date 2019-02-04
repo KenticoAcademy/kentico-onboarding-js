@@ -2,7 +2,6 @@ import * as React from 'react';
 import { PureComponent } from 'react';
 import * as PropTypes from 'prop-types';
 import { ValidationMap } from 'prop-types';
-import classNames from 'classnames';
 import { isStringNonempty } from '../utils/isStringNonempty';
 import { HotKeys } from 'react-hotkeys';
 
@@ -14,7 +13,6 @@ type NewListItemProps = NewListItemDispatchProps;
 
 type NewListItemState = {
   readonly inputText: string,
-  readonly focused: boolean,
 };
 
 export class NewListItem extends PureComponent<NewListItemProps, NewListItemState> {
@@ -26,15 +24,6 @@ export class NewListItem extends PureComponent<NewListItemProps, NewListItemStat
 
   state: NewListItemState = {
     inputText: '',
-    focused: false,
-  };
-
-  private _onFocus = (): void => {
-    this.setState(() => ({ focused: true }));
-  };
-
-  private _onBlur = (): void => {
-    this.setState(() => ({ focused: false }));
   };
 
   private _storeInputValue = (event: React.ChangeEvent<HTMLInputElement>): void => {
@@ -50,27 +39,14 @@ export class NewListItem extends PureComponent<NewListItemProps, NewListItemStat
     }
   };
 
-  private _onKeyPress = (event: React.KeyboardEvent<HTMLFormElement>): void => {
-    if (event.key === 'Enter') {
-      event.preventDefault();
-    }
-  };
-
   render(): JSX.Element {
-    const { inputText, focused } = this.state;
-    const isValid: boolean = isStringNonempty(inputText);
-    const title: string | undefined = isValid
-      ? undefined
-      : 'Please enter text';
-    const className: string = classNames('input-group stretch', {
-      'has-success': focused && isValid,
-      'has-error': focused && !isValid,
-    });
+    const { inputText } = this.state;
+    const isValid = isStringNonempty(inputText);
 
     return (
-      <HotKeys handlers={{ 'confirm': this._addNewItem }}>
-        <form className="flexbox" onKeyPress={this._onKeyPress}>
-          <section className={className}>
+      <HotKeys handlers={{ confirm: this._addNewItem }}>
+        <div className="flexbox">
+          <div className={`input-group stretch ${isValid ? 'has-success' : 'has-error'}`}>
             <div className="stretch">
               <input
                 type="text"
@@ -79,8 +55,6 @@ export class NewListItem extends PureComponent<NewListItemProps, NewListItemStat
                 placeholder="New item"
                 onChange={this._storeInputValue}
                 autoFocus={true}
-                onFocus={this._onFocus}
-                onBlur={this._onBlur}
               />
             </div>
             <div className="input-group-btn normal">
@@ -89,13 +63,13 @@ export class NewListItem extends PureComponent<NewListItemProps, NewListItemStat
                 className="btn btn-default"
                 onClick={this._addNewItem}
                 disabled={!isValid}
-                title={title}
+                title={isValid ? undefined : 'Please enter text'}
               >
                 Add
               </button>
             </div>
-          </section>
-        </form>
+          </div>
+        </div>
       </HotKeys>
     );
   }

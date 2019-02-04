@@ -5,8 +5,7 @@ import { connect } from 'react-redux';
 import { ContentStateProps } from '../components/Content';
 
 const mapStateToProps = (state: IAppState): ContentStateProps => ({
-  error: state.list.error,
-  isLoading: state.list.isLoading,
+  isListLoaded: !state.list.isLoading && !state.list.error,
 });
 
 export const Content: React.ComponentClass = connect(mapStateToProps)(ContentComponent);
