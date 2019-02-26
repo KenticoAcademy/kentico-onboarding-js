@@ -17,6 +17,12 @@ export const item = (state: ListItem = new ListItem(), action: IAction): ListIte
     case ActionType.SaveItem: {
       return state.with({text: action.payload.text, isActive: false, lastUpdateTime: action.payload.updateTime});
     }
+
+    case ActionType.FetchItemsSucceeded:
+      return new ListItem({
+        ...action.payload
+      });
+
     default:
       return state;
   }

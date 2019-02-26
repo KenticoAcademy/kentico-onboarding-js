@@ -5,6 +5,8 @@ import { IAction } from './IAction';
 import { getTime } from '../utils/getTime';
 import { saveItemCreator } from './saveItemCreator';
 import { ListSorting } from '../constants/ListSorting';
+import { requestAllItemsCreator } from './fetchActions/requestAllItems';
+import { fetchItems } from '../utils/fetchFactory';
 
 export const addItem = addItemCreator(guid, getTime);
 
@@ -31,3 +33,4 @@ export const setListSorting = (listView: ListSorting): IAction => ({
   }
 });
 
+export const requestAllItems = requestAllItemsCreator({ fetchAllItems: fetchItems });

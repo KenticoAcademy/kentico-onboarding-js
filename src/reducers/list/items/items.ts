@@ -19,6 +19,13 @@ export const items = (state = Map<Uuid, ListItem>(), action: IAction): Map<Uuid,
     case ActionType.DeleteItem:
       return state.delete(action.payload.id);
 
+    case ActionType.FetchItemsSucceeded:
+      let map = Map<Uuid, ListItem>();
+      for (const i of action.payload.items) {
+        map = map.set(i.id, item(undefined, { type: action.type, payload: i }));
+      }
+      return map;
+
     default:
       return state;
   }
