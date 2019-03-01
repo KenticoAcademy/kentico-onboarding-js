@@ -39,7 +39,9 @@
     <TypeScriptCodeStyleSettings>
       <option name="USE_DOUBLE_QUOTES" value="false" />
       <option name="OBJECT_LITERAL_WRAP" value="0" />
+      <option name="SPACES_WITHIN_OBJECT_LITERAL_BRACES" value="true" />
       <option name="SPACES_WITHIN_IMPORTS" value="true" />
+      <option name="SPACE_WITHIN_TYPE_ASSERTION" value="true" />
     </TypeScriptCodeStyleSettings>
     <XML>
       <option name="XML_ATTRIBUTE_WRAP" value="2" />
