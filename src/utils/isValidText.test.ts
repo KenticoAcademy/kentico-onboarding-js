@@ -1,4 +1,4 @@
-import {isTextEmpty} from './isTextEmpty';
+import { isTextEmpty } from './isTextEmpty';
 
 describe('isTextEmpty', () => {
   [

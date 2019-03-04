@@ -3,7 +3,7 @@ import { ListItem } from '../models/ListItem';
 import { Map } from 'immutable';
 import { ListSorting } from '../constants/ListSorting';
 
-const createItem = (id: Uuid, creationTime: Time, lastUpdateTime: Time) => ([
+const createItem = (id: Uuid, creationTime: Time, lastUpdateTime: Time): [string, ListItem] => ([
   id,
   new ListItem({
     id,

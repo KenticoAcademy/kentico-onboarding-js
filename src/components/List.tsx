@@ -6,7 +6,7 @@ import { AddItem } from '../containers/AddItem';
 import { ListSorting, getListSortingArray } from '../constants/ListSorting';
 
 export interface IListStateProps {
-  readonly itemIds: Uuid[];
+  readonly itemIds: ReadonlyArray<Uuid>;
   readonly sorting: ListSorting;
 }
 
@@ -29,6 +29,7 @@ export class List extends React.Component<IListProps> {
     sorting: PropTypes.oneOf(getListSortingArray()).isRequired,
     lastRenderTime: PropTypes.string.isRequired,
     onSetListView: PropTypes.func.isRequired,
+    onPropsChanged: PropTypes.func.isRequired,
   };
 
   shouldComponentUpdate(nextProps: IListProps): boolean {
@@ -42,9 +43,9 @@ export class List extends React.Component<IListProps> {
     return shouldUpdate;
   }
 
-  private changeViewToCreatedTime = () => this.props.onSetListView(ListSorting.CreatedTime);
+  private changeViewToCreatedTime = (): void => this.props.onSetListView(ListSorting.CreatedTime);
 
-  private changeViewToLastUpdateTime = () => this.props.onSetListView(ListSorting.LastUpdateTime);
+  private changeViewToLastUpdateTime = (): void => this.props.onSetListView(ListSorting.LastUpdateTime);
 
   render(): JSX.Element {
     return (
@@ -55,29 +56,29 @@ export class List extends React.Component<IListProps> {
               <div
                 className={this.props.sorting === ListSorting.CreatedTime ? 'nav-link active border-info border-bottom-0 text-info' : 'nav-link'}
                 onClick={this.changeViewToCreatedTime}
-              >Created time
+              >
+                Created time
               </div>
             </li>
             <li className="nav-item">
               <div
                 className={this.props.sorting === ListSorting.LastUpdateTime ? 'nav-link active border-info border-bottom-0 text-info' : 'nav-link'}
                 onClick={this.changeViewToLastUpdateTime}
-              >Last update time
+              >
+                Last update time
               </div>
             </li>
           </ul>
           <ul className="list-group list-group-flush border border-info rounded-bottom">
             <AddItem />
-            {
-              this.props.itemIds.map((id: Uuid) => (
+            {this.props.itemIds.map((id: Uuid) => (
                 <Item
                   key={id}
                   id={id}
                   lastRenderTime={this.props.lastRenderTime}
                   onItemPropsChanged={this.props.onPropsChanged}
                 />
-              ))
-            }
+              ))}
           </ul>
         </div>
       </div>

@@ -23,12 +23,12 @@ export class AddItem extends React.PureComponent<IAddItemProps, IAddItemState> {
     text: '',
   };
 
-  _addNewItem = () => {
+  _addNewItem = (): void => {
     this.props.onAddItem(this.state.text);
     this.setState(() => ({text: ''}));
   };
 
-  _storeInputValue = (event: React.FormEvent<HTMLInputElement>) => {
+  _storeInputValue = (event: React.FormEvent<HTMLInputElement>): void => {
     const text = event.currentTarget.value;
     this.setState(() => ({text}));
   };

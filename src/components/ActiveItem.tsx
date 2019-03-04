@@ -31,11 +31,11 @@ export class ActiveItem extends React.PureComponent<IActiveItemProps, IActiveIte
     text: this.props.item.text
   };
 
-  _saveInputValue = () => this.props.onSaveItem(this.state.text);
+  _saveInputValue = (): void => this.props.onSaveItem(this.state.text);
 
-  _storeInputValue = (event: React.FormEvent<HTMLInputElement>) => {
+  _storeInputValue = (event: React.FormEvent<HTMLInputElement>): void => {
     const text = event.currentTarget.value;
-    this.setState(() => ({text}));
+    this.setState(() => ({ text }));
   };
 
   render(): JSX.Element {

@@ -3,4 +3,4 @@ export enum ListSorting {
   LastUpdateTime = 'LastUpdateTime'
 }
 
-export const getListSortingArray = (): ListSorting[] =>  [ListSorting.CreatedTime, ListSorting.LastUpdateTime];
+export const getListSortingArray = (): ListSorting[] => [ListSorting.CreatedTime, ListSorting.LastUpdateTime];

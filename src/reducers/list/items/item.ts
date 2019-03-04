@@ -1,6 +1,6 @@
-import * as ActionType from '../../actions/ActionTypes';
-import { ListItem } from '../../models/ListItem';
-import { IAction } from '../../actions/IAction';
+import * as ActionType from '../../../actions/ActionTypes';
+import { ListItem } from '../../../models/ListItem';
+import { IAction } from '../../../actions/IAction';
 
 export const item = (state: ListItem = new ListItem(), action: IAction): ListItem => {
   switch (action.type) {

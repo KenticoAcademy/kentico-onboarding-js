@@ -1,8 +1,8 @@
 import { Map } from 'immutable';
-import * as ActionType from '../../actions/ActionTypes';
+import * as ActionType from '../../../actions/ActionTypes';
 import { item } from './item';
-import { IAction } from '../../actions/IAction';
-import { ListItem } from '../../models/ListItem';
+import { IAction } from '../../../actions/IAction';
+import { ListItem } from '../../../models/ListItem';
 
 export const items = (state = Map<Uuid, ListItem>(), action: IAction): Map<Uuid, ListItem> => {
   switch (action.type) {

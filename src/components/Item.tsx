@@ -17,7 +17,7 @@ export interface IItemDispatchProps {
   readonly onToggleItem: () => void;
 }
 
-interface IItemOwnProps {
+export interface IItemOwnProps {
   readonly onItemPropsChanged: () => void;
 }
 
@@ -32,6 +32,7 @@ export class Item extends React.Component <IItemProps> {
     onSaveItem: PropTypes.func.isRequired,
     onDeleteItem: PropTypes.func.isRequired,
     onToggleItem: PropTypes.func.isRequired,
+    onItemPropsChanged: PropTypes.func.isRequired,
   };
 
   shouldComponentUpdate(nextProps: IItemProps): boolean {
@@ -44,22 +45,21 @@ export class Item extends React.Component <IItemProps> {
   }
 
   render(): JSX.Element {
-    return (
-      this.props.item.isActive
-        ? (
-          <ActiveItem
-            item={this.props.item}
-            timeToRender={this.props.timeToRender}
-            onSaveItem={this.props.onSaveItem}
-            onCancelItem={this.props.onToggleItem}
-            onDeleteItem={this.props.onDeleteItem}
-          />)
-        : (
-          <InactiveItem
-            item={this.props.item}
-            timeToRender={this.props.timeToRender}
-            onItemClick={this.props.onToggleItem}
-          />)
-    );
+    return this.props.item.isActive
+      ? (
+        <ActiveItem
+          item={this.props.item}
+          timeToRender={this.props.timeToRender}
+          onSaveItem={this.props.onSaveItem}
+          onCancelItem={this.props.onToggleItem}
+          onDeleteItem={this.props.onDeleteItem}
+        />)
+      : (
+        <InactiveItem
+          item={this.props.item}
+          timeToRender={this.props.timeToRender}
+          onItemClick={this.props.onToggleItem}
+        />
+      );
   }
 }

@@ -22,8 +22,8 @@ class TickingWorker extends React.PureComponent<ITickingWorkerProps> {
   }
 }
 
-export const PeriodicTicker: React.StatelessComponent = () => (
+export const PeriodicTicker: React.FunctionComponent = () => (
   <TimerConsumer>
-    {({refreshRenderTime}) => <TickingWorker refreshRenderTime={refreshRenderTime} />}
+    {({ refreshRenderTime }) => <TickingWorker refreshRenderTime={refreshRenderTime} />}
   </TimerConsumer>
 );

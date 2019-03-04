@@ -13,7 +13,7 @@ const createListItem = (id: Uuid, text: string): IListItem  => {
 
 describe('getKeys', () => {
   it('returns same reference for 2 consecutive calls with the same argument', () => {
-    const list: IListItem[] = [
+    const list: ReadonlyArray<IListItem> = [
       createListItem('123', 'aa'),
       createListItem('-489', 'bb'),
       createListItem('854', 'cc')
@@ -28,12 +28,12 @@ describe('getKeys', () => {
   });
 
   it('only memoizes consecutive calls and does not fail when the number of arguments changes between calls', () => {
-    const list1: IListItem[] = [
+    const list1: ReadonlyArray<IListItem> = [
       createListItem('123', 'aa'),
       createListItem('-489', 'bb'),
       createListItem('854', 'cc')
     ];
-    const list2: IListItem[] = [
+    const list2: ReadonlyArray<IListItem> = [
       createListItem('123', 'aa'),
       createListItem('0', 'bb')
     ];

@@ -5,12 +5,12 @@ import { ListItem } from '../models/ListItem';
 import { timeFormat } from '../constants/timeFormat';
 import { ListSorting } from '../constants/ListSorting';
 
-const compareTwoTimes = (left: Time, right: Time) =>
+const compareTwoTimes = (left: Time, right: Time): number =>
   moment.utc(moment(right, timeFormat))
     .diff(moment.utc(moment(left, timeFormat)));
 
 const getSortStrategy = (sorting: ListSorting) =>
-  (left: ListItem, right: ListItem) => {
+  (left: ListItem, right: ListItem): number => {
     switch (sorting) {
       case ListSorting.CreatedTime:
         return compareTwoTimes(left.creationTime, right.creationTime);
@@ -21,7 +21,7 @@ const getSortStrategy = (sorting: ListSorting) =>
     }
   };
 
-export const sortItems = (items: Map<Uuid, ListItem>, sorting: ListSorting): ListItem[] => {
+export const sortItems = (items: Map<Uuid, ListItem>, sorting: ListSorting): ReadonlyArray<ListItem> => {
   const sortStrategy = getSortStrategy(sorting);
   return items.sort(sortStrategy).toArray();
 };

@@ -8,7 +8,7 @@ interface ITimerContext {
   readonly refreshRenderTime: () => void;
 }
 
-const defaultValue = {lastRenderTime: '0000-01-01 00:00:00', refreshRenderTime: () => null};
+const defaultValue = { lastRenderTime: '0000-01-01 00:00:00', refreshRenderTime: () => null };
 
 const Timer = React.createContext<ITimerContext>(defaultValue);
 
@@ -32,10 +32,10 @@ export class TimerProvider extends React.PureComponent<ITimerProps, ITimerContex
     };
   }
 
-  private updateRenderTime = () => this.setState(() => ({lastRenderTime: getCurrentDateTime()}));
+  private updateRenderTime = (): void => this.setState(() => ({ lastRenderTime: getCurrentDateTime() }));
 
   render(): JSX.Element {
-    const {children} = this.props;
+    const { children } = this.props;
 
     return (
       <Timer.Provider value={this.state || defaultValue}>

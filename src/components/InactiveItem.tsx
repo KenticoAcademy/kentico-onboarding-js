@@ -9,16 +9,17 @@ interface IInactiveItemProps {
   readonly onItemClick: () => void;
 }
 
-export const InactiveItem: React.StatelessComponent<IInactiveItemProps> = (props: IInactiveItemProps) => (
-  <div className="list-group-item list-group-item-action" onClick={props.onItemClick}>
+export const InactiveItem: React.FunctionComponent<IInactiveItemProps> = (props: IInactiveItemProps) => (
+  <div
+    className="list-group-item list-group-item-action"
+    onClick={props.onItemClick}
+  >
     <div className="row">
       <span className="col-sm-2 py-2 font-weight-bold">
-        {
-          props.timeToRender
-        }
-        </span>
+        {props.timeToRender}
+      </span>
       <div className="py-2 ml-4 pl-1">
-          {props.item.text}
+        {props.item.text}
       </div>
     </div>
   </div>

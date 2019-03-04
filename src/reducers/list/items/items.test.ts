@@ -1,7 +1,7 @@
 import { Map } from 'immutable';
 
 import { items as listReducer } from './items';
-import { ListItem } from '../../models/ListItem';
+import { ListItem } from '../../../models/ListItem';
 
 import { addItemCreator } from '../../actions/addItemCreator';
 
@@ -10,10 +10,11 @@ import { saveItemCreator } from '../../actions/saveItemCreator';
 import {
   deleteItem,
   toggleItem
-} from '../../actions/ListActions';
-import { IAction } from '../../actions/IAction';
+} from '../../../actions/ListActions';
+import { IAction } from '../../../actions/IAction';
 
-const createItem = (id: Uuid, text: string, isActive: boolean = false, creationTime: string = '0005-12-17 20:30:00', lastUpdateTime: string = creationTime) =>
+const createItem = (id: Uuid, text: string, isActive: boolean = false, creationTime: string = '0005-12-17 20:30:00', lastUpdateTime: string = creationTime
+): [string, ListItem] =>
   [
     id,
     new ListItem({
@@ -28,7 +29,7 @@ const createItem = (id: Uuid, text: string, isActive: boolean = false, creationT
 describe('ListReducer', () => {
   it('returns default state', () => {
     const expectedList = Map<Uuid, ListItem>();
-    const action: IAction = {type: '', payload: undefined};
+    const action: IAction = { type: '', payload: undefined };
 
     const actualList = listReducer(undefined, action);
 
@@ -40,7 +41,7 @@ describe('ListReducer', () => {
       createItem('3970a0db-c877-49e1-b4d0-75e931384289', 'text', true)
     ]);
 
-    const actualList = listReducer(expectedList, {type: 'undefinedAction', payload: undefined});
+    const actualList = listReducer(expectedList, { type: 'undefinedAction', payload: undefined });
 
     expect(actualList).toBe(expectedList);
   });
