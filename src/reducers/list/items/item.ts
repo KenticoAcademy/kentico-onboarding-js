@@ -24,6 +24,8 @@ export const item = (state: ListItem = new ListItem(), action: IAction): ListIte
       });
     }
 
+    case ActionType.FetchDeleteItemStarted:
+    case ActionType.FetchDeleteItemFailed:
     case ActionType.FetchEditItemStarted:
     case ActionType.FetchEditItemFailed: {
       return state.with({

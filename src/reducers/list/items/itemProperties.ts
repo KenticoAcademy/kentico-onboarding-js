@@ -20,7 +20,7 @@ export const itemProperties = (state: ItemProperties = new ItemProperties(), act
       return state.with({ status: ItemStatus.SavingFailed });
 
     case ActionType.FetchDeleteItemFailed:
-      return state.with({status: ItemStatus.DeletionFailed});
+      return state.with({ status: ItemStatus.DeletionFailed });
 
     default:
       return state;

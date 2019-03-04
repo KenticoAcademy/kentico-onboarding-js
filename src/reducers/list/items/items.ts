@@ -12,13 +12,15 @@ export const items = (state = Map<Uuid, ListItem>(), action: IAction): Map<Uuid,
     case ActionType.FetchEditItemSucceeded:
     case ActionType.FetchEditItemStarted:
     case ActionType.FetchEditItemFailed:
+    case ActionType.FetchDeleteItemStarted:
+    case ActionType.FetchDeleteItemFailed:
     case ActionType.ToggleItem: {
       const existingItem = state.get(action.payload.id);
       const editedItem = item(existingItem, action);
       return state.set(action.payload.id, editedItem);
     }
 
-    case ActionType.DeleteItem:
+    case ActionType.FetchDeleteItemSucceeded:
       return state.delete(action.payload.id);
 
     case ActionType.FetchItemsSucceeded:

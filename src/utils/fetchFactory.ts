@@ -1,13 +1,8 @@
 import { IListItem } from '../models/ListItem';
 import { requestPath } from '../constants/requestPath';
 
-const validateResponse = async (response: Response): Promise<IListItem> => {
+const getErrorMessage = async <T>(response: Response): Promise<T> => {
   const responseJson = await response.json();
-
-  if (response.ok) {
-    return responseJson;
-  }
-
   const error = responseJson.modelState;
   const errorMessage = Object.keys(error)
     .map(key => error[key][0])
@@ -24,7 +19,11 @@ export const storeItem = async (itemText: string): Promise<IListItem> => {
       headers: { 'Content-Type': 'application/json' }
     });
 
-    return await validateResponse(response);
+    if (response.ok) {
+      return await response.json();
+    }
+
+    return await getErrorMessage(response);
   } catch (error) {
     throw new Error('Couldn\'t connect to server.');
   }
@@ -47,19 +46,39 @@ export const fetchItems = async (): Promise<ReadonlyArray<IListItem>> => {
   }
 };
 
-export const editItem = (id: Uuid, text: string): Promise<IListItem> =>
-  fetch(
-    requestPath + id,
-    {
-      method: 'PUT',
-      body: JSON.stringify({ text }),
-      headers: { 'Content-Type': 'application/json' }
-    })
-    .then(response => {
-      if (response.ok) {
-        return response.json();
-      }
+export const deleteItem = async (id: Uuid): Promise<void> => {
+  try {
+    const response = await fetch(requestPath + id,
+      {
+        method: 'DELETE'
+      });
 
-      throw new Error();
-    });
+    if (response.ok) {
+      return;
+    }
 
+    await getErrorMessage(response);
+  } catch (error) {
+    throw new Error('Couldn\'t connect to server.');
+  }
+};
+
+export const editItem = async (id: Uuid, text: string): Promise<IListItem> => {
+  try {
+    const response = await fetch(
+      requestPath + id,
+      {
+        method: 'PUT',
+        body: JSON.stringify({ text }),
+        headers: { 'Content-Type': 'application/json' }
+      });
+
+    if (response.ok) {
+      return await response.json();
+    }
+
+    return getErrorMessage(response);
+  } catch (error) {
+    throw new Error('Couldn\'t connect to server.');
+  }
+};

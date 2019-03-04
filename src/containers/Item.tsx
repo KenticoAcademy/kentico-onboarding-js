@@ -7,7 +7,7 @@ import {
   IItemProps,
   IItemOwnProps
 } from '../components/Item';
-import { deleteItem, toggleItem, requestSaveItem } from '../actions/ListActions';
+import { requestDeleteItem, toggleItem, requestSaveItem } from '../actions/ListActions';
 import { IAppState } from '../reducers/interfaces/IAppState';
 import { getTimeFrom } from '../utils/getTimeFrom';
 import { ListSorting } from '../constants/ListSorting';
@@ -31,7 +31,7 @@ const mapStateToProps = ({ list }: IAppState, { id, lastRenderTime }: IItemConta
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<IAppState, never, IAction>, { id }: IItemContainerProps): IItemDispatchProps => ({
   onSaveItem: (text: string) => dispatch(requestSaveItem(id, text)),
-  onDeleteItem: () => dispatch(deleteItem(id)),
+  onDeleteItem: () => dispatch(requestDeleteItem(id)),
   onToggleItem: () => dispatch(toggleItem(id)),
 });
 

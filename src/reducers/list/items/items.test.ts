@@ -3,11 +3,11 @@ import { Map } from 'immutable';
 import { items as listReducer } from './items';
 import { ListItem, IListItem } from '../../../models/ListItem';
 
+import { deletingSucceeded as deleteItemAction } from '../../../actions/fetchActions/requestDeleteItem';
 import { addingSucceeded as addItemAction } from '../../../actions/fetchActions/requestAddItem';
 import { editingSucceeded as saveItemAction } from '../../../actions/fetchActions/requestEditItem';
 
 import {
-  deleteItem,
   toggleItem
 } from '../../../actions/ListActions';
 import { IAction } from '../../../actions/IAction';
@@ -146,7 +146,7 @@ describe('ListReducer', () => {
       item3
     ]);
 
-    const action = deleteItem(id2);
+    const action = deleteItemAction(id2);
     const actualList = listReducer(defaultList, action);
 
     expect(actualList).toEqual(expectedList);

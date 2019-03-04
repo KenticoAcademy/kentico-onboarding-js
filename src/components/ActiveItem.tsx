@@ -41,14 +41,27 @@ export class ActiveItem extends React.PureComponent<IActiveItemProps, IActiveIte
     this.setState(() => ({ text }));
   };
 
+  _getErrorMessage = (): string | undefined => {
+    if (this.props.item.properties.status === ItemStatus.DeletionFailed) {
+      return 'Deletion failed.';
+    }
+
+    if (this.props.item.properties.status === ItemStatus.SavingFailed) {
+      return 'Saving failed.';
+    }
+
+    return undefined;
+  };
+
   render(): JSX.Element {
     const textIsValid = isTextEmpty(this.state.text);
     const title = textIsValid ? undefined : 'You can\'t save an empty input :(';
-    const savingFailed = this.props.item.properties.status === ItemStatus.SavingFailed;
-    const isProcessingRequest = this.props.item.properties.status === ItemStatus.BeingProcessed;
-    const errorMessage = savingFailed
-          ? 'Saving failed.'
-          : undefined;
+    const errorMessage = this._getErrorMessage();
+
+    const { status } = this.props.item.properties;
+    const savingFailed = status === ItemStatus.SavingFailed;
+    const isProcessingRequest = status === ItemStatus.BeingProcessed;
+    const deletionFailed = status === ItemStatus.DeletionFailed;
 
     return (
       <div className="list-group-item list-group-item-action">
@@ -69,7 +82,7 @@ export class ActiveItem extends React.PureComponent<IActiveItemProps, IActiveIte
                 className="btn btn-info"
                 type="submit"
                 onClick={this._saveInputValue}
-                disabled={!textIsValid || isProcessingRequest}
+                disabled={!textIsValid || isProcessingRequest || deletionFailed}
                 title={title}
               >
                 Save
@@ -100,7 +113,7 @@ export class ActiveItem extends React.PureComponent<IActiveItemProps, IActiveIte
             />
           </div>
           }
-          {(savingFailed) && (
+          {(savingFailed || deletionFailed) && (
             <span className="py-1 pt-2 font-weight-bold text-danger">
               {errorMessage}
             </span>
