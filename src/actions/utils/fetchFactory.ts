@@ -1,4 +1,4 @@
-import { GATEWAY_TIMEOUT_MESSAGE, NOT_FOUND_MESSAGE, CONNECTION_FAILED } from '../utils/errorMessages';
+import { GATEWAY_TIMEOUT_MESSAGE, NOT_FOUND_MESSAGE, CONNECTION_FAILED } from './errorMessages';
 
 const validateResponse = async (response: Response): Promise<string> => {
   switch (response.status) {

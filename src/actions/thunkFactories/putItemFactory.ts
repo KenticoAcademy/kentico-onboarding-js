@@ -7,7 +7,6 @@ import {
   putItemSuccess,
   saveItemText,
 } from '../itemsActions';
-import { ErrorAction } from '../types/ErrorAction';
 import { IAppState } from '../../store/state/IAppState';
 import {
   IItem,
@@ -16,7 +15,7 @@ import {
 
 export interface IPutItemDependencies {
   readonly putItemRequest: (item: IItem) => Promise<void>;
-  readonly createItemError: (message: string, errorType: ErrorAction, itemId: Guid) => AddItemErrorAction;
+  readonly createItemError: (message: string, itemId: Guid, oldText: string) => AddItemErrorAction;
 }
 
 export const putItemFactory = (dependencies: IPutItemDependencies) =>
@@ -33,8 +32,8 @@ export const putItemFactory = (dependencies: IPutItemDependencies) =>
       } catch (error) {
         return dispatch(dependencies.createItemError(
           'There was an error while saving item: ' + error.message,
-          ErrorAction.Update,
           id,
+          oldText,
         ));
       }
     };

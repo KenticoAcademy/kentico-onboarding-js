@@ -3,15 +3,17 @@ node_js:
  - "10.6.0"
  
 before_install:
-  - npm i -g npm@6.1.0
+ - npm i -g npm@6.1.0
 
 before_deploy:
-  - npm run produce
+ - npm run eslint
+ - npm run tslint
+ - npm run produce
 
 deploy:
-  skip_cleanup: true
-  provider: surge
-  project: ./build/
-  domain: peterh-todolist.surge.sh
-  on:
-    branch: feature/task-5
+ skip_cleanup: true
+ provider: surge
+ project: ./build/
+ domain: peterh-todolist.surge.sh
+ on:
+   branch: feature/task-5

@@ -160,7 +160,7 @@ describe('addItemError', () => {
     const itemError = new ItemError({
       id: errorId,
       message: error,
-      action
+      action,
     });
     const expectedResult: AddItemErrorAction = {
       type: 'ADD_ITEM_ERROR',

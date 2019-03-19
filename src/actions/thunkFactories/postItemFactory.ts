@@ -7,13 +7,12 @@ import {
   addItem,
   postItemSuccess,
 } from '../itemsActions';
-import { ErrorAction } from '../types/ErrorAction';
 import { IItem } from '../../models/Item';
 
 export interface IPostItemDependencies {
   readonly postItemRequest: (text: string) => Promise<IItem>;
   readonly generateId: () => Guid;
-  readonly createItemError: (message: string, errorType: ErrorAction, itemId: Guid) => AddItemErrorAction;
+  readonly createItemError: (message: string, itemId: Guid) => AddItemErrorAction;
 }
 
 const handleItemPost = async (dependencies: IPostItemDependencies, dispatch: Dispatch, text: string, oldId: Guid): Promise<PostItemSuccessAction | AddItemErrorAction> => {
@@ -25,7 +24,6 @@ const handleItemPost = async (dependencies: IPostItemDependencies, dispatch: Dis
   } catch (error) {
     return dispatch(dependencies.createItemError(
       'There was an error while creating new item: ' + error.message,
-      ErrorAction.Add,
       oldId,
     ));
   }

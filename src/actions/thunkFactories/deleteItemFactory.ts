@@ -7,12 +7,11 @@ import {
   deleteItemSuccess,
   setItemSyncing,
 } from '../itemsActions';
-import { ErrorAction } from '../types/ErrorAction';
 import { IItem } from '../../models/Item';
 
 export interface IDeleteItemDependencies {
   readonly deleteItemRequest: (id: Guid) => Promise<IItem>;
-  readonly createItemError: (message: string, errorType: ErrorAction, itemId: Guid) => AddItemErrorAction;
+  readonly createItemError: (message: string, itemId: Guid) => AddItemErrorAction;
 }
 
 export const deleteItemFactory = (dependencies: IDeleteItemDependencies) =>
@@ -28,7 +27,6 @@ export const deleteItemFactory = (dependencies: IDeleteItemDependencies) =>
       } catch (error) {
         return dispatch(dependencies.createItemError(
           'There was an error while deleting item: ' + error.message,
-          ErrorAction.Delete,
           id,
         ));
       }

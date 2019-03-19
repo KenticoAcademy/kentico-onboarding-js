@@ -2,9 +2,9 @@ import {
   IItem,
   Item,
 } from '../../models/Item';
-import { fetchFactory } from '../thunkFactories/fetchFactory';
-import { urlBase } from '../utils/urlBase';
-import { headerBase } from '../utils/headerBase';
+import { fetchFactory } from './fetchFactory';
+import { urlBase } from './urlBase';
+import { headerBase } from './headerBase';
 
 const itemFetch = fetchFactory(fetch, urlBase, headerBase);
 
@@ -12,9 +12,9 @@ export const getItemsRequest = async (): Promise<ReadonlyArray<IItem>> => {
   const getItems = itemFetch({ method: 'GET' });
   const response = await getItems({});
 
-  const data = await response.json();
+  const rawItems = await response.json();
 
-  return data.map((item: IItem) => new Item(item));
+  return rawItems.map((item: IItem) => new Item(item));
 };
 
 export const postItemRequest = async (text: string): Promise<IItem> => {
@@ -23,12 +23,9 @@ export const postItemRequest = async (text: string): Promise<IItem> => {
     data: JSON.stringify({text}),
   });
 
-  const data = await response.json();
+  const rawItem = await response.json();
 
-  return new Item({
-    id: data.id,
-    text: data.text,
-  });
+  return new Item(rawItem);
 };
 
 export const putItemRequest = async (item: IItem): Promise<void> => {
@@ -45,10 +42,7 @@ export const deleteItemRequest = async (id: Guid): Promise<IItem> => {
   const deleteItem = itemFetch({ method: 'DELETE' });
   const response = await deleteItem({ id });
 
-  const data = await response.json();
+  const rawItem = await response.json();
 
-  return new Item({
-    id: data.id,
-    text: data.text,
-  });
+  return new Item(rawItem);
 };

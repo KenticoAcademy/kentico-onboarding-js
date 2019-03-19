@@ -28,13 +28,12 @@ export const App: React.FunctionComponent<AppProps> = ({ error }) => (
         </div>
         <Content />
       </div>
-      {
-        error &&
-          <ErrorMessage
-            classNames="alert alert-danger error-message"
-            error={error}
-          />
-      }
+      {error && (
+        <ErrorMessage
+          classNames="alert alert-danger error-message"
+          error={error}
+        />
+      )}
       <footer className="footer">
         <p>
           &copy; 2017 Kentico software, s.r.o

@@ -1,11 +1,11 @@
 import 'isomorphic-fetch';
-import { headerBase } from '../utils/headerBase';
+import { headerBase } from './headerBase';
 import Mock = jest.Mock;
 import {
   FetchConfig,
   fetchFactory,
 } from './fetchFactory';
-import { GATEWAY_TIMEOUT_MESSAGE, NOT_FOUND_MESSAGE } from '../utils/errorMessages';
+import { GATEWAY_TIMEOUT_MESSAGE, NOT_FOUND_MESSAGE } from './errorMessages';
 
 describe('fetchFactory', () => {
   const mockResponse = (status: number, statusText?: string, response?: BodyInit) =>

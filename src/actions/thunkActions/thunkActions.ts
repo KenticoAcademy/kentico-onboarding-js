@@ -13,13 +13,31 @@ import {
   getItemsRequest,
   postItemRequest,
   putItemRequest,
-} from './itemRequests';
-
-const createItemError = createItemErrorFactory(generateUuid);
+} from '../utils/itemRequests';
+import { ErrorAction } from '../types/ErrorAction';
 
 export const getItemsThunk = getItemsFactory({ getItemsRequest });
-export const postItemThunk = postItemFactory({ postItemRequest, generateId: generateUuid, createItemError });
-export const repostItemThunk = repostItemFactory({ postItemRequest, generateId: generateUuid, createItemError });
-export const putItemThunk = putItemFactory({ putItemRequest, createItemError });
-export const deleteItemThunk = deleteItemFactory({ deleteItemRequest, createItemError });
+
+export const postItemThunk = postItemFactory({
+  postItemRequest,
+  generateId: generateUuid,
+  createItemError: createItemErrorFactory(generateUuid, ErrorAction.Add),
+});
+
+export const repostItemThunk = repostItemFactory({
+  postItemRequest,
+  generateId: generateUuid,
+  createItemError: createItemErrorFactory(generateUuid, ErrorAction.Add),
+});
+
+export const putItemThunk = putItemFactory({
+  putItemRequest,
+  createItemError: createItemErrorFactory(generateUuid, ErrorAction.Update),
+});
+
+export const deleteItemThunk = deleteItemFactory({
+  deleteItemRequest,
+  createItemError: createItemErrorFactory(generateUuid, ErrorAction.Delete),
+});
+
 export const retryThunkActionThunk = retryThunkActionFactory({ deleteItemThunk, repostItemThunk, putItemThunk });

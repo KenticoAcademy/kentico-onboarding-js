@@ -24,6 +24,7 @@ type EditListItemProps = EditListItemDispatchProps & EditListItemStateProps & Ed
 
 type EditListItemState = {
   readonly inputText: string,
+  readonly isInputChanged: boolean,
 };
 
 export class EditListItem extends PureComponent<EditListItemProps, EditListItemState> {
@@ -39,11 +40,15 @@ export class EditListItem extends PureComponent<EditListItemProps, EditListItemS
 
   state: EditListItemState = {
     inputText: this.props.text,
+    isInputChanged: false,
   };
 
   private _storeInputValue = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const value: string = event.target.value;
-    this.setState(() => ({ inputText: value }));
+    this.setState(() => ({
+      inputText: value,
+      isInputChanged: true,
+    }));
   };
 
   private _saveNewItemText = () => {
@@ -54,7 +59,9 @@ export class EditListItem extends PureComponent<EditListItemProps, EditListItemS
   };
 
   render(): JSX.Element {
+    const { isInputChanged } = this.state;
     const isValid = isStringNonempty(this.state.inputText);
+    const inputClassName = isValid ? 'has-success' : 'has-error';
     const handlers: HotkeyHandler = {
       cancelEditing: this.props.cancel,
       deleteItem: this.props.delete,
@@ -64,7 +71,7 @@ export class EditListItem extends PureComponent<EditListItemProps, EditListItemS
     return (
       <HotKeys handlers={handlers}>
         <div className="flexbox">
-          <div className={`input-group stretch ${isValid ? 'has-success' : 'has-error'}`}>
+          <div className={`input-group stretch ${isInputChanged ? inputClassName : ''}`}>
             <div className="stretch">
               <input
                 type="text"

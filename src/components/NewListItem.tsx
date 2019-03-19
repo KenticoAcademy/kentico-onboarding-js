@@ -13,6 +13,7 @@ type NewListItemProps = NewListItemDispatchProps;
 
 type NewListItemState = {
   readonly inputText: string,
+  readonly isInputChanged: boolean,
 };
 
 export class NewListItem extends PureComponent<NewListItemProps, NewListItemState> {
@@ -24,11 +25,15 @@ export class NewListItem extends PureComponent<NewListItemProps, NewListItemStat
 
   state: NewListItemState = {
     inputText: '',
+    isInputChanged: false,
   };
 
   private _storeInputValue = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const value: string = event.currentTarget.value;
-    this.setState(() => ({ inputText: value }));
+    this.setState(() => ({
+      inputText: value,
+      isInputChanged: true,
+    }));
   };
 
   private _addNewItem = (): void => {
@@ -40,13 +45,14 @@ export class NewListItem extends PureComponent<NewListItemProps, NewListItemStat
   };
 
   render(): JSX.Element {
-    const { inputText } = this.state;
+    const { inputText, isInputChanged } = this.state;
     const isValid = isStringNonempty(inputText);
+    const inputClassName = isValid ? 'has-success' : 'has-error';
 
     return (
       <HotKeys handlers={{ confirm: this._addNewItem }}>
         <div className="flexbox">
-          <div className={`input-group stretch ${isValid ? 'has-success' : 'has-error'}`}>
+          <div className={`input-group stretch ${isInputChanged ? inputClassName : ''}`}>
             <div className="stretch">
               <input
                 type="text"

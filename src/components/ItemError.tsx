@@ -41,12 +41,12 @@ export const ItemError: React.FunctionComponent<ItemErrorProps> = ({ error, canc
       <span
         className="glyphicon glyphicon-repeat"
         onClick={retry}
-        tabIndex={-1}
+        title="Retry"
       />
       <span
         className="glyphicon glyphicon-remove"
         onClick={cancel}
-        tabIndex={-1}
+        title="Cancel"
       />
     </div>
   );

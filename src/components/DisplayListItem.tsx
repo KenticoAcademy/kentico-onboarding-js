@@ -50,13 +50,12 @@ export class DisplayListItem extends PureComponent<DisplayListItemProps> {
             <div className={classNames('form-group', {'is-syncing': isSyncing})}>
               {text}
             </div>
-            {
-              showLoader &&
-                <Loader
-                  className="aligned-item aligned-item--top col-sm-offset-1"
-                  size={6}
-                />
-            }
+            {showLoader && (
+              <Loader
+                className="aligned-item aligned-item--top col-sm-offset-1"
+                size={6}
+              />
+            )}
             <ItemError id={id} />
           </div>
         </div>

@@ -7,7 +7,7 @@ import { ErrorAction } from '../types/ErrorAction';
 export interface IRetryDependencies {
   readonly deleteItemThunk: (itemId: Guid) => Thunk;
   readonly repostItemThunk: (tempId: Guid, text: string) => Thunk;
-  readonly putItemThunk: (id: Guid, text: string, oldText?: string) => Thunk;
+  readonly putItemThunk: (id: Guid, text: string, oldText: string) => Thunk;
 }
 
 export const retryThunkActionFactory = (dependencies: IRetryDependencies) =>
