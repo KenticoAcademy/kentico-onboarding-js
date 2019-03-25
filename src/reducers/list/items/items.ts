@@ -9,7 +9,9 @@ export const items = (state = Map<Uuid, ListItem>(), action: IAction): Map<Uuid,
     case ActionType.FetchAddItemSucceeded:
       return state.set(action.payload.id, item(undefined, action));
 
-    case ActionType.SaveItem:
+    case ActionType.FetchEditItemSucceeded:
+    case ActionType.FetchEditItemStarted:
+    case ActionType.FetchEditItemFailed:
     case ActionType.ToggleItem: {
       const existingItem = state.get(action.payload.id);
       const editedItem = item(existingItem, action);

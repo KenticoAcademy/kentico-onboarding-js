@@ -15,11 +15,18 @@ export const item = (state: ListItem = new ListItem(), action: IAction): ListIte
     case ActionType.ToggleItem:
       return state.with({ isActive: !state.isActive, properties: itemProperties(state.properties, action) });
 
-    case ActionType.SaveItem: {
+    case ActionType.FetchEditItemSucceeded: {
       return state.with({
         text: action.payload.text,
         isActive: false,
         lastUpdateTime: action.payload.lastUpdateTime,
+        properties: itemProperties(state.properties, action)
+      });
+    }
+
+    case ActionType.FetchEditItemStarted:
+    case ActionType.FetchEditItemFailed: {
+      return state.with({
         properties: itemProperties(state.properties, action)
       });
     }

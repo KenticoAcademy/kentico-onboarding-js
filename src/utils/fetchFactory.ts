@@ -46,3 +46,20 @@ export const fetchItems = async (): Promise<ReadonlyArray<IListItem>> => {
     throw new Error('Couldn\'t connect to server.');
   }
 };
+
+export const editItem = (id: Uuid, text: string): Promise<IListItem> =>
+  fetch(
+    requestPath + id,
+    {
+      method: 'PUT',
+      body: JSON.stringify({ text }),
+      headers: { 'Content-Type': 'application/json' }
+    })
+    .then(response => {
+      if (response.ok) {
+        return response.json();
+      }
+
+      throw new Error();
+    });
+

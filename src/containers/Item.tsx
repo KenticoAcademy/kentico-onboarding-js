@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { Dispatch } from 'redux';
 import {
   Item as ItemComponent,
   IItemStateProps,
@@ -8,10 +7,12 @@ import {
   IItemProps,
   IItemOwnProps
 } from '../components/Item';
-import { saveItem, deleteItem, toggleItem } from '../actions/ListActions';
+import { deleteItem, toggleItem, requestSaveItem } from '../actions/ListActions';
 import { IAppState } from '../reducers/interfaces/IAppState';
 import { getTimeFrom } from '../utils/getTimeFrom';
 import { ListSorting } from '../constants/ListSorting';
+import { ThunkDispatch } from 'redux-thunk';
+import { IAction } from '../actions/IAction';
 
 interface IItemContainerProps extends IItemOwnProps {
   readonly id: Uuid;
@@ -28,8 +29,8 @@ const mapStateToProps = ({ list }: IAppState, { id, lastRenderTime }: IItemConta
   };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch, { id }: IItemContainerProps): IItemDispatchProps => ({
-  onSaveItem: (text: string) => dispatch(saveItem(id, text)),
+const mapDispatchToProps = (dispatch: ThunkDispatch<IAppState, never, IAction>, { id }: IItemContainerProps): IItemDispatchProps => ({
+  onSaveItem: (text: string) => dispatch(requestSaveItem(id, text)),
   onDeleteItem: () => dispatch(deleteItem(id)),
   onToggleItem: () => dispatch(toggleItem(id)),
 });

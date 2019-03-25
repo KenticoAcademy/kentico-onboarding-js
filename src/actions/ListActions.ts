@@ -1,13 +1,10 @@
 import * as ActionType from './ActionTypes';
 import { IAction } from './IAction';
-import { getTime } from '../utils/getTime';
-import { saveItemCreator } from './saveItemCreator';
 import { ListSorting } from '../constants/ListSorting';
 import { requestAddItemCreator } from './fetchActions/requestAddItem';
-import { storeItem, fetchItems } from '../utils/fetchFactory';
+import { fetchItems, storeItem, editItem } from '../utils/fetchFactory';
 import { requestAllItemsCreator } from './fetchActions/requestAllItems';
-
-export const saveItem = saveItemCreator(getTime);
+import { requestEditItemCreator } from './fetchActions/requestEditItem';
 
 export const toggleItem = (id: Uuid): IAction => ({
   type: ActionType.ToggleItem,
@@ -30,6 +27,13 @@ export const setListSorting = (listView: ListSorting): IAction => ({
   }
 });
 
+export const setItemErrorWasRendered = (id: Uuid): IAction => ({
+  type: ActionType.ItemErrorWasRendered,
+  payload: {
+    id
+  }
+});
+
 export const setNewItemErrorWasRendered = (): IAction => ({
   type: ActionType.NewItemErrorWasRendered,
   payload: {}
@@ -39,3 +43,5 @@ export const setNewItemErrorWasRendered = (): IAction => ({
 export const requestAddItem = requestAddItemCreator({ fetchAddItem: storeItem });
 
 export const requestAllItems = requestAllItemsCreator({ fetchAllItems: fetchItems });
+
+export const requestSaveItem = requestEditItemCreator({ editItem });

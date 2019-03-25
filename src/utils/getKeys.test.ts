@@ -1,13 +1,15 @@
 import { getKeys } from './getKeys';
 import { IListItem } from '../models/ListItem';
+import { ItemProperties } from '../models/ItemProperties';
 
-const createListItem = (id: Uuid, text: string): IListItem  => {
+const createListItem = (id: Uuid, text: string): IListItem => {
   return {
     id,
     text,
     isActive: false,
     creationTime: '',
     lastUpdateTime: '',
+    properties: new ItemProperties()
   };
 };
 

@@ -4,6 +4,7 @@ import * as PropTypes from 'prop-types';
 import { Item } from '../containers/Item';
 import { AddItem } from '../containers/AddItem';
 import { ListSorting, getListSortingArray } from '../constants/ListSorting';
+import { ItemsErrors } from '../containers/ItemsErrors';
 
 export interface IListStateProps {
   readonly itemIds: ReadonlyArray<Uuid>;
@@ -69,16 +70,17 @@ export class List extends React.Component<IListProps> {
               </div>
             </li>
           </ul>
+          <ItemsErrors />
           <ul className="list-group list-group-flush border border-info rounded-bottom">
             <AddItem />
             {this.props.itemIds.map((id: Uuid) => (
-                <Item
-                  key={id}
-                  id={id}
-                  lastRenderTime={this.props.lastRenderTime}
-                  onItemPropsChanged={this.props.onPropsChanged}
-                />
-              ))}
+              <Item
+                key={id}
+                id={id}
+                lastRenderTime={this.props.lastRenderTime}
+                onItemPropsChanged={this.props.onPropsChanged}
+              />
+            ))}
           </ul>
         </div>
       </div>

@@ -4,14 +4,14 @@ import { items as listReducer } from './items';
 import { ListItem, IListItem } from '../../../models/ListItem';
 
 import { addingSucceeded as addItemAction } from '../../../actions/fetchActions/requestAddItem';
-
-import { saveItemCreator } from '../../../actions/saveItemCreator';
+import { editingSucceeded as saveItemAction } from '../../../actions/fetchActions/requestEditItem';
 
 import {
   deleteItem,
   toggleItem
 } from '../../../actions/ListActions';
 import { IAction } from '../../../actions/IAction';
+import { ItemProperties } from '../../../models/ItemProperties';
 
 interface IListItemParams {
   id: Uuid;
@@ -28,6 +28,7 @@ const createListItem = ({ id, text, creationTime, ...params }: IListItemParams):
     isActive: params.isActive || false,
     creationTime,
     lastUpdateTime: params.lastUpdateTime || creationTime,
+    properties: new ItemProperties()
   });
 
 const createItem = (id: Uuid, text: string, isActive: boolean = false, creationTime: string = '0005-12-17 20:30:00', lastUpdateTime: string = creationTime
@@ -80,25 +81,24 @@ describe('ListReducer', () => {
 
   it('edits item', () => {
     const item1 = createItem('b0e9856e-bb17-4c0b-b65f-f5a43e81617c', 'tem1text');
-    const id2 = 'c264d24b-53da-428b-8ffc-e05ad161d3fb';
+    const id = 'c264d24b-53da-428b-8ffc-e05ad161d3fb';
     const creationTime = '1658-05-06 08:30:25';
     const lastUpdateTime = '3000-07-10 05:48:35';
 
     const defaultList = Map<Uuid, ListItem>([
       item1,
-      createItem(id2, 'oldText', true, creationTime),
+      createItem(id, 'oldText', true, creationTime),
     ]);
 
     const newText = 'newText';
 
     const expectedList = Map<Uuid, ListItem>([
       item1,
-      createItem(id2, newText, false, creationTime, lastUpdateTime),
+      createItem(id, newText, false, creationTime, lastUpdateTime),
     ]);
 
-    const saveItem = saveItemCreator(() => lastUpdateTime);
-
-    const action = saveItem(id2, newText);
+    const editedItem = createListItem({ id, text: newText, creationTime, lastUpdateTime });
+    const action = saveItemAction(editedItem);
     const actualList = listReducer(defaultList, action);
 
     expect(actualList).toEqual(expectedList);
@@ -176,9 +176,8 @@ describe('ListReducer', () => {
     const action1 = toggleItem(id);
     const actualList1 = listReducer(defaultList, action1);
 
-    const saveItem = saveItemCreator(() => lastUpdateTime);
-
-    const action2 = saveItem(id, newText);
+    const editedItem = createListItem({ id, text: newText, creationTime, lastUpdateTime });
+    const action2 = saveItemAction(editedItem);
     const actualList2 = listReducer(actualList1, action2);
 
     expect(actualList1).toEqual(expectedList1);
