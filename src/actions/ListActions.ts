@@ -1,14 +1,11 @@
 import * as ActionType from './ActionTypes';
-import { guid } from '../utils/guid';
-import { addItemCreator } from './addItemCreator';
 import { IAction } from './IAction';
 import { getTime } from '../utils/getTime';
 import { saveItemCreator } from './saveItemCreator';
 import { ListSorting } from '../constants/ListSorting';
+import { requestAddItemCreator } from './fetchActions/requestAddItem';
+import { storeItem, fetchItems } from '../utils/fetchFactory';
 import { requestAllItemsCreator } from './fetchActions/requestAllItems';
-import { fetchItems } from '../utils/fetchFactory';
-
-export const addItem = addItemCreator(guid, getTime);
 
 export const saveItem = saveItemCreator(getTime);
 
@@ -32,5 +29,13 @@ export const setListSorting = (listView: ListSorting): IAction => ({
     sorting: listView
   }
 });
+
+export const setNewItemErrorWasRendered = (): IAction => ({
+  type: ActionType.NewItemErrorWasRendered,
+  payload: {}
+});
+
+
+export const requestAddItem = requestAddItemCreator({ fetchAddItem: storeItem });
 
 export const requestAllItems = requestAllItemsCreator({ fetchAllItems: fetchItems });

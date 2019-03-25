@@ -1,17 +1,34 @@
 import { Map } from 'immutable';
 
 import { items as listReducer } from './items';
-import { ListItem } from '../../../models/ListItem';
+import { ListItem, IListItem } from '../../../models/ListItem';
 
-import { addItemCreator } from '../../actions/addItemCreator';
+import { addingSucceeded as addItemAction } from '../../../actions/fetchActions/requestAddItem';
 
-import { saveItemCreator } from '../../actions/saveItemCreator';
+import { saveItemCreator } from '../../../actions/saveItemCreator';
 
 import {
   deleteItem,
   toggleItem
 } from '../../../actions/ListActions';
 import { IAction } from '../../../actions/IAction';
+
+interface IListItemParams {
+  id: Uuid;
+  text: string;
+  isActive?: boolean;
+  creationTime: Time;
+  lastUpdateTime?: Time;
+}
+
+const createListItem = ({ id, text, creationTime, ...params }: IListItemParams): IListItem => (
+  {
+    id,
+    text,
+    isActive: params.isActive || false,
+    creationTime,
+    lastUpdateTime: params.lastUpdateTime || creationTime,
+  });
 
 const createItem = (id: Uuid, text: string, isActive: boolean = false, creationTime: string = '0005-12-17 20:30:00', lastUpdateTime: string = creationTime
 ): [string, ListItem] =>
@@ -53,9 +70,9 @@ describe('ListReducer', () => {
     const expectedList = Map<Uuid, ListItem>([
       createItem(id, text, false, time)
     ]);
-    const addItem = addItemCreator(() => id, () => time);
+    const newItem = createListItem({ id, text, creationTime: time });
+    const action = addItemAction(newItem);
 
-    const action = addItem(text);
     const actualList = listReducer(undefined, action);
 
     expect(actualList).toEqual(expectedList);

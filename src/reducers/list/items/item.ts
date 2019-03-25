@@ -1,27 +1,28 @@
 import * as ActionType from '../../../actions/ActionTypes';
 import { ListItem } from '../../../models/ListItem';
 import { IAction } from '../../../actions/IAction';
+import { itemProperties } from './itemProperties';
 
 export const item = (state: ListItem = new ListItem(), action: IAction): ListItem => {
   switch (action.type) {
-    case ActionType.AddItem:
+    case ActionType.FetchItemsSucceeded:
+    case ActionType.FetchAddItemSucceeded:
       return new ListItem({
         ...action.payload,
-        isActive: false,
-        lastUpdateTime: action.payload.creationTime
+        properties: itemProperties(undefined, action)
       });
 
     case ActionType.ToggleItem:
-      return state.with({isActive: !state.isActive});
+      return state.with({ isActive: !state.isActive, properties: itemProperties(state.properties, action) });
 
     case ActionType.SaveItem: {
-      return state.with({text: action.payload.text, isActive: false, lastUpdateTime: action.payload.updateTime});
-    }
-
-    case ActionType.FetchItemsSucceeded:
-      return new ListItem({
-        ...action.payload
+      return state.with({
+        text: action.payload.text,
+        isActive: false,
+        lastUpdateTime: action.payload.lastUpdateTime,
+        properties: itemProperties(state.properties, action)
       });
+    }
 
     default:
       return state;

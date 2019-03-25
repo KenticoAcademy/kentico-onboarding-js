@@ -4,6 +4,7 @@ import { PeriodicTicker } from './components/PeriodicTicker';
 import { ListWithTimer } from './components/ListWithTimer';
 import { ToastContainer } from 'react-toastify';
 import { ListInitializer } from './containers/ListInitializer';
+import { Popups } from './containers/Popups';
 
 export class App extends React.PureComponent {
   render(): JSX.Element {
@@ -19,6 +20,7 @@ export class App extends React.PureComponent {
           draggable={false}
           pauseOnHover
         />
+        <Popups />
         <PeriodicTicker />
         <div className="container">
           <div className="header clearfix">
