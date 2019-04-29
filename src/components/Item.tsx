@@ -6,60 +6,60 @@ import { InactiveItem } from './InactiveItem';
 
 import { IListItem, ListItem } from '../models/ListItem';
 
-export interface IItemOwnProps {
-  index: number;
-}
-
 export interface IItemStateProps {
-  item: IListItem;
+  readonly item: IListItem;
+  readonly timeToRender: string;
 }
 
 export interface IItemDispatchProps {
-  onSaveItem: (text: string) => void;
-  onDeleteItem: () => void;
-  onToggleItem: () => void;
+  readonly onSaveItem: (text: string) => void;
+  readonly onDeleteItem: () => void;
+  readonly onToggleItem: () => void;
 }
 
-type IItemProps = IItemStateProps & IItemDispatchProps & IItemOwnProps;
-
-interface IItemState {
-  isActive: boolean;
+export interface IItemOwnProps {
+  readonly onItemPropsChanged: () => void;
 }
 
-export class Item extends React.PureComponent<IItemProps, IItemState> {
+export type IItemProps = IItemStateProps & IItemDispatchProps & IItemOwnProps;
+
+export class Item extends React.Component <IItemProps> {
   static displayName = 'Item';
 
   static propTypes = {
-    index: PropTypes.number.isRequired,
     item: PropTypes.instanceOf(ListItem).isRequired,
+    timeToRender: PropTypes.string.isRequired,
     onSaveItem: PropTypes.func.isRequired,
     onDeleteItem: PropTypes.func.isRequired,
     onToggleItem: PropTypes.func.isRequired,
+    onItemPropsChanged: PropTypes.func.isRequired,
   };
 
-  _saveItem = (text: string) => this.props.onSaveItem(text);
+  shouldComponentUpdate(nextProps: IItemProps): boolean {
+    const shouldUpdate = this.props.timeToRender !== nextProps.timeToRender || this.props.item !== nextProps.item;
+    if (shouldUpdate) {
+      this.props.onItemPropsChanged();
+    }
+
+    return shouldUpdate;
+  }
 
   render(): JSX.Element {
-    return (
-      <li className="list-group-item">
-        {
-          this.props.item.isActive
-            ? (
-              <ActiveItem
-                index={this.props.index}
-                item={this.props.item}
-                onSaveItem={this._saveItem}
-                onCancelItem={this.props.onToggleItem}
-                onDeleteItem={this.props.onDeleteItem}
-              />)
-            : (
-              <InactiveItem
-                index={this.props.index}
-                item={this.props.item}
-                onItemClick={this.props.onToggleItem}
-              />)
-        }
-      </li>
-    );
+    return this.props.item.isActive
+      ? (
+        <ActiveItem
+          item={this.props.item}
+          timeToRender={this.props.timeToRender}
+          onSaveItem={this.props.onSaveItem}
+          onCancelItem={this.props.onToggleItem}
+          onDeleteItem={this.props.onDeleteItem}
+        />)
+      : (
+        <InactiveItem
+          item={this.props.item}
+          timeToRender={this.props.timeToRender}
+          onItemClick={this.props.onToggleItem}
+        />
+      );
   }
 }

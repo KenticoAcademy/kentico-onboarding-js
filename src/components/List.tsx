@@ -3,36 +3,87 @@ import * as PropTypes from 'prop-types';
 
 import { Item } from '../containers/Item';
 import { AddItem } from '../containers/AddItem';
+import { ListSorting, getListSortingArray } from '../constants/ListSorting';
+import { ItemsErrors } from '../containers/ItemsErrors';
 
 export interface IListStateProps {
-  itemIds: Uuid[];
+  readonly itemIds: ReadonlyArray<Uuid>;
+  readonly sorting: ListSorting;
 }
 
-type IListProps = IListStateProps;
+export interface IListOwnProps {
+  readonly lastRenderTime: Time;
+  readonly onPropsChanged: () => void;
+}
 
-export const List: React.StatelessComponent<IListProps> = (props: IListProps) => (
-  <div className="row">
-    <div className="row">
-      <div className="col-sm-12 col-md-offset-2 col-md-8">
-        <ul className="list-group">
-          {
-            props.itemIds.map((itemId: Uuid, index: number) => (
+export interface IListDispatchProps {
+  readonly onSetListView: (view: ListSorting) => void;
+}
+
+type IListProps = IListStateProps & IListDispatchProps & IListOwnProps;
+
+export class List extends React.Component<IListProps> {
+  static displayName = 'List';
+
+  static propTypes = {
+    itemIds: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+    sorting: PropTypes.oneOf(getListSortingArray()).isRequired,
+    lastRenderTime: PropTypes.string.isRequired,
+    onSetListView: PropTypes.func.isRequired,
+    onPropsChanged: PropTypes.func.isRequired,
+  };
+
+  shouldComponentUpdate(nextProps: IListProps): boolean {
+    const shouldUpdate = this.props.sorting !== nextProps.sorting
+                        || this.props.itemIds !== nextProps.itemIds
+                        || this.props.lastRenderTime !== nextProps.lastRenderTime;
+    if (shouldUpdate) {
+      nextProps.onPropsChanged();
+    }
+
+    return shouldUpdate;
+  }
+
+  private changeViewToCreatedTime = (): void => this.props.onSetListView(ListSorting.CreatedTime);
+
+  private changeViewToLastUpdateTime = (): void => this.props.onSetListView(ListSorting.LastUpdateTime);
+
+  render(): JSX.Element {
+    return (
+      <div className="row">
+        <div className="col-sm-12 col-md-16">
+          <ul className="nav nav-tabs border-info">
+            <li className="nav-item">
+              <div
+                className={this.props.sorting === ListSorting.CreatedTime ? 'nav-link active border-info border-bottom-0 text-info' : 'nav-link'}
+                onClick={this.changeViewToCreatedTime}
+              >
+                Created time
+              </div>
+            </li>
+            <li className="nav-item">
+              <div
+                className={this.props.sorting === ListSorting.LastUpdateTime ? 'nav-link active border-info border-bottom-0 text-info' : 'nav-link'}
+                onClick={this.changeViewToLastUpdateTime}
+              >
+                Last update time
+              </div>
+            </li>
+          </ul>
+          <ItemsErrors />
+          <ul className="list-group list-group-flush border border-info rounded-bottom">
+            <AddItem />
+            {this.props.itemIds.map((id: Uuid) => (
               <Item
-                key={itemId}
-                index={index}
-                id={itemId}
+                key={id}
+                id={id}
+                lastRenderTime={this.props.lastRenderTime}
+                onItemPropsChanged={this.props.onPropsChanged}
               />
-            ))
-          }
-          <AddItem />
-        </ul>
+            ))}
+          </ul>
+        </div>
       </div>
-    </div>
-  </div>
-);
-
-List.displayName = 'List';
-
-List.propTypes = {
-  itemIds: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
-};
+    );
+  }
+}
