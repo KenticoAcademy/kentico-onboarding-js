@@ -7,7 +7,7 @@ export const App: StatelessComponent = () => (
   <div>
     <div className="container">
       <div className="header clearfix">
-        <h3 className="text-muted">
+        <h3 className="text-center">
           Kentico Academy
         </h3>
       </div>

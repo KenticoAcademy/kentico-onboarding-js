@@ -6,8 +6,9 @@ export function baseRecord<T>(defaultValues: T, name: string): any {
       super(props);
     }
 
-    with = (entity: Partial<T>) =>
-      this.merge(entity) as any;
+    with(entity: Partial<T>): this {
+      return this.merge(entity) as this;
+    }
   }
 
   return BaseItem;

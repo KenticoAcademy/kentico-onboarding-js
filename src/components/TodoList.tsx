@@ -3,35 +3,77 @@ import * as PropTypes from 'prop-types';
 import { ItemToAdd } from '../containers/ItemToAdd';
 import { TodoListItem } from '../containers/TodoListItem';
 import { ReactNodeArray } from 'react';
+import { PacmanLoader } from 'react-spinners';
+
 
 export type TodoListStateProps = {
-  readonly itemIds: Array<Guid>
+  readonly isFetchingAll: boolean,
+  readonly hasError: boolean,
+  readonly itemIds: Array<Guid>,
 };
 
-type TodoListProps = TodoListStateProps;
+export type TodoListDispatchProps = {
+  readonly reloadAll: () => void,
+};
 
-export const TodoList: React.StatelessComponent<TodoListProps> = ({ itemIds }) => {
-  const todoItems: ReactNodeArray = itemIds
-    .map((itemId: Guid, itemIndex: number) => (
-      <TodoListItem
-        id={itemId}
-        index={itemIndex + 1}
-        key={itemId}
-      />
-    ));
+export type TodoListProps = TodoListStateProps & TodoListDispatchProps;
 
-  return (
-    <div>
-      <ul className="list-group">
+
+export class TodoList extends React.PureComponent<TodoListProps> {
+  static displayName = 'TodoList';
+
+  static propTypes = {
+    itemIds: PropTypes.array.isRequired,
+    hasError: PropTypes.bool.isRequired,
+    isFetchingAll: PropTypes.bool.isRequired,
+
+    reloadAll: PropTypes.func.isRequired,
+  };
+
+
+  render(): JSX.Element {
+    if (this.props.isFetchingAll) {
+      return (
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '50vh', }} >
+          <span
+          >
+            <PacmanLoader
+              className="mx-auto"
+              size={50}
+              color="#36D7B7"
+            />
+          </span>
+        </div>
+      );
+    }
+
+    if (this.props.hasError) {
+      return (
+        <div className="popup">
+          <div className="popup_inner">
+            <h1>Oooooops, something terrible happened :(</h1>
+            <button onClick={this.props.reloadAll}>
+              Click to reload items
+            </button>
+          </div>
+
+        </div>
+      );
+    }
+
+    const todoItems: ReactNodeArray = this.props.itemIds
+      .map((itemId: Guid, itemIndex: number) => (
+        <TodoListItem
+          id={itemId}
+          index={itemIndex + 1}
+          key={itemId}
+        />
+      ));
+    return (
+      <div className="list-group">
         {todoItems}
         <ItemToAdd />
-      </ul>
-    </div>
-  );
-};
-
-TodoList.displayName = 'TodoList';
-
-TodoList.propTypes = {
-  itemIds: PropTypes.array.isRequired
-};
+      </div>
+    );
+  }
+}

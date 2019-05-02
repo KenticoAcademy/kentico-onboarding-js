@@ -2,9 +2,8 @@ import * as React from 'react';
 import classNames from 'classnames';
 import * as PropTypes from 'prop-types';
 import { isValidText } from '../utils/validateText';
-import { Action } from '../actions/types/Action';
+import { TodoListAction } from '../actions/types/TodoListAction';
 import { ListItem } from '../models/ListItem';
-import { ReactNode } from 'react';
 
 export type EditItemOwnProps = {
   readonly item: ListItem,
@@ -12,15 +11,16 @@ export type EditItemOwnProps = {
 };
 
 export type EditItemDispatchProps = {
-  readonly cancelEditing: () => Action,
-  readonly saveItem: (text: string) => Action,
-  readonly deleteItem: () => Action
+  readonly cancelEditing: () => TodoListAction,
+  readonly saveItem: (text: string) => void,
+  readonly deleteItem: () => void
 };
 
 type EditItemProps = EditItemDispatchProps & EditItemOwnProps;
 
 type EditItemState = {
-  readonly text: string
+  readonly text: string,
+  readonly isFetching: boolean
 };
 
 export class EditItem extends React.PureComponent<EditItemProps, EditItemState> {
@@ -38,31 +38,26 @@ export class EditItem extends React.PureComponent<EditItemProps, EditItemState> 
   constructor(props: EditItemProps) {
     super(props);
     this.state = {
-      text: props.item.text
+      text: props.item.text,
+      isFetching: props.item.isFetching
     };
   }
 
-  _cancelEditing = (): Action => this.props.cancelEditing();
-
-  _deleteItem = (): Action => this.props.deleteItem();
-
-  _editItem = (): Action => this.props.saveItem(this.state.text);
 
   _updateText = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    event.persist();
+    const text = event.target.value;
     this.setState(() => ({
-      text: event.target.value
+      text
     }));
   };
 
-  render(): ReactNode {
-    const validText: boolean = isValidText(this.state.text);
 
-    const classes = classNames({
-      'input-group': true,
-      'has-error': !validText,
-      'has-success': validText
-    });
+  render(): JSX.Element {
+    const isTextValid = isValidText(this.state.text);
+    const classes = classNames(
+      'input-group',
+      isTextValid ? 'has-success' : 'has-error'
+    );
     return (
       <div className="list-group-item">
         <li
@@ -85,8 +80,8 @@ export class EditItem extends React.PureComponent<EditItemProps, EditItemState> 
               type="button"
               name="itemToModifySaveButton"
               value="Save"
-              onClick={this._editItem}
-              disabled={!validText}
+              onClick={!isTextValid ? undefined : () => this.props.saveItem(this.state.text)}
+              disabled={!isTextValid}
             >
               Save
             </button>
@@ -95,7 +90,7 @@ export class EditItem extends React.PureComponent<EditItemProps, EditItemState> 
               type="button"
               name="itemToModifyCancelButton"
               value="Cancel"
-              onClick={this._cancelEditing}
+              onClick={this.props.cancelEditing}
             >
               Cancel
             </button>
@@ -104,7 +99,7 @@ export class EditItem extends React.PureComponent<EditItemProps, EditItemState> 
               type="button"
               name="itemToModifyDeleteButton"
               value="Delete"
-              onClick={this._deleteItem}
+              onClick={this.props.deleteItem}
             >
               Delete
             </button>

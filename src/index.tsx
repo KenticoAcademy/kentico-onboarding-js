@@ -1,3 +1,5 @@
+import { getAllItems } from './actions/thunkActions/getAllItems';
+
 require.context('../public/', true);
 
 import { Provider } from 'react-redux';
@@ -8,6 +10,7 @@ import * as React from 'react';
 import { store } from './store/store';
 import { App } from './components/App';
 
+store.dispatch(getAllItems());
 ReactDom.render(
   <Provider store={store}>
     <App />
